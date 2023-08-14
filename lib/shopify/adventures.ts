@@ -1,5 +1,3 @@
-import * as console from 'console';
-
 const baseImagePath = 'https://publish-p64257-e147834-cmstg.adobeaemcloud.com/';
 
 const adventures = [
@@ -571,7 +569,7 @@ export function transformToProduct(adventure: any): Product {
       width: adventure.primaryImage.width,
       height: adventure.primaryImage.height
     },
-    images: [], // Only one image is provided, so not including that in the images array
+    images: [],
     seo: {
       title: adventure.title,
       description: adventure.description.html
@@ -581,16 +579,107 @@ export function transformToProduct(adventure: any): Product {
     updatedAt: new Date().toISOString()
   };
 
+  product.variants.push(variant);
+  product.images.push(product.featuredImage);
+
   return product;
 }
 
-export const adventureProducts = adventures.map(transformToProduct);
+export const adventureProducts: Product[] = adventures.map(transformToProduct) as Product[];
 
 export const adventureProductNodes = adventureProducts.map((product) => ({
   node: product
 }));
 
-// console.log(adventureProductNodes);
+export function getProductNodesByKeyword(keyword: string | undefined): { node: Product }[] {
+  return getProductsByKeyword(keyword).map((product) => ({
+    node: product
+  }));
+}
 
-// const product = transformToProduct(adventure);
-// console.log(product);
+export function getProductByHandle(handle: string): Product | undefined {
+  const res = adventureProducts.find((product) => product.handle === handle);
+  return res;
+}
+
+export function getProductsByKeyword(keyword: string | undefined): Product[] {
+  //if keyword is empty, return all products
+  if (!keyword || keyword === undefined) {
+    return adventureProducts;
+  }
+
+  keyword = keyword || '';
+
+  if (keyword.includes('all')) {
+    return adventureProducts;
+  }
+
+  if (keyword.includes('hidden-homepage-featured-items')) {
+    // @ts-ignore
+    return [
+      adventureProducts[0] as Product,
+      adventureProducts[1] as Product,
+      adventureProducts[2] as Product
+    ];
+  }
+
+  if (keyword.includes('hidden-homepage-carousel')) {
+    // @ts-ignore
+    return [
+      adventureProducts[4] as Product,
+      adventureProducts[5] as Product,
+      adventureProducts[6] as Product,
+      adventureProducts[7] as Product,
+      adventureProducts[8] as Product
+    ];
+  }
+
+  //if keyword contains a dash, split it into an array of words, and use the first word
+  if (keyword.includes('-')) {
+    // @ts-ignore
+    keyword = keyword.split('-')[0];
+  }
+
+  keyword = keyword || '';
+  keyword = keyword.toLowerCase();
+
+  if (keyword.includes('winter')) {
+    return adventureProducts.filter(
+      (product) =>
+        product.title.toLowerCase().includes('ski') ||
+        product.title.toLowerCase().includes('winter')
+    );
+  }
+
+  if (keyword.includes('summer')) {
+    return adventureProducts.filter(
+      (product) =>
+        product.title.toLowerCase().includes('surf') ||
+        product.title.toLowerCase().includes('climbing') ||
+        product.title.toLowerCase().includes('summer') ||
+        product.title.toLowerCase().includes('hiking') ||
+        product.title.toLowerCase().includes('camping') ||
+        product.title.toLowerCase().includes('rafting') ||
+        product.title.toLowerCase().includes('tasting') ||
+        product.title.toLowerCase().includes('cycling') ||
+        product.title.toLowerCase().includes('gastro') ||
+        product.title.toLowerCase().includes('backpacking')
+    );
+  }
+
+  if (keyword.includes('europe')) {
+    return adventureProducts.filter(
+      (product) =>
+        product.title.toLowerCase().includes('tuscany') ||
+        product.title.toLowerCase().includes('marais') ||
+        product.title.toLowerCase().includes('basel') ||
+        product.title.toLowerCase().includes('mont')
+    );
+  }
+
+  return adventureProducts.filter(
+    (product) =>
+      product.title.toLowerCase().includes(<string>keyword) ||
+      product.description.toLowerCase().includes(<string>keyword)
+  );
+}

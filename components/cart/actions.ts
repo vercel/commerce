@@ -4,29 +4,30 @@ import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/
 import { cookies } from 'next/headers';
 
 export const addItem = async (variantId: string | undefined): Promise<String | undefined> => {
-  let cartId = cookies().get('cartId')?.value;
-  let cart;
-
-  if (cartId) {
-    cart = await getCart(cartId);
-  }
-
-  if (!cartId || !cart) {
-    cart = await createCart();
-    cartId = cart.id;
-    // TODO: this is not working under older Next.js versions
-    // cookies().set('cartId', cartId);
-  }
-
-  if (!variantId) {
-    return 'Missing product variant ID';
-  }
-
-  try {
-    await addToCart(cartId, [{ merchandiseId: variantId, quantity: 1 }]);
-  } catch (e) {
-    return 'Error adding item to cart';
-  }
+  // let cartId = cookies().get('cartId')?.value;
+  // let cart;
+  //
+  // if (cartId) {
+  //   cart = await getCart(cartId);
+  // }
+  //
+  // if (!cartId || !cart) {
+  //   cart = await createCart();
+  //   cartId = cart.id;
+  //   // TODO: this is not working under older Next.js versions
+  //   // cookies().set('cartId', cartId);
+  // }
+  //
+  // if (!variantId) {
+  //   return 'Missing product variant ID';
+  // }
+  //
+  // try {
+  //   await addToCart(cartId, [{ merchandiseId: variantId, quantity: 1 }]);
+  // } catch (e) {
+  //   return 'Error adding item to cart';
+  // }
+  return undefined;
 };
 
 export const removeItem = async (lineId: string): Promise<String | undefined> => {

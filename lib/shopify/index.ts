@@ -7,8 +7,11 @@ import {
   mockShopifyProduct,
   mockCartItem,
   mockShopifyCart,
-  mockShopifyCollection,
-  mockPage
+  winterCollection,
+  summerCollection,
+  europeCollection,
+  mockPage,
+  collections
 } from './mock';
 import {
   Cart,
@@ -26,7 +29,7 @@ import {
 import { getCollectionsQuery } from './queries/collection';
 import { TAGS } from '../constants';
 import { shopifyFetch } from './index_old';
-import { adventureProductNodes } from './adventures';
+import { adventureProductNodes, getProductByHandle, getProductNodesByKeyword } from './adventures';
 
 const HIDDEN_PRODUCT_TAG = 'hidden';
 
@@ -39,8 +42,13 @@ const mockFetchResponse = (data) => ({
 });
 
 // @ts-ignore
-const removeEdgesAndNodes = (connection) =>
-  connection?.edges ? connection?.edges.map((edge) => edge.node) : [];
+const removeEdgesAndNodes = (connection) => {
+  if (!connection?.edges) {
+    return connection;
+  }
+
+  return connection?.edges ? connection?.edges.map((edge: any) => edge.node) : [];
+};
 
 export const createCart = async (): Promise<Cart> => {
   const res = mockFetchResponse({
@@ -93,7 +101,7 @@ export const getCart = async (cartId: string): Promise<Cart | undefined> => {
 
 export const getCollection = async (handle: string): Promise<Collection | undefined> => {
   const res = mockFetchResponse({
-    collection: mockShopifyCollection
+    collection: collections.find((collection) => collection.handle === handle)
   });
   return reshapeCollection(res.body.data.collection);
 };
@@ -110,8 +118,7 @@ export const getCollectionProducts = async ({
   const res = mockFetchResponse({
     collection: {
       products: {
-        edges: adventureProductNodes
-        // edges: [{ node: mockShopifyProduct }]
+        edges: getProductNodesByKeyword(collection)
       }
     }
   });
@@ -125,7 +132,7 @@ export async function getCollections(): Promise<Collection[]> {
   // });
   const res = mockFetchResponse({
     collections: {
-      edges: [{ node: mockShopifyCollection }]
+      edges: [{ node: winterCollection }, { node: summerCollection }, { node: europeCollection }]
     }
   });
   const shopifyCollections = removeEdgesAndNodes(res.body?.data?.collections);
@@ -138,7 +145,7 @@ export async function getCollections(): Promise<Collection[]> {
         title: 'All',
         description: 'All products'
       },
-      path: '/search',
+      path: '/search/',
       updatedAt: new Date().toISOString()
     },
     // Filter out the `hidden` collections.
@@ -156,8 +163,20 @@ export const getMenu = async (handle: string): Promise<Menu[]> => {
     menu: {
       items: [
         {
-          title: 'Sample Menu',
-          path: 'https://example.com/sample-menu'
+          title: 'All',
+          path: '/'
+        },
+        {
+          title: 'Summer',
+          path: '/search/summer-collection'
+        },
+        {
+          title: 'Winter',
+          path: '/search/winter-collection'
+        },
+        {
+          title: 'Europe',
+          path: '/search/europe-collection'
         }
       ]
     }
@@ -183,14 +202,19 @@ export const getPages = async (): Promise<Page[]> => {
 
 export const getProduct = async (handle: string): Promise<Product | undefined> => {
   const res = mockFetchResponse({
-    product: mockShopifyProduct
+    product: getProductByHandle(handle)
   });
   return reshapeProduct(res.body.data.product, false);
 };
 
 export const getProductRecommendations = async (productId: string): Promise<Product[]> => {
   const res = mockFetchResponse({
-    productRecommendations: [mockShopifyProduct]
+    productRecommendations: [
+      getProductByHandle('climbing-new-zealand'),
+      getProductByHandle('ski-touring-mont-blanc'),
+      getProductByHandle('downhill-skiing-wyoming'),
+      getProductByHandle('cycling-tuscany')
+    ]
   });
   return reshapeProducts(res.body.data.productRecommendations);
 };
@@ -206,7 +230,7 @@ export const getProducts = async ({
 }): Promise<Product[]> => {
   const res = mockFetchResponse({
     products: {
-      edges: [{ node: mockShopifyProduct }]
+      edges: getProductNodesByKeyword(query)
     }
   });
   return reshapeProducts(removeEdgesAndNodes(res.body.data.products));
@@ -254,11 +278,6 @@ const reshapeCollections = (collections: ShopifyCollection[]) => {
 };
 
 const reshapeImages = (images: Connection<Image>, productTitle: string) => {
-  try {
-    console.log('images', images);
-  } catch (e) {
-    // console.log('error', e);
-  }
   const flattened = removeEdgesAndNodes(images);
 
   // @ts-ignore
@@ -272,7 +291,8 @@ const reshapeImages = (images: Connection<Image>, productTitle: string) => {
 };
 
 const reshapeProduct = (product: ShopifyProduct, filterHiddenProducts: boolean = true) => {
-  if (!product || (filterHiddenProducts && product.tags.includes(HIDDEN_PRODUCT_TAG))) {
+  // if (!product || (filterHiddenProducts && product.tags.includes(HIDDEN_PRODUCT_TAG))) {
+  if (!product) {
     return undefined;
   }
 
