@@ -24,13 +24,13 @@ function ThreeItemGridItem({ item, priority }: { item: Product; priority?: boole
           alt={item.title}
         />
       </Link>
-      <div className="pt-4">
+      <div className="font-multingual max-w-sm pt-4">
         <Label
           title={item.title as string}
           amount={item.priceRange.maxVariantPrice.amount}
           currencyCode={item.priceRange.maxVariantPrice.currencyCode}
         />
-        <div className="line-clamp-4">{item?.description}</div>
+        <div className="line-clamp-4 pt-2">{item?.description}</div>
       </div>
     </div>
   );
@@ -52,8 +52,8 @@ export async function ThreeItemGrid({ lang }: { lang: Locale }) {
   return (
     <section
       className={clsx(
-        'mx-auto grid max-w-screen-2xl gap-4 px-4 pb-4 md:grid-cols-6',
-        'md:grid-rows-3'
+        'mx-auto grid max-w-screen-2xl gap-6 px-4 pb-4 md:grid-cols-6',
+        'grid-rows-3 md:grid-rows-1'
       )}
     >
       <ThreeItemGridItem item={firstProduct} priority={true} />

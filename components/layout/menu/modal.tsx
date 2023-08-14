@@ -45,7 +45,7 @@ export function MenuModal() {
           </Transition.Child>
           <Transition.Child as={Fragment}>
             <div className="fixed right-5 top-6 z-40 px-2 py-1 md:top-11">
-              <div className="flex flex-row space-x-4">
+              <div className="flex flex-row space-x-6">
                 <LanguageControl lang={currentLanguage} />
 
                 <button ref={closeButtonRef} onClick={close} className="">

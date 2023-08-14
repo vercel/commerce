@@ -20,8 +20,8 @@ export const LanguageControl = ({ lang }: { lang?: Locale }) => {
         <Link
           href={redirectedPathName('ja')}
           className={clsx(
-            lang === 'ja' ? 'opacity-100' : 'opacity-70',
-            'transition-opacity duration-150 hover:opacity-50'
+            lang === 'ja' ? 'opacity-100' : 'opacity-50 hover:opacity-70',
+            'transition-opacity duration-150'
           )}
         >
           JP
@@ -32,8 +32,8 @@ export const LanguageControl = ({ lang }: { lang?: Locale }) => {
         <Link
           href={redirectedPathName('en')}
           className={clsx(
-            lang === 'en' ? 'opacity-100' : 'opacity-70',
-            'transition-opacity duration-150 hover:opacity-50'
+            lang === 'en' ? 'opacity-100' : 'opacity-50 hover:opacity-70',
+            'transition-opacity duration-150'
           )}
         >
           EN

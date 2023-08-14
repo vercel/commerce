@@ -9,9 +9,11 @@ import Namemark from 'public/assets/images/namemark.png';
 import { Suspense } from 'react';
 
 export const runtime = 'edge';
+const { SITE_NAME } = process.env;
 
 export const metadata = {
-  description: 'narai by suginomori brewery.',
+  title: SITE_NAME,
+  description: SITE_NAME,
   openGraph: {
     type: 'website'
   }
@@ -26,11 +28,7 @@ export default async function HomePage({ params: { lang } }: { params: { lang: L
         <LanguageControl lang={lang} />
       </div>
       <div className="px-6 pb-12 pt-6 md:pb-48 md:pl-6 md:pt-12">
-        <Image
-          src={Namemark}
-          alt="narai by suginomori brewery"
-          className="max-w-[260px] md:max-w-[600px]"
-        />
+        <Image src={Namemark} alt="suginomori brewery" className="max-w-[260px] md:max-w-[600px]" />
       </div>
       <ThreeItemGrid lang={lang} />
       <Suspense>
