@@ -2,8 +2,6 @@
 import {
   mockMoney,
   mockImage,
-  mockProductOption,
-  mockProductVariant,
   mockShopifyProduct,
   mockCartItem,
   mockShopifyCart,
