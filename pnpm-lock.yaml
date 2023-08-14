@@ -29,6 +29,9 @@ dependencies:
   '@sanity/document-internationalization':
     specifier: ^2.0.1
     version: 2.0.1(@babel/core@7.22.10)(@sanity/ui@1.7.4)(react-dom@18.2.0)(react-fast-compare@3.2.2)(react-is@18.2.0)(react@18.2.0)(rxjs@7.8.1)(sanity@3.15.0)(styled-components@5.3.11)
+  '@sanity/icons':
+    specifier: ^2.4.1
+    version: 2.4.1(react@18.2.0)
   '@sanity/image-url':
     specifier: ^1.0.2
     version: 1.0.2
@@ -142,6 +145,9 @@ devDependencies:
   '@types/react-dom':
     specifier: 18.2.7
     version: 18.2.7
+  '@types/slug':
+    specifier: ^5.0.3
+    version: 5.0.3
   '@vercel/git-hooks':
     specifier: ^1.0.0
     version: 1.0.0
@@ -2736,6 +2742,10 @@ packages:
   /@types/shallow-equals@1.0.0:
     resolution: {integrity: sha512-XtGSj7GYPfJwaklDtMEONj+kmpyCP8OLYoPqp/ROM8BL1VaF2IgYbxiEKfLvOyHN7c2d1KAFYzy6EIu8CSFt1A==}
     dev: false
+
+  /@types/slug@5.0.3:
+    resolution: {integrity: sha512-yPX0bb1SvrpaGlHuSiz6EicgRI4VBE+LO7IANlZagQwtaoKjLLcZc8y6s13vKp41mYvMCSzjtObxvU7/0JRPaA==}
+    dev: true
 
   /@types/speakingurl@13.0.3:
     resolution: {integrity: sha512-nBHZAaNTEw1YG3ROL7HtTp7HjW8HD7DuFYbWoonUKTZHj7eyOt4vPzyMcc3+xgWNv7xi2rziaiBXHIq6wBeyrw==}

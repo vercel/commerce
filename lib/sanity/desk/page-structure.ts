@@ -1,10 +1,10 @@
-  import {ListItemBuilder} from 'sanity/desk'
-import defineStructure from '../utils/defineStructure'
+import {ListItemBuilder} from 'sanity/desk'
+import defineStructure from '../utils/define-structure'
 import {DocumentsIcon} from '@sanity/icons'
 import Iframe from 'sanity-plugin-iframe-pane'
 import {SanityDocument} from 'sanity'
 import {EyeOpenIcon, MasterDetailIcon} from '@sanity/icons'
-import getPreviewUrl from '../utils/getPreviewUrl'
+import getPreviewUrl from '../utils/get-preview-url'
 
 export default defineStructure<ListItemBuilder>((S) =>
   S.listItem()

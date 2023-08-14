@@ -1,19 +1,19 @@
-import {PackageIcon} from '@sanity/icons'
-import {defineField, defineType} from 'sanity'
-import {slugWithLocalizedType} from './slugWithLocalizedType'
-import {languages} from '../../languages'
-import {validateImage} from '../../utils/validation'
+import { PackageIcon } from '@sanity/icons';
+import { defineField, defineType } from 'sanity';
+import { slugWithLocalizedType } from './slugWithLocalizedType';
+import { languages } from '../../languages';
+import { validateImage } from '../../utils/validation';
 
 const GROUPS = [
   {
     name: 'editorial',
-    title: 'Editorial',
+    title: 'Editorial'
   },
   {
     name: 'seo',
-    title: 'SEO',
-  },
-]
+    title: 'SEO'
+  }
+];
 
 export default defineType({
   name: 'product',
@@ -27,7 +27,7 @@ export default defineType({
       name: 'language',
       type: 'string',
       readOnly: true,
-      description: 'Language of this document.',
+      description: 'Language of this document.'
       // hidden: true,
     }),
     // ID
@@ -35,7 +35,7 @@ export default defineType({
       name: 'id',
       title: 'ID',
       type: 'number',
-      description: 'Unique product ID.',
+      description: 'Unique product ID.'
     }),
     // Title
     defineField({
@@ -43,7 +43,7 @@ export default defineType({
       title: 'Title',
       type: 'string',
       description: 'Product title/name.',
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => Rule.required()
     }),
     // Slug
     slugWithLocalizedType('product', 'title'),
@@ -56,16 +56,16 @@ export default defineType({
         {
           title: 'Image',
           type: 'mainImage',
-          validation: (Rule) => validateImage(Rule, true),
-        },
+          validation: (Rule) => validateImage(Rule, true)
+        }
       ],
-      validation: (Rule) => Rule.required().min(1).max(5),
+      validation: (Rule) => Rule.required().min(1).max(5)
     }),
     defineField({
       name: 'description',
       title: 'Description',
       type: 'text',
-      description: 'Product description.',
+      description: 'Product description.'
     }),
     defineField({
       name: 'price',
@@ -77,7 +77,7 @@ export default defineType({
           name: 'value',
           title: 'Value',
           type: 'number',
-          description: 'Product price.',
+          description: 'Product price.'
         }),
         defineField({
           name: 'currencyCode',
@@ -86,82 +86,75 @@ export default defineType({
           description: 'Product currency code.',
           options: {
             list: [
-              {title: 'SEK', value: 'SEK'},
-              {title: 'GBP', value: 'GBP'},
-              {title: 'EUR', value: 'EUR'},
+              { title: 'SEK', value: 'SEK' },
+              { title: 'GBP', value: 'GBP' },
+              { title: 'EUR', value: 'EUR' }
             ],
-            layout: 'radio',
+            layout: 'radio'
           },
-          initialValue: 'SEK',
+          initialValue: 'SEK'
         }),
         defineField({
           name: 'retailPrice',
           title: 'Retail price',
           type: 'number',
-          description: 'Product retail price.',
-        }),
-      ],
-    }),
-    defineField({
-      name: 'options',
-      title: 'Product options',
-      type: 'array',
-      description: 'What product options are available?',
-      of: [{type: 'productOptions'}],
+          description: 'Product retail price.'
+        })
+      ]
     }),
     defineField({
       name: 'categories',
       title: 'Categories',
       type: 'array',
       description: 'What category/categories does this product belong to?',
-      of: [{type: 'reference', to: {type: 'category'}}],
+      of: [{ type: 'reference', to: { type: 'category' } }]
     }),
     defineField({
       name: 'seo',
       title: 'SEO',
       type: 'seo',
-      group: 'seo',
-    }),
+      group: 'seo'
+    })
   ],
   orderings: [
     {
       name: 'titleAsc',
       title: 'Title (A-Z)',
-      by: [{field: 'title', direction: 'asc'}],
+      by: [{ field: 'title', direction: 'asc' }]
     },
     {
       name: 'titleDesc',
       title: 'Title (Z-A)',
-      by: [{field: 'title', direction: 'desc'}],
+      by: [{ field: 'title', direction: 'desc' }]
     },
     {
       name: 'priceDesc',
       title: 'Price (Highest first)',
-      by: [{field: 'price', direction: 'desc'}],
+      by: [{ field: 'price', direction: 'desc' }]
     },
     {
       name: 'priceAsc',
       title: 'Title (Lowest first)',
-      by: [{field: 'price', direction: 'asc'}],
-    },
+      by: [{ field: 'price', direction: 'asc' }]
+    }
   ],
   preview: {
     select: {
       images: 'images',
       title: 'title',
-      language: 'language',
+      language: 'language'
     },
     prepare(selection) {
-      const {images, title, language} = selection
-      const currentLang = languages.find((lang) => lang.id === language)
+      const { images, title, language } = selection;
+      const currentLang = languages.find((lang) => lang.id === language);
 
-      const firstImage = images[0]
+      const firstImage = images[0];
 
       return {
         title,
         subtitle: `${currentLang ? currentLang.title : ''}`,
-        media: firstImage ? firstImage : PackageIcon,
-      }
-    },
-  },
-})
+        media: firstImage ? firstImage : PackageIcon
+      };
+    }
+  }
+});

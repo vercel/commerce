@@ -1,5 +1,5 @@
 import {ListItemBuilder} from 'sanity/desk'
-import defineStructure from '../utils/defineStructure'
+import defineStructure from '../utils/define-structure'
 import {MenuIcon} from '@sanity/icons'
 
 export default defineStructure<ListItemBuilder>((S) =>

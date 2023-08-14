@@ -50,13 +50,9 @@ import banner from './objects/banner'
 import linkExternal from './objects/linkExternal'
 import linkInternal from './objects/linkInternal'
 import hero from './objects/hero'
-import placeholderString from './objects/placeholderString'
-import proxyString from './objects/proxyString'
 import seo from './objects/seo'
 import mainImage from './objects/mainImage'
 import slider from './objects/slider'
-import productOption from './objects/productOption'
-import productOptions from './objects/productOptions'
 import blurbSection from './objects/blurbSection'
 import filteredProductList from './objects/filteredProductList'
 import uspSection from './objects/uspSection'
@@ -67,13 +63,9 @@ const objects = [
   linkExternal,
   linkInternal,
   hero,
-  placeholderString,
-  proxyString,
   seo,
   mainImage,
   slider,
-  productOption,
-  productOptions,
   filteredProductList,
   banner,
   blurbSection,

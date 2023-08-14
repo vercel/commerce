@@ -2,15 +2,15 @@
  * Desk structure overrides
  */
 import {ListItemBuilder, StructureResolver} from 'sanity/desk'
-import categories from './categoryStructure'
-import home from './homeStructure'
-import pages from './pageStructure'
-import products from './productStructure'
-import settings from './settingStructure'
-import blurbs from './blurbStructure'
-import sections from './sectionStructure'
-import usps from './uspStructure'
-import navigation from './navigationStructure'
+import categories from './category-structure'
+import home from './home-structure'
+import pages from './page-structure'
+import products from './product-structure'
+import settings from './settings-structure'
+import blurbs from './blurb-structure'
+import sections from './section-structure'
+import usps from './usp-structure'
+import navigation from './navigation-structure'
 
 /**
  * Desk structure overrides

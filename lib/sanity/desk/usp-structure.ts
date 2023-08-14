@@ -1,15 +1,15 @@
 import {ListItemBuilder} from 'sanity/desk'
-import defineStructure from '../utils/defineStructure'
+import defineStructure from '../utils/define-structure'
 
 export default defineStructure<ListItemBuilder>((S) =>
   S.listItem()
-  .title('Settings')
-  .schemaType('settings')
+  .title('USPs')
+  .schemaType('usp')
   .child (
-    S.documentTypeList('settings')
+    S.documentTypeList('usp')
       .child (
         S.document()
-          .schemaType("settings")
+          .schemaType("usp")
       )
   )
 )

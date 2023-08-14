@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {isDev, SanityDocument} from 'sanity'
 import { localStorefrontPreviewUrl, publicStorefrontPreviewUrl } from '../constants'
 
