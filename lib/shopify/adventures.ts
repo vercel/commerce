@@ -544,10 +544,61 @@ export function transformToProduct(adventure: any): Product {
       { name: 'activity', value: adventure.activity },
       { name: 'adventureType', value: adventure.adventureType },
       { name: 'tripLength', value: adventure.tripLength },
-      { name: 'groupSize', value: adventure.groupSize },
-      { name: 'difficulty', value: adventure.difficulty }
+      { name: 'Group Size', value: 'Normal' }
+      // { name: 'difficulty', value: adventure.difficulty }
     ],
     price
+  };
+
+  const smallGroupVariant = {
+    id: 'smallGroupVariant',
+    title: 'Small Group',
+    availableForSale: true,
+    selectedOptions: [
+      {
+        name: 'Group Size',
+        value: 'Small'
+      }
+    ],
+    price: price
+  };
+
+  const normalGroupVariant = {
+    id: 'normalGroupVariant',
+    title: 'Normal Group',
+    availableForSale: true,
+    selectedOptions: [
+      {
+        name: 'Group Size',
+        value: 'Normal'
+      }
+    ],
+    price: price
+  };
+
+  const largeGroupVariant = {
+    id: 'largeGroupVariant',
+    title: 'Large Group',
+    availableForSale: true,
+    selectedOptions: [
+      {
+        name: 'Group Size',
+        value: 'Large'
+      }
+    ],
+    price: price
+  };
+
+  const groupSizeProductOption = {
+    id: 'groupSizeProductOption',
+    name: 'Group Size',
+    values: ['Small', 'Normal', 'Large']
+  };
+
+  const durationProductOption = {
+    id: 'durationProductOption',
+    name: 'Stay Duration',
+    values: ['Short', 'Normal', 'Extended Stay']
   };
 
   const product: Product = {
@@ -557,7 +608,7 @@ export function transformToProduct(adventure: any): Product {
     title: adventure.title,
     description: adventure.description.html,
     descriptionHtml: adventure.itinerary.html,
-    options: [], // No clear mapping for options from the given input
+    options: [groupSizeProductOption],
     priceRange: {
       maxVariantPrice: price,
       minVariantPrice: price
@@ -575,7 +626,8 @@ export function transformToProduct(adventure: any): Product {
       description: adventure.description.html
     },
     tags: [],
-    variants: [],
+    //variants: { edges: [{ node: mockProductVariant }] },
+    variants: [smallGroupVariant, normalGroupVariant, largeGroupVariant],
     updatedAt: new Date().toISOString()
   };
 
