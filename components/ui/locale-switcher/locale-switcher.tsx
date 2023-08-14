@@ -8,8 +8,8 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { LanguageIcon } from '@heroicons/react/24/outline';
 import { useLocale, useTranslations } from 'next-intl';
-import Link from 'next-intl/link';
-// import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { supportedLanguages } from '../../../i18n-config';
 
@@ -22,29 +22,29 @@ import { supportedLanguages } from '../../../i18n-config';
 // }
 
 export default function LocaleSwitcher() {
-  // const pathName = usePathname();
+  const pathName = usePathname();
   const currentLocale = useLocale();
   const t = useTranslations('ui');
 
   // const translations = localeData.translations;
 
-  // const redirectedPathName = (locale: string) => {
-  //   if (!pathName) return '/';
+  const redirectedPathName = (locale: string) => {
+    if (!pathName) return '/';
 
-  // if (translations.length > 0) {
-  //   const translation = translations.find((obj) => {
-  //     return obj['locale'] === locale;
-  //   });
+    // if (translations.length > 0) {
+    //   const translation = translations.find((obj) => {
+    //     return obj['locale'] === locale;
+    //   });
 
-  //   if (translation) {
-  //     const url = `/${translation['locale']}${translation['slug']}`;
+    //   if (translation) {
+    //     const url = `/${translation['locale']}${translation['slug']}`;
 
-  //     return url;
-  //   }
-  // }
+    //     return url;
+    //   }
+    // }
 
-  //   return `/${locale}`;
-  // };
+    return `/${locale}`;
+  };
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -67,7 +67,7 @@ export default function LocaleSwitcher() {
                     className={`flex w-full cursor-pointer items-center px-4 py-2 text-sm ${
                       currentLocale == locale.id && 'font-bold'
                     }`}
-                    href={'/'}
+                    href={redirectedPathName(locale.id)}
                   >
                     {locale.title}
                   </Link>
