@@ -1,7 +1,6 @@
 import {defineConfig, isDev} from 'sanity'
 import {deskTool} from 'sanity/desk'
 import {visionTool} from '@sanity/vision'
-import { colorInput } from "@sanity/color-input";
 import {media} from 'sanity-plugin-media'
 import {schemaTypes} from '@/lib/sanity/schemas'
 import {structure} from '@/lib/sanity/desk'
@@ -51,7 +50,6 @@ export default defineConfig({
       // Optional, requires access to the Publishing API
       // bulkPublish: true // defaults to false
     }),
-    colorInput(),
   ],
   schema: {
     types: schemaTypes,
