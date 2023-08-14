@@ -390,6 +390,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@thgh/next-gtm@npm:^0.1.4":
+  version: 0.1.4
+  resolution: "@thgh/next-gtm@npm:0.1.4"
+  peerDependencies:
+    next: ^13
+    react: ^18
+    react-dom: ^18
+  checksum: a0647b1b6a0b8565998d5c2dd247992d009ae8bfe73d2e6684c9b282ab8826de6bba7854179958cf440e3af00e56b9a621600b2fe60db0c2bb065486bab77c81
+  languageName: node
+  linkType: hard
+
 "@tootallnate/once@npm:2":
   version: 2.0.0
   resolution: "@tootallnate/once@npm:2.0.0"
@@ -1193,6 +1204,7 @@ __metadata:
     "@heroicons/react": ^2.0.18
     "@tailwindcss/container-queries": ^0.1.1
     "@tailwindcss/typography": ^0.5.9
+    "@thgh/next-gtm": ^0.1.4
     "@types/negotiator": ^0.6.1
     "@types/node": 20.4.4
     "@types/react": 18.2.16

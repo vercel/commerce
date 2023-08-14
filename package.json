@@ -26,6 +26,7 @@
     "@formatjs/intl-localematcher": "^0.4.0",
     "@headlessui/react": "^1.7.15",
     "@heroicons/react": "^2.0.18",
+    "@thgh/next-gtm": "^0.1.4",
     "clsx": "^2.0.0",
     "eslint-plugin-tailwindcss": "^3.13.0",
     "eslint-plugin-unused-imports": "^3.0.0",
