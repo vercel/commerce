@@ -49,7 +49,7 @@ const Card: FC<CardProps> = ({ className, title, image, link, text, imageFormat 
                   className={imageClasses}
                   image={image}
                   alt={image.alt || ''}
-                  sizes="(max-width: 1024px) 50vw, 20vw"
+                  sizes="(max-width: 1024px) 50vw, 90vw"
                 />
               </div>
             )}

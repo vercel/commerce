@@ -53,7 +53,7 @@ const BlurbSection = ({
             <div
               key={index}
               className={`${
-                mobileLayout === 'horizontal' && 'w-5/12 shrink-0 snap-center lg:w-full'
+                mobileLayout === 'horizontal' && 'w-11/12 shrink-0 snap-center lg:w-full'
               }`}
             >
               <Card
