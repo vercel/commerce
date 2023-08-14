@@ -541,53 +541,16 @@ export function transformToProduct(adventure: any): Product {
     title: adventure.title,
     availableForSale: true, // We're assuming that all adventures are available for sale
     selectedOptions: [
-      { name: 'activity', value: adventure.activity },
-      { name: 'adventureType', value: adventure.adventureType },
-      { name: 'tripLength', value: adventure.tripLength },
+      { name: 'Stay Duration', value: 'Normal' },
       { name: 'Group Size', value: 'Normal' }
-      // { name: 'difficulty', value: adventure.difficulty }
     ],
     price
   };
 
-  const smallGroupVariant = {
-    id: 'smallGroupVariant',
-    title: 'Small Group',
-    availableForSale: true,
-    selectedOptions: [
-      {
-        name: 'Group Size',
-        value: 'Small'
-      }
-    ],
-    price: price
-  };
+  const groupSizeValues = ['Small', 'Normal', 'Large'];
+  const durationValues = ['Short', 'Normal', 'Extended Stay'];
 
-  const normalGroupVariant = {
-    id: 'normalGroupVariant',
-    title: 'Normal Group',
-    availableForSale: true,
-    selectedOptions: [
-      {
-        name: 'Group Size',
-        value: 'Normal'
-      }
-    ],
-    price: price
-  };
-
-  const largeGroupVariant = {
-    id: 'largeGroupVariant',
-    title: 'Large Group',
-    availableForSale: true,
-    selectedOptions: [
-      {
-        name: 'Group Size',
-        value: 'Large'
-      }
-    ],
-    price: price
-  };
+  const variants: ProductVariant[] = [];
 
   const groupSizeProductOption = {
     id: 'groupSizeProductOption',
@@ -601,6 +564,27 @@ export function transformToProduct(adventure: any): Product {
     values: ['Short', 'Normal', 'Extended Stay']
   };
 
+  groupSizeValues.forEach((groupSize) => {
+    durationValues.forEach((duration) => {
+      variants.push({
+        id: `${id}-${groupSize}-${duration}-variant`,
+        title: `${groupSize} / ${duration}`,
+        availableForSale: true, // We're assuming that all adventures are available for sale
+        selectedOptions: [
+          { name: 'Group Size', value: groupSize },
+          { name: 'Stay Duration', value: duration }
+        ],
+        price: {
+          amount:
+            priceParts[0].substring(1) +
+            (groupSize === 'Small' ? -100 : groupSize === 'Large' ? 600 : 0) +
+            (duration === 'Short' ? -100 : duration === 'Extended Stay' ? 700 : 0),
+          currencyCode: priceParts[1]
+        }
+      });
+    });
+  });
+
   const product: Product = {
     id,
     handle,
@@ -608,7 +592,7 @@ export function transformToProduct(adventure: any): Product {
     title: adventure.title,
     description: adventure.description.html,
     descriptionHtml: adventure.itinerary.html,
-    options: [groupSizeProductOption],
+    options: [groupSizeProductOption, durationProductOption],
     priceRange: {
       maxVariantPrice: price,
       minVariantPrice: price
@@ -626,8 +610,7 @@ export function transformToProduct(adventure: any): Product {
       description: adventure.description.html
     },
     tags: [],
-    //variants: { edges: [{ node: mockProductVariant }] },
-    variants: [smallGroupVariant, normalGroupVariant, largeGroupVariant],
+    variants: variants,
     updatedAt: new Date().toISOString()
   };
 

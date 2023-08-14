@@ -84,6 +84,7 @@ export function VariantSelector({
               onClick={() => {
                 // TODO: Does now work under old Next.js
                 // router.replace(optionUrl, { scroll: false });
+                router.replace(optionUrl);
               }}
               title={`${option.name} ${value}${!isAvailableForSale ? ' (Out of Stock)' : ''}`}
               className={clsx(
