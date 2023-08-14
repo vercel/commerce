@@ -1,6 +1,12 @@
 {
-  "hello": {
-    "title": "こんにちは",
-    "description": "これはせつめいですよ"
+  "menu": {
+    "products": "商品",
+    "shops": "取り扱い店",
+    "about": "naraiについて",
+    "bar": "sagyobar",
+    "concept": "コンセプト",
+    "stories": "ストーリー",
+    "company": "会社概要",
+    "contact": "contact"
   }
 }

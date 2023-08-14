@@ -1,6 +1,12 @@
 {
-  "hello": {
-    "title": "Hello World",
-    "description": "This is a description"
+  "menu": {
+    "products": "products",
+    "shops": "shop list",
+    "about": "about narai",
+    "bar": "sagyobar",
+    "concept": "concept",
+    "stories": "stories",
+    "company": "company",
+    "contact": "contact"
   }
 }

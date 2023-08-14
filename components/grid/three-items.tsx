@@ -1,36 +1,35 @@
 import clsx from 'clsx';
-import { GridTileImage } from 'components/grid/tile';
 import { Locale } from 'i18n-config';
 import { getCollectionProducts } from 'lib/shopify';
 import type { Product } from 'lib/shopify/types';
 import Link from 'next/link';
 import Label from '../label';
+import { GridTileImage } from './tile';
 
 function ThreeItemGridItem({ item, priority }: { item: Product; priority?: boolean }) {
+  const size = item?.variants?.[0]?.selectedOptions?.find((option) => option.name === 'size');
   return (
-    <div className={clsx('md:col-span-2 md:row-span-1')}>
+    <div className={clsx('col-span-1 row-span-1 md:col-span-2 md:row-span-1')}>
       <Link
-        className="relative block aspect-bottle h-full w-full overflow-hidden bg-black/30"
+        className="relative block aspect-tall w-full overflow-hidden bg-black/30"
         href={`/product/${item.handle}`}
       >
         <GridTileImage
           src={item.featuredImage.url}
-          height={1690}
-          width={1192}
           fill
           sizes={'(min-width: 768px) 33vw, 100vw'}
           priority={priority}
           alt={item.title}
-          className="h-full w-full object-cover"
         />
       </Link>
-      <div className="font-multingual max-w-sm pt-4">
+      <div className="font-multilingual max-w-sm pt-4">
         <Label
           title={item.title as string}
           amount={item.priceRange.maxVariantPrice.amount}
           currencyCode={item.priceRange.maxVariantPrice.currencyCode}
+          size={size?.value}
         />
-        <div className="line-clamp-4 pt-2">{item?.description}</div>
+        <div className="font-regular line-clamp-4 pt-2">{item?.summary?.value}</div>
       </div>
     </div>
   );
@@ -52,7 +51,8 @@ export async function ThreeItemGrid({ lang }: { lang: Locale }) {
   return (
     <section
       className={clsx(
-        'mx-auto grid max-w-screen-2xl gap-6 px-4 pb-4 md:grid-cols-6',
+        'mx-auto grid max-w-screen-2xl gap-6 px-4 pb-4 ',
+        'grid-cols-1 md:grid-cols-6',
         'grid-rows-3 md:grid-rows-1'
       )}
     >

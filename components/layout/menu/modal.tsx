@@ -9,7 +9,7 @@ import { Fragment, useRef, useState } from 'react';
 import { LanguageControl } from '../navbar/language-control';
 
 export function MenuModal() {
-  const { currentLanguage } = useLanguage();
+  const { currentLanguage, currentDictionary } = useLanguage();
   let [isOpen, setIsOpen] = useState(false);
   let closeButtonRef = useRef(null);
 
@@ -43,17 +43,6 @@ export function MenuModal() {
           >
             <div className="fixed inset-0 z-20" />
           </Transition.Child>
-          <Transition.Child as={Fragment}>
-            <div className="fixed right-5 top-6 z-40 px-2 py-1 md:top-11">
-              <div className="flex flex-row space-x-6">
-                <LanguageControl lang={currentLanguage} />
-
-                <button ref={closeButtonRef} onClick={close} className="">
-                  <CloseIcon className="h-10 w-10 stroke-current transition-opacity duration-150 hover:opacity-50" />
-                </button>
-              </div>
-            </div>
-          </Transition.Child>
 
           <Transition.Child
             as={Fragment}
@@ -66,6 +55,16 @@ export function MenuModal() {
           >
             <div className="fixed inset-0 z-30 backdrop-blur-sm">
               <Dialog.Panel>
+                <div className="fixed right-5 top-6 z-40 px-2 py-1 md:top-11">
+                  <div className="flex flex-row space-x-6">
+                    <LanguageControl lang={currentLanguage} />
+
+                    <button ref={closeButtonRef} onClick={close} className="">
+                      <CloseIcon className="h-10 w-10 stroke-current transition-opacity duration-150 hover:opacity-50" />
+                    </button>
+                  </div>
+                </div>
+
                 <div className="fixed inset-0 grid grid-cols-1 place-content-center bg-dark/80">
                   <div className="flex flex-row justify-end">
                     <div className="flex flex-col space-y-4 px-6 text-right">
@@ -74,7 +73,7 @@ export function MenuModal() {
                           href="/products"
                           className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
                         >
-                          products
+                          {currentDictionary?.menu?.products}
                         </Link>
                       </div>
 
@@ -83,7 +82,7 @@ export function MenuModal() {
                           href="/shops"
                           className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
                         >
-                          shop list
+                          {currentDictionary?.menu?.shops}
                         </Link>
                       </div>
 
@@ -92,7 +91,7 @@ export function MenuModal() {
                           href="/about"
                           className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
                         >
-                          about narai
+                          {currentDictionary?.menu?.about}
                         </Link>
                       </div>
 
@@ -101,7 +100,7 @@ export function MenuModal() {
                           href="/bar"
                           className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
                         >
-                          sagyobar
+                          {currentDictionary?.menu?.bar}
                         </Link>
                       </div>
 
@@ -110,7 +109,7 @@ export function MenuModal() {
                           href="/concept"
                           className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
                         >
-                          concept
+                          {currentDictionary?.menu?.concept}
                         </Link>
                       </div>
 
@@ -119,7 +118,7 @@ export function MenuModal() {
                           href="/stories"
                           className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
                         >
-                          stories
+                          {currentDictionary?.menu?.stories}
                         </Link>
                       </div>
 
@@ -128,7 +127,7 @@ export function MenuModal() {
                           href="/company"
                           className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
                         >
-                          company
+                          {currentDictionary?.menu?.company}
                         </Link>
                       </div>
 
@@ -137,6 +136,7 @@ export function MenuModal() {
                           href="/contact"
                           className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
                         >
+                          {currentDictionary?.menu?.contact}
                           contact
                         </Link>
                       </div>

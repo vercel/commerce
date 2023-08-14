@@ -15,7 +15,7 @@ module.exports = {
         japan: ['var(--font-mincho)', 'sans-serif']
       },
       aspectRatio: {
-        bottle: '1.11'
+        tall: '596 / 845'
       },
       keyframes: {
         fadeIn: {

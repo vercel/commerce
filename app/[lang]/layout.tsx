@@ -4,6 +4,7 @@ import localFont from 'next/font/local';
 import { ReactNode, Suspense } from 'react';
 
 import { LanguageProvider } from 'app/context/language-context';
+import { getDictionary } from 'dictionaries';
 import './globals.css';
 
 const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;
@@ -38,12 +39,6 @@ const cinzel = localFont({
   variable: '--font-cinzel'
 });
 
-const mincho = localFont({
-  src: '../fonts/A-OTF-A1MinchoStd-Bold.otf',
-  display: 'swap',
-  variable: '--font-cinzel'
-});
-
 const alpina = localFont({
   src: [
     {
@@ -60,6 +55,12 @@ const alpina = localFont({
   variable: '--font-alpina'
 });
 
+const mincho = localFont({
+  src: '../fonts/A-OTF-A1MinchoStd-Bold.otf',
+  display: 'swap',
+  variable: '--font-mincho'
+});
+
 export async function generateStaticParams() {
   return i18n.locales.map((locale) => ({ lang: locale }));
 }
@@ -69,13 +70,15 @@ export default async function RootLayout({
   params
 }: {
   children: ReactNode;
-  params: { lang: string };
+  params: { lang: Locale };
 }) {
+  const dictionary = await getDictionary(params?.lang);
+
   return (
     <html lang={params.lang} className={`${cinzel.variable} ${alpina.variable} ${mincho.variable}`}>
       <body className="bg-dark text-white selection:bg-green-800 selection:text-green-400">
         <div className="mx-auto max-w-screen-2xl">
-          <LanguageProvider language={params.lang as Locale}>
+          <LanguageProvider language={params.lang as Locale} dictionary={dictionary}>
             <Navbar />
             <Suspense>
               <main>{children}</main>
