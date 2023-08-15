@@ -45,5 +45,7 @@ export default async function IndexPage({ params }: HomePageParams) {
     );
   }
 
-  return <HomePage data={data} />;
+  return (
+    <HomePage data={data} />
+  );
 }
