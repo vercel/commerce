@@ -7,8 +7,6 @@ import { Metadata } from 'next';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 
-export const runtime = draftMode().isEnabled ? 'node' : 'edge';
-
 export async function generateMetadata({
   params
 }: {
