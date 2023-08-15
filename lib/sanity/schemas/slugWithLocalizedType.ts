@@ -1,7 +1,7 @@
-import {Rule, Slug} from 'sanity'
+import { Rule, Slug } from 'sanity';
 import slugify from "slugify";
-import { i18n } from "../../languages";
-import { localizedTypes } from "../../localizedTypes";
+import { i18n } from "../languages";
+import { localizedTypes } from "../localizedTypes";
 
 const MAX_LENGTH = 96
 

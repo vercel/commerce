@@ -1,19 +1,19 @@
-import {TagIcon} from '@sanity/icons'
-import {defineField, defineType} from 'sanity'
-import {slugWithLocalizedType} from './slugWithLocalizedType'
-import {languages} from '../../languages'
-import {validateImage} from '../../utils/validation'
+import { TagIcon } from '@sanity/icons';
+import { defineField, defineType } from 'sanity';
+import { languages } from '../../languages';
+import { validateImage } from '../../utils/validation';
+import { slugWithLocalizedType } from '../slugWithLocalizedType';
 
 const GROUPS = [
   {
     name: 'editorial',
-    title: 'Editorial',
+    title: 'Editorial'
   },
   {
     name: 'seo',
-    title: 'SEO',
-  },
-]
+    title: 'SEO'
+  }
+];
 
 export default defineType({
   name: 'category',
@@ -27,7 +27,7 @@ export default defineType({
       name: 'language',
       type: 'string',
       readOnly: true,
-      description: 'Language of this document.',
+      description: 'Language of this document.'
       // hidden: true,
     }),
     // Title
@@ -35,7 +35,7 @@ export default defineType({
       name: 'title',
       title: 'Title',
       type: 'string',
-      description: 'Category title.',
+      description: 'Category title.'
     }),
     // Slug
     slugWithLocalizedType('category', 'title'),
@@ -60,67 +60,67 @@ export default defineType({
       name: 'image',
       type: 'mainImage',
       title: 'Image',
-      validation: (Rule) => validateImage(Rule, true),
+      validation: (Rule) => validateImage(Rule, true)
     }),
     defineField({
       name: 'description',
       title: 'Description',
       type: 'text',
       rows: 5,
-      description: 'Description of this category.',
+      description: 'Description of this category.'
     }),
     defineField({
       name: 'id',
       title: 'ID',
       type: 'number',
-      description: 'Unique ID.',
+      description: 'Unique ID.'
     }),
     defineField({
       name: 'categoryId',
       title: 'Category ID',
       type: 'number',
-      description: 'Unique category ID.',
+      description: 'Unique category ID.'
     }),
     defineField({
       name: 'parentId',
       title: 'Parent ID',
       type: 'number',
-      description: 'Unique parent category ID.',
+      description: 'Unique parent category ID.'
     }),
     // SEO
     defineField({
       name: 'seo',
       title: 'SEO',
       type: 'seo',
-      group: 'seo',
-    }),
+      group: 'seo'
+    })
   ],
   orderings: [
     {
       name: 'titleAsc',
       title: 'Title (A-Z)',
-      by: [{field: 'title', direction: 'asc'}],
+      by: [{ field: 'title', direction: 'asc' }]
     },
     {
       name: 'titleDesc',
       title: 'Title (Z-A)',
-      by: [{field: 'title', direction: 'desc'}],
-    },
+      by: [{ field: 'title', direction: 'desc' }]
+    }
   ],
   preview: {
     select: {
       title: 'title',
-      language: 'language',
+      language: 'language'
     },
     prepare(selection) {
-      const {title, language} = selection
-      const currentLang = languages.find((lang) => lang.id === language)
+      const { title, language } = selection;
+      const currentLang = languages.find((lang) => lang.id === language);
 
       return {
         title,
         subtitle: `${currentLang ? currentLang.title : ''}`,
-        media: TagIcon,
-      }
-    },
-  },
-})
+        media: TagIcon
+      };
+    }
+  }
+});

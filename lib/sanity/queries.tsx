@@ -178,6 +178,19 @@ export const homePageQuery = `*[_type == "home" && language == $locale][0] {
   }
 }`;
 
+export const searchPageQuery = `*[_type == "search" && language == $locale][0] {
+  _type,
+  title,
+  "locale": language,
+  "translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{
+    title,
+    "locale": language
+  },
+  seo {
+    ${seoFields}
+  }
+}`;
+
 // Page query
 export const pageQuery = `*[_type == "page" && slug.current == $slug && language == $locale][0] {
   _type,

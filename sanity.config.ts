@@ -13,7 +13,7 @@ const devOnlyPlugins = [visionTool()]
 const singletonActions = new Set(["publish", "discardChanges", "restore"])
 
 // Define the singleton document types
-const singletonTypes = new Set(["settings", "home", "utilityMenu", "media.tag"])
+const singletonTypes = new Set(["settings", "home", "utilityMenu", "media.tag", ])
 
 // console.log(process.env.SANITY_API_READ_TOKEN)
 
@@ -45,7 +45,8 @@ export default defineConfig({
         'section',
         'usp',
         'footerMenu',
-        'utilityMenu'
+        'utilityMenu',
+        'search'
       ],
       // Optional
       // languageField: `language`, // defauts to "language"

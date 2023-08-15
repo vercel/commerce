@@ -1,16 +1,17 @@
 /**
  * Desk structure overrides
  */
-import {ListItemBuilder, StructureResolver} from 'sanity/desk'
+import { ListItemBuilder, StructureResolver } from 'sanity/desk'
+import blurbs from './blurb-structure'
 import categories from './category-structure'
 import home from './home-structure'
+import navigation from './navigation-structure'
 import pages from './page-structure'
 import products from './product-structure'
-import settings from './settings-structure'
-import blurbs from './blurb-structure'
+import search from './search-structure'
 import sections from './section-structure'
+import settings from './settings-structure'
 import usps from './usp-structure'
-import navigation from './navigation-structure'
 
 /**
  * Desk structure overrides
@@ -46,7 +47,8 @@ const hiddenDocTypes = (listItem: ListItemBuilder) => {
     'usp',
     'navigation',
     'footerMenu',
-    'utilityMenu'
+    'utilityMenu',
+    'search'
   ].includes(id)
 }
 
@@ -64,9 +66,9 @@ export const structure: StructureResolver = (S, context) =>
       usps(S, context),
       sections(S, context),
       S.divider(),
-      navigation(S, context),
-      S.divider(),
       settings(S, context),
+      search(S, context),
+      navigation(S, context),
       S.divider(),
       ...S.documentTypeListItems().filter(hiddenDocTypes),
       S.divider(),

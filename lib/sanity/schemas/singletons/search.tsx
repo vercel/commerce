@@ -1,24 +1,13 @@
-import { DocumentIcon } from '@sanity/icons';
+import { SearchIcon } from '@sanity/icons';
 import { defineField } from 'sanity';
-import { COMPONENT_REFERENCES } from '../../constants';
 import { languages } from '../../languages';
 import { slugWithLocalizedType } from '../slugWithLocalizedType';
 
 export default defineField({
-  name: 'page',
-  title: 'Page',
+  name: 'search',
+  title: 'Search',
   type: 'document',
-  icon: DocumentIcon,
-  groups: [
-    {
-      name: 'editorial',
-      title: 'Editorial'
-    },
-    {
-      name: 'seo',
-      title: 'SEO'
-    }
-  ],
+  icon: SearchIcon,
   fields: [
     defineField({
       name: 'language',
@@ -28,46 +17,34 @@ export default defineField({
       // hidden: true,
     }),
     // Title
-    defineField({
+    {
       name: 'title',
       title: 'Title',
       type: 'string',
       description: 'Page title.',
       validation: (Rule) => Rule.required()
-    }),
+    },
     // Slug
-    slugWithLocalizedType('page', 'title'),
-    // Content
-    defineField({
-      name: 'content',
-      title: 'Page sections',
-      type: 'array',
-      group: 'editorial',
-      description: 'Add, reorder, edit or delete page sections.',
-      of: COMPONENT_REFERENCES
-    }),
+    slugWithLocalizedType('search', 'title'),
     // SEO
     defineField({
       name: 'seo',
       title: 'SEO',
-      type: 'seo',
-      group: 'seo'
+      type: 'seo'
     })
   ],
   preview: {
     select: {
-      seoImage: 'seo.image',
       title: 'title',
       language: 'language'
     },
     prepare(selection) {
-      const { seoImage, title, language } = selection;
+      const { title, language } = selection;
 
       const currentLang = languages.find((lang) => lang.id === language);
 
       return {
-        media: seoImage,
-        title,
+        title: `${title}`,
         subtitle: `${currentLang ? currentLang.title : ''}`
       };
     }

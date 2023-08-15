@@ -1,8 +1,8 @@
 import { PackageIcon } from '@sanity/icons';
 import { defineField, defineType } from 'sanity';
-import { slugWithLocalizedType } from './slugWithLocalizedType';
 import { languages } from '../../languages';
 import { validateImage } from '../../utils/validation';
+import { slugWithLocalizedType } from '../slugWithLocalizedType';
 
 const GROUPS = [
   {

@@ -22,9 +22,7 @@ export async function GET(request: Request) {
             Location: `/${locale}`,
         },
     })
-  }
-
-  if (type === 'page') {
+  } else {
     return new Response(null, {
         status: 307,
         headers: {

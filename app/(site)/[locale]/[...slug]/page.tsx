@@ -1,5 +1,7 @@
 import CategoryPage from '@/components/pages/category-page';
 import ProductPage from '@/components/pages/product-page';
+import SearchPage from '@/components/pages/search-page';
+import SearchPagePreview from '@/components/pages/search-page-preview';
 import SinglePage from '@/components/pages/single-page';
 import SinglePagePreview from '@/components/pages/single-page-preview';
 import PreviewProvider from '@/components/preview-provider';
@@ -55,6 +57,8 @@ export default async function Page({ params }: PageParams) {
     pageData = await getCachedClient()(query, queryParams);
   } else if (docType === 'category') {
     pageData = await getCachedClient()(query, queryParams);
+  } else if (docType === 'search') {
+    pageData = await getCachedClient()(query, queryParams);
   } else {
     return;
   }
@@ -65,6 +69,7 @@ export default async function Page({ params }: PageParams) {
     return (
       <PreviewProvider token={preview.token}>
         {docType === 'page' && <SinglePagePreview initialData={pageData} params={queryParams} />}
+        {docType === 'search' && <SearchPagePreview initialData={pageData} params={queryParams} />}
       </PreviewProvider>
     );
   }
@@ -74,6 +79,7 @@ export default async function Page({ params }: PageParams) {
       {docType === 'page' && <SinglePage data={pageData} />}
       {docType === 'product' && <ProductPage data={pageData} />}
       {docType === 'category' && <CategoryPage data={pageData} />}
+      {docType === 'search' && <SearchPage data={pageData} />}
     </>
   );
 }
