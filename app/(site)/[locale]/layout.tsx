@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import Footer from 'components/layout/footer/footer';
 import Header from 'components/layout/header/header';
 import { NextIntlClientProvider } from 'next-intl';
@@ -64,6 +65,7 @@ export default async function LocaleLayout({ children, params: { locale } }: Loc
           <Suspense>
             <Footer locale={locale} />
           </Suspense>
+          <Analytics />
         </NextIntlClientProvider>
       </body>
     </html>

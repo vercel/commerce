@@ -35,6 +35,7 @@
     "@sanity/vision": "^3.0.0",
     "@sanity/webhook": "^2.0.0",
     "@types/styled-components": "^5.1.26",
+    "@vercel/analytics": "^1.0.2",
     "@vercel/og": "^0.1.0",
     "algoliasearch": "^4.19.1",
     "class-variance-authority": "^0.6.0",
