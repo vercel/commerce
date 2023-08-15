@@ -1,11 +1,11 @@
-import {defineConfig, isDev} from 'sanity'
-import {deskTool} from 'sanity/desk'
-import {visionTool} from '@sanity/vision'
-import {media} from 'sanity-plugin-media'
-import {schemaTypes} from '@/lib/sanity/schemas'
-import {structure} from '@/lib/sanity/desk'
 import Kodamera from '@/lib/sanity/components/icons/kodamera'
-import {documentInternationalization} from '@sanity/document-internationalization'
+import { structure } from '@/lib/sanity/desk'
+import { schemaTypes } from '@/lib/sanity/schemas'
+import { documentInternationalization } from '@sanity/document-internationalization'
+import { visionTool } from '@sanity/vision'
+import { defineConfig, isDev } from 'sanity'
+import { media } from 'sanity-plugin-media'
+import { deskTool } from 'sanity/desk'
 
 const devOnlyPlugins = [visionTool()]
 
@@ -14,6 +14,8 @@ const singletonActions = new Set(["publish", "discardChanges", "restore"])
 
 // Define the singleton document types
 const singletonTypes = new Set(["settings", "home", "utilityMenu", "media.tag"])
+
+// console.log(process.env.SANITY_API_READ_TOKEN)
 
 export default defineConfig({
   name: 'default',

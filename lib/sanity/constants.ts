@@ -43,6 +43,6 @@ export const STORM_STORE_ID = ''
 
 // Project preview URLs
 export const localStorefrontUrl = 'http://localhost:3000';
-export const localStorefrontPreviewUrl = 'http://localhost:3000/api/draft';
+export const localStorefrontPreviewUrl = 'http://localhost:3000/api/preview';
 export const publicStorefrontUrl = 'https://km-storefront.vercel.app';
-export const publicStorefrontPreviewUrl = 'https://km-storefront.vercel.app/api/draft';
+export const publicStorefrontPreviewUrl = 'https://km-storefront.vercel.app/api/preview';

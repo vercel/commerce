@@ -1,5 +1,5 @@
 import { categoriesQuery } from '@/lib/sanity/queries';
-import { clientFetch } from '@/lib/sanity/sanity.client';
+import { getCachedClient } from '@/lib/sanity/sanity.client';
 import Cart from 'components/cart';
 import OpenCart from 'components/cart/open-cart';
 import Logo from 'components/ui/logo/logo';
@@ -21,7 +21,7 @@ export default async function Header({ locale }: HeaderProps) {
   const params = {
     locale: locale
   };
-  const mainMenu = await clientFetch(categoriesQuery, params);
+  const mainMenu = await getCachedClient()(categoriesQuery, params);
 
   return (
     <HeaderRoot>

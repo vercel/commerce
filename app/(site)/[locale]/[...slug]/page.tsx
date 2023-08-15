@@ -1,12 +1,13 @@
+import CategoryPage from '@/components/pages/category-page';
+import ProductPage from '@/components/pages/product-page';
+import SinglePage from '@/components/pages/single-page';
+import SinglePagePreview from '@/components/pages/single-page-preview';
+import PreviewProvider from '@/components/preview-provider';
 import getQueryFromSlug from '@/helpers/get-query-from-slug';
-import { clientFetch } from 'lib/sanity/sanity.client';
+import { getCachedClient } from 'lib/sanity/sanity.client';
 import type { Metadata } from 'next';
+import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
-import CategoryPage from './pages/category-page';
-import ProductPage from './pages/product-page';
-import SinglePage from './pages/single-page';
-
-export const revalidate = 43200; // 12 hours in seconds
 
 export async function generateMetadata({
   params
@@ -17,7 +18,7 @@ export async function generateMetadata({
 
   const { query = '', queryParams } = getQueryFromSlug(slug, locale);
 
-  const page = await clientFetch(query, queryParams);
+  const page = await getCachedClient()(query, queryParams);
 
   if (!page) return notFound();
 
@@ -40,6 +41,8 @@ interface PageParams {
 }
 
 export default async function Page({ params }: PageParams) {
+  const preview = draftMode().isEnabled ? { token: process.env.SANITY_API_READ_TOKEN } : undefined;
+
   const { slug, locale } = params;
 
   const { query = '', queryParams, docType } = getQueryFromSlug(slug, locale);
@@ -47,16 +50,24 @@ export default async function Page({ params }: PageParams) {
   let pageData;
 
   if (docType === 'page') {
-    pageData = await clientFetch(query, queryParams);
+    pageData = await getCachedClient()(query, queryParams);
   } else if (docType === 'product') {
-    pageData = await clientFetch(query, queryParams);
+    pageData = await getCachedClient()(query, queryParams);
   } else if (docType === 'category') {
-    pageData = await clientFetch(query, queryParams);
+    pageData = await getCachedClient()(query, queryParams);
   } else {
     return;
   }
 
   if (!pageData) return notFound();
+
+  if (preview && preview.token) {
+    return (
+      <PreviewProvider token={preview.token}>
+        {docType === 'page' && <SinglePagePreview initialData={pageData} params={queryParams} />}
+      </PreviewProvider>
+    );
+  }
 
   return (
     <>
