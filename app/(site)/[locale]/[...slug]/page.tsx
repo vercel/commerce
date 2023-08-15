@@ -9,6 +9,8 @@ import type { Metadata } from 'next';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 
+export const runtime = 'edge';
+
 export async function generateMetadata({
   params
 }: {
