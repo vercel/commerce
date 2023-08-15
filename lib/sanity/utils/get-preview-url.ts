@@ -16,7 +16,7 @@ export default async function getPreviewUrl(doc: SanityDocument) {
   } else {
     // Home page have no slugs.
     if (!doc.slug) {
-      return `${localStorefrontPreviewUrl}?locale=${doc.language}&type=${doc._type}&secret=${SANITY_STUDIO_API_READ_TOKEN}`
+      return `${publicStorefrontPreviewUrl}?locale=${doc.language}&type=${doc._type}&secret=${SANITY_STUDIO_API_READ_TOKEN}`
     }
 
     return `${publicStorefrontPreviewUrl}?slug=${doc.slug.current}&locale=${doc.language}&type=${doc._type}&secret=${SANITY_STUDIO_API_READ_TOKEN}`
