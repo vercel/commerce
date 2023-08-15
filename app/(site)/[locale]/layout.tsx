@@ -3,6 +3,7 @@ import Header from 'components/layout/header/header';
 import { NextIntlClientProvider } from 'next-intl';
 import { Inter } from 'next/font/google';
 import { notFound } from 'next/navigation';
+import Script from 'next/script';
 import { ReactNode, Suspense } from 'react';
 import { supportedLanguages } from '../../../i18n-config';
 import './../../globals.css';
@@ -55,6 +56,9 @@ export default async function LocaleLayout({ children, params: { locale } }: Loc
 
   return (
     <html lang={locale} className={inter.variable}>
+      <Script id="passive-event-listeners">
+        {`document.addEventListener('touchstart', onTouchStart, {passive: true})`}
+      </Script>
       <body className="flex min-h-screen flex-col">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <Header locale={locale} />
