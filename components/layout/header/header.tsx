@@ -26,7 +26,7 @@ export default async function Header({ locale }: HeaderProps) {
   return (
     <HeaderRoot>
       <div className="relative flex flex-col border-b border-ui-border bg-app">
-        <div className="relative flex h-14 w-full items-center justify-between px-4 py-2 lg:h-16 lg:px-8 lg:py-3 2xl:px-16">
+        <div className="relative flex w-full items-center justify-between px-4 py-2 lg:px-8 2xl:px-16">
           <div className="-translate-x-2 transform md:hidden">
             <Suspense fallback={<OpenMobileMenu />}>
               <MobileMenuModal items={mainMenu} />

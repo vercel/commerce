@@ -1,5 +1,5 @@
-import {defineField} from 'sanity'
-import {StarIcon} from '@sanity/icons'
+import { StarIcon } from '@sanity/icons'
+import { defineField } from 'sanity'
 import { validateImage } from '../../utils/validation'
 
 export default defineField({
@@ -59,6 +59,30 @@ export default defineField({
       },
     },
     {
+      name: 'color',
+      type: 'string',
+      title: 'Color',
+      initialValue: 'dark',
+      fieldset: 'settings',
+      description: 'Set appropriate color depending on image characteristics.',
+      options: {
+        list: [
+          {title: 'Dark', value: 'dark'},
+          {title: 'Light', value: 'light'},
+        ],
+        layout: 'radio',
+      },
+    },
+    {
+      name: 'overlay',
+      type: 'boolean',
+      title: 'Overlay?',
+      fieldset: 'settings',
+      description: 'Adds a dark overlay to the image.',
+      initialValue: false,
+      validation: (Rule) => Rule.required(),
+    },
+    {
       name: 'label',
       type: 'string',
       title: 'Label',
@@ -101,7 +125,6 @@ export default defineField({
       title: 'Link',
       description: 'Link to internal page.',
       options: {
-        collapsed: true,
         collapsible: true,
       },
     },

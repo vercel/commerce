@@ -33,6 +33,8 @@ export const modules = `
     variant,
     headingLevel,
     text,
+    color,
+    overlay,
     link {
       title,
       reference->{title, slug, "locale": language}

@@ -8,6 +8,8 @@ interface HeroProps {
   label?: string;
   title: string;
   image: object | any;
+  color?: string;
+  overlay?: boolean;
   link: {
     title: string;
     reference: {
@@ -26,7 +28,7 @@ const heroSize = {
   halfScreen: 'aspect-square max-h-[50vh] lg:aspect-auto lg:min-h-[50vh]'
 };
 
-const Hero = ({ variant, title, text, label, image, link }: HeroProps) => {
+const Hero = ({ variant, title, text, label, image, link, color, overlay }: HeroProps) => {
   const heroClass = heroSize[variant as HeroSize] || heroSize.fullScreen;
 
   return (
@@ -43,7 +45,12 @@ const Hero = ({ variant, title, text, label, image, link }: HeroProps) => {
           fill
         />
       )}
-      <div className="absolute bottom-5 left-4 z-50 flex max-w-md flex-col items-start text-high-contrast lg:bottom-8 lg:left-8 lg:max-w-2xl 2xl:bottom-16 2xl:left-16">
+      {overlay && <div className="absolute inset-0 z-10 h-full w-full bg-black/70" />}
+      <div
+        className={`${
+          color === 'dark' ? 'text-high-contrast' : 'text-white'
+        } items-star absolute bottom-5 left-4 z-50 flex max-w-md flex-col lg:bottom-8 lg:left-8 lg:max-w-2xl 2xl:bottom-16 2xl:left-16`}
+      >
         {label && (
           <Text className="mb-1 lg:mb-2" variant="label">
             {label}
