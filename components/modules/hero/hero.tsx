@@ -57,9 +57,11 @@ const Hero = ({ variant, title, text, label, image, link }: HeroProps) => {
           </Text>
         )}
         {text && (
-          <Text className="mt-4" variant="paragraph">
-            {label}
-          </Text>
+          <div className="prose prose-lg mt-4 lg:prose-xl">
+            <Text className="" variant="paragraph">
+              {text}
+            </Text>
+          </div>
         )}
         {link?.reference && (
           <Link
