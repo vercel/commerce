@@ -22,7 +22,7 @@ export default function ProductPage({ data }: ProductPageParams) {
           __html: JSON.stringify(productJsonLd)
         }}
       />
-      <ProductView product={product} relatedProducts={[]} />;
+      <ProductView product={product} relatedProducts={[]} />
     </>
   );
 }
