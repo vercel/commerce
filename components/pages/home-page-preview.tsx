@@ -18,7 +18,7 @@ export default function HomePagePreview({ initialData, params }: HomePagePreview
   return (
     <>
       <HomePage data={data} />;{/* @ts-ignore */}
-      <PreviewBanner title={data?.title} />
+      <PreviewBanner title={data?.title} type={data?._type} />
     </>
   );
 }

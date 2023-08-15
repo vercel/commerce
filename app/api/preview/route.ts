@@ -3,7 +3,7 @@ import { draftMode } from 'next/headers'
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const secret = searchParams.get('secret')
-  // const slug = searchParams.get('slug')
+  const slug = searchParams.get('slug')
   const type = searchParams.get('type')
   const locale = searchParams.get('locale')
 
@@ -15,12 +15,20 @@ export async function GET(request: Request) {
 
   draftMode().enable()
 
-
   if (type === 'home') {
     return new Response(null, {
         status: 307,
         headers: {
             Location: `/${locale}`,
+        },
+    })
+  }
+
+  if (type === 'page') {
+    return new Response(null, {
+        status: 307,
+        headers: {
+            Location: `/${locale}${slug}`,
         },
     })
   }

@@ -1,12 +1,13 @@
 import CategoryPage from '@/components/pages/category-page';
 import ProductPage from '@/components/pages/product-page';
 import SinglePage from '@/components/pages/single-page';
+import SinglePagePreview from '@/components/pages/single-page-preview';
+import PreviewProvider from '@/components/preview-provider';
 import getQueryFromSlug from '@/helpers/get-query-from-slug';
 import { getCachedClient } from 'lib/sanity/sanity.client';
 import type { Metadata } from 'next';
+import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
-
-export const revalidate = 43200; // 12 hours in seconds
 
 export async function generateMetadata({
   params
@@ -40,6 +41,8 @@ interface PageParams {
 }
 
 export default async function Page({ params }: PageParams) {
+  const preview = draftMode().isEnabled ? { token: process.env.SANITY_API_READ_TOKEN } : undefined;
+
   const { slug, locale } = params;
 
   const { query = '', queryParams, docType } = getQueryFromSlug(slug, locale);
@@ -57,6 +60,14 @@ export default async function Page({ params }: PageParams) {
   }
 
   if (!pageData) return notFound();
+
+  if (preview && preview.token) {
+    return (
+      <PreviewProvider token={preview.token}>
+        {docType === 'page' && <SinglePagePreview initialData={pageData} params={queryParams} />}
+      </PreviewProvider>
+    );
+  }
 
   return (
     <>
