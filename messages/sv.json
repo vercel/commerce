@@ -36,6 +36,7 @@
     }
   },
   "product": {
+    "details": "Produktdetaljer",
     "description": "Beskrivning",
     "specification": "Specifikation",
     "shippingAndReturns": "Frakt & retur",

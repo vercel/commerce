@@ -61,6 +61,8 @@ export default function ProductView({ product, relatedProducts }: ProductViewPro
             currencyCode={price.currencyCode ? price.currencyCode : 'SEK'}
           />
 
+          <h2 className="sr-only">{t('details')}</h2>
+
           {description && (
             <Accordion
               className="mt-8"

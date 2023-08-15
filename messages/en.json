@@ -36,6 +36,7 @@
     }
   },
   "product": {
+    "details": "Product details",
     "description": "Description",
     "specification": "Specification",
     "shippingAndReturns": "Shipping & returns",
