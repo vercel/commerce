@@ -7,7 +7,7 @@ interface IndexPageParams {
 export default function HomePage({ data }: IndexPageParams) {
   return (
     <>
-      <DynamicContentManager content={data?.content} />;
+      <DynamicContentManager content={data?.content} />
     </>
   );
 }
