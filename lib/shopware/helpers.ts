@@ -1,3 +1,5 @@
+import { ensureStartsWith } from 'lib/utils';
+
 export function getAccessToken(): string {
   return `${process.env.SHOPWARE_ACCESS_TOKEN}`;
 }
@@ -6,10 +8,10 @@ export function getStoreDomainWithApiType(): string {
   return getStoreDomain() + '/' + getApiType();
 }
 
-export function getStoreDomain(protocol: boolean = true): string {
-  return protocol
-    ? `https://${process.env.SHOPWARE_STORE_DOMAIN!}`
-    : `${process.env.SHOPWARE_STORE_DOMAIN!}`;
+export function getStoreDomain(): string {
+  return process.env.SHOPWARE_STORE_DOMAIN
+    ? ensureStartsWith(process.env.SHOPWARE_STORE_DOMAIN, 'https://')
+    : '';
 }
 
 export function getApiType(): 'store-api' | 'admin-api' {

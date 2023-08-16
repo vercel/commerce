@@ -18,11 +18,7 @@ export default async function Navbar() {
       </div>
       <div className="flex w-full items-center">
         <div className="flex w-full md:w-4/6">
-          <Link
-            href="/"
-            aria-label="Go back home"
-            className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6"
-          >
+          <Link href="/" className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6">
             <LogoSquare />
           </Link>
           {menu.length ? (
