@@ -71,5 +71,5 @@ The template is provided as-is without an integrated checkout. For projects ther
 Any questions, issues or feature requests? Feel free to join the community.
 
 <p align="left">
-<a href="https://shopwarecommunity.slack.com/archives/C050L6NCMGQ" target="_blank"><img src="./public/slack.svg#slackIcon" width="20" height="16"/>Channel</a> | <a href="https://github.com/shopware/frontends/discussions">💬 Discuss</a> | <a href="https://frontends.shopware.com/" target="_blank">📚 Docu</a> | <a href="https://shopware-vercel-commerce-react.vercel.app/" target="_blank">🚀 Demo</a>
+<a href="https://shopwarecommunity.slack.com/archives/C050L6NCMGQ" target="_blank"><img src="./public/slack.svg" alt="Join our Slack Channel" width="20" height="16"/>Channel</a> | <a href="https://github.com/shopware/frontends/discussions">💬 Discuss</a> | <a href="https://frontends.shopware.com/" target="_blank">📚 Docu</a> | <a href="https://shopware-vercel-commerce-react.vercel.app/" target="_blank">🚀 Demo</a>
 </p>
