@@ -17,7 +17,9 @@
       "button": "Notify me"
     },
     "shops": {
-      "title": "",
+      "title": "Shop list",
+      "subtitle": "",
+      "all": "All shops",
       "hokkaido": "Hokkaido / North",
       "kanto": "Kanto",
       "chubu": "Chubu",

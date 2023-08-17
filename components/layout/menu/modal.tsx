@@ -6,7 +6,7 @@ import MenuIcon from 'components/icons/menu';
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { Fragment, useRef, useState } from 'react';
-import { LanguageControl, SupportedLocales } from '../navbar/language-control';
+import { LanguageControl, SupportedLocale } from '../navbar/language-control';
 
 export function MenuModal() {
   const t = useTranslations('Index');
@@ -58,7 +58,7 @@ export function MenuModal() {
               <Dialog.Panel>
                 <div className="fixed right-5 top-6 z-40 px-2 py-1 md:top-11">
                   <div className="flex flex-row space-x-6">
-                    <LanguageControl lang={locale as SupportedLocales} />
+                    <LanguageControl lang={locale as SupportedLocale} />
 
                     <button ref={closeButtonRef} onClick={close} className="">
                       <CloseIcon className="h-10 w-10 stroke-current transition-opacity duration-150 hover:opacity-50" />

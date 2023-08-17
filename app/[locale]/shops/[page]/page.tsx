@@ -4,6 +4,7 @@ import { SupportedLocale } from 'components/layout/navbar/language-control';
 import Prose from 'components/prose';
 import { getPage } from 'lib/shopify';
 import { notFound } from 'next/navigation';
+import ShopsTitle from './ShopsTitle';
 
 export const runtime = 'edge';
 
@@ -39,16 +40,10 @@ export default async function Page({
   if (!page) return notFound();
 
   return (
-    <div className="text-white">
-      <h1 className="mb-8 text-5xl font-bold">{page.title}</h1>
+    <div className="font-multilingual min-h-screen px-4 text-white">
+      <ShopsTitle />
+      <h2 className="mb-8 text-3xl font-medium">{page.title}</h2>
       <Prose className="mb-8" html={page.body as string} />
-      <p className="text-sm italic">
-        {`This document was last updated on ${new Intl.DateTimeFormat(undefined, {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        }).format(new Date(page.updatedAt))}.`}
-      </p>
     </div>
   );
 }

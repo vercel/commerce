@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { SupportedLocales } from 'components/layout/navbar/language-control';
+import { SupportedLocale } from 'components/layout/navbar/language-control';
 import { getCollectionProducts } from 'lib/shopify';
 import type { Product } from 'lib/shopify/types';
 import Link from 'next/link';
@@ -35,14 +35,12 @@ function ThreeItemGridItem({ item, priority }: { item: Product; priority?: boole
   );
 }
 
-export async function ThreeItemGrid({ lang }: { lang: SupportedLocales }) {
+export async function ThreeItemGrid({ lang }: { lang: SupportedLocale }) {
   // Collections that start with `hidden-*` are hidden from the search page.
   const homepageItems = await getCollectionProducts({
     collection: 'hidden-homepage-featured-items',
     language: lang?.toUpperCase()
   });
-
-  console.debug({ lang });
 
   if (!homepageItems[0] || !homepageItems[1] || !homepageItems[2]) return null;
 

@@ -18,6 +18,8 @@
     },
     "shops": {
       "title": "取り扱い店",
+      "subtitle": "取り扱い店",
+      "all": "全店",
       "hokkaido": "北海道・東北",
       "kanto": "関東",
       "chubu": "中部",

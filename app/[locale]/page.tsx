@@ -1,7 +1,7 @@
 import { Carousel } from 'components/carousel';
 import { ThreeItemGrid } from 'components/grid/three-items';
 import Footer from 'components/layout/footer';
-import { LanguageControl, SupportedLocales } from 'components/layout/navbar/language-control';
+import { LanguageControl, SupportedLocale } from 'components/layout/navbar/language-control';
 
 import clsx from 'clsx';
 import LogoNamemark from 'components/icons/namemark';
@@ -25,7 +25,7 @@ export const metadata = {
 export default async function HomePage({
   params: { locale }
 }: {
-  params: { locale: SupportedLocales };
+  params: { locale: SupportedLocale };
 }) {
   return (
     <>

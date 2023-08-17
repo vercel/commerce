@@ -1,30 +1,39 @@
 'use client';
 
 import clsx from 'clsx';
-import Link from 'next/link';
+import Link from 'next-intl/link';
 import { usePathname } from 'next/navigation';
 
-export type SupportedLocales = 'en' | 'ja' | undefined;
+export type SupportedLocale = 'en' | 'ja' | undefined;
 
-export const LanguageControl = ({ lang }: { lang?: SupportedLocales }) => {
+function removeItem<T>(arr: Array<T>, value: T): Array<T> {
+  const index = arr.indexOf(value);
+  if (index > -1) {
+    arr.splice(index, 1);
+  }
+  return arr;
+}
+
+export const LanguageControl = ({ lang }: { lang?: SupportedLocale }) => {
   const pathName = usePathname();
-  const redirectedPathName = (locale: string) => {
-    if (!pathName) return '/';
-    const segments = pathName.split('/');
-    segments[1] = locale;
-    return segments.join('/');
+
+  const basePathName = () => {
+    const unjoined = pathName.split('/');
+    const unjoinedWithoutLocale = removeItem(unjoined, 'ja');
+    return unjoinedWithoutLocale.join('/') || '/';
   };
 
   return (
     <div className="flex flex-row space-x-0">
       <span className="px-2 py-4">
         <Link
-          href={redirectedPathName('ja')}
+          href={basePathName()}
           className={clsx(
             lang === 'ja' ? 'opacity-100' : 'opacity-50 hover:opacity-70',
             'transition-opacity duration-150'
           )}
           scroll={false}
+          locale="ja"
         >
           JP
         </Link>
@@ -32,12 +41,13 @@ export const LanguageControl = ({ lang }: { lang?: SupportedLocales }) => {
       <span className="py-4">/</span>
       <span className="px-2 py-4">
         <Link
-          href={redirectedPathName('en')}
+          href={basePathName()}
           className={clsx(
             lang === 'en' ? 'opacity-100' : 'opacity-50 hover:opacity-70',
             'transition-opacity duration-150'
           )}
           scroll={false}
+          locale="en"
         >
           EN
         </Link>
