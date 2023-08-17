@@ -1,13 +1,14 @@
 'use client';
-import { useLanguage } from 'app/context/language-context';
 import clsx from 'clsx';
+import { useTranslations } from 'next-intl';
 
 export default function NewsletterSignup() {
-  const { currentDictionary } = useLanguage();
+  const t = useTranslations('Index');
+
   return (
     <div className="mx-auto max-w-xl space-y-4">
-      <h3 className="font-serif text-2xl tracking-wider">{currentDictionary?.newsletter?.title}</h3>
-      <div className="font-multilingual">{currentDictionary?.newsletter?.description}</div>
+      <h3 className="font-serif text-2xl tracking-wider">{t('newsletter.title')}</h3>
+      <div className="font-multilingual">{t('newsletter.description')}</div>
       <form
         className="max-w-xl space-x-px md:flex"
         action={`${process?.env?.NEXT_PUBLIC_MAILCHIMP_HOST}/subscribe/post?u=${process?.env?.NEXT_PUBLIC_MAILCHIMP_USER_ID}&amp;id=${process?.env?.NEXT_PUBLIC_MAILCHIMP_LIST_ID}`}
@@ -16,7 +17,7 @@ export default function NewsletterSignup() {
         target="_blank"
       >
         <label htmlFor="email-address" className="sr-only">
-          {currentDictionary.newsletter.placeholder}
+          {t('newsletter.placeholder')}
         </label>
         <input
           type="email"
@@ -31,7 +32,7 @@ export default function NewsletterSignup() {
             'focus:ring-2 focus:ring-inset focus:ring-emerald-300 focus:ring-offset-0',
             'text-gray-900 placeholder-gray-400'
           )}
-          placeholder={currentDictionary.newsletter.placeholder}
+          placeholder={t('newsletter.placeholder')}
         />
         <div className="mt-3 rounded-md sm:ml-3 sm:mt-0 sm:flex-shrink-0">
           <button
@@ -44,7 +45,7 @@ export default function NewsletterSignup() {
               'focus:border-emerald-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-300 focus:ring-offset-0'
             )}
           >
-            {currentDictionary.newsletter.button}
+            {t('newsletter.button')}
           </button>
         </div>
         <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">

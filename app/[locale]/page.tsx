@@ -1,8 +1,7 @@
 import { Carousel } from 'components/carousel';
 import { ThreeItemGrid } from 'components/grid/three-items';
 import Footer from 'components/layout/footer';
-import { LanguageControl } from 'components/layout/navbar/language-control';
-import type { Locale } from '../../i18n-config';
+import { LanguageControl, SupportedLocales } from 'components/layout/navbar/language-control';
 
 import clsx from 'clsx';
 import LogoNamemark from 'components/icons/namemark';
@@ -23,16 +22,20 @@ export const metadata = {
   }
 };
 
-export default async function HomePage({ params: { lang } }: { params: { lang: Locale } }) {
+export default async function HomePage({
+  params: { locale }
+}: {
+  params: { locale: SupportedLocales };
+}) {
   return (
     <>
       <div className="invisible absolute right-40 top-12 md:visible">
-        <LanguageControl lang={lang} />
+        <LanguageControl lang={locale} />
       </div>
       <div className="px-6 pb-12 pt-6 md:pb-48 md:pl-6 md:pt-12">
         <LogoNamemark className="w-[260px] fill-current md:w-[600px]" />
       </div>
-      <ThreeItemGrid lang={lang} />
+      <ThreeItemGrid lang={locale} />
       <div className="py-48">
         <NewsletterSignup />
       </div>

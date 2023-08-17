@@ -1,11 +1,12 @@
 'use client';
 
 import clsx from 'clsx';
-import type { Locale } from 'i18n-config';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-export const LanguageControl = ({ lang }: { lang?: Locale }) => {
+export type SupportedLocales = 'en' | 'ja' | undefined;
+
+export const LanguageControl = ({ lang }: { lang?: SupportedLocales }) => {
   const pathName = usePathname();
   const redirectedPathName = (locale: string) => {
     if (!pathName) return '/';

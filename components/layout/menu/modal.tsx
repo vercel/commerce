@@ -1,15 +1,16 @@
 'use client';
 
 import { Dialog, Transition } from '@headlessui/react';
-import { useLanguage } from 'app/context/language-context';
 import CloseIcon from 'components/icons/close';
 import MenuIcon from 'components/icons/menu';
+import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { Fragment, useRef, useState } from 'react';
-import { LanguageControl } from '../navbar/language-control';
+import { LanguageControl, SupportedLocales } from '../navbar/language-control';
 
 export function MenuModal() {
-  const { currentLanguage, currentDictionary } = useLanguage();
+  const t = useTranslations('Index');
+  const locale = useLocale();
   let [isOpen, setIsOpen] = useState(false);
   let closeButtonRef = useRef(null);
 
@@ -57,7 +58,7 @@ export function MenuModal() {
               <Dialog.Panel>
                 <div className="fixed right-5 top-6 z-40 px-2 py-1 md:top-11">
                   <div className="flex flex-row space-x-6">
-                    <LanguageControl lang={currentLanguage} />
+                    <LanguageControl lang={locale as SupportedLocales} />
 
                     <button ref={closeButtonRef} onClick={close} className="">
                       <CloseIcon className="h-10 w-10 stroke-current transition-opacity duration-150 hover:opacity-50" />
@@ -73,7 +74,7 @@ export function MenuModal() {
                           href="/products"
                           className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
                         >
-                          {currentDictionary?.menu?.products}
+                          {t('menu.products')}
                         </Link>
                       </div>
 
@@ -82,7 +83,7 @@ export function MenuModal() {
                           href="/shops"
                           className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
                         >
-                          {currentDictionary?.menu?.shops}
+                          {t('menu.shops')}
                         </Link>
                       </div>
 
@@ -91,7 +92,7 @@ export function MenuModal() {
                           href="/about"
                           className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
                         >
-                          {currentDictionary?.menu?.about}
+                          {t('menu.about')}
                         </Link>
                       </div>
 
@@ -100,7 +101,7 @@ export function MenuModal() {
                           href="/bar"
                           className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
                         >
-                          {currentDictionary?.menu?.bar}
+                          {t('menu.bar')}
                         </Link>
                       </div>
 
@@ -109,7 +110,7 @@ export function MenuModal() {
                           href="/concept"
                           className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
                         >
-                          {currentDictionary?.menu?.concept}
+                          {t('menu.concept')}
                         </Link>
                       </div>
 
@@ -118,7 +119,7 @@ export function MenuModal() {
                           href="/stories"
                           className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
                         >
-                          {currentDictionary?.menu?.stories}
+                          {t('menu.stories')}
                         </Link>
                       </div>
 
@@ -127,7 +128,7 @@ export function MenuModal() {
                           href="/company"
                           className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
                         >
-                          {currentDictionary?.menu?.company}
+                          {t('menu.company')}
                         </Link>
                       </div>
 
@@ -136,7 +137,7 @@ export function MenuModal() {
                           href="/contact"
                           className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
                         >
-                          {currentDictionary?.menu?.contact}
+                          {t('menu.contact')}
                         </Link>
                       </div>
                     </div>
