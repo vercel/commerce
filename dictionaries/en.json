@@ -14,5 +14,14 @@
     "description": "Subscribe to our newsletter to receive free shipping on your first order, and access to exclusive information regarding events and pairing dinners.",
     "placeholder": "Email",
     "button": "Notify me"
+  },
+  "shops": {
+    "title": "",
+    "hokkaido": "Hokkaido / North",
+    "kanto": "Kanto",
+    "chubu": "Chubu",
+    "kinki": "Kinki",
+    "chugoku": "Chugoku",
+    "kyushu": "Kyushu"
   }
 }

@@ -4,9 +4,13 @@ import Footer from 'components/layout/footer';
 import { LanguageControl } from 'components/layout/navbar/language-control';
 import type { Locale } from '../../i18n-config';
 
+import clsx from 'clsx';
 import LogoNamemark from 'components/icons/namemark';
 import NewsletterSignup from 'components/layout/newsletter-signup';
+import Shoplist from 'components/layout/shoplist';
+import Image from 'next/image';
 import { Suspense } from 'react';
+import HomeImage001 from './images/home-image-001.webp';
 
 export const runtime = 'edge';
 const { SITE_NAME } = process.env;
@@ -29,8 +33,18 @@ export default async function HomePage({ params: { lang } }: { params: { lang: L
         <LogoNamemark className="w-[260px] fill-current md:w-[600px]" />
       </div>
       <ThreeItemGrid lang={lang} />
-      <div className="py-24">
+      <div className="py-48">
         <NewsletterSignup />
+      </div>
+      <div className="relative max-w-screen-2xl">
+        <Image
+          src={HomeImage001}
+          alt="A picture of Narai Black bottle in a mossy creek."
+          className={clsx('h-full w-full object-cover')}
+        />
+      </div>
+      <div className="py-24">
+        <Shoplist />
       </div>
       <Suspense>
         <Carousel />

@@ -86,7 +86,7 @@ export default async function RootLayout({
     <html lang={params.lang} className={`${cinzel.variable} ${alpina.variable} ${noto.variable}`}>
       <body className="bg-dark text-white selection:bg-green-800 selection:text-green-400">
         <div className="mx-auto max-w-screen-2xl">
-          <LanguageProvider language={params.lang as Locale} dictionary={dictionary}>
+          <LanguageProvider locale={params.lang as Locale} dictionary={dictionary}>
             <Navbar />
             <Suspense>
               <main>{children}</main>
