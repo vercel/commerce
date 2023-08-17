@@ -1,15 +1,5 @@
 // @ts-ignore
 import {
-  mockShopifyProduct,
-  mockCartItem,
-  mockShopifyCart,
-  winterCollection,
-  summerCollection,
-  europeCollection,
-  collections,
-  pages
-} from './mock';
-import {
   Cart,
   Collection,
   Connection,
@@ -22,10 +12,14 @@ import {
   ShopifyCollectionsOperation,
   ShopifyProduct
 } from './types';
-import { getCollectionsQuery } from './queries/collection';
-import { TAGS } from '../constants';
-import { shopifyFetch } from './index_old';
-import { adventureProductNodes, getProductByHandle, getProductNodesByKeyword } from './adventures';
+import { getProductByHandle, getProductNodesByKeyword, getStaticCart } from './adventures';
+import {
+  collections,
+  europeCollection,
+  pages,
+  summerCollection,
+  winterCollection
+} from '../cf/adventures';
 
 const HIDDEN_PRODUCT_TAG = 'hidden';
 
@@ -49,7 +43,7 @@ const removeEdgesAndNodes = (connection) => {
 export const createCart = async (): Promise<Cart> => {
   const res = mockFetchResponse({
     cartCreate: {
-      cart: mockShopifyCart
+      cart: await getStaticCart()
     }
   });
   return reshapeCart(res.body.data.cartCreate.cart);
@@ -61,7 +55,7 @@ export const addToCart = async (
 ): Promise<Cart> => {
   const res = mockFetchResponse({
     cartLinesAdd: {
-      cart: mockShopifyCart
+      cart: await getStaticCart()
     }
   });
   return reshapeCart(res.body.data.cartLinesAdd.cart);
@@ -70,7 +64,7 @@ export const addToCart = async (
 export const removeFromCart = async (cartId: string, lineIds: string[]): Promise<Cart> => {
   const res = mockFetchResponse({
     cartLinesRemove: {
-      cart: mockShopifyCart
+      cart: await getStaticCart()
     }
   });
   return reshapeCart(res.body.data.cartLinesRemove.cart);
@@ -82,7 +76,7 @@ export const updateCart = async (
 ): Promise<Cart> => {
   const res = mockFetchResponse({
     cartLinesUpdate: {
-      cart: mockShopifyCart
+      cart: await getStaticCart()
     }
   });
   return reshapeCart(res.body.data.cartLinesUpdate.cart);
@@ -90,7 +84,7 @@ export const updateCart = async (
 
 export const getCart = async (cartId: string): Promise<Cart | undefined> => {
   const res = mockFetchResponse({
-    cart: mockShopifyCart
+    cart: await getStaticCart()
   });
   return reshapeCart(res.body.data.cart);
 };
@@ -114,7 +108,7 @@ export const getCollectionProducts = async ({
   const res = mockFetchResponse({
     collection: {
       products: {
-        edges: getProductNodesByKeyword(collection)
+        edges: await getProductNodesByKeyword(collection)
       }
     }
   });
@@ -227,7 +221,7 @@ export const getPages = async (): Promise<Page[]> => {
 
 export const getProduct = async (handle: string): Promise<Product | undefined> => {
   const res = mockFetchResponse({
-    product: getProductByHandle(handle)
+    product: await getProductByHandle(handle)
   });
   return reshapeProduct(res.body.data.product, false);
 };
@@ -235,10 +229,10 @@ export const getProduct = async (handle: string): Promise<Product | undefined> =
 export const getProductRecommendations = async (productId: string): Promise<Product[]> => {
   const res = mockFetchResponse({
     productRecommendations: [
-      getProductByHandle('climbing-new-zealand'),
-      getProductByHandle('ski-touring-mont-blanc'),
-      getProductByHandle('downhill-skiing-wyoming'),
-      getProductByHandle('cycling-tuscany')
+      await getProductByHandle('climbing-new-zealand'),
+      await getProductByHandle('ski-touring-mont-blanc'),
+      await getProductByHandle('downhill-skiing-wyoming'),
+      await getProductByHandle('cycling-tuscany')
     ]
   });
   return reshapeProducts(res.body.data.productRecommendations);
@@ -255,7 +249,7 @@ export const getProducts = async ({
 }): Promise<Product[]> => {
   const res = mockFetchResponse({
     products: {
-      edges: getProductNodesByKeyword(query)
+      edges: await getProductNodesByKeyword(query)
     }
   });
   return reshapeProducts(removeEdgesAndNodes(res.body.data.products));

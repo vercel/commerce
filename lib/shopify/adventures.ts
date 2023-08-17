@@ -1,6 +1,63 @@
+import { AdventureClient } from '../cf/adventures';
+
 const baseImagePath = 'https://publish-p64257-e147834-cmstg.adobeaemcloud.com/';
 
-const adventures = [
+const getAllAdventures = async () => {
+  const client: AdventureClient = AdventureClient.fromEnv();
+  const res = await client.getAllAdventures();
+  const adventures = res?.data?.adventureList?.items || [];
+  return adventures;
+};
+
+export async function getStaticCart() {
+  const mockShopifyProduct = (await getAdventureProducts())[0];
+  const mockCartItem = {
+    id: 'item1',
+    quantity: 1,
+    cost: {
+      totalAmount: {
+        amount: '100.00',
+        currencyCode: 'USD'
+      }
+    },
+    merchandise: {
+      id: 'merchandise1',
+      title: 'WKND Adventure',
+      selectedOptions: [
+        {
+          name: 'Duration',
+          value: 'Normal'
+        }
+      ],
+      product: mockShopifyProduct
+    }
+  };
+
+  const cart = {
+    id: 'cart1',
+    checkoutUrl: 'https://example.com/checkout',
+    cost: {
+      subtotalAmount: {
+        amount: '90.00',
+        currencyCode: 'USD'
+      },
+      totalAmount: {
+        amount: '100.00',
+        currencyCode: 'USD'
+      },
+      totalTaxAmount: {
+        amount: '10.00',
+        currencyCode: 'USD'
+      }
+    },
+    lines: { edges: [{ node: mockCartItem }] },
+    totalQuantity: 1
+  };
+
+  return cart;
+}
+
+const adventuresOld = [
   {
     _path: '/content/dam/aem-demo-assets/en/adventures/bali-surf-camp/bali-surf-camp',
     title: 'Basel Surf Camp',
@@ -620,24 +677,37 @@ export function transformToProduct(adventure: any): Product {
   return product;
 }
 
-export const adventureProducts: Product[] = adventures.map(transformToProduct) as Product[];
+// export const adventureProducts: Product[] = adventures.map(transformToProduct) as Product[];
 
-export const adventureProductNodes = adventureProducts.map((product) => ({
-  node: product
-}));
+export async function getAdventureProducts() {
+  const adventures = await getAllAdventures();
+  const products = adventures.map(transformToProduct) as Product[];
+  return products;
+}
 
-export function getProductNodesByKeyword(keyword: string | undefined): { node: Product }[] {
-  return getProductsByKeyword(keyword).map((product) => ({
+export async function getAdventureProductsNode() {
+  const adventureProducts = await getAdventureProducts();
+  const adventureProductNodes = adventureProducts.map((product) => ({
+    node: product
+  }));
+
+  return adventureProductNodes;
+}
+
+export async function getProductNodesByKeyword(keyword: string | undefined) {
+  return (await getProductsByKeyword(keyword)).map((product) => ({
     node: product
   }));
 }
 
-export function getProductByHandle(handle: string): Product | undefined {
+export async function getProductByHandle(handle: string) {
+  const adventureProducts = await getAdventureProducts();
   const res = adventureProducts.find((product) => product.handle === handle);
   return res;
 }
 
-export function getProductsByKeyword(keyword: string | undefined): Product[] {
+export async function getProductsByKeyword(keyword: string | undefined) {
+  const adventureProducts = await getAdventureProducts();
   //if keyword is empty, return all products
   if (!keyword || keyword === undefined) {
     return adventureProducts;
