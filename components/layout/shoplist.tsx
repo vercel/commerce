@@ -6,7 +6,7 @@ import Link from 'next/link';
 export default function Shoplist() {
   const t = useTranslations('Index');
   return (
-    <div className="mx-auto max-w-screen-2xl space-y-4 px-2" id="shops">
+    <div className="mx-auto max-w-screen-2xl space-y-4 px-6" id="shops">
       <div className="flex w-full flex-row items-baseline space-x-12 pb-6">
         <h2 className="font-serif text-6xl tracking-wider">shop list</h2>
         <h3 className="font-multilingual font-serif text-2xl tracking-wider">

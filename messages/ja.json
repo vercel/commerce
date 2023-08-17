@@ -26,6 +26,11 @@
       "kinki": "近畿",
       "chugoku": "中国・四国",
       "kyushu": "九州"
+    },
+    "footer": {
+      "newsletter": {
+        "promo": "Get 10% off on your first order. Get discount."
+      }
     }
   }
 }

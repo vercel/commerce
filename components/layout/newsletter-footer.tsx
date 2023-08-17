@@ -6,9 +6,11 @@ export default function NewsletterSignup() {
   const t = useTranslations('Index');
 
   return (
-    <div className="mx-auto max-w-xl space-y-4">
-      <h3 className="font-serif text-2xl tracking-wider">{t('newsletter.title')}</h3>
-      <div className="font-multilingual">{t('newsletter.description')}</div>
+    <div>
+      <div className="flex flex-row items-baseline justify-between space-x-6">
+        <h3 className="grow font-serif text-2xl tracking-wider">{t('newsletter.title')}</h3>
+        <div className="font-multilingual">{t('footer.newsletter.promo')}</div>
+      </div>
       <form
         className="max-w-xl space-x-px md:flex"
         action={`${process?.env?.NEXT_PUBLIC_MAILCHIMP_HOST}/subscribe/post?u=${process?.env?.NEXT_PUBLIC_MAILCHIMP_USER_ID}&amp;id=${process?.env?.NEXT_PUBLIC_MAILCHIMP_LIST_ID}`}

@@ -26,6 +26,11 @@
       "kinki": "Kinki",
       "chugoku": "Chugoku",
       "kyushu": "Kyushu"
+    },
+    "footer": {
+      "newsletter": {
+        "promo": "Get 10% off on your first order. Get discount."
+      }
     }
   }
 }
