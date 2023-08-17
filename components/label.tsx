@@ -14,9 +14,9 @@ const Label = ({
 }) => {
   return (
     <div className={clsx('@container/label')}>
-      <div className="font-multilingual flex flex-col space-y-2">
-        <h3 className="mr-4 line-clamp-2 flex-grow text-3xl">{title}</h3>
-        <div className="flex flex-row items-center space-x-2">
+      <div className="flex flex-col space-y-2">
+        <h3 className="mr-4 line-clamp-2 flex-grow font-serif text-3xl md:text-4xl">{title}</h3>
+        <div className="font-multilingual flex flex-row items-center space-x-2">
           <Price
             className="flex-none"
             amount={amount}

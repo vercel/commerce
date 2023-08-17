@@ -23,6 +23,7 @@ export const LanguageControl = ({ lang }: { lang?: Locale }) => {
             lang === 'ja' ? 'opacity-100' : 'opacity-50 hover:opacity-70',
             'transition-opacity duration-150'
           )}
+          scroll={false}
         >
           JP
         </Link>
@@ -35,6 +36,7 @@ export const LanguageControl = ({ lang }: { lang?: Locale }) => {
             lang === 'en' ? 'opacity-100' : 'opacity-50 hover:opacity-70',
             'transition-opacity duration-150'
           )}
+          scroll={false}
         >
           EN
         </Link>

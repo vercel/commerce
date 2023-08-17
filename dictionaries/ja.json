@@ -8,5 +8,11 @@
     "stories": "ストーリー",
     "company": "会社概要",
     "contact": "contact"
+  },
+  "newsletter": {
+    "title": "newsletter",
+    "description": "ニュースレターにご登録いただくと、初回送料無料クーポン、購読者限定の情報やペアリングディナーなどのご案内をお送りさせていただきます。",
+    "placeholder": "メールアドレス",
+    "button": "登録する"
   }
 }

@@ -8,5 +8,11 @@
     "stories": "stories",
     "company": "company",
     "contact": "contact"
+  },
+  "newsletter": {
+    "title": "newsletter",
+    "description": "Subscribe to our newsletter to receive free shipping on your first order, and access to exclusive information regarding events and pairing dinners.",
+    "placeholder": "Email",
+    "button": "Notify me"
   }
 }

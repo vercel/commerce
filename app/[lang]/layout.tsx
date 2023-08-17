@@ -1,5 +1,6 @@
 import Navbar from 'components/layout/navbar';
 import { Locale, i18n } from 'i18n-config';
+import { Noto_Sans_JP } from 'next/font/google';
 import localFont from 'next/font/local';
 import { ReactNode, Suspense } from 'react';
 
@@ -55,6 +56,13 @@ const alpina = localFont({
   variable: '--font-alpina'
 });
 
+const noto = Noto_Sans_JP({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['300', '600'],
+  variable: '--font-noto'
+});
+
 const mincho = localFont({
   src: '../fonts/A-OTF-A1MinchoStd-Bold.otf',
   display: 'swap',
@@ -75,7 +83,7 @@ export default async function RootLayout({
   const dictionary = await getDictionary(params?.lang);
 
   return (
-    <html lang={params.lang} className={`${cinzel.variable} ${alpina.variable} ${mincho.variable}`}>
+    <html lang={params.lang} className={`${cinzel.variable} ${alpina.variable} ${noto.variable}`}>
       <body className="bg-dark text-white selection:bg-green-800 selection:text-green-400">
         <div className="mx-auto max-w-screen-2xl">
           <LanguageProvider language={params.lang as Locale} dictionary={dictionary}>

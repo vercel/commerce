@@ -5,6 +5,7 @@ import { LanguageControl } from 'components/layout/navbar/language-control';
 import type { Locale } from '../../i18n-config';
 
 import LogoNamemark from 'components/icons/namemark';
+import NewsletterSignup from 'components/layout/newsletter-signup';
 import { Suspense } from 'react';
 
 export const runtime = 'edge';
@@ -28,6 +29,9 @@ export default async function HomePage({ params: { lang } }: { params: { lang: L
         <LogoNamemark className="w-[260px] fill-current md:w-[600px]" />
       </div>
       <ThreeItemGrid lang={lang} />
+      <div className="py-24">
+        <NewsletterSignup />
+      </div>
       <Suspense>
         <Carousel />
         <Suspense>

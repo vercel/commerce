@@ -10,9 +10,9 @@ module.exports = {
         dark: '#212720'
       },
       fontFamily: {
-        sans: ['var(--font-alpina)', 'sans-serif'],
-        title: ['var(--font-cinzel)', 'sans-serif'],
-        japan: ['var(--font-mincho)', 'sans-serif']
+        serif: ['var(--font-alpina)', 'serif'],
+        title: ['var(--font-cinzel)', 'serif'],
+        japan: ['var(--font-noto)', 'sans-serif']
       },
       aspectRatio: {
         tall: '596 / 845'
