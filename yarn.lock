@@ -156,7 +156,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/intl-localematcher@npm:0.4.0, @formatjs/intl-localematcher@npm:^0.4.0":
+"@formatjs/intl-localematcher@npm:0.4.0":
   version: 0.4.0
   resolution: "@formatjs/intl-localematcher@npm:0.4.0"
   dependencies:
@@ -1267,7 +1267,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "commerce@workspace:."
   dependencies:
-    "@formatjs/intl-localematcher": ^0.4.0
     "@headlessui/react": ^1.7.15
     "@heroicons/react": ^2.0.18
     "@tailwindcss/container-queries": ^0.1.1
