@@ -1,9 +1,9 @@
 import HomePage from '@/components/pages/home-page';
 import HomePagePreview from '@/components/pages/home-page-preview';
-import PreviewProvider from '@/components/preview-provider';
-import { homePageQuery } from 'lib/sanity/queries';
-import { getCachedClient } from 'lib/sanity/sanity.client';
+import { homePageQuery } from '@/lib/sanity/queries';
+import { getHomePage } from '@/lib/sanity/sanity.fetch';
 import { Metadata } from 'next';
+import { LiveQuery } from 'next-sanity/preview/live-query';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 
@@ -13,15 +13,15 @@ export const dynamic = 'force-dynamic';
 export async function generateMetadata({
   params
 }: {
-  params: { slug: string; locale: string };
+  params: { locale: string };
 }): Promise<Metadata> {
-  const homePage = await getCachedClient()(homePageQuery, params);
+  const homePage = await getHomePage(params.locale);
 
   if (!homePage) return notFound();
 
   return {
-    title: homePage.seo.title || homePage.title,
-    description: homePage.seo.description || homePage.description
+    title: homePage?.seo?.title || homePage.title,
+    description: homePage?.seo?.description
   };
 }
 interface HomePageParams {
@@ -31,19 +31,22 @@ interface HomePageParams {
 }
 
 export default async function IndexPage({ params }: HomePageParams) {
-  const preview = draftMode().isEnabled ? { token: process.env.SANITY_API_READ_TOKEN } : undefined;
+  // const preview = draftMode().isEnabled ? { token: process.env.SANITY_API_READ_TOKEN } : undefined;
 
-  const data = await getCachedClient(preview)(homePageQuery, params);
+  const data = await getHomePage(params.locale);
 
-  if (!data) return notFound();
-
-  if (preview && preview.token) {
-    return (
-      <PreviewProvider token={preview.token}>
-        <HomePagePreview initialData={data} params={params} />
-      </PreviewProvider>
-    );
+  if (!data && !draftMode().isEnabled) {
+    notFound();
   }
 
-  return <HomePage data={data} />;
+  return (
+    <LiveQuery
+      enabled={draftMode().isEnabled}
+      query={homePageQuery}
+      initialData={data}
+      as={HomePagePreview}
+    >
+      <HomePage data={data} />
+    </LiveQuery>
+  );
 }

@@ -1,14 +1,10 @@
-import { categoriesQuery } from '@/lib/sanity/queries';
-import { getCachedClient } from '@/lib/sanity/sanity.client';
 import Cart from 'components/cart';
 import OpenCart from 'components/cart/open-cart';
 import Logo from 'components/ui/logo/logo';
 
 import Link from 'next/link';
 import { Suspense } from 'react';
-import DesktopMenu from './desktop-menu/desktop-menu';
 import HeaderRoot from './header-root';
-import MobileMenuModal from './mobile-menu/modal';
 import OpenMobileMenu from './mobile-menu/open-mobile-menu';
 import SearchModal from './search/modal';
 import OpenSearch from './search/open-search';
@@ -18,10 +14,10 @@ interface HeaderProps {
   locale: string;
 }
 export default async function Header({ locale }: HeaderProps) {
-  const params = {
-    locale: locale
-  };
-  const mainMenu = await getCachedClient()(categoriesQuery, params);
+  // const params = {
+  //   locale: locale
+  // };
+  // const mainMenu = await getCachedClient()(categoriesQuery, params);
 
   return (
     <HeaderRoot>
@@ -29,7 +25,7 @@ export default async function Header({ locale }: HeaderProps) {
         <div className="relative flex w-full items-center justify-between px-4 py-2 lg:px-8 2xl:px-16">
           <div className="-translate-x-2 transform md:hidden">
             <Suspense fallback={<OpenMobileMenu />}>
-              <MobileMenuModal items={mainMenu} />
+              {/* <MobileMenuModal items={mainMenu} /> */}
             </Suspense>
           </div>
 
@@ -44,9 +40,7 @@ export default async function Header({ locale }: HeaderProps) {
           </div>
 
           <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 transform md:flex">
-            <Suspense>
-              <DesktopMenu items={mainMenu} />
-            </Suspense>
+            <Suspense>{/* <DesktopMenu items={mainMenu} /> */}</Suspense>
           </div>
           <div className="flex translate-x-2 transform justify-end space-x-1">
             <Suspense fallback={<OpenSearch />}>

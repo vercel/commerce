@@ -1,7 +1,10 @@
 import createImageUrlBuilder from '@sanity/image-url'
-import { getClient } from './sanity.client'
+import { dataset, projectId } from './sanity.api'
 
-export const imageBuilder = createImageUrlBuilder(getClient())
+const imageBuilder = createImageUrlBuilder({
+  projectId: projectId || '',
+  dataset: dataset || '',
+})
 
 export const urlForImage = (source: any) =>
   imageBuilder.image(source).auto('format').fit('crop')

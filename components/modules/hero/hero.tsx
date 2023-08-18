@@ -7,7 +7,7 @@ interface HeroProps {
   text?: string;
   label?: string;
   title: string;
-  image: object | any;
+  image?: { asset?: any };
   color?: string;
   overlay?: boolean;
   link: {
@@ -31,6 +31,8 @@ const heroSize = {
 const Hero = ({ variant, title, text, label, image, link, color, overlay }: HeroProps) => {
   const heroClass = heroSize[variant as HeroSize] || heroSize.fullScreen;
 
+  console.log(image);
+
   return (
     <div
       className={`relative w-screen ${heroClass} relative flex flex-col justify-end bg-neutral-300 text-high-contrast`}
@@ -38,10 +40,9 @@ const Hero = ({ variant, title, text, label, image, link, color, overlay }: Hero
       {image && (
         <SanityImage
           image={image}
-          alt={image.alt}
           priority={true}
           className="absolute inset-0 z-10 h-full w-full object-cover"
-          sizes="100vw"
+          size="100vw"
           fill
         />
       )}

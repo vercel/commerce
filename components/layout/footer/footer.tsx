@@ -1,6 +1,5 @@
-import Text from '@/components/ui/text';
-import { footerMenusQuery } from '@/lib/sanity/queries';
-import { getCachedClient } from '@/lib/sanity/sanity.client';
+// import { footerMenusQuery } from '@/lib/sanity/queries';
+// import { getCachedClient } from '@/lib/sanity/sanity.client';
 import LocaleSwitcher from 'components/ui/locale-switcher/locale-switcher';
 import Logo from 'components/ui/logo/logo';
 import Link from 'next/link';
@@ -15,7 +14,7 @@ export default async function Footer({ locale }: FooterProps) {
     locale: locale
   };
 
-  const footerMenus = await getCachedClient()(footerMenusQuery, params);
+  // const footerMenus = await getCachedClient()(footerMenusQuery, params);
 
   return (
     <footer className="border-t border-ui-border bg-app">
@@ -27,7 +26,7 @@ export default async function Footer({ locale }: FooterProps) {
           <LocaleSwitcher />
         </div>
 
-        {footerMenus.length > 0 && (
+        {/* {footerMenus.length > 0 && (
           <div className="grid w-full grid-cols-2 gap-4 p-4 lg:grid-cols-4 lg:gap-8 lg:px-8 lg:py-6 2xl:px-16 2xl:py-8">
             {footerMenus.map((menu: object | any, index: number) => {
               return (
@@ -61,7 +60,7 @@ export default async function Footer({ locale }: FooterProps) {
               );
             })}
           </div>
-        )}
+        )} */}
 
         <div className="flex items-center justify-center border-t border-ui-border bg-black px-4 py-3 lg:px-8 2xl:px-16">
           <CopyRight />
