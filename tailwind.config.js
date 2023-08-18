@@ -13,7 +13,7 @@ module.exports = {
       fontFamily: {
         serif: ['var(--font-alpina)', 'serif'],
         title: ['var(--font-cinzel)', 'serif'],
-        japan: ['var(--font-noto)', 'sans-serif']
+        japan: ['var(--font-noto)', 'serif']
       },
       aspectRatio: {
         tall: '596 / 845'

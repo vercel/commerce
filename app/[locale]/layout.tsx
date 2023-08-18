@@ -1,9 +1,9 @@
 import Navbar from 'components/layout/navbar';
-import { Locale } from 'i18n-config';
-import { Noto_Sans_JP } from 'next/font/google';
+import { Noto_Serif_JP } from 'next/font/google';
 import localFont from 'next/font/local';
 import { ReactNode, Suspense } from 'react';
 
+import { SupportedLocale } from 'components/layout/navbar/language-control';
 import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
 import './globals.css';
@@ -56,17 +56,11 @@ const alpina = localFont({
   variable: '--font-alpina'
 });
 
-const noto = Noto_Sans_JP({
+const noto = Noto_Serif_JP({
   subsets: ['latin'],
   display: 'swap',
   weight: ['300', '600'],
   variable: '--font-noto'
-});
-
-const mincho = localFont({
-  src: '../fonts/A-OTF-A1MinchoStd-Bold.otf',
-  display: 'swap',
-  variable: '--font-mincho'
 });
 
 export function generateStaticParams() {
@@ -78,7 +72,7 @@ export default async function RootLayout({
   params
 }: {
   children: ReactNode;
-  params: { locale: Locale };
+  params: { locale?: SupportedLocale };
 }) {
   let messages;
   try {

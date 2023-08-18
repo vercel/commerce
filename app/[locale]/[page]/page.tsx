@@ -12,7 +12,7 @@ export const revalidate = 43200; // 12 hours in seconds
 export async function generateMetadata({
   params
 }: {
-  params: { page: string; locale: SupportedLocale };
+  params: { page: string; locale?: SupportedLocale };
 }): Promise<Metadata> {
   const page = await getPage({ handle: params.page, language: params?.locale?.toUpperCase() });
 
@@ -32,7 +32,7 @@ export async function generateMetadata({
 export default async function Page({
   params
 }: {
-  params: { page: string; locale: SupportedLocale };
+  params: { page: string; locale?: SupportedLocale };
 }) {
   const page = await getPage({ handle: params.page, language: params?.locale?.toUpperCase() });
 

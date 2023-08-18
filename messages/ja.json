@@ -1,6 +1,7 @@
 {
   "Index": {
     "menu": {
+      "title": "menu",
       "products": "商品",
       "shops": "取り扱い店",
       "about": "naraiについて",
@@ -9,6 +10,13 @@
       "stories": "ストーリー",
       "company": "会社概要",
       "contact": "contact"
+    },
+    "shopping-guide": {
+      "title": "shopping guide",
+      "terms": "利用規約",
+      "legal": "特定商取引法表記",
+      "privacy": "プライバシーポリシー",
+      "contact": "お問い合わせ"
     },
     "newsletter": {
       "title": "newsletter",

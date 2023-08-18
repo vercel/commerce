@@ -15,7 +15,7 @@ export default function Shoplist() {
       </div>
       <div className="grid w-full grid-cols-2 gap-px">
         <Link
-          href="shops/hokkaido"
+          href="shop-list/#hokkaido"
           className="group col-span-1 flex flex-row items-center justify-between p-6 outline outline-1 outline-subtle"
         >
           <div>{t('shops.hokkaido')}</div>
@@ -27,7 +27,7 @@ export default function Shoplist() {
           </div>
         </Link>
         <Link
-          href="shops/kanto"
+          href="shop-list/#kanto"
           className="group col-span-1 flex flex-row items-center justify-between p-6 outline outline-1 outline-subtle"
         >
           <div>{t('shops.kanto')}</div>
@@ -39,7 +39,7 @@ export default function Shoplist() {
           </div>
         </Link>
         <Link
-          href="shops/chubu"
+          href="shop-list/#chubu"
           className="group col-span-1 flex flex-row items-center justify-between p-6 outline outline-1 outline-subtle"
         >
           <div>{t('shops.chubu')}</div>
@@ -51,7 +51,7 @@ export default function Shoplist() {
           </div>
         </Link>
         <Link
-          href="shops/kinki"
+          href="shop-list/#kinki"
           className="group col-span-1 flex flex-row items-center justify-between p-6 outline outline-1 outline-subtle"
         >
           <div>{t('shops.kinki')}</div>
@@ -63,7 +63,7 @@ export default function Shoplist() {
           </div>
         </Link>
         <Link
-          href="shops/chugoku"
+          href="shop-list/#chugoku"
           className="group col-span-1 flex flex-row items-center justify-between p-6 outline outline-1 outline-subtle"
         >
           <div>{t('shops.chugoku')}</div>
@@ -75,7 +75,7 @@ export default function Shoplist() {
           </div>
         </Link>
         <Link
-          href="shops/kyushu"
+          href="shop-list/#kyushu"
           className="group col-span-1 flex flex-row items-center justify-between p-6 outline outline-1 outline-subtle"
         >
           <div>{t('shops.kyushu')}</div>

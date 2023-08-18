@@ -68,7 +68,7 @@ export function MenuModal() {
 
                 <div className="fixed inset-0 grid grid-cols-1 place-content-center bg-dark/80">
                   <div className="flex flex-row justify-end">
-                    <div className="flex flex-col space-y-4 px-6 text-right">
+                    <nav className="flex flex-col space-y-4 px-6 text-right">
                       <div>
                         <Link
                           href="/products"
@@ -80,7 +80,7 @@ export function MenuModal() {
 
                       <div>
                         <Link
-                          href="/shops"
+                          href="/shop-list"
                           className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
                         >
                           {t('menu.shops')}
@@ -140,7 +140,7 @@ export function MenuModal() {
                           {t('menu.contact')}
                         </Link>
                       </div>
-                    </div>
+                    </nav>
                   </div>
                 </div>
               </Dialog.Panel>

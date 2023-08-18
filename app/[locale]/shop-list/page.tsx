@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 
+import LogoNamemark from 'components/icons/namemark';
 import { SupportedLocale } from 'components/layout/navbar/language-control';
 import Prose from 'components/prose';
 import { getPage } from 'lib/shopify';
@@ -13,9 +14,9 @@ export const revalidate = 43200; // 12 hours in seconds
 export async function generateMetadata({
   params
 }: {
-  params: { page: string; locale: SupportedLocale };
+  params: { locale?: SupportedLocale };
 }): Promise<Metadata> {
-  const page = await getPage({ handle: params.page, language: params?.locale?.toUpperCase() });
+  const page = await getPage({ handle: 'shop-list', language: params?.locale?.toUpperCase() });
 
   if (!page) return notFound();
 
@@ -30,17 +31,16 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({
-  params
-}: {
-  params: { page: string; locale: SupportedLocale };
-}) {
-  const page = await getPage({ handle: params.page, language: params?.locale?.toUpperCase() });
+export default async function Page({ params }: { params: { locale?: SupportedLocale } }) {
+  const page = await getPage({ handle: 'shop-list', language: params?.locale?.toUpperCase() });
 
   if (!page) return notFound();
 
   return (
     <div className="font-multilingual min-h-screen px-4 text-white">
+      <div className="pb-12">
+        <LogoNamemark className="w-[260px] fill-current md:w-[320px]" />
+      </div>
       <ShopsTitle />
       <h2 className="mb-8 text-3xl font-medium">{page.title}</h2>
       <Prose className="mb-8" html={page.body as string} />

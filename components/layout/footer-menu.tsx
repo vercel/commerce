@@ -1,46 +1,88 @@
 'use client';
 
-import clsx from 'clsx';
-import { Menu } from 'lib/shopify/types';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
 
-const FooterMenuItem = ({ item }: { item: Menu }) => {
-  const pathname = usePathname();
-  const [active, setActive] = useState(pathname === item.path);
-
-  useEffect(() => {
-    setActive(pathname === item.path);
-  }, [pathname, item.path]);
+export default function FooterMenu() {
+  const t = useTranslations('Index');
 
   return (
-    <li>
-      <Link
-        href={item.path}
-        className={clsx(
-          'block p-2 text-lg underline-offset-4 hover:text-black hover:underline dark:hover:text-neutral-300 md:inline-block md:text-sm',
-          {
-            'text-black dark:text-neutral-300': active
-          }
-        )}
-      >
-        {item.title}
-      </Link>
-    </li>
-  );
-};
+    <div className="hidden md:grid md:w-full md:grid-cols-2">
+      <div className="col-span-1">
+        <div className="mb-4 font-serif text-base underline">{t('menu.title')}</div>
+        <nav className="font-multilingual flex flex-col space-y-2 text-left text-base font-normal">
+          <div>
+            <Link href="/products" className="transition-opacity duration-150 hover:opacity-50">
+              {t('menu.products')}
+            </Link>
+          </div>
 
-export default function FooterMenu({ menu }: { menu: Menu[] }) {
-  if (!menu.length) return null;
+          <div>
+            <Link href="/shop-list" className="transition-opacity duration-150 hover:opacity-50">
+              {t('menu.shops')}
+            </Link>
+          </div>
 
-  return (
-    <nav>
-      <ul>
-        {menu.map((item: Menu) => {
-          return <FooterMenuItem key={item.title} item={item} />;
-        })}
-      </ul>
-    </nav>
+          <div>
+            <Link href="/about" className="transition-opacity duration-150 hover:opacity-50">
+              {t('menu.about')}
+            </Link>
+          </div>
+
+          <div>
+            <Link href="/bar" className="transition-opacity duration-150 hover:opacity-50">
+              {t('menu.bar')}
+            </Link>
+          </div>
+
+          <div>
+            <Link href="/concept" className="transition-opacity duration-150 hover:opacity-50">
+              {t('menu.concept')}
+            </Link>
+          </div>
+
+          <div>
+            <Link href="/stories" className="transition-opacity duration-150 hover:opacity-50">
+              {t('menu.stories')}
+            </Link>
+          </div>
+
+          <div>
+            <Link href="/company" className="transition-opacity duration-150 hover:opacity-50">
+              {t('menu.company')}
+            </Link>
+          </div>
+        </nav>
+      </div>
+
+      <div className="col-span-1">
+        <div className="mb-4 font-serif text-base underline">{t('shopping-guide.title')}</div>
+        <nav className="font-multilingual flex flex-col space-y-2 text-left text-base font-normal">
+          <div>
+            <Link href="/terms" className="transition-opacity duration-150 hover:opacity-50">
+              {t('shopping-guide.terms')}
+            </Link>
+          </div>
+
+          <div>
+            <Link href="/legal" className="transition-opacity duration-150 hover:opacity-50">
+              {t('shopping-guide.legal')}
+            </Link>
+          </div>
+
+          <div>
+            <Link href="/privacy" className="transition-opacity duration-150 hover:opacity-50">
+              {t('shopping-guide.privacy')}
+            </Link>
+          </div>
+
+          <div>
+            <Link href="/contact" className="transition-opacity duration-150 hover:opacity-50">
+              {t('shopping-guide.contact')}
+            </Link>
+          </div>
+        </nav>
+      </div>
+    </div>
   );
 }

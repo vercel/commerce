@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import Link from 'next-intl/link';
 import { usePathname } from 'next/navigation';
 
-export type SupportedLocale = 'en' | 'ja' | undefined;
+export type SupportedLocale = 'en' | 'ja';
 
 function removeItem<T>(arr: Array<T>, value: T): Array<T> {
   const index = arr.indexOf(value);

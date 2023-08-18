@@ -35,7 +35,7 @@ function ThreeItemGridItem({ item, priority }: { item: Product; priority?: boole
   );
 }
 
-export async function ThreeItemGrid({ lang }: { lang: SupportedLocale }) {
+export async function ThreeItemGrid({ lang }: { lang?: SupportedLocale }) {
   // Collections that start with `hidden-*` are hidden from the search page.
   const homepageItems = await getCollectionProducts({
     collection: 'hidden-homepage-featured-items',

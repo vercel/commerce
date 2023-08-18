@@ -1,4 +1,5 @@
-import { getMenu } from 'lib/shopify';
+import clsx from 'clsx';
+import FooterMenu from './footer-menu';
 import NewsletterFooter from './newsletter-footer';
 
 const { COMPANY_NAME, SITE_NAME } = process.env;
@@ -6,15 +7,23 @@ const { COMPANY_NAME, SITE_NAME } = process.env;
 export default async function Footer() {
   const currentYear = new Date().getFullYear();
   const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '');
-  const skeleton = 'w-full h-6 animate-pulse rounded bg-neutral-200 dark:bg-neutral-700';
-  const menu = await getMenu('next-js-frontend-footer-menu');
   const copyrightName = COMPANY_NAME || SITE_NAME || '';
 
   return (
-    <footer className="text-sm">
-      <div className="mx-auto flex w-full max-w-screen-2xl flex-col gap-6 border-t border-white/20 px-6 py-12 text-sm md:flex-row md:gap-12">
-        <div className="flex flex-row justify-between">
+    <footer className="px-6 text-sm">
+      <div
+        className={clsx(
+          'mx-auto flex w-full max-w-screen-2xl justify-between',
+          'flex-col gap-6 py-12',
+          'border-t border-subtle',
+          'text-sm md:flex-row md:gap-12'
+        )}
+      >
+        <div className="w-full md:w-1/2">
           <NewsletterFooter />
+        </div>
+        <div className="hidden md:block md:w-1/3">
+          <FooterMenu />
         </div>
       </div>
       <div>

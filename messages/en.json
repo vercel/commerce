@@ -1,6 +1,7 @@
 {
   "Index": {
     "menu": {
+      "title": "menu",
       "products": "products",
       "shops": "shop list",
       "about": "about narai",
@@ -8,6 +9,13 @@
       "concept": "concept",
       "stories": "stories",
       "company": "company",
+      "contact": "contact"
+    },
+    "shopping-guide": {
+      "title": "shopping guide",
+      "terms": "terms of use",
+      "legal": "legal notice",
+      "privacy": "privacy policy",
       "contact": "contact"
     },
     "newsletter": {

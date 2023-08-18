@@ -25,7 +25,7 @@ export const metadata = {
 export default async function HomePage({
   params: { locale }
 }: {
-  params: { locale: SupportedLocale };
+  params: { locale?: SupportedLocale };
 }) {
   return (
     <>
