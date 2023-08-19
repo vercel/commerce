@@ -1,6 +1,7 @@
 'use client';
 
 import { Dialog, Transition } from '@headlessui/react';
+import clsx from 'clsx';
 import CloseIcon from 'components/icons/close';
 import MenuIcon from 'components/icons/menu';
 import { useLocale, useTranslations } from 'next-intl';
@@ -8,7 +9,7 @@ import Link from 'next/link';
 import { Fragment, useRef, useState } from 'react';
 import { LanguageControl, SupportedLocale } from '../navbar/language-control';
 
-export function MenuModal() {
+export function MenuModal({ scrolled }: { scrolled: boolean }) {
   const t = useTranslations('Index');
   const locale = useLocale();
   let [isOpen, setIsOpen] = useState(false);
@@ -56,7 +57,12 @@ export function MenuModal() {
           >
             <div className="fixed inset-0 z-30 backdrop-blur-sm">
               <Dialog.Panel>
-                <div className="fixed right-5 top-6 z-40 px-2 py-1 md:top-6">
+                <div
+                  className={clsx(
+                    'fixed right-5 top-6 z-40 px-2 py-1',
+                    scrolled ? 'md:top-6' : 'md:top-0'
+                  )}
+                >
                   <div className="flex flex-row space-x-6">
                     <LanguageControl lang={locale as SupportedLocale} />
 

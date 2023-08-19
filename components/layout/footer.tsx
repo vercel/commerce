@@ -51,10 +51,10 @@ export default async function Footer({ cart }: { cart?: Cart }) {
                 <CartModal cart={cart} />
                 <div className="flex flex-row items-center space-x-6">
                   <Link href="https://www.instagram.com/suginomoribrewery/" className="group">
-                    <InstagramIcon className="h-8 stroke-transparent transition-all ease-in-out group-hover:scale-110" />
+                    <InstagramIcon className="h-6 stroke-transparent transition-all ease-in-out group-hover:scale-110" />
                   </Link>
                   <Link href="https://www.facebook.com/suginomoribrewery" className="group">
-                    <FacebookIcon className="h-8 stroke-transparent transition-all ease-in-out group-hover:scale-110" />
+                    <FacebookIcon className="h-6 stroke-transparent transition-all ease-in-out group-hover:scale-110" />
                   </Link>
                 </div>
               </div>
