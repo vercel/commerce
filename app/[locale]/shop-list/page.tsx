@@ -37,13 +37,13 @@ export default async function Page({ params }: { params: { locale?: SupportedLoc
   if (!page) return notFound();
 
   return (
-    <div className="font-multilingual min-h-screen px-4 text-white">
+    <div className="font-multilingual mx-auto min-h-screen max-w-screen-2xl px-4 text-white">
       <div className="pb-12">
         <LogoNamemark className="w-[260px] fill-current md:w-[320px]" />
       </div>
       <ShopsTitle />
       <h2 className="mb-8 text-3xl font-medium">{page.title}</h2>
-      <Prose className="mb-8" html={page.body as string} />
+      <Prose className="mx-auto mb-8 max-w-xl" html={page.body as string} />
     </div>
   );
 }

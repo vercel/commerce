@@ -8,7 +8,7 @@ export default function NewsletterSignup() {
   return (
     <div className="mx-auto max-w-xl space-y-4">
       <h3 className="font-serif text-2xl tracking-wider">{t('newsletter.title')}</h3>
-      <div className="font-multilingual">{t('newsletter.description')}</div>
+      <div className="font-multilingual font-extralight">{t('newsletter.description')}</div>
       <form
         className="max-w-xl space-x-px md:flex"
         action={`${process?.env?.NEXT_PUBLIC_MAILCHIMP_HOST}/subscribe/post?u=${process?.env?.NEXT_PUBLIC_MAILCHIMP_USER_ID}&amp;id=${process?.env?.NEXT_PUBLIC_MAILCHIMP_LIST_ID}`}
@@ -40,7 +40,7 @@ export default function NewsletterSignup() {
             className={clsx(
               'px-4 py-2',
               'transition-colors duration-150',
-              'flex w-full items-center justify-center',
+              'font-multilingual flex w-full items-center justify-center font-extralight',
               'border border-white/30 hover:border-white',
               'focus:border-emerald-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-300 focus:ring-offset-0'
             )}

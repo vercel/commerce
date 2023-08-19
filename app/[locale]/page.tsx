@@ -10,6 +10,7 @@ import Shoplist from 'components/layout/shoplist';
 import Image from 'next/image';
 import { Suspense } from 'react';
 import HomeImage001 from './images/home-image-001.webp';
+import HomeImage002 from './images/home-image-002.webp';
 
 export const runtime = 'edge';
 const { SITE_NAME } = process.env;
@@ -42,12 +43,21 @@ export default async function HomePage({
       <div className="relative max-w-screen-2xl">
         <Image
           src={HomeImage001}
+          priority={true}
           alt="A picture of Narai Black bottle in a mossy creek."
           className={clsx('h-full w-full object-cover')}
         />
       </div>
       <div className="py-24">
         <Shoplist />
+      </div>
+      <div className="max-w-screen-4xl relative">
+        <Image
+          src={HomeImage002}
+          priority={true}
+          alt="A picture of tree tops."
+          className={clsx('h-full w-full object-cover')}
+        />
       </div>
       <Suspense>
         <Carousel />

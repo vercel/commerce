@@ -29,7 +29,7 @@ function ThreeItemGridItem({ item, priority }: { item: Product; priority?: boole
           currencyCode={item.priceRange.maxVariantPrice.currencyCode}
           size={size?.value}
         />
-        <div className="font-regular line-clamp-4 pt-2">{item?.summary?.value}</div>
+        <div className="line-clamp-4 pt-2 font-extralight">{item?.summary?.value}</div>
       </div>
     </div>
   );

@@ -1,4 +1,9 @@
 import clsx from 'clsx';
+import Cart from 'components/cart';
+import FacebookIcon from 'components/icons/facebook';
+import InstagramIcon from 'components/icons/instagram';
+import KanjiLogo from 'components/icons/kanji';
+import Link from 'next/link';
 import FooterMenu from './footer-menu';
 import NewsletterFooter from './newsletter-footer';
 
@@ -20,22 +25,50 @@ export default async function Footer() {
         )}
       >
         <div className="w-full md:w-1/2">
-          <NewsletterFooter />
+          <div className="flex flex-col space-y-24">
+            <NewsletterFooter />
+            <div className="flex flex-row items-end space-x-12">
+              <KanjiLogo className="w-20" />
+              <div className="flex flex-row items-end space-x-6">
+                <div className="flex flex-col items-start space-y-2">
+                  <p className="font-japan text-3xl font-extralight">杉の森酒造</p>
+                  <p className="font-serif text-lg">suginomori brewery</p>
+                </div>
+                <div className="flex flex-col items-start space-y-2">
+                  <p className="font-japan text-xl font-extralight">長野県塩尻市奈良井551-1</p>
+                  <p className="font-serif text-lg">551-1 Narai, Shiojiri, Nagano</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div className="hidden md:block md:w-1/3">
-          <FooterMenu />
+          <div className="flex h-full flex-col items-end justify-between space-y-2">
+            <FooterMenu />
+            <div className="flex flex-col space-y-2">
+              <div className="flex flex-row justify-between space-x-4">
+                <Cart />
+                <div className="flex flex-row items-center space-x-6">
+                  <Link href="https://www.instagram.com/suginomoribrewery/" className="group">
+                    <InstagramIcon className="h-8 stroke-transparent transition-all ease-in-out group-hover:scale-110" />
+                  </Link>
+                  <Link href="https://www.facebook.com/suginomoribrewery" className="group">
+                    <FacebookIcon className="h-8 stroke-transparent transition-all ease-in-out group-hover:scale-110" />
+                  </Link>
+                </div>
+              </div>
+              <div className="text-right font-serif">
+                <div>
+                  &copy; {copyrightDate} {copyrightName}
+                  {copyrightName.length && !copyrightName.endsWith('.') ? '.' : ''}
+                </div>
+                <div>All rights reserved.</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div>
-        <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-1 pb-12 md:flex-row">
-          <p>
-            &copy; {copyrightDate} {copyrightName}
-            {copyrightName.length && !copyrightName.endsWith('.') ? '.' : ''} All rights reserved.
-          </p>
-          <hr className="mx-4 hidden h-4 w-[1px] border-l border-neutral-400 md:inline-block" />
-          <p>Designed in Japan</p>
-        </div>
-      </div>
+      <div className="pb-12 font-serif opacity-50"></div>
     </footer>
   );
 }

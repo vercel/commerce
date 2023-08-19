@@ -59,7 +59,7 @@ const alpina = localFont({
 const noto = Noto_Serif_JP({
   subsets: ['latin'],
   display: 'swap',
-  weight: ['300', '600'],
+  weight: ['200', '400', '600'],
   variable: '--font-noto'
 });
 

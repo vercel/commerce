@@ -10,11 +10,11 @@ const Prose: FunctionComponent<TextProps> = ({ html, className }) => {
   return (
     <div
       className={clsx(
-        'prose mx-auto max-w-screen-2xl text-lg leading-7',
-        'font-multilingual font-normal text-white',
+        'prose text-lg leading-7',
+        'font-multilingual font-extralight text-white',
         'prose-headings:mt-8 prose-headings:font-semibold prose-headings:tracking-wide prose-headings:text-white',
         'prose-h1:text-5xl prose-h2:text-4xl prose-h3:text-3xl prose-h4:text-2xl prose-h5:text-xl prose-h6:text-lg',
-        'prose-a:text-white/50 prose-a:underline hover:prose-a:text-white',
+        'prose-a:text-white/80 prose-a:underline hover:prose-a:text-white',
         'prose-strong:text-white',
         'prose-td:border-opacity-20 prose-td:py-4 prose-td:font-normal',
         'prose-tr:border-subtle',

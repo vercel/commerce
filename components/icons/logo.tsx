@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-export default function LogoIcon(props: React.ComponentProps<'svg'>) {
+export default function Logo(props: React.ComponentProps<'svg'>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

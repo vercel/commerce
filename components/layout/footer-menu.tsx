@@ -10,7 +10,7 @@ export default function FooterMenu() {
     <div className="hidden md:grid md:w-full md:grid-cols-2">
       <div className="col-span-1">
         <div className="mb-4 font-serif text-base underline">{t('menu.title')}</div>
-        <nav className="font-multilingual flex flex-col space-y-2 text-left text-base font-normal">
+        <nav className="font-multilingual flex flex-col space-y-2 text-left text-base font-extralight">
           <div>
             <Link href="/products" className="transition-opacity duration-150 hover:opacity-50">
               {t('menu.products')}
@@ -56,8 +56,10 @@ export default function FooterMenu() {
       </div>
 
       <div className="col-span-1">
-        <div className="mb-4 font-serif text-base underline">{t('shopping-guide.title')}</div>
-        <nav className="font-multilingual flex flex-col space-y-2 text-left text-base font-normal">
+        <div className="mb-4 text-right font-serif text-base underline">
+          {t('shopping-guide.title')}
+        </div>
+        <nav className="font-multilingual flex flex-col items-end space-y-2 text-left text-base font-extralight">
           <div>
             <Link href="/terms" className="transition-opacity duration-150 hover:opacity-50">
               {t('shopping-guide.terms')}
