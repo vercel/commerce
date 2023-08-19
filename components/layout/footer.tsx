@@ -1,15 +1,16 @@
 import clsx from 'clsx';
-import Cart from 'components/cart';
+import CartModal from 'components/cart/modal';
 import FacebookIcon from 'components/icons/facebook';
 import InstagramIcon from 'components/icons/instagram';
 import KanjiLogo from 'components/icons/kanji';
+import { Cart } from 'lib/shopify/types';
 import Link from 'next/link';
 import FooterMenu from './footer-menu';
 import NewsletterFooter from './newsletter-footer';
 
 const { COMPANY_NAME, SITE_NAME } = process.env;
 
-export default async function Footer() {
+export default async function Footer({ cart }: { cart?: Cart }) {
   const currentYear = new Date().getFullYear();
   const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '');
   const copyrightName = COMPANY_NAME || SITE_NAME || '';
@@ -18,7 +19,7 @@ export default async function Footer() {
     <footer className="px-6 text-sm">
       <div
         className={clsx(
-          'mx-auto flex w-full max-w-screen-2xl justify-between',
+          'mx-auto flex w-full max-w-screen-xl justify-between',
           'flex-col gap-6 py-12',
           'border-t border-subtle',
           'text-sm md:flex-row md:gap-12'
@@ -47,7 +48,7 @@ export default async function Footer() {
             <FooterMenu />
             <div className="flex flex-col space-y-2">
               <div className="flex flex-row justify-between space-x-4">
-                <Cart />
+                <CartModal cart={cart} />
                 <div className="flex flex-row items-center space-x-6">
                   <Link href="https://www.instagram.com/suginomoribrewery/" className="group">
                     <InstagramIcon className="h-8 stroke-transparent transition-all ease-in-out group-hover:scale-110" />

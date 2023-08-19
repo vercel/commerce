@@ -37,7 +37,7 @@ export default async function Page({ params }: { params: { locale?: SupportedLoc
   if (!page) return notFound();
 
   return (
-    <div className="font-multilingual mx-auto min-h-screen max-w-screen-2xl px-4 text-white">
+    <div className="font-multilingual mx-auto min-h-screen max-w-screen-xl px-4 text-white">
       <div className="pb-12">
         <LogoNamemark className="w-[260px] fill-current md:w-[320px]" />
       </div>

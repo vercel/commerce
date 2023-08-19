@@ -5,7 +5,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <Suspense>
       <div className="w-full">
-        <div className="mx-8 max-w-screen-2xl py-20 sm:mx-auto">
+        <div className="mx-8 max-w-screen-xl py-20 sm:mx-auto">
           <Suspense>{children}</Suspense>
         </div>
       </div>

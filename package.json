@@ -34,7 +34,8 @@
     "next-intl": "latest",
     "prettier-plugin-organize-imports": "^3.2.3",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "react-intersection-observer": "^9.5.2"
   },
   "devDependencies": {
     "@tailwindcss/container-queries": "^0.1.1",

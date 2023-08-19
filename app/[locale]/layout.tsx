@@ -1,4 +1,3 @@
-import Navbar from 'components/layout/navbar';
 import { Noto_Serif_JP } from 'next/font/google';
 import localFont from 'next/font/local';
 import { ReactNode, Suspense } from 'react';
@@ -84,14 +83,11 @@ export default async function RootLayout({
   return (
     <html lang={params.locale} className={`${cinzel.variable} ${alpina.variable} ${noto.variable}`}>
       <body className="bg-dark text-white selection:bg-green-800 selection:text-green-400">
-        <div className="mx-auto max-w-screen-2xl">
-          <NextIntlClientProvider locale={params?.locale} messages={messages}>
-            <Navbar />
-            <Suspense>
-              <main>{children}</main>
-            </Suspense>
-          </NextIntlClientProvider>
-        </div>
+        <NextIntlClientProvider locale={params?.locale} messages={messages}>
+          <Suspense>
+            <main>{children}</main>
+          </Suspense>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

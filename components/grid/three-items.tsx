@@ -49,7 +49,7 @@ export async function ThreeItemGrid({ lang }: { lang?: SupportedLocale }) {
   return (
     <section
       className={clsx(
-        'mx-auto grid max-w-screen-2xl gap-6 px-4 pb-4 ',
+        'mx-auto grid max-w-screen-xl gap-6 px-4 pb-4 ',
         'grid-cols-1 md:grid-cols-6',
         'grid-rows-3 md:grid-rows-1'
       )}

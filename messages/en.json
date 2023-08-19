@@ -24,6 +24,15 @@
       "placeholder": "Email",
       "button": "Notify me"
     },
+    "home": {
+      "previews": {
+        "about-narai": {
+          "title": "water of the mountains,",
+          "subtitle": "sake of the skies",
+          "body": "We brew our sake in one of the highest breweries in Japan, standing at an altitude of 940m and surrounded by an abundance of nature. While many breweries typically use a stable water source such as well water, narai uses the fresh water from the mountains, flowing from an altitude of over 1,000m. The water originates from a spring near the watershed of the Shinano River and Kiso River, and is characterized by its clarity and smooth, rounded texture brought about by a rare “water hardness” of less than 25."
+        }
+      }
+    },
     "shops": {
       "title": "Shop list",
       "subtitle": "",

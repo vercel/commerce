@@ -56,7 +56,7 @@ export function MenuModal() {
           >
             <div className="fixed inset-0 z-30 backdrop-blur-sm">
               <Dialog.Panel>
-                <div className="fixed right-5 top-6 z-40 px-2 py-1 md:top-11">
+                <div className="fixed right-5 top-6 z-40 px-2 py-1 md:top-6">
                   <div className="flex flex-row space-x-6">
                     <LanguageControl lang={locale as SupportedLocale} />
 
