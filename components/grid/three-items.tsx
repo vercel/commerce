@@ -22,7 +22,7 @@ function ThreeItemGridItem({ item, priority }: { item: Product; priority?: boole
           alt={item.title}
         />
       </Link>
-      <div className="font-multilingual max-w-sm pt-4">
+      <div className="font-multilingual max-w-sm pb-24 pt-4 md:pb-0">
         <Label
           title={item.title as string}
           amount={item.priceRange.maxVariantPrice.amount}

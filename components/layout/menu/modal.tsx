@@ -31,9 +31,6 @@ export function MenuModal({ scrolled }: { scrolled: boolean }) {
 
       <Transition show={isOpen} as={Fragment}>
         <Dialog onClose={() => setIsOpen(false)}>
-          {/*
-          Use one Transition.Child to apply one transition to the backdrop...
-        */}
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -49,104 +46,104 @@ export function MenuModal({ scrolled }: { scrolled: boolean }) {
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
-            enterFrom="opacity-0 scale-95"
+            enterFrom="opacity-0"
             enterTo="opacity-100 scale-100"
             leave="ease-in duration-200"
             leaveFrom="opacity-100 scale-100"
-            leaveTo="opacity-0 scale-95"
+            leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 z-30 backdrop-blur-sm">
+            <div className="fixed inset-0 z-30 bg-dark/80 backdrop-blur-sm">
               <Dialog.Panel>
-                <div
-                  className={clsx(
-                    'fixed right-5 top-6 z-40 px-2 py-1',
-                    scrolled ? 'md:top-6' : 'md:top-0'
-                  )}
-                >
-                  <div className="flex flex-row space-x-6">
+                <div className="z-40 mx-auto max-w-screen-xl px-6">
+                  <div
+                    className={clsx(
+                      'flex flex-row justify-end space-x-6 px-2',
+                      scrolled ? 'py-0' : 'py-0 md:py-6'
+                    )}
+                  >
                     <LanguageControl lang={locale as SupportedLocale} />
 
-                    <button ref={closeButtonRef} onClick={close} className="">
+                    <button ref={closeButtonRef} onClick={close}>
                       <CloseIcon className="h-10 w-10 stroke-current transition-opacity duration-150 hover:opacity-50" />
                     </button>
                   </div>
-                </div>
 
-                <div className="fixed inset-0 grid grid-cols-1 place-content-center bg-dark/80">
-                  <div className="flex flex-row justify-end">
-                    <nav className="flex flex-col space-y-4 px-6 text-right">
-                      <div>
-                        <Link
-                          href="/products"
-                          className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
-                        >
-                          {t('menu.products')}
-                        </Link>
-                      </div>
+                  <div className="grid h-[calc(100vh-124px)] grid-cols-1 place-content-center">
+                    <div className="flex flex-row justify-end">
+                      <nav className="flex flex-col space-y-4 px-4 text-right">
+                        <div>
+                          <Link
+                            href="/products"
+                            className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
+                          >
+                            {t('menu.products')}
+                          </Link>
+                        </div>
 
-                      <div>
-                        <Link
-                          href="/shop-list"
-                          className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
-                        >
-                          {t('menu.shops')}
-                        </Link>
-                      </div>
+                        <div>
+                          <Link
+                            href="/shop-list"
+                            className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
+                          >
+                            {t('menu.shops')}
+                          </Link>
+                        </div>
 
-                      <div>
-                        <Link
-                          href="/about"
-                          className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
-                        >
-                          {t('menu.about')}
-                        </Link>
-                      </div>
+                        <div>
+                          <Link
+                            href="/about"
+                            className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
+                          >
+                            {t('menu.about')}
+                          </Link>
+                        </div>
 
-                      <div>
-                        <Link
-                          href="/bar"
-                          className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
-                        >
-                          {t('menu.bar')}
-                        </Link>
-                      </div>
+                        <div>
+                          <Link
+                            href="/bar"
+                            className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
+                          >
+                            {t('menu.bar')}
+                          </Link>
+                        </div>
 
-                      <div>
-                        <Link
-                          href="/concept"
-                          className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
-                        >
-                          {t('menu.concept')}
-                        </Link>
-                      </div>
+                        <div>
+                          <Link
+                            href="/concept"
+                            className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
+                          >
+                            {t('menu.concept')}
+                          </Link>
+                        </div>
 
-                      <div>
-                        <Link
-                          href="/stories"
-                          className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
-                        >
-                          {t('menu.stories')}
-                        </Link>
-                      </div>
+                        <div>
+                          <Link
+                            href="/stories"
+                            className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
+                          >
+                            {t('menu.stories')}
+                          </Link>
+                        </div>
 
-                      <div>
-                        <Link
-                          href="/company"
-                          className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
-                        >
-                          {t('menu.company')}
-                        </Link>
-                      </div>
+                        <div>
+                          <Link
+                            href="/company"
+                            className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
+                          >
+                            {t('menu.company')}
+                          </Link>
+                        </div>
 
-                      <div>
-                        <Link
-                          href="/contact"
-                          className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
-                        >
-                          {t('menu.contact')}
-                        </Link>
-                      </div>
-                    </nav>
+                        <div>
+                          <Link
+                            href="/contact"
+                            className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
+                          >
+                            {t('menu.contact')}
+                          </Link>
+                        </div>
+                      </nav>
+                    </div>
                   </div>
                 </div>
               </Dialog.Panel>
