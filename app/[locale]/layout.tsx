@@ -1,4 +1,4 @@
-import { Noto_Serif_JP } from 'next/font/google';
+import { Lato, Noto_Serif_JP } from 'next/font/google';
 import localFont from 'next/font/local';
 import { ReactNode, Suspense } from 'react';
 
@@ -55,6 +55,13 @@ const alpina = localFont({
   variable: '--font-alpina'
 });
 
+const lato = Lato({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['300'],
+  variable: '--font-lato'
+});
+
 const noto = Noto_Serif_JP({
   subsets: ['latin'],
   display: 'swap',
@@ -81,7 +88,10 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang={params.locale} className={`${cinzel.variable} ${alpina.variable} ${noto.variable}`}>
+    <html
+      lang={params.locale}
+      className={`${cinzel.variable} ${alpina.variable} ${noto.variable} ${lato.variable}`}
+    >
       <body className="bg-dark text-white selection:bg-green-800 selection:text-green-400">
         <NextIntlClientProvider locale={params?.locale} messages={messages}>
           <Suspense>

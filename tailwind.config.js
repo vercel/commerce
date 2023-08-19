@@ -1,5 +1,6 @@
 const plugin = require('tailwindcss/plugin');
 const colors = require('tailwindcss/colors');
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -11,7 +12,8 @@ module.exports = {
         dark: '#212720'
       },
       fontFamily: {
-        serif: ['var(--font-alpina)', 'serif'],
+        sans: ['var(--font-lato)', ...defaultTheme.fontFamily.sans],
+        serif: ['var(--font-alpina)', ...defaultTheme.fontFamily.serif],
         title: ['var(--font-cinzel)', 'serif'],
         japan: ['var(--font-noto)', 'serif']
       },
