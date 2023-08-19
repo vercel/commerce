@@ -1,4 +1,3 @@
-import { Carousel } from 'components/carousel';
 import { ThreeItemGrid } from 'components/grid/three-items';
 import Footer from 'components/layout/footer';
 import { SupportedLocale } from 'components/layout/navbar/language-control';
@@ -78,10 +77,7 @@ export default async function HomePage({
         <AboutNaraiPreview />
       </div>
       <Suspense>
-        <Carousel />
-        <Suspense>
-          <Footer cart={cart} />
-        </Suspense>
+        <Footer cart={cart} />
       </Suspense>
     </div>
   );
