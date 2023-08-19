@@ -29,7 +29,9 @@ export default async function Footer({ cart }: { cart?: Cart }) {
           <div className="flex flex-col space-y-24">
             <NewsletterFooter />
             <div className="hidden flex-row items-end space-x-12 pt-24 md:flex">
-              <KanjiLogo className="h-64" />
+              <Link href="/" className="transition-opacity duration-150 hover:opacity-90">
+                <KanjiLogo className="h-64" />
+              </Link>
               <div className="flex flex-row items-end space-x-6">
                 <div className="flex flex-col items-start space-y-2">
                   <p className="font-japan text-3xl font-extralight">杉の森酒造</p>
@@ -45,7 +47,9 @@ export default async function Footer({ cart }: { cart?: Cart }) {
         </div>
         <div className="w-full md:w-[40%]">
           <div className="flex w-full flex-row items-end space-x-12 pt-24 md:hidden">
-            <KanjiLogo className="h-64" />
+            <Link href="/" className="transition-opacity duration-150 hover:opacity-90">
+              <KanjiLogo className="h-64" />
+            </Link>
             <div className="flex grow flex-col items-end space-y-6">
               <div className="flex flex-col items-start space-y-2">
                 <p className="font-japan text-3xl font-extralight">杉の森酒造</p>

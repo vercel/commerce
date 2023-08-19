@@ -1,11 +1,10 @@
-import { ThreeItemGrid } from 'components/grid/three-items';
 import Footer from 'components/layout/footer';
 import { SupportedLocale } from 'components/layout/navbar/language-control';
 
 import Navbar from 'components/layout/navbar';
 import { getCart } from 'lib/shopify';
 import { cookies } from 'next/headers';
-import { Suspense } from 'react';
+import { ReactNode, Suspense } from 'react';
 
 export const runtime = 'edge';
 const { SITE_NAME } = process.env;
@@ -18,10 +17,12 @@ export const metadata = {
   }
 };
 
-export default async function ProductPage({
-  params: { locale }
+export default async function ProductLayout({
+  params: { locale },
+  children
 }: {
   params: { locale?: SupportedLocale };
+  children: ReactNode[] | ReactNode | string;
 }) {
   const cartId = cookies().get('cartId')?.value;
   let cart;
@@ -33,10 +34,7 @@ export default async function ProductPage({
   return (
     <div>
       <Navbar cart={cart} locale={locale} />
-      <div className="py-24 md:py-48">
-        <ThreeItemGrid lang={locale} />
-      </div>
-
+      {children}
       <Suspense>
         <Footer cart={cart} />
       </Suspense>

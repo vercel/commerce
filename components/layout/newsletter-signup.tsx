@@ -28,7 +28,7 @@ export default function NewsletterSignup() {
           className={clsx(
             'w-full min-w-0 appearance-none',
             'bg-white outline-none',
-            'px-4 py-2 focus:outline-none',
+            'px-4 py-3 focus:outline-none',
             'focus:ring-2 focus:ring-inset focus:ring-emerald-300 focus:ring-offset-0',
             'text-gray-900 placeholder-gray-400'
           )}
@@ -38,7 +38,7 @@ export default function NewsletterSignup() {
           <button
             type="submit"
             className={clsx(
-              'px-4 py-2',
+              'px-4 py-3',
               'transition-colors duration-150',
               'font-multilingual flex w-full items-center justify-center font-extralight',
               'border border-white/30 hover:border-white',

@@ -32,7 +32,7 @@ export default function Navbar({ cart, locale }: { cart?: Cart; locale?: Support
         >
           <div className="mx-auto flex max-w-screen-xl flex-row items-start justify-between">
             <div className="px-4 py-2">
-              <Link href="/">
+              <Link href="/" className="transition-opacity duration-150 hover:opacity-90">
                 <LogoNamemark className={clsx('w-[260px]', 'fill-current')} />
               </Link>
             </div>
@@ -51,7 +51,7 @@ export default function Navbar({ cart, locale }: { cart?: Cart; locale?: Support
         className={clsx('mx-auto flex max-w-screen-xl flex-row items-start justify-between px-6')}
       >
         <div>
-          <Link href="/">
+          <Link href="/" className="transition-opacity duration-150 hover:opacity-90">
             <LogoNamemark
               className={clsx(
                 inView ? 'w-[260px] md:w-[600px]' : 'w-[260px] md:w-[260px]',

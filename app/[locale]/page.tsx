@@ -39,7 +39,7 @@ export default async function HomePage({
   }
 
   return (
-    <div className="relative h-screen overflow-scroll">
+    <div>
       <Navbar cart={cart} locale={locale} />
       <div className="pt-48">
         <ThreeItemGrid lang={locale} />
