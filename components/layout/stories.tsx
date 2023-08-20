@@ -7,35 +7,35 @@ import { SupportedLocale } from './navbar/language-control';
 export default async function Stories({
   locale,
   handle,
-  articles
+  articles,
+  more = false
 }: {
   locale?: SupportedLocale;
   handle: string;
   articles?: number;
+  more?: boolean;
 }) {
   const blog = await getBlog({
-    handle: 'headless',
-    articles: articles || 3,
+    handle: handle,
+    articles: articles || 250,
     language: locale?.toUpperCase()
   });
-  console.debug({ blog });
 
   if (!blog) return null;
 
   return (
-    <div className="bg-white px-6 text-black md:py-24">
+    <div className="bg-white px-6 py-24 text-black">
       <div className="mx-auto flex max-w-screen-xl flex-col space-y-6">
         <h3 className="font-serif text-5xl">stories</h3>
         <div
           className={clsx(
-            'font-multilingual',
-            'font-extralight',
-            'flex flex-col space-x-6 space-y-6 md:flex-row md:space-y-0'
+            'font-multilingual font-extralight',
+            'grid grid-cols-1 gap-y-24 md:grid-cols-3 md:gap-x-4'
           )}
         >
           {blog?.articles?.map((article) => (
-            <div className="flex flex-col space-y-4 md:w-1/3">
-              <div className="relative aspect-square max-w-sm overflow-hidden">
+            <div className="flex flex-col space-y-4 md:col-span-1">
+              <div className="relative aspect-square overflow-hidden md:max-w-sm">
                 {!!article?.image?.url && (
                   <Image
                     src={article?.image?.url}
@@ -54,14 +54,16 @@ export default async function Stories({
             </div>
           ))}
         </div>
-        <div className="flex w-full flex-row justify-center pt-12">
-          <Link
-            href="/stories"
-            className="mx-auto max-w-sm border border-dark px-24 py-3 text-center text-lg transition-colors duration-150 hover:border-dark/40"
-          >
-            more stories
-          </Link>
-        </div>
+        {more && (
+          <div className="flex w-full flex-row justify-center pt-12">
+            <Link
+              href="/stories"
+              className="mx-auto max-w-sm border border-dark px-24 py-3 text-center text-lg transition-colors duration-150 hover:border-dark/40"
+            >
+              more stories
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -131,7 +131,7 @@ export default async function HomePage({
       </div>
 
       <div className="relative">
-        <Stories handle="headless" articles={3} locale={locale} />
+        <Stories handle="headless" articles={3} locale={locale} more />
       </div>
 
       <div className="relative">
