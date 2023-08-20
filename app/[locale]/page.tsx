@@ -41,7 +41,7 @@ export default async function HomePage({
   return (
     <div>
       <Navbar cart={cart} locale={locale} />
-      <div className="pt-48">
+      <div className="pt-12 md:pt-48">
         <ThreeItemGrid lang={locale} />
       </div>
       <div className="py-48">

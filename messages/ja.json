@@ -46,8 +46,12 @@
     },
     "footer": {
       "newsletter": {
-        "promo": "Get 10% off on your first order. Get discount."
+        "promo": "初回注文で10％割引。割引を受ける。"
       }
+    },
+    "cart": {
+      "add": "カートに入れる",
+      "out-of-stock": "品切れ中"
     }
   }
 }

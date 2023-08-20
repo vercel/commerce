@@ -33,7 +33,7 @@ export default async function ProductLayout({
 
   return (
     <div>
-      <Navbar cart={cart} locale={locale} />
+      <Navbar cart={cart} locale={locale} compact />
       {children}
       <Suspense>
         <Footer cart={cart} />

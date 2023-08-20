@@ -48,6 +48,10 @@
       "newsletter": {
         "promo": "Get 10% off on your first order. Get discount."
       }
+    },
+    "cart": {
+      "add": "Add to cart",
+      "out-of-stock": "Out of stock"
     }
   }
 }

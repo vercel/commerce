@@ -20,7 +20,7 @@ export default async function Footer({ cart }: { cart?: Cart }) {
       <div
         className={clsx(
           'mx-auto flex w-full max-w-screen-xl justify-between',
-          'flex-col gap-6 py-12',
+          'flex-col gap-6 py-6 md:py-12',
           'border-t border-subtle',
           'text-sm md:flex-row md:gap-12'
         )}

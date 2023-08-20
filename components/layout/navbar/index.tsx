@@ -12,8 +12,16 @@ import { useInView } from 'react-intersection-observer';
 import { MenuModal } from '../menu/modal';
 import { LanguageControl, SupportedLocale } from './language-control';
 
-export default function Navbar({ cart, locale }: { cart?: Cart; locale?: SupportedLocale }) {
-  const { ref, inView, entry } = useInView({
+export default function Navbar({
+  cart,
+  locale,
+  compact
+}: {
+  cart?: Cart;
+  locale?: SupportedLocale;
+  compact?: boolean;
+}) {
+  const { ref, inView } = useInView({
     threshold: 0,
     initialInView: true
   });
@@ -54,7 +62,7 @@ export default function Navbar({ cart, locale }: { cart?: Cart; locale?: Support
           <Link href="/" className="transition-opacity duration-150 hover:opacity-90">
             <LogoNamemark
               className={clsx(
-                inView ? 'w-[260px] md:w-[600px]' : 'w-[260px] md:w-[260px]',
+                inView && !compact ? 'w-[260px] md:w-[600px]' : 'w-[260px] md:w-[260px]',
                 'fill-current pt-4 transition-all duration-150 md:pt-12'
               )}
             />

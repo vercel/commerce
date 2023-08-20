@@ -32,7 +32,7 @@ export default async function ProductPage({
 
   return (
     <div>
-      <Navbar cart={cart} locale={locale} />
+      <Navbar cart={cart} locale={locale} compact />
       <div className="py-24 md:py-48">
         <ThreeItemGrid lang={locale} />
       </div>

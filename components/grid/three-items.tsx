@@ -10,27 +10,26 @@ function ThreeItemGridItem({ item, priority }: { item: Product; priority?: boole
   const size = item?.variants?.[0]?.selectedOptions?.find((option) => option.name === 'Size');
   return (
     <div className={clsx('col-span-1 row-span-1 md:col-span-2 md:row-span-1')}>
-      <Link
-        className="relative block aspect-tall w-full overflow-hidden bg-black/30"
-        href={`/product/${item.handle}`}
-      >
-        <GridTileImage
-          src={item.featuredImage.url}
-          fill
-          sizes={'(min-width: 768px) 33vw, 100vw'}
-          priority={priority}
-          alt={item.title}
-        />
+      <Link className="w-full bg-black/30" href={`/product/${item.handle}`}>
+        <div className="relative block aspect-tall overflow-hidden ">
+          <GridTileImage
+            src={item.featuredImage.url}
+            fill
+            sizes={'(min-width: 768px) 33vw, 100vw'}
+            priority={priority}
+            alt={item.title}
+          />
+        </div>
+        <div className="font-multilingual max-w-sm pb-24 pt-4 md:pb-0">
+          <Label
+            title={item.title as string}
+            amount={item.priceRange.maxVariantPrice.amount}
+            currencyCode={item.priceRange.maxVariantPrice.currencyCode}
+            size={size?.value}
+          />
+          <div className="line-clamp-4 pt-2 font-extralight">{item?.summary?.value}</div>
+        </div>
       </Link>
-      <div className="font-multilingual max-w-sm pb-24 pt-4 md:pb-0">
-        <Label
-          title={item.title as string}
-          amount={item.priceRange.maxVariantPrice.amount}
-          currencyCode={item.priceRange.maxVariantPrice.currencyCode}
-          size={size?.value}
-        />
-        <div className="line-clamp-4 pt-2 font-extralight">{item?.summary?.value}</div>
-      </div>
     </div>
   );
 }
