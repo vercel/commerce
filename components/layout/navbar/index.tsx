@@ -39,9 +39,9 @@ export default function Navbar({
           leaveTo="opacity-0"
         >
           <div className="mx-auto flex max-w-screen-xl flex-row items-start justify-between">
-            <div className="px-4 py-2">
+            <div className="px-6 py-2">
               <Link href="/" className="transition-opacity duration-150 hover:opacity-90">
-                <LogoNamemark className={clsx('w-[260px]', 'fill-current')} />
+                <LogoNamemark className={clsx('w-[180px]', 'fill-current')} />
               </Link>
             </div>
             <nav className="flex flex-row items-center space-x-4 px-6">
@@ -63,7 +63,8 @@ export default function Navbar({
             <LogoNamemark
               className={clsx(
                 inView && !compact ? 'w-[260px] md:w-[600px]' : 'w-[260px] md:w-[260px]',
-                'fill-current pt-4 transition-all duration-150 md:pt-12'
+                'fill-current transition-all duration-150',
+                compact ? 'pt-4 md:pt-6' : 'pt-4 md:pt-12'
               )}
             />
           </Link>
