@@ -49,7 +49,7 @@ export default async function ViewSKUs({ params }: { params: { handle: string } 
   
   return (
     <>
-      <ProductSKUs productTitle={product.title} />
+      <ProductSKUs productTitle={product.title} noTitle={true} />
     </>
   )
 };
