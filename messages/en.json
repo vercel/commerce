@@ -69,7 +69,38 @@
     },
     "cart": {
       "add": "Add to cart",
-      "out-of-stock": "Out of stock"
+      "out-of-stock": "Out of stock",
+      "title": "Shopping Bag",
+      "subtitle": "Review your Order",
+      "empty": "Your shopping bag is empty",
+      "declinedCard": "We couldn't process the purchase. Please check your card information and try again.",
+      "thankYou": "Thank you for your order.",
+      "subtotal": "Subtotal",
+      "taxes": "Taxes",
+      "taxCalculation": "Calculated at checkout",
+      "shipping": "Shipping",
+      "shippingCalculation": "Calculated at checkout",
+      "total": "Total",
+      "proceed": "Proceed to Checkout",
+      "continue": "Continue Shopping",
+      "note": "Notes",
+      "notePlaceholder": "Enter any notes you would like to include with your order",
+      "addNote": "Add a note to your order",
+      "editNote": "Edit note",
+      "hideNote": "Hide",
+      "saving": "Saving...",
+      "addFeaturedProduct": "+ Add"
+    },
+    "age-gate": {
+      "title": "Confirm Your Age",
+      "description": "In order to shop on this site, please confirm that you are of legal age to purchase alcohol under the laws that apply to you.",
+      "confirm": "Confirm",
+      "confirming": "Confirming",
+      "deny": "No",
+      "birthdate": "Your date of birth",
+      "year": "Year",
+      "month": "Month",
+      "day": "Day"
     }
   }
 }

@@ -69,7 +69,38 @@
     },
     "cart": {
       "add": "カートに入れる",
-      "out-of-stock": "品切れ中"
+      "out-of-stock": "品切れ中",
+      "title": "ショッピングカード",
+      "subtitle": "ご注文内容の確認",
+      "empty": "買い物袋が空っぽ",
+      "declinedCard": "購入手続きができませんでした。カード情報をご確認の上、再度お試しください。",
+      "thankYou": "この度はご注文ありがとうございました。",
+      "subtotal": "サブトータル",
+      "taxes": "税金",
+      "taxCalculation": "チェックアウト時に計算されます",
+      "shipping": "配送",
+      "shippingCalculation": "チェックアウト時に計算されます",
+      "total": "合計",
+      "proceed": "チェックアウトに進む",
+      "continue": "ショッピングを続ける",
+      "note": "メモ",
+      "notePlaceholder": "注文時に添えるメモを入力してください",
+      "addNote": "注文にメモを追加します",
+      "editNote": "メモを編集します",
+      "hideNote": "隠れる",
+      "saving": "セービング...",
+      "addFeaturedProduct": "+ 入れる"
+    },
+    "age-gate": {
+      "title": "年齢確認",
+      "description": "当サイトでのご購入には、お客さまがアルコール飲料を購入できる年齢であることの確認が必要となります。",
+      "confirm": "はい",
+      "confirming": "確認中",
+      "deny": "いいえ",
+      "birthdate": "生年月日を入力してください。",
+      "year": "年",
+      "month": "月",
+      "day": "日"
     }
   }
 }

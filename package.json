@@ -27,8 +27,10 @@
     "@heroicons/react": "^2.0.18",
     "@thgh/next-gtm": "^0.1.4",
     "clsx": "^2.0.0",
+    "date-fns": "^2.30.0",
     "eslint-plugin-tailwindcss": "^3.13.0",
     "eslint-plugin-unused-imports": "^3.0.0",
+    "js-cookie": "^3.0.5",
     "negotiator": "^0.6.3",
     "next": "latest",
     "next-intl": "latest",
@@ -40,6 +42,7 @@
   "devDependencies": {
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/typography": "^0.5.9",
+    "@types/js-cookie": "^3.0.3",
     "@types/negotiator": "^0.6.1",
     "@types/node": "20.4.4",
     "@types/react": "18.2.16",

@@ -6,9 +6,11 @@ import Price from 'components/price';
 import { DEFAULT_OPTION } from 'lib/constants';
 import type { Cart } from 'lib/shopify/types';
 import { createUrl } from 'lib/utils';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment, useEffect, useRef, useState } from 'react';
+import AgeConfirmBeforeCheckout from './age-gate-confirm-before-checkout';
 import CloseCart from './close-cart';
 import DeleteItemButton from './delete-item-button';
 import EditItemQuantityButton from './edit-item-quantity-button';
@@ -19,6 +21,7 @@ type MerchandiseSearchParams = {
 };
 
 export default function CartModal({ cart }: { cart: Cart | undefined }) {
+  const t = useTranslations('Index');
   const [isOpen, setIsOpen] = useState(false);
   const quantityRef = useRef(cart?.totalQuantity);
   const openCart = () => setIsOpen(true);
@@ -169,12 +172,9 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                       />
                     </div>
                   </div>
-                  <a
-                    href={cart.checkoutUrl}
-                    className="block w-full rounded-full bg-blue-600 p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100"
-                  >
-                    Proceed to Checkout
-                  </a>
+                  <AgeConfirmBeforeCheckout checkoutUrl={cart.checkoutUrl}>
+                    {t('cart.proceed')}
+                  </AgeConfirmBeforeCheckout>
                 </div>
               )}
             </Dialog.Panel>
