@@ -9,7 +9,7 @@ import {
   editCartItemsMutation,
   removeFromCartMutation
 } from './mutations/cart';
-import { getBlogQuery } from './queries/blog';
+import { getBlogArticleQuery, getBlogQuery } from './queries/blog';
 import { getCartQuery } from './queries/cart';
 import {
   getCollectionProductsQuery,
@@ -25,6 +25,7 @@ import {
 } from './queries/product';
 import {
   Blog,
+  BlogArticle,
   Cart,
   Collection,
   Connection,
@@ -34,6 +35,7 @@ import {
   Product,
   ShopifyAddToCartOperation,
   ShopifyBlog,
+  ShopifyBlogArticleOperation,
   ShopifyBlogOperation,
   ShopifyCart,
   ShopifyCartOperation,
@@ -431,6 +433,25 @@ export async function getBlog({
   });
 
   return reshapeBlog(res.body.data.blogByHandle);
+}
+
+export async function getBlogArticle({
+  handle,
+  articleHandle,
+  language,
+  country
+}: {
+  handle: string;
+  articleHandle: string;
+  language?: string;
+  country?: string;
+}): Promise<BlogArticle | undefined> {
+  const res = await shopifyFetch<ShopifyBlogArticleOperation>({
+    query: getBlogArticleQuery,
+    variables: { handle, articleHandle, language, country }
+  });
+
+  return res.body.data.blogByHandle.articleByHandle;
 }
 
 export async function getProduct({

@@ -75,6 +75,7 @@ export type BlogArticle = {
   publishedAt: string;
   image?: Image;
   seo?: SEO;
+  tags: string[];
 };
 
 export type Product = Omit<ShopifyProduct, 'variants' | 'images'> & {
@@ -114,6 +115,7 @@ export type ShopifyBlog = {
   articles: Connection<BlogArticle>;
   seo?: SEO;
   image?: Image;
+  tags: string[];
 };
 
 export type ShopifyCart = {
@@ -279,6 +281,16 @@ export type ShopifyPagesOperation = {
 export type ShopifyBlogOperation = {
   data: { blogByHandle: ShopifyBlog };
   variables: { handle: string; articles?: number; language?: string; country?: string };
+};
+
+export type ShopifyBlogArticleOperation = {
+  data: { blogByHandle: { articleByHandle: BlogArticle } };
+  variables: {
+    handle: string;
+    articleHandle: string;
+    language?: string;
+    country?: string;
+  };
 };
 
 export type ShopifyProductOperation = {

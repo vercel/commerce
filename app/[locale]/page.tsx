@@ -11,6 +11,7 @@ import NewsletterSignup from 'components/layout/newsletter-signup';
 import SagyobarPreview from 'components/layout/sagyobar-preview';
 import Shoplist from 'components/layout/shoplist';
 import Stories from 'components/layout/stories';
+import { BLOG_HANDLE } from 'lib/constants';
 import { getCart } from 'lib/shopify';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
@@ -131,7 +132,7 @@ export default async function HomePage({
       </div>
 
       <div className="relative">
-        <Stories handle="headless" articles={3} locale={locale} more />
+        <Stories handle={BLOG_HANDLE} articles={3} locale={locale} more />
       </div>
 
       <div className="relative">

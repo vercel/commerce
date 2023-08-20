@@ -34,24 +34,26 @@ export default async function Stories({
           )}
         >
           {blog?.articles?.map((article) => (
-            <div className="flex flex-col space-y-4 md:col-span-1">
-              <div className="relative aspect-square overflow-hidden md:max-w-sm">
-                {!!article?.image?.url && (
-                  <Image
-                    src={article?.image?.url}
-                    width={article?.image?.width}
-                    height={article?.image?.height}
-                    alt={article?.image?.altText || `image-for-${article?.handle}`}
-                    className={clsx(
-                      'h-full w-full object-cover',
-                      'transition duration-300 ease-in-out hover:scale-105'
-                    )}
-                  />
-                )}
+            <Link href={`/stories/${article.handle}`}>
+              <div className="flex flex-col space-y-4 md:col-span-1">
+                <div className="relative aspect-square overflow-hidden md:max-w-sm">
+                  {!!article?.image?.url && (
+                    <Image
+                      src={article?.image?.url}
+                      width={article?.image?.width}
+                      height={article?.image?.height}
+                      alt={article?.image?.altText || `image-for-${article?.handle}`}
+                      className={clsx(
+                        'h-full w-full object-cover',
+                        'transition duration-300 ease-in-out hover:scale-105'
+                      )}
+                    />
+                  )}
+                </div>
+                <div className="max-w-sm text-lg">{article?.title}</div>
+                <div className="max-w-sm">{article?.excerpt}</div>
               </div>
-              <div className="max-w-sm text-lg">{article?.title}</div>
-              <div className="max-w-sm">{article?.excerpt}</div>
-            </div>
+            </Link>
           ))}
         </div>
         {more && (

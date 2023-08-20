@@ -36,6 +36,30 @@ const blogFragment = /* GraphQL */ `
   ${seoFragment}
 `;
 
+const articleFragment = /* GraphQL */ `
+  fragment article on Article {
+    ... on Article {
+      id
+      title
+      handle
+      excerpt
+      content
+      contentHtml
+      image {
+        url
+        altText
+        width
+        height
+      }
+      seo {
+        ...seo
+      }
+      publishedAt
+    }
+  }
+  ${seoFragment}
+`;
+
 export const getBlogQuery = /* GraphQL */ `
   query getBlog($handle: String!, $articles: Int, $country: CountryCode, $language: LanguageCode)
   @inContext(country: $country, language: $language) {
@@ -44,6 +68,22 @@ export const getBlogQuery = /* GraphQL */ `
     }
   }
   ${blogFragment}
+`;
+
+export const getBlogArticleQuery = /* GraphQL */ `
+  query getBlogArticle(
+    $handle: String!
+    $articleHandle: String!
+    $country: CountryCode
+    $language: LanguageCode
+  ) @inContext(country: $country, language: $language) {
+    blogByHandle(handle: $handle) {
+      articleByHandle(handle: $articleHandle) {
+        ...article
+      }
+    }
+  }
+  ${articleFragment}
 `;
 
 export const getBlogsQuery = /* GraphQL */ `

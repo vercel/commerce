@@ -2,11 +2,9 @@ import Footer from 'components/layout/footer';
 import { SupportedLocale } from 'components/layout/navbar/language-control';
 
 import Navbar from 'components/layout/navbar';
-import Stories from 'components/layout/stories';
-import { BLOG_HANDLE } from 'lib/constants';
 import { getCart } from 'lib/shopify';
 import { cookies } from 'next/headers';
-import { Suspense } from 'react';
+import { ReactNode, Suspense } from 'react';
 
 export const runtime = 'edge';
 const { SITE_NAME } = process.env;
@@ -19,10 +17,12 @@ export const metadata = {
   }
 };
 
-export default async function StoriesPage({
-  params: { locale }
+export default async function BlogLayout({
+  params: { locale },
+  children
 }: {
   params: { locale?: SupportedLocale };
+  children: ReactNode[] | ReactNode | string;
 }) {
   const cartId = cookies().get('cartId')?.value;
   let cart;
@@ -34,10 +34,7 @@ export default async function StoriesPage({
   return (
     <div>
       <Navbar cart={cart} locale={locale} compact />
-      <div className="py-24 md:py-48">
-        <Stories handle={BLOG_HANDLE} locale={locale} />
-      </div>
-
+      {children}
       <Suspense>
         <Footer cart={cart} />
       </Suspense>
