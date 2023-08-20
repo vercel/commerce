@@ -30,6 +30,24 @@
           "title": "water of the mountains,",
           "subtitle": "sake of the skies",
           "body": "We brew our sake in one of the highest breweries in Japan, standing at an altitude of 940m and surrounded by an abundance of nature. While many breweries typically use a stable water source such as well water, narai uses the fresh water from the mountains, flowing from an altitude of over 1,000m. The water originates from a spring near the watershed of the Shinano River and Kiso River, and is characterized by its clarity and smooth, rounded texture brought about by a rare “water hardness” of less than 25."
+        },
+        "location": {
+          "title": "brewed in Narai-juku, Nagano",
+          "subtitle": "",
+          "body": "Our brewery is nestled in the historic townscape of Narai-juku, a well-preserved post town in Nagano stretching for about 1km – the longest of its kind in Japan. In Narai-juku, winter temperatures drop nearly 20°C below zero, causing the mountain water to freeze. After the cold winter, the town gets enveloped in fresh greenery as the air turns more clear and pleasant. In autumn, the mountains are adorned with vibrant foliage. Blessed with an abundance of nature, it is a place to truly experience the changing of seasons.",
+          "button": "about narai"
+        },
+        "bar": {
+          "title": "sagyobar : a brewery-operated bar & workspace",
+          "subtitle": "",
+          "body": "Introducing sagyobar: a place where brewery operations (sagyo) and drinking (bar) come together. We have combined our brewery workspace, where we pack boxes and fulfill orders, with a place to enjoy sake served from our very own suginomori wagon. It is a renovated warehouse located a one-minute walk from the brewery, just across the railway tracks.",
+          "button": "about sagyobar"
+        },
+        "concept": {
+          "title": "beyond brewing",
+          "subtitle": "",
+          "body": "We are driven by our mission to preserve Japanese sake culture for future generations. To achieve this, we reexamine conventional practices of the sake industry and experiment with new endeavors. We are dedicated to exploring sake with a free and creative approach, going beyond brewing and spreading its charm to the world.",
+          "button": "concept"
         }
       }
     },

@@ -9,6 +9,7 @@ import {
   editCartItemsMutation,
   removeFromCartMutation
 } from './mutations/cart';
+import { getBlogQuery } from './queries/blog';
 import { getCartQuery } from './queries/cart';
 import {
   getCollectionProductsQuery,
@@ -23,6 +24,7 @@ import {
   getProductsQuery
 } from './queries/product';
 import {
+  Blog,
   Cart,
   Collection,
   Connection,
@@ -31,6 +33,8 @@ import {
   Page,
   Product,
   ShopifyAddToCartOperation,
+  ShopifyBlog,
+  ShopifyBlogOperation,
   ShopifyCart,
   ShopifyCartOperation,
   ShopifyCollection,
@@ -165,6 +169,19 @@ const reshapeImages = (images: Connection<Image>, productTitle: string) => {
       altText: image.altText || `${productTitle} - ${filename}`
     };
   });
+};
+
+const reshapeBlog = (blog: ShopifyBlog) => {
+  if (!blog) {
+    return undefined;
+  }
+
+  const { articles, ...rest } = blog;
+
+  return {
+    ...rest,
+    articles: removeEdgesAndNodes(articles)
+  };
 };
 
 const reshapeProduct = (product: ShopifyProduct, filterHiddenProducts: boolean = true) => {
@@ -395,6 +412,25 @@ export async function getPages({
   });
 
   return removeEdgesAndNodes(res.body.data.pages);
+}
+
+export async function getBlog({
+  handle,
+  articles,
+  language,
+  country
+}: {
+  handle: string;
+  articles?: number;
+  language?: string;
+  country?: string;
+}): Promise<Blog | undefined> {
+  const res = await shopifyFetch<ShopifyBlogOperation>({
+    query: getBlogQuery,
+    variables: { handle, articles, language, country }
+  });
+
+  return reshapeBlog(res.body.data.blogByHandle);
 }
 
 export async function getProduct({
