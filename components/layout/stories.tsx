@@ -28,11 +28,16 @@ export default async function Stories({
     <div className="px-6 py-24">
       <div className="mx-auto flex max-w-screen-lg flex-col space-y-6">
         <h3 className="font-serif text-5xl">stories</h3>
-        <div className={clsx('font-multilingual font-extralight', 'flex flex-col space-y-px')}>
+        <div
+          className={clsx(
+            'font-multilingual font-extralight',
+            'flex flex-col space-y-6 md:space-y-px'
+          )}
+        >
           {blog?.articles?.map((article) => (
             <Link href={`/stories/${article.handle}`}>
-              <div className="flex flex-row space-x-2 bg-white text-black md:col-span-1">
-                <div className="relative aspect-[4/3] min-w-[480px] overflow-hidden">
+              <div className="flex flex-col space-y-2 bg-white text-black md:col-span-1 md:flex-row md:space-x-2 md:space-y-0">
+                <div className="relative aspect-[4/3] min-w-full overflow-hidden md:min-w-[480px]">
                   {!!article?.image?.url && (
                     <Image
                       src={article?.image?.url}
@@ -46,7 +51,7 @@ export default async function Stories({
                     />
                   )}
                 </div>
-                <div className="flex grow flex-col space-y-4 p-12">
+                <div className="flex grow flex-col space-y-4 p-6 md:p-12">
                   <div className="text-sm">
                     {format(new Date(article?.publishedAt), 'yyyy-MM-dd')}
                   </div>
