@@ -28,7 +28,7 @@ export default function Navbar({
 
   return (
     <div ref={ref}>
-      <div className="fixed top-0 z-20 w-full bg-dark/70 backdrop-blur-sm">
+      <div className="fixed top-0 z-20 w-full bg-dark/90 backdrop-blur-sm">
         <Transition
           show={!!ref && !inView}
           enter="transition ease duration-150 transform"

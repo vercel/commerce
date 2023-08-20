@@ -101,6 +101,46 @@
       "year": "Year",
       "month": "Month",
       "day": "Day"
+    },
+    "about": {
+      "001": {
+        "title": "water of the mountains,",
+        "subtitle": "sake of the skies"
+      },
+      "002": {
+        "title": "brewed in Narai-juku, Nagano.",
+        "para001": "We brew our sake in one of the highest breweries in Japan, standing at an altitude of 940m and surrounded by a mountainous forest of Japanese cedar trees. In Narai-juku, winter temperatures drop nearly 20°C below zero, causing the mountain water to freeze. After the cold winter, the town gets enveloped in fresh greenery as the air turns more clear and pleasant. In autumn, the mountains are adorned with vibrant foliage. Blessed with an abundance of nature, it is a place to truly experience the changing of seasons.",
+        "para002": "Could we express the beauty of the nature around us through our sake? Most sake breweries use large tanks (3,000L to 8,000L) suitable for mass production, often dividing tasks across a large team. At our brewery, we have scaled down to smaller tanks (900L to 1,800L) so that our single master brewer can meticulously and efficiently manage every step of the brewing process – enabling us to produce high-quality sake through small-lot production. While sake is typically produced in the winter, we have incorporated a year-round production method called “shiki-jozo,” or “four-seasons brewing,” so that we can reflect the changing seasons and beautiful nature of Nagano in our sake."
+      },
+      "003": {
+        "title": "Tasai na Kuro. A Colorful Black. Our Brewing Philosophy.",
+        "para001": "At first glance, the words “colorful” and “black” together may sound contradictory. Yet the concept of “A Colorful Black” is not about one single color, but rather a mixture of colors, meticulously layered together one paint at a time. For each batch of narai, I imagine myself harmonizing the various elements of the sake’s flavor – richness and fullness, dryness and sweetness, aroma – carefully adjusting each element according to the conditions of the mountain water and rice of that particular batch. A sake that is well-balanced, yet feels like a burst of colors as it spreads across your palate… this is the kind of sake I hope to create. We hope you enjoy narai – “water of the mountains, sake of the skies” – a sake that expresses the beautiful nature of Nagano.",
+        "master001": "Master Brewer",
+        "master002": "Masayuki Irie"
+      },
+      "awards": {
+        "title": "awards",
+        "subtitle": ""
+      },
+      "materials": {
+        "title": "materials",
+        "water": {
+          "title": "water - the foundation",
+          "body": "While most breweries use well water with stable properties, narai uses natural mountain water flowing from an altitude of over 1,000 meters. This mountain water, which springs near the divide between the Shinano and Kiso Rivers, is one of the clearest in Japan with a hardness of less than 25 and a round, smooth texture."
+        },
+        "rice": {
+          "title": "rice - the core",
+          "body": "We use rice that has been carefully cultivated by Farm Ichimaru, a rice farm in Azumino, Nagano. We have a strong commitment to using locally grown rice. Our master brewer personally visits the farm, participates in rice planting, and collaborates with the farmers to carefully select the best rice for brewing narai."
+        },
+        "koji": {
+          "title": "sake yeast & koji (fermentation) - the constituents",
+          "body": "We use Kyokai No.7 sake yeast from Nagano, which is known for its strong fermentability and ability to refine aromas elegantly. For the koji mold that converts rice into sugar, we select a strain that is well-balanced with high enzymatic activity."
+        }
+      },
+      "irie": {
+        "title": "Master Brewer: Masayuki Irie",
+        "body": "From Fukuoka. Always interested in the pairing of food with Japanese sake, Irie began working at Fukuchiyo Sake Brewery in Saga Prefecture. As he grew more fascinated with the process of sake mash-making, he moved to Kano Sake Brewery in Ishikawa Prefecture, followed by Honda Shoten in Hyogo Prefecture, where he learned the importance of quality ingredients in sake brewing. At 30, also recognizing the importance of branding in the realm of sake, Irie moved to Matsumoto Sake Brewery in Kyoto where he worked under master brewer Hidehiko Matsumoto for 5 years. Building on these experiences, Irie came to suginomori brewery as master brewer, with a goal to create a unique sake from his own vision."
+      }
     }
   }
 }
