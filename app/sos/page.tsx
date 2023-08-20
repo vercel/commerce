@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Combox } from "components/combox";
 import { ProductSKUs } from "components/product/sku-generator";
 import { collectionsSKUs, garmentHandleKeys } from "constants/sku";
-import { capitalizeFirstLetter, copyText, getKeyByValue } from "lib/helpers/actions";
+import { capitalizeFirstLetter, copyText } from "lib/helpers/actions";
 import { useEffect, useState } from "react";
 
 // type SKUSelectorState = {
@@ -42,11 +42,7 @@ export default async function NewProductHelpPage() {
   const collectionOptions = optionsMapper(collectionsSKUs, collectionValues);
 
   const createTitle = () => {
-    let collectionMapper = getKeyByValue(collectionsSKUs, collection)
-    if (collectionMapper) collectionMapper = capitalizeFirstLetter(collectionMapper)
-    let garmentMapper = getKeyByValue(garmentHandleKeys, garment)
-    if (garmentMapper) garmentMapper = capitalizeFirstLetter(garmentMapper)
-    setTitle(`${collectionMapper}scape No.${number} ${garmentMapper}`)
+    setTitle(collection && garment && `${capitalizeFirstLetter(collection)}scape No.${number} ${garment}`)
   }
 
   
