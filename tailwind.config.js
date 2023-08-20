@@ -18,7 +18,8 @@ module.exports = {
         japan: ['var(--font-noto)', 'serif']
       },
       aspectRatio: {
-        tall: '596 / 845'
+        tall: '596 / 845',
+        video: '1792 / 750'
       },
       keyframes: {
         fadeIn: {

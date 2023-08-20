@@ -193,6 +193,62 @@
       "para008": "These are small steps, but we believe that these efforts will lead to the future.",
       "para009": "One of our challenges is to become an “open brewery”. Our brewery is adjacent to an old private house on the same site and the restaurant of BYAKU Narai, an accommodation facility that was partially renovated from a former sake brewery. The brewery is separated from the restaurant by a single large glass partition, and we believe that this will provide an opportunity for visitors to experience the sake brewing process up close, which is usually difficult to see, and to develop an interest in sake.",
       "para010": "Finally, the brand name “narai” was chosen with the hope that our sake will be a catalyst for people around the world to learn about and visit the charming inn town of Naraijuku. We would be happy if you could stop by suginomori brewery when you come to Narai."
+    },
+    "company": {
+      "title": "company",
+      "subtitle001": "information",
+      "name": {
+        "label": "company name",
+        "value": "suginomori brewery"
+      },
+      "director": {
+        "label": "ceo",
+        "value": "Kou Sundberg William"
+      },
+      "since": {
+        "label": "Founded",
+        "value": "1793"
+      },
+      "address": {
+        "label": "Address",
+        "value": "551-1 Narai, Shiojiri, Nagano, Japan 399-6303"
+      },
+      "telephone": {
+        "label": "Phone Number",
+        "value": "+81 264-24-0340"
+      },
+      "subtitle002": "our team",
+      "irie": {
+        "japanese": "入江将之",
+        "english": "Masayuki Irie",
+        "role": "杜氏"
+      },
+      "nishikawa": {
+        "japanese": "西川正貴",
+        "english": "Masataka Nishikawa",
+        "role": "番頭"
+      },
+      "sundberg": {
+        "japanese": "サンドバーグ弘",
+        "english": "Kou Sundberg",
+        "role": "蔵元"
+      },
+      "yamano": {
+        "japanese": "山野恭稔",
+        "english": "Takatoshi Yamano",
+        "role": "クリエイティブディレクター"
+      },
+      "yoshida": {
+        "japanese": "吉田有紗",
+        "english": "Alisa Yoshida",
+        "role": "PR・マーケティング"
+      },
+      "ikegaya": {
+        "japanese": "池谷晋也",
+        "english": "Shinya Ikegaya",
+        "role": "営業戦略"
+      },
+      "subtitle003": "movie"
     }
   }
 }

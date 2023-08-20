@@ -22,7 +22,7 @@ export default function ConceptDetail() {
 
       <div
         className={clsx(
-          'font-multilingual mx-auto flex w-full flex-col space-y-12 py-12 text-left font-extralight md:flex-row md:space-x-6 md:space-y-0 md:py-24 md:pb-24'
+          'font-multilingual mx-auto flex w-full flex-col space-y-12 py-12 text-left font-extralight md:flex-row md:space-x-6 md:space-y-0 md:py-24'
         )}
       >
         <div className="md:w-1/2">

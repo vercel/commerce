@@ -193,6 +193,62 @@
       "para008": "・・・小さなことの積み重ねですが、これらの取り組みが未来に繋がると信じています。",
       "para009": "またこれらに関連し、私たちが挑戦したことの１つが、「開かれた酒蔵」としての在り方です。弊蔵は、同敷地内の古民家や、旧酒蔵の一部を改修した宿泊施設(BYAKU Narai)のレストランに隣接しています。大きなガラスの仕切り１枚で仕切られており、普段はなかなか見ることの出来ない酒造りを間近で感じられることは、日本酒に興味を持って頂くきっかけになると信じています。",
       "para010": "最後に、ブランド名の【narai】は、「私たちのsakeをきっかけに、奈良井宿という魅力的な宿場町を世界の人に知ってもらい、足を運んで頂きたい」という想いを込めて名付けました。奈良井に来られる際には、suginomori breweryに立ち寄って頂けたら嬉しいです。"
+    },
+    "company": {
+      "title": "会社概要",
+      "subtitle001": "information",
+      "name": {
+        "label": "社名",
+        "value": "杉の森酒造株式会社"
+      },
+      "director": {
+        "label": "代表取締役",
+        "value": "サンドバーグ弘ウィリアム"
+      },
+      "since": {
+        "label": "創業",
+        "value": "1793年"
+      },
+      "address": {
+        "label": "所在地",
+        "value": "〒399-6303長野県塩尻市奈良井551-1"
+      },
+      "telephone": {
+        "label": "電話番号",
+        "value": "0264-24-0340"
+      },
+      "subtitle002": "our team",
+      "irie": {
+        "japanese": "入江将之",
+        "english": "Masayuki Irie",
+        "role": "杜氏"
+      },
+      "nishikawa": {
+        "japanese": "西川正貴",
+        "english": "Masataka Nishikawa",
+        "role": "番頭"
+      },
+      "sundberg": {
+        "japanese": "サンドバーグ弘",
+        "english": "Kou Sundberg",
+        "role": "蔵元"
+      },
+      "yamano": {
+        "japanese": "山野恭稔",
+        "english": "Takatoshi Yamano",
+        "role": "クリエイティブディレクター"
+      },
+      "yoshida": {
+        "japanese": "吉田有紗",
+        "english": "Alisa Yoshida",
+        "role": "PR・マーケティング"
+      },
+      "ikegaya": {
+        "japanese": "池谷晋也",
+        "english": "Shinya Ikegaya",
+        "role": "営業戦略"
+      },
+      "subtitle003": "movie"
     }
   }
 }
