@@ -1,10 +1,13 @@
 import type { Metadata } from 'next';
 
-import LogoNamemark from 'components/icons/namemark';
+import Footer from 'components/layout/footer';
+import Navbar from 'components/layout/navbar';
 import { SupportedLocale } from 'components/layout/navbar/language-control';
 import Prose from 'components/prose';
-import { getPage } from 'lib/shopify';
+import { getCart, getPage } from 'lib/shopify';
+import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 import ShopsTitle from './ShopsTitle';
 
 export const runtime = 'edge';
@@ -32,18 +35,29 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: { params: { locale?: SupportedLocale } }) {
+  const cartId = cookies().get('cartId')?.value;
+  let cart;
+
+  if (cartId) {
+    cart = await getCart(cartId);
+  }
+
   const page = await getPage({ handle: 'shop-list', language: params?.locale?.toUpperCase() });
 
   if (!page) return notFound();
 
   return (
-    <div className="font-multilingual mx-auto min-h-screen max-w-screen-xl px-4 text-white">
-      <div className="pb-12">
-        <LogoNamemark className="w-[260px] fill-current md:w-[320px]" />
+    <div>
+      <Navbar cart={cart} locale={params?.locale} compact />
+      <div className="mx-auto max-w-xl px-6 pb-24 pt-12 md:pb-48 md:pt-24">
+        <ShopsTitle />
+        <h2 className="mb-8 text-3xl font-medium">{page.title}</h2>
+        <Prose className="" html={page.body as string} />
       </div>
-      <ShopsTitle />
-      <h2 className="mb-8 text-3xl font-medium">{page.title}</h2>
-      <Prose className="mx-auto mb-8 max-w-xl" html={page.body as string} />
+
+      <Suspense>
+        <Footer cart={cart} />
+      </Suspense>
     </div>
   );
 }
