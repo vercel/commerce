@@ -18,7 +18,7 @@ const Price = ({
       currencyDisplay: 'narrowSymbol'
     }).format(parseFloat(amount))}`}
     <span
-      className={clsx('font-multilingual ml-1 inline', currencyCodeClassName)}
+      className={clsx('ml-1 inline font-sans', currencyCodeClassName)}
     >{`${currencyCode}`}</span>
   </p>
 );
