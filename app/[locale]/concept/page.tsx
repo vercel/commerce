@@ -29,7 +29,7 @@ export default async function Page({ params }: { params: { locale?: SupportedLoc
   return (
     <div>
       <Navbar cart={cart} locale={params?.locale} compact />
-      <div className="pt-24 md:pt-48">
+      <div className="pt-12">
         <ConceptDetail />
       </div>
 
