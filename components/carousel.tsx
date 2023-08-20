@@ -14,7 +14,7 @@ export async function Carousel() {
         {[...products, ...products].map((product, i) => (
           <Link
             key={`${product.handle}${i}`}
-            href={`/product/${product.handle}`}
+            href={`/products/${product.handle}`}
             className="h-[30vh] w-2/3 flex-none md:w-1/3"
           >
             <GridTileImage
