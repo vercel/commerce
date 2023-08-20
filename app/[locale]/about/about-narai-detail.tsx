@@ -35,8 +35,8 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
         )}
       >
         <h2 className="text-5xl">{t('about.002.title')}</h2>
-        <p className="text-base">{t('about.002.para001')}</p>
-        <p className="text-base">{t('about.002.para002')}</p>
+        <p className="text-base leading-loose">{t('about.002.para001')}</p>
+        <p className="text-base leading-loose">{t('about.002.para002')}</p>
       </div>
 
       <div className="max-w-screen-2x relative mx-auto">
@@ -54,7 +54,7 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
         )}
       >
         <h2 className="text-5xl">{t('about.003.title')}</h2>
-        <p className="text-base">{t('about.003.para001')}</p>
+        <p className="text-base leading-loose">{t('about.003.para001')}</p>
         <div>
           <div className="relative flex flex-row justify-end pb-6">
             <Image
@@ -163,7 +163,7 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
         <Image
           src={AboutImage006}
           priority={true}
-          alt="A picture of the interior of the brewery."
+          alt="A picture of Irie-san."
           className={clsx('h-full w-full object-cover')}
         />
       </div>

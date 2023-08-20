@@ -84,7 +84,7 @@ const AgeGateForm: FC<AgeGateFormProps> = ({ checkoutUrl, didCancel }) => {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Dialog.Overlay className="fixed inset-0 bg-dark bg-opacity-80 backdrop-blur-sm transition-opacity" />
+              <Dialog.Overlay className="fixed inset-0 bg-dark/80 backdrop-blur-sm transition-opacity" />
             </Transition.Child>
 
             {/* This element is to trick the browser into centering the modal contents. */}

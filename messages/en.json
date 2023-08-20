@@ -141,6 +141,43 @@
         "title": "Master Brewer: Masayuki Irie",
         "body": "From Fukuoka. Always interested in the pairing of food with Japanese sake, Irie began working at Fukuchiyo Sake Brewery in Saga Prefecture. As he grew more fascinated with the process of sake mash-making, he moved to Kano Sake Brewery in Ishikawa Prefecture, followed by Honda Shoten in Hyogo Prefecture, where he learned the importance of quality ingredients in sake brewing. At 30, also recognizing the importance of branding in the realm of sake, Irie moved to Matsumoto Sake Brewery in Kyoto where he worked under master brewer Hidehiko Matsumoto for 5 years. Building on these experiences, Irie came to suginomori brewery as master brewer, with a goal to create a unique sake from his own vision."
       }
+    },
+    "bar": {
+      "001": {
+        "title": "sagyobar : a brewery-operated bar & workspace",
+        "subtitle": "",
+        "para001": "Introducing sagyobar: a place where brewery operations (sagyo) and drinking (bar) come together. We have combined our brewery workspace, where we pack boxes and fulfill orders, with a place to enjoy sake served from our very own suginomori wagon.",
+        "para002": "The renovated warehouse was originally used for storing equipment and business supplies left from the old Suginomori Shuzo, the precursor to suginomori brewery that was established in 1793. While maintaining its original structure, we have revamped its entrance and installed new systems such as lighting and air conditioning. We utilize “P-boxes” – containers used to transport sake bottles – that can be flexibly arranged to transform the space into standing bar."
+      },
+      "002": "sagyobar is a place where visitors to Narai-juku can enjoy narai, freshly brewed at our brewery just a short walk away. We also plan to host music events, workshops, and other various activities, and turn sagyobar into a new tourist hub in Narai-juku.",
+      "003": {
+        "title": "suginomori wagon",
+        "body": "sagyobar is also the home of “suginomori wagon” – our very own vehicle equipped with a sake server, offering the narai tasting set, local specialty menus, and original merchandise of suginomori brewery. suginomori wagon also serves as a mobile sales vehicle, allowing us to bring narai to various events within Nagano and all over the country."
+      },
+      "access": {
+        "title": "access",
+        "para001": "755-1 Narai, Shiojiri, Nagano 399-6303",
+        "para002": "By train",
+        "para003": "4 min walk from Narai Station (JR Chuo Main Line)",
+        "para004": "By car",
+        "para005": "35 min from Shiojiri IC / 40 min from Ina IC",
+        "para006": "*Please use the parking lots at “Michi no eki Narai Kiso-no-ohashi” or “Mizubeno Furusato Fureai Koen”",
+        "para007": "*Please kindly avoid parking on vacant property or the street"
+      },
+      "hours": {
+        "title": "operating hours",
+        "para001": "We generally operate on an irregular schedule, but are OPEN every Friday and Saturday from 1PM to 5PM.",
+        "para002": "*For other dates, please feel free to approach our staff if you see them.",
+        "para003": "*We do not sell alcoholic beverages to drivers or individuals under the legal drinking age."
+      },
+      "menu": {
+        "title": "menu",
+        "para001": "Please see the menu from here."
+      },
+      "clerk": {
+        "title": "Banto (Head Clerk): Masaki Nishikawa",
+        "body": "Nishikawa is engaged in manufacturing management, sales management, liquor tax management, general affairs and sales administration. A trustworthy and dependable presence, it is often said that “if you need anything, just ask Nishikawa.” Nishikawa joined Matsumoto Sake Brewery in Kyoto in 2006. After serving as head clerk there for many years, Nishikawa joined suginomori brewery in 2021. He strives to create an environment in which the brewer can fully concentrate on their craft."
+      }
     }
   }
 }
