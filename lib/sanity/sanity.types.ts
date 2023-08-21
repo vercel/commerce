@@ -1,5 +1,11 @@
 import type { Image } from 'sanity'
 
+export interface MenuItem {
+  _type: string
+  slug?: string
+  title?: string
+}
+
 export interface HomePagePayload {
   content?: []
   title?: string
@@ -63,5 +69,5 @@ export interface SearchPayload {
 export interface MainMenuPayload {
   title?: string
   _type?: string
-  items: []
+  items?: MenuItem[]
 }

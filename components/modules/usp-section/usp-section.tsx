@@ -1,5 +1,3 @@
-'use client';
-
 import SanityImage from '../../ui/sanity-image';
 
 interface USPSectionProps {
@@ -24,7 +22,7 @@ const USPSection = ({ usps }: USPSectionProps) => {
                   alt={usp.name || 'USP image'}
                   width={96}
                   height={96}
-                  sizes="96px"
+                  size="96px"
                 />
               </div>
             )}

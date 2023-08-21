@@ -28,6 +28,7 @@ export default async function Header({ locale }: HeaderProps) {
         <div className="relative flex w-full items-center justify-between px-4 py-2 lg:px-8 2xl:px-16">
           <div className="-translate-x-2 transform md:hidden">
             <Suspense fallback={<OpenMobileMenu />}>
+              {/* @ts-ignore */}
               <MobileMenuModal items={mainMenu} />
             </Suspense>
           </div>
@@ -44,6 +45,7 @@ export default async function Header({ locale }: HeaderProps) {
 
           <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 transform md:flex">
             <Suspense>
+              {/* @ts-ignore */}
               <DesktopMenu items={mainMenu} />
             </Suspense>
           </div>
