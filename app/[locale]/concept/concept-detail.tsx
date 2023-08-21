@@ -22,7 +22,9 @@ export default function ConceptDetail() {
 
       <div
         className={clsx(
-          'font-multilingual mx-auto flex w-full flex-col space-y-12 py-12 text-left font-extralight md:flex-row md:space-x-6 md:space-y-0 md:py-24'
+          'font-multilingual mx-auto flex w-full flex-col space-y-12 py-12',
+          'text-left font-extralight md:flex-row md:space-x-6 md:space-y-0 md:py-24',
+          'mx-auto max-w-screen-xl'
         )}
       >
         <div className="md:w-1/2">
@@ -30,6 +32,17 @@ export default function ConceptDetail() {
           <p className="font-multilingual text-lg font-extralight">
             {t('concept.para001')} {t('concept.para002')} {t('concept.para003')}
           </p>
+          <div className="font-multilingual pt-24 font-extralight">
+            <p className="pb-6 text-xl font-normal">{t('concept.subtitle001')}</p>
+            <p className="pb-24 text-lg leading-relaxed">{t('concept.para004')}</p>
+            <p className="pb-6 text-xl font-normal">{t('concept.subtitle002')}</p>
+            <p className="pb-4 text-lg leading-relaxed">{t('concept.para005')}</p>
+            <p className="pb-4 text-lg leading-relaxed">
+              {t('concept.para006')} {t('concept.para007')} {t('concept.para008')}
+            </p>
+            <p className="pb-4 text-lg leading-relaxed">{t('concept.para009')}</p>
+            <p className="text-lg leading-relaxed">{t('concept.para010')}</p>
+          </div>
         </div>
         <div className="flex flex-row items-start justify-end md:w-1/2">
           <div className="pb-24">
@@ -38,19 +51,7 @@ export default function ConceptDetail() {
         </div>
       </div>
 
-      <div className="mx-auto flex max-w-screen-2xl flex-col space-y-24">
-        <div className="font-multilingual font-extralight md:w-1/2">
-          <p className="pb-6 text-xl font-normal">{t('concept.subtitle001')}</p>
-          <p className="pb-24 text-lg leading-relaxed">{t('concept.para004')}</p>
-          <p className="pb-6 text-xl font-normal">{t('concept.subtitle002')}</p>
-          <p className="pb-4 text-lg leading-relaxed">{t('concept.para005')}</p>
-          <p className="pb-4 text-lg leading-relaxed">
-            {t('concept.para006')} {t('concept.para007')} {t('concept.para008')}
-          </p>
-          <p className="pb-4 text-lg leading-relaxed">{t('concept.para009')}</p>
-          <p className="text-lg leading-relaxed">{t('concept.para010')}</p>
-        </div>
-
+      <div className="mx-auto flex flex-col space-y-24">
         <Image
           src={ConceptImage002}
           priority={true}
