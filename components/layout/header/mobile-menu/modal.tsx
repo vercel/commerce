@@ -6,11 +6,15 @@ import { useState } from 'react';
 import OpenMobileMenu from './open-mobile-menu';
 
 interface MobileMenuModalProps {
-  items: [];
+  items: [] | null;
 }
 
 export default function MobileMenuModal({ items }: MobileMenuModalProps) {
   const [isOpen, setIsOpen] = useState(false);
+
+  if (!items) {
+    return;
+  }
 
   return (
     <>

@@ -269,7 +269,7 @@ export const categoryQuery = `*[_type == "category" && slug.current == $slug && 
 }`;
 
 // Categories query
-export const categoriesQuery = `*[_type == "category" && language == $locale] | order(title asc) {
+export const mainMenuQuery = `*[_type == "category" && language == $locale] | order(title asc) {
   _type,
   title,
   "slug": slug.current,

@@ -42,7 +42,7 @@
     "clsx": "^1.2.1",
     "framer-motion": "^8.5.5",
     "is-empty-iterable": "^3.0.0",
-    "next": "13.4.13",
+    "next": "13.4.19",
     "next-intl": "2.19.1",
     "next-sanity": "^5.4.2",
     "react": "18.2.0",

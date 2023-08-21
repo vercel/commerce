@@ -7,9 +7,9 @@ import { draftMode } from 'next/headers'
 
 import { revalidateSecret } from './sanity.api'
 
-import { categoryQuery, homePageQuery, pageQuery, productQuery, searchPageQuery } from './queries'
+import { categoryQuery, homePageQuery, mainMenuQuery, pageQuery, productQuery, searchPageQuery } from './queries'
 
-import { CategoryPayload, HomePagePayload, PagePayload, ProductPayload, SearchPayload } from './sanity.types'
+import { CategoryPayload, HomePagePayload, MainMenuPayload, PagePayload, ProductPayload, SearchPayload } from './sanity.types'
 
 export const token = process.env.SANITY_API_READ_TOKEN
 
@@ -56,7 +56,7 @@ export function getHomePage(locale: string) {
   return sanityFetch<HomePagePayload | null>({
     query: homePageQuery,
     params: { locale },
-    tags: ['home', 'products', 'categories', 'page'],
+    tags: ['home', 'products', 'categories', 'page', 'menu'],
   })
 }
 
@@ -89,5 +89,13 @@ export function getSearch(slug: string, locale: string) {
     query: searchPageQuery,
     params: { slug, locale },
     tags: ['search'],
+  })
+}
+
+export function getMainMenu(locale: string) {
+  return sanityFetch<MainMenuPayload | null>({
+    query: mainMenuQuery,
+    params: { locale },
+    tags: ['menu'],
   })
 }

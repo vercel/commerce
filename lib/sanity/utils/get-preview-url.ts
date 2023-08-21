@@ -3,6 +3,7 @@ import { isDev, SanityDocument } from 'sanity'
 import { localStorefrontPreviewUrl, publicStorefrontPreviewUrl } from '../constants'
 
 const SANITY_STUDIO_API_READ_TOKEN = "skYG2HXNga8uxSL7rFIreJEnP0SdVjCZ2nzB8rUHD4wRWxXPGceXTuR5vCVBP99mWZ9ULhghmpUyX7EtzDmJusSk6Gwvdr3nLAsdWI9ZktIWvSWUNpHbu0Xfrrt0UUaktrLglk7ToABvjXlaPHLpOIR3dnjl4MGByutPmyra0b5t20kgDrmF"
+
 // Customise this function to show the correct URL based on the current document
 export default async function getPreviewUrl(doc: SanityDocument) {
 

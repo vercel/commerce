@@ -59,3 +59,9 @@ export interface SearchPayload {
     image: Image
   }
 }
+
+export interface MainMenuPayload {
+  title?: string
+  _type?: string
+  items: []
+}
