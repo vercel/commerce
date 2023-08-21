@@ -1,15 +1,15 @@
 'use client';
+import AboutImage001 from '@images/about-images/about-image-001.webp';
+import AboutImage002 from '@images/about-images/about-image-002.webp';
+import AboutImage003 from '@images/about-images/about-image-003.webp';
+import AboutImage004 from '@images/about-images/about-image-004.webp';
+import AboutImage005 from '@images/about-images/about-image-005.webp';
+import AboutImage006 from '@images/about-images/about-image-006.webp';
+import IrieSignature from '@images/about-images/irie-signature.webp';
 import clsx from 'clsx';
 import Prose from 'components/prose';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import AboutImage001 from './images/about-image-001.webp';
-import AboutImage002 from './images/about-image-002.webp';
-import AboutImage003 from './images/about-image-003.webp';
-import AboutImage004 from './images/about-image-004.webp';
-import AboutImage005 from './images/about-image-005.webp';
-import AboutImage006 from './images/about-image-006.webp';
-import IrieSignature from './images/irie-signature.webp';
 
 export default function AboutNaraiDetail({ awards }: { awards: string }) {
   const t = useTranslations('Index');

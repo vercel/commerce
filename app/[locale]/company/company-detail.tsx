@@ -1,12 +1,12 @@
 'use client';
+import CompanyImage001 from '@images/company-images/irie.webp';
+import CompanyImage002 from '@images/company-images/kou.webp';
+import CompanyImage003 from '@images/company-images/yamano.webp';
 import clsx from 'clsx';
 import VideoPlayer from 'components/video/video-player';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import CompanyImage001 from './images/irie.webp';
-import CompanyImage002 from './images/kou.webp';
-import CompanyImage003 from './images/yamano.webp';
 
 export default function CompanyDetail() {
   const t = useTranslations('Index');

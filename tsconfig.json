@@ -16,6 +16,9 @@
     "incremental": true,
     "baseUrl": ".",
     "noUncheckedIndexedAccess": true,
+    "paths": {
+      "@images/*": ["public/assets/images/*"]
+    },
     "plugins": [
       {
         "name": "next"

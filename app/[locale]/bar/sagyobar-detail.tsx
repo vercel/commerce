@@ -1,14 +1,14 @@
 'use client';
+import BarImage001 from '@images/bar-images/bar-image-001.webp';
+import BarImage002 from '@images/bar-images/bar-image-002.webp';
+import BarImage003 from '@images/bar-images/bar-image-003.webp';
+import BarImage004 from '@images/bar-images/bar-image-004.webp';
+import BarImage005 from '@images/bar-images/bar-image-005.webp';
+import BarImage006 from '@images/bar-images/bar-image-006.webp';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
-import BarImage001 from './images/bar-image-001.webp';
-import BarImage002 from './images/bar-image-002.webp';
-import BarImage003 from './images/bar-image-003.webp';
-import BarImage004 from './images/bar-image-004.webp';
-import BarImage005 from './images/bar-image-005.webp';
-import BarImage006 from './images/bar-image-006.webp';
 
 export default function SagyobarDetail() {
   const t = useTranslations('Index');

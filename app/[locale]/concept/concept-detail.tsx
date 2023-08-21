@@ -1,10 +1,10 @@
 'use client';
+import ConceptImage001 from '@images/concept-images/concept-image-001.webp';
+import ConceptImage002 from '@images/concept-images/concept-image-002.webp';
 import clsx from 'clsx';
 import Logo from 'components/icons/logo';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import ConceptImage001 from './images/concept-image-001.webp';
-import ConceptImage002 from './images/concept-image-002.webp';
 
 export default function ConceptDetail() {
   const t = useTranslations('Index');
