@@ -64,7 +64,7 @@ export function AddToCart({
       {!isPending ? (
         <span>{availableForSale ? t('cart.add') : t('cart.out-of-stock')}</span>
       ) : (
-        <LoadingDots className="mb-3 bg-white" />
+        <LoadingDots className="my-3 bg-black" />
       )}
     </button>
   );
