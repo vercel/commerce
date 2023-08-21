@@ -14,7 +14,9 @@ import { getProduct, getProductRecommendations } from 'lib/shopify';
 import { Image as MediaImage, Product } from 'lib/shopify/types';
 import Image from 'next/image';
 import Link from 'next/link';
+
 export const runtime = 'edge';
+export const revalidate = 43200; // 12 hours in seconds
 
 export async function generateMetadata({
   params

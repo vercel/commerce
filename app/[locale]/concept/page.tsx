@@ -8,6 +8,8 @@ import { Suspense } from 'react';
 import ConceptDetail from './concept-detail';
 
 export const runtime = 'edge';
+export const revalidate = 43200; // 12 hours in seconds
+
 const { SITE_NAME } = process.env;
 
 export const metadata = {
