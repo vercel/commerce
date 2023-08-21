@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { urlForImage } from 'lib/sanity/sanity.image';
 import Image from 'next/image';
 
@@ -16,37 +17,42 @@ interface SanityImageProps {
 
 export default function SanityImage({
   image,
-  alt = 'Cover image',
+  alt = '',
   width = 3500,
   height = 2000,
   size = '100vw',
   fill = false,
+  priority = false,
   className
 }: SanityImageProps) {
   const imageUrl = image && urlForImage(image)?.height(height).width(width).fit('crop').url();
 
-  console.log(imageUrl);
-
   return (
-    <div className={`w-full overflow-hidden rounded-[3px] bg-gray-50 ${className}`}>
+    <div className={cn('w-full overflow-hidden bg-subtle', className)}>
       {fill && imageUrl && (
         <Image
           fill={fill}
           className="absolute h-full w-full object-cover"
-          alt={alt ? alt : ''}
+          alt={alt}
           sizes={size}
           src={imageUrl}
+          placeholder="blur"
+          priority={priority}
+          blurDataURL={image.asset.metadata.lqip}
         />
       )}
 
       {imageUrl && (
         <Image
-          className="absolute h-full w-full object-cover"
+          className="absolute h-full w-full bg-subtle object-cover"
           alt={alt ? alt : ''}
           width={width}
           height={height}
           sizes={size}
           src={imageUrl}
+          placeholder="blur"
+          priority={priority}
+          blurDataURL={image.asset.metadata.lqip}
         />
       )}
     </div>

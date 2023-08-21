@@ -25,12 +25,14 @@ const ProductCard: FC<Props> = ({ product, className, variant = 'default' }) => 
     >
       {variant === 'default' && (
         <div className={'relative flex h-full w-full flex-col justify-center'}>
-          <div className="relative h-full w-full overflow-hidden">
+          <div className="relative aspect-square h-full w-full overflow-hidden">
             {product?.images && (
               <SanityImage
                 image={product?.images[0]}
+                width={400}
+                height={400}
                 alt={product.title || 'Product Image'}
-                sizes="(max-width: 1024px) 50vw, 20vw"
+                size="(max-width: 1024px) 50vw, 20vw"
               />
             )}
           </div>

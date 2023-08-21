@@ -3,9 +3,9 @@
 import Text from 'components/ui/text';
 import { useEffect, useState } from 'react';
 
+import { Carousel, CarouselItem } from '@/components/modules/carousel/carousel';
 import CategoryCard from '@/components/ui/category-card/category-card';
 import ProductCard from '@/components/ui/product-card/product-card';
-import { Carousel, CarouselItem } from '@/components/modules/carousel/carousel';
 
 interface SliderProps {
   products: [] | any;

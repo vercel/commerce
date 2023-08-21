@@ -39,10 +39,13 @@ export default async function IndexPage({ params }: HomePageParams) {
     notFound();
   }
 
+  console.log('Preview:', draftMode().isEnabled);
+
   return (
     <LiveQuery
       enabled={draftMode().isEnabled}
       query={homePageQuery}
+      params={{ locale: params.locale }}
       initialData={data}
       as={HomePagePreview}
     >
