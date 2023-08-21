@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 
 interface PreviewBannerProps {
-  title: string;
+  title?: string;
   type?: string;
 }
 

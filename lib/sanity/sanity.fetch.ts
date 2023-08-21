@@ -7,9 +7,9 @@ import { draftMode } from 'next/headers'
 
 import { revalidateSecret } from './sanity.api'
 
-import { homePageQuery } from './queries'
+import { categoryQuery, homePageQuery, pageQuery, productQuery, searchPageQuery } from './queries'
 
-import { HomePagePayload } from './sanity.types'
+import { CategoryPayload, HomePagePayload, PagePayload, ProductPayload, SearchPayload } from './sanity.types'
 
 export const token = process.env.SANITY_API_READ_TOKEN
 
@@ -56,6 +56,38 @@ export function getHomePage(locale: string) {
   return sanityFetch<HomePagePayload | null>({
     query: homePageQuery,
     params: { locale },
-    tags: ['home', 'products', 'categories'],
+    tags: ['home', 'products', 'categories', 'page'],
+  })
+}
+
+export function getPage(slug: string, locale: string) {
+  return sanityFetch<PagePayload | null>({
+    query: pageQuery,
+    params: { slug, locale },
+    tags: ['page'],
+  })
+}
+
+export function getProduct(slug: string, locale: string) {
+  return sanityFetch<ProductPayload | null>({
+    query: productQuery,
+    params: { slug, locale },
+    tags: ['product'],
+  })
+}
+
+export function getCategory(slug: string, locale: string) {
+  return sanityFetch<CategoryPayload | null>({
+    query: categoryQuery,
+    params: { slug, locale },
+    tags: ['category'],
+  })
+}
+
+export function getSearch(slug: string, locale: string) {
+  return sanityFetch<SearchPayload | null>({
+    query: searchPageQuery,
+    params: { slug, locale },
+    tags: ['search'],
   })
 }

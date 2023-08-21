@@ -1,24 +1,22 @@
 'use client';
 
-import { homePageQuery } from '@/lib/sanity/queries';
-import { useLiveQuery } from '@sanity/preview-kit';
+import dynamic from 'next/dynamic';
 import PreviewBanner from '../ui/preview-banner';
-import HomePage from './home-page';
+import type { IndexPageParams } from './home-page';
 
-interface HomePagePreviewParams {
-  initialData: [];
-  params: {
-    locale: string;
-  };
-}
+const HomePage = dynamic(() => import('./home-page'));
 
-export default function HomePagePreview({ initialData, params }: HomePagePreviewParams) {
-  const [data] = useLiveQuery(initialData, homePageQuery, params);
+export default function HomePagePreview({ data }: IndexPageParams) {
+  if (!data) {
+    return (
+      <div className="text-center">Please start editing your Home document to see the preview!</div>
+    );
+  }
 
   return (
     <>
-      <HomePage data={data} />;{/* @ts-ignore */}
-      <PreviewBanner title={data?.title} type={data?._type} />
+      <HomePage data={data} />
+      <PreviewBanner title={data?.title ? data.title : ''} />
     </>
   );
 }

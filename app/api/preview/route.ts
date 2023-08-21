@@ -1,8 +1,7 @@
-import { previewSecretId } from '@/lib/sanity/sanity.api'
-import { client } from '@/lib/sanity/sanity.client'
+// import { previewSecretId } from '@/lib/sanity/sanity.api'
+// import { client } from '@/lib/sanity/sanity.client'
 import { token } from '@/lib/sanity/sanity.fetch'
 import { draftMode } from 'next/headers'
-import { isValidSecret } from 'sanity-plugin-iframe-pane/is-valid-secret'
 
 export const runtime = 'edge'
 
@@ -18,23 +17,26 @@ export async function GET(request: Request) {
       'The `SANITY_API_READ_TOKEN` environment variable is required.',
     )
   }
+
   if (!secret) {
     return new Response('Invalid secret', { status: 401 })
   }
 
-  const authenticatedClient = client.withConfig({ token })
+  // const authenticatedClient = client.withConfig({ token })
   
-  const validSecret = await isValidSecret(
-    authenticatedClient,
-    previewSecretId,
-    secret,
-  )
+  // const validSecret = await isValidSecret(
+  //   authenticatedClient,
+  //   previewSecretId,
+  //   secret,
+  // )
 
-  if (!validSecret) {
-    return new Response('Invalid secret', { status: 401 })
-  }
+  // if (!validSecret) {
+  //   return new Response('Invalid secret', { status: 401 })
+  // }
 
   draftMode().enable()
+
+  console.log(draftMode())
 
   if (type === 'home') {
     return new Response(null, {

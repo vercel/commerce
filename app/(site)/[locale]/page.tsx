@@ -8,7 +8,6 @@ import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 
 export const runtime = 'edge';
-export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({
   params
@@ -31,15 +30,11 @@ interface HomePageParams {
 }
 
 export default async function IndexPage({ params }: HomePageParams) {
-  // const preview = draftMode().isEnabled ? { token: process.env.SANITY_API_READ_TOKEN } : undefined;
-
   const data = await getHomePage(params.locale);
 
   if (!data && !draftMode().isEnabled) {
     notFound();
   }
-
-  console.log('Preview:', draftMode().isEnabled);
 
   return (
     <LiveQuery
