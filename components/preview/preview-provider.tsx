@@ -13,17 +13,12 @@ export default function PreviewProvider({
   token
 }: {
   children: React.ReactNode;
-  token: string;
+  token?: string;
 }) {
   const { client } = suspend(() => import('@/lib/sanity/sanity.client'), [UniqueKey]);
   if (!token) throw new TypeError('Missing token');
   return (
-    <LiveQueryProvider
-      client={client}
-      token={token}
-      // Uncomment below to see debug reports
-      logger={console}
-    >
+    <LiveQueryProvider client={client} token={token} logger={console}>
       {children}
     </LiveQueryProvider>
   );

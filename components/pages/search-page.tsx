@@ -2,9 +2,9 @@ import Search from '@/components/search/search';
 import SearchResult from '@/components/search/search-result';
 import Text from '@/components/ui/text/text';
 
-interface SearchPageParams {
+export type SearchPageParams = {
   data: object | any;
-}
+};
 
 export default function SearchPage({ data }: SearchPageParams) {
   return (
