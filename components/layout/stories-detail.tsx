@@ -34,8 +34,8 @@ export default async function StoriesDetail({
             'flex flex-col space-y-6 md:space-y-px'
           )}
         >
-          {blog?.articles?.map((article) => (
-            <Link href={`/stories/${article.handle}`}>
+          {blog?.articles?.map((article, index) => (
+            <Link href={`/stories/${article.handle}`} key={`${article.handle}-${index}`}>
               <div className="flex flex-col space-y-2 bg-white text-black md:col-span-1 md:flex-row md:space-x-2 md:space-y-0">
                 <div className="relative aspect-[4/3] min-w-full overflow-hidden md:min-w-[480px]">
                   {!!article?.image?.url && (

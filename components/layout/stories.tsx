@@ -33,8 +33,8 @@ export default async function Stories({
             'grid grid-cols-1 gap-y-24 md:grid-cols-3 md:gap-x-4'
           )}
         >
-          {blog?.articles?.map((article) => (
-            <Link href={`/stories/${article.handle}`}>
+          {blog?.articles?.map((article, index) => (
+            <Link href={`/stories/${article.handle}`} key={`${article.handle}-${index}`}>
               <div className="flex flex-col space-y-4 md:col-span-1">
                 <div className="relative aspect-square overflow-hidden md:max-w-sm">
                   {!!article?.image?.url && (
