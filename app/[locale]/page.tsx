@@ -7,7 +7,7 @@ import HomeImage002 from '@images/home-images/home-image-002.webp';
 import HomeImage003 from '@images/home-images/home-image-003.webp';
 import HomeImage004 from '@images/home-images/home-image-004.webp';
 import HomeImage005 from '@images/home-images/home-image-005.webp';
-import HomeImage006 from '@images/home-images/home-image-006.jpg';
+import HomeImage006 from '@images/home-images/home-image-006.webp';
 import HomeImage007 from '@images/home-images/home-image-007.webp';
 import HomeImage008 from '@images/home-images/home-image-008.webp';
 import clsx from 'clsx';
