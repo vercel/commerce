@@ -134,12 +134,12 @@ export function MenuModal({ scrolled }: { scrolled: boolean }) {
                           </Link>
                         </div>
 
-                        <div>
+                        <div className="pt-12">
                           <Link
-                            href="/contact"
-                            className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
+                            href={`mailto:${t('email-address.support')}`}
+                            className="font-serif text-2xl font-extralight transition-opacity duration-150 hover:opacity-50"
                           >
-                            {t('menu.contact')}
+                            {t('email-address.support')}
                           </Link>
                         </div>
                       </nav>

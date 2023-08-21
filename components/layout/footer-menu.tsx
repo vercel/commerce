@@ -67,7 +67,7 @@ export default function FooterMenu() {
           </div>
 
           <div>
-            <Link href="/legal" className="transition-opacity duration-150 hover:opacity-50">
+            <Link href="/disclosures" className="transition-opacity duration-150 hover:opacity-50">
               {t('shopping-guide.legal')}
             </Link>
           </div>
@@ -79,8 +79,11 @@ export default function FooterMenu() {
           </div>
 
           <div>
-            <Link href="/contact" className="transition-opacity duration-150 hover:opacity-50">
-              {t('shopping-guide.contact')}
+            <Link
+              href={`mailto:${t('email-address.support')}`}
+              className="transition-opacity duration-150 hover:opacity-50"
+            >
+              {t('email-address.support')}
             </Link>
           </div>
         </nav>

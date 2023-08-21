@@ -1,5 +1,8 @@
 {
   "Index": {
+    "email-address": {
+      "support": "info@narai.jp"
+    },
     "menu": {
       "title": "menu",
       "products": "products",
@@ -249,6 +252,269 @@
         "role": "営業戦略"
       },
       "subtitle003": "movie"
+    },
+    "terms": {
+      "title": "Terms & Conditions",
+      "lastModifiedDate": "Last updated on July 4, 2021",
+      "pleaseRead": "Please read these terms and conditions carefully before using our service.",
+      "definitions": {
+        "title": "Interpretation and Definitions",
+        "capitalizedTerms": "Capitalized words will have the meanings given below. Defined terms have the same meaning regardless of whether they appear in singular or in plural.",
+        "affiliate": "\"Affiliate\" means an entity that controls, is controlled by or is under common control with a party, where \"control\" means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.",
+        "account": "\"Account\" means a unique account created for you to access our Service or parts of our Service.",
+        "company": "\"Company\" (referred to as \"the Company\", \"we\", \"us\" or \"our\" in this Agreement) refers to suginomori brewery inc., with offices at 551-1 Narai, Shiojiri City, Nagano, Japan, 399-6303.",
+        "country": "\"Country\" refers to Japan.",
+        "feedback": "\"Feedback\" means feedback, innovations or suggestions sent by you regarding the attributes, performance or features of our Service.",
+        "goods": "\"Goods\" refer to the items offered for sale on the Service.",
+        "orders": "\"Orders\" mean a request by you to purchase Goods from Us.",
+        "service": "\"Service\" mean a request by you to purchase Goods from Us.",
+        "site": "\"Site\" refers to the website accessible from http://narai.jp/ or a successor URI.",
+        "socialMedia": "\"Third-party Social Media Service\" means any services or content (including data, information, products or services) provided by a third-party that may be displayed, included or made available by the Service.",
+        "you": "\"You\" and \"your\" refer to the individual accessing or using the Service, or a company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable."
+      },
+      "acknowledgment": {
+        "title": "Acknowledgment",
+        "intro": "These are the terms and conditions governing the use of this Service and the agreement that operates between you and the Company. These terms and conditions set out the rights and obligations of all users regarding the use of the Service.",
+        "acceptance": "Your access to and use of the Service is conditioned on your acceptance of and compliance with these terms and conditions. These terms and conditions apply to all visitors, users and others who access or use the Service.",
+        "access": "By accessing or using the Service you agree to be bound by these terms and conditions. If you disagree with any part of these terms and conditions then you may not access the Service.",
+        "age": "The Site is intended for your use only if you are of legal age to purchase alcohol in your country of residence and in the country from which you are accessing the Site. If you do not fall within this category, you may be in breach of laws or regulations applicable in your country of residence or access, and you should leave the Site immediately.",
+        "privacy": "Your access to and use of the Service is also conditioned on your acceptance of and compliance with the Privacy Policy of the Company. Our Privacy Policy describes our policies and procedures on the collection, use and disclosure of your personal information when you use this Site and tells you about your privacy rights and how the law protects you. Please read our Privacy Policy carefully before using our Service."
+      },
+      "orders": {
+        "title": "Placing Orders",
+        "contract": "By placing an Order for Goods through the Service, you warrant that you are legally capable of entering into binding contracts.",
+        "requiredInfo": "If you wish to place an Order for Goods available on the Service, you may be asked to supply certain information relevant to your Order including, without limitation, your name, your email, your phone number, your credit card number, the expiration date of your credit card, your billing address, and your shipping information.",
+        "reps": "You represent and warrant that: (i) you have the legal right to use any credit or debit card(s) or other payment method(s) in connection with any Order; and that (ii) the information you supply to us is true, correct and complete.",
+        "onwardTransfers": "By submitting such information, you grant us the right to provide the information to payment processing third parties for purposes of facilitating the completion of your Order.",
+        "cancellation": "We reserve the right to refuse or cancel your Order at any time for certain reasons including but not limited to unavailability of Goods, errors in the description or prices of Goods, errors in your Order, or fraud or an unauthorized or illegal transaction is suspected.",
+        "returns": {
+          "policy": "Any Goods you purchase can only be returned in accordance with these terms and conditions and our Returns Policy. Our Returns Policy forms a part of these terms and conditions.",
+          "damagedGoods": "Goods that are damaged or not in the same condition as you received them or which are worn simply beyond opening the original packaging will not be refunded. You should therefore take reasonable care of the purchased Goods while they are in your possession.",
+          "exceptions": {
+            "leadIn": "You will not have any right to cancel an Order for the supply of any of the following Goods:",
+            "personalized": "Goods made to your specifications or clearly personalized.",
+            "expired": "Goods which according to their nature are not suitable to be returned, deteriorate rapidly or where the date of expiry is over.",
+            "hygiene": "Goods which are not suitable for return due to health protection or hygiene reasons and were unsealed after delivery.",
+            "mixed": "Goods which are, after delivery, according to their nature, inseparably mixed with other items.",
+            "digital": "Digital content which is not supplied on a tangible medium if the performance has begun with your prior express consent and you have acknowledged your loss of cancellation right."
+          }
+        }
+      },
+      "inaccuracies": {
+        "title": "Availability, Errors and Inaccuracies",
+        "errorsPossible": "We frequently update the offerings on the Service. Although We try to keep the offerings on our Site current and accurate, it is possible that the Goods available may be temporarily mispriced, described incorrectly, or may be unavailable, and We may experience delays in updating information on the Service and in advertising.",
+        "noGuarantee": "We do not guarantee the accuracy or completeness of any information, including prices, product images, specifications, availability, and services. We reserve the right to change or update information and to correct errors, inaccuracies, or omissions at any time without prior notice."
+      },
+      "prices": {
+        "title": "Prices & Payments",
+        "changes": "We reserve the right to revise Our prices at any time prior to accepting an Order.",
+        "payments": "Payment cards (credit cards or debit cards) are subject to validation checks and authorization by your card issuer. If we do not receive the required authorization, We will not be liable for any delay or non-delivery of your Order due to a failure of payment card validation or authorization."
+      },
+      "promotions": {
+        "title": "Promotions",
+        "conflicts": "Any Promotions made available through the Service may be governed by rules that are separate from these terms and conditions. If the rules for a Promotion conflict with these terms and conditions, the Promotion rules will apply."
+      },
+      "ip": {
+        "title": "Intellectual Property",
+        "ownership": "The Service and its original content (excluding Content provided by you or other users), features and functionality are and will remain the exclusive property of the Company and its licensors.",
+        "protections": "The Service is protected by copyright, trademark, and other laws of both the Country and foreign countries.",
+        "trademark": "Our trademarks and trade dress may not be used in connection with any product or service without the prior written consent of the Company.",
+        "assignment": "You assign all rights, title and interest in any Feedback you provide the Company. If for any reason such assignment is ineffective, you agree to grant the Company a non-exclusive, perpetual, irrevocable, royalty free, worldwide right and licence to use, reproduce, disclose, sub-licence, distribute, modify and exploit such Feedback without restriction."
+      },
+      "thirdPartyLinks": {
+        "title": "Links to Other Websites",
+        "noControl": "Our Service may contain links to third-party web sites or services that are not owned or controlled by the Company. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third party web sites or services. We will not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with the use of or reliance on any such content, goods or services available on or through any such web sites or services."
+      },
+      "liability": {
+        "title": "Limitation of Liability",
+        "directDamages": "Notwithstanding any damages that you might incur, the entire liability of the Company and any of its suppliers under any provision of this terms and conditions and your exclusive remedy for all of the foregoing shall be limited to the amount actually paid by you through the Service or $100 USD if you have not purchased anything through the Service.",
+        "noSpecialDamages": "To the maximum extent permitted by applicable law, in no event shall the Company or its suppliers be liable for any special, incidental, indirect, or consequential damages whatsoever, even if the Company or any supplier has been advised of the possibility of such damages and even if the remedy fails of its essential purpose.",
+        "conflicts": "To the extent these terms and conditions may conflict with applicable laws, each party/'s liability will be limited to the greatest extent permitted by law."
+      },
+      "disclaimer": {
+        "title": "Disclaimer",
+        "asIs": "The Service is provided to you \"AS IS\" and \"AS AVAILABLE\" and with all faults and defects without warranty of any kind. To the maximum extent permitted under applicable law, the Company, on its own behalf and on behalf of its Affiliates and its and their respective licensors and service providers, expressly disclaims all warranties, whether express, implied, statutory or otherwise, with respect to the Service, including all implied warranties of merchantability, fitness for a particular purpose, title and non-infringement, and warranties that may arise out of course of dealing, course of performance, usage or trade practice. The Company provides no warranty or undertaking, and makes no representation of any kind that the Service will meet your requirements, achieve any intended results, be compatible or work with any other software, applications, systems or services, operate without interruption, meet any performance or reliability standards or be error free or that any errors or defects can or will be corrected.",
+        "conflicts": "In the event of a conflict with applicable laws, the exclusions and limitations set forth in this section shall be applied to the greatest extent enforceable."
+      },
+      "misc": {
+        "title": "Miscellaneous",
+        "governingLaw": "The laws of Japan, excluding its conflicts of law rules, shall govern these Terms and your use of the Service. Your use of the Application may also be subject to other local, state, national, or international laws.",
+        "severability": "If any provision of these terms and conditions is held to be unenforceable or invalid, such provision will be changed and interpreted to accomplish the objectives of such provision to the greatest extent possible under applicable law and the remaining provisions will continue in full force and effect.",
+        "waiver": "Except as provided herein, the failure to exercise a right or to require performance of an obligation under this terms and conditions shall not effect a party's ability to exercise such right or require such performance at any time thereafter nor shall be the waiver of a breach constitute a waiver of any subsequent breach.",
+        "translation": "These terms and conditions may have been translated if We have made them available to you on our Service. You agree that the original English text shall prevail in the case of a dispute.",
+        "changes": "We reserve the right, at our sole discretion, to modify or replace these terms and conditions at any time. If a revision is material We will make reasonable efforts to provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion. By continuing to access or use our Service after those revisions become effective, you agree to be bound by the revised terms. If you do not agree to the new terms, in whole or in part, please stop using the website and the Service."
+      },
+      "contactUs": {
+        "title": "Contact Us",
+        "instructions": "If you have any questions about these terms and conditions, you can contact us at "
+      }
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "lastModifiedDate": "Last updated on July 4, 2021",
+      "pleaseRead": "This Privacy Policy describes our policies and procedures on the collection, use and disclosure of your information when You use the Service and tells You about your privacy rights and how the law protects You.",
+      "usedFor": "We use your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy.",
+      "definitions": {
+        "title": "Interpretation and Definitions",
+        "capitalizedTerms": "Capitalized words will have the meanings given below. Defined terms have the same meaning regardless of whether they appear in singular or in plural.",
+        "affiliate": "\"Affiliate\" means an entity that controls, is controlled by or is under common control with a party, where \"control\" means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.",
+        "account": "\"Account\" means a unique account created for you to access our Service or parts of our Service.",
+        "cookies": "\"Cookies\" are small files that are placed on your computer, mobile device or any other device by a website, containing the details of your browsing history on that website among its many uses.",
+        "company": "\"Company\" (referred to as \"the Company\", \"we\", \"us\" or \"our\" in this Agreement) refers to suginomori brewery inc., with offices at 551-1 Narai, Shiojiri City, Nagano, Japan, 399-6303.",
+        "country": "\"Country\" refers to Japan.",
+        "dataController": "\"Data Controller\", for the purposes of the GDPR (General Data Protection Regulation), refers to the Company as the legal person which alone or jointly with others determines the purposes and means of the processing of Personal Data.",
+        "device": "\"Device\" means any device that can access the Service such as a computer, a cellphone or a digital tablet.",
+        "doNotTrack": "\"Do Not Track\", or DNT, is a concept that has been promoted by US regulatory authorities, in particular the U.S. Federal Trade Commission (FTC), for the Internet industry to develop and implement a mechanism for allowing internet users to control the tracking of their online activities across websites.",
+        "personalData": "\"Personal Data\" is any information that relates to an identified or identifiable individual.",
+        "service": "\"Service\" mean a request by you to purchase Goods from Us.",
+        "serviceProvider": "\"Service Provider\" means any natural or legal person who processes the data on behalf of the Company. It refers to third-party companies or individuals employed by the Company to facilitate the Service, to provide the Service on behalf of the Company, to perform services related to the Service or to assist the Company in analyzing how the Service is used. For the purpose of the GDPR, Service Providers are considered Data Processors.",
+        "site": "\"Site\" refers to the website accessible from http://narai.jp/ or a successor URI.",
+        "socialMedia": "\"Third-party Social Media Service\" means any services or content (including data, information, products or services) provided by a third-party that may be displayed, included or made available by the Service.",
+        "usageData": "\"Usage Data\" refers to data collected automatically, either generated by the use of the Service or from the Service infrastructure itself (for example, the duration of a page visit).",
+        "you": "\"You\" and \"your\" refer to the individual accessing or using the Service, or a company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable."
+      },
+      "collectingAndUsing": {
+        "title": "Collecting and Using Personal Data",
+        "inScope": "While using our Service, we may ask you to provide us with certain personally identifiable information that can be used to contact or identify you. Personally identifiable information may include, but is not limited to your email address, your first and last name, phone number, address, state, province, postal code, city"
+      },
+      "usageData": {
+        "title": "Usage Data",
+        "deviceInfo": "Usage Data is collected automatically when using the Service. Usage Data may include information such as your Device's Internet Protocol address (e.g., IP address), browser type, browser version, the pages of our Service that You visit, the time and date of your visit, the time spent on those pages, unique device identifiers and other diagnostic data.",
+        "mobileInfo": "When you access the Service by or through a mobile device, we may collect certain information automatically, including, but not limited to, the type of mobile device you use, your mobile device unique ID, the IP address of your mobile device, your mobile operating system, the type of mobile Internet browser you use, unique device identifiers and other diagnostic data.",
+        "browserInfo": "We may also collect information that your browser sends whenever you visit our Service or when you access the Service by or through a mobile device."
+      },
+      "cookies": {
+        "title": "Data Tracking and Cookies",
+        "trackers": "We use Cookies and similar tracking technologies to track the activity on our Service and store certain information. Tracking technologies used are beacons, tags, and scripts to collect and track information and to improve and analyze our Service.",
+        "doNotAccept": "You can instruct your browser to refuse all Cookies or to indicate when a Cookie is being sent. However, if you do not accept Cookies, you may not be able to use some parts of our Service."
+      },
+      "personal": {
+        "title": "Use of Personal Data",
+        "usage": {
+          "intro": "The Company may use Personal Data for the following purposes:",
+          "maintain": "To provide and maintain our Service, including to monitor the usage of our Service.",
+          "performance": "For the performance of a contract, including the development, compliance and undertaking of the purchase contract for the products, items or services you have purchased or of any other contract with us through the Service.",
+          "contact": "To contact you by email, telephone calls, SMS, or other equivalent forms of electronic communication, such as a mobile application's push notifications regarding updates or informative communications related to the functionalities, products or contracted services, including the security updates, when necessary or reasonable for their implementation.",
+          "requests": "To attend and manage your requests to us."
+        },
+        "sharing": {
+          "title": "We may share your personal information in the following situations:",
+          "monitor": "We may share your personal information with Service Providers to monitor and analyze the use of our Service, to show advertisements to you to help support and maintain our Service, to advertise on third party websites to you after you visited our Service, for payment processing, to contact you.",
+          "merger": "We may share or transfer your personal information in connection with, or during negotiations of, any merger, sale of Company assets, financing, or acquisition of all or a portion of our business to another company.",
+          "affiliates": "We may share your information with our affiliates, in which case we will require those affiliates to honor this Privacy Policy. Affiliates include our parent company and any other subsidiaries, joint venture partners or other companies that we control or that are under common control with us.",
+          "businessPartners": "We may share your information with our business partners to offer you certain products, services or promotions.",
+          "socialMedia": "When you share personal information or otherwise interact in the public areas with other users, such information may be viewed by all users and may be publicly distributed outside. If you interact with other users or register through a Third-Party Social Media Service, your contacts on the Third-Party Social Media Service may see your name, profile, pictures and description of your activity. Similarly, other users will be able to view descriptions of your activity, communicate with you and view your profile."
+        },
+        "retention": {
+          "title": "Retention of Personal Data",
+          "asNecessary": "We will retain your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use your Personal Data to the extent necessary to comply with our legal obligations (for example, if we are required to retain your data to comply with applicable laws), resolve disputes, and enforce our legal agreements and policies.",
+          "internalAnalysis": "The Company may also retain Usage Data for internal analysis purposes. Usage Data is generally retained for a shorter period of time, except when this data is used to strengthen the security or to improve the functionality of our Service, or we are legally obligated to retain this data for longer time periods."
+        },
+        "transfer": {
+          "title": "Transfers of Personal Data",
+          "transborder": "Your information, including Personal Data, may be transferred to devices located outside of your state, province, country or other governmental jurisdiction where the data protection laws may differ than those from your jurisdiction. Your submission of such information represents your agreement to that transfer."
+        },
+        "disclosure": {
+          "title": "Disclosure of Personal Data",
+          "merger": "If the Company is involved in a merger, acquisition or asset sale, your Personal Data may be transferred. We will provide notice before your Personal Data is transferred and becomes subject to a different Privacy Policy.",
+          "mandatory": "Under certain circumstances, the Company may be required to disclose your Personal Data if required to do so by law or in response to valid requests by public authorities (e.g. a court or a government agency).",
+          "goodFaith": "The Company may disclose your Personal Data in the good faith belief that such action is necessary to comply with a legal obligation, protect and defend the rights or property of the Company, prevent or investigate possible wrongdoing in connection with the Service, protect the personal safety of Users of the Service or the public, protect against legal liability.",
+          "noGuarantee": "No method of transmission over the Internet, or method of electronic storage is 100% secure. While we strive to use commercially acceptable means to protect your Personal Data, we cannot guarantee its absolute security."
+        },
+        "processing": {
+          "title": "Processing of Personal Data",
+          "limitedUse": "Service Providers have access to your Personal Data only to perform their tasks on our behalf and are obligated not to disclose or use it for any other purpose.",
+          "thirdParties": {
+            "intro": "We may use third-party Service providers to:",
+            "monitor": "monitor and analyze the use of our Service.",
+            "marketing": "to contact you with newsletters, marketing or promotional materials and other information that may be of interest to you.",
+            "services": "provide paid products and/or services to you from within the Service.",
+            "protection": "Protect the personal safety of Users of the Service or the public.",
+            "ads": "to advertise on third party websites to you after you visited our Service.",
+            "liability": "Protect against legal liability."
+          },
+          "creditCards": "We will not store or collect your payment card details. That information is provided directly to our third-party payment processors whose use of your personal information is governed by their Privacy Policy.",
+          "cookies": "We and our third-party vendors use cookies to inform, optimize and serve ads based on your past visits to our Service."
+        },
+        "mobile": {
+          "title": "Mobile Devices",
+          "optOut": "Your mobile device may give you the ability to opt out of the use of information about the apps you use in order to serve you ads that are targeted to your interests. You can also stop the collection of location information from your mobile device by changing the preferences on your mobile device."
+        },
+        "doNotTrack": {
+          "title": "Do Not Track Policy",
+          "noResponse": "Our Service does not respond to Do Not Track signals.",
+          "browser": "However, some third party websites do keep track of your browsing activities. If you are visiting such websites, you can set your preferences in your web browser to inform websites that you do not want to be tracked. You can enable or disable DNT by visiting the preferences or settings page of your web browser."
+        },
+        "links": {
+          "title": "Links to Other Websites",
+          "external": "Our Service may contain links to other websites that are not operated by us. If you click on a third party link, you will be directed to that third party's site. We strongly advise you to review the Privacy Policy of every site you visit.",
+          "disclaimer": "We have no control over and assume no responsibility for the content, privacy policies or practices of any third party sites or services."
+        }
+      },
+      "changes": {
+        "title": "Changes to this Privacy Policy",
+        "updates": "We may update our Privacy Policy from time to time. The current Privacy Policy will always be available on this page.",
+        "review": "You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page."
+      },
+      "contactUs": {
+        "title": "Contact Us",
+        "questions": "If you have any questions about this Privacy Policy, you can contact us by email at",
+        "ariaLabel": "Contact our support email"
+      }
+    },
+    "disclosurePage": {
+      "title": "Disclosures",
+      "distributor": {
+        "label": "販売業者",
+        "value": "杉の森酒造株式会社"
+      },
+      "representative": {
+        "label": "責任者",
+        "value": "代表取締役　サンドバーグ弘ウィリアム"
+      },
+      "address": {
+        "label": "住所",
+        "one": "〒399-6303",
+        "two": "長野県塩尻市奈良井551-1"
+      },
+      "phone": {
+        "label": "電話番号",
+        "value": "0264-24-0340"
+      },
+      "email": {
+        "label": "メールアドレス",
+        "value": "info@narai.jp"
+      },
+      "homepage": {
+        "label": "ホームページ",
+        "value": "https://www.narai.jp/"
+      },
+      "price": {
+        "label": "商品の販売価格",
+        "value": "各商品ページをご参照ください。"
+      },
+      "otherCharges": {
+        "label": "商品以外の必要料金",
+        "value": "配送料：1本500円。2本800円。3本以上のご購入で送料一律1,000円となります。"
+      },
+      "paymentMethod": {
+        "label": "支払方法",
+        "value": "クレジットカード決済"
+      },
+      "paymentPeriod": {
+        "label": "支払時期",
+        "value": "クレジットカード決済：商品注文時にお支払いが確定します。"
+      },
+      "delivery": {
+        "label": "商品の引渡時期",
+        "value": "ご注文確認後、直ちに商品を発送いたします。（通常、商品の発送までに3営業日前後の時間がかかります。天候不順や配送業者の都合、その他何らかの理由により商品の発送が遅延する場合は、メールにてお知らせいたします。）"
+      },
+      "returnsAndExchanges": {
+        "label": "返品・交換",
+        "one": "お客さま都合による返品・交換は対応いたしかねますので予めご了承ください。商品の欠陥による返品・交換は、商品到着後7日以内にご購入者のお名前・住所を送り状に明記の上、下記住所まで着払いにてご返送ください。",
+        "two": "〒399-6303　長野県塩尻市奈良井551-1"
+      },
+      "return": "Return Home"
     }
   }
 }
