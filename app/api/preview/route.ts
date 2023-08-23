@@ -1,5 +1,10 @@
+import { previewSecretId } from '@/lib/sanity/sanity.api'
+import { client } from '@/lib/sanity/sanity.client'
 import { token } from '@/lib/sanity/sanity.fetch'
 import { draftMode } from 'next/headers'
+import { isValidSecret } from 'sanity-plugin-iframe-pane/is-valid-secret'
+
+export const runtime = 'edge'
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
@@ -14,8 +19,20 @@ export async function GET(request: Request) {
     )
   }
 
-  if (secret !== process.env.SANITY_API_READ_TOKEN) {
-    return new Response('Invalid token', { status: 401 })
+  if (!secret) {
+    return new Response('Invalid secret', { status: 401 })
+  }
+
+  const authenticatedClient = client.withConfig({ token })
+
+  const validSecret = await isValidSecret(
+    authenticatedClient,
+    previewSecretId,
+    secret,
+  )
+
+  if (!validSecret) {
+    return new Response('Invalid secret', { status: 401 })
   }
 
   draftMode().enable()

@@ -71,3 +71,9 @@ export interface MainMenuPayload {
   _type?: string
   items?: MenuItem[]
 }
+
+export interface FooterMenusPayload {
+  title?: string
+  _type?: string
+  menu?: MenuItem[]
+}

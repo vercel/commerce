@@ -19,7 +19,6 @@ export const PAGE_REFERENCES = [
   {type: 'home'},
   {type: 'page'},
   {type: 'product'},
-  {type: 'productVariant'},
 ]
 
 // Objects to include in page building arrays.
@@ -35,11 +34,6 @@ export const COMPONENT_REFERENCES = [
 // API version to use when using the Sanity client within the studio
 // https://www.sanity.io/help/studio-client-specify-api-version
 export const SANITY_API_VERSION = '2022-10-25'
-
-// Your Shopify store ID.
-// This is your unique store URL (e.g. 'my-store-name.myshopify.com').
-// Set this to enable helper links in document status banners and shortcut links on products and collections.
-export const STORM_STORE_ID = ''
 
 // Project preview URLs
 export const localStorefrontUrl = 'http://localhost:3000';

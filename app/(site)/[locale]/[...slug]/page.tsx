@@ -5,7 +5,6 @@ import ProductPagePreview from '@/components/pages/product-page-preview';
 import SearchPage from '@/components/pages/search-page';
 import SearchPagePreview from '@/components/pages/search-page-preview';
 import SinglePage from '@/components/pages/single-page';
-// import PreviewProvider from '@/components/preview-provider';
 import SinglePagePreview from '@/components/pages/single-page-preview';
 import getQueryFromSlug from '@/helpers/get-query-from-slug';
 import { categoryQuery, pageQuery, productQuery, searchPageQuery } from '@/lib/sanity/queries';

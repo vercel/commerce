@@ -7,6 +7,8 @@ import { LiveQuery } from 'next-sanity/preview/live-query';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 
+export const runtime = 'edge';
+
 export async function generateMetadata({
   params
 }: {
