@@ -66,18 +66,18 @@ export const pageStructure = (typeDefArray: DocumentDefinition[]): StructureReso
     // Desktool can understand
     const singletonItems = typeDefArray.map((typeDef) => {
       return S.listItem()
-        .title(typeDef.title!)
+        .title(typeDef.title)
         .icon(typeDef.icon)
         .child(
           S.documentList()
-            .title(`${typeDef.name.charAt(0).toUpperCase() + typeDef.name.slice(1)} pages`)
+            .title(typeDef.name)
             .filter(`_type == "${typeDef.name}"`)
-            .child((id) =>
+            .child((id = typeDef.name) =>
               S.document()
                 .schemaType(typeDef.name)
                 .id(id)
                 .views([
-                  S.view.form().icon('f'),
+                  S.view.form(),
                   // Preview
                   ...(PREVIEWABLE_DOCUMENT_TYPES.includes(typeDef.name as any)
                     ? [S.view.component(Iframe).options(iframeOptions).title('Preview')]

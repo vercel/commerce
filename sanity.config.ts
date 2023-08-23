@@ -1,10 +1,10 @@
 import Kodamera from '@/lib/sanity/components/icons/kodamera'
+import { structure } from '@/lib/sanity/desk'
 import { schemaTypes } from '@/lib/sanity/schemas'
 import { documentInternationalization } from '@sanity/document-internationalization'
 import { visionTool } from '@sanity/vision'
 import { defineConfig } from 'sanity'
-import { Iframe, IframeOptions } from 'sanity-plugin-iframe-pane'
-
+import { IframeOptions } from 'sanity-plugin-iframe-pane'
 import { previewUrl } from 'sanity-plugin-iframe-pane/preview-url'
 import { media } from 'sanity-plugin-media'
 import { deskTool } from 'sanity/desk'
@@ -14,7 +14,6 @@ import page from './lib/sanity/schemas/documents/page'
 import product from './lib/sanity/schemas/documents/product'
 import home from './lib/sanity/schemas/singletons/home'
 import search from './lib/sanity/schemas/singletons/search'
-import { pageStructure, singletonPlugin } from './plugins/settings'
 
 const devOnlyPlugins = [visionTool({ defaultApiVersion: apiVersion})]
 
@@ -60,7 +59,7 @@ export const iframeOptions = {
 const singletonActions = new Set(["publish", "discardChanges", "restore"])
 
 // Define the singleton document types
-const singletonTypes = new Set(["settings", "home", "utilityMenu", "media.tag", ])
+const singletonTypes = new Set(["settings", "home", "search", "utilityMenu", "media.tag", ])
 
 // console.log(process.env.SANITY_API_READ_TOKEN)
 
@@ -73,27 +72,10 @@ export default defineConfig({
   plugins: [
     // deskTool({structure}),
     deskTool({
-      structure: pageStructure([home, search]),
-      // `defaultDocumentNode` is responsible for adding a “Preview” tab to the document pane
-      // You can add any React component to `S.view.component` and it will be rendered in the pane
-      // and have access to content in the form in real-time.
-      // It's part of the Studio's “Structure Builder API” and is documented here:
-      // https://www.sanity.io/docs/structure-builder-reference
-      defaultDocumentNode: (S, { schemaType }) => {
-        if ((PREVIEWABLE_DOCUMENT_TYPES as string[]).includes(schemaType)) {
-          return S.document().views([
-            // Default form view
-            S.view.form(),
-            // Preview
-            S.view.component(Iframe).options(iframeOptions).title('Preview'),
-          ])
-        }
-
-        return null
-      },
+      structure: structure,
     }),
     // Configures the global "new document" button, and document actions, to suit the Settings document singleton
-    singletonPlugin([home.name]),
+    // singletonPlugin([home.name, search.name]),
 
     // Add the "Open preview" action
     previewUrl({

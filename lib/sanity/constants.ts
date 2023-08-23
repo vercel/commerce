@@ -34,9 +34,3 @@ export const COMPONENT_REFERENCES = [
 // API version to use when using the Sanity client within the studio
 // https://www.sanity.io/help/studio-client-specify-api-version
 export const SANITY_API_VERSION = '2022-10-25'
-
-// Project preview URLs
-export const localStorefrontUrl = 'http://localhost:3000';
-export const localStorefrontPreviewUrl = 'http://localhost:3000/api/preview';
-export const publicStorefrontUrl = 'https://km-storefront.vercel.app';
-export const publicStorefrontPreviewUrl = 'https://km-storefront.vercel.app/api/preview';
