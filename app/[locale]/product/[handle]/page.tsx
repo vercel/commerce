@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 
+import clsx from 'clsx';
 import { AddToCart } from 'components/cart/add-to-cart';
 import { GridTileImage } from 'components/grid/tile';
 import Label from 'components/label';
@@ -64,13 +65,16 @@ export default async function ProductPage({
 }: {
   params: { handle: string; locale?: SupportedLocale };
 }) {
+  const numberOfOtherImages = 3;
   const product = await getProduct({
     handle: params.handle,
     language: params?.locale?.toUpperCase()
   });
   let otherImages: MediaImage[] = [];
   if (!!product) {
-    otherImages = product.images.filter((image) => image?.url !== product.featuredImage?.url);
+    otherImages = product.images
+      .slice(0, numberOfOtherImages + 1) // +1 to account for featured image
+      .filter((image) => image?.url !== product.featuredImage?.url);
   }
 
   if (!product) return notFound();
@@ -102,7 +106,7 @@ export default async function ProductPage({
       />
       <div className="mx-auto max-w-screen-xl py-24">
         <div className="flex flex-col space-y-12">
-          <div className="relative aspect-square h-full w-full">
+          <div className="relative h-full w-full">
             <Image
               src={product.featuredImage?.url}
               alt={product.featuredImage?.altText}
@@ -147,17 +151,28 @@ export default async function ProductPage({
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {!!otherImages &&
               otherImages?.length > 0 &&
-              otherImages.map((image) => (
-                <div key={image.url} className="relative aspect-square h-full w-full">
-                  <Image
-                    src={image.url}
-                    alt={image.altText}
-                    height={image.height}
-                    width={image.width}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              ))}
+              otherImages.map((image, index) => {
+                const isOdd = otherImages.length % 2 != 0;
+                const isLast = index === otherImages.length - 1;
+                const isOddAndLast = isOdd && isLast;
+                return (
+                  <div
+                    key={image.url}
+                    className={clsx(
+                      isOddAndLast ? 'col-span-2' : 'col-span-1 aspect-square',
+                      'relative h-full w-full bg-gray-900/10'
+                    )}
+                  >
+                    <Image
+                      src={image.url}
+                      alt={image.altText}
+                      height={image.height}
+                      width={image.width}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                );
+              })}
           </div>
           <Suspense>
             <RelatedProducts id={product.id} />

@@ -41,7 +41,6 @@ export async function ProductGrid({ lang }: { lang?: SupportedLocale }) {
     collection: 'hidden-products-page-items',
     language: lang?.toUpperCase()
   });
-  console.debug({ productPageItems });
 
   if (!productPageItems?.length) return null;
 
