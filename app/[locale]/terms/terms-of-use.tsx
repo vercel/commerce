@@ -127,7 +127,6 @@ export default function TermsOfUse() {
               {t('terms.contactUs.instructions')}
               <a
                 href={`mailto:${t('email-address.support')}`}
-                className="branded-link"
                 aria-label={t('privacy.contactUs.ariaLabel')}
               >
                 {t('email-address.support')}

@@ -12,8 +12,8 @@ export default function Disclosures() {
           {t('disclosurePage.title')}
         </h4>
         <div className="mx-auto max-w-4xl">
-          <div className="font-multilingual my-12 text-lg">
-            <section className="font-multilingual mb-36 mt-12 flex flex-col space-y-6 text-lg md:space-y-3">
+          <div className="font-multilingual my-12">
+            <section className="font-multilingual mb-36 mt-12 flex flex-col space-y-6 text-base md:space-y-3">
               <div className="flex flex-col space-y-2 md:flex-row md:space-x-3 md:space-y-0">
                 <div className="md:w-1/3">{t('disclosurePage.distributor.label')}</div>
                 <div className="md:w-2/3">

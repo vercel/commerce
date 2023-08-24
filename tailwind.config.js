@@ -17,9 +17,17 @@ module.exports = {
         title: ['var(--font-cinzel)', 'serif'],
         japan: ['var(--font-noto)', 'serif']
       },
+      fontSize: {
+        '6xl': '65px',
+        '5xl': '45px',
+        '3xs': '.5rem'
+      },
       aspectRatio: {
         tall: '596 / 845',
         video: '1792 / 750'
+      },
+      maxWidth: {
+        title: '281px'
       },
       keyframes: {
         fadeIn: {

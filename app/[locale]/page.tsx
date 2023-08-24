@@ -1,4 +1,3 @@
-import { ThreeItemGrid } from 'components/grid/three-items';
 import Footer from 'components/layout/footer';
 import { SupportedLocale } from 'components/layout/navbar/language-control';
 
@@ -11,6 +10,7 @@ import HomeImage006 from '@images/home-images/home-image-006.webp';
 import HomeImage007 from '@images/home-images/home-image-007.webp';
 import HomeImage008 from '@images/home-images/home-image-008.webp';
 import clsx from 'clsx';
+import { HomepageProducts } from 'components/grid/homepage-products';
 import AboutNaraiPreview from 'components/layout/about-narai-preview';
 import ConceptPreview from 'components/layout/concept-preview';
 import LocationPreview from 'components/layout/location-preview';
@@ -18,7 +18,7 @@ import Navbar from 'components/layout/navbar';
 import NewsletterSignup from 'components/layout/newsletter-signup';
 import SagyobarPreview from 'components/layout/sagyobar-preview';
 import Shoplist from 'components/layout/shoplist';
-import Stories from 'components/layout/stories';
+import StoriesPreview from 'components/layout/stories-preview';
 import { BLOG_HANDLE } from 'lib/constants';
 import { getCart } from 'lib/shopify';
 import { cookies } from 'next/headers';
@@ -52,7 +52,7 @@ export default async function HomePage({
     <div>
       <Navbar cart={cart} locale={locale} />
       <div className="pt-12 md:pt-48">
-        <ThreeItemGrid lang={locale} />
+        <HomepageProducts lang={locale} />
       </div>
       <div className="py-48">
         <NewsletterSignup />
@@ -132,7 +132,7 @@ export default async function HomePage({
       </div>
 
       <div className="relative">
-        <Stories handle={BLOG_HANDLE} articles={3} locale={locale} more />
+        <StoriesPreview handle={BLOG_HANDLE} articles={3} locale={locale} more />
       </div>
 
       <div className="relative">

@@ -8,7 +8,7 @@ import { getCart, getPage } from 'lib/shopify';
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
-import ShopsTitle from './ShopsTitle';
+import ShopsNav from './shops-nav';
 
 export const runtime = 'edge';
 
@@ -50,9 +50,9 @@ export default async function Page({ params }: { params: { locale?: SupportedLoc
     <div>
       <Navbar cart={cart} locale={params?.locale} compact />
       <div className="mx-auto max-w-xl px-6 pb-24 pt-12 md:pb-48 md:pt-24">
-        <ShopsTitle />
-        <h2 className="mb-8 text-3xl font-medium">{page.title}</h2>
-        <Prose className="" html={page.body as string} />
+        <ShopsNav />
+        <h2 className="font-multilingual mb-8 text-3xl font-medium">{page.title}</h2>
+        <Prose html={page.body as string} />
       </div>
 
       <Suspense>

@@ -3,8 +3,8 @@ import Image from 'next/image';
 
 export function GridTileImage({
   isInteractive = true,
-  active,
-  label,
+  active: _active,
+  label: _label,
   ...props
 }: {
   isInteractive?: boolean;

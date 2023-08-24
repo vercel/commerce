@@ -25,5 +25,5 @@ button {
 }
 
 [lang='ja'] .font-multilingual {
-  @apply font-japan;
+  @apply font-japan tracking-widest;
 }

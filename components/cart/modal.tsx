@@ -67,7 +67,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <Dialog.Panel className="fixed bottom-0 right-0 top-0 flex h-full w-full flex-col border-l border-white/20 bg-dark p-6 font-sans text-white backdrop-blur-xl md:w-[390px]">
+            <Dialog.Panel className="fixed inset-y-0 right-0 flex h-full w-full flex-col border-l border-white/20 bg-dark p-6 font-sans text-white backdrop-blur-xl md:w-[390px]">
               <div className="flex items-center justify-between">
                 <p className="text-lg font-semibold">Cart</p>
 
@@ -83,7 +83,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                 </div>
               ) : (
                 <div className="flex h-full flex-col justify-between overflow-hidden p-1">
-                  <ul className="flex-grow overflow-auto py-4">
+                  <ul className="grow overflow-auto py-4">
                     {cart.lines.map((item, i) => {
                       const merchandiseSearchParams = {} as MerchandiseSearchParams;
 
@@ -159,11 +159,11 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                         currencyCode={cart.cost.totalTaxAmount.currencyCode}
                       />
                     </div>
-                    <div className="mb-3 flex items-center justify-between border-b border-white/20 pb-1 pt-1">
+                    <div className="mb-3 flex items-center justify-between border-b border-white/20 py-1">
                       <p>Shipping</p>
                       <p className="text-right text-white/50">Calculated at checkout</p>
                     </div>
-                    <div className="mb-3 flex items-center justify-between border-b border-white/20 pb-1 pt-1">
+                    <div className="mb-3 flex items-center justify-between border-b border-white/20 py-1">
                       <p>Total</p>
                       <Price
                         className="text-right text-base text-white"

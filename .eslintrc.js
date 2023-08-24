@@ -19,30 +19,30 @@ module.exports = {
         case: 'kebabCase'
       }
     ],
-    "prettier/prettier": "warn",
-    "@typescript-eslint/no-unused-vars": "off",
-    "unused-imports/no-unused-imports": "error",
-    "no-template-curly-in-string": "error",
-    "unused-imports/no-unused-vars": [
-      "warn",
+    'prettier/prettier': 'warn',
+    '@typescript-eslint/no-unused-vars': 'off',
+    'unused-imports/no-unused-imports': 'error',
+    'no-template-curly-in-string': 'error',
+    'unused-imports/no-unused-vars': [
+      'warn',
       {
-        "vars": "all",
-        "varsIgnorePattern": "^_",
-        "args": "after-used",
-        "argsIgnorePattern": "^_"
+        vars: 'all',
+        varsIgnorePattern: '^_',
+        args: 'after-used',
+        argsIgnorePattern: '^_'
       }
     ]
   },
-  "settings": {
-    "tailwindcss": {
-      "config": "./tailwind.config.js",
-      "callees": ["cx"]
+  settings: {
+    tailwindcss: {
+      config: './tailwind.config.js',
+      callees: ['cx']
     },
-    "tailwindcss/classnames-order": [
+    'tailwindcss/classnames-order': [
       true,
       {
-        "callees": ["cx"],
-        "config": "./tailwind.config.js"
+        callees: ['cx'],
+        config: './tailwind.config.js'
       }
     ]
   }

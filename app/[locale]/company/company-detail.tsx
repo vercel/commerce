@@ -30,7 +30,7 @@ export default function CompanyDetail() {
 
         <div>
           <h3 className="text-2xl">{t('company.subtitle001')}</h3>
-          <ul className="font-multilingual flex flex-col space-y-4 py-4 text-xl font-extralight">
+          <ul className="font-multilingual flex flex-col space-y-4 py-4 text-base font-extralight">
             <li className="border-t border-white/20 py-4">
               <div className="flex flex-col space-y-2 md:flex-row md:space-x-3 md:space-y-0">
                 <div className="w-1/3">{t('company.name.label')}</div>
@@ -67,7 +67,7 @@ export default function CompanyDetail() {
         <div>
           <h3 className="pb-4 text-2xl">{t('company.subtitle002')}</h3>
           <div className="grid grid-cols-1 gap-4 border-t border-white/20 md:grid-cols-3">
-            <div className="font-multilingual col-span-1 py-4 text-lg font-extralight">
+            <div className="font-multilingual col-span-1 py-4 text-base font-extralight">
               <div className="relative aspect-square">
                 <Image
                   src={CompanyImage001}
@@ -78,7 +78,7 @@ export default function CompanyDetail() {
               </div>
               <div className="pt-2">{t('company.irie.japanese')}</div>
               <div className="pb-4">{t('company.irie.english')}</div>
-              <div className="text-base">{t('company.irie.role')}</div>
+              <div className="text-sm">{t('company.irie.role')}</div>
             </div>
 
             <div className="font-multilingual col-span-1 py-4 text-lg font-extralight">
@@ -92,7 +92,7 @@ export default function CompanyDetail() {
               </div>
               <div className="pt-2">{t('company.nishikawa.japanese')}</div>
               <div className="pb-4">{t('company.nishikawa.english')}</div>
-              <div className="text-base">{t('company.nishikawa.role')}</div>
+              <div className="text-sm">{t('company.nishikawa.role')}</div>
             </div>
 
             <div className="font-multilingual col-span-1 py-4 text-lg font-extralight">
@@ -106,7 +106,7 @@ export default function CompanyDetail() {
               </div>
               <div className="pt-2">{t('company.sundberg.japanese')}</div>
               <div className="pb-4">{t('company.sundberg.english')}</div>
-              <div className="text-base">{t('company.sundberg.role')}</div>
+              <div className="text-sm">{t('company.sundberg.role')}</div>
             </div>
 
             <div className="font-multilingual col-span-1 py-4 text-lg font-extralight">
@@ -120,7 +120,7 @@ export default function CompanyDetail() {
               </div>
               <div className="pt-2">{t('company.yamano.japanese')}</div>
               <div className="pb-4">{t('company.yamano.english')}</div>
-              <div className="text-base">{t('company.yamano.role')}</div>
+              <div className="text-sm">{t('company.yamano.role')}</div>
             </div>
 
             <div className="font-multilingual col-span-1 py-4 text-lg font-extralight">
@@ -134,7 +134,7 @@ export default function CompanyDetail() {
               </div>
               <div className="pt-2">{t('company.yoshida.japanese')}</div>
               <div className="pb-4">{t('company.yoshida.english')}</div>
-              <div className="text-base">{t('company.yoshida.role')}</div>
+              <div className="text-sm">{t('company.yoshida.role')}</div>
             </div>
 
             <div className="font-multilingual col-span-1 py-4 text-lg font-extralight">
@@ -148,7 +148,7 @@ export default function CompanyDetail() {
               </div>
               <div className="pt-2">{t('company.ikegaya.japanese')}</div>
               <div className="pb-4">{t('company.ikegaya.english')}</div>
-              <div className="text-base">{t('company.ikegaya.role')}</div>
+              <div className="text-sm">{t('company.ikegaya.role')}</div>
             </div>
           </div>
         </div>

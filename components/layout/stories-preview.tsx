@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { SupportedLocale } from './navbar/language-control';
 
-export default async function Stories({
+export default async function StoriesPreview({
   locale,
   handle,
   articles,
@@ -21,7 +21,7 @@ export default async function Stories({
     language: locale?.toUpperCase()
   });
 
-  if (!blog) return null;
+  if (!blog || !!blog?.articles) return null;
 
   return (
     <div className="bg-white px-6 py-24 text-black">
@@ -60,7 +60,7 @@ export default async function Stories({
           <div className="flex w-full flex-row justify-center pt-12">
             <Link
               href="/stories"
-              className="mx-auto max-w-sm border border-dark px-24 py-3 text-center text-lg transition-colors duration-150 hover:border-dark/40"
+              className="mx-auto max-w-sm border border-dark px-24 py-3 text-center text-[15px] transition-colors duration-150 hover:border-dark/40"
             >
               more stories
             </Link>

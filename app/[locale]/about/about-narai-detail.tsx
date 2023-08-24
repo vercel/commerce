@@ -16,12 +16,12 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
 
   return (
     <div className="w-full px-6">
-      <div className="font-multilingual flex w-full flex-col items-center space-y-2 pb-24 text-center font-extralight md:pb-48">
+      <div className="font-multilingual flex w-full flex-col items-center space-y-px pb-24 text-center font-extralight md:pb-48">
         <h1 className="text-6xl">{t('about.001.title')}</h1>
         <h1 className="text-6xl">{t('about.001.subtitle')}</h1>
       </div>
 
-      <div className="max-w-screen-2x relative mx-auto">
+      <div className="relative mx-auto max-w-screen-2xl">
         <Image
           src={AboutImage001}
           priority={true}
@@ -39,7 +39,7 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
         <p className="text-base leading-loose">{t('about.002.para002')}</p>
       </div>
 
-      <div className="max-w-screen-2x relative mx-auto">
+      <div className="relative mx-auto max-w-screen-2xl">
         <Image
           src={AboutImage002}
           priority={true}
@@ -78,7 +78,7 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
         >
           <div className="font-multilingual flex flex-row items-baseline space-x-4">
             <h2 className="text-5xl">{t('about.awards.title')}</h2>
-            <h3 className="text-2xl font-extralight">{t('about.awards.subtitle')}</h3>
+            <h3 className="text-xl font-extralight">{t('about.awards.subtitle')}</h3>
           </div>
 
           <div className="border-y border-white/20 py-12">
@@ -94,7 +94,10 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
       >
         <div className="flex flex-col space-y-24">
           <div className="font-multilingual font-extralight">
-            <h2 className="text-5xl">{t('about.materials.title')}</h2>
+            <div className="flex flex-row items-baseline space-x-3">
+              <h2 className="text-5xl">{t('about.materials.title')}</h2>
+              <h2 className="text-4xl">{t('about.materials.subtitle')}</h2>
+            </div>
           </div>
 
           <Image
@@ -106,10 +109,12 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
 
           <div className="font-multilingual flex flex-col space-y-12 font-extralight md:flex-row md:space-x-6 md:space-y-0">
             <div className="md:w-1/2">
-              <h2 className="max-w-sm text-5xl">{t('about.materials.water.title')}</h2>
+              <h2 className="max-w-title text-3xl leading-normal">
+                {t('about.materials.water.title')}
+              </h2>
             </div>
             <div className="md:w-1/2">
-              <p className="text-xl leading-relaxed">{t('about.materials.water.body')}</p>
+              <p className="text-base leading-relaxed">{t('about.materials.water.body')}</p>
             </div>
           </div>
         </div>
@@ -124,10 +129,12 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
 
           <div className="font-multilingual flex flex-col space-y-12 font-extralight md:flex-row md:space-x-6 md:space-y-0">
             <div className="md:w-1/2">
-              <h2 className="max-w-sm text-5xl">{t('about.materials.rice.title')}</h2>
+              <h2 className="max-w-title text-3xl leading-normal">
+                {t('about.materials.rice.title')}
+              </h2>
             </div>
             <div className="md:w-1/2">
-              <p className="text-xl leading-relaxed">{t('about.materials.rice.body')}</p>
+              <p className="text-base leading-relaxed">{t('about.materials.rice.body')}</p>
             </div>
           </div>
         </div>
@@ -142,10 +149,12 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
 
           <div className="font-multilingual flex flex-col space-y-12 font-extralight md:flex-row md:space-x-6 md:space-y-0">
             <div className="md:w-1/2">
-              <h2 className="max-w-sm text-5xl">{t('about.materials.koji.title')}</h2>
+              <h2 className="max-w-title text-3xl leading-normal">
+                {t('about.materials.koji.title')}
+              </h2>
             </div>
             <div className="md:w-1/2">
-              <p className="text-xl leading-relaxed">{t('about.materials.koji.body')}</p>
+              <p className="text-base leading-relaxed">{t('about.materials.koji.body')}</p>
             </div>
           </div>
         </div>
@@ -156,8 +165,8 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
           <div className="border-t border-white/20"></div>
         </div>
         <div className="font-multilingual max-w-xl font-extralight">
-          <p className="text-xl">{t('about.irie.title')}</p>
-          <p className="text-xl leading-relaxed">{t('about.irie.body')}</p>
+          <p className="text-lg">{t('about.irie.title')}</p>
+          <p className="text-lg leading-relaxed">{t('about.irie.body')}</p>
         </div>
 
         <Image

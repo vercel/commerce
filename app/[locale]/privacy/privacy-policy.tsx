@@ -7,11 +7,11 @@ export default function PrivacyPolicy() {
   return (
     <>
       <div className="mx-auto max-w-3xl text-white">
-        <div className="md:text-4x text-center font-serif text-3xl font-bold leading-tight text-white md:mb-16">
+        <div className="text-center font-serif text-3xl font-bold leading-tight text-white md:mb-16 md:text-4xl">
           {t('privacy.title')}
         </div>
         <div className="mb-24 text-lg leading-normal">
-          <div className="text-sb-highlight text-center">{t('privacy.lastModifiedDate')}</div>
+          <div className="text-center">{t('privacy.lastModifiedDate')}</div>
           <div className="mt-4">
             <p>{t('privacy.pleaseRead')}</p>
             <p className="mt-4">{t('privacy.usedFor')}</p>

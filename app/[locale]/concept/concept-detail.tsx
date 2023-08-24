@@ -11,7 +11,7 @@ export default function ConceptDetail() {
 
   return (
     <div className="w-full px-6">
-      <div className="max-w-screen-2x relative mx-auto">
+      <div className="relative mx-auto max-w-screen-2xl">
         <Image
           src={ConceptImage001}
           priority={true}
@@ -29,24 +29,24 @@ export default function ConceptDetail() {
       >
         <div className="md:w-1/2">
           <h2 className="max-w-sm pb-12 text-4xl md:text-5xl">{t('concept.title')}</h2>
-          <p className="font-multilingual text-lg font-extralight">
+          <p className="font-multilingual text-base font-extralight">
             {t('concept.para001')} {t('concept.para002')} {t('concept.para003')}
           </p>
           <div className="font-multilingual pt-24 font-extralight">
             <p className="pb-6 text-xl font-normal">{t('concept.subtitle001')}</p>
-            <p className="pb-24 text-lg leading-relaxed">{t('concept.para004')}</p>
+            <p className="pb-24 text-base leading-relaxed">{t('concept.para004')}</p>
             <p className="pb-6 text-xl font-normal">{t('concept.subtitle002')}</p>
-            <p className="pb-4 text-lg leading-relaxed">{t('concept.para005')}</p>
-            <p className="pb-4 text-lg leading-relaxed">
+            <p className="pb-4 text-base leading-relaxed">{t('concept.para005')}</p>
+            <p className="pb-4 text-base leading-relaxed">
               {t('concept.para006')} {t('concept.para007')} {t('concept.para008')}
             </p>
-            <p className="pb-4 text-lg leading-relaxed">{t('concept.para009')}</p>
-            <p className="text-lg leading-relaxed">{t('concept.para010')}</p>
+            <p className="pb-4 text-base leading-relaxed">{t('concept.para009')}</p>
+            <p className="text-base leading-relaxed">{t('concept.para010')}</p>
           </div>
         </div>
         <div className="flex flex-row items-start justify-end md:w-1/2">
           <div className="pb-24">
-            <Logo className="h-30 w-48" />
+            <Logo className="h-32 w-48" />
           </div>
         </div>
       </div>

@@ -6,12 +6,13 @@ import Link from 'next/link';
 import Label from '../label';
 import { GridTileImage } from './tile';
 
-function ThreeItemGridItem({ item, priority }: { item: Product; priority?: boolean }) {
+function ProductGridItem({ item, priority }: { item: Product; priority?: boolean }) {
   const size = item?.variants?.[0]?.selectedOptions?.find((option) => option.name === 'Size');
+
   return (
     <div className={clsx('col-span-1 row-span-1 md:col-span-2 md:row-span-1')}>
       <Link className="w-full bg-black/30" href={`/product/${item.handle}`}>
-        <div className="relative block aspect-tall overflow-hidden ">
+        <div className="relative block aspect-square overflow-hidden ">
           <GridTileImage
             src={item.featuredImage.url}
             fill
@@ -34,16 +35,14 @@ function ThreeItemGridItem({ item, priority }: { item: Product; priority?: boole
   );
 }
 
-export async function ThreeItemGrid({ lang }: { lang?: SupportedLocale }) {
+export async function ProductGrid({ lang }: { lang?: SupportedLocale }) {
   // Collections that start with `hidden-*` are hidden from the search page.
-  const homepageItems = await getCollectionProducts({
-    collection: 'hidden-homepage-featured-items',
+  const productPageItems = await getCollectionProducts({
+    collection: 'hidden-products-page-items',
     language: lang?.toUpperCase()
   });
 
-  if (!homepageItems[0] || !homepageItems[1] || !homepageItems[2]) return null;
-
-  const [firstProduct, secondProduct, thirdProduct] = homepageItems;
+  if (!productPageItems?.length) return null;
 
   return (
     <section
@@ -53,9 +52,9 @@ export async function ThreeItemGrid({ lang }: { lang?: SupportedLocale }) {
         'grid-rows-3 md:grid-rows-1'
       )}
     >
-      <ThreeItemGridItem item={firstProduct} priority={true} />
-      <ThreeItemGridItem item={secondProduct} priority={true} />
-      <ThreeItemGridItem item={thirdProduct} />
+      {productPageItems.map((item) => (
+        <ProductGridItem key={item.id} item={item} priority={true} />
+      ))}
     </section>
   );
 }

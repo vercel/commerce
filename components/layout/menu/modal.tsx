@@ -3,6 +3,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import clsx from 'clsx';
 import CloseIcon from 'components/icons/close';
+import Logo from 'components/icons/logo';
 import MenuIcon from 'components/icons/menu';
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
@@ -12,8 +13,8 @@ import { LanguageControl, SupportedLocale } from '../navbar/language-control';
 export function MenuModal({ scrolled }: { scrolled: boolean }) {
   const t = useTranslations('Index');
   const locale = useLocale();
-  let [isOpen, setIsOpen] = useState(false);
-  let closeButtonRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const closeButtonRef = useRef(null);
 
   const close = () => {
     setIsOpen(false);
@@ -55,6 +56,9 @@ export function MenuModal({ scrolled }: { scrolled: boolean }) {
             <div className="fixed inset-0 z-30 bg-dark/80 backdrop-blur-sm">
               <Dialog.Panel>
                 <div className="z-40 mx-auto max-w-screen-xl px-6">
+                  <div className="absolute left-6 top-2">
+                    <Logo className="h-[132px] w-[132px]" />
+                  </div>
                   <div
                     className={clsx(
                       'flex flex-row justify-end space-x-6 px-2',
