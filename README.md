@@ -80,18 +80,12 @@ Once installed, you'll need to create a `SHOPIFY_STOREFRONT_ACCESS_TOKEN` enviro
   <summary>Expand to view detailed walkthrough</summary>
 
 1. Navigate to `https://[your-shopify-store-subdomain].myshopify.com/admin/settings/apps`.
-1. Click the green `Shopify App Store` button.
-   ![Shopify App Store](https://user-images.githubusercontent.com/446260/233220545-cb4c1461-ebc5-424e-a421-bf0d32044027.jpg)
-1. Search for `Headless` and click on the `Headless` app.
-   ![Headless](https://user-images.githubusercontent.com/446260/233220547-6d93b5ef-16c7-45db-99e7-13ae7e18eb39.jpg)
-1. Click the black `Add app` button.
-   ![Add app](https://user-images.githubusercontent.com/446260/233220550-a34c8bda-75a8-437a-9673-125f3794ff35.jpg)
-1. Click the green `Add sales channel` button.
-   ![Add sales channel](https://user-images.githubusercontent.com/446260/233220553-42d94a74-421d-4f8a-99ab-a95936b707a3.jpg)
-1. Click the green `Create storefront` button.
-   ![Create storefront](https://user-images.githubusercontent.com/446260/233220556-1eee15c4-a45d-446e-9f73-2e7c9f56b29c.jpg)
-1. Copy and paste the public access token and assign it to a `SHOPIFY_STOREFRONT_ACCESS_TOKEN` environment variable.
-   ![Pubic access token](https://user-images.githubusercontent.com/446260/233220558-5db04ff9-b894-40fe-bfba-0e92f26b8e1f.jpg)
+1. Click the green `Shopify App Store` button. ![Shopify App Store](https://user-images.githubusercontent.com/446260/233220545-cb4c1461-ebc5-424e-a421-bf0d32044027.jpg)
+1. Search for `Headless` and click on the `Headless` app. ![Headless](https://user-images.githubusercontent.com/446260/233220547-6d93b5ef-16c7-45db-99e7-13ae7e18eb39.jpg)
+1. Click the black `Add app` button. ![Add app](https://user-images.githubusercontent.com/446260/233220550-a34c8bda-75a8-437a-9673-125f3794ff35.jpg)
+1. Click the green `Add sales channel` button. ![Add sales channel](https://user-images.githubusercontent.com/446260/233220553-42d94a74-421d-4f8a-99ab-a95936b707a3.jpg)
+1. Click the green `Create storefront` button. ![Create storefront](https://user-images.githubusercontent.com/446260/233220556-1eee15c4-a45d-446e-9f73-2e7c9f56b29c.jpg)
+1. Copy and paste the public access token and assign it to a `SHOPIFY_STOREFRONT_ACCESS_TOKEN` environment variable. ![Pubic access token](https://user-images.githubusercontent.com/446260/233220558-5db04ff9-b894-40fe-bfba-0e92f26b8e1f.jpg)
 1. If you ever need to reference the public access token again, you can navigate to `https://[your-shopify-store-subdomain].myshopify.com/admin/headless_storefronts`.
 </details>
 
@@ -106,21 +100,14 @@ Follow the installation instructions and configure the theme with your headless 
 <details>
   <summary>Expand to view detailed walkthrough</summary>
 
-1. Download [Shopify Headless Theme](https://github.com/instantcommerce/shopify-headless-theme).
-   ![Download Shoify Headless Theme](https://user-images.githubusercontent.com/446260/233220560-9f3f5ab0-ffb4-4305-b4ee-2c9d33eea90f.jpg)
+1. Download [Shopify Headless Theme](https://github.com/instantcommerce/shopify-headless-theme). ![Download Shoify Headless Theme](https://user-images.githubusercontent.com/446260/233220560-9f3f5ab0-ffb4-4305-b4ee-2c9d33eea90f.jpg)
 1. Navigate to `https://[your-shopify-store-subdomain].myshopify.com/admin/themes`.
-1. Click `Add theme`, then `Upload zip file`.
-   ![Upload zip file](https://user-images.githubusercontent.com/446260/233220561-7a53809e-0d95-45eb-b52f-3a52e3663a9c.jpg)
-1. Select the downloaded zip file from above, and click the green `Upload file` button.
-   ![Select and upload file](https://user-images.githubusercontent.com/446260/233220563-135fb9f7-2921-4189-8f17-3b1cc15c0ea6.jpg)
-1. Click `Customize`.
-   ![Customize theme](https://user-images.githubusercontent.com/446260/233220565-24b9c954-c18a-46f1-9db5-3d2a00040e48.jpg)
-1. Click `Theme settings` (ie. the paintbrush icon), expand the `STOREFRONT` section, enter your headless store domain, click the gray `Publish` button.
-   ![Set headless domain in theme settings](https://user-images.githubusercontent.com/446260/233220566-acaee14d-03f8-400d-a2a2-28e85eb5ecdc.jpg)
-1. Confirm the theme change by clicking the green `Save and publish` button.
-   ![Confirm save and publish](https://user-images.githubusercontent.com/446260/233220567-504d5bde-cfb9-426d-a264-f9a12d02af13.jpg)
-1. The headless theme should now be your current active theme.
-![Headless theme is current and active](https://user-images.githubusercontent.com/446260/233220569-63cab2b4-241b-4bf1-9b5b-451daaeceb91.jpg)
+1. Click `Add theme`, then `Upload zip file`. ![Upload zip file](https://user-images.githubusercontent.com/446260/233220561-7a53809e-0d95-45eb-b52f-3a52e3663a9c.jpg)
+1. Select the downloaded zip file from above, and click the green `Upload file` button. ![Select and upload file](https://user-images.githubusercontent.com/446260/233220563-135fb9f7-2921-4189-8f17-3b1cc15c0ea6.jpg)
+1. Click `Customize`. ![Customize theme](https://user-images.githubusercontent.com/446260/233220565-24b9c954-c18a-46f1-9db5-3d2a00040e48.jpg)
+1. Click `Theme settings` (ie. the paintbrush icon), expand the `STOREFRONT` section, enter your headless store domain, click the gray `Publish` button. ![Set headless domain in theme settings](https://user-images.githubusercontent.com/446260/233220566-acaee14d-03f8-400d-a2a2-28e85eb5ecdc.jpg)
+1. Confirm the theme change by clicking the green `Save and publish` button. ![Confirm save and publish](https://user-images.githubusercontent.com/446260/233220567-504d5bde-cfb9-426d-a264-f9a12d02af13.jpg)
+1. The headless theme should now be your current active theme. ![Headless theme is current and active](https://user-images.githubusercontent.com/446260/233220569-63cab2b4-241b-4bf1-9b5b-451daaeceb91.jpg)
 </details>
 
 ### Branding & Design
@@ -141,27 +128,21 @@ You can use Shopify's admin to customize these pages to match your brand and des
 #### Checkout, order status, and order history
 
 1. Navigate to `https://[your-shopify-store-subdomain].myshopify.com/admin/settings/checkout`.
-1. Click the green `Customize` button.
-   ![Customize](https://user-images.githubusercontent.com/446260/233220530-9beda4b4-5008-440a-b923-9d196b722539.jpg)
-1. Click `Branding` (ie. the paintbrush icon) and customize your brand. Please note, there are three steps / pages to the checkout flow. Use the dropdown to change pages and adjust branding as needed on each page. Click `Save` when you are done.
-   ![Branding](https://user-images.githubusercontent.com/446260/233220534-e884d9fd-1a39-4f4d-9d09-163dde47c2e8.jpg)
+1. Click the green `Customize` button. ![Customize](https://user-images.githubusercontent.com/446260/233220530-9beda4b4-5008-440a-b923-9d196b722539.jpg)
+1. Click `Branding` (ie. the paintbrush icon) and customize your brand. Please note, there are three steps / pages to the checkout flow. Use the dropdown to change pages and adjust branding as needed on each page. Click `Save` when you are done. ![Branding](https://user-images.githubusercontent.com/446260/233220534-e884d9fd-1a39-4f4d-9d09-163dde47c2e8.jpg)
 1. Navigate to `https://[your-shopify-store-subdomain].myshopify.com/admin/settings/branding`.
-1. Customize settings to match your brand.
-   ![Branding](https://user-images.githubusercontent.com/446260/233220536-452b8802-9a1e-40f0-9a12-52b3dace84a5.jpg)
+1. Customize settings to match your brand. ![Branding](https://user-images.githubusercontent.com/446260/233220536-452b8802-9a1e-40f0-9a12-52b3dace84a5.jpg)
 
 #### Emails
 
 1. Navigate to `https://[your-shopify-store-subdomain].myshopify.com/admin/settings/email_settings`.
-1. Customize settings to match your brand.
-   ![Branding](https://user-images.githubusercontent.com/446260/233220538-13c83a9e-55f8-41e6-9b34-a39ee0848a8a.jpg)
+1. Customize settings to match your brand. ![Branding](https://user-images.githubusercontent.com/446260/233220538-13c83a9e-55f8-41e6-9b34-a39ee0848a8a.jpg)
 
 #### Favicon
 
 1. Navigate to `https://[your-shopify-store-subdomain].myshopify.com/admin/themes`.
-1. Click the green `Customize` button.
-   ![Customize theme](https://user-images.githubusercontent.com/446260/233220539-4869a6cd-f59f-4de6-8091-95ed81d2302d.jpg)
-1. Click `Theme settings` (ie. the paintbrush icon), expand the `FAVICON` section, upload favicon, then click the `Save` button.
-   ![Favicon](https://user-images.githubusercontent.com/446260/233220542-ac81b674-d86e-4172-ab38-c79d1ad1ff36.jpg)
+1. Click the green `Customize` button. ![Customize theme](https://user-images.githubusercontent.com/446260/233220539-4869a6cd-f59f-4de6-8091-95ed81d2302d.jpg)
+1. Click `Theme settings` (ie. the paintbrush icon), expand the `FAVICON` section, upload favicon, then click the `Save` button. ![Favicon](https://user-images.githubusercontent.com/446260/233220542-ac81b674-d86e-4172-ab38-c79d1ad1ff36.jpg)
 
 </details>
 
@@ -189,9 +170,7 @@ Next.js is pre-configured to listen for the following Shopify webhook events and
 #### Configure Shopify webhooks
 
 1. Navigate to `https://[your-shopify-store-subdomain].myshopify.com/admin/settings/notifications`.
-1. Add webhooks for all six event topics listed above. You can add more sets for other preview urls, environments, or local development. Append `?secret=[SECRET]` to each url, where `[SECRET]` is the secret you created above.
-   ![Shopify store webhooks](https://github.com/vercel/commerce/assets/446260/3d713fd7-b642-46e2-b2ce-f2b695ff6d2b)
-   ![Shopify store add webhook](https://github.com/vercel/commerce/assets/446260/f0240a22-be07-42bc-bf6c-b97873868677)
+1. Add webhooks for all six event topics listed above. You can add more sets for other preview urls, environments, or local development. Append `?secret=[SECRET]` to each url, where `[SECRET]` is the secret you created above. ![Shopify store webhooks](https://github.com/vercel/commerce/assets/446260/3d713fd7-b642-46e2-b2ce-f2b695ff6d2b) ![Shopify store add webhook](https://github.com/vercel/commerce/assets/446260/f0240a22-be07-42bc-bf6c-b97873868677)
 
 #### Testing webhooks during local development
 
@@ -200,11 +179,8 @@ The easiest way to test webhooks while developing locally is to use [ngrok](http
 1. [Install and configure ngrok](https://ngrok.com/download) (you will need to create an account).
 1. Run your app locally, `npm run dev`.
 1. In a separate terminal session, run `ngrok http 3000`.
-1. Use the url generated by ngrok and add or update your webhook urls in Shopify.
-   ![ngrok](https://github.com/vercel/commerce/assets/446260/5dc09c5d-0e48-479c-ab64-de8dc9a2c4b1)
-   ![Shopify store edit webhook](https://github.com/vercel/commerce/assets/446260/13fd397d-4666-4e8d-b25f-4adc674345c0)
-1. You can now make changes to your store and your local app should receive updates. You can also use the `Send test notification` button to trigger a generic webhook test.
-   ![Shopify store webhook send test notification](https://github.com/vercel/commerce/assets/446260/e872e233-1663-446d-961f-8c9455358530)
+1. Use the url generated by ngrok and add or update your webhook urls in Shopify. ![ngrok](https://github.com/vercel/commerce/assets/446260/5dc09c5d-0e48-479c-ab64-de8dc9a2c4b1) ![Shopify store edit webhook](https://github.com/vercel/commerce/assets/446260/13fd397d-4666-4e8d-b25f-4adc674345c0)
+1. You can now make changes to your store and your local app should receive updates. You can also use the `Send test notification` button to trigger a generic webhook test. ![Shopify store webhook send test notification](https://github.com/vercel/commerce/assets/446260/e872e233-1663-446d-961f-8c9455358530)
 
 </details>
 
