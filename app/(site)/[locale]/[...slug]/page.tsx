@@ -41,8 +41,6 @@ export async function generateMetadata({
     title: `${page.seo?.title || page.title}`,
     description: page.seo?.description,
     openGraph: {
-      // publishedTime: page.createdAt,
-      // modifiedTime: page.updatedAt,
       type: 'article'
     }
   };
