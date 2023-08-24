@@ -56,7 +56,7 @@ export function getHomePage(locale: string) {
   return sanityFetch<HomePagePayload | null>({
     query: homePageQuery,
     params: { locale },
-    tags: ['home', 'products', 'categories', 'page', 'menu'],
+    tags: ['home', 'product', 'category', 'page', 'menu'],
   })
 }
 
