@@ -1,7 +1,7 @@
-import { ThreeItemGrid } from 'components/grid/three-items';
 import Footer from 'components/layout/footer';
 import { SupportedLocale } from 'components/layout/navbar/language-control';
 
+import { ProductGrid } from 'components/grid/product-grid';
 import Navbar from 'components/layout/navbar';
 import { getCart } from 'lib/shopify';
 import { cookies } from 'next/headers';
@@ -36,7 +36,7 @@ export default async function ProductPage({
     <div>
       <Navbar cart={cart} locale={locale} compact />
       <div className="py-24 md:py-48">
-        <ThreeItemGrid lang={locale} />
+        <ProductGrid lang={locale} />
       </div>
 
       <Suspense>
