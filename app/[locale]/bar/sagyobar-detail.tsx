@@ -29,9 +29,10 @@ export default function SagyobarDetail() {
           'font-multilingual mx-auto flex w-full flex-col space-y-12 py-12 text-left font-extralight md:flex-row md:space-x-6 md:space-y-0 md:py-24 md:pb-24'
         )}
       >
-        <div className="md:w-1/2">
-          <h2 className="max-w-sm text-4xl md:text-5xl">{t('bar.001.title')}</h2>
-          <h2 className="max-w-sm text-4xl md:text-5xl">{t('bar.001.subtitle')}</h2>
+        <div className="flex flex-col space-y-4 md:w-1/2">
+          <h2 className="max-w-sm text-4xl md:text-5xl">{t('bar.001.title.line001')}</h2>
+          <h2 className="max-w-sm text-4xl md:text-5xl">{t('bar.001.title.line002')}</h2>
+          <h2 className="max-w-sm text-4xl md:text-5xl">{t('bar.001.title.line003')}</h2>
         </div>
         <div className="flex flex-col space-y-12 md:w-1/2">
           <p className="text-base leading-loose">{t('bar.001.para001')}</p>
@@ -95,13 +96,13 @@ export default function SagyobarDetail() {
               <div className="h-4 w-4 rounded-full bg-white"></div>
               <p className="text-xl">{t('bar.access.title')}</p>
             </div>
-            <p className="text-base leading-relaxed">{t('bar.access.para001')}</p>
-            <p className="text-base leading-relaxed">{t('bar.access.para002')}</p>
-            <p className="text-base leading-relaxed">{t('bar.access.para003')}</p>
-            <p className="text-base leading-relaxed">{t('bar.access.para004')}</p>
-            <p className="text-base leading-relaxed">{t('bar.access.para005')}</p>
-            <p className="text-base leading-relaxed">{t('bar.access.para006')}</p>
-            <p className="text-base leading-relaxed">{t('bar.access.para007')}</p>
+            <p className="text-[15px] leading-relaxed">{t('bar.access.para001')}</p>
+            <p className="text-[15px] leading-relaxed">{t('bar.access.para002')}</p>
+            <p className="text-[15px] leading-relaxed">{t('bar.access.para003')}</p>
+            <p className="text-[15px] leading-relaxed">{t('bar.access.para004')}</p>
+            <p className="text-[15px] leading-relaxed">{t('bar.access.para005')}</p>
+            <p className="text-[15px] leading-relaxed">{t('bar.access.para006')}</p>
+            <p className="text-[15px] leading-relaxed">{t('bar.access.para007')}</p>
           </div>
         </div>
 
@@ -111,9 +112,9 @@ export default function SagyobarDetail() {
               <div className="h-4 w-4 rounded-full bg-white"></div>
               <p className="text-xl">{t('bar.hours.title')}</p>
             </div>
-            <p className="pb-6 text-base leading-relaxed">{t('bar.hours.para001')}</p>
-            <p className="text-base leading-relaxed">{t('bar.hours.para002')}</p>
-            <p className="text-base leading-relaxed">{t('bar.hours.para003')}</p>
+            <p className="pb-6 text-[15px] leading-relaxed">{t('bar.hours.para001')}</p>
+            <p className="text-[15px] leading-relaxed">{t('bar.hours.para002')}</p>
+            <p className="text-[15px] leading-relaxed">{t('bar.hours.para003')}</p>
           </div>
         </div>
 
@@ -123,8 +124,11 @@ export default function SagyobarDetail() {
               <div className="h-4 w-4 rounded-full bg-white"></div>
               <p className="text-xl">{t('bar.menu.title')}</p>
             </div>
-            <p className="pb-6 text-base leading-relaxed">
-              <Link href="/menu" className="transition-opacity duration-150 hover:opacity-90">
+            <p className="pb-6 text-[15px] leading-relaxed">
+              <Link
+                href="https://cdn.shopify.com/s/files/1/0578/5570/5261/files/sagyobar_menu.pdf?v=1692861259"
+                className="transition-opacity duration-150 hover:opacity-90"
+              >
                 {t('bar.menu.para001')}
               </Link>
             </p>
@@ -136,8 +140,8 @@ export default function SagyobarDetail() {
             <div className="border-t border-white/20"></div>
           </div>
           <div className="font-multilingual max-w-xl font-extralight">
-            <p className="text-xl">{t('bar.clerk.title')}</p>
-            <p className="text-xl leading-relaxed">{t('bar.clerk.body')}</p>
+            <p className="text-[15px]">{t('bar.clerk.title')}</p>
+            <p className="text-[15px] leading-relaxed">{t('bar.clerk.body')}</p>
           </div>
 
           <Image

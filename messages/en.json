@@ -41,8 +41,11 @@
           "button": "about narai"
         },
         "bar": {
-          "title": "sagyobar : a brewery-operated bar & workspace",
-          "subtitle": "",
+          "title": {
+            "line001": "sagyobar : a brewery-operated bar & workspace",
+            "line002": "",
+            "line003": ""
+          },
           "body": "Introducing sagyobar: a place where brewery operations (sagyo) and drinking (bar) come together. We have combined our brewery workspace, where we pack boxes and fulfill orders, with a place to enjoy sake served from our very own suginomori wagon. It is a renovated warehouse located a one-minute walk from the brewery, just across the railway tracks.",
           "button": "about sagyobar"
         },
@@ -127,6 +130,7 @@
       },
       "materials": {
         "title": "materials",
+        "subtitle": "",
         "water": {
           "title": "water - the foundation",
           "body": "While most breweries use well water with stable properties, narai uses natural mountain water flowing from an altitude of over 1,000 meters. This mountain water, which springs near the divide between the Shinano and Kiso Rivers, is one of the clearest in Japan with a hardness of less than 25 and a round, smooth texture."
@@ -147,8 +151,11 @@
     },
     "bar": {
       "001": {
-        "title": "sagyobar : a brewery-operated bar & workspace",
-        "subtitle": "",
+        "title": {
+          "line001": "sagyobar : a brewery-operated bar & workspace",
+          "line002": "",
+          "line003": ""
+        },
         "para001": "Introducing sagyobar: a place where brewery operations (sagyo) and drinking (bar) come together. We have combined our brewery workspace, where we pack boxes and fulfill orders, with a place to enjoy sake served from our very own suginomori wagon.",
         "para002": "The renovated warehouse was originally used for storing equipment and business supplies left from the old Suginomori Shuzo, the precursor to suginomori brewery that was established in 1793. While maintaining its original structure, we have revamped its entrance and installed new systems such as lighting and air conditioning. We utilize “P-boxes” – containers used to transport sake bottles – that can be flexibly arranged to transform the space into standing bar."
       },
