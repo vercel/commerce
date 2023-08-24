@@ -11,7 +11,7 @@ export default function ConceptDetail() {
 
   return (
     <div className="w-full px-6">
-      <div className="max-w-screen-2x relative mx-auto">
+      <div className="relative mx-auto max-w-screen-2xl">
         <Image
           src={ConceptImage001}
           priority={true}
@@ -46,7 +46,7 @@ export default function ConceptDetail() {
         </div>
         <div className="flex flex-row items-start justify-end md:w-1/2">
           <div className="pb-24">
-            <Logo className="h-30 w-48" />
+            <Logo className="h-32 w-48" />
           </div>
         </div>
       </div>

@@ -21,7 +21,7 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
         <h1 className="text-6xl">{t('about.001.subtitle')}</h1>
       </div>
 
-      <div className="max-w-screen-2x relative mx-auto">
+      <div className="relative mx-auto max-w-screen-2xl">
         <Image
           src={AboutImage001}
           priority={true}
@@ -39,7 +39,7 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
         <p className="text-base leading-loose">{t('about.002.para002')}</p>
       </div>
 
-      <div className="max-w-screen-2x relative mx-auto">
+      <div className="relative mx-auto max-w-screen-2xl">
         <Image
           src={AboutImage002}
           priority={true}

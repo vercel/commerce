@@ -13,8 +13,8 @@ import { LanguageControl, SupportedLocale } from '../navbar/language-control';
 export function MenuModal({ scrolled }: { scrolled: boolean }) {
   const t = useTranslations('Index');
   const locale = useLocale();
-  let [isOpen, setIsOpen] = useState(false);
-  let closeButtonRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const closeButtonRef = useRef(null);
 
   const close = () => {
     setIsOpen(false);

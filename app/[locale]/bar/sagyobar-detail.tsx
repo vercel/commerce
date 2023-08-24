@@ -15,7 +15,7 @@ export default function SagyobarDetail() {
 
   return (
     <div className="w-full px-6">
-      <div className="max-w-screen-2x relative mx-auto">
+      <div className="relative mx-auto max-w-screen-2xl">
         <Image
           src={BarImage001}
           priority={true}
@@ -40,7 +40,7 @@ export default function SagyobarDetail() {
         </div>
       </div>
 
-      <div className="max-w-screen-2x relative mx-auto flex flex-col space-y-24">
+      <div className="relative mx-auto flex max-w-screen-2xl flex-col space-y-24">
         <Image
           src={BarImage002}
           priority={true}

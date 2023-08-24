@@ -34,7 +34,7 @@ export default function NewsletterSignup() {
           )}
           placeholder={t('newsletter.placeholder')}
         />
-        <div className="mt-3 rounded-md sm:ml-3 sm:mt-0 sm:flex-shrink-0">
+        <div className="mt-3 rounded-md sm:ml-3 sm:mt-0 sm:shrink-0">
           <button
             type="submit"
             className={clsx(
