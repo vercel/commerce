@@ -71,6 +71,17 @@
     "footer": {
       "newsletter": {
         "promo": "Get 10% off on your first order. Get discount."
+      },
+      "menu": {
+        "title": "menu",
+        "products": "products",
+        "shops": "shop list",
+        "about": "about narai",
+        "bar": "sagyobar",
+        "concept": "concept",
+        "stories": "stories",
+        "company": "company",
+        "contact": "contact"
       }
     },
     "cart": {
@@ -198,7 +209,6 @@
       "para003": "We aim to go beyond brewing – exploring sake with a free and creative approach, to help spread the beauty of sake to the world.",
       "subtitle001": "about suginomori brewery",
       "para004": "In 2021, we restored Suginomori Shuzo, a sake brewery nestled in the historic town of Narai-juku, established in 1793 but closed down in 2012. After upgrading the facilities and optimizing the space to a third of its original size, it was reborn as suginomori brewery.",
-      "subtitle002": "our approach",
       "para005": "In the process of revitalization, we found that the number of sake breweries, which used to be close to local life, has been decreasing year by year due to the decline in domestic demand for sake, and that abandoned farmland has been growing along with it. We wanted to take these issues seriously.",
       "para006": "We listen to what farmers have to say and visit their rice fields.",
       "para007": "We will realize a stable production environment by introducing a new four-season brewing method that allows year-round brewing.",
@@ -244,6 +254,11 @@
         "japanese": "サンドバーグ弘",
         "english": "Kou Sundberg",
         "role": "蔵元"
+      },
+      "masa": {
+        "japanese": "小松正則",
+        "english": "Masanori Komatsu",
+        "role": "COO"
       },
       "yamano": {
         "japanese": "山野恭稔",
@@ -471,7 +486,7 @@
         "ariaLabel": "Contact our support email"
       }
     },
-    "disclosurePage": {
+    "disclosure-page": {
       "title": "Disclosures",
       "distributor": {
         "label": "販売業者",
@@ -502,10 +517,6 @@
         "label": "商品の販売価格",
         "value": "各商品ページをご参照ください。"
       },
-      "otherCharges": {
-        "label": "商品以外の必要料金",
-        "value": "配送料：1本500円。2本800円。3本以上のご購入で送料一律1,000円となります。"
-      },
       "paymentMethod": {
         "label": "支払方法",
         "value": "クレジットカード決済"
@@ -522,6 +533,29 @@
         "label": "返品・交換",
         "one": "お客さま都合による返品・交換は対応いたしかねますので予めご了承ください。商品の欠陥による返品・交換は、商品到着後7日以内にご購入者のお名前・住所を送り状に明記の上、下記住所まで着払いにてご返送ください。",
         "two": "〒399-6303　長野県塩尻市奈良井551-1"
+      },
+      "legal": {
+        "title": "酒類販売管理者標識",
+        "001": {
+          "label": "販売場の名称及び所在地",
+          "value": "杉の森酒造株式会社"
+        },
+        "002": {
+          "label": "酒類販売管理者の氏名",
+          "value": "西川正貴"
+        },
+        "003": {
+          "label": "酒類販売管理研修受講年月日",
+          "value": "令和2年9月11日"
+        },
+        "004": {
+          "label": "次回研修の受講期限",
+          "value": "令和5年8月31日"
+        },
+        "005": {
+          "label": "研修実施団体名",
+          "value": "一般社団法人　日本ボランタリーチェーン協会"
+        }
       },
       "return": "Return Home"
     }

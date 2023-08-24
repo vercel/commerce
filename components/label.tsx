@@ -18,7 +18,7 @@ const Label = ({
         <h3 className="mr-4 line-clamp-2 grow font-serif text-3xl tracking-wider md:text-4xl">
           {title}
         </h3>
-        <div className="font-multilingual flex flex-row items-center space-x-2 text-[17px]">
+        <div className="font-multilingual flex flex-row items-center space-x-2 text-[14px] font-normal">
           <Price
             className="flex-none"
             amount={amount}

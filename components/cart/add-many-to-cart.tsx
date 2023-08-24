@@ -33,7 +33,6 @@ export function AddManyToCart({
       (option) => option.value === searchParams.get(option.name.toLowerCase())
     )
   );
-  console.debug({ product, variant, currentQuantity });
   const selectedVariantId = variant?.id || defaultVariantId;
   const title = !availableForSale
     ? t('cart.out-of-stock')
