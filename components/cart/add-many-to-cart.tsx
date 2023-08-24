@@ -3,19 +3,17 @@
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import LoadingDots from 'components/loading-dots';
-import { Product, ProductVariant } from 'lib/shopify/types';
+import { ProductVariant } from 'lib/shopify/types';
 import { useTranslations } from 'next-intl';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, useTransition } from 'react';
 import { addItems } from './actions';
 
 export function AddManyToCart({
-  product,
   quantity = 1,
   variants,
   availableForSale
 }: {
-  product: Product;
   quantity: number;
   variants: ProductVariant[];
   availableForSale: boolean;

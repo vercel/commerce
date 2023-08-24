@@ -136,7 +136,6 @@ export default async function ProductPage({
                   <VariantSelector options={product.options} variants={product.variants} />
 
                   <AddManyToCart
-                    product={product}
                     quantity={1}
                     variants={product.variants}
                     availableForSale={product.availableForSale}
