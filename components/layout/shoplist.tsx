@@ -6,12 +6,10 @@ import Link from 'next/link';
 export default function Shoplist() {
   const t = useTranslations('Index');
   return (
-    <div className="mx-auto max-w-screen-xl space-y-4 px-6" id="shops">
+    <div className="font-multilingual mx-auto max-w-screen-xl space-y-4 px-6" id="shops">
       <div className="flex w-full flex-row items-baseline space-x-12 pb-6">
         <h2 className="font-serif text-6xl tracking-wider">shop list</h2>
-        <h3 className="font-multilingual text-2xl font-extralight tracking-wider">
-          {t('shops.subtitle')}
-        </h3>
+        <h3 className="text-2xl font-extralight tracking-wider">{t('shops.subtitle')}</h3>
       </div>
       <div className="grid w-full grid-cols-2 gap-px">
         <Link

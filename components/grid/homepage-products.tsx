@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { InlineAddToCart } from 'components/cart/inline-add-to-cart';
 import { SupportedLocale } from 'components/layout/navbar/language-control';
 import { getCollectionProducts } from 'lib/shopify';
 import type { Product } from 'lib/shopify/types';
@@ -6,13 +7,17 @@ import Link from 'next/link';
 import Label from '../label';
 import { GridTileImage } from './tile';
 
-function ThreeItemGridItem({ item, priority }: { item: Product; priority?: boolean }) {
+function HomepageProductsItem({ item, priority }: { item: Product; priority?: boolean }) {
   const size = item?.variants?.[0]?.selectedOptions?.find((option) => option.name === 'Size');
   const image = item?.variants?.[0]?.image;
 
   return !!image ? (
-    <div className={clsx('col-span-1 row-span-1 md:col-span-2 md:row-span-1')}>
-      <Link className="w-full bg-black/30" href={`/product/${item.handle}`}>
+    <div
+      className={clsx(
+        'col-span-1 row-span-1 flex flex-col justify-between space-y-6 md:col-span-2 md:row-span-1'
+      )}
+    >
+      <Link className="block w-full" href={`/product/${item.handle}`}>
         <div className="relative block aspect-tall overflow-hidden ">
           <GridTileImage
             src={image?.url}
@@ -32,11 +37,12 @@ function ThreeItemGridItem({ item, priority }: { item: Product; priority?: boole
           <div className="line-clamp-4 pt-2 font-extralight">{item?.summary?.value}</div>
         </div>
       </Link>
+      <InlineAddToCart variants={item.variants} availableForSale={item.availableForSale} />
     </div>
   ) : null;
 }
 
-export async function ThreeItemGrid({ lang }: { lang?: SupportedLocale }) {
+export async function HomepageProducts({ lang }: { lang?: SupportedLocale }) {
   // Collections that start with `hidden-*` are hidden from the search page.
   const homepageItems = await getCollectionProducts({
     collection: 'hidden-homepage-featured-items',
@@ -50,14 +56,14 @@ export async function ThreeItemGrid({ lang }: { lang?: SupportedLocale }) {
   return (
     <section
       className={clsx(
-        'mx-auto grid max-w-screen-xl gap-6 px-4 pb-4 ',
+        'mx-auto grid max-w-screen-xl gap-12 px-4 pb-4 ',
         'grid-cols-1 md:grid-cols-6',
         'grid-rows-3 md:grid-rows-1'
       )}
     >
-      <ThreeItemGridItem item={firstProduct} priority={true} />
-      <ThreeItemGridItem item={secondProduct} priority={true} />
-      <ThreeItemGridItem item={thirdProduct} />
+      <HomepageProductsItem item={firstProduct} priority={true} />
+      <HomepageProductsItem item={secondProduct} priority={true} />
+      <HomepageProductsItem item={thirdProduct} />
     </section>
   );
 }
