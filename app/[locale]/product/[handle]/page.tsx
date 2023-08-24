@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 
 import clsx from 'clsx';
-import { AddToCart } from 'components/cart/add-to-cart';
+import { AddManyToCart } from 'components/cart/add-many-to-cart';
 import { GridTileImage } from 'components/grid/tile';
 import Label from 'components/label';
 import { SupportedLocale } from 'components/layout/navbar/language-control';
@@ -135,7 +135,9 @@ export default async function ProductPage({
                 <div className="max-w-sm">
                   <VariantSelector options={product.options} variants={product.variants} />
 
-                  <AddToCart
+                  <AddManyToCart
+                    product={product}
+                    quantity={1}
                     variants={product.variants}
                     availableForSale={product.availableForSale}
                   />

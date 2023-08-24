@@ -76,6 +76,8 @@
     "cart": {
       "add": "カートに入れる",
       "out-of-stock": "品切れ中",
+      "options": "オプション",
+      "quantity-label": "購入数",
       "title": "ショッピングカード",
       "subtitle": "ご注文内容の確認",
       "empty": "買い物袋が空っぽ",
