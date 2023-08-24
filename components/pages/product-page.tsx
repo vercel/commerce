@@ -1,7 +1,7 @@
 import ProductView from '@/components/product/product-view';
-interface ProductPageParams {
+export type ProductPageParams = {
   data: object | any;
-}
+};
 
 export default function ProductPage({ data }: ProductPageParams) {
   const product = data;

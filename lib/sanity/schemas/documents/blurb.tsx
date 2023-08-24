@@ -1,7 +1,7 @@
-import {CommentIcon} from '@sanity/icons'
-import {defineField} from 'sanity'
-import {languages} from '../../languages'
-import {validateImage} from '../../utils/validation'
+import { CommentIcon } from '@sanity/icons';
+import { defineField } from 'sanity';
+import { languages } from '../../languages';
+import { validateImage } from '../../utils/validation';
 
 export default defineField({
   name: 'blurb',
@@ -13,7 +13,7 @@ export default defineField({
       name: 'language',
       type: 'string',
       readOnly: true,
-      description: 'Language of this document.',
+      description: 'Language of this document.'
       // hidden: true,
     }),
     // Title
@@ -22,14 +22,14 @@ export default defineField({
       title: 'Title',
       type: 'string',
       description: 'What do you want to convey?',
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => Rule.required()
     }),
     // Image
     defineField({
       name: 'image',
       title: 'Image',
       type: 'mainImage',
-      validation: (Rule) => validateImage(Rule, true),
+      validation: (Rule) => validateImage(Rule, true)
     }),
     // Text
     defineField({
@@ -37,7 +37,7 @@ export default defineField({
       title: 'Text',
       type: 'text',
       description: 'Small text displayed below title.',
-      rows: 5,
+      rows: 5
     }),
     // Link
     {
@@ -54,69 +54,69 @@ export default defineField({
           validation: (Rule) => Rule.required(),
           options: {
             list: ['internal', 'external'],
-            layout: 'radio',
-          },
+            layout: 'radio'
+          }
         },
         {
           name: 'internalLink',
           type: 'linkInternal',
           title: 'Internal link',
-          hidden: ({parent}) => parent?.linkType !== 'internal',
+          hidden: ({ parent }) => parent?.linkType !== 'internal',
           options: {
-            collapsible: false,
+            collapsible: false
           },
           validation: (Rule) =>
             Rule.custom((value: any, context: any) => {
               if (context.parent.linkType == 'internal') {
-                const currentLink = value && value.reference
+                const currentLink = value && value.reference;
                 if (!currentLink) {
-                  return 'Reference is required'
+                  return 'Reference is required';
                 }
               }
-              return true
-            }),
+              return true;
+            })
         },
         {
           name: 'externalLink',
           type: 'linkExternal',
           title: 'External link',
-          hidden: ({parent}) => parent?.linkType !== 'external',
+          hidden: ({ parent }) => parent?.linkType !== 'external',
           options: {
-            collapsible: false,
+            collapsible: false
           },
           validation: (Rule) =>
             Rule.custom((value: any, context: any) => {
               if (context.parent.linkType == 'external') {
-                const currentTitle = value?.title
-                const currentUrl = value?.url
+                const currentTitle = value?.title;
+                const currentUrl = value?.url;
                 if (!currentTitle) {
-                  return 'Title is required'
+                  return 'Title is required';
                 } else if (!currentUrl) {
-                  return 'URL is required'
+                  return 'URL is required';
                 }
               }
-              return true
-            }),
-        },
-      ],
-    },
+              return true;
+            })
+        }
+      ]
+    }
   ],
   preview: {
     select: {
       title: 'title',
       image: 'image',
-      language: 'language',
+      language: 'language'
     },
     prepare(selection) {
-      const {image, title, language} = selection
+      const { image, title, language } = selection;
 
-      const currentLang = languages.find((lang) => lang.id === language)
+      const currentLang = languages.find((lang) => lang.id === language);
 
       return {
         media: image,
         title,
-        subtitle: `${currentLang ? currentLang.title : ''}`,
-      }
-    },
-  },
-})
+        subtitle: `${currentLang ? currentLang.title : ''}`
+      };
+    }
+  }
+});

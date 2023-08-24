@@ -3,6 +3,10 @@
 import Link from 'next-intl/link';
 
 export default function DesktopMenu({ items }: { items: [] }) {
+  if (!items) {
+    return;
+  }
+
   return (
     <ul className="flex gap-6">
       {items.map((item: { title: string; slug: string }, i: number) => {

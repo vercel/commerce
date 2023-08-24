@@ -1,8 +1,11 @@
+import PreviewProvider from '@/components/preview/preview-provider';
+import { token } from '@/lib/sanity/sanity.fetch';
 import { Analytics } from '@vercel/analytics/react';
 import Footer from 'components/layout/footer/footer';
 import Header from 'components/layout/header/header';
 import { NextIntlClientProvider } from 'next-intl';
 import { Inter } from 'next/font/google';
+import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { ReactNode, Suspense } from 'react';
 import { supportedLanguages } from '../../../i18n-config';
@@ -54,7 +57,9 @@ export default async function LocaleLayout({ children, params: { locale } }: Loc
     notFound();
   }
 
-  return (
+  const isDraftMode = draftMode().isEnabled;
+
+  const layout = (
     <html lang={locale} className={inter.variable}>
       <body className="flex min-h-screen flex-col">
         <NextIntlClientProvider locale={locale} messages={messages}>
@@ -70,4 +75,10 @@ export default async function LocaleLayout({ children, params: { locale } }: Loc
       </body>
     </html>
   );
+
+  if (isDraftMode) {
+    return <PreviewProvider token={token!}>{layout}</PreviewProvider>;
+  }
+
+  return layout;
 }

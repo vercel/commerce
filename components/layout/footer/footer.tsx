@@ -1,6 +1,5 @@
-import Text from '@/components/ui/text';
-import { footerMenusQuery } from '@/lib/sanity/queries';
-import { getCachedClient } from '@/lib/sanity/sanity.client';
+import Text from '@/components/ui/text/text';
+import { getFooterMenus } from '@/lib/sanity/sanity.fetch';
 import LocaleSwitcher from 'components/ui/locale-switcher/locale-switcher';
 import Logo from 'components/ui/logo/logo';
 import Link from 'next/link';
@@ -15,7 +14,7 @@ export default async function Footer({ locale }: FooterProps) {
     locale: locale
   };
 
-  const footerMenus = await getCachedClient()(footerMenusQuery, params);
+  const footerMenus = await getFooterMenus(params.locale);
 
   return (
     <footer className="border-t border-ui-border bg-app">
@@ -27,12 +26,14 @@ export default async function Footer({ locale }: FooterProps) {
           <LocaleSwitcher />
         </div>
 
-        {footerMenus.length > 0 && (
+        {footerMenus && (
           <div className="grid w-full grid-cols-2 gap-4 p-4 lg:grid-cols-4 lg:gap-8 lg:px-8 lg:py-6 2xl:px-16 2xl:py-8">
+            {/* @ts-ignore */}
             {footerMenus.map((menu: object | any, index: number) => {
               return (
                 <div key={index}>
                   <Text variant="label">{menu.title}</Text>
+
                   <ul className="mt-4 flex flex-col space-y-2" aria-label={menu.title}>
                     {menu.menu.links.map((link: object | any, index: number) => {
                       return (

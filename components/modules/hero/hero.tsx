@@ -7,7 +7,7 @@ interface HeroProps {
   text?: string;
   label?: string;
   title: string;
-  image: object | any;
+  image?: { asset?: any };
   color?: string;
   overlay?: boolean;
   link: {
@@ -38,14 +38,13 @@ const Hero = ({ variant, title, text, label, image, link, color, overlay }: Hero
       {image && (
         <SanityImage
           image={image}
-          alt={image.alt}
           priority={true}
           className="absolute inset-0 z-10 h-full w-full object-cover"
-          sizes="100vw"
+          size="100vw"
           fill
         />
       )}
-      {overlay && <div className="absolute inset-0 z-10 h-full w-full bg-black/70" />}
+      {overlay && <div className="absolute inset-0 z-10 h-full w-full bg-black/60" />}
       <div
         className={`${
           color === 'dark' ? 'text-high-contrast' : 'text-white'

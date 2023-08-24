@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-const { fontFamily } = require('tailwindcss/defaultTheme')
+const { fontFamily } = require('tailwindcss/defaultTheme');
 const plugin = require('tailwindcss/plugin');
 
 module.exports = {
@@ -21,7 +21,7 @@ module.exports = {
       '3xl': '1.75rem',
       '4xl': '2rem',
       '5xl': '3rem',
-      '6xl': '4rem',
+      '6xl': '4rem'
     },
     extend: {
       colors: {
@@ -42,62 +42,34 @@ module.exports = {
         red: '#ec5d40',
         yellow: '#ffcb47',
         // UI.SHADCN.COM
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
-        },
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
-        },
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))'
       },
       textColor: {
         base: '#333333',
         'low-contrast': '#585858',
-        'high-contrast': '#333333',
+        'high-contrast': '#333333'
       },
       fontFamily: {
         sans: ['var(--font-inter)', ...fontFamily.sans],
-        display: ['var(--font-inter-tight)', ...fontFamily.sans],
+        display: ['var(--font-inter-tight)', ...fontFamily.sans]
       },
       keyframes: {
-        "accordion-down": {
+        'accordion-down': {
           from: { height: 0 },
-          to: { height: "var(--radix-accordion-content-height)" },
+          to: { height: 'var(--radix-accordion-content-height)' }
         },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: 0 },
-        },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: 0 }
+        }
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out'
       },
       typography: {
         DEFAULT: {
@@ -107,13 +79,13 @@ module.exports = {
               textDecoration: 'underline',
               color: '#3182ce',
               '&:hover': {
-                color: '#2c5282',
-              },
-            },
-          },
-        },
-      },
-    },
+                color: '#2c5282'
+              }
+            }
+          }
+        }
+      }
+    }
   },
   plugins: [
     require('tailwindcss-animate'),
@@ -135,5 +107,5 @@ module.exports = {
   ],
   future: {
     hoverOnlyWhenSupported: true
-  },
-}
+  }
+};

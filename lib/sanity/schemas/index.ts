@@ -17,7 +17,6 @@ import category from './documents/category'
 import footerMenu from './documents/footerMenu'
 import page from './documents/page'
 import product from './documents/product'
-import productVariant from './documents/productVariant'
 import section from './documents/section'
 import usp from './documents/usp'
 
@@ -25,7 +24,6 @@ const documents = [
   category,
   page,
   product,
-  productVariant,
   blurb,
   section,
   usp,

@@ -20,9 +20,9 @@ const CategoryCard: FC<Props> = ({ category, className }) => {
           <SanityImage
             image={category.image}
             alt={category.name || 'Category Image'}
-            width={300}
-            height={400}
-            sizes="(max-width: 1024px) 50vw, 25vw"
+            width={400}
+            height={600}
+            size="(max-width: 1024px) 50vw, 25vw"
           />
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-high-contrast px-6 py-3 font-medium text-white md:px-10 md:py-5">
             {category.title}

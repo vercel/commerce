@@ -1,26 +1,24 @@
 'use client';
 
-import PreviewBanner from '@/components/ui/preview-banner';
-import { searchPageQuery } from '@/lib/sanity/queries';
-import { useLiveQuery } from '@sanity/preview-kit';
-import SearchPage from './search-page';
+import dynamic from 'next/dynamic';
+import PreviewBanner from '../ui/preview-banner';
+import type { SearchPageParams } from './search-page';
 
-interface SearchPagePreviewParams {
-  initialData: [];
-  params: {
-    locale: string;
-    slug: string;
-  };
-}
+const SearchPage = dynamic(() => import('./search-page'));
 
-export default function SearchPagePreview({ initialData, params }: SearchPagePreviewParams) {
-  const [data] = useLiveQuery(initialData, searchPageQuery, params);
+export default function SearchPagePreview({ data }: SearchPageParams) {
+  if (!data) {
+    return (
+      <div className="text-center">
+        Please start editing your Search page document to see the preview!
+      </div>
+    );
+  }
 
   return (
     <>
-      <SearchPage data={data && data} />
-      {/* @ts-ignore */}
-      <PreviewBanner title={data?.title} type={data?._type} />
+      <SearchPage data={data} />
+      <PreviewBanner title={data?.title ? data.title : ''} />
     </>
   );
 }

@@ -1,9 +1,8 @@
-import {ListItemBuilder} from 'sanity/desk'
-import defineStructure from '../utils/define-structure'
+import { iframeOptions } from '@/sanity.config'
+import { EyeOpenIcon, MasterDetailIcon } from '@sanity/icons'
 import Iframe from 'sanity-plugin-iframe-pane'
-import {SanityDocument} from 'sanity'
-import {EyeOpenIcon, MasterDetailIcon} from '@sanity/icons'
-import getPreviewUrl from '../utils/get-preview-url'
+import { ListItemBuilder } from 'sanity/desk'
+import defineStructure from '../utils/define-structure'
 
 export default defineStructure<ListItemBuilder>((S) =>
   S.listItem()
@@ -16,16 +15,8 @@ export default defineStructure<ListItemBuilder>((S) =>
             .schemaType("category")
             .id(id)
             .views([
-              S.view
-                .form()
-                  .icon(MasterDetailIcon),
-              S.view
-                .component(Iframe)
-                .icon(EyeOpenIcon) 
-                .options({
-                  url: (doc: SanityDocument) => getPreviewUrl(doc),
-                })
-                .title('Preview')
+              S.view.form().icon(MasterDetailIcon),
+              S.view.component(Iframe).icon(EyeOpenIcon).options(iframeOptions).title('Preview')
           ])
         )
       
