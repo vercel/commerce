@@ -60,7 +60,7 @@ export default async function StoriesPreview({
           <div className="flex w-full flex-row justify-center pt-12">
             <Link
               href="/stories"
-              className="mx-auto max-w-sm border border-dark px-24 py-3 text-center text-lg transition-colors duration-150 hover:border-dark/40"
+              className="mx-auto max-w-sm border border-dark px-24 py-3 text-center text-[15px] transition-colors duration-150 hover:border-dark/40"
             >
               more stories
             </Link>

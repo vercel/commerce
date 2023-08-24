@@ -35,11 +35,11 @@ export default async function Footer({ cart }: { cart?: Cart }) {
               <div className="flex flex-row items-end space-x-6">
                 <div className="flex flex-col items-start space-y-2">
                   <p className="font-japan text-3xl font-extralight">杉の森酒造</p>
-                  <p className="font-serif text-lg">suginomori brewery</p>
+                  <p className="font-serif text-xs font-semibold">suginomori brewery</p>
                 </div>
                 <div className="flex flex-col items-start space-y-2">
                   <p className="font-japan text-xl font-extralight">長野県塩尻市奈良井551-1</p>
-                  <p className="font-serif text-lg">551-1 Narai, Shiojiri, Nagano</p>
+                  <p className="font-serif text-xs font-semibold">551-1 Narai, Shiojiri, Nagano</p>
                 </div>
               </div>
             </div>
@@ -52,11 +52,11 @@ export default async function Footer({ cart }: { cart?: Cart }) {
             </Link>
             <div className="flex grow flex-col items-end space-y-6">
               <div className="flex flex-col items-start space-y-2">
-                <p className="font-japan text-3xl font-extralight">杉の森酒造</p>
+                <p className="font-japan text-[22px] font-extralight">杉の森酒造</p>
                 <p className="font-serif text-lg">suginomori brewery</p>
               </div>
               <div className="flex flex-col items-start space-y-2">
-                <p className="font-japan text-xl font-extralight">長野県塩尻市奈良井551-1</p>
+                <p className="font-japan text-[17px] font-extralight">長野県塩尻市奈良井551-1</p>
                 <p className="font-serif text-lg">551-1 Narai, Shiojiri, Nagano</p>
               </div>
               <div className="flex flex-row justify-between space-x-4">

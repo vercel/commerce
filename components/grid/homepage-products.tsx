@@ -1,3 +1,4 @@
+import { ChevronRightIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { InlineAddToCart } from 'components/cart/inline-add-to-cart';
 import { SupportedLocale } from 'components/layout/navbar/language-control';
@@ -17,7 +18,7 @@ function HomepageProductsItem({ item, priority }: { item: Product; priority?: bo
         'col-span-1 row-span-1 flex flex-col justify-between space-y-6 md:col-span-2 md:row-span-1'
       )}
     >
-      <Link className="block w-full" href={`/product/${item.handle}`}>
+      <Link className="group block w-full" href={`/product/${item.handle}`}>
         <div className="relative block aspect-tall overflow-hidden ">
           <GridTileImage
             src={image?.url}
@@ -34,7 +35,15 @@ function HomepageProductsItem({ item, priority }: { item: Product; priority?: bo
             currencyCode={item.priceRange.maxVariantPrice.currencyCode}
             size={size?.value}
           />
-          <div className="line-clamp-4 pt-2 font-extralight">{item?.summary?.value}</div>
+          <div className="line-clamp-4 pt-2 font-extralight">
+            <span>{item?.summary?.value}</span>{' '}
+            <span className="ml-2 inline-flex flex-row items-center space-x-1 opacity-50 transition-opacity duration-150 group-hover:opacity-100">
+              <span>Read more.</span>
+              <span>
+                <ChevronRightIcon width={16} />
+              </span>
+            </span>
+          </div>
         </div>
       </Link>
       <InlineAddToCart variants={item.variants} availableForSale={item.availableForSale} />
