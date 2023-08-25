@@ -96,7 +96,7 @@ export function getMainMenu(locale: string) {
   return sanityFetch<MainMenuPayload | null>({
     query: mainMenuQuery,
     params: { locale },
-    tags: ['menu'],
+    tags: ['category'],
   })
 }
 
@@ -104,6 +104,6 @@ export function getFooterMenus(locale: string) {
   return sanityFetch<FooterMenusPayload | null>({
     query: footerMenusQuery,
     params: { locale },
-    tags: ['menu'],
+    tags: ['footerMenu'],
   })
 }
