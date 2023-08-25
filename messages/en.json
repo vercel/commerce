@@ -23,7 +23,7 @@
     },
     "newsletter": {
       "title": "newsletter",
-      "description": "Subscribe to our newsletter to receive free shipping on your first order, and access to exclusive information regarding events and pairing dinners.",
+      "description": "Subscribe to our newsletter to get access to exclusive information regarding events and pairing dinners.",
       "placeholder": "Email",
       "button": "Notify me"
     },
@@ -32,7 +32,7 @@
         "about-narai": {
           "title": "water of the mountains,",
           "subtitle": "sake of the skies",
-          "body": "We brew our sake in one of the highest breweries in Japan, standing at an altitude of 940m and surrounded by an abundance of nature. While many breweries typically use a stable water source such as well water, narai uses the fresh water from the mountains, flowing from an altitude of over 1,000m. The water originates from a spring near the watershed of the Shinano River and Kiso River, and is characterized by its clarity and smooth, rounded texture brought about by a rare “water hardness” of less than 25."
+          "body": "We brew our sake in one of the highest breweries in Japan, standing at an altitude of 940m and surrounded by an abundance of nature. While many breweries typically use a stable water source such as well water, narai uses the fresh water from the mountains, flowing from an altitude of over 1,000m. The water originates from a spring near the watershed of the Shinano River and Kiso River, and is characterized by its clarity and smooth, rounded texture, brought about by a rare water hardness of less than 25."
         },
         "location": {
           "title": "brewed in Narai-juku, Nagano",
@@ -70,7 +70,7 @@
     },
     "footer": {
       "newsletter": {
-        "promo": "Get 10% off on your first order. Get discount."
+        "promo": "Get access to exclusive information regarding events and pairing dinners."
       },
       "menu": {
         "title": "menu",
@@ -129,10 +129,10 @@
       "002": {
         "title": "brewed in Narai-juku, Nagano.",
         "para001": "We brew our sake in one of the highest breweries in Japan, standing at an altitude of 940m and surrounded by a mountainous forest of Japanese cedar trees. In Narai-juku, winter temperatures drop nearly 20°C below zero, causing the mountain water to freeze. After the cold winter, the town gets enveloped in fresh greenery as the air turns more clear and pleasant. In autumn, the mountains are adorned with vibrant foliage. Blessed with an abundance of nature, it is a place to truly experience the changing of seasons.",
-        "para002": "Could we express the beauty of the nature around us through our sake? Most sake breweries use large tanks (3,000L to 8,000L) suitable for mass production, often dividing tasks across a large team. At our brewery, we have scaled down to smaller tanks (900L to 1,800L) so that our single master brewer can meticulously and efficiently manage every step of the brewing process – enabling us to produce high-quality sake through small-lot production. While sake is typically produced in the winter, we have incorporated a year-round production method called “shiki-jozo,” or “four-seasons brewing,” so that we can reflect the changing seasons and beautiful nature of Nagano in our sake."
+        "para002": "Most sake breweries use large tanks (3,000L to 8,000L) suitable for mass production, often dividing tasks across a large team. At our brewery, we have scaled down to smaller tanks (900L to 1,800L) so that our single master brewer can meticulously and efficiently manage every step of the brewing process – enabling us to produce high-quality sake through small-lot production. Further, while sake is typically produced in the winter, we have incorporated a year-round production method called “shiki-jozo,” or “four-seasons brewing,” so that we can reflect the changing seasons and beautiful nature of Nagano in our sake."
       },
       "003": {
-        "title": "Tasai na Kuro. A Colorful Black. Our Brewing Philosophy.",
+        "title": "A Colorful Black (“Tasai na Kuro”) – Our Brewing Philosophy",
         "para001": "At first glance, the words “colorful” and “black” together may sound contradictory. Yet the concept of “A Colorful Black” is not about one single color, but rather a mixture of colors, meticulously layered together one paint at a time. For each batch of narai, I imagine myself harmonizing the various elements of the sake’s flavor – richness and fullness, dryness and sweetness, aroma – carefully adjusting each element according to the conditions of the mountain water and rice of that particular batch. A sake that is well-balanced, yet feels like a burst of colors as it spreads across your palate… this is the kind of sake I hope to create. We hope you enjoy narai – “water of the mountains, sake of the skies” – a sake that expresses the beautiful nature of Nagano.",
         "master001": "Master Brewer",
         "master002": "Masayuki Irie"
@@ -142,11 +142,11 @@
         "subtitle": ""
       },
       "materials": {
-        "title": "materials",
+        "title": "the ingredients of narai",
         "subtitle": "",
         "water": {
           "title": "water - the foundation",
-          "body": "While most breweries use well water with stable properties, narai uses natural mountain water flowing from an altitude of over 1,000 meters. This mountain water, which springs near the divide between the Shinano and Kiso Rivers, is one of the clearest in Japan with a hardness of less than 25 and a round, smooth texture."
+          "body": "While many breweries use a stable water source such as well water, narai uses the fresh mountain water of Kiso Valley, flowing from an altitude of over 1,000m. The water originates from a spring near the watershed of the Shinano River and Kiso River, and is characterized by its clarity and smooth, rounded texture brought about by a rare water hardness of less than 25."
         },
         "rice": {
           "title": "rice - the core",
@@ -169,8 +169,8 @@
           "line002": "",
           "line003": ""
         },
-        "para001": "Introducing sagyobar: a place where brewery operations (sagyo) and drinking (bar) come together. We have combined our brewery workspace, where we pack boxes and fulfill orders, with a place to enjoy sake served from our very own suginomori wagon.",
-        "para002": "The renovated warehouse was originally used for storing equipment and business supplies left from the old Suginomori Shuzo, the precursor to suginomori brewery that was established in 1793. While maintaining its original structure, we have revamped its entrance and installed new systems such as lighting and air conditioning. We utilize “P-boxes” – containers used to transport sake bottles – that can be flexibly arranged to transform the space into standing bar."
+        "para001": "ntroducing sagyobar: a place where brewery operations (sagyo) and drinking (bar) come together. We have combined our brewery workspace, where we pack boxes and fulfill orders, with a place to enjoy sake served from our very own suginomori wagon.",
+        "para002": "The renovated warehouse was originally used for storing equipment and business supplies left from our predecessor, the old Suginomori Shuzo. While maintaining its original structure, we have revamped its entrance and installed new systems such as lighting and air conditioning. We utilize “P-boxes” – containers used to transport sake bottles – that can be flexibly arranged to transform the space into standing bar."
       },
       "002": "sagyobar is a place where visitors to Narai-juku can enjoy narai, freshly brewed at our brewery just a short walk away. We also plan to host music events, workshops, and other various activities, and turn sagyobar into a new tourist hub in Narai-juku.",
       "003": {
@@ -199,7 +199,7 @@
       },
       "clerk": {
         "title": "Banto (Head Clerk): Masaki Nishikawa",
-        "body": "Nishikawa is engaged in manufacturing management, sales management, liquor tax management, general affairs and sales administration. A trustworthy and dependable presence, it is often said that “if you need anything, just ask Nishikawa.” Nishikawa joined Matsumoto Sake Brewery in Kyoto in 2006. After serving as head clerk there for many years, Nishikawa joined suginomori brewery in 2021. He strives to create an environment in which the brewer can fully concentrate on their craft."
+        "body": "From Hiroshima. Nishikawa is engaged in manufacturing management, sales management, liquor tax management, general affairs and sales administration. A trustworthy and dependable presence, it is often said that “if you need anything, just ask Nishikawa.” Nishikawa joined Matsumoto Sake Brewery in Kyoto in 2006. After serving as head clerk there for many years, Nishikawa joined suginomori brewery in 2021. He strives to create an environment in which the brewer can fully concentrate on their craft."
       }
     },
     "concept": {
@@ -207,14 +207,14 @@
       "para001": "At suginomori brewery, our mission is to pass down Japanese sake culture to future generations.",
       "para002": "To achieve this, we reexamine conventional practices of the sake industry and experiment with new endeavors.",
       "para003": "We aim to go beyond brewing – exploring sake with a free and creative approach, to help spread the beauty of sake to the world.",
-      "subtitle001": "about suginomori brewery",
+      "subtitle001": "about suginomori brewery:",
       "para004": "In 2021, we restored Suginomori Shuzo, a sake brewery nestled in the historic town of Narai-juku, established in 1793 but closed down in 2012. After upgrading the facilities and optimizing the space to a third of its original size, it was reborn as suginomori brewery.",
-      "para005": "In the process of revitalization, we found that the number of sake breweries, which used to be close to local life, has been decreasing year by year due to the decline in domestic demand for sake, and that abandoned farmland has been growing along with it. We wanted to take these issues seriously.",
-      "para006": "We listen to what farmers have to say and visit their rice fields.",
-      "para007": "We will realize a stable production environment by introducing a new four-season brewing method that allows year-round brewing.",
-      "para008": "These are small steps, but we believe that these efforts will lead to the future.",
-      "para009": "One of our challenges is to become an “open brewery”. Our brewery is adjacent to an old private house on the same site and the restaurant of BYAKU Narai, an accommodation facility that was partially renovated from a former sake brewery. The brewery is separated from the restaurant by a single large glass partition, and we believe that this will provide an opportunity for visitors to experience the sake brewing process up close, which is usually difficult to see, and to develop an interest in sake.",
-      "para010": "Finally, the brand name “narai” was chosen with the hope that our sake will be a catalyst for people around the world to learn about and visit the charming inn town of Naraijuku. We would be happy if you could stop by suginomori brewery when you come to Narai."
+      "para005": "In the process of the renewal, we sought to confront some of the challenges faced by the sake industry in recent years: a decline in domestic demand for sake, the subsequent closing down of many local sake breweries and rise in abandoned farmland, and unstable employment due to sake typically being produced only in the winter months.",
+      "para006": "We listened to the voices of farmers. We visited the rice paddies, and took part in the rice cultivation process. We incorporated a year-round production method called “shiki-jozo,” or “four-seasons brewing,” to ensure a more stable production environment. Although seemingly small steps, we believe that these are some of the building blocks for a more promising future.",
+      "para007": "Additionally, as part of our endeavor, we sought to transform the brewery into what we call an “open brewery.” suginomori brewery is adjoined to the restaurant of BYAKU Narai, an accommodation facility renovated from part of the former Suginomori Shuzo. Visitors can look into the brewery from a large glass window in the restaurant, providing them with a rare up-close view of the sake brewing process. Through opening and showcasing our brewery, we hope to inspire more people to take an interest in sake.",
+      "para008": "Finally, our brand name “narai” is derived from the town of Narai-juku – chosen from our hope to introduce this charming town to the world through our sake. If you ever find yourself in Narai-juku, we would be delighted to welcome you to suginomori brewery.",
+      "para009": "",
+      "para010": ""
     },
     "company": {
       "title": "company",
@@ -243,17 +243,17 @@
       "irie": {
         "japanese": "入江将之",
         "english": "Masayuki Irie",
-        "role": "杜氏"
+        "role": "Master Brewer"
       },
       "nishikawa": {
         "japanese": "西川正貴",
         "english": "Masataka Nishikawa",
-        "role": "番頭"
+        "role": "Banto (head clerk)"
       },
       "sundberg": {
         "japanese": "サンドバーグ弘",
         "english": "Kou Sundberg",
-        "role": "蔵元"
+        "role": "Chief Executive Officer"
       },
       "masa": {
         "japanese": "小松正則",
@@ -263,17 +263,17 @@
       "yamano": {
         "japanese": "山野恭稔",
         "english": "Takatoshi Yamano",
-        "role": "クリエイティブディレクター"
+        "role": "Creative Director"
       },
       "yoshida": {
         "japanese": "吉田有紗",
         "english": "Alisa Yoshida",
-        "role": "PR・マーケティング"
+        "role": "PR & Marketing"
       },
       "ikegaya": {
         "japanese": "池谷晋也",
         "english": "Shinya Ikegaya",
-        "role": "営業戦略"
+        "role": "Sales Strategy"
       },
       "subtitle003": "movie"
     },
@@ -489,72 +489,72 @@
     "disclosure-page": {
       "title": "Disclosures",
       "distributor": {
-        "label": "販売業者",
-        "value": "杉の森酒造株式会社"
+        "label": "Company Name",
+        "value": "suginomori brewery inc."
       },
       "representative": {
-        "label": "責任者",
-        "value": "代表取締役　サンドバーグ弘ウィリアム"
+        "label": "Representative",
+        "value": "Kou William Sundberg, Representative Director and President"
       },
       "address": {
-        "label": "住所",
-        "one": "〒399-6303",
-        "two": "長野県塩尻市奈良井551-1"
+        "label": "Address",
+        "one": "551-1 Narai, Shiojiri City,",
+        "two": "Nagano, Japan 399-6303"
       },
       "phone": {
-        "label": "電話番号",
+        "label": "Phone",
         "value": "0264-24-0340"
       },
       "email": {
-        "label": "メールアドレス",
+        "label": "Email",
         "value": "info@narai.jp"
       },
       "homepage": {
-        "label": "ホームページ",
+        "label": "URL",
         "value": "https://www.narai.jp/"
       },
       "price": {
-        "label": "商品の販売価格",
-        "value": "各商品ページをご参照ください。"
+        "label": "Product price",
+        "value": "Please refer to each product page."
       },
       "paymentMethod": {
-        "label": "支払方法",
-        "value": "クレジットカード決済"
+        "label": "Payment method",
+        "value": "Credit card"
       },
       "paymentPeriod": {
-        "label": "支払時期",
-        "value": "クレジットカード決済：商品注文時にお支払いが確定します。"
+        "label": "Payment timing",
+        "value": "Credit card payment will be confirmed at the time of product order."
       },
       "delivery": {
-        "label": "商品の引渡時期",
-        "value": "ご注文確認後、直ちに商品を発送いたします。（通常、商品の発送までに3営業日前後の時間がかかります。天候不順や配送業者の都合、その他何らかの理由により商品の発送が遅延する場合は、メールにてお知らせいたします。）"
+        "label": "Product delivery time",
+        "value": "Your order will typically be shipped within 3 business days upon order confirmation. (In case of delay due to weather, delivery service availability, or any other reason, we will notify you by email)."
       },
       "returnsAndExchanges": {
-        "label": "返品・交換",
-        "one": "お客さま都合による返品・交換は対応いたしかねますので予めご了承ください。商品の欠陥による返品・交換は、商品到着後7日以内にご購入者のお名前・住所を送り状に明記の上、下記住所まで着払いにてご返送ください。",
-        "two": "〒399-6303　長野県塩尻市奈良井551-1"
+        "label": "Returns and exchanges",
+        "one": "Please note that we can only accept returns and exchanges due to product defects. Please return the product with your name and address written on the shipping label within 7 days of receiving the product, at your own expense, to the following address:",
+        "two": "551-1 Narai, Shiojiri City, Nagano, Japan 399-6303"
       },
       "legal": {
-        "title": "酒類販売管理者標識",
+        "title": "Alcoholic Beverage Sales Disclosure",
         "001": {
-          "label": "販売場の名称及び所在地",
-          "value": "杉の森酒造株式会社"
+          "label": "Name and location of where liquor is sold",
+          "value": "suginomori brewery inc."
         },
         "002": {
-          "label": "酒類販売管理者の氏名",
-          "value": "西川正貴"
+          "label": "Name of Liquor Sales Manager",
+          "value": "Masataka Nishikawa"
         },
         "003": {
-          "label": "酒類販売管理研修受講年月日",
-          "value": "令和2年9月11日"
+          "label": "Date of attendance of the Liquor Sales Management Training",
+          "value": "September 11, 2020"
         },
         "004": {
-          "label": "次回研修の受講期限",
-          "value": "令和5年8月31日"
+          "label": "Attendance Deadline of the next Liquor Sales Management Training",
+          "value": "August 31, 2023"
         },
         "005": {
-          "label": "研修実施団体名",
-          "value": "一般社団法人　日本ボランタリーチェーン協会"
+          "label": "Implementing Agency of the Liquor Sales Management Training",
+          "value": "Japan Voluntary Chain Association"
         }
       },
       "return": "Return Home"

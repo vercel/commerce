@@ -97,11 +97,11 @@ export default function SagyobarDetail() {
               <p className="text-xl">{t('bar.access.title')}</p>
             </div>
             <p className="text-[15px] leading-relaxed">{t('bar.access.para001')}</p>
-            <p className="text-[15px] leading-relaxed">{t('bar.access.para002')}</p>
+            <p className="pt-6 text-[15px] leading-relaxed">{t('bar.access.para002')}</p>
             <p className="text-[15px] leading-relaxed">{t('bar.access.para003')}</p>
             <p className="text-[15px] leading-relaxed">{t('bar.access.para004')}</p>
             <p className="text-[15px] leading-relaxed">{t('bar.access.para005')}</p>
-            <p className="text-[15px] leading-relaxed">{t('bar.access.para006')}</p>
+            <p className="pt-6 text-[15px] leading-relaxed">{t('bar.access.para006')}</p>
             <p className="text-[15px] leading-relaxed">{t('bar.access.para007')}</p>
           </div>
         </div>
