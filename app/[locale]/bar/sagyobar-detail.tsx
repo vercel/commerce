@@ -62,7 +62,9 @@ export default function SagyobarDetail() {
 
         <div className="flex-row justify-end md:flex">
           <div className="md:md:w-1/2">
-            <p className="text-base leading-loose">{t('bar.002')}</p>
+            <p className="font-multilingual text-base font-extralight leading-loose">
+              {t('bar.002')}
+            </p>
           </div>
         </div>
 
@@ -127,7 +129,7 @@ export default function SagyobarDetail() {
             <p className="pb-6 text-[15px] leading-relaxed">
               <Link
                 href="https://cdn.shopify.com/s/files/1/0578/5570/5261/files/sagyobar_menu.pdf?v=1692861259"
-                className="transition-opacity duration-150 hover:opacity-90"
+                className="transition-opacity duration-150 hover:opacity-60"
               >
                 {t('bar.menu.para001')}
               </Link>
@@ -141,7 +143,8 @@ export default function SagyobarDetail() {
           </div>
           <div className="font-multilingual max-w-xl font-extralight">
             <p className="text-[15px]">{t('bar.clerk.title')}</p>
-            <p className="text-[15px] leading-relaxed">{t('bar.clerk.body')}</p>
+            <p className="text-[15px] leading-relaxed">{t('bar.clerk.001')}</p>
+            <p className="text-[15px] leading-relaxed">{t('bar.clerk.002')}</p>
           </div>
 
           <Image

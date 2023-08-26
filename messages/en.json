@@ -58,7 +58,7 @@
       }
     },
     "shops": {
-      "title": "Shop list",
+      "title": "shop list",
       "subtitle": "",
       "all": "All shops",
       "hokkaido": "Hokkaido / North",
@@ -169,7 +169,7 @@
           "line002": "",
           "line003": ""
         },
-        "para001": "ntroducing sagyobar: a place where brewery operations (sagyo) and drinking (bar) come together. We have combined our brewery workspace, where we pack boxes and fulfill orders, with a place to enjoy sake served from our very own suginomori wagon.",
+        "para001": "Introducing sagyobar: a place where brewery operations (sagyo) and drinking (bar) come together. We have combined our brewery workspace, where we pack boxes and fulfill orders, with a place to enjoy sake served from our very own suginomori wagon.",
         "para002": "The renovated warehouse was originally used for storing equipment and business supplies left from our predecessor, the old Suginomori Shuzo. While maintaining its original structure, we have revamped its entrance and installed new systems such as lighting and air conditioning. We utilize “P-boxes” – containers used to transport sake bottles – that can be flexibly arranged to transform the space into standing bar."
       },
       "002": "sagyobar is a place where visitors to Narai-juku can enjoy narai, freshly brewed at our brewery just a short walk away. We also plan to host music events, workshops, and other various activities, and turn sagyobar into a new tourist hub in Narai-juku.",
@@ -199,7 +199,8 @@
       },
       "clerk": {
         "title": "Banto (Head Clerk): Masaki Nishikawa",
-        "body": "From Hiroshima. Nishikawa is engaged in manufacturing management, sales management, liquor tax management, general affairs and sales administration. A trustworthy and dependable presence, it is often said that “if you need anything, just ask Nishikawa.” Nishikawa joined Matsumoto Sake Brewery in Kyoto in 2006. After serving as head clerk there for many years, Nishikawa joined suginomori brewery in 2021. He strives to create an environment in which the brewer can fully concentrate on their craft."
+        "001": "From Hiroshima. Nishikawa is engaged in manufacturing management, sales management, liquor tax management, general affairs and sales administration.",
+        "002": "A trustworthy and dependable presence, it is often said that “if you need anything, just ask Nishikawa.” Nishikawa joined Matsumoto Sake Brewery in Kyoto in 2006. After serving as head clerk there for many years, Nishikawa joined suginomori brewery in 2021. He strives to create an environment in which the brewer can fully concentrate on their craft."
       }
     },
     "concept": {

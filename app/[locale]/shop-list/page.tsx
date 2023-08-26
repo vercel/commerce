@@ -48,10 +48,12 @@ export default async function Page({ params }: { params: { locale?: SupportedLoc
 
   return (
     <div>
-      <Navbar cart={cart} locale={params?.locale} compact />
+      <Navbar cart={cart} locale={params?.locale} compact showTop />
       <div className="mx-auto max-w-xl px-6 pb-24 pt-12 md:pb-48 md:pt-24">
-        <ShopsNav />
-        <h2 className="font-multilingual mb-8 text-3xl font-medium">{page.title}</h2>
+        <div className="pb-12">
+          <ShopsNav />
+        </div>
+        {/* <h2 className="font-multilingual mb-8 text-3xl font-medium">{page.title}</h2> */}
         <Prose html={page.body as string} />
       </div>
 

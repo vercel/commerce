@@ -1,6 +1,7 @@
 'use client';
 
 import { Transition } from '@headlessui/react';
+import { ChevronUpIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import CartModal from 'components/cart/modal';
 import OpenCart from 'components/cart/open-cart';
@@ -15,11 +16,13 @@ import { LanguageControl, SupportedLocale } from './language-control';
 export default function Navbar({
   cart,
   locale,
-  compact
+  compact,
+  showTop = false
 }: {
   cart?: Cart;
   locale?: SupportedLocale;
   compact?: boolean;
+  showTop?: boolean;
 }) {
   const { ref, inView } = useInView({
     threshold: 0,
@@ -28,6 +31,19 @@ export default function Navbar({
 
   return (
     <div ref={ref}>
+      {showTop && !inView && (
+        <div className="fixed left-6 top-32 z-20 animate-fadeIn">
+          <Link href="#" className="transition-opacity duration-150 hover:opacity-60">
+            <span className="flex flex-row items-center space-x-2">
+              <ChevronUpIcon
+                className="h-6 w-6 stroke-subtle transition-colors duration-150 group-hover:stroke-white"
+                strokeWidth={2}
+              />
+              <span className="text-sm font-medium tracking-wider">TOP</span>
+            </span>
+          </Link>
+        </div>
+      )}
       <div className="fixed top-0 z-20 w-full bg-dark/90 backdrop-blur-sm">
         <Transition
           show={!!ref && !inView}

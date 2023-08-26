@@ -41,11 +41,11 @@ export default function FooterMenu() {
             </Link>
           </div>
 
-          <div>
+          {/* <div>
             <Link href="/stories" className="transition-opacity duration-150 hover:opacity-50">
               {t('footer.menu.stories')}
             </Link>
-          </div>
+          </div> */}
 
           <div>
             <Link href="/company" className="transition-opacity duration-150 hover:opacity-50">
