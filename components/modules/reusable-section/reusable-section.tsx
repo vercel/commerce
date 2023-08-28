@@ -1,5 +1,6 @@
-import DynamicContentManager from 'components/layout/dynamic-content-manager';
+import dynamic from 'next/dynamic';
 
+const DynamicContentManager = dynamic(() => import('components/layout/dynamic-content-manager'));
 interface ReusableSectionProps {
   section: {
     existingSection: {
