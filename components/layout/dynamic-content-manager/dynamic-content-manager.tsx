@@ -1,12 +1,10 @@
-import dynamic from 'next/dynamic';
-
+import BlurbSection from '@/components/modules/blurb-section/blurb-section';
+import FilteredProductList from '@/components/modules/filtered-product-list/filtered-product-list';
+import Hero from '@/components/modules/hero';
+import ReusableSection from '@/components/modules/reusable-section/reusable-section';
+import Slider from '@/components/modules/slider/slider';
+import USPSection from '@/components/modules/usp-section/usp-section';
 import { InformationCircleIcon } from '@heroicons/react/24/outline';
-import Hero from 'components/modules/hero';
-import ReusableSection from 'components/modules/reusable-section/reusable-section';
-const USPSection = dynamic(() => import('components/modules/usp-section'));
-const Slider = dynamic(() => import('components/modules/slider'));
-const BlurbSection = dynamic(() => import('components/modules/blurb-section'));
-const FilteredProductList = dynamic(() => import('components/modules/filtered-product-list'));
 interface getContentComponentProps {
   _type: string;
   _key: number;
