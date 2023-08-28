@@ -1,5 +1,3 @@
-'use client';
-
 import SanityImage from '@/components/ui/sanity-image/sanity-image';
 import type { Product } from '@/lib/storm/product';
 import Price from 'components/price';
