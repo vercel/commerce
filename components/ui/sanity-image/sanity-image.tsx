@@ -43,7 +43,7 @@ export default function SanityImage({
         />
       )}
 
-      {imageUrl && (
+      {!fill && imageUrl && (
         <Image
           src={imageUrl}
           alt={alt}
