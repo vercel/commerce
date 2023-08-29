@@ -14,7 +14,7 @@ const CategoryCard: FC<Props> = ({ category, className }) => {
   );
 
   return (
-    <Link href={`${category.slug}`} className={rootClassName} aria-label={category.name}>
+    <Link href={`${category.slug}`} className={rootClassName}>
       <div className={'flex h-full w-full flex-1 flex-col justify-center'}>
         <div className="relative aspect-[3/4] h-full w-full">
           <SanityImage

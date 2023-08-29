@@ -8,10 +8,9 @@ import USPSection from '@/components/modules/usp-section/usp-section';
 interface getContentComponentProps {
   _type: string;
   _key: number;
-  disabled: boolean;
 }
 
-const getContentComponent = ({ _type, _key, disabled, ...rest }: getContentComponentProps) => {
+const getContentComponent = ({ _type, _key, ...rest }: getContentComponentProps) => {
   let Component: any;
 
   switch (_type) {
