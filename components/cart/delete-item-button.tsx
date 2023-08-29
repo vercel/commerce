@@ -1,8 +1,8 @@
 import LoadingDots from 'components/loading-dots';
 import { useRouter } from 'next/navigation';
 
+import { cn } from '@/lib/utils';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import clsx from 'clsx';
 import { removeItem } from 'components/cart/actions';
 import type { CartItem } from 'lib/shopify/types';
 import { useTransition } from 'react';
@@ -28,7 +28,7 @@ export default function DeleteItemButton({ item }: { item: CartItem }) {
         });
       }}
       disabled={isPending}
-      className={clsx(
+      className={cn(
         'ease flex h-[17px] w-[17px] items-center justify-center rounded-full bg-neutral-500 transition-all duration-200',
         {
           'cursor-not-allowed px-0': isPending
