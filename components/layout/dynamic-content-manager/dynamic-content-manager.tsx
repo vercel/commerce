@@ -4,6 +4,7 @@ import Hero from '@/components/modules/hero';
 import ReusableSection from '@/components/modules/reusable-section/reusable-section';
 import Slider from '@/components/modules/slider/slider';
 import USPSection from '@/components/modules/usp-section/usp-section';
+import { Suspense } from 'react';
 
 interface getContentComponentProps {
   _type: string;
@@ -49,7 +50,9 @@ interface dynamicContentManagerProps {
 
 const DynamicContentManager = ({ content }: dynamicContentManagerProps) => {
   return (
-    <div className="dynamic-content overflow-x-hidden">{content?.map(getContentComponent)}</div>
+    <div className="dynamic-content overflow-x-hidden">
+      <Suspense fallback={<div>Loading...</div>}>{content?.map(getContentComponent)}</Suspense>
+    </div>
   );
 };
 
