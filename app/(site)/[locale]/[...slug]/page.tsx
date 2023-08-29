@@ -13,6 +13,7 @@ import type { Metadata } from 'next';
 import { LiveQuery } from 'next-sanity/preview/live-query';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 
 export async function generateMetadata({
   params
@@ -107,10 +108,26 @@ export default async function Page({ params }: PageParams) {
       as={PagePreview}
     >
       <>
-        {docType === 'page' && <SinglePage data={data} />}
-        {docType === 'product' && <ProductPage data={data} />}
-        {docType === 'category' && <CategoryPage data={data} />}
-        {docType === 'search' && <SearchPage data={data} />}
+        {docType === 'page' && (
+          <Suspense fallback={<div>Loading page...</div>}>
+            <SinglePage data={data} />
+          </Suspense>
+        )}
+        {docType === 'product' && (
+          <Suspense fallback={<div>Loading product...</div>}>
+            <ProductPage data={data} />
+          </Suspense>
+        )}
+        {docType === 'category' && (
+          <Suspense fallback={<div>Loading category...</div>}>
+            <CategoryPage data={data} />
+          </Suspense>
+        )}
+        {docType === 'search' && (
+          <Suspense fallback={<div>Loading search...</div>}>
+            <SearchPage data={data} />
+          </Suspense>
+        )}
       </>
     </LiveQuery>
   );
