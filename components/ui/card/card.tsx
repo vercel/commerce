@@ -41,7 +41,7 @@ const Card: FC<CardProps> = ({ className, title, image, link, text, imageFormat 
       }
 
       return (
-        <Link href={href} className={rootClassName} aria-label={title}>
+        <Link href={href} className={rootClassName}>
           <div className="flex flex-col">
             {image && (
               <div className={imageWrapperClasses}>
@@ -63,7 +63,7 @@ const Card: FC<CardProps> = ({ className, title, image, link, text, imageFormat 
     }
 
     return (
-      <a href={link.externalLink.url} className={rootClassName} aria-label={title}>
+      <a href={link.externalLink.url} className={rootClassName}>
         <div className="flex flex-col">
           {image && (
             <div className={imageWrapperClasses}>
