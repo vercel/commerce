@@ -2,6 +2,7 @@ import Card from '@/components/ui/card/card';
 import { cn } from '@/lib/utils';
 import Text from 'components/ui/text';
 interface BlurbSectionProps {
+  disabled: boolean;
   blurbs: any;
   title: string;
   mobileLayout: string;
@@ -10,6 +11,7 @@ interface BlurbSectionProps {
 }
 
 const BlurbSection = ({
+  disabled,
   title,
   mobileLayout,
   desktopLayout,
@@ -22,6 +24,10 @@ const BlurbSection = ({
       : desktopLayout === '3-column'
       ? 'lg:grid-cols-3'
       : 'lg:grid-cols-4';
+
+  if (disabled) {
+    return;
+  }
 
   return (
     <div>

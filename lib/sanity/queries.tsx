@@ -7,11 +7,6 @@ export const imageFields = `
   "height": asset->metadata.dimensions.height,
   asset-> {
     _id,
-    assetId,
-    metadata,
-    _type,
-    _ref,
-    _rev
   }
 `;
 
@@ -26,6 +21,7 @@ export const seoFields = `
 // Construct our "Modules" GROQ
 export const modules = `
   _type == 'hero' => {
+    disabled,
     _type,
     _key,
     label,
@@ -44,6 +40,7 @@ export const modules = `
     }
   },
   _type == 'filteredProductList' => {
+    disabled,
     _type,
     _key,
     title,
@@ -64,6 +61,7 @@ export const modules = `
     }
   },
   _type == 'slider' => {
+    disabled,
     _type,
     _key,
     title,

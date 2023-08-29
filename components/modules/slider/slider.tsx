@@ -8,13 +8,18 @@ import CategoryCard from '@/components/ui/category-card/category-card';
 import ProductCard from '@/components/ui/product-card/product-card';
 
 interface SliderProps {
+  disabled: boolean;
   products: [] | any;
   title: string;
   categories: [] | any;
   sliderType: String;
 }
 
-const Slider = ({ products, categories, title, sliderType }: SliderProps) => {
+const Slider = ({ disabled, products, categories, title, sliderType }: SliderProps) => {
+  if (disabled) {
+    return;
+  }
+
   const [items, setItems] = useState([]);
 
   useEffect(() => {

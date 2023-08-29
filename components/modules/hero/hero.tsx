@@ -3,6 +3,7 @@ import Link from 'components/ui/link/link';
 import Text from 'components/ui/text/text';
 
 interface HeroProps {
+  disabled: boolean;
   variant: string;
   text?: string;
   label?: string;
@@ -28,7 +29,21 @@ const heroSize = {
   halfScreen: 'aspect-square max-h-[50vh] lg:aspect-auto lg:min-h-[50vh]'
 };
 
-const Hero = ({ variant, title, text, label, image, link, color, overlay }: HeroProps) => {
+const Hero = ({
+  disabled,
+  variant,
+  title,
+  text,
+  label,
+  image,
+  link,
+  color,
+  overlay
+}: HeroProps) => {
+  if (disabled) {
+    return;
+  }
+
   const heroClass = heroSize[variant as HeroSize] || heroSize.fullScreen;
 
   return (

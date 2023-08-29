@@ -4,12 +4,17 @@ import ProductCard from '@/components/ui/product-card/product-card';
 import Text from 'components/ui/text';
 
 interface SliderProps {
+  disabled: boolean;
   products: any;
   title: string;
   itemsToShow: number;
 }
 
-const FilteredProductList = ({ title, products, itemsToShow }: SliderProps) => {
+const FilteredProductList = ({ disabled, title, products, itemsToShow }: SliderProps) => {
+  if (disabled) {
+    return;
+  }
+
   return (
     <div className="px-4 lg:px-8 2xl:px-16">
       {title ? (

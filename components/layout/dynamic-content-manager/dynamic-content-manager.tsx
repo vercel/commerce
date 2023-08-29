@@ -5,8 +5,6 @@ import ReusableSection from '@/components/modules/reusable-section/reusable-sect
 import Slider from '@/components/modules/slider/slider';
 import USPSection from '@/components/modules/usp-section/usp-section';
 
-import { InformationCircleIcon } from '@heroicons/react/24/outline';
-import { Suspense } from 'react';
 interface getContentComponentProps {
   _type: string;
   _key: number;
@@ -18,61 +16,25 @@ const getContentComponent = ({ _type, _key, disabled, ...rest }: getContentCompo
 
   switch (_type) {
     case 'hero':
-      if (disabled !== true) {
-        Component = Hero;
-      } else {
-        return;
-      }
+      Component = Hero;
       break;
     case 'slider':
-      if (disabled !== true) {
-        Component = Slider;
-      } else {
-        return;
-      }
+      Component = Slider;
       break;
     case 'filteredProductList':
-      if (disabled !== true) {
-        Component = FilteredProductList;
-      } else {
-        return;
-      }
+      Component = FilteredProductList;
       break;
     case 'blurbSection':
-      if (disabled !== true) {
-        Component = BlurbSection;
-      } else {
-        return;
-      }
+      Component = BlurbSection;
       break;
     case 'uspSection':
-      if (disabled !== true) {
-        Component = USPSection;
-      } else {
-        return;
-      }
+      Component = USPSection;
       break;
     case 'reusableSection':
-      if (disabled !== true) {
-        Component = ReusableSection;
-      } else {
-        return;
-      }
+      Component = ReusableSection;
       break;
     default:
-      return (
-        <div
-          className={`px-4 lg:px-8 2xl:px-16 ${
-            process.env.NODE_ENV === 'production' ? 'hidden' : ''
-          }`}
-          key={`index-${_key}`}
-        >
-          <span className="inline-flex items-center bg-red p-2 text-sm font-bold">
-            <InformationCircleIcon className="mr-1" />
-            {`No matching component (Type: ${_type})`}
-          </span>
-        </div>
-      );
+      return;
   }
 
   return Component ? (
@@ -88,9 +50,7 @@ interface dynamicContentManagerProps {
 
 const DynamicContentManager = ({ content }: dynamicContentManagerProps) => {
   return (
-    <div className="dynamic-content overflow-x-hidden">
-      <Suspense fallback={<div>Loading...</div>}>{content?.map(getContentComponent)}</Suspense>
-    </div>
+    <div className="dynamic-content overflow-x-hidden">{content?.map(getContentComponent)}</div>
   );
 };
 

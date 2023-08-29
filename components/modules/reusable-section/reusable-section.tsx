@@ -1,6 +1,7 @@
 import DynamicContentManager from 'components/layout/dynamic-content-manager';
 
 interface ReusableSectionProps {
+  disabled: boolean;
   section: {
     existingSection: {
       section: {
@@ -10,7 +11,11 @@ interface ReusableSectionProps {
   };
 }
 
-const ReusableSection = ({ section }: ReusableSectionProps) => {
+const ReusableSection = ({ disabled, section }: ReusableSectionProps) => {
+  if (disabled) {
+    return;
+  }
+
   const data = section.existingSection.section.sectionType;
 
   if (!data) {

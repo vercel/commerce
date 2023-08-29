@@ -1,10 +1,15 @@
-import SanityImage from '../../ui/sanity-image';
+import SanityImage from '@/components/ui/sanity-image';
 
 interface USPSectionProps {
+  disabled: boolean;
   usps: [] | any;
 }
 
-const USPSection = ({ usps }: USPSectionProps) => {
+const USPSection = ({ disabled, usps }: USPSectionProps) => {
+  if (disabled) {
+    return;
+  }
+
   const desktopGridLayout = usps.length === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3';
 
   return (
