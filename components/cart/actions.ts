@@ -1,25 +1,22 @@
 'use server';
 
-import { SupportedLocale } from 'components/layout/navbar/language-control';
 import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/shopify';
 import { cookies } from 'next/headers';
 
-export const addItem = async ({
-  variantId,
-  locale
-}: {
-  variantId: string | undefined;
-  locale?: string;
-}): Promise<String | undefined> => {
+export const addItem = async (
+  variantId: string | undefined,
+  country?: string,
+  language?: string
+): Promise<String | undefined> => {
   let cartId = cookies().get('cartId')?.value;
   let cart;
 
   if (cartId) {
-    cart = await getCart({ cartId, language: locale?.toUpperCase() });
+    cart = await getCart({ cartId, country, language });
   }
 
   if (!cartId || !cart) {
-    cart = await createCart();
+    cart = await createCart({ country, language });
     cartId = cart.id;
     cookies().set('cartId', cartId);
   }
@@ -29,7 +26,7 @@ export const addItem = async ({
   }
 
   try {
-    await addToCart(cartId, [{ merchandiseId: variantId, quantity: 1 }]);
+    await addToCart(cartId, [{ merchandiseId: variantId, quantity: 1 }], country, language);
   } catch (e) {
     return 'Error adding item to cart';
   }
@@ -38,21 +35,23 @@ export const addItem = async ({
 export const addItems = async ({
   variantId,
   quantity = 1,
-  locale
+  country,
+  language
 }: {
   variantId: string | undefined;
   quantity: number;
-  locale?: SupportedLocale;
+  country?: string;
+  language?: string;
 }): Promise<String | undefined> => {
   let cartId = cookies().get('cartId')?.value;
   let cart;
 
   if (cartId) {
-    cart = await getCart({ cartId, language: locale?.toUpperCase() });
+    cart = await getCart({ cartId, country, language });
   }
 
   if (!cartId || !cart) {
-    cart = await createCart();
+    cart = await createCart({ country, language });
     cartId = cart.id;
     cookies().set('cartId', cartId);
   }
@@ -62,7 +61,7 @@ export const addItems = async ({
   }
 
   try {
-    await addToCart(cartId, [{ merchandiseId: variantId, quantity }]);
+    await addToCart(cartId, [{ merchandiseId: variantId, quantity }], country, language);
   } catch (e) {
     return quantity === 1 ? 'Error adding item to cart' : 'Error adding items to cart';
   }

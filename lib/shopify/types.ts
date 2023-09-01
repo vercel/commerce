@@ -176,13 +176,17 @@ export type ShopifyCartOperation = {
   };
   variables: {
     cartId: string;
-    language?: string;
     country?: string;
+    language?: string;
   };
 };
 
 export type ShopifyCreateCartOperation = {
   data: { cartCreate: { cart: ShopifyCart } };
+  variables: {
+    country?: string;
+    language?: string;
+  };
 };
 
 export type ShopifyAddToCartOperation = {
@@ -197,6 +201,8 @@ export type ShopifyAddToCartOperation = {
       merchandiseId: string;
       quantity: number;
     }[];
+    country?: string;
+    language?: string;
   };
 };
 
