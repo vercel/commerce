@@ -129,7 +129,9 @@ export default function SagyobarDetail() {
             <p className="pb-6 text-[15px] leading-relaxed">
               <Link
                 href="https://cdn.shopify.com/s/files/1/0578/5570/5261/files/sagyobar_menu.pdf?v=1692861259"
-                className="transition-opacity duration-150 hover:opacity-60"
+                className="underline transition-opacity duration-150 hover:opacity-60"
+                rel="noopener noreferrer"
+                target="_blank"
               >
                 {t('bar.menu.para001')}
               </Link>
@@ -142,7 +144,7 @@ export default function SagyobarDetail() {
             <div className="border-t border-white/20"></div>
           </div>
           <div className="font-multilingual max-w-xl font-extralight">
-            <p className="text-[15px]">{t('bar.clerk.title')}</p>
+            <p className="pb-4 text-xl">{t('bar.clerk.title')}</p>
             <p className="text-[15px] leading-relaxed">{t('bar.clerk.001')}</p>
             <p className="text-[15px] leading-relaxed">{t('bar.clerk.002')}</p>
           </div>

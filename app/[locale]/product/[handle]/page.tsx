@@ -120,12 +120,12 @@ export default async function ProductPage({
 
           <div className="flex flex-col space-y-6 px-6 md:flex-row md:space-x-6 md:space-y-0">
             <div className="md:w-1/2">
-              <h1 className="font-multilingual mb-2 text-5xl">{product.title}</h1>
+              <h1 className="mb-2 font-serif text-[50px] font-bold">{product.title}</h1>
             </div>
             <div className="md:w-1/2">
               <div className="flex flex-col space-y-6">
                 <div className="mb-6 flex flex-col border-t border-white/20 pt-6">
-                  <div className="font-multilingual mr-auto flex w-auto flex-row items-end space-x-4 text-4xl text-white">
+                  <div className="font-multilingual mr-auto flex w-auto flex-row items-end space-x-4 text-2xl text-white md:text-4xl">
                     <Price
                       amount={product.priceRange.maxVariantPrice.amount}
                       currencyCode={product.priceRange.maxVariantPrice.currencyCode}
@@ -197,8 +197,8 @@ async function RelatedProducts({ id }: { id: string }) {
 
   return (
     <div className="border-t border-white/20 px-6 py-12 md:py-24">
-      <h2 className="font-multilingual pb-8 text-2xl">other products</h2>
-      <ul className="flex w-full gap-4 overflow-x-auto pt-1">
+      <h2 className="pb-8 font-japan text-[20px]">other products</h2>
+      <ul className="flex w-full gap-12 overflow-x-auto pt-1">
         {relatedProducts.map((product) => (
           <li
             key={product.handle}
@@ -221,7 +221,7 @@ async function RelatedProducts({ id }: { id: string }) {
                   sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, (min-width: 640px) 33vw, (min-width: 475px) 50vw, 100vw"
                 />
               </div>
-              <div>
+              <div className="pt-3">
                 <Label
                   title={product.title as string}
                   amount={product.priceRange.maxVariantPrice.amount}

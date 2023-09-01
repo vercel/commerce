@@ -15,7 +15,7 @@ const Label = ({
   return (
     <div className={clsx('@container/label')}>
       <div className="flex flex-col space-y-2">
-        <h3 className="mr-4 line-clamp-2 grow font-serif text-3xl tracking-wider md:text-4xl">
+        <h3 className="mr-4 line-clamp-2 grow font-serif text-[28px] leading-tight tracking-wider md:text-[28px]">
           {title}
         </h3>
         <div className="font-multilingual flex flex-row items-center space-x-2 text-[14px] font-normal">

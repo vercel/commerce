@@ -6,8 +6,8 @@ export default function PrivacyPolicy() {
   const t = useTranslations('Index');
   return (
     <>
-      <div className="mx-auto max-w-3xl text-white">
-        <div className="text-center font-serif text-3xl font-bold leading-tight text-white md:mb-16 md:text-4xl">
+      <div className="mx-auto max-w-3xl font-serif text-white">
+        <div className="text-center text-3xl font-bold leading-tight text-white md:mb-16 md:text-4xl">
           {t('privacy.title')}
         </div>
         <div className="mb-24 text-lg leading-normal">
@@ -16,7 +16,7 @@ export default function PrivacyPolicy() {
             <p>{t('privacy.pleaseRead')}</p>
             <p className="mt-4">{t('privacy.usedFor')}</p>
           </div>
-          <div className="my-8 text-center font-serif text-xl font-bold text-white md:my-12 md:text-2xl">
+          <div className="my-8 text-center text-xl font-bold text-white md:my-12 md:text-2xl">
             {t('privacy.definitions.title')}
           </div>
           <div>
@@ -37,13 +37,13 @@ export default function PrivacyPolicy() {
             <p className="mt-4">{t('privacy.definitions.usageData')}</p>
             <p className="mt-4">{t('privacy.definitions.you')}</p>
           </div>
-          <div className="my-8 text-center font-serif text-xl font-bold text-white md:my-12 md:text-2xl">
+          <div className="my-8 text-center text-xl font-bold text-white md:my-12 md:text-2xl">
             {t('privacy.collectingAndUsing.title')}
           </div>
           <div>
             <p>{t('privacy.collectingAndUsing.inScope')}</p>
           </div>
-          <div className="my-8 text-center font-serif text-xl font-bold text-white md:my-12 md:text-2xl">
+          <div className="my-8 text-center text-xl font-bold text-white md:my-12 md:text-2xl">
             {t('privacy.usageData.title')}
           </div>
           <div>
@@ -52,7 +52,7 @@ export default function PrivacyPolicy() {
             <p className="mt-4">{t('privacy.usageData.deviceInfo')}</p>
           </div>
 
-          <div className="my-8 text-center font-serif text-xl font-bold text-white md:my-12 md:text-2xl">
+          <div className="my-8 text-center text-xl font-bold text-white md:my-12 md:text-2xl">
             {t('privacy.cookies.title')}
           </div>
           <div>
@@ -60,7 +60,7 @@ export default function PrivacyPolicy() {
             <p className="mt-4">{t('privacy.cookies.doNotAccept')}</p>
           </div>
 
-          <div className="my-8 text-center font-serif text-xl font-bold text-white md:my-12 md:text-2xl">
+          <div className="my-8 text-center text-xl font-bold text-white md:my-12 md:text-2xl">
             {t('privacy.personal.title')}
           </div>
           <div>
@@ -80,20 +80,20 @@ export default function PrivacyPolicy() {
               <li className="mt-4">{t('privacy.personal.sharing.socialMedia')}</li>
             </ul>
           </div>
-          <div className="my-8 text-center font-serif text-xl font-bold text-white md:my-12 md:text-2xl">
+          <div className="my-8 text-center text-xl font-bold text-white md:my-12 md:text-2xl">
             {t('privacy.personal.retention.title')}
           </div>
           <div>
             <p>{t('privacy.personal.retention.asNecessary')}</p>
             <p className="mt-4">{t('privacy.personal.retention.internalAnalysis')}</p>
           </div>
-          <div className="my-8 text-center font-serif text-xl font-bold text-white md:my-12 md:text-2xl">
+          <div className="my-8 text-center text-xl font-bold text-white md:my-12 md:text-2xl">
             {t('privacy.personal.transfer.title')}
           </div>
           <div>
             <p>{t('privacy.personal.transfer.transborder')}</p>
           </div>
-          <div className="my-8 text-center font-serif text-xl font-bold text-white md:my-12 md:text-2xl">
+          <div className="my-8 text-center text-xl font-bold text-white md:my-12 md:text-2xl">
             {t('privacy.personal.disclosure.title')}
           </div>
           <div>
@@ -102,7 +102,7 @@ export default function PrivacyPolicy() {
             <p className="mt-4">{t('privacy.personal.disclosure.goodFaith')}</p>
             <p className="mt-4">{t('privacy.personal.disclosure.noGuarantee')}</p>
           </div>
-          <div className="my-8 text-center font-serif text-xl font-bold text-white md:my-12 md:text-2xl">
+          <div className="my-8 text-center text-xl font-bold text-white md:my-12 md:text-2xl">
             {t('privacy.personal.processing.title')}
           </div>
           <div>
@@ -119,34 +119,34 @@ export default function PrivacyPolicy() {
             <p className="mt-4">{t('privacy.personal.processing.creditCards')}</p>
             <p className="mt-4">{t('privacy.personal.processing.cookies')}</p>
           </div>
-          <div className="my-8 text-center font-serif text-xl font-bold text-white md:my-12 md:text-2xl">
+          <div className="my-8 text-center text-xl font-bold text-white md:my-12 md:text-2xl">
             {t('privacy.personal.mobile.title')}
           </div>
           <div>
             <p>{t('privacy.personal.mobile.optOut')}</p>
           </div>
-          <div className="my-8 text-center font-serif text-xl font-bold text-white md:my-12 md:text-2xl">
+          <div className="my-8 text-center text-xl font-bold text-white md:my-12 md:text-2xl">
             {t('privacy.personal.doNotTrack.title')}
           </div>
           <div>
             <p>{t('privacy.personal.doNotTrack.noResponse')}</p>
             <p className="mt-4">{t('privacy.personal.doNotTrack.browser')}</p>
           </div>
-          <div className="my-8 text-center font-serif text-xl font-bold text-white md:my-12 md:text-2xl">
+          <div className="my-8 text-center text-xl font-bold text-white md:my-12 md:text-2xl">
             {t('privacy.personal.links.title')}
           </div>
           <div>
             <p>{t('privacy.personal.links.external')}</p>
             <p className="mt-4">{t('privacy.personal.links.disclaimer')}</p>
           </div>
-          <div className="my-8 text-center font-serif text-xl font-bold text-white md:my-12 md:text-2xl">
+          <div className="my-8 text-center text-xl font-bold text-white md:my-12 md:text-2xl">
             {t('privacy.changes.title')}
           </div>
           <div>
             <p>{t('privacy.changes.updates')}</p>
             <p className="mt-4">{t('privacy.changes.review')}</p>
           </div>
-          <div className="my-8 text-center font-serif text-xl font-bold text-white md:my-12 md:text-2xl">
+          <div className="my-8 text-center text-xl font-bold text-white md:my-12 md:text-2xl">
             {t('privacy.contactUs.title')}
           </div>
           <div>

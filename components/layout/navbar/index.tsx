@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import CartModal from 'components/cart/modal';
 import OpenCart from 'components/cart/open-cart';
 import LogoNamemark from 'components/icons/namemark';
-import { Cart } from 'lib/shopify/types';
+import { Cart, Product } from 'lib/shopify/types';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import { useInView } from 'react-intersection-observer';
@@ -17,12 +17,14 @@ export default function Navbar({
   cart,
   locale,
   compact,
-  showTop = false
+  showTop = false,
+  promotedItem
 }: {
   cart?: Cart;
   locale?: SupportedLocale;
   compact?: boolean;
   showTop?: boolean;
+  promotedItem?: Product;
 }) {
   const { ref, inView } = useInView({
     threshold: 0,
@@ -63,7 +65,7 @@ export default function Navbar({
             <nav className="flex flex-row items-center space-x-4 px-6">
               <Suspense fallback={<OpenCart />}>
                 <div className="flex flex-col-reverse items-center justify-center space-y-2 px-2 md:flex-row md:space-x-6">
-                  <CartModal cart={cart} />
+                  <CartModal cart={cart} promotedItem={promotedItem} />
                   <MenuModal scrolled={!inView} />
                 </div>
               </Suspense>
@@ -91,7 +93,7 @@ export default function Navbar({
           </div>
           <div className="flex flex-col-reverse items-center justify-center space-y-2 rounded md:flex-row md:space-x-6 md:space-y-0">
             <Suspense fallback={<OpenCart />}>
-              <CartModal cart={cart} />
+              <CartModal cart={cart} promotedItem={promotedItem} />
             </Suspense>
             <MenuModal scrolled={!inView} />
           </div>

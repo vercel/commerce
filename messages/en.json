@@ -16,16 +16,16 @@
     },
     "shopping-guide": {
       "title": "shopping guide",
-      "terms": "terms of use",
-      "legal": "legal notice",
+      "terms": "terms and conditions",
+      "legal": "disclosures",
       "privacy": "privacy policy",
       "contact": "contact"
     },
     "newsletter": {
       "title": "newsletter",
-      "description": "Subscribe to our newsletter to get access to exclusive information regarding events and pairing dinners.",
-      "placeholder": "Email",
-      "button": "Notify me"
+      "description": "Subscribe to get access to exclusive information regarding events and pairing dinners.",
+      "placeholder": "email",
+      "button": "subscribe"
     },
     "home": {
       "previews": {
@@ -52,25 +52,26 @@
         "concept": {
           "title": "beyond brewing",
           "subtitle": "",
-          "body": "We are driven by our mission to preserve Japanese sake culture for future generations. To achieve this, we reexamine conventional practices of the sake industry and experiment with new endeavors. We are dedicated to exploring sake with a free and creative approach, going beyond brewing and spreading its charm to the world.",
+          "body": "Driven by our mission to preserve Japanese sake culture for future generations, we reexamine conventional practices of the sake industry and experiment with new endeavors. We are dedicated to exploring sake with a free and creative approach, going beyond brewing and spreading its charm to the world.",
           "button": "concept"
         }
       }
     },
     "shops": {
+      "top": "top",
       "title": "shop list",
       "subtitle": "",
       "all": "All shops",
-      "hokkaido": "Hokkaido / North",
-      "kanto": "Kanto",
-      "chubu": "Chubu",
-      "kinki": "Kinki",
-      "chugoku": "Chugoku",
-      "kyushu": "Kyushu"
+      "hokkaido": "Hokkaido / Tohoku region",
+      "kanto": "Kanto region",
+      "chubu": "Chubu region",
+      "kinki": "Kinki region",
+      "chugoku": "Chugoku region",
+      "kyushu": "Kyushu region"
     },
     "footer": {
       "newsletter": {
-        "promo": "Get access to exclusive information regarding events and pairing dinners."
+        "promo": "Get access to exclusive information on events & pairing dinners."
       },
       "menu": {
         "title": "menu",
@@ -145,15 +146,18 @@
         "title": "the ingredients of narai",
         "subtitle": "",
         "water": {
-          "title": "water - the foundation",
+          "title": "water -",
+          "subtitle": "the foundation",
           "body": "While many breweries use a stable water source such as well water, narai uses the fresh mountain water of Kiso Valley, flowing from an altitude of over 1,000m. The water originates from a spring near the watershed of the Shinano River and Kiso River, and is characterized by its clarity and smooth, rounded texture brought about by a rare water hardness of less than 25."
         },
         "rice": {
-          "title": "rice - the core",
+          "title": "rice -",
+          "subtitle": "the core",
           "body": "We use rice that has been carefully cultivated by Farm Ichimaru, a rice farm in Azumino, Nagano. We have a strong commitment to using locally grown rice. Our master brewer personally visits the farm, participates in rice planting, and collaborates with the farmers to carefully select the best rice for brewing narai."
         },
         "koji": {
-          "title": "sake yeast & koji (fermentation) - the constituents",
+          "title": "sake yeast & koji - ",
+          "subtitle": "the constituents",
           "body": "We use Kyokai No.7 sake yeast from Nagano, which is known for its strong fermentability and ability to refine aromas elegantly. For the koji mold that converts rice into sugar, we select a strain that is well-balanced with high enzymatic activity."
         }
       },
@@ -165,12 +169,12 @@
     "bar": {
       "001": {
         "title": {
-          "line001": "sagyobar : a brewery-operated bar & workspace",
-          "line002": "",
-          "line003": ""
+          "line001": "sagyobar:",
+          "line002": "a brewery-operated",
+          "line003": "bar & workspace"
         },
         "para001": "Introducing sagyobar: a place where brewery operations (sagyo) and drinking (bar) come together. We have combined our brewery workspace, where we pack boxes and fulfill orders, with a place to enjoy sake served from our very own suginomori wagon.",
-        "para002": "The renovated warehouse was originally used for storing equipment and business supplies left from our predecessor, the old Suginomori Shuzo. While maintaining its original structure, we have revamped its entrance and installed new systems such as lighting and air conditioning. We utilize “P-boxes” – containers used to transport sake bottles – that can be flexibly arranged to transform the space into standing bar."
+        "para002": "The renovated warehouse was originally used for storing equipment and business supplies left from our predecessor, the old Suginomori Shuzo. While maintaining its original structure, we have revamped its entrance and installed new features such as lighting and air conditioning. We utilize “P-boxes” – containers used to transport sake bottles – that can be flexibly arranged to transform the space into a standing bar."
       },
       "002": "sagyobar is a place where visitors to Narai-juku can enjoy narai, freshly brewed at our brewery just a short walk away. We also plan to host music events, workshops, and other various activities, and turn sagyobar into a new tourist hub in Narai-juku.",
       "003": {
@@ -226,7 +230,7 @@
       },
       "director": {
         "label": "ceo",
-        "value": "Kou Sundberg William"
+        "value": "Kou William Sundberg"
       },
       "since": {
         "label": "Founded",
@@ -253,13 +257,13 @@
       },
       "sundberg": {
         "japanese": "サンドバーグ弘",
-        "english": "Kou Sundberg",
+        "english": "Kou William Sundberg",
         "role": "Chief Executive Officer"
       },
       "masa": {
         "japanese": "小松正則",
         "english": "Masanori Komatsu",
-        "role": "COO"
+        "role": "Business Development"
       },
       "yamano": {
         "japanese": "山野恭稔",

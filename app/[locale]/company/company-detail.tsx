@@ -31,7 +31,9 @@ export default function CompanyDetail() {
           'mx-auto max-w-4xl'
         )}
       >
-        <h2 className="mx-auto max-w-sm text-center text-4xl md:text-4xl">{t('company.title')}</h2>
+        <h2 className="font-multilingual mx-auto max-w-sm text-center text-4xl md:text-4xl">
+          {t('company.title')}
+        </h2>
 
         <div>
           <h3 className="text-2xl">{t('company.subtitle001')}</h3>
@@ -81,12 +83,12 @@ export default function CompanyDetail() {
                   className={clsx('h-full w-full object-cover')}
                 />
               </div>
-              <div className="pt-2">{t('company.irie.japanese')}</div>
+              <div className="pt-2 font-japan font-extralight">{t('company.irie.japanese')}</div>
               <div className="pb-4">{t('company.irie.english')}</div>
               <div className="text-sm">{t('company.irie.role')}</div>
             </div>
 
-            <div className="font-multilingual col-span-1 py-4 text-lg font-extralight">
+            <div className="font-multilingual col-span-1 py-4 text-base font-extralight">
               <div className="relative aspect-square">
                 <Image
                   src={NishikawaImage}
@@ -95,12 +97,14 @@ export default function CompanyDetail() {
                   className={clsx('h-full w-full object-cover')}
                 />
               </div>
-              <div className="pt-2">{t('company.nishikawa.japanese')}</div>
+              <div className="pt-2 font-japan font-extralight">
+                {t('company.nishikawa.japanese')}
+              </div>
               <div className="pb-4">{t('company.nishikawa.english')}</div>
               <div className="text-sm">{t('company.nishikawa.role')}</div>
             </div>
 
-            <div className="font-multilingual col-span-1 py-4 text-lg font-extralight">
+            <div className="font-multilingual col-span-1 py-4 text-base font-extralight">
               <div className="relative aspect-square">
                 <Image
                   src={SundbergImage}
@@ -109,12 +113,14 @@ export default function CompanyDetail() {
                   className={clsx('h-full w-full object-cover')}
                 />
               </div>
-              <div className="pt-2">{t('company.sundberg.japanese')}</div>
+              <div className="pt-2 font-japan font-extralight">
+                {t('company.sundberg.japanese')}
+              </div>
               <div className="pb-4">{t('company.sundberg.english')}</div>
               <div className="text-sm">{t('company.sundberg.role')}</div>
             </div>
 
-            <div className="font-multilingual col-span-1 py-4 text-lg font-extralight">
+            <div className="font-multilingual col-span-1 py-4 text-base font-extralight">
               <div className="relative aspect-square">
                 <Image
                   src={MasaImage}
@@ -123,12 +129,12 @@ export default function CompanyDetail() {
                   className={clsx('h-full w-full object-cover')}
                 />
               </div>
-              <div className="pt-2">{t('company.masa.japanese')}</div>
+              <div className="pt-2 font-japan font-extralight">{t('company.masa.japanese')}</div>
               <div className="pb-4">{t('company.masa.english')}</div>
               <div className="text-sm">{t('company.masa.role')}</div>
             </div>
 
-            <div className="font-multilingual col-span-1 py-4 text-lg font-extralight">
+            <div className="font-multilingual col-span-1 py-4 text-base font-extralight">
               <div className="relative aspect-square">
                 <Image
                   src={TakaImage}
@@ -137,12 +143,12 @@ export default function CompanyDetail() {
                   className={clsx('h-full w-full object-cover')}
                 />
               </div>
-              <div className="pt-2">{t('company.yamano.japanese')}</div>
+              <div className="pt-2 font-japan font-extralight">{t('company.yamano.japanese')}</div>
               <div className="pb-4">{t('company.yamano.english')}</div>
               <div className="text-sm">{t('company.yamano.role')}</div>
             </div>
 
-            <div className="font-multilingual col-span-1 py-4 text-lg font-extralight">
+            <div className="font-multilingual col-span-1 py-4 text-base font-extralight">
               <div className="relative aspect-square">
                 <Image
                   src={AlisaImage}
@@ -151,12 +157,12 @@ export default function CompanyDetail() {
                   className={clsx('h-full w-full object-cover')}
                 />
               </div>
-              <div className="pt-2">{t('company.yoshida.japanese')}</div>
+              <div className="pt-2 font-japan font-extralight">{t('company.yoshida.japanese')}</div>
               <div className="pb-4">{t('company.yoshida.english')}</div>
               <div className="text-sm">{t('company.yoshida.role')}</div>
             </div>
 
-            <div className="font-multilingual col-span-1 py-4 text-lg font-extralight">
+            <div className="font-multilingual col-span-1 py-4 text-base font-extralight">
               <div className="relative aspect-square">
                 <Image
                   src={ShinyaImage}
@@ -165,7 +171,7 @@ export default function CompanyDetail() {
                   className={clsx('h-full w-full object-cover')}
                 />
               </div>
-              <div className="pt-2">{t('company.ikegaya.japanese')}</div>
+              <div className="pt-2 font-japan font-extralight">{t('company.ikegaya.japanese')}</div>
               <div className="pb-4">{t('company.ikegaya.english')}</div>
               <div className="text-sm">{t('company.ikegaya.role')}</div>
             </div>

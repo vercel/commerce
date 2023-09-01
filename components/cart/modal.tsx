@@ -4,7 +4,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import Price from 'components/price';
 import { DEFAULT_OPTION } from 'lib/constants';
-import type { Cart } from 'lib/shopify/types';
+import type { Cart, Product } from 'lib/shopify/types';
 import { createUrl } from 'lib/utils';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -14,13 +14,20 @@ import AgeConfirmBeforeCheckout from './age-gate-confirm-before-checkout';
 import CloseCart from './close-cart';
 import DeleteItemButton from './delete-item-button';
 import EditItemQuantityButton from './edit-item-quantity-button';
+import { InlineAddToCart } from './inline-add-to-cart';
 import OpenCart from './open-cart';
 
 type MerchandiseSearchParams = {
   [key: string]: string;
 };
 
-export default function CartModal({ cart }: { cart: Cart | undefined }) {
+export default function CartModal({
+  cart,
+  promotedItem
+}: {
+  cart: Cart | undefined;
+  promotedItem?: Product;
+}) {
   const t = useTranslations('Index');
   const [isOpen, setIsOpen] = useState(false);
   const quantityRef = useRef(cart?.totalQuantity);
@@ -150,15 +157,21 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                       );
                     })}
                   </ul>
+                  {!!promotedItem && (
+                    <InlineAddToCart
+                      variants={promotedItem.variants}
+                      availableForSale={promotedItem.availableForSale}
+                    />
+                  )}
                   <div className="py-4 text-sm text-neutral-500 dark:text-neutral-400">
-                    <div className="mb-3 flex items-center justify-between border-b border-white/20 pb-1">
+                    {/* <div className="mb-3 flex items-center justify-between border-b border-white/20 pb-1">
                       <p>Taxes</p>
                       <Price
                         className="text-right text-base text-white"
                         amount={cart.cost.totalTaxAmount.amount}
                         currencyCode={cart.cost.totalTaxAmount.currencyCode}
                       />
-                    </div>
+                    </div> */}
                     <div className="mb-3 flex items-center justify-between border-b border-white/20 py-1">
                       <p>Shipping</p>
                       <p className="text-right text-white/50">Calculated at checkout</p>

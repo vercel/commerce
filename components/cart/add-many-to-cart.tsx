@@ -2,7 +2,6 @@
 
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
-import { SupportedLocale } from 'components/layout/navbar/language-control';
 import LoadingDots from 'components/loading-dots';
 import { ProductVariant } from 'lib/shopify/types';
 import { useLocale, useTranslations } from 'next-intl';
@@ -86,7 +85,7 @@ export function AddManyToCart({
             const error = await addItems({
               variantId: selectedVariantId,
               quantity: currentQuantity,
-              locale: locale as SupportedLocale
+              country: locale.toUpperCase()
             });
 
             if (error) {

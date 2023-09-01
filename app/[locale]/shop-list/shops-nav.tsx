@@ -11,11 +11,11 @@ export default function ShopsNav() {
         <Link href="/#shops" className="transition-opacity duration-150 hover:opacity-60">
           <span className="flex flex-row items-center space-x-4">
             <span>←</span>
-            <span>{t('shops.title')}</span>
+            <span>{t('shops.top')}</span>
           </span>
         </Link>
         <div>|</div>
-        <div className="font-multilingual font-medium">{t('company.name.value')}</div>
+        <div className="font-multilingual font-medium">{t('shops.title')}</div>
       </div>
     </div>
   );

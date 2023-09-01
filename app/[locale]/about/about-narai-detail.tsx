@@ -112,6 +112,9 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
               <h2 className="max-w-title text-3xl leading-normal">
                 {t('about.materials.water.title')}
               </h2>
+              <h2 className="max-w-title text-3xl leading-normal">
+                {t('about.materials.water.subtitle')}
+              </h2>
             </div>
             <div className="md:w-1/2">
               <p className="text-base leading-relaxed">{t('about.materials.water.body')}</p>
@@ -131,6 +134,9 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
             <div className="md:w-1/2">
               <h2 className="max-w-title text-3xl leading-normal">
                 {t('about.materials.rice.title')}
+              </h2>
+              <h2 className="max-w-title text-3xl leading-normal">
+                {t('about.materials.rice.subtitle')}
               </h2>
             </div>
             <div className="md:w-1/2">
@@ -152,6 +158,9 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
               <h2 className="max-w-title text-3xl leading-normal">
                 {t('about.materials.koji.title')}
               </h2>
+              <h2 className="max-w-title text-3xl leading-normal">
+                {t('about.materials.koji.subtitle')}
+              </h2>
             </div>
             <div className="md:w-1/2">
               <p className="text-base leading-relaxed">{t('about.materials.koji.body')}</p>
@@ -165,7 +174,7 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
           <div className="border-t border-white/20"></div>
         </div>
         <div className="font-multilingual max-w-xl font-extralight">
-          <p className="text-lg">{t('about.irie.title')}</p>
+          <p className="pb-4 text-xl">{t('about.irie.title')}</p>
           <p className="text-lg leading-relaxed">{t('about.irie.body')}</p>
         </div>
 
