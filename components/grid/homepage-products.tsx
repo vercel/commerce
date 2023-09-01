@@ -38,7 +38,7 @@ function HomepageProductsItem({ item, priority }: { item: Product; priority?: bo
           <div className="line-clamp-4 pt-2 font-extralight">
             <span>{item?.summary?.value}</span>{' '}
             <span className="ml-2 inline-flex flex-row items-center space-x-1 opacity-50 transition-opacity duration-150 group-hover:opacity-100">
-              <span>Read more.</span>
+              <span>read more.</span>
               <span>
                 <ChevronRightIcon width={16} />
               </span>
