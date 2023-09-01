@@ -2,7 +2,8 @@ import Footer from 'components/layout/footer';
 import { SupportedLocale } from 'components/layout/navbar/language-control';
 
 import Navbar from 'components/layout/navbar';
-import { getCart, getPage } from 'lib/shopify';
+import { getCart, getPage, getProduct } from 'lib/shopify';
+import { Product } from 'lib/shopify/types';
 import { cookies } from 'next/headers';
 import { Suspense } from 'react';
 import AboutNaraiDetail from './about-narai-detail';
@@ -26,11 +27,16 @@ export default async function Page({ params }: { params: { locale?: SupportedLoc
     cart = await getCart(cartId);
   }
 
+  const promotedItem: Product | undefined = await getProduct({
+    handle: 'gift-bag-and-postcard-set',
+    language: params?.locale?.toUpperCase()
+  });
+
   const awardsPage = await getPage({ handle: 'awards', language: params?.locale?.toUpperCase() });
 
   return (
     <div>
-      <Navbar cart={cart} locale={params?.locale} compact />
+      <Navbar cart={cart} locale={params?.locale} compact promotedItem={promotedItem} />
       <div className="pt-24 md:pt-32">
         <AboutNaraiDetail awards={awardsPage.body} />
       </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import { Dialog, Transition } from '@headlessui/react';
-import { ShoppingCartIcon } from '@heroicons/react/24/outline';
+import { ShoppingBagIcon } from '@heroicons/react/24/outline';
 import Price from 'components/price';
 import { DEFAULT_OPTION } from 'lib/constants';
 import type { Cart, Product } from 'lib/shopify/types';
@@ -15,6 +15,7 @@ import CloseCart from './close-cart';
 import DeleteItemButton from './delete-item-button';
 import EditItemQuantityButton from './edit-item-quantity-button';
 import OpenCart from './open-cart';
+import { PromotedCartItem } from './promoted-cart-item';
 
 type MerchandiseSearchParams = {
   [key: string]: string;
@@ -84,8 +85,8 @@ export default function CartModal({
 
               {!cart || cart.lines.length === 0 ? (
                 <div className="mt-20 flex w-full flex-col items-center justify-center overflow-hidden">
-                  <ShoppingCartIcon className="h-16" />
-                  <p className="mt-6 text-center text-2xl font-bold">Your cart is empty.</p>
+                  <ShoppingBagIcon className="h-16" strokeWidth={1} />
+                  <p className="mt-6 text-center font-serif text-xl">Your shopping bag is empty.</p>
                 </div>
               ) : (
                 <div className="flex h-full flex-col justify-between overflow-hidden p-1">
@@ -156,25 +157,21 @@ export default function CartModal({
                       );
                     })}
                   </ul>
-                  {/* {!!promotedItem && (
-                    <InlineAddToCart
-                      variants={promotedItem.variants}
+                  {!!promotedItem && (
+                    <PromotedCartItem
+                      product={promotedItem}
                       availableForSale={promotedItem.availableForSale}
                     />
-                  )} */}
-                  <div className="py-4 text-sm text-neutral-500 dark:text-neutral-400">
-                    {/* <div className="mb-3 flex items-center justify-between border-b border-white/20 pb-1">
+                  )}
+                  <div className="pb-4 pt-12 text-sm text-neutral-500 dark:text-neutral-400">
+                    <div className="mb-3 flex items-center justify-between border-b border-white/20 pb-1">
                       <p>Taxes</p>
-                      <Price
-                        className="text-right text-base text-white"
-                        amount={cart.cost.totalTaxAmount.amount}
-                        currencyCode={cart.cost.totalTaxAmount.currencyCode}
-                      />
-                    </div> */}
-                    {/* <div className="mb-3 flex items-center justify-between border-b border-white/20 py-1">
+                      <p className="text-right text-white/50">Calculated at checkout</p>
+                    </div>
+                    <div className="mb-3 flex items-center justify-between border-b border-white/20 py-1">
                       <p>Shipping</p>
                       <p className="text-right text-white/50">Calculated at checkout</p>
-                    </div> */}
+                    </div>
                     <div className="mb-3 flex items-center justify-between border-b border-white/20 py-1">
                       <p>Total</p>
                       <Price

@@ -4,11 +4,9 @@ import { Transition } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import CartModal from 'components/cart/modal';
-import OpenCart from 'components/cart/open-cart';
 import LogoNamemark from 'components/icons/namemark';
 import { Cart, Product } from 'lib/shopify/types';
 import Link from 'next/link';
-import { Suspense } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { MenuModal } from '../menu/modal';
 import { LanguageControl, SupportedLocale } from './language-control';
@@ -63,12 +61,10 @@ export default function Navbar({
               </Link>
             </div>
             <nav className="flex flex-row items-center space-x-4 px-6">
-              <Suspense fallback={<OpenCart />}>
-                <div className="flex flex-col-reverse items-center justify-center space-y-2 px-2 md:flex-row md:space-x-6">
-                  <CartModal cart={cart} promotedItem={promotedItem} />
-                  <MenuModal scrolled={!inView} />
-                </div>
-              </Suspense>
+              <div className="flex flex-col-reverse items-center justify-center space-y-2 px-2 md:flex-row md:space-x-6">
+                <CartModal cart={cart} promotedItem={promotedItem} />
+                <MenuModal scrolled={!inView} />
+              </div>
             </nav>
           </div>
         </Transition>
@@ -92,9 +88,7 @@ export default function Navbar({
             <LanguageControl lang={locale} />
           </div>
           <div className="flex flex-col-reverse items-center justify-center space-y-2 rounded md:flex-row md:space-x-6 md:space-y-0">
-            <Suspense fallback={<OpenCart />}>
-              <CartModal cart={cart} promotedItem={promotedItem} />
-            </Suspense>
+            <CartModal cart={cart} promotedItem={promotedItem} />
             <MenuModal scrolled={!inView} />
           </div>
         </nav>

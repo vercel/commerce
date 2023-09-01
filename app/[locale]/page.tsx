@@ -151,7 +151,7 @@ export default async function HomePage({
       </div>
 
       <Suspense>
-        <Footer cart={cart} />
+        <Footer cart={cart} promotedItem={promotedItem} />
       </Suspense>
     </div>
   );

@@ -3,14 +3,20 @@ import CartModal from 'components/cart/modal';
 import FacebookIcon from 'components/icons/facebook';
 import InstagramIcon from 'components/icons/instagram';
 import KanjiLogo from 'components/icons/kanji';
-import { Cart } from 'lib/shopify/types';
+import { Cart, Product } from 'lib/shopify/types';
 import Link from 'next/link';
 import FooterMenu from './footer-menu';
 import NewsletterFooter from './newsletter-footer';
 
 const { COMPANY_NAME, SITE_NAME } = process.env;
 
-export default async function Footer({ cart }: { cart?: Cart }) {
+export default async function Footer({
+  cart,
+  promotedItem
+}: {
+  cart?: Cart;
+  promotedItem?: Product;
+}) {
   const currentYear = new Date().getFullYear();
   const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '');
   const copyrightName = COMPANY_NAME || SITE_NAME || '';
@@ -89,7 +95,7 @@ export default async function Footer({ cart }: { cart?: Cart }) {
 
             <div className="flex flex-col space-y-2 pt-24">
               <div className="flex flex-row justify-between space-x-4">
-                <CartModal cart={cart} />
+                <CartModal cart={cart} promotedItem={promotedItem} />
                 <div className="flex flex-row items-center space-x-6">
                   <Link
                     href="https://www.instagram.com/suginomoribrewery/"

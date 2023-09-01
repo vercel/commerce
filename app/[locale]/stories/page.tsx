@@ -4,7 +4,8 @@ import { SupportedLocale } from 'components/layout/navbar/language-control';
 import Navbar from 'components/layout/navbar';
 import StoriesDetail from 'components/layout/stories-detail';
 import { BLOG_HANDLE } from 'lib/constants';
-import { getCart } from 'lib/shopify';
+import { getCart, getProduct } from 'lib/shopify';
+import { Product } from 'lib/shopify/types';
 import { cookies } from 'next/headers';
 import { Suspense } from 'react';
 
@@ -31,9 +32,14 @@ export default async function StoriesPage({
     cart = await getCart(cartId);
   }
 
+  const promotedItem: Product | undefined = await getProduct({
+    handle: 'gift-bag-and-postcard-set',
+    language: locale?.toUpperCase()
+  });
+
   return (
     <div>
-      <Navbar cart={cart} locale={locale} compact />
+      <Navbar cart={cart} locale={locale} compact promotedItem={promotedItem} />
       <div className="py-24 md:py-48">
         <StoriesDetail handle={BLOG_HANDLE} locale={locale} />
       </div>
