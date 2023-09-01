@@ -29,7 +29,7 @@
     "clsx": "^2.0.0",
     "cmdk": "^0.2.0",
     "lucide-react": "^0.263.1",
-    "next": "13.4.12",
+    "next": "13.4.13-canary.15",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tailwind-merge": "^1.14.0",
