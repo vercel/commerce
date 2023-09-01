@@ -84,8 +84,7 @@ export function AddManyToCart({
           startTransition(async () => {
             const error = await addItems({
               variantId: selectedVariantId,
-              quantity: currentQuantity,
-              country: locale.toUpperCase()
+              quantity: currentQuantity
             });
 
             if (error) {

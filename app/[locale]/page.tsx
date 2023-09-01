@@ -46,7 +46,7 @@ export default async function HomePage({
   let cart;
 
   if (cartId) {
-    cart = await getCart({ cartId, language: locale?.toUpperCase() });
+    cart = await getCart(cartId);
   }
 
   const promotedItem: Product | undefined = await getProduct({

@@ -72,8 +72,6 @@ export default async function ProductPage({
     language: params?.locale?.toUpperCase()
   });
 
-  console.debug({ product });
-
   let otherImages: MediaImage[] = [];
   if (!!product) {
     otherImages = product.images

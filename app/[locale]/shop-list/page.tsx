@@ -39,7 +39,7 @@ export default async function Page({ params }: { params: { locale?: SupportedLoc
   let cart;
 
   if (cartId) {
-    cart = await getCart({ cartId, language: params?.locale?.toUpperCase() });
+    cart = await getCart(cartId);
   }
 
   const page = await getPage({ handle: 'shop-list', language: params?.locale?.toUpperCase() });

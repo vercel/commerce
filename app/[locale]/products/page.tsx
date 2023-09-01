@@ -29,7 +29,7 @@ export default async function ProductPage({
   let cart;
 
   if (cartId) {
-    cart = await getCart({ cartId, language: locale?.toUpperCase() });
+    cart = await getCart(cartId);
   }
 
   return (

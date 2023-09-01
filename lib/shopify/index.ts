@@ -120,18 +120,12 @@ const removeEdgesAndNodes = (array: Connection<any>) => {
   return array.edges.map((edge) => edge?.node);
 };
 
-const reshapeCart = (cart: ShopifyCart, country?: string, language?: string): Cart => {
+const reshapeCart = (cart: ShopifyCart): Cart => {
   if (!cart.cost?.totalTaxAmount) {
-    cart.cost.totalTaxAmount =
-      country === 'US' || language === 'EN'
-        ? {
-            amount: '0.0',
-            currencyCode: 'USD'
-          }
-        : {
-            amount: '0',
-            currencyCode: 'JPY'
-          };
+    cart.cost.totalTaxAmount = {
+      amount: '0.0',
+      currencyCode: 'USD'
+    };
   }
 
   return {
@@ -222,38 +216,24 @@ const reshapeProducts = (products: ShopifyProduct[]) => {
   return reshapedProducts;
 };
 
-export async function createCart({
-  country,
-  language
-}: {
-  country?: string;
-  language?: string;
-}): Promise<Cart> {
+export async function createCart(): Promise<Cart> {
   const res = await shopifyFetch<ShopifyCreateCartOperation>({
     query: createCartMutation,
-    cache: 'no-store',
-    variables: {
-      country,
-      language
-    }
+    cache: 'no-store'
   });
 
-  return reshapeCart(res.body.data.cartCreate.cart, country, language);
+  return reshapeCart(res.body.data.cartCreate.cart);
 }
 
 export async function addToCart(
   cartId: string,
-  lines: { merchandiseId: string; quantity: number }[],
-  country?: string,
-  language?: string
+  lines: { merchandiseId: string; quantity: number }[]
 ): Promise<Cart> {
   const res = await shopifyFetch<ShopifyAddToCartOperation>({
     query: addToCartMutation,
     variables: {
       cartId,
-      lines,
-      country,
-      language
+      lines
     },
     cache: 'no-store'
   });
@@ -289,18 +269,10 @@ export async function updateCart(
   return reshapeCart(res.body.data.cartLinesUpdate.cart);
 }
 
-export async function getCart({
-  cartId,
-  country,
-  language
-}: {
-  cartId: string;
-  country?: string;
-  language?: string;
-}): Promise<Cart | undefined> {
+export async function getCart(cartId: string): Promise<Cart | undefined> {
   const res = await shopifyFetch<ShopifyCartOperation>({
     query: getCartQuery,
-    variables: { cartId, country, language },
+    variables: { cartId },
     cache: 'no-store'
   });
 
@@ -309,7 +281,7 @@ export async function getCart({
     return undefined;
   }
 
-  return reshapeCart(res.body.data.cart, country, language);
+  return reshapeCart(res.body.data.cart);
 }
 
 export async function getCollection({
