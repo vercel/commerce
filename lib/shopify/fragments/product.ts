@@ -14,6 +14,16 @@ const productFragment = /* GraphQL */ `
       value
       type
     }
+    galleryIntro: metafield(namespace: "custom", key: "product_gallery_intro") {
+      key
+      value
+      type
+    }
+    lower: metafield(namespace: "custom", key: "product_lower_text") {
+      key
+      value
+      type
+    }
     notes: metafield(namespace: "custom", key: "tasting_notes_text") {
       key
       value

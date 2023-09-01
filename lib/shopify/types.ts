@@ -149,6 +149,12 @@ export type ShopifyProduct = {
   summary: {
     value: string;
   };
+  galleryIntro: {
+    value: string;
+  };
+  lower: {
+    value: string;
+  };
   notes?: {
     value?: string;
   };

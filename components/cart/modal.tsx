@@ -14,7 +14,6 @@ import AgeConfirmBeforeCheckout from './age-gate-confirm-before-checkout';
 import CloseCart from './close-cart';
 import DeleteItemButton from './delete-item-button';
 import EditItemQuantityButton from './edit-item-quantity-button';
-import { InlineAddToCart } from './inline-add-to-cart';
 import OpenCart from './open-cart';
 
 type MerchandiseSearchParams = {
@@ -157,12 +156,12 @@ export default function CartModal({
                       );
                     })}
                   </ul>
-                  {!!promotedItem && (
+                  {/* {!!promotedItem && (
                     <InlineAddToCart
                       variants={promotedItem.variants}
                       availableForSale={promotedItem.availableForSale}
                     />
-                  )}
+                  )} */}
                   <div className="py-4 text-sm text-neutral-500 dark:text-neutral-400">
                     {/* <div className="mb-3 flex items-center justify-between border-b border-white/20 pb-1">
                       <p>Taxes</p>
@@ -172,10 +171,10 @@ export default function CartModal({
                         currencyCode={cart.cost.totalTaxAmount.currencyCode}
                       />
                     </div> */}
-                    <div className="mb-3 flex items-center justify-between border-b border-white/20 py-1">
+                    {/* <div className="mb-3 flex items-center justify-between border-b border-white/20 py-1">
                       <p>Shipping</p>
                       <p className="text-right text-white/50">Calculated at checkout</p>
-                    </div>
+                    </div> */}
                     <div className="mb-3 flex items-center justify-between border-b border-white/20 py-1">
                       <p>Total</p>
                       <Price

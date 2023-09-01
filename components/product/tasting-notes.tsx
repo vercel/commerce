@@ -1,4 +1,3 @@
-import Prose from 'components/prose';
 import { Product } from 'lib/shopify/types';
 import Image from 'next/image';
 
@@ -14,10 +13,11 @@ export function ProductTastingNotes({ product }: { product: Product }) {
   }
 
   return (
-    <div className="flex flex-col justify-between space-y-6 px-6 md:flex-row md:space-x-6 md:space-y-0">
+    <div className="flex flex-col justify-between space-y-6 px-6 md:flex-row md:items-end md:space-x-12 md:space-y-0">
       {!!notes ? (
-        <div>
-          <Prose className="mb-6 text-lg leading-tight dark:text-white/[60%]" html={notes} />
+        <div className="flex w-1/2 flex-col space-y-4">
+          <h2 className="font-multilingual text-[38px] leading-tight">tasting notes</h2>
+          <div className="flex w-full flex-row justify-end whitespace-pre-line">{notes}</div>
         </div>
       ) : null}
       {imageUrl && imageHeight && imageWidth && (

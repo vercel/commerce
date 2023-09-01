@@ -72,6 +72,8 @@ export default async function ProductPage({
     language: params?.locale?.toUpperCase()
   });
 
+  console.debug({ product });
+
   let otherImages: MediaImage[] = [];
   if (!!product) {
     otherImages = product.images
@@ -111,7 +113,7 @@ export default async function ProductPage({
           <div className="relative h-full w-full">
             <Image
               src={product.featuredImage?.url}
-              alt={product.featuredImage?.altText}
+              alt={product.featuredImage?.altText || product.id}
               height={product.featuredImage.height}
               width={product.featuredImage.width}
               className="h-full w-full object-cover"
@@ -151,9 +153,15 @@ export default async function ProductPage({
             </div>
           </div>
 
-          <div>
+          <div className="bg-base p-12 text-dark">
             <ProductTastingNotes product={product} />
           </div>
+
+          {!!product?.galleryIntro?.value && (
+            <div className="font-multilingual flex w-full flex-row justify-end whitespace-pre-line">
+              <div className="md:w-1/2">{product.galleryIntro.value}</div>
+            </div>
+          )}
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {!!otherImages &&
@@ -181,6 +189,13 @@ export default async function ProductPage({
                 );
               })}
           </div>
+
+          {!!product?.lower?.value && (
+            <div className="font-multilingual flex w-full flex-row justify-end whitespace-pre-line">
+              <div className="md:w-1/2">{product.lower.value}</div>
+            </div>
+          )}
+
           <Suspense>
             <RelatedProducts id={product.id} />
           </Suspense>
