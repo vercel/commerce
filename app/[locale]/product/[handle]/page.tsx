@@ -9,6 +9,7 @@ import Label from 'components/label';
 import { SupportedLocale } from 'components/layout/navbar/language-control';
 import Price from 'components/price';
 import { ProductDescription } from 'components/product/product-description';
+import { ProductTastingNotes } from 'components/product/tasting-notes';
 import { VariantSelector } from 'components/product/variant-selector';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { getProduct, getProductRecommendations } from 'lib/shopify';
@@ -72,6 +73,7 @@ export default async function ProductPage({
     handle: params.handle,
     language: params?.locale?.toUpperCase()
   });
+
   let otherImages: MediaImage[] = [];
   if (!!product) {
     otherImages = product.images
@@ -149,6 +151,10 @@ export default async function ProductPage({
                 <ProductDescription product={product} />
               </div>
             </div>
+          </div>
+
+          <div>
+            <ProductTastingNotes product={product} />
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">

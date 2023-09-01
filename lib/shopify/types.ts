@@ -149,6 +149,14 @@ export type ShopifyProduct = {
   summary: {
     value: string;
   };
+  notes?: {
+    value?: string;
+  };
+  notesImage?: {
+    reference: {
+      image: Image;
+    };
+  };
   options: ProductOption[];
   priceRange: {
     maxVariantPrice: Money;
