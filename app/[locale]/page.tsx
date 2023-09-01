@@ -45,7 +45,9 @@ export default async function HomePage({
   let cart;
 
   if (cartId) {
-    cart = await getCart(cartId);
+    console.debug({ cartId });
+    cart = await getCart({ cartId, language: locale?.toUpperCase() });
+    console.debug({ cart });
   }
 
   return (

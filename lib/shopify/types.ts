@@ -176,6 +176,8 @@ export type ShopifyCartOperation = {
   };
   variables: {
     cartId: string;
+    language?: string;
+    country?: string;
   };
 };
 

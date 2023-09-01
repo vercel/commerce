@@ -1,14 +1,21 @@
 'use server';
 
+import { SupportedLocale } from 'components/layout/navbar/language-control';
 import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/shopify';
 import { cookies } from 'next/headers';
 
-export const addItem = async (variantId: string | undefined): Promise<String | undefined> => {
+export const addItem = async ({
+  variantId,
+  locale
+}: {
+  variantId: string | undefined;
+  locale?: string;
+}): Promise<String | undefined> => {
   let cartId = cookies().get('cartId')?.value;
   let cart;
 
   if (cartId) {
-    cart = await getCart(cartId);
+    cart = await getCart({ cartId, language: locale?.toUpperCase() });
   }
 
   if (!cartId || !cart) {
@@ -30,16 +37,18 @@ export const addItem = async (variantId: string | undefined): Promise<String | u
 
 export const addItems = async ({
   variantId,
-  quantity = 1
+  quantity = 1,
+  locale
 }: {
   variantId: string | undefined;
   quantity: number;
+  locale?: SupportedLocale;
 }): Promise<String | undefined> => {
   let cartId = cookies().get('cartId')?.value;
   let cart;
 
   if (cartId) {
-    cart = await getCart(cartId);
+    cart = await getCart({ cartId, language: locale?.toUpperCase() });
   }
 
   if (!cartId || !cart) {

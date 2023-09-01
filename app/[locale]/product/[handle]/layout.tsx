@@ -28,7 +28,7 @@ export default async function ProductLayout({
   let cart;
 
   if (cartId) {
-    cart = await getCart(cartId);
+    cart = await getCart({ cartId, language: locale?.toUpperCase() });
   }
 
   return (

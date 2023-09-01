@@ -30,8 +30,6 @@ export async function generateMetadata({
     language: params?.locale?.toUpperCase()
   });
 
-  console.debug({ product });
-
   if (!product) return notFound();
 
   const { url, width, height, altText: alt } = product.featuredImage || {};
