@@ -1,5 +1,6 @@
 import Cart from 'components/cart';
 import OpenCart from 'components/cart/open-cart';
+import { Dynamic } from 'components/dynamic';
 import LogoSquare from 'components/logo-square';
 import { getMenu } from 'lib/shopify';
 import { Menu } from 'lib/shopify/types';

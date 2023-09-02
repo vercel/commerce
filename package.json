@@ -27,7 +27,8 @@
     "clsx": "^2.0.0",
     "next": "13.4.13-canary.15",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
     "@tailwindcss/container-queries": "^0.1.1",
