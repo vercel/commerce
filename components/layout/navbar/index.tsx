@@ -4,7 +4,6 @@ import LogoSquare from 'components/logo-square';
 import { getMenu } from 'lib/shopify';
 import { Menu } from 'lib/shopify/types';
 import Link from 'next/link';
-import { Suspense } from 'react';
 import MobileMenu from './mobile-menu';
 import Search from './search';
 const { SITE_NAME } = process.env;
@@ -44,9 +43,9 @@ export default async function Navbar() {
           <Search />
         </div>
         <div className="flex justify-end md:w-1/3">
-          <Suspense fallback={<OpenCart />}>
+          <Dynamic fallback={<OpenCart />} error="There was an error opening the cart.">
             <Cart />
-          </Suspense>
+          </Dynamic>
         </div>
       </div>
     </nav>
