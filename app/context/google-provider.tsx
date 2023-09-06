@@ -1,6 +1,8 @@
+'use client';
+
 import { FunctionComponent, useEffect } from 'react';
 
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import ReactGA from 'react-ga';
 import TagManager from 'react-gtm-module';
 
