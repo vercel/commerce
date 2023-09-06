@@ -536,6 +536,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-gtm-module@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "@types/react-gtm-module@npm:2.0.1"
+  checksum: cd57eece80d80453e79b16c977e13d51dc22c19af69a16ac6ea1eda01ab471f4dbe46ce80ce04ef13a0ecd0082372addec4c2e394978d1ce7fe86dbda4dfb922
+  languageName: node
+  linkType: hard
+
 "@types/react@npm:*":
   version: 18.2.17
   resolution: "@types/react@npm:18.2.17"
@@ -1355,6 +1362,7 @@ __metadata:
     "@types/node": 20.4.4
     "@types/react": 18.2.16
     "@types/react-dom": 18.2.7
+    "@types/react-gtm-module": ^2.0.1
     autoprefixer: ^10.4.14
     clsx: ^2.0.0
     date-fns: ^2.30.0
@@ -1376,6 +1384,8 @@ __metadata:
     prettier-plugin-tailwindcss: ^0.4.1
     react: latest
     react-dom: latest
+    react-ga: ^3.3.1
+    react-gtm-module: ^2.0.11
     react-intersection-observer: ^9.5.2
     react-player: ^2.12.0
     sharp: ^0.32.5
@@ -4461,6 +4471,23 @@ __metadata:
   version: 3.2.2
   resolution: "react-fast-compare@npm:3.2.2"
   checksum: 2071415b4f76a3e6b55c84611c4d24dcb12ffc85811a2840b5a3f1ff2d1a99be1020d9437ee7c6e024c9f4cbb84ceb35e48cf84f28fcb00265ad2dfdd3947704
+  languageName: node
+  linkType: hard
+
+"react-ga@npm:^3.3.1":
+  version: 3.3.1
+  resolution: "react-ga@npm:3.3.1"
+  peerDependencies:
+    prop-types: ^15.6.0
+    react: ^15.6.2 || ^16.0 || ^17 || ^18
+  checksum: 3026976d0249fbf80e7b5dad7707964198064d7ac460f3397de40524e76dd6c29dead0900f850e2bd3135a86a9b083af8cda9cfa087f195852bf8d2b17c1fcfb
+  languageName: node
+  linkType: hard
+
+"react-gtm-module@npm:^2.0.11":
+  version: 2.0.11
+  resolution: "react-gtm-module@npm:2.0.11"
+  checksum: 93b4659f0d10248f59113a3eb488ea8848712cab2e28b7c45d080b373d6736a96b9855d637c4447819493366bf25185c3f88e6b4107a8f06d8ab2a39f7a725b9
   languageName: node
   linkType: hard
 
