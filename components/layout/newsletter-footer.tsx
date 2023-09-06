@@ -22,8 +22,8 @@ export default function NewsletterSignup() {
         </label>
         <input
           type="email"
-          name="email-address"
-          id="email-address"
+          name="EMAIL"
+          id="EMAIL"
           autoComplete="email"
           required
           className={clsx(

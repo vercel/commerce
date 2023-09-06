@@ -20,7 +20,7 @@ export default function NewsletterSignup() {
         </label>
         <input
           type="email"
-          name="email-address"
+          name="EMAIL"
           id="email-address"
           autoComplete="email"
           required
