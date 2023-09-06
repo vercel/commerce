@@ -98,10 +98,12 @@ export default function CartModal({
                 </div>
 
                 {!!isConfirming && !!cart && cart?.checkoutUrl ? (
-                  <AgeGateForm
-                    didCancel={() => setIsConfirming(false)}
-                    checkoutUrl={cart.checkoutUrl}
-                  />
+                  <div className="animate-fadeIn">
+                    <AgeGateForm
+                      didCancel={() => setIsConfirming(false)}
+                      checkoutUrl={cart.checkoutUrl}
+                    />
+                  </div>
                 ) : (
                   <>
                     {!cart || cart.lines.length === 0 ? (
