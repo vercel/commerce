@@ -94,7 +94,7 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
       >
         <div className="flex flex-col space-y-24">
           <div className="font-multilingual font-extralight">
-            <div className="flex flex-row items-baseline space-x-3">
+            <div className="flex flex-col items-baseline md:flex-row md:space-x-3">
               <h2 className="text-5xl">{t('about.materials.title')}</h2>
               <h2 className="text-4xl">{t('about.materials.subtitle')}</h2>
             </div>
@@ -109,12 +109,14 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
 
           <div className="font-multilingual flex flex-col space-y-12 font-extralight md:flex-row md:space-x-6 md:space-y-0">
             <div className="md:w-1/2">
-              <h2 className="max-w-title text-3xl leading-normal">
-                {t('about.materials.water.title')}
-              </h2>
-              <h2 className="max-w-title text-3xl leading-normal">
-                {t('about.materials.water.subtitle')}
-              </h2>
+              <div className="flex flex-row items-baseline space-x-3">
+                <h2 className="max-w-title text-3xl leading-normal">
+                  {t('about.materials.water.title')}
+                </h2>
+                <h2 className="max-w-title text-3xl leading-normal">
+                  {t('about.materials.water.subtitle')}
+                </h2>
+              </div>
             </div>
             <div className="md:w-1/2">
               <p className="text-base leading-relaxed">{t('about.materials.water.body')}</p>
@@ -132,12 +134,14 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
 
           <div className="font-multilingual flex flex-col space-y-12 font-extralight md:flex-row md:space-x-6 md:space-y-0">
             <div className="md:w-1/2">
-              <h2 className="max-w-title text-3xl leading-normal">
-                {t('about.materials.rice.title')}
-              </h2>
-              <h2 className="max-w-title text-3xl leading-normal">
-                {t('about.materials.rice.subtitle')}
-              </h2>
+              <div className="flex flex-row items-baseline space-x-3">
+                <h2 className="max-w-title text-3xl leading-normal">
+                  {t('about.materials.rice.title')}
+                </h2>
+                <h2 className="max-w-title text-3xl leading-normal">
+                  {t('about.materials.rice.subtitle')}
+                </h2>
+              </div>
             </div>
             <div className="md:w-1/2">
               <p className="text-base leading-relaxed">{t('about.materials.rice.body')}</p>

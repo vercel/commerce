@@ -54,7 +54,7 @@ export function InlineAddToCart({
         });
       }}
       className={clsx(
-        'h-[56px] p-4',
+        'h-[44px] px-4 py-2',
         'relative flex w-full items-center justify-center',
         'border border-white/20 hover:border-white',
         'font-serif text-base tracking-wider text-white',
