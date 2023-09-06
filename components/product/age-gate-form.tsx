@@ -81,7 +81,7 @@ const AgeGateForm: FC<AgeGateFormProps> = ({ checkoutUrl, didCancel }) => {
           leaveTo="translate-x-[-100%]"
         >
           <div className="grid h-full w-full grid-cols-1 place-content-center">
-            <div className="mx-auto inline-block space-y-6 overflow-hidden rounded-lg py-12 text-left align-bottom text-white transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6 sm:align-middle">
+            <div className="mx-auto inline-block space-y-6 overflow-hidden rounded-lg py-12 text-left align-bottom text-white transition-all sm:my-8 sm:w-full sm:max-w-lg sm:py-6 sm:align-middle">
               <div>
                 <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-900">
                   <CheckIcon
@@ -143,9 +143,6 @@ const AgeGateForm: FC<AgeGateFormProps> = ({ checkoutUrl, didCancel }) => {
                   type="button"
                   className={clsx(
                     'inline-flex w-full justify-center',
-                    hasValidDate
-                      ? 'border border-dark hover:border-dark/50'
-                      : 'border border-dark/50 hover:border-dark/20',
                     'bg-white px-4 py-2',
                     'text-base font-medium text-black',
                     'shadow-sm transition-colors duration-300',
@@ -164,7 +161,7 @@ const AgeGateForm: FC<AgeGateFormProps> = ({ checkoutUrl, didCancel }) => {
                   className={clsx(
                     'mt-3 inline-flex w-full justify-center',
                     'border border-dark/10 hover:border-dark/30',
-                    'bg-white/50 px-4 py-2',
+                    'bg-white/30 px-4 py-2 text-white',
                     'text-base font-medium',
                     'text-black shadow-sm transition-all duration-300 hover:bg-white hover:bg-opacity-20',
                     'focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2',
