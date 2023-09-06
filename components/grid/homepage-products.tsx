@@ -19,7 +19,7 @@ function HomepageProductsItem({ item, priority }: { item: Product; priority?: bo
       )}
     >
       <Link className="group block w-full" href={`/product/${item.handle}`}>
-        <div className="relative block aspect-tall overflow-hidden ">
+        <span className="relative block aspect-tall overflow-hidden">
           <GridTileImage
             src={image?.url}
             fill
@@ -27,15 +27,15 @@ function HomepageProductsItem({ item, priority }: { item: Product; priority?: bo
             priority={priority}
             alt={item.title}
           />
-        </div>
-        <div className="font-multilingual max-w-sm pb-24 pt-4 md:pb-0">
+        </span>
+        <span className="font-multilingual block max-w-sm pb-24 pt-4 md:pb-0">
           <Label
             title={item.title as string}
             amount={item.priceRange.maxVariantPrice.amount}
             currencyCode={item.priceRange.maxVariantPrice.currencyCode}
             size={size?.value}
           />
-          <div className="line-clamp-4 pt-2 font-extralight">
+          <span className="line-clamp-4 pt-2 font-extralight">
             <span>{item?.summary?.value}</span>{' '}
             <span className="ml-2 inline-flex flex-row items-center space-x-1 opacity-50 transition-opacity duration-150 group-hover:opacity-100">
               <span>read more.</span>
@@ -43,8 +43,8 @@ function HomepageProductsItem({ item, priority }: { item: Product; priority?: bo
                 <ChevronRightIcon width={16} />
               </span>
             </span>
-          </div>
-        </div>
+          </span>
+        </span>
       </Link>
       <InlineAddToCart variants={item.variants} availableForSale={item.availableForSale} />
     </div>

@@ -7,7 +7,7 @@ export default function NewsletterSignup() {
 
   return (
     <div className="max-w-xl">
-      <div className="flex flex-row items-baseline justify-between space-x-6 pb-2">
+      <div className="flex flex-col items-start space-x-0 space-y-0 pb-2 md:flex-row md:items-baseline md:justify-between md:space-x-6">
         <h3 className="grow font-serif text-2xl tracking-wider">{t('newsletter.title')}</h3>
         <div className="font-multilingual">{t('footer.newsletter.promo')}</div>
       </div>
@@ -23,7 +23,7 @@ export default function NewsletterSignup() {
         <input
           type="email"
           name="EMAIL"
-          id="EMAIL"
+          id="email-address"
           autoComplete="email"
           required
           className={clsx(
