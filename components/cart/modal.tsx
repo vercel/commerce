@@ -2,7 +2,9 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 import { ShoppingBagIcon } from '@heroicons/react/24/outline';
+import { useAgeConfirmation } from 'app/hooks/use-age-confirmation';
 import Price from 'components/price';
+import AgeGateForm from 'components/product/age-gate-form';
 import { DEFAULT_OPTION } from 'lib/constants';
 import type { Cart, Product } from 'lib/shopify/types';
 import { createUrl } from 'lib/utils';
@@ -10,7 +12,6 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment, useEffect, useRef, useState } from 'react';
-import AgeConfirmBeforeCheckout from './age-gate-confirm-before-checkout';
 import CloseCart from './close-cart';
 import DeleteItemButton from './delete-item-button';
 import EditItemQuantityButton from './edit-item-quantity-button';
@@ -29,7 +30,10 @@ export default function CartModal({
   promotedItem?: Product;
 }) {
   const t = useTranslations('Index');
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isConfirming, setIsConfirming] = useState<boolean>(false);
+  const { ageConfirmed } = useAgeConfirmation();
+
   const quantityRef = useRef(cart?.totalQuantity);
   const openCart = () => setIsOpen(true);
   const closeCart = () => setIsOpen(false);
@@ -181,15 +185,38 @@ export default function CartModal({
                       />
                     </div>
                   </div>
-                  <AgeConfirmBeforeCheckout checkoutUrl={cart.checkoutUrl}>
+                  {ageConfirmed ? (
+                    <>
+                      <Link
+                        href={cart.checkoutUrl}
+                        className="block w-full border border-white/20 bg-dark px-12 py-6 text-center font-sans font-medium uppercase tracking-wider text-white transition-colors duration-300 hover:bg-white hover:text-black"
+                      >
+                        {t('cart.proceed')}
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => setIsConfirming(true)}
+                        className="block w-full border border-white/20 bg-dark px-12 py-6 text-center font-sans font-medium uppercase tracking-wider text-white transition-colors duration-300 hover:bg-white hover:text-black"
+                      >
+                        {t('cart.proceed')}
+                      </button>
+                    </>
+                  )}
+                  {/* <AgeConfirmBeforeCheckout checkoutUrl={cart.checkoutUrl}>
                     {t('cart.proceed')}
-                  </AgeConfirmBeforeCheckout>
+                  </AgeConfirmBeforeCheckout> */}
                 </div>
               )}
             </Dialog.Panel>
           </Transition.Child>
         </Dialog>
       </Transition>
+      {!!isConfirming && !!cart && cart?.checkoutUrl && (
+        <AgeGateForm didCancel={() => setIsConfirming(false)} checkoutUrl={cart.checkoutUrl} />
+      )}
     </>
   );
 }
