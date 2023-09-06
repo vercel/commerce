@@ -1,7 +1,12 @@
 'use client';
-import CompanyImage001 from '@images/company-images/irie.webp';
-import CompanyImage002 from '@images/company-images/kou.webp';
-import CompanyImage003 from '@images/company-images/yamano.webp';
+import AlisaImage from '@images/company-images/sb_profile_photo_alisa.webp';
+import IrieImage from '@images/company-images/sb_profile_photo_irie.webp';
+import SundbergImage from '@images/company-images/sb_profile_photo_kou.webp';
+import MasaImage from '@images/company-images/sb_profile_photo_masa.webp';
+import NishikawaImage from '@images/company-images/sb_profile_photo_nishikawa.webp';
+import ShinyaImage from '@images/company-images/sb_profile_photo_shinya.webp';
+import TakaImage from '@images/company-images/sb_profile_photo_taka.webp';
+
 import clsx from 'clsx';
 import VideoPlayer from 'components/video/video-player';
 import { useTranslations } from 'next-intl';
@@ -26,7 +31,9 @@ export default function CompanyDetail() {
           'mx-auto max-w-4xl'
         )}
       >
-        <h2 className="mx-auto max-w-sm text-center text-4xl md:text-4xl">{t('company.title')}</h2>
+        <h2 className="font-multilingual mx-auto max-w-sm text-center text-4xl md:text-4xl">
+          {t('company.title')}
+        </h2>
 
         <div>
           <h3 className="text-2xl">{t('company.subtitle001')}</h3>
@@ -70,83 +77,101 @@ export default function CompanyDetail() {
             <div className="font-multilingual col-span-1 py-4 text-base font-extralight">
               <div className="relative aspect-square">
                 <Image
-                  src={CompanyImage001}
+                  src={IrieImage}
                   priority={true}
                   alt="A picture of Irie Masayuki."
                   className={clsx('h-full w-full object-cover')}
                 />
               </div>
-              <div className="pt-2">{t('company.irie.japanese')}</div>
+              <div className="pt-2 font-japan font-extralight">{t('company.irie.japanese')}</div>
               <div className="pb-4">{t('company.irie.english')}</div>
               <div className="text-sm">{t('company.irie.role')}</div>
             </div>
 
-            <div className="font-multilingual col-span-1 py-4 text-lg font-extralight">
+            <div className="font-multilingual col-span-1 py-4 text-base font-extralight">
               <div className="relative aspect-square">
                 <Image
-                  src={CompanyImage001}
+                  src={NishikawaImage}
                   priority={true}
                   alt="A picture of Masataka Nishikawa."
                   className={clsx('h-full w-full object-cover')}
                 />
               </div>
-              <div className="pt-2">{t('company.nishikawa.japanese')}</div>
+              <div className="pt-2 font-japan font-extralight">
+                {t('company.nishikawa.japanese')}
+              </div>
               <div className="pb-4">{t('company.nishikawa.english')}</div>
               <div className="text-sm">{t('company.nishikawa.role')}</div>
             </div>
 
-            <div className="font-multilingual col-span-1 py-4 text-lg font-extralight">
+            <div className="font-multilingual col-span-1 py-4 text-base font-extralight">
               <div className="relative aspect-square">
                 <Image
-                  src={CompanyImage002}
+                  src={SundbergImage}
                   priority={true}
                   alt="A picture of Kou Sundberg."
                   className={clsx('h-full w-full object-cover')}
                 />
               </div>
-              <div className="pt-2">{t('company.sundberg.japanese')}</div>
+              <div className="pt-2 font-japan font-extralight">
+                {t('company.sundberg.japanese')}
+              </div>
               <div className="pb-4">{t('company.sundberg.english')}</div>
               <div className="text-sm">{t('company.sundberg.role')}</div>
             </div>
 
-            <div className="font-multilingual col-span-1 py-4 text-lg font-extralight">
+            <div className="font-multilingual col-span-1 py-4 text-base font-extralight">
               <div className="relative aspect-square">
                 <Image
-                  src={CompanyImage003}
+                  src={MasaImage}
+                  priority={true}
+                  alt="A picture of Masanori Komatsu."
+                  className={clsx('h-full w-full object-cover')}
+                />
+              </div>
+              <div className="pt-2 font-japan font-extralight">{t('company.masa.japanese')}</div>
+              <div className="pb-4">{t('company.masa.english')}</div>
+              <div className="text-sm">{t('company.masa.role')}</div>
+            </div>
+
+            <div className="font-multilingual col-span-1 py-4 text-base font-extralight">
+              <div className="relative aspect-square">
+                <Image
+                  src={TakaImage}
                   priority={true}
                   alt="A picture of Takatoshi Yamano."
                   className={clsx('h-full w-full object-cover')}
                 />
               </div>
-              <div className="pt-2">{t('company.yamano.japanese')}</div>
+              <div className="pt-2 font-japan font-extralight">{t('company.yamano.japanese')}</div>
               <div className="pb-4">{t('company.yamano.english')}</div>
               <div className="text-sm">{t('company.yamano.role')}</div>
             </div>
 
-            <div className="font-multilingual col-span-1 py-4 text-lg font-extralight">
+            <div className="font-multilingual col-span-1 py-4 text-base font-extralight">
               <div className="relative aspect-square">
                 <Image
-                  src={CompanyImage001}
+                  src={AlisaImage}
                   priority={true}
                   alt="A picture of Alisa Yoshida."
                   className={clsx('h-full w-full object-cover')}
                 />
               </div>
-              <div className="pt-2">{t('company.yoshida.japanese')}</div>
+              <div className="pt-2 font-japan font-extralight">{t('company.yoshida.japanese')}</div>
               <div className="pb-4">{t('company.yoshida.english')}</div>
               <div className="text-sm">{t('company.yoshida.role')}</div>
             </div>
 
-            <div className="font-multilingual col-span-1 py-4 text-lg font-extralight">
+            <div className="font-multilingual col-span-1 py-4 text-base font-extralight">
               <div className="relative aspect-square">
                 <Image
-                  src={CompanyImage001}
+                  src={ShinyaImage}
                   priority={true}
                   alt="A picture of Shinya Ikegaya."
                   className={clsx('h-full w-full object-cover')}
                 />
               </div>
-              <div className="pt-2">{t('company.ikegaya.japanese')}</div>
+              <div className="pt-2 font-japan font-extralight">{t('company.ikegaya.japanese')}</div>
               <div className="pb-4">{t('company.ikegaya.english')}</div>
               <div className="text-sm">{t('company.ikegaya.role')}</div>
             </div>

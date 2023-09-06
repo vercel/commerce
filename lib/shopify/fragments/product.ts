@@ -10,7 +10,37 @@ const productFragment = /* GraphQL */ `
     description
     descriptionHtml
     summary: metafield(namespace: "custom", key: "product_summary") {
+      key
       value
+      type
+    }
+    galleryIntro: metafield(namespace: "custom", key: "product_gallery_intro") {
+      key
+      value
+      type
+    }
+    lower: metafield(namespace: "custom", key: "product_lower_text") {
+      key
+      value
+      type
+    }
+    notes: metafield(namespace: "custom", key: "tasting_notes_text") {
+      key
+      value
+      type
+    }
+    notesImage: metafield(namespace: "custom", key: "tasting_notes_image") {
+      key
+      value
+      type
+      reference {
+        ... on MediaImage {
+          id
+          image {
+            ...image
+          }
+        }
+      }
     }
     options {
       id

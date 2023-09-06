@@ -149,6 +149,20 @@ export type ShopifyProduct = {
   summary: {
     value: string;
   };
+  galleryIntro: {
+    value: string;
+  };
+  lower: {
+    value: string;
+  };
+  notes?: {
+    value?: string;
+  };
+  notesImage?: {
+    reference: {
+      image: Image;
+    };
+  };
   options: ProductOption[];
   priceRange: {
     maxVariantPrice: Money;
@@ -168,6 +182,8 @@ export type ShopifyCartOperation = {
   };
   variables: {
     cartId: string;
+    country?: string;
+    language?: string;
   };
 };
 
@@ -187,6 +203,8 @@ export type ShopifyAddToCartOperation = {
       merchandiseId: string;
       quantity: number;
     }[];
+    country?: string;
+    language?: string;
   };
 };
 

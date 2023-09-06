@@ -2,7 +2,8 @@ import Footer from 'components/layout/footer';
 import { SupportedLocale } from 'components/layout/navbar/language-control';
 
 import Navbar from 'components/layout/navbar';
-import { getCart } from 'lib/shopify';
+import { getCart, getProduct } from 'lib/shopify';
+import { Product } from 'lib/shopify/types';
 import { cookies } from 'next/headers';
 import { ReactNode, Suspense } from 'react';
 
@@ -31,9 +32,14 @@ export default async function BlogLayout({
     cart = await getCart(cartId);
   }
 
+  const promotedItem: Product | undefined = await getProduct({
+    handle: 'gift-bag-and-postcard-set',
+    language: locale?.toUpperCase()
+  });
+
   return (
     <div>
-      <Navbar cart={cart} locale={locale} compact />
+      <Navbar cart={cart} locale={locale} compact promotedItem={promotedItem} />
       {children}
       <Suspense>
         <Footer cart={cart} />

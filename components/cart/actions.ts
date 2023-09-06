@@ -28,6 +28,37 @@ export const addItem = async (variantId: string | undefined): Promise<String | u
   }
 };
 
+export const addItems = async ({
+  variantId,
+  quantity = 1
+}: {
+  variantId: string | undefined;
+  quantity: number;
+}): Promise<String | undefined> => {
+  let cartId = cookies().get('cartId')?.value;
+  let cart;
+
+  if (cartId) {
+    cart = await getCart(cartId);
+  }
+
+  if (!cartId || !cart) {
+    cart = await createCart();
+    cartId = cart.id;
+    cookies().set('cartId', cartId);
+  }
+
+  if (!variantId) {
+    return 'Missing product variant ID';
+  }
+
+  try {
+    await addToCart(cartId, [{ merchandiseId: variantId, quantity }]);
+  } catch (e) {
+    return quantity === 1 ? 'Error adding item to cart' : 'Error adding items to cart';
+  }
+};
+
 export const removeItem = async (lineId: string): Promise<String | undefined> => {
   const cartId = cookies().get('cartId')?.value;
 

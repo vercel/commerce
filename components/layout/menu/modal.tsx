@@ -120,14 +120,14 @@ export function MenuModal({ scrolled }: { scrolled: boolean }) {
                           </Link>
                         </div>
 
-                        <div>
+                        {/* <div>
                           <Link
                             href="/stories"
                             className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
                           >
                             {t('menu.stories')}
                           </Link>
-                        </div>
+                        </div> */}
 
                         <div>
                           <Link

@@ -54,7 +54,7 @@ export function InlineAddToCart({
         });
       }}
       className={clsx(
-        'p-4',
+        'h-[56px] p-4',
         'relative flex w-full items-center justify-center',
         'border border-white/20 hover:border-white',
         'font-serif text-base tracking-wider text-white',
@@ -68,7 +68,7 @@ export function InlineAddToCart({
       {!isPending ? (
         <span>{availableForSale ? t('cart.add') : t('cart.out-of-stock')}</span>
       ) : (
-        <LoadingDots className="my-3 bg-white" />
+        <LoadingDots className="bg-white" />
       )}
     </button>
   );

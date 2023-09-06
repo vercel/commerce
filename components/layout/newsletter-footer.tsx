@@ -15,16 +15,15 @@ export default function NewsletterSignup() {
         className="space-x-px md:flex"
         action={`${process?.env?.NEXT_PUBLIC_MAILCHIMP_HOST}/subscribe/post?u=${process?.env?.NEXT_PUBLIC_MAILCHIMP_USER_ID}&amp;id=${process?.env?.NEXT_PUBLIC_MAILCHIMP_LIST_ID}`}
         method="post"
-        name="mc-embedded-subscribe-form"
-        target="_blank"
+        name="mc-embedded-subscribe-footer-form"
       >
         <label htmlFor="email-address" className="sr-only">
           {t('newsletter.placeholder')}
         </label>
         <input
           type="email"
-          name="email-address"
-          id="email-address"
+          name="EMAIL"
+          id="EMAIL"
           autoComplete="email"
           required
           className={clsx(

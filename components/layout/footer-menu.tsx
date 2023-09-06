@@ -13,43 +13,43 @@ export default function FooterMenu() {
         <nav className="font-multilingual flex flex-col space-y-2 text-left text-sm font-extralight">
           <div>
             <Link href="/products" className="transition-opacity duration-150 hover:opacity-50">
-              {t('menu.products')}
+              {t('footer.menu.products')}
             </Link>
           </div>
 
           <div>
             <Link href="/shop-list" className="transition-opacity duration-150 hover:opacity-50">
-              {t('menu.shops')}
+              {t('footer.menu.shops')}
             </Link>
           </div>
 
           <div>
             <Link href="/about" className="transition-opacity duration-150 hover:opacity-50">
-              {t('menu.about')}
+              {t('footer.menu.about')}
             </Link>
           </div>
 
           <div>
             <Link href="/bar" className="transition-opacity duration-150 hover:opacity-50">
-              {t('menu.bar')}
+              {t('footer.menu.bar')}
             </Link>
           </div>
 
           <div>
             <Link href="/concept" className="transition-opacity duration-150 hover:opacity-50">
-              {t('menu.concept')}
+              {t('footer.menu.concept')}
             </Link>
           </div>
 
-          <div>
+          {/* <div>
             <Link href="/stories" className="transition-opacity duration-150 hover:opacity-50">
-              {t('menu.stories')}
+              {t('footer.menu.stories')}
             </Link>
-          </div>
+          </div> */}
 
           <div>
             <Link href="/company" className="transition-opacity duration-150 hover:opacity-50">
-              {t('menu.company')}
+              {t('footer.menu.company')}
             </Link>
           </div>
         </nav>

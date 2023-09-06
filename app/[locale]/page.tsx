@@ -20,7 +20,8 @@ import SagyobarPreview from 'components/layout/sagyobar-preview';
 import Shoplist from 'components/layout/shoplist';
 import StoriesPreview from 'components/layout/stories-preview';
 import { BLOG_HANDLE } from 'lib/constants';
-import { getCart } from 'lib/shopify';
+import { getCart, getProduct } from 'lib/shopify';
+import { Product } from 'lib/shopify/types';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import { Suspense } from 'react';
@@ -48,9 +49,14 @@ export default async function HomePage({
     cart = await getCart(cartId);
   }
 
+  const promotedItem: Product | undefined = await getProduct({
+    handle: 'gift-bag-and-postcard-set',
+    language: locale?.toUpperCase()
+  });
+
   return (
     <div>
-      <Navbar cart={cart} locale={locale} />
+      <Navbar cart={cart} locale={locale} promotedItem={promotedItem} />
       <div className="pt-12 md:pt-48">
         <HomepageProducts lang={locale} />
       </div>
@@ -145,7 +151,7 @@ export default async function HomePage({
       </div>
 
       <Suspense>
-        <Footer cart={cart} />
+        <Footer cart={cart} promotedItem={promotedItem} />
       </Suspense>
     </div>
   );

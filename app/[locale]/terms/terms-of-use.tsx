@@ -12,7 +12,7 @@ export default function TermsOfUse() {
         </div>
         <div className="mb-24 text-lg leading-normal">
           <div className="mt-4 text-center">{t('terms.pleaseRead')}</div>
-          <div className="my-8 text-center font-serif text-xl font-bold text-white md:my-16 md:text-2xl">
+          <div className="my-8 text-center text-xl font-bold text-white md:my-16 md:text-2xl">
             {t('terms.definitions.title')}
           </div>
           <div>
@@ -29,7 +29,7 @@ export default function TermsOfUse() {
             <p className="mt-4">{t('terms.definitions.socialMedia')}</p>
             <p className="mt-4">{t('terms.definitions.you')}</p>
           </div>
-          <div className="my-8 text-center font-serif text-xl font-bold text-white md:my-16 md:text-2xl">
+          <div className="my-8 text-center text-xl font-bold text-white md:my-16 md:text-2xl">
             {t('terms.acknowledgment.title')}
           </div>
           <div>
@@ -39,7 +39,7 @@ export default function TermsOfUse() {
             <p className="mt-4">{t('terms.acknowledgment.age')}</p>
             <p className="mt-4">{t('terms.acknowledgment.privacy')}</p>
           </div>
-          <div className="my-8 text-center font-serif text-xl font-bold text-white md:my-16 md:text-2xl">
+          <div className="my-8 text-center text-xl font-bold text-white md:my-16 md:text-2xl">
             {t('terms.orders.title')}
           </div>
           <div>
@@ -59,27 +59,27 @@ export default function TermsOfUse() {
               <li className="mt-4">{t('terms.orders.returns.exceptions.digital')}</li>
             </ul>
           </div>
-          <div className="my-8 text-center font-serif text-xl font-bold text-white md:my-16 md:text-2xl">
+          <div className="my-8 text-center text-xl font-bold text-white md:my-16 md:text-2xl">
             {t('terms.inaccuracies.title')}
           </div>
           <div>
             <p>{t('terms.inaccuracies.errorsPossible')}</p>
             <p className="mt-4">{t('terms.inaccuracies.noGuarantees')}</p>
           </div>
-          <div className="my-8 text-center font-serif text-xl font-bold text-white md:my-16 md:text-2xl">
+          <div className="my-8 text-center text-xl font-bold text-white md:my-16 md:text-2xl">
             {t('terms.prices.title')}
           </div>
           <div>
             <p>{t('terms.prices.changes')}</p>
             <p className="mt-4">{t('terms.prices.payments')}</p>
           </div>
-          <div className="my-8 text-center font-serif text-xl font-bold text-white md:my-16 md:text-2xl">
+          <div className="my-8 text-center text-xl font-bold text-white md:my-16 md:text-2xl">
             {t('terms.promotions.title')}
           </div>
           <div>
             <p>{t('terms.promotions.conflicts')}</p>
           </div>
-          <div className="my-8 text-center font-serif text-xl font-bold text-white md:my-16 md:text-2xl">
+          <div className="my-8 text-center text-xl font-bold text-white md:my-16 md:text-2xl">
             {t('terms.ip.title')}
           </div>
           <div>
@@ -88,13 +88,13 @@ export default function TermsOfUse() {
             <p className="mt-4">{t('terms.ip.trademarks')}</p>
             <p className="mt-4">{t('terms.ip.assignment')}</p>
           </div>
-          <div className="my-8 text-center font-serif text-xl font-bold text-white md:my-16 md:text-2xl">
+          <div className="my-8 text-center text-xl font-bold text-white md:my-16 md:text-2xl">
             {t('terms.thirdPartyLinks.title')}
           </div>
           <div>
             <p>{t('terms.thirdPartyLinks.noControl')}</p>
           </div>
-          <div className="my-8 text-center font-serif text-xl font-bold text-white md:my-16 md:text-2xl">
+          <div className="my-8 text-center text-xl font-bold text-white md:my-16 md:text-2xl">
             {t('terms.liability.title')}
           </div>
           <div>
@@ -102,14 +102,14 @@ export default function TermsOfUse() {
             <p className="mt-4">{t('terms.liability.noSpecialDamages')}</p>
             <p className="mt-4">{t('terms.liability.noSpecialDamages')}</p>
           </div>
-          <div className="my-8 text-center font-serif text-xl font-bold text-white md:my-16 md:text-2xl">
+          <div className="my-8 text-center text-xl font-bold text-white md:my-16 md:text-2xl">
             {t('terms.disclaimer.title')}
           </div>
           <div>
             <p>{t('terms.disclaimer.asIs')}</p>
             <p className="mt-4">{t('terms.disclaimer.conflicts')}</p>
           </div>
-          <div className="my-8 text-center font-serif text-xl font-bold text-white md:my-16 md:text-2xl">
+          <div className="my-8 text-center text-xl font-bold text-white md:my-16 md:text-2xl">
             {t('terms.misc.title')}
           </div>
           <div>
@@ -119,7 +119,7 @@ export default function TermsOfUse() {
             <p className="mt-4">{t('terms.misc.translation')}</p>
             <p className="mt-4">{t('terms.misc.changes')}</p>
           </div>
-          <div className="my-8 text-center font-serif text-xl font-bold text-white md:my-16 md:text-2xl">
+          <div className="my-8 text-center text-xl font-bold text-white md:my-16 md:text-2xl">
             {t('terms.contactUs.title')}
           </div>
           <div className="mb-12">

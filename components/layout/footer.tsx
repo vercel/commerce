@@ -3,14 +3,20 @@ import CartModal from 'components/cart/modal';
 import FacebookIcon from 'components/icons/facebook';
 import InstagramIcon from 'components/icons/instagram';
 import KanjiLogo from 'components/icons/kanji';
-import { Cart } from 'lib/shopify/types';
+import { Cart, Product } from 'lib/shopify/types';
 import Link from 'next/link';
 import FooterMenu from './footer-menu';
 import NewsletterFooter from './newsletter-footer';
 
 const { COMPANY_NAME, SITE_NAME } = process.env;
 
-export default async function Footer({ cart }: { cart?: Cart }) {
+export default async function Footer({
+  cart,
+  promotedItem
+}: {
+  cart?: Cart;
+  promotedItem?: Product;
+}) {
   const currentYear = new Date().getFullYear();
   const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '');
   const copyrightName = COMPANY_NAME || SITE_NAME || '';
@@ -38,7 +44,9 @@ export default async function Footer({ cart }: { cart?: Cart }) {
                   <p className="font-serif text-xs font-semibold">suginomori brewery</p>
                 </div>
                 <div className="flex flex-col items-start space-y-2">
-                  <p className="font-japan text-xl font-extralight">長野県塩尻市奈良井551-1</p>
+                  <p className="font-japan text-lg font-extralight md:text-xl">
+                    長野県塩尻市奈良井551-1
+                  </p>
                   <p className="font-serif text-xs font-semibold">551-1 Narai, Shiojiri, Nagano</p>
                 </div>
               </div>
@@ -50,14 +58,16 @@ export default async function Footer({ cart }: { cart?: Cart }) {
             <Link href="/" className="transition-opacity duration-150 hover:opacity-90">
               <KanjiLogo className="h-64" />
             </Link>
-            <div className="flex grow flex-col items-end space-y-6">
+            <div className="flex grow flex-col space-y-6 md:items-end">
               <div className="flex flex-col items-start space-y-2">
                 <p className="font-japan text-[22px] font-extralight">杉の森酒造</p>
                 <p className="font-serif text-lg">suginomori brewery</p>
               </div>
               <div className="flex flex-col items-start space-y-2">
-                <p className="font-japan text-[17px] font-extralight">長野県塩尻市奈良井551-1</p>
-                <p className="font-serif text-lg">551-1 Narai, Shiojiri, Nagano</p>
+                <p className="font-japan text-sm font-extralight md:text-[17px]">
+                  長野県塩尻市奈良井551-1
+                </p>
+                <p className="font-serif text-sm md:text-lg">551-1 Narai, Shiojiri, Nagano</p>
               </div>
               <div className="flex flex-row justify-between space-x-4">
                 <div className="flex flex-row items-center space-x-6">
@@ -69,7 +79,7 @@ export default async function Footer({ cart }: { cart?: Cart }) {
                   </Link>
                 </div>
               </div>
-              <div className="text-right font-serif">
+              <div className="font-serif md:text-right">
                 <div>
                   &copy; {copyrightDate} {copyrightName}
                   {copyrightName.length && !copyrightName.endsWith('.') ? '.' : ''}
@@ -85,12 +95,22 @@ export default async function Footer({ cart }: { cart?: Cart }) {
 
             <div className="flex flex-col space-y-2 pt-24">
               <div className="flex flex-row justify-between space-x-4">
-                <CartModal cart={cart} />
+                <CartModal cart={cart} promotedItem={promotedItem} />
                 <div className="flex flex-row items-center space-x-6">
-                  <Link href="https://www.instagram.com/suginomoribrewery/" className="group">
+                  <Link
+                    href="https://www.instagram.com/suginomoribrewery/"
+                    className="group"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     <InstagramIcon className="h-6 stroke-transparent transition-all ease-in-out group-hover:scale-110" />
                   </Link>
-                  <Link href="https://www.facebook.com/suginomoribrewery" className="group">
+                  <Link
+                    href="https://www.facebook.com/suginomoribrewery"
+                    className="group"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
                     <FacebookIcon className="h-6 stroke-transparent transition-all ease-in-out group-hover:scale-110" />
                   </Link>
                 </div>

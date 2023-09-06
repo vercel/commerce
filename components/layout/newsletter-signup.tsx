@@ -14,14 +14,13 @@ export default function NewsletterSignup() {
         action={`${process?.env?.NEXT_PUBLIC_MAILCHIMP_HOST}/subscribe/post?u=${process?.env?.NEXT_PUBLIC_MAILCHIMP_USER_ID}&amp;id=${process?.env?.NEXT_PUBLIC_MAILCHIMP_LIST_ID}`}
         method="post"
         name="mc-embedded-subscribe-form"
-        target="_blank"
       >
         <label htmlFor="email-address" className="sr-only">
           {t('newsletter.placeholder')}
         </label>
         <input
           type="email"
-          name="email-address"
+          name="EMAIL"
           id="email-address"
           autoComplete="email"
           required

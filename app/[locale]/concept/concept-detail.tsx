@@ -28,20 +28,23 @@ export default function ConceptDetail() {
         )}
       >
         <div className="md:w-1/2">
-          <h2 className="max-w-sm pb-12 text-4xl md:text-5xl">{t('concept.title')}</h2>
-          <p className="font-multilingual text-base font-extralight">
-            {t('concept.para001')} {t('concept.para002')} {t('concept.para003')}
-          </p>
-          <div className="font-multilingual pt-24 font-extralight">
-            <p className="pb-6 text-xl font-normal">{t('concept.subtitle001')}</p>
-            <p className="pb-24 text-base leading-relaxed">{t('concept.para004')}</p>
-            <p className="pb-6 text-xl font-normal">{t('concept.subtitle002')}</p>
-            <p className="pb-4 text-base leading-relaxed">{t('concept.para005')}</p>
-            <p className="pb-4 text-base leading-relaxed">
-              {t('concept.para006')} {t('concept.para007')} {t('concept.para008')}
+          <div className="flex flex-col space-y-6">
+            <h2 className="max-w-sm pb-12 text-4xl md:text-5xl">{t('concept.title')}</h2>
+            <p className="font-multilingual text-base font-extralight">
+              <span>{t('concept.para001')}</span> <span>{t('concept.para002')}</span>{' '}
+              <span>{t('concept.para003')}</span>
             </p>
-            <p className="pb-4 text-base leading-relaxed">{t('concept.para009')}</p>
-            <p className="text-base leading-relaxed">{t('concept.para010')}</p>
+            <div className="font-multilingual pt-6 font-extralight">
+              <p className="pb-6 text-xl font-normal">{t('concept.subtitle001')}</p>
+              <p className="pb-12 text-base leading-relaxed">{t('concept.para004')}</p>
+              <p className="pb-4 text-base leading-relaxed">{t('concept.para005')}</p>
+              <p className="pb-4 text-base leading-relaxed">{t('concept.para006')}</p>
+              <p className="pb-4 text-base leading-relaxed">
+                {t('concept.para007')} {t('concept.para008')}
+              </p>
+              <p className="pb-4 text-base leading-relaxed">{t('concept.para009')}</p>
+              <p className="text-base leading-relaxed">{t('concept.para010')}</p>
+            </div>
           </div>
         </div>
         <div className="flex flex-row items-start justify-end md:w-1/2">

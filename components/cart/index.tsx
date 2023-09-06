@@ -1,8 +1,10 @@
-import { getCart } from 'lib/shopify';
+import { SupportedLocale } from 'components/layout/navbar/language-control';
+import { getCart, getProduct } from 'lib/shopify';
+import { Product } from 'lib/shopify/types';
 import { cookies } from 'next/headers';
 import CartModal from './modal';
 
-export default async function Cart() {
+export default async function Cart({ locale }: { locale?: SupportedLocale }) {
   const cartId = cookies().get('cartId')?.value;
   let cart;
 
@@ -10,5 +12,10 @@ export default async function Cart() {
     cart = await getCart(cartId);
   }
 
-  return <CartModal cart={cart} />;
+  const promotedItem: Product | undefined = await getProduct({
+    handle: 'gift-bag-and-postcard-set',
+    language: locale?.toUpperCase() || 'EN'
+  });
+
+  return <CartModal cart={cart} promotedItem={promotedItem} />;
 }

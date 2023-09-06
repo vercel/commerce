@@ -39,7 +39,8 @@
     "react": "latest",
     "react-dom": "latest",
     "react-intersection-observer": "^9.5.2",
-    "react-player": "^2.12.0"
+    "react-player": "^2.12.0",
+    "sharp": "^0.32.5"
   },
   "devDependencies": {
     "@tailwindcss/container-queries": "^0.1.1",

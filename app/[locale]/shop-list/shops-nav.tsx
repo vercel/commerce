@@ -8,10 +8,10 @@ export default function ShopsNav() {
   return (
     <div>
       <div className="font-multilingual flex flex-row items-baseline space-x-6 pb-12">
-        <Link href="/#shops">
-          <span className="flex flex-row items-center space-x-1.5">
+        <Link href="/#shops" className="transition-opacity duration-150 hover:opacity-60">
+          <span className="flex flex-row items-center space-x-4">
             <span>←</span>
-            <span>{t('shops.all')}</span>
+            <span>{t('shops.top')}</span>
           </span>
         </Link>
         <div>|</div>
