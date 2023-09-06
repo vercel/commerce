@@ -2,10 +2,10 @@ import { Lato, Noto_Serif_JP } from 'next/font/google';
 import localFont from 'next/font/local';
 import { ReactNode, Suspense } from 'react';
 
-import { GoogleProvider } from 'app/context/google-provider';
 import { SupportedLocale } from 'components/layout/navbar/language-control';
 import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
+import Analytics from './analytics';
 import './globals.css';
 
 const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;
@@ -88,8 +88,6 @@ export default async function RootLayout({
     notFound();
   }
 
-  const shouldTrack = process.env.NODE_ENV === 'production';
-
   return (
     <html
       lang={params.locale}
@@ -97,11 +95,10 @@ export default async function RootLayout({
     >
       <body className="bg-dark text-white selection:bg-green-800 selection:text-green-400">
         <NextIntlClientProvider locale={params?.locale} messages={messages}>
-          <GoogleProvider isShowing={shouldTrack}>
-            <Suspense>
-              <main>{children}</main>
-            </Suspense>
-          </GoogleProvider>
+          <Suspense>
+            <Analytics />
+            <main>{children}</main>
+          </Suspense>
         </NextIntlClientProvider>
       </body>
     </html>
