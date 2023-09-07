@@ -8,7 +8,7 @@ export function ProductTastingNotes({ product }: { product: Product }) {
   const imageHeight = product?.notesImage?.reference?.image?.height;
   const imageAlt = product?.notesImage?.reference?.image?.altText;
 
-  if (!imageUrl && !imageWidth && !imageHeight) {
+  if (!product?.notes || !imageUrl || !imageWidth || !imageHeight) {
     return null;
   }
 

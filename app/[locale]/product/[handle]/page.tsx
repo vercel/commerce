@@ -151,9 +151,11 @@ export default async function ProductPage({
             </div>
           </div>
 
-          <div className="bg-base p-12 text-dark">
-            <ProductTastingNotes product={product} />
-          </div>
+          {!!product?.notes && (
+            <div className="bg-base p-12 text-dark">
+              <ProductTastingNotes product={product} />
+            </div>
+          )}
 
           {!!product?.galleryIntro?.value && (
             <div className="font-multilingual flex w-full flex-row justify-end whitespace-pre-line">
