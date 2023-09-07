@@ -4,42 +4,45 @@ type schemas = components['schemas'];
 
 type operationsWithoutOriginal = Omit<
   operations,
+  | 'addLineItem'
+  | 'deleteLineItem'
+  | 'readCart'
   | 'readCategory'
   | 'readCategoryList'
   | 'readNavigation'
   | 'readProduct'
   | 'readProductCrossSellings'
   | 'readProductListing'
+  | 'readSeoUrl'
   | 'searchPage'
-  | 'addLineItem'
-  | 'readCart'
-  | 'deleteLineItem'
 >;
 
 export type extendedPaths =
+  | 'addLineItem post /checkout/cart/line-item'
+  | 'deleteLineItem delete /checkout/cart/line-item?id[]={ids}'
+  | 'readCart get /checkout/cart?name'
   | 'readCategory post /category/{navigationId}?slots'
   | 'readCategoryList post /category'
   | 'readNavigation post /navigation/{activeId}/{rootId} sw-include-seo-urls'
   | 'readProduct post /product'
   | 'readProductCrossSellings post /product/{productId}/cross-selling'
   | 'readProductListing post /product-listing/{categoryId}'
+  | 'readSeoUrl post /seo-url'
   | 'searchPage post /search'
-  | 'addLineItem post /checkout/cart/line-item'
-  | 'readCart get /checkout/cart?name'
-  | 'deleteLineItem delete /checkout/cart/line-item?id[]={ids}'
   | operationPaths;
 
 export type extendedOperations = operationsWithoutOriginal & {
+  addLineItem: extendedAddLineItem;
+  deleteLineItem: extendedDeleteLineItem;
+  readCart: extendedReadCart;
   readCategory: extendedReadCategory;
   readCategoryList: extendedReadCategoryList;
   readNavigation: extendedReadNavigation;
   readProduct: extendedReadProduct;
   readProductCrossSellings: extendedReadProductCrossSellings;
   readProductListing: extendedReadProductListing;
+  readSeoUrl: extendedReadSeoUrl;
   searchPage: extendedSearchPage;
-  addLineItem: extendedAddLineItem;
-  readCart: extendedReadCart;
-  deleteLineItem: extendedDeleteLineItem;
 };
 
 export type messageKeys =
@@ -133,11 +136,18 @@ export type ExtendedCategory = Omit<schemas['Category'], 'children' | 'seoUrls' 
   cmsPage?: ExtendedCmsPage;
 };
 
+export type ExtendedCriteriaFilter = {
+  field?: string;
+  type: string;
+  value?: string | boolean | null;
+};
+
 export type ExtendedCriteria = Omit<schemas['Criteria'], 'filter'> & {
   filter?: {
-    field: string;
+    field?: string;
     type: string;
-    value: string | boolean | null;
+    value?: string | boolean | null;
+    queries?: ExtendedCriteriaFilter[];
   }[];
 };
 
@@ -356,6 +366,25 @@ type extendedReadProductListing = {
         'application/json': ExtendedProductListingResult;
       };
     };
+  };
+};
+
+type extendedReadSeoUrl = {
+  requestBody?: {
+    content: {
+      'application/json': ExtendedCriteria;
+    };
+  };
+  responses: {
+    /** Entity search result containing seo urls. */
+    200: {
+      content: {
+        'application/json': {
+          elements?: components['schemas']['SeoUrl'][];
+        } & components['schemas']['EntitySearchResult'];
+      };
+    };
+    404: components['responses']['404'];
   };
 };
 

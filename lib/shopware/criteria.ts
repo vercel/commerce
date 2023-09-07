@@ -214,6 +214,31 @@ export function getDefaultCrossSellingCriteria(page: number = 1, limit: number =
   };
 }
 
+export function getSeoUrlCriteria(handle: string, page: number = 1, limit: number = 1) {
+  return {
+    page: page,
+    limit: limit,
+    filter: [
+      {
+        type: 'multi',
+        operator: 'or',
+        queries: [
+          {
+            type: 'equals',
+            field: 'seoPathInfo',
+            value: handle + '/'
+          },
+          {
+            type: 'equals',
+            field: 'seoPathInfo',
+            value: handle
+          }
+        ]
+      }
+    ]
+  };
+}
+
 export function getSortingCriteria(sortKey?: string, reverse?: boolean) {
   switch (true) {
     case sortKey === 'CREATED_AT' && reverse === true:

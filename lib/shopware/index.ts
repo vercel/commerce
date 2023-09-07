@@ -22,6 +22,7 @@ import {
   getDefaultProductsCriteria,
   getDefaultSearchProductsCriteria,
   getDefaultSubCategoriesCriteria,
+  getSeoUrlCriteria,
   getSortingCriteria
 } from './criteria';
 import {
@@ -81,7 +82,8 @@ export async function getPage(handle: string | []): Promise<Page | undefined> {
 export async function getFirstSeoUrlElement(
   handle: string
 ): Promise<ApiSchemas['SeoUrl'] | undefined> {
-  const seoURL = await requestSeoUrl(handle);
+  const seoURLCriteria = getSeoUrlCriteria(handle);
+  const seoURL = await requestSeoUrl(seoURLCriteria);
   if (seoURL && seoURL.elements && seoURL.elements.length > 0 && seoURL.elements[0]) {
     return seoURL.elements[0];
   }

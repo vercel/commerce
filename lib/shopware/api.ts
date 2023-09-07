@@ -64,7 +64,7 @@ export async function requestCategory(
   try {
     return await getApiClient().invoke('readCategory post /category/{navigationId}?slots', {
       navigationId: categoryId,
-      criteria
+      ...criteria
     });
   } catch (error) {
     if (error instanceof ApiClientError) {
@@ -167,35 +167,10 @@ export async function requestSeoUrls(routeName: RouteNames, page: number = 1, li
 }
 
 export async function requestSeoUrl(
-  handle: string,
-  page: number = 1,
-  limit: number = 1
+  criteria: Partial<ExtendedCriteria>
 ): Promise<SeoURLResultSW | undefined> {
   try {
-    const criteriaSeoUrls = {
-      page: page,
-      limit: limit,
-      filter: [
-        {
-          type: 'multi',
-          operator: 'or',
-          queries: [
-            {
-              type: 'equals',
-              field: 'seoPathInfo',
-              value: handle + '/'
-            },
-            {
-              type: 'equals',
-              field: 'seoPathInfo',
-              value: handle
-            }
-          ]
-        }
-      ]
-    };
-    // @ts-ignore
-    return await getApiClient().invoke('readSeoUrl post /seo-url', criteriaSeoUrls);
+    return await getApiClient().invoke('readSeoUrl post /seo-url', criteria);
   } catch (error) {
     if (error instanceof ApiClientError) {
       console.error(error);
