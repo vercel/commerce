@@ -11,8 +11,8 @@ function ProductGridItem({ item, priority }: { item: Product; priority?: boolean
 
   return (
     <div className={clsx('col-span-1 row-span-1 md:col-span-2 md:row-span-1')}>
-      <Link className="w-full bg-black/30" href={`/product/${item.handle}`}>
-        <div className="relative block aspect-square overflow-hidden ">
+      <Link className="block w-full pb-12" href={`/product/${item.handle}`}>
+        <div className="relative block aspect-square overflow-hidden">
           <GridTileImage
             src={item.featuredImage.url}
             fill
@@ -28,7 +28,7 @@ function ProductGridItem({ item, priority }: { item: Product; priority?: boolean
             currencyCode={item.priceRange.maxVariantPrice.currencyCode}
             size={size?.value}
           />
-          <div className="line-clamp-4 pt-2 font-extralight">{item?.summary?.value}</div>
+          <div className="line-clamp-4 pt-2 text-sm font-extralight">{item?.summary?.value}</div>
         </div>
       </Link>
     </div>
