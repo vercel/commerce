@@ -15,7 +15,7 @@ export default function SagyobarPreview() {
       <div className="font-multilingual flex flex-col space-y-6 text-base font-extralight md:w-1/2">
         <div>{t('home.previews.bar.body')}</div>
         <Link
-          href="/sagyobar"
+          href="/bar"
           className="max-w-sm border border-white px-6 py-3 text-center text-base transition-colors duration-150 hover:border-white/50"
         >
           {t('home.previews.bar.button')}

@@ -7,11 +7,11 @@ export default function Shoplist() {
   const t = useTranslations('Index');
   return (
     <div className="font-multilingual mx-auto max-w-screen-xl space-y-4 px-6" id="shops">
-      <div className="flex w-full flex-row items-baseline space-x-12 pb-6">
-        <h2 className="font-serif text-6xl tracking-wider">shop list</h2>
+      <div className="flex w-full flex-row items-baseline space-x-12 pb-2 md:pb-6">
+        <h2 className="font-serif text-2xl tracking-wider md:text-5xl">shop list</h2>
         <h3 className="text-2xl font-extralight tracking-wider">{t('shops.subtitle')}</h3>
       </div>
-      <div className="grid w-full grid-cols-2 gap-px">
+      <div className="grid w-full grid-cols-1 gap-px md:grid-cols-2">
         <Link
           href="shop-list/#hokkaido"
           className="group col-span-1 flex flex-row items-center justify-between p-6 outline outline-1 outline-subtle"

@@ -76,7 +76,7 @@ export default function Navbar({
           <Link href="/" className="transition-opacity duration-150 hover:opacity-90">
             <LogoNamemark
               className={clsx(
-                inView && !compact ? 'w-[260px] md:w-[600px]' : 'w-[260px] md:w-[260px]',
+                inView && !compact ? 'min-w-[180px] md:w-[600px]' : 'min-w-[180px] md:w-[260px]',
                 'fill-current transition-all duration-150',
                 compact ? 'pt-4 md:pt-6' : 'pt-4 md:pt-12'
               )}

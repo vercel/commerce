@@ -41,12 +41,12 @@ export function AddManyToCart({
   return (
     <div className="flex flex-col space-y-2">
       <div className="font-multilingual flex flex-row items-center space-x-2 border border-white/50">
-        <div className="px-3">{t('cart.quantity-label')}</div>
+        <div className="w-[80px] px-3">{t('cart.quantity-label')}</div>
         <input
           value={currentQuantity}
           onChange={(e) => setCurrentQuantity(Number(e.target.value))}
           className={clsx(
-            'w-auto grow bg-transparent px-2 py-3 text-right text-white',
+            'min-w-[200px] grow bg-transparent px-2 py-3 text-right text-white',
             'outline-none focus:border-0 focus:outline-none focus:ring-0',
             'focus-visible:ring-none focus-visible:border-none focus-visible:outline-none',
             'focus-visible:ring-0 focus-visible:ring-offset-0',

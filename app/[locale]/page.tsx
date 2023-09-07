@@ -60,7 +60,7 @@ export default async function HomePage({
       <div className="pt-12 md:pt-48">
         <HomepageProducts lang={locale} />
       </div>
-      <div className="py-48">
+      <div className="py-24 md:py-48">
         <NewsletterSignup />
       </div>
       <div className="relative mx-auto max-w-screen-xl">

@@ -221,7 +221,7 @@ async function RelatedProducts({ id }: { id: string }) {
               className="relative block h-full w-full transition-opacity duration-150 hover:opacity-90"
               href={`/product/${product.handle}`}
             >
-              <div className="relative block aspect-square overflow-hidden">
+              <div className="relative z-10 block aspect-square overflow-hidden">
                 <GridTileImage
                   alt={product.title}
                   label={{

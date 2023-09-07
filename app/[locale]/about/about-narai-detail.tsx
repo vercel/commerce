@@ -17,8 +17,8 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
   return (
     <div className="w-full px-6">
       <div className="font-multilingual flex w-full flex-col items-center space-y-px pb-24 text-center font-extralight md:pb-48">
-        <h1 className="text-6xl">{t('about.001.title')}</h1>
-        <h1 className="text-6xl">{t('about.001.subtitle')}</h1>
+        <h1 className="text-5xl leading-tight md:text-6xl">{t('about.001.title')}</h1>
+        <h1 className="text-5xl leading-tight md:text-6xl">{t('about.001.subtitle')}</h1>
       </div>
 
       <div className="relative mx-auto max-w-screen-2xl">
@@ -26,7 +26,7 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
           src={AboutImage001}
           priority={true}
           alt="A picture of the exterior of the brewery building."
-          className={clsx('h-full w-full object-cover')}
+          className={clsx('aspect-square h-full w-full object-cover md:aspect-auto')}
         />
       </div>
       <div
@@ -34,7 +34,7 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
           'font-multilingual mx-auto flex w-full max-w-3xl flex-col space-y-12 py-24 text-left font-extralight md:py-48'
         )}
       >
-        <h2 className="text-5xl">{t('about.002.title')}</h2>
+        <h2 className="text-3xl leading-tight md:text-5xl">{t('about.002.title')}</h2>
         <p className="text-base leading-loose">{t('about.002.para001')}</p>
         <p className="text-base leading-loose">{t('about.002.para002')}</p>
       </div>
@@ -44,7 +44,7 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
           src={AboutImage002}
           priority={true}
           alt="A picture of the interior of the brewery building."
-          className={clsx('h-full w-full object-cover')}
+          className={clsx('aspect-square h-full w-full object-cover md:aspect-auto')}
         />
       </div>
 
@@ -53,7 +53,7 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
           'font-multilingual mx-auto flex w-full max-w-3xl flex-col space-y-12 py-24 text-left font-extralight md:py-48'
         )}
       >
-        <h2 className="text-5xl">{t('about.003.title')}</h2>
+        <h2 className="text-3xl leading-tight md:text-5xl">{t('about.003.title')}</h2>
         <p className="text-base leading-loose">{t('about.003.para001')}</p>
         <div>
           <div className="relative flex flex-row justify-end pb-6">
@@ -76,7 +76,7 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
             'font-multilingual mx-auto flex w-full max-w-screen-xl flex-col space-y-12 py-24 text-left font-extralight md:py-48'
           )}
         >
-          <div className="font-multilingual flex flex-row items-baseline space-x-4">
+          <div className="font-multilingual flex flex-col items-baseline space-y-0 md:flex-row md:space-x-4">
             <h2 className="text-5xl">{t('about.awards.title')}</h2>
             <h3 className="text-xl font-extralight">{t('about.awards.subtitle')}</h3>
           </div>
@@ -94,7 +94,7 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
       >
         <div className="flex flex-col space-y-24">
           <div className="font-multilingual font-extralight">
-            <div className="flex flex-row items-baseline space-x-3">
+            <div className="flex flex-col items-baseline md:flex-row md:space-x-3">
               <h2 className="text-5xl">{t('about.materials.title')}</h2>
               <h2 className="text-4xl">{t('about.materials.subtitle')}</h2>
             </div>
@@ -104,17 +104,19 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
             src={AboutImage003}
             priority={true}
             alt="A picture of the exterior of the brewery building."
-            className={clsx('h-full w-full object-cover')}
+            className={clsx('aspect-square h-full w-full object-cover md:aspect-auto')}
           />
 
           <div className="font-multilingual flex flex-col space-y-12 font-extralight md:flex-row md:space-x-6 md:space-y-0">
             <div className="md:w-1/2">
-              <h2 className="max-w-title text-3xl leading-normal">
-                {t('about.materials.water.title')}
-              </h2>
-              <h2 className="max-w-title text-3xl leading-normal">
-                {t('about.materials.water.subtitle')}
-              </h2>
+              <div className="flex flex-row items-baseline space-x-3">
+                <h2 className="max-w-title text-3xl leading-normal">
+                  {t('about.materials.water.title')}
+                </h2>
+                <h2 className="max-w-title text-3xl leading-normal">
+                  {t('about.materials.water.subtitle')}
+                </h2>
+              </div>
             </div>
             <div className="md:w-1/2">
               <p className="text-base leading-relaxed">{t('about.materials.water.body')}</p>
@@ -127,17 +129,19 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
             src={AboutImage004}
             priority={true}
             alt="A picture of the rice fields and mountains of Nagano."
-            className={clsx('h-full w-full object-cover')}
+            className={clsx('aspect-square h-full w-full object-cover md:aspect-auto')}
           />
 
           <div className="font-multilingual flex flex-col space-y-12 font-extralight md:flex-row md:space-x-6 md:space-y-0">
             <div className="md:w-1/2">
-              <h2 className="max-w-title text-3xl leading-normal">
-                {t('about.materials.rice.title')}
-              </h2>
-              <h2 className="max-w-title text-3xl leading-normal">
-                {t('about.materials.rice.subtitle')}
-              </h2>
+              <div className="flex flex-row items-baseline space-x-3">
+                <h2 className="max-w-title text-3xl leading-normal">
+                  {t('about.materials.rice.title')}
+                </h2>
+                <h2 className="max-w-title text-3xl leading-normal">
+                  {t('about.materials.rice.subtitle')}
+                </h2>
+              </div>
             </div>
             <div className="md:w-1/2">
               <p className="text-base leading-relaxed">{t('about.materials.rice.body')}</p>
@@ -150,7 +154,7 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
             src={AboutImage005}
             priority={true}
             alt="A picture of the interior of the brewery."
-            className={clsx('h-full w-full object-cover')}
+            className={clsx('aspect-square h-full w-full object-cover md:aspect-auto')}
           />
 
           <div className="font-multilingual flex flex-col space-y-12 font-extralight md:flex-row md:space-x-6 md:space-y-0">
@@ -182,7 +186,7 @@ export default function AboutNaraiDetail({ awards }: { awards: string }) {
           src={AboutImage006}
           priority={true}
           alt="A picture of Irie-san."
-          className={clsx('h-full w-full object-cover')}
+          className={clsx('aspect-square h-full w-full object-cover md:aspect-auto')}
         />
       </div>
     </div>

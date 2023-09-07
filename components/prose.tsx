@@ -14,7 +14,7 @@ const Prose: FunctionComponent<TextProps> = ({ html, className }) => {
         'font-multilingual text-[15px] font-extralight text-current',
         'prose-headings:mt-8 prose-headings:font-semibold prose-headings:tracking-wide prose-headings:text-current',
         'prose-h1:text-5xl prose-h2:text-4xl prose-h3:text-3xl prose-h4:text-2xl prose-h5:text-xl prose-h6:text-lg',
-        'prose-a:text-current/80 prose-a:underline hover:prose-a:text-current',
+        'prose-a:text-white/80 prose-a:underline hover:prose-a:text-current',
         'prose-strong:text-current',
         'prose-td:border-opacity-20 prose-td:py-4 prose-td:font-normal',
         'prose-tr:border-subtle',

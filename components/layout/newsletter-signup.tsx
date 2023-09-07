@@ -6,7 +6,7 @@ export default function NewsletterSignup() {
   const t = useTranslations('Index');
 
   return (
-    <div className="mx-auto max-w-xl space-y-4">
+    <div className="mx-auto max-w-xl space-y-4 px-4">
       <h3 className="font-serif text-2xl tracking-wider">{t('newsletter.title')}</h3>
       <div className="font-multilingual text-sm font-extralight">{t('newsletter.description')}</div>
       <form

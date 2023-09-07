@@ -5,6 +5,7 @@ import { ReactNode, Suspense } from 'react';
 import { SupportedLocale } from 'components/layout/navbar/language-control';
 import { NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
+import Analytics from './analytics';
 import './globals.css';
 
 const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;
@@ -95,6 +96,7 @@ export default async function RootLayout({
       <body className="bg-dark text-white selection:bg-green-800 selection:text-green-400">
         <NextIntlClientProvider locale={params?.locale} messages={messages}>
           <Suspense>
+            <Analytics />
             <main>{children}</main>
           </Suspense>
         </NextIntlClientProvider>

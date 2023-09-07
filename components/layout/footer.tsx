@@ -98,7 +98,7 @@ export default async function Footer({
                 <CartModal cart={cart} promotedItem={promotedItem} />
                 <div className="flex flex-row items-center space-x-6">
                   <Link
-                    href="https://www.instagram.com/suginomoribrewery/"
+                    href="https://www.instagram.com/narai.sake/"
                     className="group"
                     rel="noopener noreferrer"
                     target="_blank"
@@ -106,7 +106,7 @@ export default async function Footer({
                     <InstagramIcon className="h-6 stroke-transparent transition-all ease-in-out group-hover:scale-110" />
                   </Link>
                   <Link
-                    href="https://www.facebook.com/suginomoribrewery"
+                    href="https://www.facebook.com/narai.sake"
                     className="group"
                     rel="noopener noreferrer"
                     target="_blank"
