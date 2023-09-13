@@ -3,12 +3,12 @@ export const baseArtworkNumber = '000';
 export const sizes = [ 'xxs', 'xs', 's', 'm', 'l', 'xl', 'xxl', 'xxxl' ];
 
 export const garmentTypes = {
-  tshirt: 'tshirt',
-  cropT: 'cropT',
-  hoodie: 'hoodie',
-  zipHood: 'zipHood',
-  crew: 'crew',
-  cropCrew: 'cropCrew',
+  tshirt: 'tshirt' as const,
+  cropT: 'cropT' as const,
+  hoodie: 'hoodie' as const,
+  zipHood: 'zipHood' as const,
+  crew: 'crew' as const,
+  cropCrew: 'cropCrew' as const,
 };
 
 export const garmentHandleKeys = {

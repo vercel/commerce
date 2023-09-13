@@ -49,16 +49,16 @@ export default async function Footer() {
         </div> */}
       </div>
       <div className="border-t border-neutral-200 py-6 text-sm dark:border-neutral-700">
-        <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-1 md:flex-row md:gap-0">
+        <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-1 md:flex-row md:gap-0 pl-4">
           <p>
             &copy; {copyrightDate} {copyrightName}
             {copyrightName.length && !copyrightName.endsWith('.') ? '.' : ''} All rights reserved.
           </p>
-          <hr className="mx-4 hidden h-4 w-[1px] border-l border-neutral-400 md:inline-block" />
-          <p>Designed in England</p>
+          {/* <hr className="mx-4 hidden h-4 w-[1px] border-l border-neutral-400 md:inline-block" /> */}
+          {/* <p>Designed in England</p> */}
           <p className="md:ml-auto">
             Crafted by{' '}
-            <Link href="https://www.instagram.com/sammiisparkle" className="text-black dark:text-white" target="_blank">
+            <Link href="https://www.instagram.com/sammiisparkle" className="text-black dark:text-white pr-2" target="_blank">
               Sammii Sparkle
             </Link>
           </p>

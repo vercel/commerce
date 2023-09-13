@@ -1,12 +1,6 @@
-import { baseArtworkNumber, collectionsSKUs, colorSKUs, customisationSKUs, garmentHandleKeys, garmentSKUs, garmentSizes, sizeSKUs } from "constants/sku";
+import { collectionsSKUs, colorSKUs, customisationSKUs, garmentHandleKeys, garmentSKUs, garmentSizes, sizeSKUs } from "constants/sku";
 
 type TitleInfo = Awaited<ReturnType<typeof extractInfoFromTitle>>;
-
-const artworkNumberCompiler = (artworkNumber: string) => {
-  const length = artworkNumber.length
-  const slice = baseArtworkNumber.slice(0, length + 1)
-  return slice + artworkNumber
-}
 
 const garmentHandleKeyMapper = (garmentKeys: string[]) => {
   const garmentTitle = garmentKeys.join(' ');
@@ -30,7 +24,7 @@ const extractInfoFromTitle = (productTitle: string) => {
 
 const collectionSKUMapper = (titleInfo: TitleInfo) => {
   const collectionSKU = collectionsSKUs[titleInfo.collectionKey as keyof typeof collectionsSKUs];
-  const artworkSKU = artworkNumberCompiler(titleInfo.artworkNumber!);
+  const artworkSKU = titleInfo.artworkNumber!.padStart(4, "0");
   const garmentSKU = garmentHandleKeyMapper(titleInfo.garmentKeys);
   
   return `SCSQ${collectionSKU}${artworkSKU}_${garmentSKU}`;
