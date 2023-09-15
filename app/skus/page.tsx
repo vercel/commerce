@@ -1,18 +1,39 @@
 import { createProductSKUs } from 'lib/helpers/skus';
 import { getProducts } from 'lib/shopify';
 
-import { Dropbox } from 'dropbox';
+import { Dropbox, DropboxResponse, files } from 'dropbox';
+
+// how to get new Dropbox refresh token
+// 1. go to https://www.dropbox.com/oauth2/authorize?client_id=YOUR_APP_KEY&token_access_type=offline&response_type=code&redirect_uri=https://www.dropbox.com/1/oauth2/display_token
+// 2. copy code from URL after redirect
+// 3. curl
+// curl -X POST https://api.dropboxapi.com/oauth2/token \
+// -d 'grant_type=authorization_code' \
+// -d 'code=CODE_HERE' \
+// -d 'client_id=CLIENT_ID' \
+// -d 'client_secret=CLIENT_SECRET' \
+// -d 'redirect_uri=https://www.dropbox.com/1/oauth2/display_token'
+
 
 export default async function SKUCheckPage() {
   const products = await getProducts({});
 
-  const dbx = new Dropbox({
-    accessToken: process.env.DROPBOX_TOKEN
-  });
+  let dbxFiles: DropboxResponse<files.ListFolderResult> | undefined;
+  let dbxError: string | undefined;
 
-  const dbxFiles = await dbx.filesListFolder({
-    path: '/scape squared/004 print ready - print files'
-  });
+  try {
+    const dbx = new Dropbox({
+      clientId: process.env.DROPBOX_APP_KEY,
+      clientSecret: process.env.DROPBOX_APP_SECRET,
+      refreshToken: process.env.DROPBOX_REFRESH_TOKEN
+    });
+  
+    dbxFiles = await dbx.filesListFolder({
+      path: '/scape squared/004 print ready - print files'
+    });
+  } catch (e) {
+    dbxError = e + ""
+  }
 
   // sabotage?
   // dbxFiles.result.entries.splice(5, 1);
@@ -25,7 +46,7 @@ export default async function SKUCheckPage() {
         // sabotage?
         // product.variants[3]!.sku = 'SCSQ10001_STTU781_M_C002_B_NT';
 
-        const productFiles = dbxFiles.result.entries
+        const productFiles = dbxFiles?.result.entries
           .filter((file) => file.name.startsWith(skus[0]!.split('_')[0]!))
 
         return (
@@ -34,10 +55,10 @@ export default async function SKUCheckPage() {
             <div
               className={
                 'mb-4 lg:col-span-4 lg:col-start-3 rounded ' +
-                (productFiles.length !== 2 ? 'bg-amber-300' : '')
+                (productFiles?.length !== 2 ? 'bg-amber-300' : '')
               }
             >
-               Dropbox: {productFiles?.map(file => file.name).join(", ")}
+               Dropbox: {productFiles?.map(file => file.name).join(", ")}{dbxError}
             </div>
             {product.variants.map((variant, i) => (
               <>
