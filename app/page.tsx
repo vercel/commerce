@@ -1,6 +1,8 @@
 import { Carousel } from 'components/carousel';
-import { ThreeItemGrid } from 'components/grid/three-items';
+import Grid from 'components/grid';
 import Footer from 'components/layout/footer';
+import ProductGridItems from 'components/layout/product-grid-items';
+import { getProducts } from 'lib/shopify';
 import { Suspense } from 'react';
 
 export const runtime = 'edge';
@@ -13,11 +15,18 @@ export const metadata = {
 };
 
 export default async function HomePage() {
+  const products = await getProducts({});  
+  const liveProducts = products.filter((product) => !product.tags.includes('hidden-product'))
+  
   return (
     <>
-      <ThreeItemGrid />
       <Suspense>
         <Carousel />
+        {liveProducts.length > 0 ? (
+          <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 m-6">
+            <ProductGridItems products={products} />
+          </Grid>
+        ) : null}
         <Suspense>
           <Footer />
         </Suspense>
