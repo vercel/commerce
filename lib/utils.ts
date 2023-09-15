@@ -21,10 +21,19 @@ export const validateEnvironmentVariables = () => {
   });
 
   if (missingEnvironmentVariables.length) {
-    throw new Error(`The following environment variables are missing. Your site will not work without them.\n\n${missingEnvironmentVariables.join('\n')}\n`);
+    throw new Error(
+      `The following environment variables are missing. Your site will not work without them.\n\n${missingEnvironmentVariables.join(
+        '\n'
+      )}\n`
+    );
   }
 
-  if (process.env.SHOPIFY_STORE_DOMAIN?.includes('[') || process.env.SHOPIFY_STORE_DOMAIN?.includes(']')) {
-    throw new Error('Your `SHOPIFY_STORE_DOMAIN` environment variable includes brackets (ie. `[` and / or `]`). Your site will not work with them there. Please remove them.');
+  if (
+    process.env.SHOPIFY_STORE_DOMAIN?.includes('[') ||
+    process.env.SHOPIFY_STORE_DOMAIN?.includes(']')
+  ) {
+    throw new Error(
+      'Your `SHOPIFY_STORE_DOMAIN` environment variable includes brackets (ie. `[` and / or `]`). Your site will not work with them there. Please remove them.'
+    );
   }
-}
+};

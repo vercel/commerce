@@ -12,7 +12,7 @@ const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
   : 'http://localhost:3000';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  validateEnvironmentVariables()
+  validateEnvironmentVariables();
 
   const routesMap = [''].map((route) => ({
     url: `${baseUrl}${route}`,
