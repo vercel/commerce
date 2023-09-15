@@ -10,8 +10,9 @@ const Prose: FunctionComponent<TextProps> = ({ html, className }) => {
   return (
     <div
       className={clsx(
-        'prose text-lg leading-7',
+        'prose',
         'font-multilingual text-[15px] font-extralight text-current',
+        'prose-p:whitespace-pre-line prose-p:leading-normal',
         'prose-headings:mt-8 prose-headings:font-semibold prose-headings:tracking-wide prose-headings:text-current',
         'prose-h1:text-5xl prose-h2:text-4xl prose-h3:text-3xl prose-h4:text-2xl prose-h5:text-xl prose-h6:text-lg',
         'prose-a:text-white/80 prose-a:underline hover:prose-a:text-current',
