@@ -1,2 +1,11 @@
 $page-margin-x: 60px;
 $home-spacer-y: 13px + 12px;
+$grid-column-gap: 10px;
+$list-padding: 50px;
+$page-bottom-baseline: 40px;
+
+@mixin home-grid {
+    display: grid;
+    grid-template-columns: repeat(24, 1fr);
+    column-gap: $grid-column-gap;
+}

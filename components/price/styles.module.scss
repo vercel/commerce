@@ -10,3 +10,15 @@
         text-decoration-line: line-through;
     }
 }
+
+.variantPrice {
+    .originalPrice {
+        @include typography.body;
+
+        text-decoration-line: line-through;
+    }
+
+    .actualPrice {
+        @include typography.title;
+    }
+}

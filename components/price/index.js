@@ -70,12 +70,13 @@ export const VariantPrice = ({ variant, quantity }) => {
     const onSale = variantOnSale(variant);
 
     return variant ? (
-        <div>
+        <div className={styles.variantPrice}>
             {availableForSale ? (
                 <>
                     <>
                         {onSale && (
-                            <p className={'original-price'}>
+                            <p className={styles.originalPrice}>
+                                Retail:{' '}
                                 {formatPrice({
                                     amount:
                                         (variant?.compareAtPrice?.amount ?? 0) *
@@ -86,7 +87,7 @@ export const VariantPrice = ({ variant, quantity }) => {
                             </p>
                         )}
                     </>
-                    <p>
+                    <p className={styles.actualPrice}>
                         {formatPrice({
                             amount: (variant?.price?.amount ?? 0) * quantity,
                             currencyCode: variant?.price?.currencyCode,
@@ -94,8 +95,7 @@ export const VariantPrice = ({ variant, quantity }) => {
                     </p>
                 </>
             ) : (
-                // TODO: this can just say "Sold Out" in the future
-                <p>Variant Sold Out</p>
+                <p className={styles.actualPrice}>Sold Out</p>
             )}
         </div>
     ) : (

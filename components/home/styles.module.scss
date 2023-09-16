@@ -2,12 +2,6 @@
 @use 'styles/_spacing';
 @use 'styles/_colors';
 
-@mixin home-grid {
-    display: grid;
-    grid-template-columns: repeat(24, 1fr);
-    column-gap: 10px;
-}
-
 .homeNav {
     padding: (51px - spacing.$home-spacer-y) 115px 22px 115px;
 
@@ -59,7 +53,7 @@
 }
 
 .homeProductsList {
-    @include home-grid;
+    @include spacing.home-grid;
 
     row-gap: 20px;
     padding-bottom: 364px;
@@ -132,7 +126,7 @@
         padding-top: 20px;
         padding-bottom: 30px;
 
-        @include home-grid;
+        @include spacing.home-grid;
 
         > p {
             @include typography.body;

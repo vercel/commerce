@@ -1,3 +1,5 @@
+@use 'styles/_spacing';
+
 @mixin title {
     font-family: var(--font-century-nova);
     font-size: 95px;
@@ -37,6 +39,8 @@
     font-weight: 300;
     line-height: 30px; /* 120% */
     letter-spacing: -0.75px;
+    text-decoration-thickness: 3%;
+    text-underline-offset: 7%;
 
     a,
     a:visited,
@@ -45,7 +49,6 @@
         font-weight: 100;
         letter-spacing: -0.25px;
 
-        text-decoration-line: underline;
         text-decoration-thickness: 3%;
         text-underline-offset: 7%;
     }
@@ -69,38 +72,74 @@
     text-transform: uppercase;
 }
 
-@mixin header-cta($decoration: underline) {
+@mixin header-cta {
     font-family: var(--font-century-nova);
     font-size: 35px;
     font-style: normal;
     font-weight: 100;
     line-height: 35px; /* 100% */
     letter-spacing: -1.4px;
-    text-decoration-line: $decoration;
 
     text-decoration-thickness: 5%;
     text-underline-offset: 7%;
 }
 
-@mixin body-cta($decoration: underline) {
+@mixin body-cta {
     font-family: var(--font-dia);
     font-size: 25px;
     font-style: normal;
     font-weight: 100;
     line-height: 30px;
     letter-spacing: -0.25px;
-    text-decoration-line: $decoration;
 
     text-decoration-thickness: 4%;
     text-underline-offset: 4%;
 }
 
-@mixin list-cta($decoration: underline) {
+@mixin list-cta {
     font-family: var(--font-dia);
     font-size: 18px;
     font-style: normal;
     font-weight: 100;
     line-height: 20px; /* 111.111% */
     text-transform: uppercase;
-    text-decoration-line: $decoration;
+}
+
+@mixin body-content {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @include subheader;
+    }
+
+    p {
+        @include body;
+
+        margin: spacing.$grid-column-gap 0;
+    }
+
+    ul {
+        list-style: disc;
+    }
+
+    ul,
+    ol {
+        @include list;
+
+        padding-left: spacing.$list-padding;
+    }
+
+    li {
+        margin: spacing.$grid-column-gap 0;
+    }
+
+    span {
+        text-decoration-line: underline;
+
+        text-decoration-thickness: 4%;
+        text-underline-offset: 5%;
+    }
 }

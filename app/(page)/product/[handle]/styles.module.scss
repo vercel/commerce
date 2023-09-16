@@ -1,0 +1,93 @@
+@use 'styles/_spacing';
+@use 'styles/_typography';
+
+$spacer-width: calc(100vw - 100vh);
+
+.imageScroll {
+    position: relative;
+
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    height: 0;
+    overflow-y: visible;
+
+    .horizScroll {
+        height: 100vh;
+        overflow-x: scroll;
+        position: relative;
+
+        .scrollMessage {
+            @include typography.subheader;
+
+            position: absolute;
+
+            left: 30px;
+            bottom: spacing.$page-bottom-baseline;
+
+            z-index: 3;
+        }
+
+        .imageContainer {
+            display: flex;
+            flex-direction: row;
+
+            height: 100%;
+
+            > * {
+                height: 100%;
+                width: auto;
+            }
+
+            img {
+                z-index: 2;
+            }
+
+            .spacer {
+                padding-right: $spacer-width;
+                height: 0;
+            }
+        }
+    }
+}
+
+.productPane {
+    padding-left: calc(calc(100vw - $spacer-width) + spacing.$grid-column-gap);
+    padding-right: spacing.$page-margin-x;
+    padding-top: 59px;
+    padding-bottom: spacing.$page-bottom-baseline;
+
+    height: 100vh;
+
+    .topBottom {
+        * {
+            z-index: 1;
+        }
+
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+
+        .description {
+            @include typography.body-content;
+        }
+    }
+}
+
+.productPage {
+    position: absolute;
+
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+.productPage {
+    position: absolute;
+
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}

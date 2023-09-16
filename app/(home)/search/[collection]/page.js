@@ -1,4 +1,4 @@
-import { getCollections } from 'lib/shopify';
+import { getCollections } from 'commerce/shopify';
 
 import { HomeProductsList } from '/components/home';
 

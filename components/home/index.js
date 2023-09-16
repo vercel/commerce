@@ -3,19 +3,15 @@ import 'server-only';
 import Link from 'next/link';
 import Image from 'next/image';
 
-import { getCollectionProducts, getMenu } from 'lib/shopify';
+import { getCollectionProducts, getMenu } from 'commerce/shopify';
 
 import styles from './styles.module.scss';
 import { PriceRanges } from '/components/price';
+import { getTags, listTags } from '/util';
 
 export async function HomeProduct({ product }) {
-    const typesMenu = await getMenu('types-nav');
-
-    const types = typesMenu?.map(item => /search\/(\w+)/.exec(item?.path)?.[1]);
     const featuredImage = product?.images?.[0];
-    const collections = product?.collections?.nodes
-        ?.map(col => col?.title)
-        ?.filter(col => types?.includes(col?.toLowerCase()));
+    const tags = await getTags({ product });
 
     return (
         <Link
@@ -34,10 +30,8 @@ export async function HomeProduct({ product }) {
             </div>
             <div>
                 <p className={styles.title}>{product?.title}</p>
-                {collections && collections.length > 0 && (
-                    <p className={styles.collections}>{`(${collections.join(
-                        ', '
-                    )})`}</p>
+                {tags && tags.length > 0 && (
+                    <p className={styles.collections}>{listTags({ tags })}</p>
                 )}
             </div>
             <PriceRanges product={product} />

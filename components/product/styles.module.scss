@@ -1,0 +1,32 @@
+@use 'styles/_typography';
+@use 'styles/_spacing';
+
+.purchaseInput {
+    padding-left: spacing.$list-padding;
+    height: 100%;
+
+    .topBottom {
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .ctas {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+
+            .buyNow,
+            .checkout {
+                @include typography.header-cta;
+
+                text-decoration-line: underline;
+            }
+
+            .buyNow.inactive {
+                text-decoration-line: line-through;
+            }
+        }
+    }
+}
