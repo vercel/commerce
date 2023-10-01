@@ -58,11 +58,7 @@ function SubmitButton({
       })}
     >
       <div className="absolute left-0 ml-4">
-        {pending ? (
-          <LoadingDots className="mb-3 bg-white" />
-        ) : (
-          <PlusIcon className="h-5" />
-        )}
+        {pending ? <LoadingDots className="mb-3 bg-white" /> : <PlusIcon className="h-5" />}
       </div>
       Add To Cart
     </button>
@@ -89,10 +85,7 @@ export function AddToCart({
 
   return (
     <form action={actionWithVariant}>
-      <SubmitButton
-        availableForSale={availableForSale}
-        selectedVariantId={selectedVariantId}
-      />
+      <SubmitButton availableForSale={availableForSale} selectedVariantId={selectedVariantId} />
       <p aria-live="polite" className="sr-only" role="status">
         {message}
       </p>
