@@ -6,8 +6,8 @@ import { addItem } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
 import { ProductVariant } from 'lib/shopify/types';
 import { useSearchParams } from 'next/navigation';
-// @ts-ignore
 import {
+  // @ts-ignore
   experimental_useFormState as useFormState,
   experimental_useFormStatus as useFormStatus
 } from 'react-dom';
@@ -58,10 +58,10 @@ function SubmitButton({
       })}
     >
       <div className="absolute left-0 ml-4">
-        {!pending ? (
-          <PlusIcon className="h-5" />
-        ) : (
+        {pending ? (
           <LoadingDots className="mb-3 bg-white" />
+        ) : (
+          <PlusIcon className="h-5" />
         )}
       </div>
       Add To Cart
