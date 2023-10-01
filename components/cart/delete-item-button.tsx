@@ -5,14 +5,16 @@ import clsx from 'clsx';
 import { removeItem } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
 import type { CartItem } from 'lib/shopify/types';
+import { useState } from 'react';
 import {
   // @ts-ignore
   experimental_useFormState as useFormState,
   experimental_useFormStatus as useFormStatus
 } from 'react-dom';
 
-function SubmitButton() {
-  const { pending } = useFormStatus();
+function SubmitButton({ submitting }: { submitting: boolean }) {
+  let { pending } = useFormStatus();
+  pending = pending || submitting;
 
   return (
     <button
@@ -36,13 +38,24 @@ function SubmitButton() {
 }
 
 export function DeleteItemButton({ item }: { item: CartItem }) {
+  const [submitting, setSubmitting] = useState(false);
   const [message, formAction] = useFormState(removeItem, null);
   const itemId = item.id;
   const actionWithVariant = formAction.bind(null, itemId);
 
   return (
-    <form action={actionWithVariant}>
-      <SubmitButton />
+    <form
+      action={actionWithVariant}
+      // Prevent double clicks
+      onClick={async (e) => {
+        e.preventDefault();
+        if (submitting) return;
+        setSubmitting(true);
+        await removeItem(message, itemId);
+        setSubmitting(false);
+      }}
+    >
+      <SubmitButton submitting={submitting} />
       <p aria-live="polite" className="sr-only" role="status">
         {message}
       </p>

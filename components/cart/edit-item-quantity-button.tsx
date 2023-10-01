@@ -5,14 +5,16 @@ import clsx from 'clsx';
 import { updateItemQuantity } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
 import type { CartItem } from 'lib/shopify/types';
+import { useState } from 'react';
 import {
   // @ts-ignore
   experimental_useFormState as useFormState,
   experimental_useFormStatus as useFormStatus
 } from 'react-dom';
 
-function SubmitButton({ type }: { type: 'plus' | 'minus' }) {
-  const { pending } = useFormStatus();
+function SubmitButton({ type, submitting }: { type: 'plus' | 'minus'; submitting: boolean }) {
+  let { pending } = useFormStatus();
+  pending = pending || submitting;
 
   return (
     <button
@@ -39,6 +41,7 @@ function SubmitButton({ type }: { type: 'plus' | 'minus' }) {
 }
 
 export function EditItemQuantityButton({ item, type }: { item: CartItem; type: 'plus' | 'minus' }) {
+  const [submitting, setSubmitting] = useState(false);
   const [message, formAction] = useFormState(updateItemQuantity, null);
   const payload = {
     lineId: item.id,
@@ -48,8 +51,18 @@ export function EditItemQuantityButton({ item, type }: { item: CartItem; type: '
   const actionWithVariant = formAction.bind(null, payload);
 
   return (
-    <form action={actionWithVariant}>
-      <SubmitButton type={type} />
+    <form
+      action={actionWithVariant}
+      // Prevent double clicks
+      onClick={async (e) => {
+        e.preventDefault();
+        if (submitting) return;
+        setSubmitting(true);
+        await updateItemQuantity(message, payload);
+        setSubmitting(false);
+      }}
+    >
+      <SubmitButton type={type} submitting={submitting} />
       <p aria-live="polite" className="sr-only" role="status">
         {message}
       </p>
