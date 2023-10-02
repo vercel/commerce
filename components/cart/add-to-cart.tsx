@@ -6,7 +6,7 @@ import { addItem } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
 import { ProductVariant } from 'lib/shopify/types';
 import { useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { useTransition } from 'react';
 import {
   // @ts-ignore
   experimental_useFormState as useFormState,
@@ -15,15 +15,12 @@ import {
 
 function SubmitButton({
   availableForSale,
-  selectedVariantId,
-  submitting
+  selectedVariantId
 }: {
   availableForSale: boolean;
   selectedVariantId: string | undefined;
-  submitting: boolean;
 }) {
-  let { pending } = useFormStatus();
-  pending = pending || submitting;
+  const { pending } = useFormStatus();
   const buttonClasses =
     'relative flex w-full items-center justify-center rounded-full bg-blue-600 p-4 tracking-wide text-white';
   const disabledClasses = 'cursor-not-allowed opacity-60 hover:opacity-60';
@@ -76,7 +73,7 @@ export function AddToCart({
   variants: ProductVariant[];
   availableForSale: boolean;
 }) {
-  const [submitting, setSubmitting] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const [message, formAction] = useFormState(addItem, null);
   const searchParams = useSearchParams();
   const defaultVariantId = variants.length === 1 ? variants[0]?.id : undefined;
@@ -88,23 +85,17 @@ export function AddToCart({
   const selectedVariantId = variant?.id || defaultVariantId;
   const actionWithVariant = formAction.bind(null, selectedVariantId);
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    if (isPending) {
+      event.preventDefault();
+    } else {
+      startTransition(actionWithVariant);
+    }
+  };
+
   return (
-    <form
-      action={actionWithVariant}
-      // Prevent double clicks
-      onClick={async (e) => {
-        e.preventDefault();
-        if (submitting) return;
-        setSubmitting(true);
-        await addItem(message, selectedVariantId);
-        setSubmitting(false);
-      }}
-    >
-      <SubmitButton
-        availableForSale={availableForSale}
-        selectedVariantId={selectedVariantId}
-        submitting={submitting}
-      />
+    <form action={actionWithVariant} onSubmit={handleSubmit}>
+      <SubmitButton availableForSale={availableForSale} selectedVariantId={selectedVariantId} />
       <p aria-live="polite" className="sr-only" role="status">
         {message}
       </p>

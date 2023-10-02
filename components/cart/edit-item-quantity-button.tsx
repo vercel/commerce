@@ -12,7 +12,7 @@ import {
   experimental_useFormStatus as useFormStatus
 } from 'react-dom';
 
-function SubmitButton({ type, onSubmit }: { type: 'plus' | 'minus'; onSubmit: any }) {
+function SubmitButton({ type }: { type: 'plus' | 'minus' }) {
   const { pending } = useFormStatus();
 
   return (
@@ -20,7 +20,6 @@ function SubmitButton({ type, onSubmit }: { type: 'plus' | 'minus'; onSubmit: an
       type="submit"
       aria-label={type === 'plus' ? 'Increase item quantity' : 'Reduce item quantity'}
       aria-disabled={pending}
-      onSubmit={onSubmit}
       className={clsx(
         'ease flex h-full min-w-[36px] max-w-[36px] flex-none items-center justify-center rounded-full px-2 transition-all duration-200 hover:border-neutral-800 hover:opacity-80',
         {
@@ -41,7 +40,7 @@ function SubmitButton({ type, onSubmit }: { type: 'plus' | 'minus'; onSubmit: an
 }
 
 export function EditItemQuantityButton({ item, type }: { item: CartItem; type: 'plus' | 'minus' }) {
-  const [pending, startAction] = useTransition();
+  const [isPending, startTransition] = useTransition();
   const [message, formAction] = useFormState(updateItemQuantity, null);
   const payload = {
     lineId: item.id,
@@ -50,15 +49,17 @@ export function EditItemQuantityButton({ item, type }: { item: CartItem; type: '
   };
   const actionWithVariant = formAction.bind(null, payload);
 
-  const onSubmit = (event) => {
-    // this isn't being called
-    event.preventDefault();
-    startAction(actionWithVariant);
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    if (isPending) {
+      event.preventDefault();
+    } else {
+      startTransition(actionWithVariant);
+    }
   };
 
   return (
-    <form action={actionWithVariant}>
-      <SubmitButton type={type} onSubmit={onSubmit} />
+    <form action={actionWithVariant} onSubmit={handleSubmit}>
+      <SubmitButton type={type} />
       <p aria-live="polite" className="sr-only" role="status">
         {message}
       </p>

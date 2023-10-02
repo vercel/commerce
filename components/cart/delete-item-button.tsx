@@ -5,16 +5,15 @@ import clsx from 'clsx';
 import { removeItem } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
 import type { CartItem } from 'lib/shopify/types';
-import { useState } from 'react';
+import { useTransition } from 'react';
 import {
   // @ts-ignore
   experimental_useFormState as useFormState,
   experimental_useFormStatus as useFormStatus
 } from 'react-dom';
 
-function SubmitButton({ submitting }: { submitting: boolean }) {
-  let { pending } = useFormStatus();
-  pending = pending || submitting;
+function SubmitButton() {
+  const { pending } = useFormStatus();
 
   return (
     <button
@@ -38,24 +37,22 @@ function SubmitButton({ submitting }: { submitting: boolean }) {
 }
 
 export function DeleteItemButton({ item }: { item: CartItem }) {
-  const [submitting, setSubmitting] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const [message, formAction] = useFormState(removeItem, null);
   const itemId = item.id;
   const actionWithVariant = formAction.bind(null, itemId);
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    if (isPending) {
+      event.preventDefault();
+    } else {
+      startTransition(actionWithVariant);
+    }
+  };
+
   return (
-    <form
-      action={actionWithVariant}
-      // Prevent double clicks
-      onClick={async (e) => {
-        e.preventDefault();
-        if (submitting) return;
-        setSubmitting(true);
-        await removeItem(message, itemId);
-        setSubmitting(false);
-      }}
-    >
-      <SubmitButton submitting={submitting} />
+    <form action={actionWithVariant} onSubmit={handleSubmit}>
+      <SubmitButton />
       <p aria-live="polite" className="sr-only" role="status">
         {message}
       </p>
