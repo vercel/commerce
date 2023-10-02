@@ -26,7 +26,7 @@ export default async function SearchPage({
   })
 
   const resultsText = products.count > 1 ? 'results' : 'result';
-  const docs = products.hits.map((hit) => hit.document) as Product[];
+  const docs = products.hits.map((hit: any) => hit.document) as Product[];
 
   return (
     <>

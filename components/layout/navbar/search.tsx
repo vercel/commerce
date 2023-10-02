@@ -14,7 +14,7 @@ export default function Search() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [searchValue, setSearchValue] = useState('');
-  const [searchResults, setSearchResults] = useState<Results>();
+  const [searchResults, setSearchResults] = useState<Results<any>>();
   const isSearchPage = usePathname() === '/search'
 
 
