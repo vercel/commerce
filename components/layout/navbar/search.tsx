@@ -39,7 +39,6 @@ export default function Search() {
         .catch(console.log);
     }
 
-
   }, [searchValue]);
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -73,6 +72,8 @@ export default function Search() {
         name="search"
         placeholder="Search for products..."
         autoComplete="off"
+        value={searchValue}
+        onChange={(e) => setSearchValue(e.target.value)}
         defaultValue={searchParams?.get('q') || ''}
         className="w-full rounded-lg border bg-white px-4 py-2 text-sm text-black placeholder:text-neutral-500 dark:border-neutral-800 dark:bg-transparent dark:text-white dark:placeholder:text-neutral-400"
       />

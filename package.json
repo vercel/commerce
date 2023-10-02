@@ -24,8 +24,8 @@
   "dependencies": {
     "@headlessui/react": "^1.7.15",
     "@heroicons/react": "^2.0.18",
-    "@orama/orama": "^1.2.1",
-    "@oramacloud/client": "1.0.0-beta.19",
+    "@orama/orama": "^1.2.9",
+    "@oramacloud/client": "1.0.0-beta.21",
     "clsx": "^2.0.0",
     "next": "13.4.13-canary.15",
     "react": "18.2.0",
