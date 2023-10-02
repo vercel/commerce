@@ -5,7 +5,6 @@ import clsx from 'clsx';
 import { updateItemQuantity } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
 import type { CartItem } from 'lib/shopify/types';
-import { useTransition } from 'react';
 import {
   // @ts-ignore
   experimental_useFormState as useFormState,
@@ -18,6 +17,9 @@ function SubmitButton({ type }: { type: 'plus' | 'minus' }) {
   return (
     <button
       type="submit"
+      onClick={(e: React.FormEvent<HTMLButtonElement>) => {
+        if (pending) e.preventDefault();
+      }}
       aria-label={type === 'plus' ? 'Increase item quantity' : 'Reduce item quantity'}
       aria-disabled={pending}
       className={clsx(
@@ -40,7 +42,6 @@ function SubmitButton({ type }: { type: 'plus' | 'minus' }) {
 }
 
 export function EditItemQuantityButton({ item, type }: { item: CartItem; type: 'plus' | 'minus' }) {
-  const [isPending, startTransition] = useTransition();
   const [message, formAction] = useFormState(updateItemQuantity, null);
   const payload = {
     lineId: item.id,
@@ -49,16 +50,8 @@ export function EditItemQuantityButton({ item, type }: { item: CartItem; type: '
   };
   const actionWithVariant = formAction.bind(null, payload);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isPending) {
-      event.preventDefault();
-    } else {
-      startTransition(actionWithVariant);
-    }
-  };
-
   return (
-    <form action={actionWithVariant} onSubmit={handleSubmit}>
+    <form action={actionWithVariant}>
       <SubmitButton type={type} />
       <p aria-live="polite" className="sr-only" role="status">
         {message}

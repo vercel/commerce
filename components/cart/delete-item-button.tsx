@@ -5,7 +5,6 @@ import clsx from 'clsx';
 import { removeItem } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
 import type { CartItem } from 'lib/shopify/types';
-import { useTransition } from 'react';
 import {
   // @ts-ignore
   experimental_useFormState as useFormState,
@@ -18,6 +17,9 @@ function SubmitButton() {
   return (
     <button
       type="submit"
+      onClick={(e: React.FormEvent<HTMLButtonElement>) => {
+        if (pending) e.preventDefault();
+      }}
       aria-label="Remove cart item"
       aria-disabled={pending}
       className={clsx(
@@ -37,21 +39,12 @@ function SubmitButton() {
 }
 
 export function DeleteItemButton({ item }: { item: CartItem }) {
-  const [isPending, startTransition] = useTransition();
   const [message, formAction] = useFormState(removeItem, null);
   const itemId = item.id;
   const actionWithVariant = formAction.bind(null, itemId);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isPending) {
-      event.preventDefault();
-    } else {
-      startTransition(actionWithVariant);
-    }
-  };
-
   return (
-    <form action={actionWithVariant} onSubmit={handleSubmit}>
+    <form action={actionWithVariant}>
       <SubmitButton />
       <p aria-live="polite" className="sr-only" role="status">
         {message}

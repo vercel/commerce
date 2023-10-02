@@ -6,7 +6,6 @@ import { addItem } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
 import { ProductVariant } from 'lib/shopify/types';
 import { useSearchParams } from 'next/navigation';
-import { useTransition } from 'react';
 import {
   // @ts-ignore
   experimental_useFormState as useFormState,
@@ -50,7 +49,9 @@ function SubmitButton({
 
   return (
     <button
-      type="submit"
+      onClick={(e: React.FormEvent<HTMLButtonElement>) => {
+        if (pending) e.preventDefault();
+      }}
       aria-label="Add to cart"
       aria-disabled={pending}
       className={clsx(buttonClasses, {
@@ -73,7 +74,6 @@ export function AddToCart({
   variants: ProductVariant[];
   availableForSale: boolean;
 }) {
-  const [isPending, startTransition] = useTransition();
   const [message, formAction] = useFormState(addItem, null);
   const searchParams = useSearchParams();
   const defaultVariantId = variants.length === 1 ? variants[0]?.id : undefined;
@@ -85,16 +85,8 @@ export function AddToCart({
   const selectedVariantId = variant?.id || defaultVariantId;
   const actionWithVariant = formAction.bind(null, selectedVariantId);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    if (isPending) {
-      event.preventDefault();
-    } else {
-      startTransition(actionWithVariant);
-    }
-  };
-
   return (
-    <form action={actionWithVariant} onSubmit={handleSubmit}>
+    <form action={actionWithVariant}>
       <SubmitButton availableForSale={availableForSale} selectedVariantId={selectedVariantId} />
       <p aria-live="polite" className="sr-only" role="status">
         {message}
