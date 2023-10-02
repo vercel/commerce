@@ -5,22 +5,22 @@ import clsx from 'clsx';
 import { updateItemQuantity } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
 import type { CartItem } from 'lib/shopify/types';
-import { useState } from 'react';
+import { useTransition } from 'react';
 import {
   // @ts-ignore
   experimental_useFormState as useFormState,
   experimental_useFormStatus as useFormStatus
 } from 'react-dom';
 
-function SubmitButton({ type, submitting }: { type: 'plus' | 'minus'; submitting: boolean }) {
-  let { pending } = useFormStatus();
-  pending = pending || submitting;
+function SubmitButton({ type, onSubmit }: { type: 'plus' | 'minus'; onSubmit: any }) {
+  const { pending } = useFormStatus();
 
   return (
     <button
       type="submit"
       aria-label={type === 'plus' ? 'Increase item quantity' : 'Reduce item quantity'}
       aria-disabled={pending}
+      onSubmit={onSubmit}
       className={clsx(
         'ease flex h-full min-w-[36px] max-w-[36px] flex-none items-center justify-center rounded-full px-2 transition-all duration-200 hover:border-neutral-800 hover:opacity-80',
         {
@@ -41,7 +41,7 @@ function SubmitButton({ type, submitting }: { type: 'plus' | 'minus'; submitting
 }
 
 export function EditItemQuantityButton({ item, type }: { item: CartItem; type: 'plus' | 'minus' }) {
-  const [submitting, setSubmitting] = useState(false);
+  const [pending, startAction] = useTransition();
   const [message, formAction] = useFormState(updateItemQuantity, null);
   const payload = {
     lineId: item.id,
@@ -50,19 +50,15 @@ export function EditItemQuantityButton({ item, type }: { item: CartItem; type: '
   };
   const actionWithVariant = formAction.bind(null, payload);
 
+  const onSubmit = (event) => {
+    // this isn't being called
+    event.preventDefault();
+    startAction(actionWithVariant);
+  };
+
   return (
-    <form
-      action={actionWithVariant}
-      // Prevent double clicks
-      onClick={async (e) => {
-        e.preventDefault();
-        if (submitting) return;
-        setSubmitting(true);
-        await updateItemQuantity(message, payload);
-        setSubmitting(false);
-      }}
-    >
-      <SubmitButton type={type} submitting={submitting} />
+    <form action={actionWithVariant}>
+      <SubmitButton type={type} onSubmit={onSubmit} />
       <p aria-live="polite" className="sr-only" role="status">
         {message}
       </p>
