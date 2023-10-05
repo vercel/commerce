@@ -60,7 +60,7 @@ Your app should now be running on [localhost:3000](http://localhost:3000/).
 1. Select the `Vercel Solutions` scope.
 1. Connect to the existing `commerce-shopify` project.
 1. Run `vc env pull` to get environment variables.
-1. Run `pmpm dev` to ensure everything is working correctly.
+1. Run `pnpm dev` to ensure everything is working correctly.
 </details>
 
 ## Vercel, Next.js Commerce, and Shopify Integration Guide
