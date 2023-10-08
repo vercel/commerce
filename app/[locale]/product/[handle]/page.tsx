@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 
+import { ChevronDoubleRightIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { AddManyToCart } from 'components/cart/add-many-to-cart';
 import { GridTileImage } from 'components/grid/tile';
@@ -152,18 +153,18 @@ export default async function ProductPage({
           </div>
 
           {!!product?.notes && (
-            <div className="bg-base p-12 text-dark">
+            <div className="bg-base py-4 text-dark md:p-12">
               <ProductTastingNotes product={product} />
             </div>
           )}
 
           {!!product?.galleryIntro?.value && (
-            <div className="font-multilingual flex w-full flex-row justify-end whitespace-pre-line">
+            <div className="font-multilingual flex w-full flex-row justify-end whitespace-pre-line px-4 md:px-0">
               <div className="md:w-1/2">{product.galleryIntro.value}</div>
             </div>
           )}
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 px-4 md:grid-cols-2 md:px-0">
             {!!otherImages &&
               otherImages?.length > 0 &&
               otherImages.map((image, index) => {
@@ -174,7 +175,7 @@ export default async function ProductPage({
                   <div
                     key={image.url}
                     className={clsx(
-                      isOddAndLast ? 'col-span-2' : 'col-span-1 aspect-square',
+                      isOddAndLast ? 'col-span-1 md:col-span-2' : 'col-span-1 aspect-square',
                       'relative h-full w-full bg-gray-900/10'
                     )}
                   >
@@ -191,7 +192,7 @@ export default async function ProductPage({
           </div>
 
           {!!product?.lower?.value && (
-            <div className="font-multilingual flex w-full flex-row justify-end whitespace-pre-line">
+            <div className="font-multilingual flex w-full flex-row justify-end whitespace-pre-line px-4 md:px-0">
               <div className="md:w-1/2">{product.lower.value}</div>
             </div>
           )}
@@ -211,7 +212,12 @@ async function RelatedProducts({ id }: { id: string }) {
   if (!relatedProducts.length) return null;
 
   return (
-    <div className="border-t border-white/20 px-6 py-12 md:py-24">
+    <div className="relative border-t border-white/20 px-6 py-12 md:py-24">
+      {relatedProducts.length > 1 && (
+        <div className="absolute right-0 top-0 h-full translate-y-1/2">
+          <ChevronDoubleRightIcon className="h-6 w-6 animate-pulse text-white" />
+        </div>
+      )}
       <h2 className="pb-8 font-japan text-[20px]">other products</h2>
       <ul className="flex w-full gap-12 overflow-x-auto pt-1">
         {relatedProducts.map((product) => (
