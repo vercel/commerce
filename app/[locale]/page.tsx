@@ -27,6 +27,8 @@ import Image from 'next/image';
 import { Suspense } from 'react';
 
 export const runtime = 'edge';
+export const revalidate = 300; // 5 minutes in seconds
+
 const { SITE_NAME } = process.env;
 
 export const metadata = {

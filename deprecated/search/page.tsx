@@ -4,6 +4,7 @@ import { defaultSort, sorting } from 'lib/constants';
 import { getProducts } from 'lib/shopify';
 
 export const runtime = 'edge';
+export const revalidate = 300; // 5 minutes in seconds
 
 export const metadata = {
   title: 'Search',

@@ -19,7 +19,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export const runtime = 'edge';
-export const revalidate = 43200; // 12 hours in seconds
+export const revalidate = 300; // 5 minutes in seconds
 
 export async function generateMetadata({
   params
