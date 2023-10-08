@@ -1,4 +1,4 @@
-## IMPORTANT NOTES!
+## IMPORTANT NOTES!!
 
 - Vercel's production instance is currently running on the `sol/narai` branch. For the latest stable version, please refer to that branch.
 - If you're making changes to the site, please make sure to create a new branch and submit a PR to the `sol/preview` branch. This is to ensure that the production instance is always stable.
