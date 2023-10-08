@@ -19,7 +19,7 @@ export const LanguageControl = ({ lang }: { lang?: SupportedLocale }) => {
 
   const basePathName = () => {
     const unjoined = pathName.split('/');
-    const unjoinedWithoutLocale = removeItem(unjoined, 'ja');
+    const unjoinedWithoutLocale = removeItem(unjoined, 'en');
     return unjoinedWithoutLocale.join('/') || '/';
   };
 
