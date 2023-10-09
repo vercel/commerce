@@ -41,7 +41,7 @@ export function AddManyToCart({
   return (
     <div className="flex flex-col space-y-2">
       <div className="font-multilingual flex flex-row items-center space-x-2 border border-white/50">
-        <div className="w-[100px] px-3">{t('cart.quantity-label')}</div>
+        <div className="w-[120px] px-3">{t('cart.quantity-label')}</div>
         <input
           value={currentQuantity}
           onChange={(e) => setCurrentQuantity(Number(e.target.value))}
