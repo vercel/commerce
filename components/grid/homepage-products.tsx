@@ -8,6 +8,9 @@ import Link from 'next/link';
 import Label from '../label';
 import { GridTileImage } from './tile';
 
+export const runtime = 'edge';
+export const revalidate = 300; // 5 minutes in seconds
+
 function HomepageProductsItem({ item, priority }: { item: Product; priority?: boolean }) {
   const size = item?.variants?.[0]?.selectedOptions?.find((option) => option.name === 'Size');
   const image = item?.variants?.[0]?.image;
