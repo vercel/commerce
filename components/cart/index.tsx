@@ -14,7 +14,7 @@ export default async function Cart({ locale }: { locale?: SupportedLocale }) {
 
   const promotedItem: Product | undefined = await getProduct({
     handle: 'gift-bag-and-postcard-set',
-    language: locale?.toUpperCase() || 'EN'
+    language: locale?.toUpperCase() || 'JA'
   });
 
   return <CartModal cart={cart} promotedItem={promotedItem} />;

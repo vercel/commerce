@@ -1,4 +1,8 @@
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fcommerce&project-name=commerce&repo-name=commerce&demo-title=Next.js%20Commerce&demo-url=https%3A%2F%2Fdemo.vercel.store&demo-image=https%3A%2F%2Fbigcommerce-demo-asset-ksvtgfvnd.vercel.app%2Fbigcommerce.png&env=COMPANY_NAME,SHOPIFY_REVALIDATION_SECRET,SHOPIFY_STORE_DOMAIN,SHOPIFY_STOREFRONT_ACCESS_TOKEN,SITE_NAME,TWITTER_CREATOR,TWITTER_SITE)
+## IMPORTANT NOTES!!
+
+- Vercel's production instance is currently running on the `sol/narai` branch. For the latest stable version, please refer to that branch.
+- If you're making changes to the site, please make sure to create a new branch and submit a PR to the `sol/preview` branch. This is to ensure that the production instance is always stable.
+- The `sol/preview` branch should be reviewed and approved by the suginomori brewery team before merging to `sol/narai` and deploying to production.
 
 # Next.js Commerce
 
