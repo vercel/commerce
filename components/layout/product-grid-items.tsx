@@ -13,7 +13,8 @@ export default function ProductGridItems({ products }: { products: Product[] }) 
               alt={product.title}
               label={{
                 title: product.title,
-                amount: product.priceRange?.maxVariantPrice?.amount,
+                // @ts-expect-error - Orama converts `maxVariantPrice` to `max`
+                amount: product.priceRange.max,
                 currencyCode: product.priceRange?.maxVariantPrice?.currencyCode
               }}
               src={product.featuredImage?.url}
