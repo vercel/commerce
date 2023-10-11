@@ -258,6 +258,7 @@ export async function getCart(cartId: string): Promise<Cart | undefined> {
   const res = await shopifyFetch<ShopifyCartOperation>({
     query: getCartQuery,
     variables: { cartId },
+    tags: [TAGS.cart],
     cache: 'no-store'
   });
 
