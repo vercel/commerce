@@ -1,6 +1,6 @@
 import Grid from 'components/grid';
 import ProductGridItems from 'components/layout/product-grid-items';
-import { orama } from 'lib/orama';
+import { orama, parseSorting } from 'lib/orama';
 import { Product } from 'lib/shopify/types';
 
 export const runtime = 'edge';
@@ -16,12 +16,13 @@ export default async function SearchPage({
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
   const { sort, q: searchValue } = searchParams as { [key: string]: string };
-  // const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
+
   const products = await orama.search({
     term: searchValue,
     boost: {
       title: 2
     },
+    sortBy: parseSorting(sort),
     limit: 50,
   })
 
