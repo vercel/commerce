@@ -4,10 +4,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Cancel running workflows
-        uses: styfle/cancel-workflow-action@0.12.0
-        with:
-          access_token: ${{ github.token }}
       - name: Checkout repo
         uses: actions/checkout@v4
       - name: Set node version
