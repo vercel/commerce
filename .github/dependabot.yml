@@ -1,6 +1,40 @@
 version: 2
 updates:
-  - package-ecosystem: 'npm'
-    directory: '/'
+  - package-ecosystem: "npm"
+    directory: ".."
     schedule:
-      interval: 'weekly'
+      interval: "daily"
+      time: "04:30"
+    labels:
+      - "javascript"
+      - "dependencies"
+      - "dependabot"
+    commit-message:
+      prefix: "dependa"
+    open-pull-requests-limit: 20
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      time: "04:30"
+    labels:
+      - "github-actions"
+      - "dependencies"
+      - "dependabot"
+    commit-message:
+      prefix: "dependa"
+    open-pull-requests-limit: 20
+
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      time: "04:30"
+    labels:
+      - "docker"
+      - "dependencies"
+      - "dependabot"
+    commit-message:
+      prefix: "dependa"
+    open-pull-requests-limit: 20
