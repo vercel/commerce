@@ -91,9 +91,8 @@ export async function getFirstSeoUrlElement(
 
 export async function getFirstProduct(productId: string): Promise<ExtendedProduct | undefined> {
   const productCriteria = getDefaultProductCriteria(productId);
-  const listing: ExtendedProductListingResult | undefined = await requestProductsCollection(
-    productCriteria
-  );
+  const listing: ExtendedProductListingResult | undefined =
+    await requestProductsCollection(productCriteria);
   if (listing && listing.elements && listing.elements.length > 0 && listing.elements[0]) {
     return listing.elements[0];
   }
