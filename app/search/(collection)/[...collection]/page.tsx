@@ -8,6 +8,7 @@ import ProductGridItems from 'components/layout/product-grid-items';
 import Pagination from 'components/collection/pagination';
 
 import { getCollection, getCollectionProducts } from 'lib/shopware';
+import { transformHandle } from 'lib/shopware/transform';
 import { defaultSort, sorting } from 'lib/constants';
 
 export const runtime = 'edge';
@@ -17,7 +18,13 @@ export async function generateMetadata({
 }: {
   params: { collection: string };
 }): Promise<Metadata> {
-  const collection = await getCollection(params.collection);
+  // see https://github.com/facebook/react/issues/25994
+  const collectionName = decodeURIComponent(transformHandle(params?.collection ?? ''));
+  if (collectionName === 'react_devtools_backend_compact.js.map') {
+    return {};
+  }
+
+  const collection = await getCollection(collectionName);
 
   if (!collection) return notFound();
 
@@ -38,8 +45,14 @@ export default async function CategoryPage({
   const { sort, page } = searchParams as { [key: string]: string };
   const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
 
+  // see https://github.com/facebook/react/issues/25994
+  const collectionName = decodeURIComponent(transformHandle(params?.collection ?? ''));
+  if (collectionName === 'react_devtools_backend_compact.js.map') {
+    return null;
+  }
+
   const { products, total, limit } = await getCollectionProducts({
-    collection: params.collection,
+    collection: collectionName,
     page: page ? parseInt(page) : 1,
     sortKey,
     reverse

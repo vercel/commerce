@@ -1,6 +1,5 @@
 'use client';
 
-import ReactPaginate from 'react-paginate';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { createUrl } from 'lib/utils';
@@ -23,9 +22,8 @@ export default function Pagination({
   const pageCount = Math.ceil(itemsTotal / itemsPerPage);
 
   // Invoke when user click to request another page. test
-  const handlePageClick = (event: clickEvent) => {
-    const page = event.selected;
-    const newPage = page + 1;
+  const handlePageClick = (page: number) => {
+    const newPage = Math.ceil(page + 1);
     let newUrl = createUrl(
       pathname,
       new URLSearchParams({
@@ -47,38 +45,51 @@ export default function Pagination({
   };
 
   return (
-    <>
-      <ReactPaginate
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={itemsPerPage}
-        initialPage={currentPage}
-        pageCount={pageCount}
-        breakLabel="..."
-        nextLabel=<ArrowRightIcon className="h-5" />
-        previousLabel=<ArrowLeftIcon className="h-5" />
-        renderOnZeroPageCount={null}
-        containerClassName="inline sm:flex text-base h-10 mx-auto"
-        activeClassName="active"
-        pageClassName="m-2 sm:m-0 sm:mx-2 text-gray-500 bg-white border rounded-lg border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white [&.active]:bg-gray-100"
-        pageLinkClassName="flex items-center justify-center px-4 h-10 ml-0 leading-tight"
-        previousClassName="m-2 sm:m-0 sm:mx-2 text-gray-500 bg-white border rounded-lg border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white [&.disabled]:hidden"
-        previousLinkClassName="flex items-center justify-center px-4 h-10 ml-0 leading-tight"
-        nextClassName="m-2 sm:m-0 sm:mx-2 text-gray-500 bg-white border rounded-lg border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white [&.disabled]:hidden"
-        nextLinkClassName="flex items-center justify-center px-4 h-10 ml-0 leading-tight"
-        breakClassName="m-2 sm:m-0 sm:mx-2 text-gray-500 bg-white border rounded-lg border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-        breakLinkClassName="flex items-center justify-center px-4 h-10 ml-0 leading-tight"
-      />
-    </>
+    <ul className="mx-auto inline h-10 text-base sm:flex" role="navigation" aria-label="Pagination">
+      {currentPage > 0 && (
+        <li
+          key={currentPage + '-prev'}
+          onClick={() => handlePageClick(currentPage - 1)}
+          className="m-2 rounded-lg border border-gray-300 bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:m-0 sm:mx-2 [&.disabled]:hidden"
+        >
+          <a
+            className="ml-0 flex h-10 items-center justify-center px-4 leading-tight"
+            data-selected={currentPage}
+          >
+            <ArrowLeftIcon className="h-5" />
+          </a>
+        </li>
+      )}
+      {[...Array(pageCount)].map((x, i) => (
+        <li
+          key={i}
+          onClick={() => handlePageClick(i)}
+          className="m-2 rounded-lg border border-gray-300 bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:m-0 sm:mx-2 [&.active]:bg-gray-100"
+        >
+          <a
+            className={`ml-0 flex h-10 items-center justify-center px-4 leading-tight${
+              i === currentPage ? ' active font-bold' : ''
+            }`}
+            data-selected={i}
+          >
+            {i + 1}
+          </a>
+        </li>
+      ))}
+      {currentPage < pageCount - 1 && (
+        <li
+          key={currentPage + '-next'}
+          onClick={() => handlePageClick(currentPage + 1)}
+          className="m-2 rounded-lg border border-gray-300 bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:m-0 sm:mx-2 [&.disabled]:hidden"
+        >
+          <a
+            className="ml-0 flex h-10 items-center justify-center px-4 leading-tight"
+            data-selected={currentPage + 1}
+          >
+            <ArrowRightIcon className="h-5" />
+          </a>
+        </li>
+      )}
+    </ul>
   );
 }
-
-type clickEvent = {
-  index: number | null;
-  selected: number;
-  nextSelectedPage: number | undefined;
-  event: object;
-  isPrevious: boolean;
-  isNext: boolean;
-  isBreak: boolean;
-  isActive: boolean;
-};
