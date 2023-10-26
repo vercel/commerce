@@ -11,7 +11,6 @@ import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 import ShopsNav from './shops-nav';
 
-export const runtime = 'edge';
 export const revalidate = 300; // 5 minutes in seconds
 
 export async function generateMetadata({
