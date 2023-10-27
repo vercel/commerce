@@ -27,6 +27,6 @@ jobs:
           key: node-modules-cache-${{ hashFiles('**/pnpm-lock.yaml') }}
       - name: Install dependencies
         if: steps.node-modules-cache.outputs.cache-hit != 'true'
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
       - name: Run tests
         run: pnpm test
