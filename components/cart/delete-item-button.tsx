@@ -5,11 +5,7 @@ import clsx from 'clsx';
 import { removeItem } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
 import type { CartItem } from 'lib/shopify/types';
-import {
-  // @ts-ignore
-  experimental_useFormState as useFormState,
-  experimental_useFormStatus as useFormStatus
-} from 'react-dom';
+import { useFormState, useFormStatus } from 'react-dom';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
