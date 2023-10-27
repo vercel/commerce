@@ -50,10 +50,11 @@ export default function Pagination({
         <li
           key={currentPage + '-prev'}
           onClick={() => handlePageClick(currentPage - 1)}
-          className="m-2 rounded-lg border border-gray-300 bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:m-0 sm:mx-2 [&.disabled]:hidden"
+          className="m-2 rounded-lg border border-gray-300 bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:m-0 sm:mx-2"
         >
           <a
             className="ml-0 flex h-10 items-center justify-center px-4 leading-tight"
+            aria-label="Previous page"
             data-selected={currentPage}
           >
             <ArrowLeftIcon className="h-5" />
@@ -64,12 +65,16 @@ export default function Pagination({
         <li
           key={i}
           onClick={() => handlePageClick(i)}
-          className="m-2 rounded-lg border border-gray-300 bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:m-0 sm:mx-2 [&.active]:bg-gray-100"
+          className={`m-2 rounded-lg border border-gray-300 bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:m-0 sm:mx-2 [&.active]:bg-gray-100${
+            i === currentPage ? ' active ' : ''
+          }`}
         >
           <a
             className={`ml-0 flex h-10 items-center justify-center px-4 leading-tight${
-              i === currentPage ? ' active font-bold' : ''
+              i === currentPage ? ' font-bold' : ''
             }`}
+            aria-label={`Goto Page ${i + 1}`}
+            aria-current={i === currentPage}
             data-selected={i}
           >
             {i + 1}
@@ -80,10 +85,11 @@ export default function Pagination({
         <li
           key={currentPage + '-next'}
           onClick={() => handlePageClick(currentPage + 1)}
-          className="m-2 rounded-lg border border-gray-300 bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:m-0 sm:mx-2 [&.disabled]:hidden"
+          className="m-2 rounded-lg border border-gray-300 bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:m-0 sm:mx-2"
         >
           <a
             className="ml-0 flex h-10 items-center justify-center px-4 leading-tight"
+            aria-label="Next page"
             data-selected={currentPage + 1}
           >
             <ArrowRightIcon className="h-5" />
