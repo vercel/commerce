@@ -1,4 +1,5 @@
 import Navbar from 'components/layout/navbar';
+// @ts-ignore - We still need to publish types here
 import { GeistSans } from 'geist/font';
 import { ensureStartsWith } from 'lib/utils';
 import { ReactNode, Suspense } from 'react';
