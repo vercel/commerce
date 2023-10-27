@@ -1,8 +1,10 @@
 'use server';
 
+import { TAGS } from 'lib/constants';
 import { ApiClientError } from '@shopware/api-client';
 import { getApiClient } from 'lib/shopware/api';
 import { ExtendedCart, ExtendedLineItem, messageKeys } from 'lib/shopware/api-extended';
+import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
 
 export const fetchCart = async function (cartId?: string): Promise<ExtendedCart | undefined> {
@@ -21,24 +23,16 @@ export const fetchCart = async function (cartId?: string): Promise<ExtendedCart 
   }
 };
 
-export const addItem = async (variantId: string | undefined): Promise<Error | undefined> => {
-  let cartId = cookies().get('sw-context-token')?.value;
-  let cart;
-
-  if (cartId) {
-    cart = await fetchCart(cartId);
+export async function addItem(prevState: any, selectedVariantId: string | undefined) {
+  const cart = await getCart();
+  if (!cart) {
+    return 'Could not get cart';
   }
+  updateCartCookie(cart);
+  const cartId = cookies().get('sw-context-token')?.value;
 
-  if (!cartId || !cart) {
-    cart = await fetchCart();
-    if (cart && cart.token) {
-      cartId = cart.token;
-      cookies().set('sw-context-token', cartId);
-    }
-  }
-
-  if (!variantId) {
-    return { message: 'Missing product variant ID' } as Error;
+  if (!selectedVariantId) {
+    return 'Missing product variant ID';
   }
 
   try {
@@ -46,7 +40,7 @@ export const addItem = async (variantId: string | undefined): Promise<Error | un
     const apiClient = getApiClient(cartId);
 
     // this part allows us to click multiple times on addToCart and increase the qty with that
-    const itemInCart = cart?.lineItems?.filter((item) => item.id === variantId) as
+    const itemInCart = cart?.lineItems?.filter((item) => item.id === selectedVariantId) as
       | ExtendedLineItem
       | undefined;
     if (itemInCart && itemInCart.quantity) {
@@ -56,17 +50,18 @@ export const addItem = async (variantId: string | undefined): Promise<Error | un
     const response = await apiClient.invoke('addLineItem post /checkout/cart/line-item', {
       items: [
         {
-          id: variantId,
+          id: selectedVariantId,
           quantity: quantity,
-          referencedId: variantId,
+          referencedId: selectedVariantId,
           type: 'product'
         }
       ]
     });
+    revalidateTag(TAGS.cart);
 
     const errorMessage = alertErrorMessages(response);
     if (errorMessage !== '') {
-      return { message: errorMessage } as Error;
+      return errorMessage;
     }
   } catch (error) {
     if (error instanceof ApiClientError) {
@@ -76,7 +71,25 @@ export const addItem = async (variantId: string | undefined): Promise<Error | un
       console.error('==>', error);
     }
   }
-};
+}
+
+async function getCart() {
+  const cartId = cookies().get('sw-context-token')?.value;
+
+  if (cartId) {
+    return await fetchCart(cartId);
+  }
+
+  return await fetchCart();
+}
+
+function updateCartCookie(cart: ExtendedCart) {
+  const cartId = cookies().get('sw-context-token')?.value;
+
+  if (cartId && cart && cart.token && cart.token !== cartId) {
+    cookies().set('sw-context-token', cart.token);
+  }
+}
 
 function alertErrorMessages(response: ExtendedCart): string {
   let errorMessages: string = '';
@@ -92,11 +105,46 @@ function alertErrorMessages(response: ExtendedCart): string {
   return errorMessages;
 }
 
-export const removeItem = async (lineId: string): Promise<Error | undefined> => {
+export async function updateItemQuantity(
+  prevState: any,
+  payload: {
+    lineId: string;
+    variantId: string;
+    quantity: number;
+  }
+) {
   const cartId = cookies().get('sw-context-token')?.value;
 
   if (!cartId) {
-    return { message: 'Missing cart ID' } as Error;
+    return 'Missing cart ID';
+  }
+
+  const { lineId, variantId, quantity } = payload;
+
+  try {
+    if (quantity === 0) {
+      await removeItem(null, lineId);
+      revalidateTag(TAGS.cart);
+      return;
+    }
+
+    await updateLineItem(lineId, variantId, quantity);
+    revalidateTag(TAGS.cart);
+  } catch (error) {
+    if (error instanceof ApiClientError) {
+      console.error(error);
+      console.error('Details:', error.details);
+    } else {
+      return 'Error updating item quantity';
+    }
+  }
+}
+
+export async function removeItem(prevState: any, lineId: string) {
+  const cartId = cookies().get('sw-context-token')?.value;
+
+  if (!cartId) {
+    return 'Missing cart ID';
   }
 
   try {
@@ -104,6 +152,7 @@ export const removeItem = async (lineId: string): Promise<Error | undefined> => 
     await apiClient.invoke('deleteLineItem delete /checkout/cart/line-item?id[]={ids}', {
       ids: [lineId]
     });
+    revalidateTag(TAGS.cart);
   } catch (error) {
     if (error instanceof ApiClientError) {
       console.error(error);
@@ -112,17 +161,9 @@ export const removeItem = async (lineId: string): Promise<Error | undefined> => 
       console.error('==>', error);
     }
   }
-};
+}
 
-export const updateItemQuantity = async ({
-  lineId,
-  variantId,
-  quantity
-}: {
-  lineId: string;
-  variantId: string;
-  quantity: number;
-}): Promise<Error | undefined> => {
+async function updateLineItem(lineId: string, variantId: string, quantity: number) {
   const cartId = cookies().get('sw-context-token')?.value;
 
   if (!cartId) {
@@ -148,4 +189,4 @@ export const updateItemQuantity = async ({
       console.error('==>', error);
     }
   }
-};
+}

@@ -22,8 +22,10 @@ export const sorting: SortFilterItem[] = [
 
 export const TAGS = {
   collections: 'collections',
-  products: 'products'
+  products: 'products',
+  cart: 'cart'
 };
 
+// ToDo: Should work with visability from product data
 export const HIDDEN_PRODUCT_TAG = 'nextjs-frontend-hidden';
 export const DEFAULT_OPTION = 'Default Title';
