@@ -7,7 +7,7 @@ import { ExtendedCart, ExtendedLineItem, messageKeys } from 'lib/shopware/api-ex
 import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
 
-export const fetchCart = async function (cartId?: string): Promise<ExtendedCart | undefined> {
+async function fetchCart(cartId?: string): Promise<ExtendedCart | undefined> {
   try {
     const apiClient = getApiClient(cartId);
     const cart = await apiClient.invoke('readCart get /checkout/cart?name', {});
@@ -21,7 +21,7 @@ export const fetchCart = async function (cartId?: string): Promise<ExtendedCart 
       console.error('==>', error);
     }
   }
-};
+}
 
 export async function addItem(prevState: any, selectedVariantId: string | undefined) {
   const cart = await getCart();
@@ -73,7 +73,7 @@ export async function addItem(prevState: any, selectedVariantId: string | undefi
   }
 }
 
-async function getCart() {
+export async function getCart() {
   const cartId = cookies().get('sw-context-token')?.value;
 
   if (cartId) {
