@@ -28,8 +28,7 @@ export async function addItem(prevState: any, selectedVariantId: string | undefi
   if (!cart) {
     return 'Could not get cart';
   }
-  updateCartCookie(cart);
-  const cartId = cookies().get('sw-context-token')?.value;
+  const cartId = updateCartCookie(cart);
 
   if (!selectedVariantId) {
     return 'Missing product variant ID';
@@ -83,12 +82,20 @@ export async function getCart() {
   return await fetchCart();
 }
 
-function updateCartCookie(cart: ExtendedCart) {
+function updateCartCookie(cart: ExtendedCart): string | undefined {
   const cartId = cookies().get('sw-context-token')?.value;
+
+  if (!cartId && cart && cart.token) {
+    cookies().set('sw-context-token', cart.token);
+    return cart.token;
+  }
 
   if (cartId && cart && cart.token && cart.token !== cartId) {
     cookies().set('sw-context-token', cart.token);
+    return cart.token;
   }
+
+  return cartId;
 }
 
 function alertErrorMessages(response: ExtendedCart): string {
