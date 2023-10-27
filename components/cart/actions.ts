@@ -57,12 +57,12 @@ export async function addItem(prevState: any, selectedVariantId: string | undefi
         }
       ]
     });
-    revalidateTag(TAGS.cart);
 
     const errorMessage = alertErrorMessages(response);
     if (errorMessage !== '') {
       return errorMessage;
     }
+    revalidateTag(TAGS.cart);
   } catch (error) {
     if (error instanceof ApiClientError) {
       console.error(error);

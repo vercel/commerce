@@ -90,9 +90,11 @@ export function AddToCart({
   return (
     <form action={actionWithVariant}>
       <SubmitButton availableForSale={availableForSale} selectedVariantId={selectedVariantId} />
-      <p aria-live="polite" className="sr-only" role="status">
-        {message}
-      </p>
+      <div className="flex items-center px-4 py-3 text-sm font-bold text-black">
+        <p aria-live="polite" className="h-6" role="status">
+          {message}
+        </p>
+      </div>
     </form>
   );
 }

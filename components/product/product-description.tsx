@@ -26,7 +26,7 @@ export function ProductDescription({ product }: { product: Product }) {
 
       {product.descriptionHtml ? (
         <Prose
-          className="m-6 max-h-96 overflow-y-auto text-sm leading-tight dark:text-white/[60%]"
+          className="m-6 mt-3 max-h-96 overflow-y-auto text-sm leading-tight dark:text-white/[60%]"
           html={product.descriptionHtml}
         />
       ) : null}
