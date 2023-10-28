@@ -13,18 +13,19 @@
     "lint-staged": "lint-staged",
     "prettier": "prettier --write --ignore-unknown .",
     "prettier:check": "prettier --check --ignore-unknown .",
-    "test": "pnpm lint && pnpm prettier:check"
-  },
-  "git": {
-    "pre-commit": "lint-staged"
+    "test": "pnpm lint && pnpm prettier:check",
+    "prepare": "husky install"
   },
   "lint-staged": {
-    "*": "prettier --write --ignore-unknown"
+    "*": "prettier --write --ignore-unknown",
+    "*.js": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
     "clsx": "^2.0.0",
+    "husky": "^8.0.3",
     "next": "13.5.4",
     "react": "18.2.0",
     "react-dom": "18.2.0"
