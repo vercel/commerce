@@ -22,6 +22,7 @@ updates:
       - 'github-actions'
       - 'dependencies'
       - 'dependabot'
+      
     commit-message:
       prefix: 'dependa'
     open-pull-requests-limit: 20
