@@ -84,17 +84,17 @@ export async function getCart() {
 
 function updateCartCookie(cart: ExtendedCart): string | undefined {
   const cartId = cookies().get('sw-context-token')?.value;
-
-  if (!cartId && cart && cart.token) {
-    cookies().set('sw-context-token', cart.token);
-    return cart.token;
-  }
-
+  // cartId is set, but not valid anymore, update the cookie
   if (cartId && cart && cart.token && cart.token !== cartId) {
     cookies().set('sw-context-token', cart.token);
     return cart.token;
   }
-
+  // cartId is not set (undefined), case for new cart, set the cookie
+  if (!cartId && cart && cart.token) {
+    cookies().set('sw-context-token', cart.token);
+    return cart.token;
+  }
+  // cartId is set and the same like cart.token, return it
   return cartId;
 }
 
