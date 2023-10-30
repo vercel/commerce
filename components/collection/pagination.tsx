@@ -50,7 +50,7 @@ export default function Pagination({
         <li
           key={currentPage + '-prev'}
           onClick={() => handlePageClick(currentPage - 1)}
-          className="m-2 rounded-lg border border-gray-300 bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:m-0 sm:mx-2"
+          className="m-2 cursor-pointer rounded-lg border border-gray-300 bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:m-0 sm:mx-2"
         >
           <a
             className="ml-0 flex h-10 items-center justify-center px-4 leading-tight"
@@ -65,7 +65,7 @@ export default function Pagination({
         <li
           key={i}
           onClick={() => handlePageClick(i)}
-          className={`m-2 rounded-lg border border-gray-300 bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:m-0 sm:mx-2 [&.active]:bg-gray-100${
+          className={`m-2 rounded-lg border border-gray-300 bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:m-0 sm:mx-2 [&.active]:bg-gray-100 cursor-pointer${
             i === currentPage ? ' active ' : ''
           }`}
         >
@@ -85,7 +85,7 @@ export default function Pagination({
         <li
           key={currentPage + '-next'}
           onClick={() => handlePageClick(currentPage + 1)}
-          className="m-2 rounded-lg border border-gray-300 bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:m-0 sm:mx-2"
+          className="m-2 cursor-pointer rounded-lg border border-gray-300 bg-white text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:m-0 sm:mx-2"
         >
           <a
             className="ml-0 flex h-10 items-center justify-center px-4 leading-tight"

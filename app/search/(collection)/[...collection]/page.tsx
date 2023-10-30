@@ -20,7 +20,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   // see https://github.com/facebook/react/issues/25994
   const collectionName = decodeURIComponent(transformHandle(params?.collection ?? ''));
-  if (collectionName === 'react_devtools_backend_compact.js.map') {
+  if (collectionName.includes('.js.map')) {
     return {};
   }
 
@@ -47,7 +47,7 @@ export default async function CategoryPage({
 
   // see https://github.com/facebook/react/issues/25994
   const collectionName = decodeURIComponent(transformHandle(params?.collection ?? ''));
-  if (collectionName === 'react_devtools_backend_compact.js.map') {
+  if (collectionName.includes('.js.map')) {
     return null;
   }
 
