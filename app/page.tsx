@@ -8,7 +8,7 @@ import { Suspense } from 'react';
 export const runtime = 'edge';
 
 export const metadata = {
-  description: 'Scape Squared: High-performance ecommerce store built with Next.js, Vercel, and Shopify.',
+  description: 'scape²: art for the wall & wardrobe.',
   openGraph: {
     type: 'website'
   }
