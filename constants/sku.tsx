@@ -58,7 +58,7 @@ export const customisationSKUs = {
 };
 
 export const sizeSKUs = {
-  xxs: 'XXS',
+  xxs: '2XS',
   xs: 'XS',
   s: 'S',
   m: 'M',
