@@ -6,9 +6,6 @@ import Grid from 'components/grid';
 import ProductGridItems from 'components/layout/product-grid-items';
 import { defaultSort, sorting } from 'lib/constants';
 
-export const runtime = 'edge';
-export const revalidate = 300; // 5 minutes in seconds
-
 export async function generateMetadata({
   params
 }: {

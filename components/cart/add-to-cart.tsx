@@ -5,7 +5,9 @@ import { addItem } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
 import { ProductVariant } from 'lib/shopify/types';
 import { useTranslations } from 'next-intl';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import router from 'next/router';
+import { title } from 'process';
 import { useTransition } from 'react';
 
 export function AddToCart({
@@ -15,7 +17,7 @@ export function AddToCart({
   variants: ProductVariant[];
   availableForSale: boolean;
 }) {
-  const router = useRouter();
+  const [message, formAction] = useFormState(addItem, null);
   const searchParams = useSearchParams();
   const t = useTranslations('Index');
 
@@ -27,11 +29,7 @@ export function AddToCart({
     )
   );
   const selectedVariantId = variant?.id || defaultVariantId;
-  const title = !availableForSale
-    ? 'Out of stock'
-    : !selectedVariantId
-    ? 'Please select options'
-    : undefined;
+  const actionWithVariant = formAction.bind(null, selectedVariantId);
 
   return (
     <button

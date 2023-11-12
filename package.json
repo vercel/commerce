@@ -23,7 +23,7 @@
     "*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.15",
+    "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
     "@thgh/next-gtm": "^0.1.4",
     "@types/react-gtm-module": "^2.0.1",

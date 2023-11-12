@@ -5,7 +5,7 @@ module.exports = {
     ignoreDuringBuilds: true
   },
   experimental: {
-    serverActions: true
+    ppr: true
   },
   images: {
     formats: ['image/avif', 'image/webp'],
@@ -16,5 +16,14 @@ module.exports = {
         pathname: '/s/files/**'
       }
     ]
+  },
+  async redirects() {
+    return [
+      {
+        source: '/password',
+        destination: '/',
+        permanent: true
+      }
+    ];
   }
 };
