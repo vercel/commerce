@@ -8,9 +8,6 @@ import { cookies } from 'next/headers';
 import { Suspense } from 'react';
 import CompanyDetail from './company-detail';
 
-export const runtime = 'edge';
-export const revalidate = 43200; // 12 hours in seconds
-
 const { SITE_NAME } = process.env;
 
 export const metadata = {
@@ -37,13 +34,13 @@ export default async function Page({ params }: { params: { locale?: SupportedLoc
   return (
     <div>
       <Navbar cart={cart} locale={params?.locale} compact promotedItem={promotedItem} />
-      <div className="pt-12">
-        <CompanyDetail />
-      </div>
-
-      <Suspense>
-        <Footer cart={cart} />
+      <Suspense fallback={null}>
+        <div className="pt-12">
+          <CompanyDetail />
+        </div>
       </Suspense>
+
+      <Footer cart={cart} />
     </div>
   );
 }

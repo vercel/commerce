@@ -8,9 +8,6 @@ import { Product } from 'lib/shopify/types';
 import { cookies } from 'next/headers';
 import { Suspense } from 'react';
 
-export const runtime = 'edge';
-export const revalidate = 300; // 5 minutes in seconds
-
 const { SITE_NAME } = process.env;
 
 export const metadata = {
@@ -41,13 +38,13 @@ export default async function ProductPage({
   return (
     <div>
       <Navbar cart={cart} locale={locale} compact promotedItem={promotedItem} />
-      <div className="py-24 md:py-48">
-        <ProductGrid lang={locale} />
-      </div>
-
-      <Suspense>
-        <Footer cart={cart} />
+      <Suspense fallback={null}>
+        <div className="py-24 md:py-48">
+          <ProductGrid lang={locale} />
+        </div>
       </Suspense>
+
+      <Footer cart={cart} />
     </div>
   );
 }

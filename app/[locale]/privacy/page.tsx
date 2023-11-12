@@ -8,9 +8,6 @@ import { cookies } from 'next/headers';
 import { Suspense } from 'react';
 import PrivacyPolicy from './privacy-policy';
 
-export const runtime = 'edge';
-export const revalidate = 43200; // 12 hours in seconds
-
 const { SITE_NAME } = process.env;
 
 export const metadata = {
@@ -41,13 +38,13 @@ export default async function PrivacyPage({
   return (
     <div>
       <Navbar cart={cart} locale={locale} compact promotedItem={promotedItem} />
-      <div className="py-24 md:py-48">
-        <PrivacyPolicy />
-      </div>
-
-      <Suspense>
-        <Footer cart={cart} />
+      <Suspense fallback={null}>
+        <div className="py-24 md:py-48">
+          <PrivacyPolicy />
+        </div>
       </Suspense>
+
+      <Footer cart={cart} />
     </div>
   );
 }

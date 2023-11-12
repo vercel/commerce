@@ -3,22 +3,23 @@ import type { Metadata } from 'next';
 import Footer from 'components/layout/footer';
 import Navbar from 'components/layout/navbar';
 import { SupportedLocale } from 'components/layout/navbar/language-control';
-import Prose from 'components/prose';
 import { getCart, getPage, getProduct } from 'lib/shopify';
 import { Product } from 'lib/shopify/types';
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
+import ShopListDetail from './shop-list-detail';
 import ShopsNav from './shops-nav';
-
-export const revalidate = 300; // 5 minutes in seconds
 
 export async function generateMetadata({
   params
 }: {
   params: { locale?: SupportedLocale };
 }): Promise<Metadata> {
-  const page = await getPage({ handle: 'shop-list', language: params?.locale?.toUpperCase() });
+  const page = await getPage({
+    handle: 'shop-list',
+    language: params?.locale?.toUpperCase() || 'JA'
+  });
 
   if (!page) return notFound();
 
@@ -41,13 +42,9 @@ export default async function Page({ params }: { params: { locale?: SupportedLoc
     cart = await getCart(cartId);
   }
 
-  const page = await getPage({ handle: 'shop-list', language: params?.locale?.toUpperCase() });
-
-  if (!page) return notFound();
-
   const promotedItem: Product | undefined = await getProduct({
     handle: 'gift-bag-and-postcard-set',
-    language: params?.locale?.toUpperCase()
+    language: params?.locale?.toUpperCase() || 'JA'
   });
 
   return (
@@ -57,13 +54,12 @@ export default async function Page({ params }: { params: { locale?: SupportedLoc
         <div className="pb-12">
           <ShopsNav />
         </div>
-        {/* <h2 className="font-multilingual mb-8 text-3xl font-medium">{page.title}</h2> */}
-        <Prose html={page.body as string} />
+        <Suspense fallback={null}>
+          <ShopListDetail language={params?.locale?.toUpperCase()} />
+        </Suspense>
       </div>
 
-      <Suspense>
-        <Footer cart={cart} />
-      </Suspense>
+      <Footer cart={cart} />
     </div>
   );
 }

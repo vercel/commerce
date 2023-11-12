@@ -8,9 +8,6 @@ import { cookies } from 'next/headers';
 import { Suspense } from 'react';
 import AboutNaraiDetail from './about-narai-detail';
 
-export const runtime = 'edge';
-export const revalidate = 43200; // 12 hours in seconds
-
 const { SITE_NAME } = process.env;
 
 export const metadata = {
@@ -39,13 +36,13 @@ export default async function Page({ params }: { params: { locale?: SupportedLoc
   return (
     <div>
       <Navbar cart={cart} locale={params?.locale} compact promotedItem={promotedItem} />
-      <div className="pt-24 md:pt-32">
-        <AboutNaraiDetail awards={awardsPage.body} />
-      </div>
-
-      <Suspense>
-        <Footer cart={cart} />
+      <Suspense fallback={null}>
+        <div className="pt-24 md:pt-32">
+          <AboutNaraiDetail awards={awardsPage.body} />
+        </div>
       </Suspense>
+
+      <Footer cart={cart} />
     </div>
   );
 }
