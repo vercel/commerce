@@ -5,6 +5,7 @@ import Navbar from 'components/layout/navbar';
 import { getCart, getProduct } from 'lib/shopify';
 import { Product } from 'lib/shopify/types';
 import { cookies } from 'next/headers';
+import { Suspense } from 'react';
 import PrivacyPolicy from './privacy-policy';
 
 const { SITE_NAME } = process.env;
@@ -37,9 +38,11 @@ export default async function PrivacyPage({
   return (
     <div>
       <Navbar cart={cart} locale={locale} compact promotedItem={promotedItem} />
-      <div className="py-24 md:py-48">
-        <PrivacyPolicy />
-      </div>
+      <Suspense fallback={null}>
+        <div className="py-24 md:py-48">
+          <PrivacyPolicy />
+        </div>
+      </Suspense>
 
       <Footer cart={cart} />
     </div>

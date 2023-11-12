@@ -5,6 +5,7 @@ import Navbar from 'components/layout/navbar';
 import { getCart, getPage, getProduct } from 'lib/shopify';
 import { Product } from 'lib/shopify/types';
 import { cookies } from 'next/headers';
+import { Suspense } from 'react';
 import AboutNaraiDetail from './about-narai-detail';
 
 const { SITE_NAME } = process.env;
@@ -35,9 +36,11 @@ export default async function Page({ params }: { params: { locale?: SupportedLoc
   return (
     <div>
       <Navbar cart={cart} locale={params?.locale} compact promotedItem={promotedItem} />
-      <div className="pt-24 md:pt-32">
-        <AboutNaraiDetail awards={awardsPage.body} />
-      </div>
+      <Suspense fallback={null}>
+        <div className="pt-24 md:pt-32">
+          <AboutNaraiDetail awards={awardsPage.body} />
+        </div>
+      </Suspense>
 
       <Footer cart={cart} />
     </div>

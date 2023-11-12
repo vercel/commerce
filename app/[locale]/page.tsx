@@ -24,6 +24,7 @@ import { getCart, getProduct } from 'lib/shopify';
 import { Product } from 'lib/shopify/types';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
+import { Suspense } from 'react';
 
 const { SITE_NAME } = process.env;
 
@@ -59,7 +60,9 @@ export default async function HomePage({
         <HomepageProducts lang={locale} />
       </div>
       <div className="py-24 md:py-48">
-        <NewsletterSignup />
+        <Suspense fallback={null}>
+          <NewsletterSignup />
+        </Suspense>
       </div>
       <div className="relative mx-auto max-w-screen-xl">
         <Image
@@ -70,7 +73,9 @@ export default async function HomePage({
         />
       </div>
       <div className="py-24">
-        <Shoplist />
+        <Suspense fallback={null}>
+          <Shoplist />
+        </Suspense>
       </div>
 
       <div className="relative pb-48">

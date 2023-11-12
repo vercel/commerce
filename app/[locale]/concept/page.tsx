@@ -5,6 +5,7 @@ import Navbar from 'components/layout/navbar';
 import { getCart, getProduct } from 'lib/shopify';
 import { Product } from 'lib/shopify/types';
 import { cookies } from 'next/headers';
+import { Suspense } from 'react';
 import ConceptDetail from './concept-detail';
 
 const { SITE_NAME } = process.env;
@@ -33,9 +34,11 @@ export default async function Page({ params }: { params: { locale?: SupportedLoc
   return (
     <div>
       <Navbar cart={cart} locale={params?.locale} compact promotedItem={promotedItem} />
-      <div className="pt-12">
-        <ConceptDetail />
-      </div>
+      <Suspense fallback={null}>
+        <div className="pt-12">
+          <ConceptDetail />
+        </div>
+      </Suspense>
 
       <Footer cart={cart} />
     </div>

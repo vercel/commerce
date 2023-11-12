@@ -7,6 +7,7 @@ import { BLOG_HANDLE } from 'lib/constants';
 import { getCart, getProduct } from 'lib/shopify';
 import { Product } from 'lib/shopify/types';
 import { cookies } from 'next/headers';
+import { Suspense } from 'react';
 
 const { SITE_NAME } = process.env;
 
@@ -38,9 +39,11 @@ export default async function StoriesPage({
   return (
     <div>
       <Navbar cart={cart} locale={locale} compact promotedItem={promotedItem} />
-      <div className="py-24 md:py-48">
-        <StoriesDetail handle={BLOG_HANDLE} locale={locale} />
-      </div>
+      <Suspense fallback={null}>
+        <div className="py-24 md:py-48">
+          <StoriesDetail handle={BLOG_HANDLE} locale={locale} />
+        </div>
+      </Suspense>
 
       <Footer cart={cart} />
     </div>

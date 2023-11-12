@@ -1,10 +1,9 @@
 import { Lato, Noto_Serif_JP } from 'next/font/google';
 import localFont from 'next/font/local';
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 
 import { SupportedLocale } from 'components/layout/navbar/language-control';
 import { NextIntlClientProvider } from 'next-intl';
-import { notFound } from 'next/navigation';
 import Analytics from './analytics';
 import './globals.css';
 
@@ -81,12 +80,7 @@ export default async function RootLayout({
   children: ReactNode;
   params: { locale?: SupportedLocale };
 }) {
-  let messages;
-  try {
-    messages = (await import(`../../messages/${params?.locale}.json`)).default;
-  } catch (error) {
-    notFound();
-  }
+  const messages = (await import(`../../messages/${params?.locale}.json`)).default;
 
   return (
     <html
@@ -95,7 +89,9 @@ export default async function RootLayout({
     >
       <body className="bg-dark text-white selection:bg-green-800 selection:text-green-400">
         <NextIntlClientProvider locale={params?.locale} messages={messages}>
-          <Analytics />
+          <Suspense fallback={null}>
+            <Analytics />
+          </Suspense>
           <main>{children}</main>
         </NextIntlClientProvider>
       </body>

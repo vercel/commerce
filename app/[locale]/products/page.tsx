@@ -6,6 +6,7 @@ import Navbar from 'components/layout/navbar';
 import { getCart, getProduct } from 'lib/shopify';
 import { Product } from 'lib/shopify/types';
 import { cookies } from 'next/headers';
+import { Suspense } from 'react';
 
 const { SITE_NAME } = process.env;
 
@@ -37,9 +38,11 @@ export default async function ProductPage({
   return (
     <div>
       <Navbar cart={cart} locale={locale} compact promotedItem={promotedItem} />
-      <div className="py-24 md:py-48">
-        <ProductGrid lang={locale} />
-      </div>
+      <Suspense fallback={null}>
+        <div className="py-24 md:py-48">
+          <ProductGrid lang={locale} />
+        </div>
+      </Suspense>
 
       <Footer cart={cart} />
     </div>
