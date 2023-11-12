@@ -8,6 +8,7 @@ import { getCart, getPage, getProduct } from 'lib/shopify';
 import { Product } from 'lib/shopify/types';
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 import ShopsNav from './shops-nav';
 
 export async function generateMetadata({
@@ -51,9 +52,11 @@ export default async function Page({ params }: { params: { locale?: SupportedLoc
     <div>
       <Navbar cart={cart} locale={params?.locale} compact showTop promotedItem={promotedItem} />
       <div className="mx-auto max-w-xl px-6 pb-24 pt-12 md:pb-48 md:pt-24">
-        <div className="pb-12">
-          <ShopsNav />
-        </div>
+        <Suspense>
+          <div className="pb-12">
+            <ShopsNav />
+          </div>
+        </Suspense>
         {/* <h2 className="font-multilingual mb-8 text-3xl font-medium">{page.title}</h2> */}
         <Prose html={page.body as string} />
       </div>
