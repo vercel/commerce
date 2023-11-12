@@ -5,6 +5,7 @@ import InstagramIcon from 'components/icons/instagram';
 import KanjiLogo from 'components/icons/kanji';
 import { Cart, Product } from 'lib/shopify/types';
 import Link from 'next/link';
+import { Suspense } from 'react';
 import FooterMenu from './footer-menu';
 import NewsletterFooter from './newsletter-footer';
 
@@ -95,7 +96,9 @@ export default async function Footer({
 
             <div className="flex flex-col space-y-2 pt-24">
               <div className="flex flex-row justify-between space-x-4">
-                <CartModal cart={cart} promotedItem={promotedItem} />
+                <Suspense>
+                  <CartModal cart={cart} promotedItem={promotedItem} />
+                </Suspense>
                 <div className="flex flex-row items-center space-x-6">
                   <Link
                     href="https://www.instagram.com/narai.sake/"
