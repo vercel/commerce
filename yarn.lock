@@ -467,17 +467,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@thgh/next-gtm@npm:^0.1.4":
-  version: 0.1.4
-  resolution: "@thgh/next-gtm@npm:0.1.4"
-  peerDependencies:
-    next: ^13
-    react: ^18
-    react-dom: ^18
-  checksum: a0647b1b6a0b8565998d5c2dd247992d009ae8bfe73d2e6684c9b282ab8826de6bba7854179958cf440e3af00e56b9a621600b2fe60db0c2bb065486bab77c81
-  languageName: node
-  linkType: hard
-
 "@tootallnate/once@npm:2":
   version: 2.0.0
   resolution: "@tootallnate/once@npm:2.0.0"
@@ -1356,7 +1345,6 @@ __metadata:
     "@heroicons/react": ^2.0.18
     "@tailwindcss/container-queries": ^0.1.1
     "@tailwindcss/typography": ^0.5.9
-    "@thgh/next-gtm": ^0.1.4
     "@types/js-cookie": ^3.0.3
     "@types/negotiator": ^0.6.1
     "@types/node": 20.4.4
@@ -1377,13 +1365,14 @@ __metadata:
     lint-staged: ^13.2.3
     negotiator: ^0.6.3
     next: canary
+    next-gtm: latest
     next-intl: latest
     postcss: ^8.4.27
     prettier: 3.0.1
     prettier-plugin-organize-imports: ^3.2.3
     prettier-plugin-tailwindcss: ^0.4.1
     react: latest
-    react-dom: latest
+    react-dom: canary
     react-ga: ^3.3.1
     react-gtm-module: ^2.0.11
     react-intersection-observer: ^9.5.2
@@ -3668,6 +3657,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"next-gtm@npm:latest":
+  version: 1.0.0
+  resolution: "next-gtm@npm:1.0.0"
+  peerDependencies:
+    react: ^16.6.1
+    react-dom: ^16.6.3
+  checksum: 7d2737c83ca1376330ade14d9c3bde3ac4edc13e8b670da6577522b7b32e0642e7941ac3a4bb0b2ab6c3efb6bf2d71f95a978b78fc149d6fbe6814d395331468
+  languageName: node
+  linkType: hard
+
 "next-intl@npm:latest":
   version: 2.19.1
   resolution: "next-intl@npm:2.19.1"
@@ -4454,15 +4453,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:latest":
-  version: 18.2.0
-  resolution: "react-dom@npm:18.2.0"
+"react-dom@npm:canary":
+  version: 18.3.0-canary-6b3834a45-20231110
+  resolution: "react-dom@npm:18.3.0-canary-6b3834a45-20231110"
   dependencies:
     loose-envify: ^1.1.0
-    scheduler: ^0.23.0
+    scheduler: 0.24.0-canary-6b3834a45-20231110
   peerDependencies:
-    react: ^18.2.0
-  checksum: 7d323310bea3a91be2965f9468d552f201b1c27891e45ddc2d6b8f717680c95a75ae0bc1e3f5cf41472446a2589a75aed4483aee8169287909fcd59ad149e8cc
+    react: 18.3.0-canary-6b3834a45-20231110
+  checksum: b4d4a79fee9d99d634ce3d0255a3df0450d6923a4302a27b66d08001f5e4f5389367978b4ecd8aa071d70b4613911eae0bb4d643831ecf5b56877634f42b6ca7
   languageName: node
   linkType: hard
 
@@ -4799,12 +4798,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"scheduler@npm:^0.23.0":
-  version: 0.23.0
-  resolution: "scheduler@npm:0.23.0"
+"scheduler@npm:0.24.0-canary-6b3834a45-20231110":
+  version: 0.24.0-canary-6b3834a45-20231110
+  resolution: "scheduler@npm:0.24.0-canary-6b3834a45-20231110"
   dependencies:
     loose-envify: ^1.1.0
-  checksum: d79192eeaa12abef860c195ea45d37cbf2bbf5f66e3c4dcd16f54a7da53b17788a70d109ee3d3dde1a0fd50e6a8fc171f4300356c5aee4fc0171de526bf35f8a
+  checksum: 0caa252a3b7f85fe5ee3d58cdee6ad5ec60fba3e227fe95b2df7b7f451c20d75bef06c5517992f4dc3e28aae26037e90f6fc3738665d6df28774cd011d9a5231
   languageName: node
   linkType: hard
 
