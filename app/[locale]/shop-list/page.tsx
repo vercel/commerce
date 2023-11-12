@@ -8,10 +8,7 @@ import { getCart, getPage, getProduct } from 'lib/shopify';
 import { Product } from 'lib/shopify/types';
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
 import ShopsNav from './shops-nav';
-
-export const revalidate = 300; // 5 minutes in seconds
 
 export async function generateMetadata({
   params
@@ -61,9 +58,7 @@ export default async function Page({ params }: { params: { locale?: SupportedLoc
         <Prose html={page.body as string} />
       </div>
 
-      <Suspense>
-        <Footer cart={cart} />
-      </Suspense>
+      <Footer cart={cart} />
     </div>
   );
 }

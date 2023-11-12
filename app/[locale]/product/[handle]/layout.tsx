@@ -4,10 +4,7 @@ import { SupportedLocale } from 'components/layout/navbar/language-control';
 import Navbar from 'components/layout/navbar';
 import { getCart } from 'lib/shopify';
 import { cookies } from 'next/headers';
-import { ReactNode, Suspense } from 'react';
-
-export const runtime = 'edge';
-export const revalidate = 300; // 5 minutes in seconds
+import { ReactNode } from 'react';
 
 const { SITE_NAME } = process.env;
 
@@ -37,9 +34,7 @@ export default async function ProductLayout({
     <div>
       <Navbar cart={cart} locale={locale} compact />
       {children}
-      <Suspense>
-        <Footer cart={cart} />
-      </Suspense>
+      <Footer cart={cart} />
     </div>
   );
 }

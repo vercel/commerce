@@ -1,15 +1,17 @@
-import Navbar from 'components/layout/navbar';
-import { GeistSans } from 'geist/font/sans';
-import { ensureStartsWith } from 'lib/utils';
+import { Lato, Noto_Serif_JP } from 'next/font/google';
+import localFont from 'next/font/local';
 import { ReactNode } from 'react';
+
+import { SupportedLocale } from 'components/layout/navbar/language-control';
+import { NextIntlClientProvider } from 'next-intl';
+import { notFound } from 'next/navigation';
+import Analytics from './[locale]/analytics';
 import './globals.css';
 
 const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;
 const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
   ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
   : 'http://localhost:3000';
-const twitterCreator = TWITTER_CREATOR ? ensureStartsWith(TWITTER_CREATOR, '@') : undefined;
-const twitterSite = TWITTER_SITE ? ensureStartsWith(TWITTER_SITE, 'https://') : undefined;
 
 export const metadata = {
   metadataBase: new URL(baseUrl),
@@ -21,22 +23,81 @@ export const metadata = {
     follow: true,
     index: true
   },
-  ...(twitterCreator &&
-    twitterSite && {
+  ...(TWITTER_CREATOR &&
+    TWITTER_SITE && {
       twitter: {
         card: 'summary_large_image',
-        creator: twitterCreator,
-        site: twitterSite
+        creator: TWITTER_CREATOR,
+        site: TWITTER_SITE
       }
     })
 };
 
-export default async function RootLayout({ children }: { children: ReactNode }) {
+// Font files can be colocated inside of `app`
+const cinzel = localFont({
+  src: '../fonts/Cinzel-Regular.ttf',
+  display: 'swap',
+  variable: '--font-cinzel'
+});
+
+const alpina = localFont({
+  src: [
+    {
+      path: '../fonts/GT-Alpina-Regular-Trial.woff2',
+      weight: '400',
+      style: 'normal'
+    },
+    {
+      path: '../fonts/GT-Alpina-Bold-Trial.woff2',
+      weight: '700',
+      style: 'normal'
+    }
+  ],
+  variable: '--font-alpina'
+});
+
+const lato = Lato({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['300'],
+  variable: '--font-lato'
+});
+
+const noto = Noto_Serif_JP({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: ['200', '400', '600'],
+  variable: '--font-noto'
+});
+
+export function generateStaticParams() {
+  return [{ locale: 'ja' }, { locale: 'en' }];
+}
+
+export default async function RootLayout({
+  children,
+  params
+}: {
+  children: ReactNode;
+  params: { locale?: SupportedLocale };
+}) {
+  let messages;
+  try {
+    messages = (await import(`../../messages/${params?.locale}.json`)).default;
+  } catch (error) {
+    notFound();
+  }
+
   return (
-    <html lang="en" className={GeistSans.variable}>
-      <body className="bg-neutral-50 text-black selection:bg-teal-300 dark:bg-neutral-900 dark:text-white dark:selection:bg-pink-500 dark:selection:text-white">
-        <Navbar />
-        <main>{children}</main>
+    <html
+      lang={params.locale}
+      className={`${cinzel.variable} ${alpina.variable} ${noto.variable} ${lato.variable}`}
+    >
+      <body className="bg-dark text-white selection:bg-green-800 selection:text-green-400">
+        <NextIntlClientProvider locale={params?.locale} messages={messages}>
+          <Analytics />
+          <main>{children}</main>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

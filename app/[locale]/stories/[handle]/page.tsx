@@ -8,9 +8,6 @@ import { getBlogArticle } from 'lib/shopify';
 import { BlogArticle } from 'lib/shopify/types';
 import Image from 'next/image';
 
-export const runtime = 'edge';
-export const revalidate = 300; // 5 minutes in seconds
-
 export async function generateMetadata({
   params
 }: {

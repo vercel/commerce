@@ -24,10 +24,6 @@ import { getCart, getProduct } from 'lib/shopify';
 import { Product } from 'lib/shopify/types';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
-import { Suspense } from 'react';
-
-export const runtime = 'edge';
-export const revalidate = 300; // 5 minutes in seconds
 
 const { SITE_NAME } = process.env;
 
@@ -152,9 +148,7 @@ export default async function HomePage({
         />
       </div>
 
-      <Suspense>
-        <Footer cart={cart} promotedItem={promotedItem} />
-      </Suspense>
+      <Footer cart={cart} promotedItem={promotedItem} />
     </div>
   );
 }

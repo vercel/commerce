@@ -7,6 +7,7 @@ import CartModal from 'components/cart/modal';
 import LogoNamemark from 'components/icons/namemark';
 import { Cart, Product } from 'lib/shopify/types';
 import Link from 'next/link';
+import { Suspense } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { MenuModal } from '../menu/modal';
 import { LanguageControl, SupportedLocale } from './language-control';
@@ -84,13 +85,15 @@ export default function Navbar({
           </Link>
         </div>
         <nav className="flex flex-row items-center space-x-4 px-2 md:pt-6">
-          <div className="hidden md:block">
-            <LanguageControl lang={locale} />
-          </div>
-          <div className="flex flex-col-reverse items-center justify-center space-y-2 rounded md:flex-row md:space-x-6 md:space-y-0">
-            <CartModal cart={cart} promotedItem={promotedItem} />
-            <MenuModal scrolled={!inView} />
-          </div>
+          <Suspense fallback={null}>
+            <div className="hidden md:block">
+              <LanguageControl lang={locale} />
+            </div>
+            <div className="flex flex-col-reverse items-center justify-center space-y-2 rounded md:flex-row md:space-x-6 md:space-y-0">
+              <CartModal cart={cart} promotedItem={promotedItem} />
+              <MenuModal scrolled={!inView} />
+            </div>
+          </Suspense>
         </nav>
       </div>
     </div>

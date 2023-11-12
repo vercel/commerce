@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
 
 import { ChevronDoubleRightIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
@@ -17,9 +16,7 @@ import { getProduct, getProductRecommendations } from 'lib/shopify';
 import { Image as MediaImage, Product } from 'lib/shopify/types';
 import Image from 'next/image';
 import Link from 'next/link';
-
-export const runtime = 'edge';
-export const revalidate = 300; // 5 minutes in seconds
+import { Suspense } from 'react';
 
 export async function generateMetadata({
   params
@@ -136,13 +133,17 @@ export default async function ProductPage({
                 </div>
 
                 <div className="max-w-sm">
-                  <VariantSelector options={product.options} variants={product.variants} />
+                  <Suspense>
+                    <VariantSelector options={product.options} variants={product.variants} />
+                  </Suspense>
 
-                  <AddManyToCart
-                    quantity={1}
-                    variants={product.variants}
-                    availableForSale={product.availableForSale}
-                  />
+                  <Suspense>
+                    <AddManyToCart
+                      quantity={1}
+                      variants={product.variants}
+                      availableForSale={product.availableForSale}
+                    />
+                  </Suspense>
                 </div>
 
                 <div className="border-b border-white/20 pb-6"></div>
@@ -165,30 +166,32 @@ export default async function ProductPage({
           )}
 
           <div className="grid grid-cols-1 gap-4 px-4 md:grid-cols-2 md:px-0">
-            {!!otherImages &&
-              otherImages?.length > 0 &&
-              otherImages.map((image, index) => {
-                const isOdd = otherImages.length % 2 != 0;
-                const isLast = index === otherImages.length - 1;
-                const isOddAndLast = isOdd && isLast;
-                return (
-                  <div
-                    key={image.url}
-                    className={clsx(
-                      isOddAndLast ? 'col-span-1 md:col-span-2' : 'col-span-1 aspect-square',
-                      'relative h-full w-full bg-gray-900/10'
-                    )}
-                  >
-                    <Image
-                      src={image.url}
-                      alt={image.altText}
-                      height={image.height}
-                      width={image.width}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                );
-              })}
+            <Suspense fallback={null}>
+              {!!otherImages &&
+                otherImages?.length > 0 &&
+                otherImages.map((image, index) => {
+                  const isOdd = otherImages.length % 2 != 0;
+                  const isLast = index === otherImages.length - 1;
+                  const isOddAndLast = isOdd && isLast;
+                  return (
+                    <div
+                      key={image.url}
+                      className={clsx(
+                        isOddAndLast ? 'col-span-1 md:col-span-2' : 'col-span-1 aspect-square',
+                        'relative h-full w-full bg-gray-900/10'
+                      )}
+                    >
+                      <Image
+                        src={image.url}
+                        alt={image.altText}
+                        height={image.height}
+                        width={image.width}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                  );
+                })}
+            </Suspense>
           </div>
 
           {!!product?.lower?.value && (
@@ -197,9 +200,7 @@ export default async function ProductPage({
             </div>
           )}
 
-          <Suspense>
-            <RelatedProducts id={product.id} />
-          </Suspense>
+          <RelatedProducts id={product.id} />
         </div>
       </div>
     </>
