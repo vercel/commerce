@@ -7,7 +7,7 @@ import Logo from 'components/icons/logo';
 import MenuIcon from 'components/icons/menu';
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { Fragment, useRef, useState } from 'react';
+import { Fragment, Suspense, useRef, useState } from 'react';
 import { LanguageControl, SupportedLocale } from '../navbar/language-control';
 
 export function MenuModal({ scrolled }: { scrolled: boolean }) {
@@ -72,55 +72,56 @@ export function MenuModal({ scrolled }: { scrolled: boolean }) {
                     </button>
                   </div>
 
-                  <div className="grid h-[calc(100vh-124px)] grid-cols-1 place-content-center">
-                    <div className="flex flex-row justify-end">
-                      <nav className="flex flex-col space-y-4 px-4 text-right">
-                        <div>
-                          <Link
-                            href="/products"
-                            className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
-                          >
-                            {t('menu.products')}
-                          </Link>
-                        </div>
+                  <Suspense fallback={null}>
+                    <div className="grid h-[calc(100vh-124px)] grid-cols-1 place-content-center">
+                      <div className="flex flex-row justify-end">
+                        <nav className="flex flex-col space-y-4 px-4 text-right">
+                          <div>
+                            <Link
+                              href="/products"
+                              className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
+                            >
+                              {t('menu.products')}
+                            </Link>
+                          </div>
 
-                        <div>
-                          <Link
-                            href="/shop-list"
-                            className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
-                          >
-                            {t('menu.shops')}
-                          </Link>
-                        </div>
+                          <div>
+                            <Link
+                              href="/shop-list"
+                              className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
+                            >
+                              {t('menu.shops')}
+                            </Link>
+                          </div>
 
-                        <div>
-                          <Link
-                            href="/about"
-                            className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
-                          >
-                            {t('menu.about')}
-                          </Link>
-                        </div>
+                          <div>
+                            <Link
+                              href="/about"
+                              className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
+                            >
+                              {t('menu.about')}
+                            </Link>
+                          </div>
 
-                        <div>
-                          <Link
-                            href="/bar"
-                            className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
-                          >
-                            {t('menu.bar')}
-                          </Link>
-                        </div>
+                          <div>
+                            <Link
+                              href="/bar"
+                              className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
+                            >
+                              {t('menu.bar')}
+                            </Link>
+                          </div>
 
-                        <div>
-                          <Link
-                            href="/concept"
-                            className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
-                          >
-                            {t('menu.concept')}
-                          </Link>
-                        </div>
+                          <div>
+                            <Link
+                              href="/concept"
+                              className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
+                            >
+                              {t('menu.concept')}
+                            </Link>
+                          </div>
 
-                        {/* <div>
+                          {/* <div>
                           <Link
                             href="/stories"
                             className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
@@ -129,26 +130,27 @@ export function MenuModal({ scrolled }: { scrolled: boolean }) {
                           </Link>
                         </div> */}
 
-                        <div>
-                          <Link
-                            href="/company"
-                            className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
-                          >
-                            {t('menu.company')}
-                          </Link>
-                        </div>
+                          <div>
+                            <Link
+                              href="/company"
+                              className="font-serif text-4xl font-normal transition-opacity duration-150 hover:opacity-50"
+                            >
+                              {t('menu.company')}
+                            </Link>
+                          </div>
 
-                        <div className="pt-12">
-                          <Link
-                            href={`mailto:${t('email-address.support')}`}
-                            className="font-serif text-2xl font-extralight transition-opacity duration-150 hover:opacity-50"
-                          >
-                            {t('email-address.support')}
-                          </Link>
-                        </div>
-                      </nav>
+                          <div className="pt-12">
+                            <Link
+                              href={`mailto:${t('email-address.support')}`}
+                              className="font-serif text-2xl font-extralight transition-opacity duration-150 hover:opacity-50"
+                            >
+                              {t('email-address.support')}
+                            </Link>
+                          </div>
+                        </nav>
+                      </div>
                     </div>
-                  </div>
+                  </Suspense>
                 </div>
               </Dialog.Panel>
             </div>

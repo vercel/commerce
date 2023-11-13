@@ -1,5 +1,6 @@
 import { HIDDEN_PRODUCT_TAG, SHOPIFY_GRAPHQL_API_ENDPOINT, TAGS } from 'lib/constants';
 import { isShopifyError } from 'lib/type-guards';
+import { ensureStartsWith } from 'lib/utils';
 import { revalidateTag } from 'next/cache';
 import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
@@ -55,7 +56,9 @@ import {
   ShopifyUpdateCartOperation
 } from './types';
 
-const domain = `https://${process.env.SHOPIFY_STORE_DOMAIN!}`;
+const domain = process.env.SHOPIFY_STORE_DOMAIN
+  ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, 'https://')
+  : '';
 const endpoint = `${domain}${SHOPIFY_GRAPHQL_API_ENDPOINT}`;
 const key = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
 
@@ -103,6 +106,7 @@ export async function shopifyFetch<T>({
   } catch (e) {
     if (isShopifyError(e)) {
       throw {
+        cause: e.cause?.toString() || 'unknown',
         status: e.status || 500,
         message: e.message,
         query
@@ -273,6 +277,7 @@ export async function getCart(cartId: string): Promise<Cart | undefined> {
   const res = await shopifyFetch<ShopifyCartOperation>({
     query: getCartQuery,
     variables: { cartId },
+    tags: [TAGS.cart],
     cache: 'no-store'
   });
 
@@ -395,6 +400,7 @@ export async function getPage({
 }): Promise<Page> {
   const res = await shopifyFetch<ShopifyPageOperation>({
     query: getPageQuery,
+    cache: 'no-store',
     variables: { handle, language, country }
   });
 
@@ -410,6 +416,7 @@ export async function getPages({
 }): Promise<Page[]> {
   const res = await shopifyFetch<ShopifyPagesOperation>({
     query: getPagesQuery,
+    cache: 'no-store',
     variables: { language, country }
   });
 

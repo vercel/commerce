@@ -4,6 +4,7 @@ import { ReactNode, Suspense } from 'react';
 
 import { SupportedLocale } from 'components/layout/navbar/language-control';
 import { NextIntlClientProvider } from 'next-intl';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import Analytics from './analytics';
 import './globals.css';
@@ -70,8 +71,10 @@ const noto = Noto_Serif_JP({
   variable: '--font-noto'
 });
 
+const locales = ['en', 'ja'] as const;
+
 export function generateStaticParams() {
-  return [{ locale: 'ja' }, { locale: 'en' }];
+  return locales.map((locale) => ({ locale }));
 }
 
 export default async function RootLayout({
@@ -81,12 +84,15 @@ export default async function RootLayout({
   children: ReactNode;
   params: { locale?: SupportedLocale };
 }) {
-  let messages;
-  try {
-    messages = (await import(`../../messages/${params?.locale}.json`)).default;
-  } catch (error) {
-    notFound();
+  // Validate that the incoming `locale` parameter is valid
+  const isValidLocale = locales.some((cur: string) => cur === params?.locale);
+  if (!isValidLocale) notFound();
+
+  if (params?.locale) {
+    unstable_setRequestLocale(params.locale);
   }
+
+  const messages = (await import(`../../messages/${params?.locale}.json`)).default;
 
   return (
     <html
@@ -95,10 +101,10 @@ export default async function RootLayout({
     >
       <body className="bg-dark text-white selection:bg-green-800 selection:text-green-400">
         <NextIntlClientProvider locale={params?.locale} messages={messages}>
-          <Suspense>
+          <Suspense fallback={null}>
             <Analytics />
-            <main>{children}</main>
           </Suspense>
+          <main>{children}</main>
         </NextIntlClientProvider>
       </body>
     </html>

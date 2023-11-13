@@ -4,12 +4,10 @@ import { SupportedLocale } from 'components/layout/navbar/language-control';
 import Navbar from 'components/layout/navbar';
 import { getCart, getPage, getProduct } from 'lib/shopify';
 import { Product } from 'lib/shopify/types';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import { cookies } from 'next/headers';
 import { Suspense } from 'react';
 import AboutNaraiDetail from './about-narai-detail';
-
-export const runtime = 'edge';
-export const revalidate = 43200; // 12 hours in seconds
 
 const { SITE_NAME } = process.env;
 
@@ -22,6 +20,10 @@ export const metadata = {
 };
 
 export default async function Page({ params }: { params: { locale?: SupportedLocale } }) {
+  if (!!params?.locale) {
+    unstable_setRequestLocale(params.locale);
+  }
+
   const cartId = cookies().get('cartId')?.value;
   let cart;
 
@@ -39,13 +41,13 @@ export default async function Page({ params }: { params: { locale?: SupportedLoc
   return (
     <div>
       <Navbar cart={cart} locale={params?.locale} compact promotedItem={promotedItem} />
-      <div className="pt-24 md:pt-32">
-        <AboutNaraiDetail awards={awardsPage.body} />
-      </div>
-
-      <Suspense>
-        <Footer cart={cart} />
+      <Suspense fallback={null}>
+        <div className="pt-24 md:pt-32">
+          <AboutNaraiDetail awards={awardsPage.body} />
+        </div>
       </Suspense>
+
+      <Footer cart={cart} />
     </div>
   );
 }

@@ -22,12 +22,10 @@ import StoriesPreview from 'components/layout/stories-preview';
 import { BLOG_HANDLE } from 'lib/constants';
 import { getCart, getProduct } from 'lib/shopify';
 import { Product } from 'lib/shopify/types';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import { Suspense } from 'react';
-
-export const runtime = 'edge';
-export const revalidate = 300; // 5 minutes in seconds
 
 const { SITE_NAME } = process.env;
 
@@ -44,6 +42,10 @@ export default async function HomePage({
 }: {
   params: { locale?: SupportedLocale };
 }) {
+  if (!!locale) {
+    unstable_setRequestLocale(locale);
+  }
+
   const cartId = cookies().get('cartId')?.value;
   let cart;
 
@@ -63,7 +65,9 @@ export default async function HomePage({
         <HomepageProducts lang={locale} />
       </div>
       <div className="py-24 md:py-48">
-        <NewsletterSignup />
+        <Suspense fallback={null}>
+          <NewsletterSignup />
+        </Suspense>
       </div>
       <div className="relative mx-auto max-w-screen-xl">
         <Image
@@ -74,7 +78,9 @@ export default async function HomePage({
         />
       </div>
       <div className="py-24">
-        <Shoplist />
+        <Suspense fallback={null}>
+          <Shoplist />
+        </Suspense>
       </div>
 
       <div className="relative pb-48">
@@ -152,9 +158,7 @@ export default async function HomePage({
         />
       </div>
 
-      <Suspense>
-        <Footer cart={cart} promotedItem={promotedItem} />
-      </Suspense>
+      <Footer cart={cart} promotedItem={promotedItem} />
     </div>
   );
 }
