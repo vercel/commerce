@@ -73,7 +73,7 @@ export function AddManyToCart({
         </div>
       </div>
       <button
-        aria-label="Add items to cart"
+        aria-label="Add to cart"
         disabled={isPending || !availableForSale || !selectedVariantId}
         title={title}
         onClick={() => {

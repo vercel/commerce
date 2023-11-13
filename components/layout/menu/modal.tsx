@@ -26,6 +26,7 @@ export function MenuModal({ scrolled }: { scrolled: boolean }) {
         type="button"
         onClick={() => setIsOpen(true)}
         className="transition-all ease-in-out hover:scale-110"
+        aria-label="Open menu"
       >
         <MenuIcon />
       </button>

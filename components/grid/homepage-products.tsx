@@ -72,7 +72,7 @@ export async function HomepageProducts({ lang }: { lang?: SupportedLocale }) {
     >
       <HomepageProductsItem item={firstProduct} priority={true} />
       <HomepageProductsItem item={secondProduct} priority={true} />
-      <HomepageProductsItem item={thirdProduct} />
+      <HomepageProductsItem item={thirdProduct} priority={true} />
     </section>
   );
 }

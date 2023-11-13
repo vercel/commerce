@@ -57,7 +57,11 @@ export default function Navbar({
         >
           <div className="mx-auto flex max-w-screen-xl flex-row items-start justify-between">
             <div className="px-6 py-2">
-              <Link href="/" className="transition-opacity duration-150 hover:opacity-90">
+              <Link
+                href="/"
+                className="transition-opacity duration-150 hover:opacity-90"
+                aria-label="Go to homepage"
+              >
                 <LogoNamemark className={clsx('w-[180px]', 'fill-current')} />
               </Link>
             </div>
