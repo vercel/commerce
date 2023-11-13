@@ -1,10 +1,11 @@
 'use client';
 
 import clsx from 'clsx';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { createSharedPathnamesNavigation } from 'next-intl/navigation';
 
 export type SupportedLocale = 'en' | 'ja';
+
+const locales = ['en', 'ja'] as const;
 
 function removeItem<T>(arr: Array<T>, value: T): Array<T> {
   const index = arr.indexOf(value);
@@ -15,6 +16,7 @@ function removeItem<T>(arr: Array<T>, value: T): Array<T> {
 }
 
 export const LanguageControl = ({ lang }: { lang?: SupportedLocale }) => {
+  const { Link, usePathname } = createSharedPathnamesNavigation({ locales });
   const pathName = usePathname();
 
   const basePathName = () => {

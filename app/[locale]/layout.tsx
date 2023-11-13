@@ -71,10 +71,10 @@ const noto = Noto_Serif_JP({
   variable: '--font-noto'
 });
 
-export const SupportedLocales: SupportedLocale[] = ['ja', 'en'];
+const locales = ['en', 'ja'] as const;
 
 export function generateStaticParams() {
-  return SupportedLocales.map((locale) => ({ locale }));
+  return locales.map((locale) => ({ locale }));
 }
 
 export default async function RootLayout({
@@ -85,7 +85,7 @@ export default async function RootLayout({
   params: { locale?: SupportedLocale };
 }) {
   // Validate that the incoming `locale` parameter is valid
-  const isValidLocale = SupportedLocales.some((cur: string) => cur === params?.locale);
+  const isValidLocale = locales.some((cur: string) => cur === params?.locale);
   if (!isValidLocale) notFound();
 
   if (params?.locale) {
