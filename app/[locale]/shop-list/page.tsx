@@ -17,7 +17,7 @@ export async function generateMetadata({
 }: {
   params: { locale?: SupportedLocale };
 }): Promise<Metadata> {
-  unstable_noStore(); // opt out before we even get to the try/catch
+  unstable_noStore(); // opt out from partial prerendering
   const page = await getPage({
     handle: 'shop-list',
     language: params?.locale?.toUpperCase() || 'JA'
