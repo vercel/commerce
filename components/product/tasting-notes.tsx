@@ -27,6 +27,7 @@ export function ProductTastingNotes({ product }: { product: Product }) {
             width={imageWidth}
             height={imageHeight}
             alt={imageAlt || imageUrl}
+            priority={true}
           />
         </div>
       )}
