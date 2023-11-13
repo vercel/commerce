@@ -82,7 +82,11 @@ export default function Navbar({
         className={clsx('mx-auto flex max-w-screen-xl flex-row items-start justify-between px-6')}
       >
         <div>
-          <Link href="/" className="transition-opacity duration-150 hover:opacity-90">
+          <Link
+            href="/"
+            className="transition-opacity duration-150 hover:opacity-90"
+            aria-label="Go to homepage"
+          >
             <LogoNamemark
               className={clsx(
                 inView && !compact ? 'min-w-[180px] md:w-[600px]' : 'min-w-[180px] md:w-[260px]',

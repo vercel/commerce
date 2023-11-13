@@ -36,7 +36,11 @@ export default async function Footer({
           <div className="flex flex-col space-y-24">
             <NewsletterFooter />
             <div className="hidden flex-row items-end space-x-12 pt-24 md:flex">
-              <Link href="/" className="transition-opacity duration-150 hover:opacity-90">
+              <Link
+                href="/"
+                className="transition-opacity duration-150 hover:opacity-90"
+                aria-label="Go to homepage"
+              >
                 <KanjiLogo className="h-64" />
               </Link>
               <div className="flex flex-row items-end space-x-6">
