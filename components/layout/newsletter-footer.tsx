@@ -54,6 +54,7 @@ export default function NewsletterSignup() {
             type="text"
             name={`b_${process?.env?.NEXT_PUBLIC_MAILCHIMP_USER_ID}_${process?.env?.NEXT_PUBLIC_MAILCHIMP_LIST_ID}`}
             defaultValue=""
+            tabIndex={-1}
           />
         </div>
       </form>
