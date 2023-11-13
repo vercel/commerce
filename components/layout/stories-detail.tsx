@@ -48,6 +48,7 @@ export default async function StoriesDetail({
                         'h-full w-full object-cover',
                         'transition duration-300 ease-in-out hover:scale-105'
                       )}
+                      priority={true}
                     />
                   )}
                 </div>

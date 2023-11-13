@@ -117,6 +117,7 @@ export default async function ProductPage({
               height={product.featuredImage.height}
               width={product.featuredImage.width}
               className="h-full w-full object-cover"
+              priority={true}
             />
           </div>
 

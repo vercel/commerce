@@ -80,6 +80,7 @@ export default async function BlogArticlePage({
                 height={article?.image.height}
                 width={article?.image.width}
                 className="h-full w-full object-cover"
+                priority={true}
               />
             </div>
           )}
