@@ -35,7 +35,7 @@
     "negotiator": "^0.6.3",
     "next": "canary",
     "next-gtm": "latest",
-    "next-intl": "latest",
+    "next-intl": "next",
     "prettier-plugin-organize-imports": "^3.2.3",
     "react": "canary",
     "react-dom": "canary",

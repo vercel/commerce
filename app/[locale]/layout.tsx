@@ -4,6 +4,8 @@ import { ReactNode, Suspense } from 'react';
 
 import { SupportedLocale } from 'components/layout/navbar/language-control';
 import { NextIntlClientProvider } from 'next-intl';
+import { unstable_setRequestLocale } from 'next-intl/server';
+import { notFound } from 'next/navigation';
 import Analytics from './analytics';
 import './globals.css';
 
@@ -69,8 +71,10 @@ const noto = Noto_Serif_JP({
   variable: '--font-noto'
 });
 
+export const SupportedLocales: SupportedLocale[] = ['ja', 'en'];
+
 export function generateStaticParams() {
-  return [{ locale: 'ja' }, { locale: 'en' }];
+  return SupportedLocales.map((locale) => ({ locale }));
 }
 
 export default async function RootLayout({
@@ -80,6 +84,14 @@ export default async function RootLayout({
   children: ReactNode;
   params: { locale?: SupportedLocale };
 }) {
+  // Validate that the incoming `locale` parameter is valid
+  const isValidLocale = SupportedLocales.some((cur: string) => cur === params?.locale);
+  if (!isValidLocale) notFound();
+
+  if (params?.locale) {
+    unstable_setRequestLocale(params.locale);
+  }
+
   const messages = (await import(`../../messages/${params?.locale}.json`)).default;
 
   return (

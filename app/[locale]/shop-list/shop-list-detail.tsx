@@ -7,7 +7,7 @@ import { notFound } from 'next/navigation';
 export default async function ShopListDetail({ language }: { language?: string }) {
   const page = await getPage({ handle: 'shop-list', language });
 
-  if (!page) return notFound();
+  if (!page) notFound();
 
   return <Prose html={page.body as string} />;
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import Link from 'next-intl/link';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 export type SupportedLocale = 'en' | 'ja';

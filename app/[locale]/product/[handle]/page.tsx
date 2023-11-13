@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
 
 import { ChevronDoubleRightIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
@@ -14,6 +13,7 @@ import { VariantSelector } from 'components/product/variant-selector';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { getProduct, getProductRecommendations } from 'lib/shopify';
 import { Image as MediaImage, Product } from 'lib/shopify/types';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from 'react';
@@ -28,7 +28,7 @@ export async function generateMetadata({
     language: params?.locale?.toUpperCase()
   });
 
-  if (!product) return notFound();
+  if (!product) return {};
 
   const { url, width, height, altText: alt } = product.featuredImage || {};
   const indexable = !product.tags.includes(HIDDEN_PRODUCT_TAG);
@@ -64,6 +64,10 @@ export default async function ProductPage({
 }: {
   params: { handle: string; locale?: SupportedLocale };
 }) {
+  if (!!params?.locale) {
+    unstable_setRequestLocale(params.locale);
+  }
+
   const numberOfOtherImages = 3;
   const product = await getProduct({
     handle: params.handle,
@@ -77,7 +81,7 @@ export default async function ProductPage({
       .filter((image) => image?.url !== product.featuredImage?.url);
   }
 
-  if (!product) return notFound();
+  if (!product) return {};
 
   const productJsonLd = {
     '@context': 'https://schema.org',

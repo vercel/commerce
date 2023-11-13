@@ -6,6 +6,7 @@ import Prose from 'components/prose';
 import { BLOG_HANDLE, HIDDEN_ARTICLE_TAG } from 'lib/constants';
 import { getBlogArticle } from 'lib/shopify';
 import { BlogArticle } from 'lib/shopify/types';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
 
 export async function generateMetadata({
@@ -19,7 +20,7 @@ export async function generateMetadata({
     language: params?.locale?.toUpperCase()
   });
 
-  if (!article) return notFound();
+  if (!article) return {};
 
   const { url, width, height, altText: alt } = article.image || {};
   const indexable = !article?.tags?.includes(HIDDEN_ARTICLE_TAG);
@@ -55,13 +56,17 @@ export default async function BlogArticlePage({
 }: {
   params: { handle: string; locale?: SupportedLocale };
 }) {
+  if (!!params?.locale) {
+    unstable_setRequestLocale(params.locale);
+  }
+
   const article: BlogArticle | undefined = await getBlogArticle({
     handle: BLOG_HANDLE,
     articleHandle: params.handle,
     language: params?.locale?.toUpperCase()
   });
 
-  if (!article) return notFound();
+  if (!article) notFound();
 
   return (
     <>
