@@ -35,7 +35,7 @@ export function PromotedCartItem({
 
   return product ? (
     <button
-      aria-label="Add item to cart"
+      aria-label="Add to cart"
       disabled={isPending || !availableForSale || !selectedVariantId}
       title={title}
       onClick={() => {
