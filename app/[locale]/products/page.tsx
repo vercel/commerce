@@ -5,6 +5,7 @@ import { ProductGrid } from 'components/grid/product-grid';
 import Navbar from 'components/layout/navbar';
 import { getCart, getProduct } from 'lib/shopify';
 import { Product } from 'lib/shopify/types';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import { cookies } from 'next/headers';
 import { Suspense } from 'react';
 
@@ -23,6 +24,10 @@ export default async function ProductPage({
 }: {
   params: { locale?: SupportedLocale };
 }) {
+  if (!!locale) {
+    unstable_setRequestLocale(locale);
+  }
+
   const cartId = cookies().get('cartId')?.value;
   let cart;
 

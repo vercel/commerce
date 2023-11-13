@@ -4,6 +4,7 @@ import { SupportedLocale } from 'components/layout/navbar/language-control';
 import Navbar from 'components/layout/navbar';
 import { getCart, getProduct } from 'lib/shopify';
 import { Product } from 'lib/shopify/types';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import { cookies } from 'next/headers';
 import { Suspense } from 'react';
 import Disclosures from './disclosures';
@@ -23,6 +24,10 @@ export default async function DisclosuresPage({
 }: {
   params: { locale?: SupportedLocale };
 }) {
+  if (!!locale) {
+    unstable_setRequestLocale(locale);
+  }
+
   const cartId = cookies().get('cartId')?.value;
   let cart;
 

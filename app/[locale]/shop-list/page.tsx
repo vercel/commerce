@@ -5,9 +5,9 @@ import Navbar from 'components/layout/navbar';
 import { SupportedLocale } from 'components/layout/navbar/language-control';
 import { getCart, getPage, getProduct } from 'lib/shopify';
 import { Product } from 'lib/shopify/types';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import { unstable_noStore } from 'next/cache';
 import { cookies } from 'next/headers';
-import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 import ShopListDetail from './shop-list-detail';
 import ShopsNav from './shops-nav';
@@ -17,13 +17,13 @@ export async function generateMetadata({
 }: {
   params: { locale?: SupportedLocale };
 }): Promise<Metadata> {
-  unstable_noStore(); // opt out before we even get to the try/catch
+  unstable_noStore(); // opt out from partial prerendering
   const page = await getPage({
     handle: 'shop-list',
     language: params?.locale?.toUpperCase() || 'JA'
   });
 
-  if (!page) return notFound();
+  if (!page) return {};
 
   return {
     title: page.seo?.title || page.title,
@@ -37,6 +37,10 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: { params: { locale?: SupportedLocale } }) {
+  if (!!params?.locale) {
+    unstable_setRequestLocale(params.locale);
+  }
+
   const cartId = cookies().get('cartId')?.value;
   let cart;
 

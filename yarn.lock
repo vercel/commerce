@@ -1382,7 +1382,7 @@ __metadata:
     negotiator: ^0.6.3
     next: canary
     next-gtm: latest
-    next-intl: latest
+    next-intl: next
     postcss: ^8.4.27
     prettier: 3.0.1
     prettier-plugin-organize-imports: ^3.2.3
@@ -3683,17 +3683,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-intl@npm:latest":
-  version: 2.19.1
-  resolution: "next-intl@npm:2.19.1"
+"next-intl@npm:next":
+  version: 3.0.0-rc.10
+  resolution: "next-intl@npm:3.0.0-rc.10"
   dependencies:
     "@formatjs/intl-localematcher": ^0.2.32
     negotiator: ^0.6.3
-    use-intl: ^2.19.1
+    use-intl: 3.0.0-rc.6
   peerDependencies:
-    next: ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0
+    next: ^10.0.0 || ^11.0.0 || ^12.0.0 || ^13.0.0 || ^14.0.0
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: b4c3cfbb22645b75fcb549259d18484f3df284a8240054f269f7403bc083fc57e53dc555abd4e29ba68fcd56c52fdb0a54d5021791597441519150d0054e9665
+  checksum: 8b54c0c6d8086da133e4a2264b6ec85910da1f814183a50e75899cce8caa08858ffc81267bb2190a4f50089681acfa8780b7e1812726d248d050c75d2df74091
   languageName: node
   linkType: hard
 
@@ -5665,15 +5665,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"use-intl@npm:^2.19.1":
-  version: 2.19.1
-  resolution: "use-intl@npm:2.19.1"
+"use-intl@npm:3.0.0-rc.6":
+  version: 3.0.0-rc.6
+  resolution: "use-intl@npm:3.0.0-rc.6"
   dependencies:
     "@formatjs/ecma402-abstract": ^1.11.4
     intl-messageformat: ^9.3.18
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 9c249791a4cb4213de6426d5542cc44685eb4a714c44f3761dc7713b48fc505d02e5ee5047f9ef31aec3a9e869fff838b96a6d1363f5ead583e6b6da0a96d142
+  checksum: b81452e79543fa487ff001c1e45f593e77336e78ac6ad0d4372283cfac36f22030f5ac53f5a09c81fd061a91a0d0f279276329ef0444c0717f07f8b0a224bcee
   languageName: node
   linkType: hard
 
