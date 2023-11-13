@@ -9,7 +9,6 @@ export default function robots() {
         userAgent: '*'
       }
     ],
-    sitemap: `${baseUrl}/sitemap.xml`,
     host: baseUrl
   };
 }
