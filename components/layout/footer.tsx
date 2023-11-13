@@ -56,7 +56,11 @@ export default async function Footer({
         </div>
         <div className="w-full md:w-[40%]">
           <div className="flex w-full flex-row items-end space-x-12 pt-24 md:hidden">
-            <Link href="/" className="transition-opacity duration-150 hover:opacity-90">
+            <Link
+              href="/"
+              className="transition-opacity duration-150 hover:opacity-90"
+              aria-label="Go to homepage"
+            >
               <KanjiLogo className="h-64" />
             </Link>
             <div className="flex grow flex-col space-y-6 md:items-end">
@@ -72,10 +76,18 @@ export default async function Footer({
               </div>
               <div className="flex flex-row justify-between space-x-4">
                 <div className="flex flex-row items-center space-x-6">
-                  <Link href="https://www.instagram.com/suginomoribrewery/" className="group">
+                  <Link
+                    href="https://www.instagram.com/suginomoribrewery/"
+                    className="group"
+                    aria-label="Visit on Instagram"
+                  >
                     <InstagramIcon className="h-6 stroke-transparent transition-all ease-in-out group-hover:scale-110" />
                   </Link>
-                  <Link href="https://www.facebook.com/suginomoribrewery" className="group">
+                  <Link
+                    href="https://www.facebook.com/suginomoribrewery"
+                    className="group"
+                    aria-label="Visit on Facebook"
+                  >
                     <FacebookIcon className="h-6 stroke-transparent transition-all ease-in-out group-hover:scale-110" />
                   </Link>
                 </div>
@@ -105,6 +117,7 @@ export default async function Footer({
                     className="group"
                     rel="noopener noreferrer"
                     target="_blank"
+                    aria-label="Visit on Instagram"
                   >
                     <InstagramIcon className="h-6 stroke-transparent transition-all ease-in-out group-hover:scale-110" />
                   </Link>
@@ -113,6 +126,7 @@ export default async function Footer({
                     className="group"
                     rel="noopener noreferrer"
                     target="_blank"
+                    aria-label="Visit on Facebook"
                   >
                     <FacebookIcon className="h-6 stroke-transparent transition-all ease-in-out group-hover:scale-110" />
                   </Link>
