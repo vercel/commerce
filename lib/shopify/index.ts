@@ -400,7 +400,7 @@ export async function getPage({
 }): Promise<Page> {
   const res = await shopifyFetch<ShopifyPageOperation>({
     query: getPageQuery,
-    // cache: 'no-store',
+    cache: 'no-store',
     variables: { handle, language, country }
   });
 
@@ -416,7 +416,7 @@ export async function getPages({
 }): Promise<Page[]> {
   const res = await shopifyFetch<ShopifyPagesOperation>({
     query: getPagesQuery,
-    // cache: 'no-store',
+    cache: 'no-store',
     variables: { language, country }
   });
 

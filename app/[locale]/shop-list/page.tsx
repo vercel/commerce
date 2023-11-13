@@ -5,6 +5,7 @@ import Navbar from 'components/layout/navbar';
 import { SupportedLocale } from 'components/layout/navbar/language-control';
 import { getCart, getPage, getProduct } from 'lib/shopify';
 import { Product } from 'lib/shopify/types';
+import { unstable_noStore } from 'next/cache';
 import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
@@ -16,6 +17,7 @@ export async function generateMetadata({
 }: {
   params: { locale?: SupportedLocale };
 }): Promise<Metadata> {
+  unstable_noStore(); // opt out before we even get to the try/catch
   const page = await getPage({
     handle: 'shop-list',
     language: params?.locale?.toUpperCase() || 'JA'
