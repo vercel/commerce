@@ -1,6 +1,6 @@
 import { getCustomer } from 'lib/shopify';
 import { cookies } from 'next/headers';
-import SignOutSection from './component/SignOutSection';
+import SignOutSection from './component/sign-out-section';
 
 async function AccountPage({ searchParams }: { searchParams: { [key: string]: string } }) {
   const token = cookies().get('customerAccessToken')?.value as string;

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import isAuthenticated from './lib/isAuthenticated';
+import isAuthenticated from './lib/is-authenticated';
 
 export const config = {
 	matcher: ['/checkout', '/account', '/account/:path*'],

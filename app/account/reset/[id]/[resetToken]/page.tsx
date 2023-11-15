@@ -2,9 +2,9 @@ import { resetCustomersPassword } from 'lib/shopify';
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import AuthLayout from '../../../component/AuthLayout';
-import FormButton from '../../../component/FormButton';
-import FormHeader from '../../../component/FormHeader';
+import AuthLayout from '../../../component/auth-layout';
+import FormButton from '../../../component/form-button';
+import FormHeader from '../../../component/form-header';
 
 let errorMessage: string | null = null;
 let passwordError: string | null = null;

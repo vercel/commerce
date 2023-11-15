@@ -2,10 +2,10 @@ import { createCustomer, loginCustomer } from 'lib/shopify';
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import AuthLayout from '../component/AuthLayout';
-import FormButton from '../component/FormButton';
-import FormFooter from '../component/FormFooter';
-import FormHeader from '../component/FormHeader';
+import AuthLayout from '../component/auth-layout';
+import FormButton from '../component/form-button';
+import FormFooter from '../component/form-footer';
+import FormHeader from '../component/form-header';
 
 let emailError: string | null = null;
 let passwordError: string | null = null;

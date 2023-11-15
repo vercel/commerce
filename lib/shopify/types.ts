@@ -353,6 +353,7 @@ export type UserError = DisplayableError & {
 	message: Scalars['String'];
 };
 
+/** Return type for `customerAccessToken` mutation. */
 export type CustomerAccessTokenCreatePayload = {
 	__typename?: 'CustomerAccessTokenCreatePayload';
 	/** The newly created customer access token object. */
@@ -371,6 +372,7 @@ export type CustomerCreatePayload = {
 	__typename?: 'CustomerCreatePayload';
 	/** The created customer object. */
 	customer?: Maybe<Customer>;
+  customerUserErrors: Array<CustomerUserError>;
 	/** The list of errors that occurred from executing the mutation. */
 	/**
 	 * The list of errors that occurred from executing the mutation.
@@ -378,6 +380,7 @@ export type CustomerCreatePayload = {
 	 */
 };
 
+/** Return type for `customerRecover` mutation. */
 export type CustomerRecoverPayload = {
 	__typename?: 'CustomerRecoverPayload';
 	/** The list of errors that occurred from executing the mutation. */
@@ -389,6 +392,8 @@ export type CustomerRecoverPayload = {
 	userErrors: Array<UserError>;
 };
 
+
+/** Return type for `customerReset` mutation. */
 export type CustomerResetPayload = {
 	__typename?: 'CustomerResetPayload';
 	/** The customer object which was reset. */
