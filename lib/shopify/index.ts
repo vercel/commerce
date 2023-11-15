@@ -5,6 +5,12 @@ import { revalidateTag } from 'next/cache';
 import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import {
+  CUSTOMER_CREATE_MUTATION,
+  CUSTOMER_RECOVER_MUTATION,
+  CUSTOMER_RESET_MUTATION,
+  LOGIN_MUTATION,
+} from './mutations/auth';
+import {
   addToCartMutation,
   createCartMutation,
   editCartItemsMutation,
@@ -23,10 +29,16 @@ import {
   getProductRecommendationsQuery,
   getProductsQuery
 } from './queries/product';
+import { CUSTOMER_QUERY } from './queries/user';
 import {
   Cart,
   Collection,
   Connection,
+  Customer,
+  CustomerAccessTokenCreatePayload,
+  CustomerCreatePayload,
+  CustomerRecoverPayload,
+  CustomerResetPayload,
   Image,
   Menu,
   Page,
@@ -47,7 +59,7 @@ import {
   ShopifyProductRecommendationsOperation,
   ShopifyProductsOperation,
   ShopifyRemoveFromCartOperation,
-  ShopifyUpdateCartOperation
+  ShopifyUpdateCartOperation,
 } from './types';
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
@@ -280,6 +292,135 @@ export async function getCollection(handle: string): Promise<Collection | undefi
   });
 
   return reshapeCollection(res.body.data.collection);
+}
+
+export async function createCustomer({
+	variables,
+}: {
+	variables: {
+		input: {
+			email: string;
+			password: string;
+		};
+	};
+}) {
+	const data = await shopifyFetch<{
+		data: {
+			customerCreate: CustomerCreatePayload;
+		};
+		variables: {
+			input: {
+				email: string;
+				password: string;
+			};
+		};
+	}>({
+		query: CUSTOMER_CREATE_MUTATION,
+		variables,
+	});
+	return data;
+}
+
+export async function loginCustomer({
+	variables,
+}: {
+	variables: {
+		input: {
+			email: string;
+			password: string;
+		};
+	};
+}) {
+	const data = await shopifyFetch<{
+		data: {
+			customerAccessTokenCreate: CustomerAccessTokenCreatePayload;
+		};
+		variables: {
+			input: {
+				email: string;
+				password: string;
+			};
+		};
+	}>({
+		query: LOGIN_MUTATION,
+		variables,
+	});
+	return data;
+}
+
+export async function recoverCustomersPassword({
+	variables,
+}: {
+	variables: {
+		email: string;
+	};
+}) {
+	const data = await shopifyFetch<{
+		data: {
+			customerRecover: CustomerRecoverPayload;
+		};
+		variables: {
+			email: string;
+		};
+	}>({
+		query: CUSTOMER_RECOVER_MUTATION,
+		variables,
+	});
+	return data;
+}
+
+export async function resetCustomersPassword({
+	variables,
+}: {
+	variables: {
+		id: string;
+		input: {
+			password: string;
+			resetToken: string;
+		};
+	};
+}) {
+	const data = await shopifyFetch<{
+		data: {
+			customerReset: CustomerResetPayload;
+		};
+		variables: {
+			id: string;
+			input: {
+				password: string;
+				resetToken: string;
+			};
+		};
+	}>({
+		query: CUSTOMER_RESET_MUTATION,
+		variables,
+	});
+	return data;
+}
+
+export async function getCustomer(
+	customerAccessToken: string
+): Promise<Customer> {
+	const res = await shopifyFetch<{
+		data: { customer: Customer };
+		variables: {
+			customerAccessToken: string;
+		};
+	}>({
+		query: CUSTOMER_QUERY,
+		variables: {
+			customerAccessToken,
+		},
+	});
+
+	/**
+	 * If the customer failed to load, we assume their access token is invalid.
+	 */
+	if (!res || !res.body.data.customer) {
+		// log out customer
+	}
+
+	return res.body.data.customer;
 }
 
 export async function getCollectionProducts({
