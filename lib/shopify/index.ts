@@ -301,6 +301,8 @@ export async function createCustomer({
 		input: {
 			email: string;
 			password: string;
+      firstName: string;
+      lastName: string;
 		};
 	};
 }) {
@@ -312,6 +314,8 @@ export async function createCustomer({
 			input: {
 				email: string;
 				password: string;
+        firstName: string;
+        lastName: string;
 			};
 		};
 	}>({
