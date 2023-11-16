@@ -38,7 +38,7 @@ export default async function Footer() {
           <FooterMenu menu={menu} />
         </Suspense>
         <div className="md:ml-auto">
-          <a
+          {/* <a
             className="flex h-8 w-max flex-none items-center justify-center rounded-md border border-neutral-200 bg-white text-xs text-black dark:border-neutral-700 dark:bg-black dark:text-white"
             aria-label="Deploy on Vercel"
             href="https://vercel.com/templates/next.js/nextjs-commerce"
@@ -46,7 +46,7 @@ export default async function Footer() {
             <span className="px-3">▲</span>
             <hr className="h-full border-r border-neutral-200 dark:border-neutral-700" />
             <span className="px-3">Deploy</span>
-          </a>
+          </a> */}
         </div>
       </div>
       <div className="border-t border-neutral-200 py-6 text-sm dark:border-neutral-700">
