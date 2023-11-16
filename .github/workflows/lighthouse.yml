@@ -1,0 +1,35 @@
+name: Lighthouse CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    env:
+      SHOPIFY_STORE_DOMAIN: ${{ secrets.SHOP_DOMAIN }}
+      SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.SHOP_ACCESS_TOKEN }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 18.17
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build project (if necessary)
+        run: yarn run build
+
+      - name: Run Lighthouse
+        uses: treosh/lighthouse-ci-action@v8
+        with:
+          urls: |
+            https://commerce-omega-two-98.vercel.app/
+          upload_artifact: true
