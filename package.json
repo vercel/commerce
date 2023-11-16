@@ -22,6 +22,8 @@
     "*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
+    "@commercetools/platform-sdk": "^7.0.0",
+    "@commercetools/sdk-client-v2": "^2.3.0",
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
     "clsx": "^2.0.0",
@@ -36,6 +38,9 @@
     "@types/node": "20.8.9",
     "@types/react": "18.2.33",
     "@types/react-dom": "18.2.14",
+    "@types/eslint": "^8.44.7",
+    "@typescript-eslint/eslint-plugin": "^6.11.0",
+    "@typescript-eslint/parser": "^6.11.0",
     "@vercel/git-hooks": "^1.0.0",
     "autoprefixer": "^10.4.16",
     "eslint": "^8.52.0",
