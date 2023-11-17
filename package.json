@@ -1,4 +1,8 @@
 {
+  "name": "nextjs-commerce",
+  "version": "1.0.0",
+  "description": "Provider for commercetools",
+  "repository": "git@github.com:kernpunkt/nextjs-commerce",
   "private": true,
   "engines": {
     "node": ">=18"
