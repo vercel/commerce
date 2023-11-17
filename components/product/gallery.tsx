@@ -1,30 +1,30 @@
-'use client';
+"use client";
 
-import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
-import { GridTileImage } from 'components/grid/tile';
-import { createUrl } from 'lib/utils';
-import Image from 'next/image';
-import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
+import { GridTileImage } from "components/grid/tile";
+import { createUrl } from "lib/utils";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
 
 export function Gallery({ images }: { images: { src: string; altText: string }[] }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const imageSearchParam = searchParams.get('image');
+  const imageSearchParam = searchParams.get("image");
   const imageIndex = imageSearchParam ? parseInt(imageSearchParam) : 0;
 
   const nextSearchParams = new URLSearchParams(searchParams.toString());
   const nextImageIndex = imageIndex + 1 < images.length ? imageIndex + 1 : 0;
-  nextSearchParams.set('image', nextImageIndex.toString());
+  nextSearchParams.set("image", nextImageIndex.toString());
   const nextUrl = createUrl(pathname, nextSearchParams);
 
   const previousSearchParams = new URLSearchParams(searchParams.toString());
   const previousImageIndex = imageIndex === 0 ? images.length - 1 : imageIndex - 1;
-  previousSearchParams.set('image', previousImageIndex.toString());
+  previousSearchParams.set("image", previousImageIndex.toString());
   const previousUrl = createUrl(pathname, previousSearchParams);
 
   const buttonClassName =
-    'h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-black dark:hover:text-white flex items-center justify-center';
+    "h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-black dark:hover:text-white flex items-center justify-center";
 
   return (
     <>
@@ -71,7 +71,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
             const isActive = index === imageIndex;
             const imageSearchParams = new URLSearchParams(searchParams.toString());
 
-            imageSearchParams.set('image', index.toString());
+            imageSearchParams.set("image", index.toString());
 
             return (
               <li key={image.src} className="h-20 w-20">

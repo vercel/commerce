@@ -1,5 +1,5 @@
-import { ImageResponse } from 'next/og';
-import LogoIcon from './icons/logo';
+import { ImageResponse } from "next/og";
+import LogoIcon from "./icons/logo";
 
 export type Props = {
   title?: string;
@@ -27,11 +27,11 @@ export default async function OpengraphImage(props?: Props): Promise<ImageRespon
       height: 630,
       fonts: [
         {
-          name: 'Inter',
-          data: await fetch(new URL('../fonts/Inter-Bold.ttf', import.meta.url)).then((res) =>
+          name: "Inter",
+          data: await fetch(new URL("../fonts/Inter-Bold.ttf", import.meta.url)).then((res) =>
             res.arrayBuffer()
           ),
-          style: 'normal',
+          style: "normal",
           weight: 700
         }
       ]

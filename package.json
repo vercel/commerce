@@ -1,9 +1,11 @@
 {
+  "name": "nextjs-commerce",
+  "version": "1.0.0",
+  "description": "Next.js commerce + commercetools adapter",
+  "repository": "git@github.com:kernpunkt/nextjs-commerce",
   "private": true,
-  "packageManager": "pnpm@8.2.0",
   "engines": {
-    "node": ">=18",
-    "pnpm": ">=7"
+    "node": ">=18"
   },
   "scripts": {
     "dev": "next dev",
@@ -13,7 +15,7 @@
     "lint-staged": "lint-staged",
     "prettier": "prettier --write --ignore-unknown .",
     "prettier:check": "prettier --check --ignore-unknown .",
-    "test": "pnpm lint && pnpm prettier:check"
+    "test": "next lint && prettier --check --ignore-unknown ."
   },
   "git": {
     "pre-commit": "lint-staged"
@@ -22,6 +24,8 @@
     "*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
+    "@commercetools/platform-sdk": "^7.0.0",
+    "@commercetools/sdk-client-v2": "^2.3.0",
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
     "clsx": "^2.0.0",

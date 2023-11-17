@@ -1,3 +1,3 @@
 .vercel
 .next
-pnpm-lock.yaml
+yarn.lock

@@ -1,6 +1,6 @@
-import { getCollections, getPages, getProducts } from 'lib/shopify';
-import { validateEnvironmentVariables } from 'lib/utils';
-import { MetadataRoute } from 'next';
+import { getCollections, getPages, getProducts } from "lib/shopify";
+import { validateEnvironmentVariables } from "lib/utils";
+import { MetadataRoute } from "next";
 
 type Route = {
   url: string;
@@ -9,12 +9,12 @@ type Route = {
 
 const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
   ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-  : 'http://localhost:3000';
+  : "http://localhost:3000";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   validateEnvironmentVariables();
 
-  const routesMap = [''].map((route) => ({
+  const routesMap = [""].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString()
   }));
