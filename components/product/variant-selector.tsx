@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import clsx from 'clsx';
-import { ProductOption, ProductVariant } from 'lib/shopify/types';
-import { createUrl } from 'lib/utils';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import clsx from "clsx";
+import { ProductOption, ProductVariant } from "lib/shopify/types";
+import { createUrl } from "lib/utils";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 type Combination = {
   id: string;
@@ -84,14 +84,14 @@ export function VariantSelector({
               onClick={() => {
                 router.replace(optionUrl, { scroll: false });
               }}
-              title={`${option.name} ${value}${!isAvailableForSale ? ' (Out of Stock)' : ''}`}
+              title={`${option.name} ${value}${!isAvailableForSale ? " (Out of Stock)" : ""}`}
               className={clsx(
-                'flex min-w-[48px] items-center justify-center rounded-full border bg-neutral-100 px-2 py-1 text-sm dark:border-neutral-800 dark:bg-neutral-900',
+                "flex min-w-[48px] items-center justify-center rounded-full border bg-neutral-100 px-2 py-1 text-sm dark:border-neutral-800 dark:bg-neutral-900",
                 {
-                  'cursor-default ring-2 ring-blue-600': isActive,
-                  'ring-1 ring-transparent transition duration-300 ease-in-out hover:scale-110 hover:ring-blue-600 ':
+                  "cursor-default ring-2 ring-blue-600": isActive,
+                  "ring-1 ring-transparent transition duration-300 ease-in-out hover:scale-110 hover:ring-blue-600 ":
                     !isActive && isAvailableForSale,
-                  'relative z-10 cursor-not-allowed overflow-hidden bg-neutral-100 text-neutral-500 ring-1 ring-neutral-300 before:absolute before:inset-x-0 before:-z-10 before:h-px before:-rotate-45 before:bg-neutral-300 before:transition-transform dark:bg-neutral-900 dark:text-neutral-400 dark:ring-neutral-700 before:dark:bg-neutral-700':
+                  "relative z-10 cursor-not-allowed overflow-hidden bg-neutral-100 text-neutral-500 ring-1 ring-neutral-300 before:absolute before:inset-x-0 before:-z-10 before:h-px before:-rotate-45 before:bg-neutral-300 before:transition-transform dark:bg-neutral-900 dark:text-neutral-400 dark:ring-neutral-700 before:dark:bg-neutral-700":
                     !isAvailableForSale
                 }
               )}

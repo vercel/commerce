@@ -1,7 +1,7 @@
 {
   "name": "nextjs-commerce",
   "version": "1.0.0",
-  "description": "Provider for commercetools",
+  "description": "Next.js commerce + commercetools adapter",
   "repository": "git@github.com:kernpunkt/nextjs-commerce",
   "private": true,
   "engines": {
