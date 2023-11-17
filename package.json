@@ -15,7 +15,7 @@
     "lint-staged": "lint-staged",
     "prettier": "prettier --write --ignore-unknown .",
     "prettier:check": "prettier --check --ignore-unknown .",
-    "test": "next lint && pnpm prettier --check --ignore-unknown ."
+    "test": "next lint && prettier --check --ignore-unknown ."
   },
   "git": {
     "pre-commit": "lint-staged"
