@@ -10,7 +10,6 @@ A Next.js 14 and App Router-ready ecommerce template for commercetools, featurin
 - New fetching and caching paradigms
 - Dynamic OG images
 - Styling with Tailwind CSS
-- Checkout and payments with Shopify
 - Automatic light/dark mode based on system settings
 
 ## Running locally
