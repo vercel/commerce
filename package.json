@@ -37,6 +37,7 @@
   "devDependencies": {
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/typography": "^0.5.10",
+    "@types/jest": "^29.5.8",
     "@types/node": "20.8.9",
     "@types/react": "18.2.33",
     "@types/react-dom": "18.2.14",
@@ -46,11 +47,13 @@
     "eslint-config-next": "^14.0.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-unicorn": "^48.0.1",
+    "jest": "^29.7.0",
     "lint-staged": "^15.0.2",
     "postcss": "^8.4.31",
     "prettier": "3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.6",
     "tailwindcss": "^3.3.5",
+    "ts-jest": "^29.1.1",
     "typescript": "5.2.2"
   }
 }
