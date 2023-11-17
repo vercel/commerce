@@ -1,9 +1,7 @@
 {
   "private": true,
-  "packageManager": "pnpm@8.2.0",
   "engines": {
-    "node": ">=18",
-    "pnpm": ">=7"
+    "node": ">=18"
   },
   "scripts": {
     "dev": "next dev",
@@ -13,7 +11,7 @@
     "lint-staged": "lint-staged",
     "prettier": "prettier --write --ignore-unknown .",
     "prettier:check": "prettier --check --ignore-unknown .",
-    "test": "pnpm lint && pnpm prettier:check"
+    "test": "next lint && pnpm prettier --check --ignore-unknown ."
   },
   "git": {
     "pre-commit": "lint-staged"
