@@ -5,7 +5,7 @@ async function post(path: string, payload?: any): Promise<any> {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ payload })
+      body: JSON.stringify(payload)
     });
 
     if (!response.ok) {

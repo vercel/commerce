@@ -41,6 +41,7 @@ async function createStoryAsync(
     }
   ];
   const data = await post('/api/open-ai/chat', generateRequestPayload(messages));
+  // const data = await post('/api/revalidate', generateRequestPayload(messages));
   return getFunctionCallArguments<any>(data);
 }
 
