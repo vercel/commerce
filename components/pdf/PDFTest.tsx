@@ -147,13 +147,13 @@ const MyDocument = ({ paragraphs }: { paragraphs: string[] }) => {
     // Generate first value between 5 and 25
     const firstValue = 5;
     // Generate second value between 50 and 75
-    const secondValue = Math.random() * 25 + 25;
-    return [firstValue, secondValue];
+    // const secondValue = Math.random() * 25 + 40;
+    return [firstValue];
   }, []);
   const rightSectionPositions = useMemo(() => {
-    const firstValue = Math.random() * 25 + 5;
-    const secondValue = Math.random() * 15 + 50;
-    return [firstValue, secondValue];
+    const firstValue = Math.random() * 25 + 40;
+    // const secondValue = Math.random() * 25 + 50;
+    return [firstValue];
   }, []);
   return (
     <Document>
@@ -205,14 +205,14 @@ const styles = StyleSheet.create({
     margin: 30,
     fontFamily: 'JosefinSans',
     /* Background properties */
-    backgroundColor: 'rgba(255, 255, 255, 0.3)' /* semi-transparent white background */,
+    backgroundColor: 'rgba(255, 255, 255, 0.5)' /* semi-transparent white background */,
     /* Blur effect */
     backdropFilter: 'blur(10px)',
     /* Additional styling for aesthetics */
     padding: 8,
     borderRadius: 16,
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-    fontSize: 12
+    fontSize: 20
   },
   button: {
     position: 'absolute',

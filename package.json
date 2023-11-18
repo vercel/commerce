@@ -33,6 +33,7 @@
     "lorem-ipsum": "^2.0.8",
     "lucide-react": "^0.292.0",
     "next": "14.0.0",
+    "openai": "^4.19.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tailwind-merge": "^2.0.0",
