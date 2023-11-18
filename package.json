@@ -24,12 +24,19 @@
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
+    "@radix-ui/react-slot": "^1.0.2",
     "@react-pdf/renderer": "^3.1.14",
+    "class-variance-authority": "^0.7.0",
+    "classnames": "^2.3.2",
     "clsx": "^2.0.0",
     "geist": "^1.0.0",
+    "lorem-ipsum": "^2.0.8",
+    "lucide-react": "^0.292.0",
     "next": "14.0.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "tailwind-merge": "^2.0.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@tailwindcss/container-queries": "^0.1.1",
