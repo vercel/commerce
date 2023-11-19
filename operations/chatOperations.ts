@@ -3,7 +3,7 @@ import childrenBookDefinition from './function-definitions/childrenBookDefinitio
 
 const DEFAULT_SYSTEM_PROMPT = `You are a genius story writer with incredible ability to craft narratives, stories, and children's books that captivate the imagination and entertain. Make the quality of your writing as excellent as possible (think Dr. Seuss, J.K. Rowling, etc). Feel free to include act structure names/chapters.)`;
 
-const DEFAULT_USER_PROMPT = `The book is about a dude named SOULJABOI programmer who is trying to build a startup and is enchanted by naughty witches.`;
+const DEFAULT_USER_PROMPT = `Story about the best day ever`;
 
 const generateRequestPayload = (messages: { role: string; content: string }[]) => ({
   model: 'gpt-3.5-turbo',
