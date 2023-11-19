@@ -1,14 +1,16 @@
 'use-client';
 import GenerateStoryContextProvider, { IGenerateStoryContext } from './GenerateStoryContext';
+import StoryPDFViewer from 'components/pdf/StoryPDFViewer';
 
 export default function GenerateStoryComponent() {
   return (
     <GenerateStoryContextProvider>
       {({ story, loading }: IGenerateStoryContext) => {
         return (
-          <main className="flex min-h-screen flex-col items-center justify-between p-24">
-            {loading ? <div className="mb10">Loading...</div> : null}
-          </main>
+          <div>
+            {loading ? <div>Loading...</div> : null}
+            {story && <StoryPDFViewer story={story} />}
+          </div>
         );
       }}
     </GenerateStoryContextProvider>

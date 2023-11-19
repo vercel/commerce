@@ -40,7 +40,7 @@ function GenerateStoryContextProvider({ children }: { children: PropsWithChildre
             setStory(story);
             setLoading(false);
           }}
-          className="mb-10 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+          className="absolute right-24 top-5 z-10 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
         >
           Run A New Story
         </button>
