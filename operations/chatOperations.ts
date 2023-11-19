@@ -17,19 +17,19 @@ function getFunctionCallArguments<T>(response: any) {
   return JSON.parse(response.text.function_call.arguments);
 }
 
-// export interface IStory {
-//     title: string;
-//     topic: string;
-//     introduction: string;
-//     narrativeStructure: string;
-//     archetypes_characters: string;
-//     pages: { text: string }[]
-// }
+export interface IStory {
+  title: string;
+  topic: string;
+  introduction: string;
+  narrativeStructure: string;
+  archetypes_characters: string;
+  pages: { text: string }[];
+}
 
 async function createStoryAsync(
   systemPrompt = DEFAULT_SYSTEM_PROMPT,
   userPrompt = DEFAULT_USER_PROMPT
-): Promise<any> {
+): Promise<IStory> {
   const messages = [
     {
       role: 'system',
@@ -42,7 +42,7 @@ async function createStoryAsync(
   ];
   const data = await post('/api/open-ai/chat', generateRequestPayload(messages));
   // const data = await post('/api/revalidate', generateRequestPayload(messages));
-  return getFunctionCallArguments<any>(data);
+  return getFunctionCallArguments<IStory>(data);
 }
 
 export default { createStoryAsync };
