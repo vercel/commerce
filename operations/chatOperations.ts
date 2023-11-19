@@ -40,9 +40,13 @@ async function createStoryAsync(
       content: userPrompt
     }
   ];
-  const data = await post('/api/open-ai/chat', generateRequestPayload(messages));
-  // const data = await post('/api/revalidate', generateRequestPayload(messages));
-  return getFunctionCallArguments<IStory>(data);
+  try {
+    const data = await post('/api/open-ai/chat', generateRequestPayload(messages));
+    return getFunctionCallArguments<IStory>(data);
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
 }
 
 export default { createStoryAsync };

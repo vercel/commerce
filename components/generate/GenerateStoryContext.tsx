@@ -1,23 +1,22 @@
 'use client';
 
-import { IStory } from 'operations/chatOperations';
+import chatOperations, { IStory } from 'operations/chatOperations';
 import { PropsWithChildren, createContext, useContext, useMemo, useState } from 'react';
 
 export interface IGenerateStoryContext {
   story?: IStory;
-  setStory: (story: IStory) => void;
   images: string[];
-  setImages: (images: string[]) => void;
+  loading: boolean;
 }
 
 const GenerateStoryContext = createContext<IGenerateStoryContext>({
   story: undefined,
-  setStory: () => {},
   images: [],
-  setImages: () => {}
+  loading: false
 });
 
 function GenerateStoryContextProvider({ children }: { children: PropsWithChildren<any> }) {
+  const [loading, setLoading] = useState<boolean>(false);
   const [story, setStory] = useState<IStory>();
   /*
    Note(Benson): For now images is an array of urls where each index in the array
@@ -27,13 +26,26 @@ function GenerateStoryContextProvider({ children }: { children: PropsWithChildre
   const [images, setImages] = useState<string[]>([]);
 
   const value = useMemo<IGenerateStoryContext>(
-    () => ({ story, setStory, images, setImages }),
-    [story, setStory, images, setImages]
+    () => ({ story, images, loading }),
+    [story, images, loading]
   );
 
   return (
     <GenerateStoryContext.Provider value={value}>
-      {typeof children === 'function' ? children(value) : children}
+      <>
+        <button
+          onClick={async () => {
+            setLoading(true);
+            const story = await chatOperations.createStoryAsync();
+            setStory(story);
+            setLoading(false);
+          }}
+          className="mb-10 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+        >
+          Run A New Story
+        </button>
+        {typeof children === 'function' ? children(value) : children}
+      </>
     </GenerateStoryContext.Provider>
   );
 }
