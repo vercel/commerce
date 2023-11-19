@@ -1,45 +1,49 @@
 'use client';
 
 import chatOperations, { IStory } from 'operations/chatOperations';
-import { PropsWithChildren, createContext, useContext, useMemo, useState } from 'react';
+import {
+  PropsWithChildren,
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState
+} from 'react';
 
 export interface IGenerateStoryContext {
   story?: IStory;
-  images: string[];
   loading: boolean;
 }
 
 const GenerateStoryContext = createContext<IGenerateStoryContext>({
   story: undefined,
-  images: [],
   loading: false
 });
 
 function GenerateStoryContextProvider({ children }: { children: PropsWithChildren<any> }) {
   const [loading, setLoading] = useState<boolean>(false);
   const [story, setStory] = useState<IStory>();
-  /*
-   Note(Benson): For now images is an array of urls where each index in the array
-   corresponds to the page number. 
-   i.e., index 0 could be title, index 1 is the first page in pages, etc.
-   */
-  const [images, setImages] = useState<string[]>([]);
 
-  const value = useMemo<IGenerateStoryContext>(
-    () => ({ story, images, loading }),
-    [story, images, loading]
-  );
+  const value = useMemo<IGenerateStoryContext>(() => ({ story, loading }), [story, loading]);
+
+  /*
+  TODO(Benson -> Patricio): Make network call to get images
+  TODO(Benson -> Patricio): Write a helper function in this directory /generate/utils.ts
+  called mergeImages(story: IStory, images: string[]): IStory;
+  */
+  const getStoryAsync = useCallback(async () => {
+    setLoading(true);
+    const story = await chatOperations.createStoryAsync();
+    // const images = await imageOperations.getStoryImagesAsync(story);
+    setStory(story);
+    setLoading(false);
+  }, []);
 
   return (
     <GenerateStoryContext.Provider value={value}>
       <>
         <button
-          onClick={async () => {
-            setLoading(true);
-            const story = await chatOperations.createStoryAsync();
-            setStory(story);
-            setLoading(false);
-          }}
+          onClick={getStoryAsync}
           className="absolute right-24 top-5 z-10 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
         >
           Run A New Story

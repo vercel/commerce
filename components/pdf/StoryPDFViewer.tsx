@@ -123,6 +123,8 @@ Note(Benson): PDFTest has some hardcoded implementation of generating random sec
 Right now for the Story viewer just render all the text at the bottom until we come up 
 with a solidified way at dispersing the text throughout the page.
 */
+
+// TODO(Benson -> Patricio): replace hardcoded images.
 const Document = ({ pages }: { pages: { text: string }[] }) => {
   return (
     <PDFDocument>
