@@ -20,6 +20,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
       const { data } = imageCompletion;
       console.log({ data });
+      console.log('THIS IS THE DALLE IMAGE:', data[0].url);
 
       return new NextResponse(JSON.stringify({ text: data }), {
         status: 200

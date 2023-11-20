@@ -115,6 +115,10 @@ Font.register({
   ]
 });
 
+// const imgURL = 'https://oaidalleapiprodscus.blob.core.windows.net/private/org-pxRHHmesRMqKmtS7jjETVyk3/user-HhW2JRuIlirnomqLUWzzHAv3/img-YVMtH4dWy9GzTS3jZuVhimJ8.png?st=2023-11-20T18%3A24%3A16Z&se=2023-11-20T20%3A24%3A16Z&sp=r&sv=2021-08-06&sr=b&rscd=inline&rsct=image/png&skoid=6aaadede-4fb3-4698-a8f6-684d7786b067&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2023-11-20T17%3A08%3A24Z&ske=2023-11-21T17%3A08%3A24Z&sks=b&skv=2021-08-06&sig=GB9P0duWfauJt0xiiXwPStScSadBsSoSxS1jRCZg29c%3D';
+
+// TODO- this image works- but for some reason the DALLE ones dont render
+
 const imgURL =
   'https://cdn.discordapp.com/attachments/989274756341706822/1175024578578366534/pinturillu_sian_couple_of_men_illustration_fantasy_Charlie_Bowa_1c51f19c-d5b9-4b53-b32f-e5468912bd1d.png?ex=6569b9ea&is=655744ea&hm=8dd0e4e5653bb9f7a7330f745983035f93e1891279351efe2dd6be7657987d88&';
 
@@ -124,7 +128,7 @@ Right now for the Story viewer just render all the text at the bottom until we c
 with a solidified way at dispersing the text throughout the page.
 */
 
-// TODO(Benson -> Patricio): replace hardcoded images.
+///TODO hardcoded images replaced w titleImage- titleimage prop doesnt seem to render inside of the Image component in the Document function
 const Document = ({ pages }: { pages: { text: string }[] }, titleImage: string) => {
   return (
     <PDFDocument>
@@ -134,7 +138,7 @@ const Document = ({ pages }: { pages: { text: string }[] }, titleImage: string) 
             <View key={index} style={{ ...styles.section, bottom: '10%' }}>
               <Text>{text}</Text>
             </View>
-            <Image src={titleImage} style={styles.image} />
+            <Image src={imgURL} style={styles.image} />
           </Page>
         );
       })}

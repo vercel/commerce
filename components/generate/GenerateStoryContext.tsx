@@ -27,6 +27,7 @@ function GenerateStoryContextProvider({ children }: { children: PropsWithChildre
   const [loading, setLoading] = useState<boolean>(false);
   const [story, setStory] = useState<IStory>();
   const [titleImage, setTitleImage] = useState<string>();
+  //TODO (Patricio) images will just be merged with story in the context, so we don't need to pass them down to the component
 
   // TODO (Patricio->Benson): should we memoize the titleImage like this? It takes the image a second to come back from the API...
   const value = useMemo<IGenerateStoryContext>(
@@ -45,6 +46,7 @@ function GenerateStoryContextProvider({ children }: { children: PropsWithChildre
   const getStoryAsync = useCallback(async () => {
     setLoading(true);
     const story = await chatOperations.createStoryAsync();
+    //const storyWithImages = mergeImages(story);
     const titleImage = await imageOperations.createImageAsync(story.introduction);
     setTitleImage(titleImage);
     setStory(story);
