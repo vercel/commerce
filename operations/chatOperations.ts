@@ -24,7 +24,7 @@ function getFunctionCallArguments<T>(response: any) {
  */
 export interface IStory {
   title: string;
-  // titleImage?: string;
+  titleImage?: string;
   topic: string;
   introduction: string;
   narrativeStructure: string;

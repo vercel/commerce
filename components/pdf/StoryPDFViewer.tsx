@@ -18,7 +18,7 @@ const PDFViewerNoSSR = dynamic(() => import('@react-pdf/renderer').then((mod) =>
   ssr: false
 });
 
-export default function StoryPDFViewer({ story }: { story: IStory }) {
+export default function StoryPDFViewer({ story }: { story: IStory }, titleImage: string) {
   return (
     <div
       style={{
@@ -28,7 +28,7 @@ export default function StoryPDFViewer({ story }: { story: IStory }) {
       }}
     >
       <PDFViewerNoSSR style={styles.pdfContainer}>
-        <Document pages={story.pages} />
+        <Document pages={story.pages} titleImage={titleImage} />
       </PDFViewerNoSSR>
     </div>
   );
@@ -125,7 +125,7 @@ with a solidified way at dispersing the text throughout the page.
 */
 
 // TODO(Benson -> Patricio): replace hardcoded images.
-const Document = ({ pages }: { pages: { text: string }[] }) => {
+const Document = ({ pages }: { pages: { text: string }[] }, titleImage: string) => {
   return (
     <PDFDocument>
       {pages.map(({ text }, index) => {
@@ -134,7 +134,7 @@ const Document = ({ pages }: { pages: { text: string }[] }) => {
             <View key={index} style={{ ...styles.section, bottom: '10%' }}>
               <Text>{text}</Text>
             </View>
-            <Image src={imgURL} style={styles.image} />
+            <Image src={titleImage} style={styles.image} />
           </Page>
         );
       })}
