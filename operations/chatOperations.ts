@@ -17,13 +17,20 @@ function getFunctionCallArguments<T>(response: any) {
   return JSON.parse(response.text.function_call.arguments);
 }
 
+/*
+ TODO(Benson -> Patricio): update this typing? add images to pages? assuming images 
+ and pages are 1:1? that means we should probably also have a titleImage property too then?
+ Added dummy filler.
+ */
 export interface IStory {
   title: string;
+  // titleImage?: string;
   topic: string;
   introduction: string;
   narrativeStructure: string;
   archetypes_characters: string;
   pages: { text: string }[];
+  // pages: { text: string, image?: string }[];
 }
 
 async function createStoryAsync(
@@ -40,9 +47,13 @@ async function createStoryAsync(
       content: userPrompt
     }
   ];
-  const data = await post('/api/open-ai/chat', generateRequestPayload(messages));
-  // const data = await post('/api/revalidate', generateRequestPayload(messages));
-  return getFunctionCallArguments<IStory>(data);
+  try {
+    const data = await post('/api/open-ai/chat', generateRequestPayload(messages));
+    return getFunctionCallArguments<IStory>(data);
+  } catch (e) {
+    console.error(e);
+    throw e;
+  }
 }
 
 export default { createStoryAsync };

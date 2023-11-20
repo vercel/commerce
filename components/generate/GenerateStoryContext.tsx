@@ -1,39 +1,55 @@
 'use client';
 
-import { IStory } from 'operations/chatOperations';
-import { PropsWithChildren, createContext, useContext, useMemo, useState } from 'react';
+import chatOperations, { IStory } from 'operations/chatOperations';
+import {
+  PropsWithChildren,
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState
+} from 'react';
 
 export interface IGenerateStoryContext {
   story?: IStory;
-  setStory: (story: IStory) => void;
-  images: string[];
-  setImages: (images: string[]) => void;
+  loading: boolean;
 }
 
 const GenerateStoryContext = createContext<IGenerateStoryContext>({
   story: undefined,
-  setStory: () => {},
-  images: [],
-  setImages: () => {}
+  loading: false
 });
 
 function GenerateStoryContextProvider({ children }: { children: PropsWithChildren<any> }) {
+  const [loading, setLoading] = useState<boolean>(false);
   const [story, setStory] = useState<IStory>();
-  /*
-   Note(Benson): For now images is an array of urls where each index in the array
-   corresponds to the page number. 
-   i.e., index 0 could be title, index 1 is the first page in pages, etc.
-   */
-  const [images, setImages] = useState<string[]>([]);
 
-  const value = useMemo<IGenerateStoryContext>(
-    () => ({ story, setStory, images, setImages }),
-    [story, setStory, images, setImages]
-  );
+  const value = useMemo<IGenerateStoryContext>(() => ({ story, loading }), [story, loading]);
+
+  /*
+  TODO(Benson -> Patricio): Make network call to get images
+  TODO(Benson -> Patricio): Write a helper function in this directory /generate/utils.ts
+  called mergeImages(story: IStory, images: string[]): IStory;
+  */
+  const getStoryAsync = useCallback(async () => {
+    setLoading(true);
+    const story = await chatOperations.createStoryAsync();
+    // const images = await imageOperations.getStoryImagesAsync(story);
+    setStory(story);
+    setLoading(false);
+  }, []);
 
   return (
     <GenerateStoryContext.Provider value={value}>
-      {typeof children === 'function' ? children(value) : children}
+      <>
+        <button
+          onClick={getStoryAsync}
+          className="absolute right-24 top-5 z-10 rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+        >
+          Run A New Story
+        </button>
+        {typeof children === 'function' ? children(value) : children}
+      </>
     </GenerateStoryContext.Provider>
   );
 }
