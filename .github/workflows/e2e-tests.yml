@@ -1,0 +1,45 @@
+name: e2e
+
+on:
+  deployment_status:
+
+jobs:
+  run-e2e:
+    name: Playwright testing deployment ${{ github.event.deployment_status.target_url }}
+    if: github.event_name == 'deployment_status' && github.event.deployment_status.state == 'success' && !contains(github.event.deployment_status.target_url, 'frontends-docs')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - run: corepack enable
+      - run: pnpm --version
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: 'pnpm'
+          cache-dependency-path: '**/pnpm-lock.yaml'
+      - name: install
+        run: pnpm install --frozen-lockfile --prefer-offline
+
+      - name: Install dependencies with Playwright
+        run: |
+          pnpm playwright install --with-deps
+
+      - name: Run tests
+        run: pnpm run test:e2e
+        env:
+          BASE_E2E_URL: ${{ github.event.deployment_status.target_url }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        if: ${{ failure() }}
+        with:
+          name: reports
+          path: apps/e2e-tests/reports/
+          retention-days: 7
