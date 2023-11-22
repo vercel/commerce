@@ -4,7 +4,7 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 import { removeItem } from "components/cart/actions";
 import LoadingDots from "components/loading-dots";
-import type { CartItem } from "lib/shopify/types";
+import type { CartItem } from "lib/commercetools/types";
 import { useFormState, useFormStatus } from "react-dom";
 
 function SubmitButton() {

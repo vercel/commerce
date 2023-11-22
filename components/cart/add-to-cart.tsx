@@ -4,9 +4,10 @@ import { PlusIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 import { addItem } from "components/cart/actions";
 import LoadingDots from "components/loading-dots";
-import { ProductVariant } from "lib/shopify/types";
+import { ProductVariant } from "lib/commercetools/types";
 import { useSearchParams } from "next/navigation";
 import { useFormState, useFormStatus } from "react-dom";
+import { addToCart } from "lib/commercetools";
 
 function SubmitButton({
   availableForSale,
@@ -82,7 +83,7 @@ export function AddToCart({
   const actionWithVariant = formAction.bind(null, selectedVariantId);
 
   return (
-    <form action={actionWithVariant}>
+    <form action={availableForSale && selectedVariantId ? actionWithVariant : () => {}}>
       <SubmitButton availableForSale={availableForSale} selectedVariantId={selectedVariantId} />
       <p aria-live="polite" className="sr-only" role="status">
         {message}

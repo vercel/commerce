@@ -1,23 +1,42 @@
 export type SortFilterItem = {
   title: string;
   slug: string | null;
-  sortKey: "RELEVANCE" | "BEST_SELLING" | "CREATED_AT" | "PRICE";
+  sortKey:
+    | "price desc"
+    | "createdAt desc"
+    | "reviewRatingStatistics.averageRating desc"
+    | undefined;
   reverse: boolean;
 };
 
 export const defaultSort: SortFilterItem = {
   title: "Relevance",
   slug: null,
-  sortKey: "RELEVANCE",
+  sortKey: undefined,
   reverse: false
 };
 
 export const sorting: SortFilterItem[] = [
   defaultSort,
-  { title: "Trending", slug: "trending-desc", sortKey: "BEST_SELLING", reverse: false }, // asc
-  { title: "Latest arrivals", slug: "latest-desc", sortKey: "CREATED_AT", reverse: true },
-  { title: "Price: Low to high", slug: "price-asc", sortKey: "PRICE", reverse: false }, // asc
-  { title: "Price: High to low", slug: "price-desc", sortKey: "PRICE", reverse: true }
+  {
+    title: "Rating",
+    slug: "rating-desc",
+    sortKey: "reviewRatingStatistics.averageRating desc",
+    reverse: false
+  },
+  { title: "Latest arrivals", slug: "latest-desc", sortKey: "createdAt desc", reverse: false }, //ctp: createdAt
+  {
+    title: "Price: Low to high",
+    slug: "price-asc",
+    sortKey: "price desc",
+    reverse: true
+  },
+  {
+    title: "Price: High to low",
+    slug: "price-desc",
+    sortKey: "price desc",
+    reverse: false
+  }
 ];
 
 export const TAGS = {

@@ -2,7 +2,6 @@ export type Cart = {
   id: string;
   checkoutUrl: string;
   cost: {
-    subtotalAmount: Money;
     totalAmount: Money;
     totalTaxAmount: Money;
   };
@@ -23,7 +22,7 @@ export type CartItem = {
       name: string;
       value: string;
     }[];
-    product: Product;
+    product: { handle: string; title: string; featuredImage: Image };
   };
 };
 
@@ -92,7 +91,6 @@ export type ProductOption = {
 
 export type ProductVariant = {
   id: string;
-  title: string;
   availableForSale: boolean;
   selectedOptions: {
     name: string;
@@ -102,6 +100,6 @@ export type ProductVariant = {
 };
 
 export type SEO = {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
 };

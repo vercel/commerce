@@ -7,10 +7,18 @@ module.exports = {
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
+      { hostname: "picsum.photos" },
+      { hostname: "storage.googleapis.com" },
       {
         protocol: "https",
         hostname: "cdn.shopify.com",
         pathname: "/s/files/**"
+      },
+      {
+        hostname: "**.cf3.rackcdn.com",
+        protocol: "https",
+        port: "",
+        pathname: "/*"
       }
     ]
   },
