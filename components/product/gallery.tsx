@@ -20,22 +20,22 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
     'h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-black dark:hover:text-white';
 
   return (
-    <div className="mr-8 h-full">
-      <div className="relative mb-12 h-full max-h-[550px] overflow-hidden">
+    <div className="lg:mr-8 h-full w-full justify-center">
+      <div className="relative mb-2 lg:mb-12 aspect-square overflow-hidden flex lg:w-full lg:h-auto"> 
         {images[currentImageIndex] && (
-          <Image
-            className="relative h-full w-full object-cover"
-            height={600}
-            width={600}
-            alt={images[currentImageIndex]?.altText as string}
-            src={images[currentImageIndex]?.src as string}
-            priority={true}
-          />
+            <Image
+              className="relative w-full h-full object-cover"
+              height={500}
+              width={500}
+              alt={images[currentImageIndex]?.altText as string}
+              src={images[currentImageIndex]?.src as string}
+              priority={true}
+            />
         )}
 
         {images.length > 1 ? (
-          <div className="absolute bottom-2 flex w-full justify-center">
-            <div className="mx-auto flex h-8 items-center rounded-full border border-white bg-neutral-50/80 text-neutral-500 backdrop-blur dark:border-black dark:bg-neutral-900/80">
+          <div className="bottom-2 z-50 flex w-full justify-center absolute">
+            <div className="mx-auto flex h-8 items-center rounded-full border border-white bg-neutral-50/50 text-neutral-500 backdrop-blur dark:border-black dark:bg-neutral-900/80">
               <button
                 aria-label="Previous product image"
                 onClick={() => handleNavigate('previous')}
@@ -57,7 +57,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
       </div>
 
       {images.length > 1 ? (
-        <div className="flex items-center justify-center gap-2 overflow-auto py-1">
+        <div className="flex items-center justify-center gap-2 overflow-auto py-1 pl-20 md:pl-0">
           {images.map((image, index) => {
             const isActive = index === currentImageIndex;
             return (

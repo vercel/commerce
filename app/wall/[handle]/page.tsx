@@ -93,7 +93,7 @@ export default async function ProductPage({ params }: { params: { handle: string
           </div>
           
           <div className="lg:col-span-3 lg:grid lg:grid-cols-6">
-            <div className="py-6 lg:col-span-4 lg:col-start-2">
+            <div className="py-10 lg:py-6 lg:col-span-4 lg:col-start-2">
               <ProductDescription product={product} />
             </div>
           </div>
