@@ -32,7 +32,7 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
 
   return (
     <>
-      <button onClick={openMobileMenu} aria-label="Open mobile menu" className="md:hidden">
+      <button onClick={openMobileMenu} aria-label="Open mobile menu" className="md:hidden text-white">
         <Bars3Icon className="h-6" />
       </button>
       <Transition show={isOpen}>
