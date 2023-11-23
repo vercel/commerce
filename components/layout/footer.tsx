@@ -20,12 +20,12 @@ export default async function Footer() {
         <div>
           <Link className="flex items-center gap-2 text-black dark:text-white" href="/">
             <LogoSquare size="sm" />
-            <span className="uppercase">{SITE_NAME}</span>
+            {/* <span className="uppercase">{SITE_NAME}</span> */}
           </Link>
         </div>
         <Suspense
           fallback={
-            <div className="flex h-[188px] w-[200px] flex-col gap-2">
+            <div className="flex h-[188px] w-[100px] flex-col gap-2 ">
               <div className={skeleton} />
               <div className={skeleton} />
               <div className={skeleton} />
@@ -56,12 +56,12 @@ export default async function Footer() {
           </p>
           {/* <hr className="mx-4 hidden h-4 w-[1px] border-l border-neutral-400 md:inline-block" /> */}
           {/* <p>Designed in England</p> */}
-          <p className="md:ml-auto">
+          {/* <p className="md:ml-auto">
             Crafted by{' '}
             <Link href="https://www.instagram.com/sammiisparkle" className="text-black dark:text-white pr-2" target="_blank">
               Sammii Sparkle
             </Link>
-          </p>
+          </p> */}
         </div>
       </div>
     </footer>
