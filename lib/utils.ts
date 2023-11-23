@@ -1,6 +1,9 @@
 import { ReadonlyURLSearchParams } from 'next/navigation';
 import { getCollectionProducts, getProducts } from './shopify';
 
+const wardrobeConditions = ['hidden-product', 't-shirt']
+const wallConditions = ['hidden-product', 'wall']
+
 export const createUrl = (pathname: string, params: URLSearchParams | ReadonlyURLSearchParams) => {
   const paramsString = params.toString();
   const queryString = `${paramsString.length ? '?' : ''}${paramsString}`;
@@ -8,9 +11,15 @@ export const createUrl = (pathname: string, params: URLSearchParams | ReadonlyUR
   return `${pathname}${queryString}`;
 };
 
-export async function getLiveProducts(query: Parameters<typeof getProducts>[0]) {
+export async function getLiveWardrobeProducts(query: Parameters<typeof getProducts>[0]) {
   const products = await getProducts(query);
-  const liveProducts = products.filter((product) => !product.tags.includes('hidden-product'));
+  const liveProducts = products.filter((product) => !product.tags.includes('hidden-product') && product.tags.includes('tshirt'));
+  return liveProducts;
+}
+
+export async function getLiveWallProducts(query: Parameters<typeof getProducts>[0]) {
+  const products = await getProducts(query);
+  const liveProducts = products.filter((product) => !product.tags.includes('hidden-product') && product.tags.includes('wall'));
   return liveProducts;
 }
 
