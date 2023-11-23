@@ -24,7 +24,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
       <div className="relative mb-12 h-full max-h-[550px] overflow-hidden">
         {images[currentImageIndex] && (
           <Image
-            className="relative h-full w-full object-contain"
+            className="relative h-full w-full object-cover"
             height={600}
             width={600}
             alt={images[currentImageIndex]?.altText as string}
@@ -34,8 +34,8 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
         )}
 
         {images.length > 1 ? (
-          <div className="absolute bottom-[15%] flex w-full justify-center">
-            <div className="mx-auto flex h-11 items-center rounded-full border border-white bg-neutral-50/80 text-neutral-500 backdrop-blur dark:border-black dark:bg-neutral-900/80">
+          <div className="absolute bottom-2 flex w-full justify-center">
+            <div className="mx-auto flex h-8 items-center rounded-full border border-white bg-neutral-50/80 text-neutral-500 backdrop-blur dark:border-black dark:bg-neutral-900/80">
               <button
                 aria-label="Previous product image"
                 onClick={() => handleNavigate('previous')}
@@ -64,14 +64,14 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
               <button
                 aria-label="Enlarge product image"
                 key={image.src}
-                className="h-auto w-20"
+                className="h-20 w-20"
                 onClick={() => setCurrentImageIndex(index)}
               >
                 <GridTileImage
                   alt={image.altText}
                   src={image.src}
-                  width={600}
-                  height={600}
+                  width={50}
+                  height={50}
                   active={isActive}
                 />
               </button>
