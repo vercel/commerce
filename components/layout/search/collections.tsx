@@ -6,7 +6,8 @@ import FilterList from './filter';
 
 async function CollectionList() {
   const collections = await getCollections();
-  return <FilterList list={collections} title="Collections" />;
+  const filteredCollections = collections.filter(collection => !collection.title.toLowerCase().includes('hidden'))
+  return <FilterList list={filteredCollections} title="Collections" />;
 }
 
 const skeleton = 'mb-3 h-4 w-5/6 animate-pulse rounded';
