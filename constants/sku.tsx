@@ -68,3 +68,13 @@ export const sizeSKUs = {
   xxxl: '3XL',
 };
 
+export const printSizeSKUs = {
+  [sizeSKUs.xxs]: 1,
+  [sizeSKUs.xs]: 1,
+  [sizeSKUs.s]: 2,
+  [sizeSKUs.m]: 2,
+  [sizeSKUs.l]: 3,
+  [sizeSKUs.xl]: 3,
+  [sizeSKUs.xxl]: 3,
+  [sizeSKUs.xxxl]: 3,
+}

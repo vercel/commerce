@@ -1,4 +1,13 @@
-import { collectionsSKUs, colorSKUs, customisationSKUs, garmentHandleKeys, garmentSKUs, garmentSizes, sizeSKUs } from "constants/sku";
+import {
+  collectionsSKUs,
+  colorSKUs,
+  customisationSKUs,
+  garmentHandleKeys,
+  garmentSKUs,
+  garmentSizes,
+  printSizeSKUs,
+  sizeSKUs,
+} from "constants/sku";
 
 type TitleInfo = Awaited<ReturnType<typeof extractInfoFromTitle>>;
 
@@ -22,12 +31,13 @@ const extractInfoFromTitle = (productTitle: string) => {
   }
 }
 
-const collectionSKUMapper = (titleInfo: TitleInfo) => {
+const collectionSKUMapper = (titleInfo: TitleInfo, size: keyof typeof sizeSKUs) => {
   const collectionSKU = collectionsSKUs[titleInfo.collectionKey as keyof typeof collectionsSKUs];
   const artworkSKU = titleInfo.artworkNumber!.padStart(4, "0");
   const garmentSKU = garmentHandleKeyMapper(titleInfo.garmentKeys);
+  const printSizeSKU = printSizeSKUs[size];
   
-  return `SCSQ${collectionSKU}${artworkSKU}_${garmentSKU}`;
+  return `SCSQ${collectionSKU}${artworkSKU}${printSizeSKU}_${garmentSKU}`;
 }
 
 const customisationSKUMapper = () => 
@@ -41,8 +51,8 @@ export const createProductSKUs = (productTitle: string) => {
 
   return getGarmentSizes?.map(size => {
     const currentSizeSKU = sizeSKUs[size as keyof typeof sizeSKUs]
-    const collectionSKU = collectionSKUMapper(titleInfo)
-    
+    const collectionSKU = collectionSKUMapper(titleInfo, currentSizeSKU as keyof typeof sizeSKUs)
+
     return `${collectionSKU}_${currentSizeSKU}_${customisationSKUs}`
   })
 }
