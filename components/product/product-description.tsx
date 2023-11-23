@@ -6,6 +6,7 @@ import { SustainabilityInfo } from './sustainability-info';
 import { VariantSelector } from './variant-selector';
 
 export function ProductDescription({ product }: { product: Product }) {
+  const filterDeterminedOptions = product.options.filter(option => option.name !== 'Wrap')
   return (
     <>
       <div className="mb-6 flex flex-col border-b pb-6 dark:border-neutral-700">
@@ -17,11 +18,11 @@ export function ProductDescription({ product }: { product: Product }) {
           />
         </div>
       </div>
-      <VariantSelector options={product.options} variants={product.variants} />
+      <VariantSelector options={filterDeterminedOptions} variants={product.variants} />
       <AddToCart variants={product.variants} availableForSale={product.availableForSale} />
 
       <DescriptionContent product={product} />
-      <SustainabilityInfo />
+      {!product.tags.includes('wall') && <SustainabilityInfo />}
     </>
   );
 }
