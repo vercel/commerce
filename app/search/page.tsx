@@ -1,7 +1,7 @@
 import Grid from 'components/grid';
 import ProductGridItems from 'components/layout/product-grid-items';
 import { defaultSort, sorting } from 'lib/constants';
-import { getLiveProducts } from 'lib/utils';
+import { getAllLiveProducts } from 'lib/utils';
 
 export const runtime = 'edge';
 
@@ -18,7 +18,7 @@ export default async function SearchPage({
   const { sort, q: searchValue } = searchParams as { [key: string]: string };
   const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
 
-  const products = await getLiveProducts({ sortKey, reverse, query: searchValue });
+  const products = await getAllLiveProducts({ sortKey, reverse, query: searchValue });
   const resultsText = products.length > 1 ? 'results' : 'result';
 
   return (
