@@ -26,7 +26,7 @@ export default async function Wardrobe() {
             <ProductGridItems products={liveProducts} />
           </Grid>
         ) : <section className='container my-16'>
-            <h2 className='text-3xl flex justify-center my-16'>coming soon</h2>
+            <h2 className='text-3xl flex justify-center my-16'>Opps! There was a problem</h2>
           </section>}
         <Suspense>
           <Footer />
