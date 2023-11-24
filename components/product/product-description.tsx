@@ -1,24 +1,16 @@
 import { AddToCart } from 'components/cart/add-to-cart';
-import Price from 'components/price';
 import { Product } from 'lib/shopify/types';
 import { DescriptionContent } from './description-content';
 import { SustainabilityInfo } from './sustainability-info';
-import { VariantSelector } from './variant-selector';
+import { VariantDetails } from './variant-details';
 
 export function ProductDescription({ product }: { product: Product }) {
-  const filterDeterminedOptions = product.options.filter(option => option.name !== 'Wrap')
   return (
     <>
-      <div className="mb-6 flex flex-col border-b pb-6 dark:border-neutral-700">
+      <div className="flex flex-col">
         <h1 className="mb-2 text-2xl md:text-3xl font-medium">{product.title}</h1>
-        <div className="place-self-end mr-auto w-auto rounded-full bg-gray-600 p-2 text-sm text-white">
-          <Price
-            amount={product.priceRange.maxVariantPrice.amount}
-            currencyCode={product.priceRange.maxVariantPrice.currencyCode}
-          />
-        </div>
       </div>
-      <VariantSelector options={filterDeterminedOptions} variants={product.variants} />
+      <VariantDetails product={product} />
       <AddToCart variants={product.variants} availableForSale={product.availableForSale} />
 
       <DescriptionContent product={product} />

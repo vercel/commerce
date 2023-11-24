@@ -1,10 +1,11 @@
 'use client';
 
 import clsx from 'clsx';
-import { ProductOption, ProductVariant } from 'lib/shopify/types';
+import { Money, ProductOption, ProductVariant } from 'lib/shopify/types';
 import { createUrl } from 'lib/utils';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
 
 type ParamsMap = {
   [key: string]: string; // ie. { color: 'Red', size: 'Large', ... }
@@ -14,15 +15,18 @@ type OptimizedVariant = {
   id: string;
   availableForSale: boolean;
   params: URLSearchParams;
-  [key: string]: string | boolean | URLSearchParams; // ie. { color: 'Red', size: 'Large', ... }
+  price: Money;
+  [key: string]: string | boolean | URLSearchParams | Money; // ie. { color: 'Red', size: 'Large', ... }
 };
 
 export function VariantSelector({
   options,
-  variants
+  variants,
+  setSelectedVariant,
 }: {
   options: ProductOption[];
   variants: ProductVariant[];
+  setSelectedVariant: (newVariant: ProductVariant) => void,
 }) {
   const pathname = usePathname();
   const currentParams = useSearchParams();
@@ -46,7 +50,8 @@ export function VariantSelector({
     const optimized: OptimizedVariant = {
       id: variant.id,
       availableForSale: variant.availableForSale,
-      params: new URLSearchParams()
+      params: new URLSearchParams(),
+      price: variant.price,
     };
 
     variant.selectedOptions.forEach((selectedOption) => {
@@ -79,6 +84,10 @@ export function VariantSelector({
   const currentUrl = createUrl(pathname, currentParams);
   const selectedVariantUrl = createUrl(pathname, selectedVariantParams);
 
+  useEffect(() => {
+    setSelectedVariant(selectedVariant);
+  }, [selectedVariantUrl]);
+  
   if (currentUrl !== selectedVariantUrl) {
     router.replace(selectedVariantUrl);
   }
