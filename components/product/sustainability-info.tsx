@@ -18,7 +18,7 @@ export function SustainabilityInfo() {
               <AccordionItem id={credential} key={credential} value={credential}>
                 <AccordionTrigger className="text-xs py-3">{credentials[credential as keyof typeof credentials].title}</AccordionTrigger>
                 <AccordionContent>
-                  "{credentials[credential as keyof typeof credentials].excerpt}" <br /><br/>
+                  `{credentials[credential as keyof typeof credentials].excerpt}` <br /><br/>
                   <Link 
                   className="text-bold pt-6" 
                   href={credentials[credential as keyof typeof credentials].link}

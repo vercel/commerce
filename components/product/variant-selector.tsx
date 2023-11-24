@@ -26,18 +26,13 @@ export function VariantSelector({
 }: {
   options: ProductOption[];
   variants: ProductVariant[];
-  setSelectedVariant: (newVariant: ProductVariant) => void,
+  setSelectedVariant: (newVariant: OptimizedVariant | undefined) => void,
 }) {
   const pathname = usePathname();
   const currentParams = useSearchParams();
   const router = useRouter();
   const hasNoOptionsOrJustOneOption =
     !options.length || (options.length === 1 && options[0]?.values.length === 1);
-
-  if (hasNoOptionsOrJustOneOption) {
-    return null;
-  }
-
   // Discard any unexpected options or values from url and create params map.
   const paramsMap: ParamsMap = Object.fromEntries(
     Array.from(currentParams.entries()).filter(([key, value]) =>
@@ -87,6 +82,10 @@ export function VariantSelector({
   useEffect(() => {
     setSelectedVariant(selectedVariant);
   }, [selectedVariantUrl]);
+
+  if (hasNoOptionsOrJustOneOption) {
+    return null;
+  }
   
   if (currentUrl !== selectedVariantUrl) {
     router.replace(selectedVariantUrl);
