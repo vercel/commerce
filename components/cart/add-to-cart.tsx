@@ -60,7 +60,7 @@ export function AddToCart({
       <div className="absolute left-0 ml-4">
         {!isPending ? <PlusIcon className="h-5" /> : <LoadingDots className="mb-3 bg-white" />}
       </div>
-      <span>{availableForSale ? 'Add To Cart' : 'Out Of Stock'}</span>
+      <span>{availableForSale ? 'Add To Bag' : 'Out Of Stock'}</span>
     </button>
   );
 }
