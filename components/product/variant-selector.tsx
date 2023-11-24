@@ -26,7 +26,7 @@ export function VariantSelector({
 }: {
   options: ProductOption[];
   variants: ProductVariant[];
-  setSelectedVariant: (newVariant: OptimizedVariant | undefined) => void,
+  setSelectedVariant: (value: OptimizedVariant | undefined) => void,
 }) {
   const pathname = usePathname();
   const currentParams = useSearchParams();
