@@ -1,5 +1,5 @@
 import { GridTileImage } from "components/grid/tile";
-import { getCollectionProducts } from "lib/commercetools";
+import { getCollectionProducts } from "lib/commercetools/queries";
 import type { Product } from "lib/commercetools/types";
 import Link from "next/link";
 

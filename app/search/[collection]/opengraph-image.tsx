@@ -1,5 +1,5 @@
 import OpengraphImage from "components/opengraph-image";
-import { getCollection } from "lib/commercetools";
+import { getCollection } from "lib/commercetools/queries";
 
 export const runtime = "edge";
 

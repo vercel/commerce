@@ -1,7 +1,13 @@
 "use server";
 
+import {
+  addToCart,
+  createCart,
+  getCart,
+  removeFromCart,
+  updateCart
+} from "lib/commercetools/queries";
 import { TAGS } from "lib/constants";
-import { addToCart, createCart, getCart, removeFromCart, updateCart } from "lib/commercetools";
 import { revalidateTag } from "next/cache";
 import { cookies } from "next/headers";
 
@@ -16,7 +22,7 @@ export async function addItem(prevState: any, selectedVariantId: string | undefi
   if (!cartId || !cart) {
     cart = await createCart();
     cartId = cart.id;
-    cookies().set("cartId", cartId);
+    cookies().set({ name: "cartId", value: cartId, httpOnly: true });
   }
 
   if (!selectedVariantId) {

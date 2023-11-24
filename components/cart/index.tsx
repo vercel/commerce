@@ -1,4 +1,4 @@
-import { getCart } from "lib/commercetools";
+import { getCart } from "lib/commercetools/queries";
 import { cookies } from "next/headers";
 import CartModal from "./modal";
 

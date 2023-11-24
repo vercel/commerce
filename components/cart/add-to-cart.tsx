@@ -7,7 +7,6 @@ import LoadingDots from "components/loading-dots";
 import { ProductVariant } from "lib/commercetools/types";
 import { useSearchParams } from "next/navigation";
 import { useFormState, useFormStatus } from "react-dom";
-import { addToCart } from "lib/commercetools";
 
 function SubmitButton({
   availableForSale,

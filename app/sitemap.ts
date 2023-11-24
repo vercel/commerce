@@ -1,5 +1,4 @@
-import { getCollections, getProducts } from "lib/commercetools";
-import { getPages } from "lib/shopify";
+import { getCollections, getPages, getProducts } from "lib/commercetools/queries";
 import { validateEnvironmentVariables } from "lib/utils";
 import { MetadataRoute } from "next";
 

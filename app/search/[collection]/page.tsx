@@ -1,4 +1,4 @@
-import { getCollection, getCollectionProducts } from "lib/commercetools";
+import { getCollection, getCollectionProducts } from "lib/commercetools/queries";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 

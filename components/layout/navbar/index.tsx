@@ -1,8 +1,8 @@
 import Cart from "components/cart";
 import OpenCart from "components/cart/open-cart";
 import LogoSquare from "components/logo-square";
-import { getMenu } from "lib/shopify";
-import { Menu } from "lib/shopify/types";
+import { getMenu } from "lib/commercetools/queries";
+import { Menu } from "lib/commercetools/types";
 import Link from "next/link";
 import { Suspense } from "react";
 import MobileMenu from "./mobile-menu";

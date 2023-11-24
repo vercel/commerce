@@ -10,11 +10,6 @@ module.exports = {
       { hostname: "picsum.photos" },
       { hostname: "storage.googleapis.com" },
       {
-        protocol: "https",
-        hostname: "cdn.shopify.com",
-        pathname: "/s/files/**"
-      },
-      {
         hostname: "**.cf3.rackcdn.com",
         protocol: "https",
         port: "",

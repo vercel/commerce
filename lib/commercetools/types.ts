@@ -92,11 +92,13 @@ export type ProductOption = {
 export type ProductVariant = {
   id: string;
   availableForSale: boolean;
-  selectedOptions: {
-    name: string;
-    value: string;
-  }[];
+  selectedOptions: SelectedOption[];
   price: Money;
+};
+
+export type SelectedOption = {
+  name: string;
+  value: string;
 };
 
 export type SEO = {

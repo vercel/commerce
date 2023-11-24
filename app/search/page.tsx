@@ -1,7 +1,7 @@
 import Grid from "components/grid";
 import ProductGridItems from "components/layout/product-grid-items";
+import { getProducts } from "lib/commercetools/queries";
 import { defaultSort, sorting } from "lib/constants";
-import { getProducts } from "lib/commercetools";
 
 export const runtime = "edge";
 

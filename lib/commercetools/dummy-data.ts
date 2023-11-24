@@ -15,7 +15,10 @@ export const DUMMY_PRICERANGE = {
   maxVariantPrice: { amount: "99.99", currencyCode: "EUR" }
 };
 
+// Dummy delimiter for meta keywords
 export const DUMMY_DELIMITER = " ";
+
+// Dummy limit for product projection search
 export const DUMMY_LIMIT = 200;
 
 // Dummy image for products
@@ -26,6 +29,7 @@ export const DUMMY_IMAGE = {
   altText: "dummy-image"
 };
 
+// Dummy CommercetoolsMoney with centAmount 0
 export const DUMMY_ZERO_EUR0: CommercetoolsCentPrecisionMoney = {
   centAmount: 0,
   fractionDigits: 2,
