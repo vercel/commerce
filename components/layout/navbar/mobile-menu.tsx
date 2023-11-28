@@ -7,7 +7,7 @@ import { Fragment, Suspense, useEffect, useState } from 'react';
 
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { Menu } from 'lib/shopify/types';
-import Search from './search';
+import Search, { SearchSkeleton } from './search';
 
 export default function MobileMenu({ menu }: { menu: Menu[] }) {
   const pathname = usePathname();
@@ -72,7 +72,7 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
                 </button>
 
                 <div className="mb-4 w-full">
-                  <Suspense fallback={null}>
+                  <Suspense fallback={<SearchSkeleton />}>
                     <Search />
                   </Suspense>
                 </div>

@@ -6,7 +6,7 @@ import { Menu } from 'lib/shopify/types';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import MobileMenu from './mobile-menu';
-import Search from './search';
+import Search, { SearchSkeleton } from './search';
 const { SITE_NAME } = process.env;
 
 export default async function Navbar() {
@@ -43,7 +43,7 @@ export default async function Navbar() {
           ) : null}
         </div>
         <div className="hidden justify-center md:flex md:w-1/3">
-          <Suspense fallback={null}>
+          <Suspense fallback={<SearchSkeleton />}>
             <Search />
           </Suspense>
         </div>
