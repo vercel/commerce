@@ -24,6 +24,16 @@ const productFragment = /* GraphQL */ `
         currencyCode
       }
     }
+    compareAtPriceRange {
+      maxVariantPrice {
+        amount
+        currencyCode
+      }
+      minVariantPrice {
+        amount
+        currencyCode
+      }
+    }
     variants(first: 250) {
       edges {
         node {
