@@ -33,6 +33,7 @@ const inter = Inter({
 export default async function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={inter.variable}>
+      <meta name="google-site-verification" content="nU-MGbKTYYrFX-Yh7SIgQ1szTEoYTF08PZU1nihRS6g" />
       <body className="bg-neutral-50 text-black selection:bg-teal-300 dark:bg-neutral-900 dark:text-white dark:selection:bg-pink-500 dark:selection:text-white">
         <Navbar />
         <Suspense>
