@@ -19,23 +19,30 @@ export default async function SearchPage({
   const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
 
   const products = await getProducts({ sortKey, reverse, query: searchValue });
-  const resultsText = products.length > 1 ? 'results' : 'result';
+  const totalProducts = products.length;
+  const isProductEmpty = totalProduct === 0;
+  const resultsText = totalProducts > 1 ? 'results' : 'result';
 
-  return (
-    <>
-      {searchValue ? (
+  if(searchValue && isProductEmpty){
+    return (
+      <p className="mb-4">
+      There are no products that match
+      </p>
+      )
+  }
+
+  if(searchValue && !isProductEmpty){
+    return (
+      <>
         <p className="mb-4">
-          {products.length === 0
-            ? 'There are no products that match '
-            : `Showing ${products.length} ${resultsText} for `}
-          <span className="font-bold">&quot;{searchValue}&quot;</span>
+          {`Showing ${totalProducts} ${resultsText} for `}
         </p>
-      ) : null}
-      {products.length > 0 ? (
         <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          <ProductGridItems products={products} />
+            <ProductGridItems products={products} />
         </Grid>
-      ) : null}
-    </>
-  );
+      </>
+    )
+  }
+  
+  return null;
 }
