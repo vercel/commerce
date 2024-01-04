@@ -21,7 +21,10 @@ export default async function Navbar() {
         <div className="flex w-full md:w-1/3">
           <Link href="/" className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6">
             <LogoSquare />
-            <div className="ml-2 flex-none text-sm font-medium uppercase md:hidden lg:block">
+            <div
+              className="ml-2 flex-none text-sm font-medium uppercase md:hidden lg:block"
+              data-test="nav-link-home-page"
+            >
               {SITE_NAME}
             </div>
           </Link>

@@ -25,7 +25,11 @@ export default function Search() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="w-max-[550px] relative w-full lg:w-80 xl:w-full">
+    <form
+      onSubmit={onSubmit}
+      className="w-max-[550px] relative w-full lg:w-80 xl:w-full"
+      data-test="search-input"
+    >
       <input
         key={searchParams?.get('q')}
         type="text"

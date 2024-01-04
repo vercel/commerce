@@ -13,7 +13,9 @@
     "lint-staged": "lint-staged",
     "prettier": "prettier --write --ignore-unknown .",
     "prettier:check": "prettier --check --ignore-unknown .",
-    "test": "pnpm lint && pnpm prettier:check"
+    "test": "pnpm lint && pnpm prettier:check",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "git": {
     "pre-commit": "lint-staged"
@@ -26,7 +28,7 @@
     "@heroicons/react": "^2.0.18",
     "clsx": "^2.0.0",
     "geist": "^1.0.0",
-    "next": "14.0.0",
+    "next": "^14.0.4",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
@@ -38,6 +40,7 @@
     "@types/react-dom": "18.2.14",
     "@vercel/git-hooks": "^1.0.0",
     "autoprefixer": "^10.4.16",
+    "cypress": "^13.6.2",
     "eslint": "^8.52.0",
     "eslint-config-next": "^14.0.0",
     "eslint-config-prettier": "^9.0.0",

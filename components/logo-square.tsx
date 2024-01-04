@@ -11,6 +11,7 @@ export default function LogoSquare({ size }: { size?: 'sm' | undefined }) {
           'h-[30px] w-[30px] rounded-lg': size === 'sm'
         }
       )}
+      data-test="logo"
     >
       <LogoIcon
         className={clsx({
