@@ -23,3 +23,7 @@
 * [[https://vercel.com/docs/integrations/shopify][Vercel and Shopify Integration]]
 
 * [[https://vercel-shopify-db1jbd5dn-jeff-romine.vercel.app/][Vercel Store]]
+
+* [[https://github.com/instantcommerce/shopify-headless-theme][Shopify Headless]]
+
+* [[https://vercel.com/docs/integrations/shopify#configure-environment-variables][Shopify Environment Variables]]
