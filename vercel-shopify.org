@@ -15,3 +15,11 @@
 #+LINK_HOME:
 #+XSLT:
 #+STARTUP: showeverything
+
+* [[https://vercel.com/my-team-1cf44fd9][Vercel - My Team]]
+
+* [[https://vercel.com/docs/integrations/shopify][Vercel and Shopify Integration]]
+
+* [[https://vercel.com/docs/integrations/shopify][Vercel and Shopify Integration]]
+
+* [[https://vercel-shopify-db1jbd5dn-jeff-romine.vercel.app/][Vercel Store]]
