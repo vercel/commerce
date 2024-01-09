@@ -1,0 +1,17 @@
+#+TITLE:     Vercel Shopify (clone of https://github.com/vercel/commerce)
+#+AUTHOR:    Jeff Romine
+#+EMAIL:     jromineut@gmail.com
+#+DATE:      2023-10-14 Sat
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+OPTIONS: ^:{} author:nil email:nil creator:nil timestamp:nil
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+#+XSLT:
+#+STARTUP: showeverything
