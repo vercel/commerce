@@ -11,11 +11,7 @@ import {
   removeFromCartMutation
 } from './mutations/cart';
 import { getCartQuery } from './queries/cart';
-import {
-  getCollectionProductsQuery,
-  getCollectionQuery,
-  getCollectionsQuery
-} from './queries/collection';
+import { getCollectionQuery, getCollectionsQuery } from './queries/collection';
 import { getMenuQuery } from './queries/menu';
 import { getPageQuery, getPagesQuery } from './queries/page';
 import {
@@ -36,7 +32,6 @@ import {
   ShopifyCartOperation,
   ShopifyCollection,
   ShopifyCollectionOperation,
-  ShopifyCollectionProductsOperation,
   ShopifyCollectionsOperation,
   ShopifyCreateCartOperation,
   ShopifyMenuOperation,
@@ -282,7 +277,7 @@ export async function getCollection(handle: string): Promise<Collection | undefi
   return reshapeCollection(res.body.data.collection);
 }
 
-export async function getCollectionProducts({
+export function getCollectionProducts({
   collection,
   reverse,
   sortKey
@@ -290,23 +285,50 @@ export async function getCollectionProducts({
   collection: string;
   reverse?: boolean;
   sortKey?: string;
-}): Promise<Product[]> {
-  const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
-    query: getCollectionProductsQuery,
-    tags: [TAGS.collections, TAGS.products],
-    variables: {
-      handle: collection,
-      reverse,
-      sortKey: sortKey === 'CREATED_AT' ? 'CREATED' : sortKey
+}): Product[] {
+  return [
+    {
+      id: '123',
+      handle: 'foo',
+      availableForSale: true,
+      title: 'Thneed',
+      description: 'Something everyone needs',
+      descriptionHtml: '<p>Something everyone needs</p>',
+      options: [],
+      priceRange: {
+        maxVariantPrice: { amount: '0.00', currencyCode: 'USD' },
+        minVariantPrice: { amount: '0.00', currencyCode: 'USD' }
+      },
+
+      variants: [
+        {
+          id: '123',
+          title: 'Thneed',
+          availableForSale: true,
+          selectedOptions: [{ name: 'color', value: 'red' }],
+          price: { amount: '0.00', currencyCode: 'USD' }
+        }
+      ],
+
+      featuredImage: {
+        url: 'https://static.wikia.nocookie.net/universalstudios/images/e/e5/ThneedSeuss.png/revision/latest?cb=20220704024251',
+        altText: 'Thneed',
+        width: 100,
+        height: 100
+      },
+      images: [
+        {
+          url: 'https://static.wikia.nocookie.net/universalstudios/images/e/e5/ThneedSeuss.png/revision/latest?cb=20220704024251',
+          altText: 'Thneed',
+          width: 100,
+          height: 100
+        }
+      ],
+      seo: { title: 'Thneed', description: 'Something everyone needs' },
+      tags: [],
+      updatedAt: '2021-05-18T18:52:13Z'
     }
-  });
-
-  if (!res.body.data.collection) {
-    console.log(`No collection found for \`${collection}\``);
-    return [];
-  }
-
-  return reshapeProducts(removeEdgesAndNodes(res.body.data.collection.products));
+  ];
 }
 
 export async function getCollections(): Promise<Collection[]> {

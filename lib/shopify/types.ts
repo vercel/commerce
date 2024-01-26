@@ -61,7 +61,7 @@ export type Page = {
   updatedAt: string;
 };
 
-export type Product = Omit<ShopifyProduct, 'variants' | 'images'> & {
+export type Product = Omit<LoticProduct, 'variants' | 'images'> & {
   variants: ProductVariant[];
   images: Image[];
 };
@@ -105,6 +105,26 @@ export type ShopifyCollection = {
   title: string;
   description: string;
   seo: SEO;
+  updatedAt: string;
+};
+
+export type LoticProduct = {
+  id: string;
+  handle: string;
+  availableForSale: boolean;
+  title: string;
+  description: string;
+  descriptionHtml: string;
+  options: ProductOption[];
+  priceRange: {
+    maxVariantPrice: Money;
+    minVariantPrice: Money;
+  };
+  variants: Connection<ProductVariant>;
+  featuredImage: Image;
+  images: Connection<Image>;
+  seo: SEO;
+  tags: string[];
   updatedAt: string;
 };
 
