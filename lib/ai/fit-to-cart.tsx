@@ -48,6 +48,7 @@ export async function getPitch({ currentProduct }: { currentProduct: Product }) 
   const products = cart.lines
     .filter((line) => line.merchandise.product.id !== currentProduct.id)
     .map((line) => `"${line.merchandise.product.title}"`);
+  if (!products.length) return null;
 
   const prompt = `Write a 30 word pitch for why a person who has ${products.join(
     ' and '
