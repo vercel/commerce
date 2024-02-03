@@ -1,6 +1,7 @@
 import { AddToCart } from 'components/cart/add-to-cart';
 import Price from 'components/price';
 import Prose from 'components/prose';
+import { FitToCart } from 'lib/ai/fit-to-cart';
 import { Product } from 'lib/shopify/types';
 import { VariantSelector } from './variant-selector';
 
@@ -24,8 +25,8 @@ export function ProductDescription({ product }: { product: Product }) {
           html={product.descriptionHtml}
         />
       ) : null}
-
       <AddToCart variants={product.variants} availableForSale={product.availableForSale} />
+      <FitToCart currentProduct={product} />
     </>
   );
 }
