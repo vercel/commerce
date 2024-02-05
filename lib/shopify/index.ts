@@ -210,6 +210,10 @@ export async function createCart(): Promise<Cart> {
   return reshapeCart(res.body.data.cartCreate.cart);
 }
 
+function revalidateCart(cartId: string) {
+  revalidateTag(`cart-${cartId}`);
+}
+
 export async function addToCart(
   cartId: string,
   lines: { merchandiseId: string; quantity: number }[]
@@ -222,6 +226,7 @@ export async function addToCart(
     },
     cache: 'no-store'
   });
+  revalidateCart(cartId);
   return reshapeCart(res.body.data.cartLinesAdd.cart);
 }
 
@@ -234,6 +239,7 @@ export async function removeFromCart(cartId: string, lineIds: string[]): Promise
     },
     cache: 'no-store'
   });
+  revalidateCart(cartId);
 
   return reshapeCart(res.body.data.cartLinesRemove.cart);
 }
@@ -250,6 +256,7 @@ export async function updateCart(
     },
     cache: 'no-store'
   });
+  revalidateCart(cartId);
 
   return reshapeCart(res.body.data.cartLinesUpdate.cart);
 }
@@ -258,8 +265,7 @@ export async function getCart(cartId: string): Promise<Cart | undefined> {
   const res = await shopifyFetch<ShopifyCartOperation>({
     query: getCartQuery,
     variables: { cartId },
-    tags: [TAGS.cart],
-    cache: 'no-store'
+    tags: [TAGS.cart, `cart-${cartId}`]
   });
 
   // Old carts becomes `null` when you checkout.
