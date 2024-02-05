@@ -1,6 +1,7 @@
 import { OpenAIStream, StreamingTextResponse } from 'ai';
 import { getCart } from 'lib/shopify';
 import { Product } from 'lib/shopify/types';
+import { unstable_cache } from 'next/cache';
 import { cookies } from 'next/headers';
 import OpenAI from 'openai';
 import { Suspense } from 'react';
@@ -24,10 +25,7 @@ export async function FitToCart({ currentProduct }: { currentProduct: Product })
 async function FitToCartInternal({ currentProduct }: { currentProduct: Product }) {
   const pitch = await getPitch({ currentProduct });
   if (!pitch) return null;
-  let text = await pitch.text();
-  if (!text) return null;
-  text = text.trim().replace(/^"/, '').replace(/"$/, '');
-  return <div className="mt-6 text-sm leading-tight dark:text-white/[60%]">{text}</div>;
+  return <div className="mt-6 text-sm leading-tight dark:text-white/[60%]">{pitch}</div>;
 }
 
 const fireworks = new OpenAI({
@@ -54,8 +52,7 @@ export async function getPitch({ currentProduct }: { currentProduct: Product }) 
     ' and '
   )} in their shopping cart should also purchase the "${currentProduct.title}"`;
 
-  // Request the Fireworks API for the response based on the prompt
-  const response = await fireworks.chat.completions.create({
+  const query = {
     model: 'accounts/fireworks/models/mistral-7b-instruct-4k',
     stream: true,
     messages: buildPrompt(prompt),
@@ -63,11 +60,25 @@ export async function getPitch({ currentProduct }: { currentProduct: Product }) 
     temperature: 0.75,
     top_p: 1,
     frequency_penalty: 1
-  });
+  } as const;
 
-  // Convert the response into a friendly text-stream
-  const stream = OpenAIStream(response);
+  return unstable_cache(async () => {
+    // Request the Fireworks API for the response based on the prompt
+    const response = await fireworks.chat.completions.create(query);
 
-  // Respond with the stream
-  return new StreamingTextResponse(stream);
+    // Convert the response into a friendly text-stream
+    const stream = OpenAIStream(response);
+
+    // Respond with the stream
+    const streamingResponse = new StreamingTextResponse(stream);
+    let text = await streamingResponse.text();
+    // Remove the quotes from the response tht the LLM sometimes adds.
+    text = text.trim().replace(/^"/, '').replace(/"$/, '');
+    return text;
+  }, [
+    JSON.stringify(query),
+    '1.0',
+    process.env.VERCEL_BRANCH_URL || '',
+    process.env.NODE_ENV || ''
+  ])();
 }
