@@ -54,6 +54,10 @@ export async function removeItem(prevState: any, lineId: string) {
   try {
     await removeFromCart(cartId, [lineId]);
     revalidateTag(TAGS.cart);
+    return {
+      success: true,
+      cartId
+    };
   } catch (e) {
     return 'Error removing item from cart';
   }
