@@ -5,7 +5,16 @@ import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/
 import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
 
-export async function addItem(prevState: any, selectedVariantId: string | undefined) {
+type AddItemResponse = {
+  cartId?: string;
+  success: boolean;
+  message?: string;
+};
+
+export async function addItem(
+  prevState: any,
+  selectedVariantId: string | undefined
+): Promise<AddItemResponse> {
   let cartId = cookies().get('cartId')?.value;
   let cart;
 
@@ -20,14 +29,15 @@ export async function addItem(prevState: any, selectedVariantId: string | undefi
   }
 
   if (!selectedVariantId) {
-    return 'Missing product variant ID';
+    return { success: false, message: 'Missing variant ID' };
   }
 
   try {
     await addToCart(cartId, [{ merchandiseId: selectedVariantId, quantity: 1 }]);
     revalidateTag(TAGS.cart);
+    return { success: true };
   } catch (e) {
-    return 'Error adding item to cart';
+    return { success: false, message: 'Error adding item to cart' };
   }
 }
 
@@ -41,6 +51,10 @@ export async function removeItem(prevState: any, lineId: string) {
   try {
     await removeFromCart(cartId, [lineId]);
     revalidateTag(TAGS.cart);
+    return {
+      success: true,
+      cartId
+    };
   } catch (e) {
     return 'Error removing item from cart';
   }

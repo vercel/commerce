@@ -2,7 +2,7 @@ import { HIDDEN_PRODUCT_TAG, SHOPIFY_GRAPHQL_API_ENDPOINT, TAGS } from 'lib/cons
 import { isShopifyError } from 'lib/type-guards';
 import { ensureStartsWith } from 'lib/utils';
 import { revalidateTag } from 'next/cache';
-import { headers } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import {
   addToCartMutation,
@@ -214,11 +214,18 @@ export async function addToCart(
   cartId: string,
   lines: { merchandiseId: string; quantity: number }[]
 ): Promise<Cart> {
+  // get shopify cookies
+  const shopifyY = cookies()?.get('_shopify_y')?.value;
+  const shopifyS = cookies()?.get('_shopify_s')?.value;
+
   const res = await shopifyFetch<ShopifyAddToCartOperation>({
     query: addToCartMutation,
     variables: {
       cartId,
       lines
+    },
+    headers: {
+      ...(shopifyY && shopifyS && { cookie: `_shopify_y=${shopifyY}; _shopify_s=${shopifyS};` })
     },
     cache: 'no-store'
   });

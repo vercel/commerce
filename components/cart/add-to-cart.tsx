@@ -7,6 +7,8 @@ import LoadingDots from 'components/loading-dots';
 import { ProductVariant } from 'lib/shopify/types';
 import { useSearchParams } from 'next/navigation';
 import { useFormState, useFormStatus } from 'react-dom';
+import { useEffect } from 'react';
+import { useShopifyAnalytics } from '../../lib/shopify/hooks/use-shopify-analytics';
 
 function SubmitButton({
   availableForSale,
@@ -70,7 +72,8 @@ export function AddToCart({
   variants: ProductVariant[];
   availableForSale: boolean;
 }) {
-  const [message, formAction] = useFormState(addItem, null);
+  const { sendAddToCart } = useShopifyAnalytics();
+  const [response, formAction] = useFormState(addItem, null);
   const searchParams = useSearchParams();
   const defaultVariantId = variants.length === 1 ? variants[0]?.id : undefined;
   const variant = variants.find((variant: ProductVariant) =>
@@ -81,12 +84,22 @@ export function AddToCart({
   const selectedVariantId = variant?.id || defaultVariantId;
   const actionWithVariant = formAction.bind(null, selectedVariantId);
 
+  useEffect(() => {
+    if (response?.success && response.cartId) {
+      sendAddToCart({
+        cartId: response.cartId
+      });
+    }
+  }, [response?.success, response?.cartId, sendAddToCart]);
+
   return (
     <form action={actionWithVariant}>
       <SubmitButton availableForSale={availableForSale} selectedVariantId={selectedVariantId} />
-      <p aria-live="polite" className="sr-only" role="status">
-        {message}
-      </p>
+      {response?.message && (
+        <p aria-live="polite" className="sr-only" role="status">
+          {response.message}
+        </p>
+      )}
     </form>
   );
 }
