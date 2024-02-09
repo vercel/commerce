@@ -35,7 +35,10 @@ export async function addItem(
   try {
     await addToCart(cartId, [{ merchandiseId: selectedVariantId, quantity: 1 }]);
     revalidateTag(TAGS.cart);
-    return { success: true, cartId };
+    return {
+      success: true,
+      cartId
+    };
   } catch (e) {
     return { success: false, message: 'Error adding item to cart' };
   }
@@ -51,10 +54,6 @@ export async function removeItem(prevState: any, lineId: string) {
   try {
     await removeFromCart(cartId, [lineId]);
     revalidateTag(TAGS.cart);
-    return {
-      success: true,
-      cartId
-    };
   } catch (e) {
     return 'Error removing item from cart';
   }
