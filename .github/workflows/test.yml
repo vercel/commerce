@@ -18,7 +18,7 @@ jobs:
         with:
           node-version-file: '.nvmrc'
       - name: Set pnpm version
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v3
         with:
           run_install: false
           version: 7
