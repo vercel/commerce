@@ -2,7 +2,7 @@
 
 # Next.js Commerce
 
-A Next.js 13 and App Router-ready ecommerce template featuring:
+A Next.js 14 and App Router-ready ecommerce template featuring:
 
 - Next.js App Router
 - Optimized for SEO using Next.js's Metadata
