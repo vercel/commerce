@@ -37,7 +37,9 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
       <body className="bg-neutral-50 text-black selection:bg-teal-300 dark:bg-neutral-900 dark:text-white dark:selection:bg-pink-500 dark:selection:text-white">
         <Navbar />
         <Suspense>
-          <main>{children}</main>
+          <main>
+            <div className="max-w-10xl mx-auto sm:px-8 lg:px-10">{children}</div>
+          </main>
         </Suspense>
       </body>
     </html>

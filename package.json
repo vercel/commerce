@@ -22,13 +22,14 @@
     "*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.17",
-    "@heroicons/react": "^2.0.18",
-    "clsx": "^2.0.0",
-    "geist": "^1.0.0",
-    "next": "14.0.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "@headlessui/react": "^1.7.18",
+    "@heroicons/react": "^2.1.1",
+    "@tailwindcss/forms": "^0.5.7",
+    "clsx": "^2.1.0",
+    "geist": "^1.2.2",
+    "next": "^14.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@tailwindcss/container-queries": "^0.1.1",
@@ -37,16 +38,16 @@
     "@types/react": "18.2.33",
     "@types/react-dom": "18.2.14",
     "@vercel/git-hooks": "^1.0.0",
-    "autoprefixer": "^10.4.16",
-    "eslint": "^8.52.0",
-    "eslint-config-next": "^14.0.0",
-    "eslint-config-prettier": "^9.0.0",
+    "autoprefixer": "^10.4.17",
+    "eslint": "^8.56.0",
+    "eslint-config-next": "^14.1.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-unicorn": "^48.0.1",
-    "lint-staged": "^15.0.2",
-    "postcss": "^8.4.31",
+    "lint-staged": "^15.2.2",
+    "postcss": "^8.4.35",
     "prettier": "3.0.3",
-    "prettier-plugin-tailwindcss": "^0.5.6",
-    "tailwindcss": "^3.3.5",
+    "prettier-plugin-tailwindcss": "^0.5.11",
+    "tailwindcss": "^3.4.1",
     "typescript": "5.2.2"
   }
 }
