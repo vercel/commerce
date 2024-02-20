@@ -30,9 +30,10 @@ export default function Search() {
         key={searchParams?.get('q')}
         type="text"
         name="search"
-        placeholder="Search for products..."
+        placeholder="Search for products coming soon..."
         autoComplete="off"
         defaultValue={searchParams?.get('q') || ''}
+        disabled={true}
         className="w-full rounded-lg border bg-white px-4 py-2 text-sm text-black placeholder:text-neutral-500 dark:border-neutral-800 dark:bg-transparent dark:text-white dark:placeholder:text-neutral-400"
       />
       <div className="absolute right-0 top-0 mr-3 flex h-full items-center">
