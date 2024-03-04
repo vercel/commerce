@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { Suspense } from 'react';
 import MobileMenu from './mobile-menu';
 import Search from './search';
+import Login from 'components/auth/login';
 const { SITE_NAME } = process.env;
 
 export default async function Navbar() {
@@ -44,9 +45,26 @@ export default async function Navbar() {
           <Search />
         </div>
         <div className="flex justify-end md:w-1/3">
-          <Suspense fallback={<OpenCart />}>
-            <Cart />
-          </Suspense>
+          <div className="relative flex items-center">
+            <div className="flex h-full flex-row items-center justify-items-end gap-4">
+              <div
+                className="text-primary relative ml-4 flex cursor-pointer items-center
+                 outline-none transition duration-100 ease-in-out sm:ml-6"
+              >
+                <Suspense fallback={<OpenCart />}>
+                  <Cart />
+                </Suspense>
+              </div>
+              <div
+                className="text-primary relative ml-4 flex cursor-pointer items-center
+                    outline-none transition duration-100 ease-in-out sm:ml-6"
+              >
+                <Suspense fallback={<p>Login</p>}>
+                  <Login />
+                </Suspense>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </nav>

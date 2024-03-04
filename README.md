@@ -77,15 +77,16 @@ You can use this comprehensive [integration guide](http://vercel.com/docs/integr
 
 ## Shopify Customer Accounts
 
-This fork is designed to provide a basic implementation of [Shopify's new Customer Accounts API](), which will allow a customer to login into their Next.js Shopify Website to update information and view orders. It uses the concepts of Next.js middleware and server actions to implemnt the Shopify Customer Accounts API Integration. All the new code for the Customer Accounts API is included in: lib/shopify/customer folder, middleware
+This fork is designed to provide a basic implementation of [Shopify's new Customer Accounts API](), which will allow a customer to login into their Next.js Shopify Website to update information and view orders. It uses the concepts of Next.js middleware and server actions to implement the Shopify Customer Accounts API Integration. All the new code for the Customer Accounts API is included in: lib/shopify/customer folder, middleware
 
 The code for this repo is adapted for Next.js from code provided by Shopify
 
 To Set This Up, please follow:
 
-1. Get
-2. Set up URLs
-3.
+1. icons/client components
+2. Get
+3. Set up URLs
+4.
 
 to do: env settings file
 

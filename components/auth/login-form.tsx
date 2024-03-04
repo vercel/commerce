@@ -1,11 +1,9 @@
 'use client';
-import { ExclamationTriangleIcon, UserIcon as LogInIcon } from '@heroicons/react/24/outline';
+import { UserIcon as LogInIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { doLogin } from './actions';
 import LoadingDots from 'components/loading-dots';
 import { useFormState, useFormStatus } from 'react-dom';
-import { Alert, AlertTitle } from 'components/ui/alert';
-import { Button } from 'components/ui/button';
 
 function SubmitButton(props: any) {
   const { pending } = useFormStatus();
@@ -15,13 +13,8 @@ function SubmitButton(props: any) {
 
   return (
     <>
-      {props?.message && (
-        <Alert className="my-5" variant="destructive">
-          <ExclamationTriangleIcon className="mr-2 h-4 w-4" />
-          <AlertTitle>{props?.message}</AlertTitle>
-        </Alert>
-      )}
-      <Button
+      {props?.message && <div className="my-5">{props?.message}</div>}
+      <button
         onClick={(e: React.FormEvent<HTMLButtonElement>) => {
           if (pending) e.preventDefault();
         }}
@@ -43,7 +36,7 @@ function SubmitButton(props: any) {
             <span>Log-In</span>
           </>
         )}
-      </Button>
+      </button>
     </>
   );
 }

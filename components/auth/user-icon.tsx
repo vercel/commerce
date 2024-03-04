@@ -1,7 +1,6 @@
 'use client';
-import { User2Icon } from 'lucide-react';
+import { UserIcon as User2Icon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
-import { Button } from 'components/ui/button';
 
 function UserButton(props: any) {
   const buttonClasses =
@@ -10,9 +9,7 @@ function UserButton(props: any) {
 
   return (
     <>
-      <Button
-        asChild
-        variant="link"
+      <button
         aria-label="My Profile"
         className={clsx(buttonClasses, {
           'hover:opacity-90': true
@@ -23,7 +20,7 @@ function UserButton(props: any) {
           <User2Icon className="mr-2 h-4 w-4" />
           <span>Profile</span>
         </a>
-      </Button>
+      </button>
     </>
   );
 }

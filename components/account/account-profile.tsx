@@ -1,10 +1,9 @@
 'use client';
 import clsx from 'clsx';
-import { LogOutIcon, TriangleIcon } from '@heroicons/react/24/outline';
+import { ArrowRightIcon as LogOutIcon } from '@heroicons/react/24/outline';
 import { doLogout } from './actions';
 import LoadingDots from 'components/loading-dots';
 import { useFormState, useFormStatus } from 'react-dom';
-import { Alert, AlertDescription, AlertTitle } from 'components/ui/alert';
 
 function SubmitButton(props: any) {
   const { pending } = useFormStatus();
@@ -28,13 +27,7 @@ function SubmitButton(props: any) {
         </div>
         {pending ? 'Logging out...' : 'Log Out'}
       </button>
-      {props?.message && (
-        <Alert className="my-5" variant="destructive">
-          <TriangleIcon className="h-4 w-4" />
-          <AlertTitle>Error</AlertTitle>
-          <AlertDescription>{props?.message}</AlertDescription>
-        </Alert>
-      )}
+      {props?.message && <div className="my-5">{props?.message}</div>}
     </>
   );
 }
