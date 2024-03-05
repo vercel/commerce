@@ -1,8 +1,6 @@
 'use client';
-import { UserIcon as LogInIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { doLogin } from './actions';
-import LoadingDots from 'components/loading-dots';
 import { useFormState, useFormStatus } from 'react-dom';
 
 function SubmitButton(props: any) {
@@ -27,12 +25,10 @@ function SubmitButton(props: any) {
       >
         {pending ? (
           <>
-            <LoadingDots className="mr-2 h-4 w-4" />
-            <span>Logging In</span>
+            <span>Logging In...</span>
           </>
         ) : (
           <>
-            <LogInIcon className="hidden md:mr-2 md:flex md:h-4 md:w-4" />
             <span>Log-In</span>
           </>
         )}
