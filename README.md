@@ -83,9 +83,11 @@ It is based on Shopify's Hydrogen implementation and uses the concepts of Next.j
 
 The following files were changed in the core commerce repo:
 
-- components/cart/index.tsx (to add logged_in true for checkout)
+- components/cart/index.tsx (to add logged_in true for checkout for Customer Account)
 - components/layout/navbar/index.tsx (to add a login button to menu)
-- Read Me
+- components/cart/modal.tsx (had to fix a TS error here)
+- lib/utils.ts (add required ENV)
+- README
 - env.example
 
 For instructions on how to get everything working properly, please see [Setup for using Shopify Customer Account API](https://www.dalicommerce.com/docs/nextjs/create-a-headless-shopify-nextjs#iii-setup-for-using-shopify-customer-account-api-log-in-and-account-section)
