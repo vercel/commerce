@@ -1,4 +1,5 @@
-import type { NextRequest, NextResponse as NextResponseType } from 'next/server'; //you need to remain this as type so as not to confuse with the actual function
+//you need to remain this as type so as not to confuse with the actual function
+import type { NextRequest, NextResponse as NextResponseType } from 'next/server';
 import { cookies } from 'next/headers';
 import { getNonce } from 'lib/shopify/customer/auth-utils';
 import {
@@ -242,7 +243,7 @@ export async function createAllCookies({
 }) {
   response.cookies.set('shop_customer_token', customerAccessToken, {
     httpOnly: true, //if true can only read the cookie in server
-    sameSite: 'lax', //should be lax???
+    sameSite: 'lax',
     secure: true,
     path: '/',
     maxAge: expires_in //value from shopify, seems like this is 2 hours
@@ -252,7 +253,7 @@ export async function createAllCookies({
   //and will disappear after the user closes the browser and then we can never refresh - same with expires at below
   response.cookies.set('shop_refresh_token', refresh_token, {
     httpOnly: true, //if true can only read the cookie in server
-    sameSite: 'lax', //should be lax???
+    sameSite: 'lax',
     secure: true,
     path: '/',
     maxAge: 604800 //one week
@@ -262,7 +263,7 @@ export async function createAllCookies({
   //and will disappear after the user closes the browser and then we can never refresh
   response.cookies.set('shop_expires_at', expiresAt, {
     httpOnly: true, //if true can only read the cookie in server
-    sameSite: 'lax', //should be lax???
+    sameSite: 'lax',
     secure: true,
     path: '/',
     maxAge: 604800 //one week

@@ -36,7 +36,6 @@ export async function middleware(request: NextRequest) {
     //const newHeaders = new Headers(request.headers)
     const origin = getOrigin(request);
     //console.log ("origin", origin)
-    //just cleaner to return everything in this one function and not have to pass back shit back and forth with booleans
     return await isLoggedIn(request, origin);
   }
 

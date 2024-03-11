@@ -77,33 +77,15 @@ You can use this comprehensive [integration guide](http://vercel.com/docs/integr
 
 ## Shopify Customer Accounts
 
-to do: env settings file
-update Shopify stuff so points here
-instructions
-
 This fork is designed to provide a basic implementation of [Shopify's new Customer Accounts API](https://shopify.dev/docs/api/customer), which will allow a customer to login into their Next.js Shopify Website to update information and view orders, see Shopify's [launch announcement](https://www.shopify.com/partners/blog/introducing-customer-account-api-for-headless-stores) to learn more.
 
-It uses the concepts of Next.js middleware and server actions to implement the Shopify Customer Accounts API Integration. All the new code for the Customer Accounts API is included in: lib/shopify/customer folder, middleware
+It is based on Shopify's Hydrogen implementation and uses the concepts of Next.js middleware and server actions to implement the Shopify Customer Accounts API Integration. All the new code for the Customer Accounts API is included in: lib/shopify/customer folder, middleware.ts, and components/account
 
-The code for this repo is adapted for Next.js from code provided by Shopify
+The following files were changed in the core commerce repo:
 
-To Set This Up, please follow:
+- components/cart/index.tsx (to add logged_in true for checkout)
+- components/layout/navbar/index.tsx (to add a login button to menu)
+- Read Me
+- env.example
 
-1. icons/client components
-2. Get
-3. Set up URLs
-4. Add the following ENV variables to your .env (and Vercel dashboard)
-
-https://shopify.dev/docs/custom-storefronts/building-with-the-customer-account-api/hydrogen
-https://shopify.dev/docs/api/customer
-
-There are several issues that make this code much more complex on NextJs:
-
-1. Get can't origin in RSC - you can get this in middleware and pass down as props
-   https://blog.stackademic.com/how-next-js-middlewares-work-103cae315163
-
-2. Can't set Cookies in RSC!
-
-So to do this correctly, we have to use a fixed origin based on ENV variables, which makes testing difficult. Can only test in one environment.
-
-And 2, we need to pass the tokens to a client component, which sets the cookies client side. We couldn't figure out any other way to get this to work.
+For instructions on how to get everything working properly, please see [Setup for using Shopify Customer Account API](https://www.dalicommerce.com/docs/nextjs/create-a-headless-shopify-nextjs#iii-setup-for-using-shopify-customer-account-api-log-in-and-account-section)
