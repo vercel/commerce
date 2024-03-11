@@ -32,6 +32,10 @@ yarn-error.log*
 
 # vercel
 .vercel
+.local
+.upm
+.replit
+.replit.nix
 
 # typescript
 *.tsbuildinfo

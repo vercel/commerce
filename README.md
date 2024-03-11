@@ -74,3 +74,20 @@ Your app should now be running on [localhost:3000](http://localhost:3000/).
 ## Vercel, Next.js Commerce, and Shopify Integration Guide
 
 You can use this comprehensive [integration guide](http://vercel.com/docs/integrations/shopify) with step-by-step instructions on how to configure Shopify as a headless CMS using Next.js Commerce as your headless Shopify storefront on Vercel.
+
+## Shopify Customer Accounts
+
+This fork is designed to provide a basic implementation of [Shopify's new Customer Accounts API](https://shopify.dev/docs/api/customer), which will allow a customer to login into their Next.js Shopify Website to update information and view orders, see Shopify's [launch announcement](https://www.shopify.com/partners/blog/introducing-customer-account-api-for-headless-stores) to learn more.
+
+It is based on Shopify's Hydrogen implementation and uses the concepts of Next.js middleware and server actions to implement the Shopify Customer Accounts API Integration. All the new code for the Customer Accounts API is included in: lib/shopify/customer folder, middleware.ts, and components/account
+
+The following files were changed in the core commerce repo:
+
+- components/cart/index.tsx (to add logged_in true for checkout for Customer Account)
+- components/layout/navbar/index.tsx (to add a login button to menu)
+- components/cart/modal.tsx (had to fix a TS error here)
+- lib/utils.ts (add required ENV)
+- README
+- env.example
+
+For instructions on how to get everything working properly, please see [Setup for using Shopify Customer Account API](https://www.dalicommerce.com/docs/nextjs/create-a-headless-shopify-nextjs#iii-setup-for-using-shopify-customer-account-api-log-in-and-account-section)
