@@ -15,9 +15,9 @@ export default async function OpengraphImage(props?: Props): Promise<ImageRespon
 
   return new ImageResponse(
     (
-      <div tw="flex h-full w-full flex-col items-center justify-center bg-black">
-        <div tw="flex flex-none items-center justify-center border border-neutral-700 h-[160px] w-[160px] rounded-3xl">
-          <LogoIcon width="64" height="58" fill="white" />
+      <div tw="flex h-full w-full flex-col items-center justify-center">
+        <div tw="flex flex-none items-center justify-center h-[160px] w-[160px] border-none">
+          <LogoIcon />
         </div>
         <p tw="mt-12 text-6xl font-bold text-white">{title}</p>
       </div>
