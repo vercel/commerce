@@ -12,7 +12,7 @@ module.exports = {
         'custom-blue': '#0B80A7'
       },
       fontFamily: {
-        'open-sans': ['Open Sans', 'sans-serif'], // add this line if not already present
+        sans: ['Open Sans', 'sans-serif'], // add this line if not already present
         futura: ['Futura', 'sans-serif']
       },
       fontSize: {
