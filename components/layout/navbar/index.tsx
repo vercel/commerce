@@ -15,9 +15,10 @@ export default async function Navbar() {
   return (
     <nav className="relative flex items-center justify-between p-4 lg:px-6">
       <div className="block flex-none md:hidden">
-      <Suspense fallback={null}>
+        <Suspense fallback={null}>
           <MobileMenu menu={menu} />
-        </Suspense>      </div>
+        </Suspense>
+      </div>
       <div className="flex w-full items-center">
         <div className="flex w-full md:w-1/3">
           <Link href="/" className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6">
@@ -42,7 +43,7 @@ export default async function Navbar() {
           ) : null}
         </div>
         <div className="hidden justify-center md:flex md:w-1/3">
-        <Suspense fallback={<SearchSkeleton />}>
+          <Suspense fallback={<SearchSkeleton />}>
             <Search />
           </Suspense>
         </div>
