@@ -18,6 +18,54 @@ type MerchandiseSearchParams = {
   [key: string]: string;
 };
 
+function TierDiscount({ subTotal }: { subTotal: number }) {
+  const discountGroups = [
+    {
+      name: 'Tier 1',
+      discount: {
+        amount: 0.05,
+        minimumSpent: 10
+      }
+    },
+    {
+      name: 'Tier 2',
+      discount: {
+        amount: 0.1,
+        minimumSpent: 20
+      }
+    }
+  ];
+  const highestMinimumSpent = discountGroups.reduce((acc, group) => {
+    if (group.discount.minimumSpent > acc) {
+      return group.discount.minimumSpent;
+    } else {
+      return acc;
+    }
+  }, 0);
+  const eligibleDiscountGroups = discountGroups.filter(
+    (group) => subTotal >= group.discount.minimumSpent
+  );
+  const finalDiscount = eligibleDiscountGroups.reduce((prev, current) => {
+    // Compare and return the highest discount group based on your criteria
+    return prev.discount.minimumSpent > current.discount.minimumSpent ? prev : current;
+  });
+
+  const discountAmount = finalDiscount.discount.amount * 100;
+
+  return (
+    <div className="flex flex-col items-center justify-between border-b border-neutral-200 pb-1 dark:border-neutral-700">
+      <p>Spent more</p>
+      <div className="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+        <div
+          className="h-2.5 rounded-full bg-blue-600"
+          style={{ width: `${(subTotal / highestMinimumSpent) * 100}%` }}
+        ></div>
+      </div>
+      <p>{discountAmount}% off</p>
+    </div>
+  );
+}
+
 export default function CartModal({ cart }: { cart: Cart | undefined }) {
   const [isOpen, setIsOpen] = useState(false);
   const quantityRef = useRef(cart?.totalQuantity);
@@ -64,7 +112,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <Dialog.Panel className="fixed bottom-0 right-0 top-0 flex h-full w-full flex-col border-l border-neutral-200 bg-white/80 p-6 text-black backdrop-blur-xl dark:border-neutral-700 dark:bg-black/80 dark:text-white md:w-[390px]">
+            <Dialog.Panel className="fixed bottom-0 right-0 top-0 flex h-full w-full flex-col border-l border-neutral-200 bg-white/80 p-6 text-black backdrop-blur-xl md:w-[390px] dark:border-neutral-700 dark:bg-black/80 dark:text-white">
               <div className="flex items-center justify-between">
                 <p className="text-lg font-semibold">My Cart</p>
 
@@ -72,7 +120,6 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                   <CloseCart />
                 </button>
               </div>
-
               {!cart || cart.lines.length === 0 ? (
                 <div className="mt-20 flex w-full flex-col items-center justify-center overflow-hidden">
                   <ShoppingCartIcon className="h-16" />
@@ -80,6 +127,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                 </div>
               ) : (
                 <div className="flex h-full flex-col justify-between overflow-hidden p-1">
+                  <TierDiscount subTotal={Number(cart?.cost.subtotalAmount.amount)} />
                   <ul className="flex-grow overflow-auto py-4">
                     {cart.lines.map((item, i) => {
                       const merchandiseSearchParams = {} as MerchandiseSearchParams;
