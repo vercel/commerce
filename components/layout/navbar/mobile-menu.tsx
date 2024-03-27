@@ -16,6 +16,17 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
   const openMobileMenu = () => setIsOpen(true);
   const closeMobileMenu = () => setIsOpen(false);
 
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  const [prevSearchParams, setPrevSearchParams] = useState(searchParams);
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
+    setIsOpen(false);
+  }
+  if (!Object.is(prevSearchParams, searchParams)) {
+    setIsOpen(false);
+    setPrevSearchParams(searchParams);
+  }
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 768) {
@@ -25,10 +36,6 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [isOpen]);
-
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname, searchParams]);
 
   return (
     <>

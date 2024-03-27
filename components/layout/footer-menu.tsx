@@ -4,15 +4,10 @@ import clsx from 'clsx';
 import { Menu } from 'lib/shopify/types';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
 
 const FooterMenuItem = ({ item }: { item: Menu }) => {
   const pathname = usePathname();
-  const [active, setActive] = useState(pathname === item.path);
-
-  useEffect(() => {
-    setActive(pathname === item.path);
-  }, [pathname, item.path]);
+  const active = pathname === item.path;
 
   return (
     <li>
