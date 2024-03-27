@@ -81,3 +81,55 @@ export async function updateItemQuantity(
     return 'Error updating item quantity';
   }
 }
+
+export async function calculateDiscounts(cart: any) {
+  const discountGroups = [
+    {
+      name: 'Tier 2',
+      discount: {
+        amount: 0.1,
+        minimumSpent: 150
+      }
+    },
+    {
+      name: 'Tier 1',
+      discount: {
+        amount: 0.05,
+        minimumSpent: 120
+      }
+    }
+  ];
+
+  const subTotal = cart?.cost.subtotalAmount.amount;
+  const currencyCode = cart?.cost.subtotalAmount.currencyCode;
+
+  const discountGroupsSorted = discountGroups.sort(
+    (a, b) => a.discount.minimumSpent - b.discount.minimumSpent
+  );
+  const minSpent = Math.max(...discountGroupsSorted.map((group) => group.discount.minimumSpent));
+  const eligibleDiscount = discountGroupsSorted.filter(
+    (group) => subTotal >= group.discount.minimumSpent
+  );
+  const finalDiscount = eligibleDiscount.length
+    ? Math.max(...eligibleDiscount.map((group) => group.discount.amount))
+    : 0;
+  const closestNextTier = discountGroupsSorted
+    .filter((group) => group.discount.minimumSpent > subTotal)
+    .shift();
+
+  const spentToNextDiscount = closestNextTier
+    ? closestNextTier?.discount.minimumSpent - subTotal
+    : 0;
+  const nextDiscount = closestNextTier?.discount.amount;
+  const discountAmount = finalDiscount ? finalDiscount * 100 : 0;
+
+  return {
+    discountAmount,
+    spentToNextDiscount,
+    nextDiscount,
+    discountGroups: discountGroupsSorted,
+    minSpent,
+    subTotal,
+    currencyCode
+  };
+}

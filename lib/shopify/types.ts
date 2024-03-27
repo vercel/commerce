@@ -61,6 +61,19 @@ export type Page = {
   updatedAt: string;
 };
 
+type Field = {
+  key: string;
+  value: string;
+};
+
+type MetaObject = {
+  fields: Field[];
+};
+
+export type DiscountMetaobject = MetaObject & {
+  handle: string;
+};
+
 export type Product = Omit<ShopifyProduct, 'variants' | 'images'> & {
   variants: ProductVariant[];
   images: Image[];
@@ -256,6 +269,17 @@ export type ShopifyProductRecommendationsOperation = {
 export type ShopifyProductsOperation = {
   data: {
     products: Connection<ShopifyProduct>;
+  };
+  variables: {
+    query?: string;
+    reverse?: boolean;
+    sortKey?: string;
+  };
+};
+
+export type ShopifyDiscountMetaobjectsOperation = {
+  data: {
+    metaobjects: Connection<DiscountMetaobject>;
   };
   variables: {
     query?: string;

@@ -13,60 +13,19 @@ import CloseCart from './close-cart';
 import { DeleteItemButton } from './delete-item-button';
 import { EditItemQuantityButton } from './edit-item-quantity-button';
 import OpenCart from './open-cart';
+import TierDiscount from './tier-discount';
 
 type MerchandiseSearchParams = {
   [key: string]: string;
 };
 
-function TierDiscount({ subTotal }: { subTotal: number }) {
-  const discountGroups = [
-    {
-      name: 'Tier 1',
-      discount: {
-        amount: 0.05,
-        minimumSpent: 10
-      }
-    },
-    {
-      name: 'Tier 2',
-      discount: {
-        amount: 0.1,
-        minimumSpent: 20
-      }
-    }
-  ];
-  const highestMinimumSpent = discountGroups.reduce((acc, group) => {
-    if (group.discount.minimumSpent > acc) {
-      return group.discount.minimumSpent;
-    } else {
-      return acc;
-    }
-  }, 0);
-  const eligibleDiscountGroups = discountGroups.filter(
-    (group) => subTotal >= group.discount.minimumSpent
-  );
-  const finalDiscount = eligibleDiscountGroups.reduce((prev, current) => {
-    // Compare and return the highest discount group based on your criteria
-    return prev.discount.minimumSpent > current.discount.minimumSpent ? prev : current;
-  });
-
-  const discountAmount = finalDiscount.discount.amount * 100;
-
-  return (
-    <div className="flex flex-col items-center justify-between border-b border-neutral-200 pb-1 dark:border-neutral-700">
-      <p>Spent more</p>
-      <div className="h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
-        <div
-          className="h-2.5 rounded-full bg-blue-600"
-          style={{ width: `${(subTotal / highestMinimumSpent) * 100}%` }}
-        ></div>
-      </div>
-      <p>{discountAmount}% off</p>
-    </div>
-  );
-}
-
-export default function CartModal({ cart }: { cart: Cart | undefined }) {
+export default function CartModal({
+  cart,
+  tieredDiscount
+}: {
+  cart: Cart | undefined;
+  tieredDiscount: any;
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const quantityRef = useRef(cart?.totalQuantity);
   const openCart = () => setIsOpen(true);
@@ -127,7 +86,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                 </div>
               ) : (
                 <div className="flex h-full flex-col justify-between overflow-hidden p-1">
-                  <TierDiscount subTotal={Number(cart?.cost.subtotalAmount.amount)} />
+                  <TierDiscount tieredDiscount={tieredDiscount} />
                   <ul className="flex-grow overflow-auto py-4">
                     {cart.lines.map((item, i) => {
                       const merchandiseSearchParams = {} as MerchandiseSearchParams;
