@@ -1,7 +1,15 @@
 'use server';
 
 import { TAGS } from 'lib/constants';
-import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/shopify';
+import {
+  addToCart,
+  createCart,
+  getCart,
+  getDiscountMetaobjects,
+  removeFromCart,
+  updateCart
+} from 'lib/shopify';
+import { formatDiscounts } from 'lib/utils';
 import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
 
@@ -83,22 +91,13 @@ export async function updateItemQuantity(
 }
 
 export async function calculateDiscounts(cart: any) {
-  const discountGroups = [
-    {
-      name: 'Tier 2',
-      discount: {
-        amount: 0.1,
-        minimumSpent: 150
-      }
-    },
-    {
-      name: 'Tier 1',
-      discount: {
-        amount: 0.05,
-        minimumSpent: 120
-      }
-    }
-  ];
+  const metaobjects = await getDiscountMetaobjects('dynamic_discount');
+
+  const discountGroups = formatDiscounts(metaobjects);
+
+  if (discountGroups === undefined) {
+    return;
+  }
 
   const subTotal = cart?.cost.subtotalAmount.amount;
   const currencyCode = cart?.cost.subtotalAmount.currencyCode;
@@ -122,12 +121,15 @@ export async function calculateDiscounts(cart: any) {
     : 0;
   const nextDiscount = closestNextTier?.discount.amount;
   const discountAmount = finalDiscount ? finalDiscount * 100 : 0;
+  // get discount code from the final discount group
+  const discountCode = eligibleDiscount.length ? eligibleDiscount[0]?.code : '';
 
   return {
     discountAmount,
     spentToNextDiscount,
     nextDiscount,
     discountGroups: discountGroupsSorted,
+    discountCode,
     minSpent,
     subTotal,
     currencyCode

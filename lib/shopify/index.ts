@@ -451,11 +451,13 @@ export async function revalidate(req: NextRequest): Promise<NextResponse> {
   return NextResponse.json({ status: 200, revalidated: true, now: Date.now() });
 }
 
-export async function getDiscountMetaobjects() {
+export async function getDiscountMetaobjects(type: string) {
   const res = await shopifyFetch<ShopifyDiscountMetaobjectsOperation>({
     query: getDiscountMetaobjectsQuery,
-    cache: 'no-store'
+    cache: 'no-store',
+    tags: ['metaobjects'],
+    variables: { type }
   });
 
-  return res.body.data.metaobjects;
+  return removeEdgesAndNodes(res.body.data.metaobjects);
 }

@@ -61,7 +61,7 @@ export type Page = {
   updatedAt: string;
 };
 
-type Field = {
+export type Field = {
   key: string;
   value: string;
 };
@@ -282,8 +282,6 @@ export type ShopifyDiscountMetaobjectsOperation = {
     metaobjects: Connection<DiscountMetaobject>;
   };
   variables: {
-    query?: string;
-    reverse?: boolean;
-    sortKey?: string;
+    type: string;
   };
 };
