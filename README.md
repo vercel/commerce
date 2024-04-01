@@ -14,6 +14,7 @@ A Next.js 14 and App Router-ready ecommerce template featuring:
 - Styling with Tailwind CSS
 - Checkout and payments with Shopify
 - Automatic light/dark mode based on system settings
+- Shopify Analytics
 
 <h3 id="v1-note"></h3>
 
@@ -50,6 +51,21 @@ Integrations enable upgraded or additional functionality for Next.js Commerce
   - Upgrades search to include typeahead with dynamic re-rendering, vector-based similarity search, and JS-based
     configuration.
   - Search runs entirely in the browser for smaller catalogs or on a CDN for larger.
+
+## Shopify analytics
+
+1. Visit https://[your-store-id].myshopify.com/shop.json
+2. Search for `shopId` and add it to the `NEXT_PUBLIC_SHOPIFY_SHOP_ID` in your `.env` file.
+
+To test out Shopify analytics, in your localhost, you can use the following steps:
+
+1. Install ngrok
+2. Setup custom domain in ngrok dashboard
+3. Expose your local development server (e.g., running on port 3000) with a command:
+
+```bash
+ngrok http --domain=YOUR_NGROK_DOMAIN 3000
+```
 
 ## Running locally
 
