@@ -14,16 +14,22 @@ A Next.js 14 and App Router-ready ecommerce template featuring:
 - Styling with Tailwind CSS
 - Checkout and payments with Shopify
 - Automatic light/dark mode based on system settings
+- Shopify analytics
 
 <h3 id="v1-note"></h3>
 
-> Note: Looking for Next.js Commerce v1? View the [code](https://github.com/vercel/commerce/tree/v1), [demo](https://commerce-v1.vercel.store), and [release notes](https://github.com/vercel/commerce/releases/tag/v1).
+> Note: Looking for Next.js Commerce v1? View
+> the [code](https://github.com/vercel/commerce/tree/v1), [demo](https://commerce-v1.vercel.store),
+> and [release notes](https://github.com/vercel/commerce/releases/tag/v1).
 
 ## Providers
 
-Vercel will only be actively maintaining a Shopify version [as outlined in our vision and strategy for Next.js Commerce](https://github.com/vercel/commerce/pull/966).
+Vercel will only be actively maintaining a Shopify
+version [as outlined in our vision and strategy for Next.js Commerce](https://github.com/vercel/commerce/pull/966).
 
-Vercel is happy to partner and work with any commerce provider to help them get a similar template up and running and listed below. Alternative providers should be able to fork this repository and swap out the `lib/shopify` file with their own implementation while leaving the rest of the template mostly unchanged.
+Vercel is happy to partner and work with any commerce provider to help them get a similar template up and running and
+listed below. Alternative providers should be able to fork this repository and swap out the `lib/shopify` file with
+their own implementation while leaving the rest of the template mostly unchanged.
 
 - Shopify (this repository)
 - [BigCommerce](https://github.com/bigcommerce/nextjs-commerce) ([Demo](https://next-commerce-v2.vercel.app/))
@@ -34,21 +40,44 @@ Vercel is happy to partner and work with any commerce provider to help them get 
 - [Umbraco](https://github.com/umbraco/Umbraco.VercelCommerce.Demo) ([Demo](https://vercel-commerce-demo.umbraco.com/))
 - [Wix](https://github.com/wix/nextjs-commerce) ([Demo](https://wix-nextjs-commerce.vercel.app/))
 
-> Note: Providers, if you are looking to use similar products for your demo, you can [download these assets](https://drive.google.com/file/d/1q_bKerjrwZgHwCw0ovfUMW6He9VtepO_/view?usp=sharing).
+> Note: Providers, if you are looking to use similar products for your demo, you
+> can [download these assets](https://drive.google.com/file/d/1q_bKerjrwZgHwCw0ovfUMW6He9VtepO_/view?usp=sharing).
 
 ## Integrations
 
 Integrations enable upgraded or additional functionality for Next.js Commerce
 
 - [Orama](https://github.com/oramasearch/nextjs-commerce) ([Demo](https://vercel-commerce.oramasearch.com/))
-  - Upgrades search to include typeahead with dynamic re-rendering, vector-based similarity search, and JS-based configuration.
+  - Upgrades search to include typeahead with dynamic re-rendering, vector-based similarity search, and JS-based
+    configuration.
   - Search runs entirely in the browser for smaller catalogs or on a CDN for larger.
+
+## Shopify analytics
+
+For Shopify's ADD_TO_CART analytics to function properly, it's important to note that they will not work with localhost
+links directly due to cookie handling. To enable these analytics features during local development, tools like ngrok can
+be used to expose your local environment to the internet with a stable, consistent URL, facilitating the necessary
+cookie management.
+
+- Install ngrok: First, visit ngrok's website to download and install ngrok. This tool will create a secure tunnel to
+  your localhost, making it accessible over the internet.
+- Set Up a Custom Domain with ngrok: After installation, set up a custom domain through ngrok. This step is crucial as
+  it ensures URL consistency, which helps in maintaining the cookies required for Shopify analytics.
+- Expose Your Local Development Server: Suppose your local development server is running on port 3000. You can then
+  expose it to the internet with the following ngrok command:
+
+```bash
+ngrok http --domain=YOUR_NGROK_DOMAIN 3000
+```
 
 ## Running locally
 
-You will need to use the environment variables [defined in `.env.example`](.env.example) to run Next.js Commerce. It's recommended you use [Vercel Environment Variables](https://vercel.com/docs/concepts/projects/environment-variables) for this, but a `.env` file is all that is necessary.
+You will need to use the environment variables [defined in `.env.example`](.env.example) to run Next.js Commerce. It's
+recommended you use [Vercel Environment Variables](https://vercel.com/docs/concepts/projects/environment-variables) for
+this, but a `.env` file is all that is necessary.
 
-> Note: You should not commit your `.env` file or it will expose secrets that will allow others to control your Shopify store.
+> Note: You should not commit your `.env` file or it will expose secrets that will allow others to control your Shopify
+> store.
 
 1. Install Vercel CLI: `npm i -g vercel`
 2. Link local instance with Vercel and GitHub accounts (creates `.vercel` directory): `vercel link`
@@ -69,8 +98,11 @@ Your app should now be running on [localhost:3000](http://localhost:3000/).
 1. Connect to the existing `commerce-shopify` project.
 1. Run `vc env pull` to get environment variables.
 1. Run `pnpm dev` to ensure everything is working correctly.
+
 </details>
 
 ## Vercel, Next.js Commerce, and Shopify Integration Guide
 
-You can use this comprehensive [integration guide](http://vercel.com/docs/integrations/shopify) with step-by-step instructions on how to configure Shopify as a headless CMS using Next.js Commerce as your headless Shopify storefront on Vercel.
+You can use this comprehensive [integration guide](http://vercel.com/docs/integrations/shopify) with step-by-step
+instructions on how to configure Shopify as a headless CMS using Next.js Commerce as your headless Shopify storefront on
+Vercel.
