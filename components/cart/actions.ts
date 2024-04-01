@@ -4,10 +4,23 @@ import { TAGS } from 'lib/constants';
 import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/shopify';
 import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
+import { ShopifyAnalyticsProduct } from '@shopify/hydrogen-react';
+import { productToAnalytics } from 'lib/utils';
 
-export async function addItem(prevState: any, selectedVariantId: string | undefined) {
+type AddItemResponse = {
+  cartId?: string;
+  success: boolean;
+  message?: string;
+  products?: ShopifyAnalyticsProduct[];
+};
+
+export async function addItem(
+  prevState: any,
+  selectedVariantId: string | undefined
+): Promise<AddItemResponse> {
   let cartId = cookies().get('cartId')?.value;
   let cart;
+  const quantity = 1;
 
   if (cartId) {
     cart = await getCart(cartId);
@@ -20,14 +33,20 @@ export async function addItem(prevState: any, selectedVariantId: string | undefi
   }
 
   if (!selectedVariantId) {
-    return 'Missing product variant ID';
+    return { success: false, message: 'Missing product variant ID' };
   }
 
   try {
-    await addToCart(cartId, [{ merchandiseId: selectedVariantId, quantity: 1 }]);
+    const response = await addToCart(cartId, [{ merchandiseId: selectedVariantId, quantity }]);
     revalidateTag(TAGS.cart);
+    return {
+      success: true,
+      message: 'Item added to cart',
+      cartId,
+      products: productToAnalytics(response.lines, quantity, selectedVariantId)
+    };
   } catch (e) {
-    return 'Error adding item to cart';
+    return { success: false, message: 'Error adding item to cart' };
   }
 }
 

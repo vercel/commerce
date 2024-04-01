@@ -1,5 +1,6 @@
 import Navbar from 'components/layout/navbar';
 import { GeistSans } from 'geist/font';
+import ShopifyAnalytics from 'components/layout/shopify-analytics';
 import { ensureStartsWith } from 'lib/utils';
 import { ReactNode, Suspense } from 'react';
 import './globals.css';
@@ -39,6 +40,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <Suspense>
           <main>{children}</main>
         </Suspense>
+        <ShopifyAnalytics />
       </body>
     </html>
   );
