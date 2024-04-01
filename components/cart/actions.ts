@@ -29,7 +29,7 @@ export async function addItem(
   }
 
   if (!selectedVariantId) {
-    return { success: false, message: 'Missing variant ID' };
+    return { success: false, message: 'Missing product variant ID' };
   }
 
   try {
@@ -37,6 +37,7 @@ export async function addItem(
     revalidateTag(TAGS.cart);
     return {
       success: true,
+      message: 'Item added to cart',
       cartId
     };
   } catch (e) {
