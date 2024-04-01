@@ -8,7 +8,7 @@ import { ProductVariant } from 'lib/shopify/types';
 import { useSearchParams } from 'next/navigation';
 import { useFormState, useFormStatus } from 'react-dom';
 import { useEffect } from 'react';
-import { useShopifyAnalytics } from '../../lib/shopify/hooks/use-shopify-analytics';
+import { useShopifyAnalytics } from 'lib/shopify/hooks/use-shopify-analytics';
 
 function SubmitButton({
   availableForSale,

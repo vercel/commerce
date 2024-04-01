@@ -5,7 +5,7 @@ import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/
 import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
 import { ShopifyAnalyticsProduct } from '@shopify/hydrogen-react';
-import { productToAnalytics } from '../../lib/utils';
+import { productToAnalytics } from 'lib/utils';
 
 type AddItemResponse = {
   cartId?: string;

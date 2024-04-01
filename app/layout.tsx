@@ -1,9 +1,9 @@
 import Navbar from 'components/layout/navbar';
 import { GeistSans } from 'geist/font';
+import ShopifyAnalytics from 'components/layout/shopify-analytics';
 import { ensureStartsWith } from 'lib/utils';
 import { ReactNode, Suspense } from 'react';
 import './globals.css';
-import ShopifyAnalytics from 'components/layout/shopify-analytics';
 
 const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;
 const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL

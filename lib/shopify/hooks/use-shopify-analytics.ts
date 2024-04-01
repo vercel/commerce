@@ -8,7 +8,7 @@ import {
   ShopifySalesChannel,
   useShopifyCookies
 } from '@shopify/hydrogen-react';
-import { currency, defaultLanguage } from 'lib/constants';
+import { DEFAULT_CURRENCY, DEFAULT_LANGUAGE } from 'lib/constants';
 
 const SHOP_ID = process.env.NEXT_PUBLIC_SHOPIFY_SHOP_ID!;
 
@@ -41,8 +41,8 @@ export function useShopifyAnalytics() {
         hasUserConsent: true,
         shopifySalesChannel: ShopifySalesChannel.headless,
         shopId: `gid://shopify/Shop/${SHOP_ID}`,
-        currency,
-        acceptedLanguage: defaultLanguage,
+        currency: DEFAULT_CURRENCY,
+        acceptedLanguage: DEFAULT_LANGUAGE,
         ...payload
       }
     });
