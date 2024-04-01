@@ -87,10 +87,12 @@ export function AddToCart({
   useEffect(() => {
     if (response?.success && response.cartId) {
       sendAddToCart({
-        cartId: response.cartId
+        cartId: response.cartId,
+        products: response.products,
+        totalValue: Number(response.products?.[0]?.price)
       });
     }
-  }, [response?.success, response?.cartId, sendAddToCart]);
+  }, [response?.success, response?.cartId, sendAddToCart, response?.products]);
 
   return (
     <form action={actionWithVariant}>

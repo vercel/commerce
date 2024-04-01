@@ -37,6 +37,10 @@ const cartFragment = /* GraphQL */ `
                 name
                 value
               }
+              price {
+                amount
+                currencyCode
+              }
               product {
                 ...product
               }
