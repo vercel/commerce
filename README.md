@@ -14,7 +14,6 @@ A Next.js 14 and App Router-ready ecommerce template featuring:
 - Styling with Tailwind CSS
 - Checkout and payments with Shopify
 - Automatic light/dark mode based on system settings
-- Shopify analytics
 
 <h3 id="v1-note"></h3>
 
@@ -51,24 +50,6 @@ Integrations enable upgraded or additional functionality for Next.js Commerce
   - Upgrades search to include typeahead with dynamic re-rendering, vector-based similarity search, and JS-based
     configuration.
   - Search runs entirely in the browser for smaller catalogs or on a CDN for larger.
-
-## Shopify analytics
-
-For Shopify's ADD_TO_CART analytics to function properly, it's important to note that they will not work with localhost
-links directly due to cookie handling. To enable these analytics features during local development, tools like ngrok can
-be used to expose your local environment to the internet with a stable, consistent URL, facilitating the necessary
-cookie management.
-
-- Install ngrok: First, visit ngrok's website to download and install ngrok. This tool will create a secure tunnel to
-  your localhost, making it accessible over the internet.
-- Set Up a Custom Domain with ngrok: After installation, set up a custom domain through ngrok. This step is crucial as
-  it ensures URL consistency, which helps in maintaining the cookies required for Shopify analytics.
-- Expose Your Local Development Server: Suppose your local development server is running on port 3000. You can then
-  expose it to the internet with the following ngrok command:
-
-```bash
-ngrok http --domain=YOUR_NGROK_DOMAIN 3000
-```
 
 ## Running locally
 
