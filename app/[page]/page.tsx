@@ -31,7 +31,18 @@ export async function generateMetadata({
 export default async function Page({ params }: { params: { page: string } }) {
   const page = await getPage(params.page);
 
-  if (!page) return notFound();
+  if (page.handle == 'small-sizes')
+    return (
+      <>
+        <div className="relative">
+          <div className="fixed left-0 top-0 flex h-screen w-screen items-center justify-center bg-[#0f1214]">
+            <div className="">
+              <img src="/no.png" className="scale-90 border border-white" />
+            </div>
+          </div>
+        </div>
+      </>
+    );
 
   return (
     <>
