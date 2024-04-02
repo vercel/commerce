@@ -6,7 +6,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-geist-sans)']
+        sans: ['var(--font-geist-sans)'],
+        jubilee: ['var(--font-geist-sans)'],
       },
       keyframes: {
         fadeIn: {

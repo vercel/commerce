@@ -1,5 +1,5 @@
-import { Carousel } from 'components/carousel';
-import { ThreeItemGrid } from 'components/grid/three-items';
+import { CarouselPrints } from 'components/carouselPrints';
+import { HomepageShirts } from 'components/grid/homepageShirts';
 import Footer from 'components/layout/footer';
 import { Suspense } from 'react';
 
@@ -15,9 +15,9 @@ export const metadata = {
 export default async function HomePage() {
   return (
     <>
-      <ThreeItemGrid />
+      <HomepageShirts />
       <Suspense>
-        <Carousel />
+        <CarouselPrints />
         <Suspense>
           <Footer />
         </Suspense>

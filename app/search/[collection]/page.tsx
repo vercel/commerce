@@ -2,8 +2,7 @@ import { getCollection, getCollectionProducts } from 'lib/shopify';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import Grid from 'components/grid';
-import ProductGridItems from 'components/layout/product-grid-items';
+import { ShirtGridItem } from 'components/grid/homepageShirts';
 import { defaultSort, sorting } from 'lib/constants';
 
 export const runtime = 'edge';
@@ -36,13 +35,16 @@ export default async function CategoryPage({
   const products = await getCollectionProducts({ collection: params.collection, sortKey, reverse });
 
   return (
-    <section>
+    <section className="mx-auto grid max-w-screen-2xl gap-4 gap-y-32 px-4 pb-24 md:grid-cols-3 md:grid-rows-2 md:gap-y-16">
       {products.length === 0 ? (
         <p className="py-3 text-lg">{`No products found in this collection`}</p>
       ) : (
-        <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          <ProductGridItems products={products} />
-        </Grid>
+        // <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        //   <ProductGridItems products={products} />
+        // </Grid>
+        products.map((product) => (
+          <ShirtGridItem key={product.id} size="third" item={product} priority={true} />
+        ))
       )}
     </section>
   );
