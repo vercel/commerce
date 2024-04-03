@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import { updateItemQuantity } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
 import type { CartItem } from 'lib/shopify/types';
+import { useOptimistic, useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 
 function SubmitButton({ type }: { type: 'plus' | 'minus' }) {
@@ -29,29 +30,67 @@ function SubmitButton({ type }: { type: 'plus' | 'minus' }) {
       {pending ? (
         <LoadingDots className="bg-black dark:bg-white" />
       ) : type === 'plus' ? (
-        <PlusIcon className="h-4 w-4 dark:text-neutral-500" />
+        <PlusIcon className="w-4 h-4 dark:text-neutral-500" />
       ) : (
-        <MinusIcon className="h-4 w-4 dark:text-neutral-500" />
+        <MinusIcon className="w-4 h-4 dark:text-neutral-500" />
       )}
     </button>
   );
 }
-
-export function EditItemQuantityButton({ item, type }: { item: CartItem; type: 'plus' | 'minus' }) {
+export function EditItemQuantityButton({ item, type, onQuantityChange }: { item: CartItem; type: 'plus' | 'minus'; onQuantityChange: (quantity: number) => void }) {
   const [message, formAction] = useFormState(updateItemQuantity, null);
-  const payload = {
-    lineId: item.id,
-    variantId: item.merchandise.id,
-    quantity: type === 'plus' ? item.quantity + 1 : item.quantity - 1
-  };
-  const actionWithVariant = formAction.bind(null, payload);
+  
+  const [optimisticQuantity, setOptimisticQuantity] = useOptimistic(item.quantity, (state: number, change: number) => state + change);
+
+  // const handleSubmit = async (event: React.FormEvent) => {
+  //   event.preventDefault();
+  //   const change = type === 'plus' ? 1 : -1;
+  //   setOptimisticQuantity(change);
+  //   onQuantityChange(optimisticQuantity + change);
+    
+    // const updatedPayload = {
+    //   lineId: item.id,
+    //   variantId: item.merchandise.id,
+    //   quantity: optimisticQuantity + change
+    // };
+  //   await formAction(updatedPayload);
+  // };
+
 
   return (
-    <form action={actionWithVariant}>
-      <SubmitButton type={type} />
+    <form action={async () => {
+      const change = type === 'plus' ? 1 : -1;
+      setOptimisticQuantity(change);
+      onQuantityChange(optimisticQuantity + change);
+      const updatedPayload = {
+        lineId: item.id,
+        variantId: item.merchandise.id,
+        quantity: optimisticQuantity + change
+      };
+      const actionWithVariant = formAction.bind(null, updatedPayload);
+      await actionWithVariant();
+    
+    }}>
+      <SubmitButton type={type} pending={!!message} />
       <p aria-live="polite" className="sr-only" role="status">
         {message}
       </p>
     </form>
+  );
+}
+
+export function EditItemQuantity({ item }: { item: CartItem }) {
+  const [quantity, setQuantity] = useState(item.quantity);
+
+  const handleQuantityChange = (newQuantity: number) => setQuantity(newQuantity);
+
+  return (
+    <div className="flex flex-row items-center ml-auto border rounded-full h-9 border-neutral-200 dark:border-neutral-700">
+      <EditItemQuantityButton item={{ ...item, quantity }} type="minus" onQuantityChange={handleQuantityChange} />
+      <p className="w-6 text-center">
+        <span className="w-full text-sm">{quantity}</span>
+      </p>
+      <EditItemQuantityButton item={{ ...item, quantity }} type="plus" onQuantityChange={handleQuantityChange} />
+    </div>
   );
 }
