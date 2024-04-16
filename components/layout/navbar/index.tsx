@@ -29,7 +29,7 @@ export default async function Navbar() {
               className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6"
             >
               <LogoSquare />
-              <div className="flex-none text-sm font-medium uppercase md:hidden lg:block">
+              <div className="flex-none text-sm font-medium uppercase md:hidden lg:block lg:text-lg">
                 {SITE_NAME}
               </div>
             </Link>
@@ -39,7 +39,7 @@ export default async function Navbar() {
               <Search />
             </Suspense>
           </div>
-          <div className="flex justify-end gap-3 md:w-1/3">
+          <div className="flex justify-end gap-5 pr-2 md:w-1/3">
             <Suspense fallback={<OpenProfile />}>
               <Profile />
             </Suspense>
@@ -51,7 +51,7 @@ export default async function Navbar() {
 
         {menu.length ? (
           <div className="hidden w-full items-center justify-center border-b py-3 md:flex">
-            <ul className="hidden gap-7 text-sm md:flex md:items-center">
+            <ul className="hidden gap-10 text-sm font-medium md:flex md:items-center lg:gap-16">
               {menu.map((item: Menu) => (
                 <li key={item.title}>
                   <Link

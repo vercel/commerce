@@ -28,7 +28,7 @@ export default async function Footer() {
           </a>
           <p className="ml-4">Monday - Friday 9:00am - 8:00pm EST</p>
           <p className="ml-4">Saturday 11:00am - 4:00pm EST</p>
-          <div className="ml-4 mt-3 flex flex-row items-center gap-4">
+          {/* <div className="ml-4 mt-3 flex flex-row items-center gap-4">
             <a href="https://www.facebook.com/carpartplanet" target="_blank" rel="noreferrer">
               <Image alt="facebook" src="/icons/facebook.png" width={20} height={20} />
             </a>
@@ -54,7 +54,7 @@ export default async function Footer() {
             <a href="https://twitter.com/carpartplanet" target="_blank" rel="noreferrer">
               <Image alt="twitter" src="/icons/twitter.png" width={16} height={16} />
             </a>
-          </div>
+          </div> */}
         </div>
         <Suspense
           fallback={
