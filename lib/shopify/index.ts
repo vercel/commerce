@@ -1,6 +1,6 @@
 import { HIDDEN_PRODUCT_TAG, SHOPIFY_GRAPHQL_API_ENDPOINT, TAGS } from 'lib/constants';
 import { isShopifyError } from 'lib/type-guards';
-import { ensureStartsWith } from 'lib/utils';
+import { ensureStartsWith, normalizeUrl } from 'lib/utils';
 import { revalidateTag } from 'next/cache';
 import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
@@ -346,12 +346,16 @@ export async function getMenu(handle: string): Promise<Menu[]> {
     }
   });
 
-  return (
-    res.body?.data?.menu?.items.map((item: { title: string; url: string }) => ({
+  const formatMenuItems = (
+    menu: { title: string; url: string; items?: { title: string; url: string }[] }[] = []
+  ): Menu[] =>
+    menu.map((item) => ({
       title: item.title,
-      path: item.url.replace(domain, '').replace('/collections', '/search').replace('/pages', '')
-    })) || []
-  );
+      path: normalizeUrl(domain, item.url),
+      items: item.items?.length ? formatMenuItems(item.items) : []
+    }));
+
+  return formatMenuItems(res.body?.data?.menu?.items);
 }
 
 export async function getPage(handle: string): Promise<Page> {

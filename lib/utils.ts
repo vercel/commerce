@@ -43,3 +43,7 @@ export const validateEnvironmentVariables = () => {
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+export function normalizeUrl(domain: string, url: string) {
+  return url.replace(domain, '').replace('/collections', '/search').replace('/pages', '');
+}
