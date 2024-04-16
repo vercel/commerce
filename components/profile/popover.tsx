@@ -26,7 +26,7 @@ const ProfilePopover = ({ menu }: ProfilePopoverProps) => {
         leaveTo="opacity-0 translate-y-1"
       >
         <Popover.Panel className="absolute -right-10 z-10 mt-2 w-72 max-w-lg px-4 sm:px-0 lg:right-0">
-          <div className="flex flex-col gap-2 overflow-hidden rounded-md bg-white px-4 py-3 shadow-lg ring-1 ring-black/5">
+          <div className="flex flex-col gap-2 overflow-hidden rounded-md bg-white px-4 py-3 text-black shadow-lg ring-1 ring-black/5">
             <span className="text-sm font-medium">My Account</span>
             <a
               href="#"
