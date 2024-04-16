@@ -1,6 +1,8 @@
 import Cart from 'components/cart';
 import OpenCart from 'components/cart/open-cart';
 import LogoSquare from 'components/logo-square';
+import Profile from 'components/profile';
+import OpenProfile from 'components/profile/open-profile';
 import { getMenu } from 'lib/shopify';
 import { Menu } from 'lib/shopify/types';
 import Link from 'next/link';
@@ -37,7 +39,10 @@ export default async function Navbar() {
               <Search />
             </Suspense>
           </div>
-          <div className="flex justify-end md:w-1/3">
+          <div className="flex justify-end gap-3 md:w-1/3">
+            <Suspense fallback={<OpenProfile />}>
+              <Profile />
+            </Suspense>
             <Suspense fallback={<OpenCart />}>
               <Cart />
             </Suspense>

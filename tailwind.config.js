@@ -5,6 +5,11 @@ module.exports = {
   content: ['./app/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      colors: {
+        primary: '#17E4BB',
+        dark: '#08312B',
+        secondary: '#12baa9'
+      },
       fontFamily: {
         sans: ['var(--font-geist-sans)']
       },

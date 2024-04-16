@@ -3,7 +3,7 @@ import Tooltip from './tooltip';
 
 function Banner() {
   return (
-    <div className="flex h-10 w-full items-center justify-center gap-x-8 bg-[#17E4BB] text-sm font-medium text-[#08312B]">
+    <div className="flex h-10 w-full items-center justify-center gap-x-8 bg-primary text-sm font-medium text-dark">
       <span>
         Speak to a Specialist Now:{' '}
         <a href={`tel:${8882422605}`} className="ml-1">
