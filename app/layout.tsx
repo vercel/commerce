@@ -1,7 +1,8 @@
 import Banner from 'components/banner';
 import Navbar from 'components/layout/navbar';
-import { GeistSans } from 'geist/font';
+import { GeistSans } from 'geist/font/sans';
 import { ensureStartsWith } from 'lib/utils';
+import { League_Spartan } from 'next/font/google';
 import { ReactNode, Suspense } from 'react';
 import './globals.css';
 
@@ -11,6 +12,12 @@ const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
   : 'http://localhost:3000';
 const twitterCreator = TWITTER_CREATOR ? ensureStartsWith(TWITTER_CREATOR, '@') : undefined;
 const twitterSite = TWITTER_SITE ? ensureStartsWith(TWITTER_SITE, 'https://') : undefined;
+
+const league_spartan = League_Spartan({
+  subsets: ['latin'],
+  variable: '--font-league-spartan',
+  display: 'swap'
+});
 
 export const metadata = {
   metadataBase: new URL(baseUrl),
@@ -34,7 +41,7 @@ export const metadata = {
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={GeistSans.variable}>
+    <html lang="en" className={`${GeistSans.variable} ${league_spartan.variable}`}>
       <body className="bg-neutral-50 text-black selection:bg-teal-300 dark:bg-neutral-900 dark:text-white dark:selection:bg-pink-500 dark:selection:text-white">
         <header>
           <Banner />

@@ -15,21 +15,21 @@ export default async function Navbar() {
   const menu = await getMenu('main-menu');
 
   return (
-    <nav className="relative flex items-center justify-between p-4 lg:px-6">
-      <div className="block flex-none md:hidden">
+    <nav className="relative mb-4 flex items-center justify-between bg-white pb-3 pt-4 md:pb-0 dark:bg-neutral-900">
+      <div className="block flex-none pl-4 md:hidden">
         <Suspense fallback={null}>
           <MobileMenu menu={menu} />
         </Suspense>
       </div>
       <div className="flex w-full flex-col">
-        <div className="flex w-full items-center">
+        <div className="flex w-full items-center pr-4 md:px-4">
           <div className="flex w-full md:w-1/3">
             <Link
               href="/"
               className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6"
             >
               <LogoSquare />
-              <div className="flex-none text-sm font-medium uppercase md:hidden lg:block lg:text-lg">
+              <div className="flex-none font-league-spartan text-xl font-semibold tracking-tight text-dark md:hidden md:text-2xl lg:block lg:text-3xl lg:leading-tight dark:text-white">
                 {SITE_NAME}
               </div>
             </Link>
@@ -50,8 +50,8 @@ export default async function Navbar() {
         </div>
 
         {menu.length ? (
-          <div className="hidden w-full items-center justify-center border-b py-3 md:flex">
-            <ul className="hidden gap-10 text-sm font-medium md:flex md:items-center lg:gap-16">
+          <div className="hidden w-full items-center justify-center border-b px-4 pb-3 pt-4 md:flex">
+            <ul className="hidden gap-8 text-sm font-medium md:flex md:items-center lg:gap-16">
               {menu.map((item: Menu) => (
                 <li key={item.title}>
                   <Link

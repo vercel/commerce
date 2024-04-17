@@ -20,8 +20,10 @@ export default async function Footer() {
       <div className="mx-auto flex w-full max-w-7xl flex-row flex-wrap items-start gap-6 px-6 py-12 text-sm md:gap-12 md:px-4 min-[1320px]:px-0">
         <div className="flex flex-col gap-1">
           <Link className="flex items-center text-white md:pt-1" href="/">
-            <LogoSquare />
-            <span className="uppercase">{SITE_NAME}</span>
+            <LogoSquare sm />
+            <span className="font-league-spartan text-xl leading-tight tracking-tight">
+              {SITE_NAME}
+            </span>
           </Link>
           <a href={`tel:${8882422605}`} className="ml-4 text-white">
             (888) 242-2605

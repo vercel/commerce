@@ -11,7 +11,8 @@ module.exports = {
         secondary: '#12baa9'
       },
       fontFamily: {
-        sans: ['var(--font-geist-sans)']
+        sans: ['var(--font-geist-sans)'],
+        'league-spartan': ['var(--font-league-spartan)']
       },
       keyframes: {
         fadeIn: {
