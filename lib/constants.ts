@@ -29,3 +29,10 @@ export const TAGS = {
 export const HIDDEN_PRODUCT_TAG = 'nextjs-frontend-hidden';
 export const DEFAULT_OPTION = 'Default Title';
 export const SHOPIFY_GRAPHQL_API_ENDPOINT = '/api/2023-01/graphql.json';
+
+export const BASE_URL =
+  process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' && process.env.TWITTER_SITE
+    ? process.env.TWITTER_SITE
+    : process.env.NEXT_PUBLIC_VERCEL_URL
+      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+      : 'http://localhost:3000';
