@@ -38,7 +38,7 @@
     "@types/react-dom": "18.2.25",
     "@vercel/git-hooks": "^1.0.0",
     "autoprefixer": "^10.4.19",
-    "eslint": "^9.0.0",
+    "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.2",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-unicorn": "^52.0.0",
