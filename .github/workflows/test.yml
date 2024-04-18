@@ -21,7 +21,7 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           run_install: false
-          version: 7
+          version: 8
       - name: Cache node_modules
         id: node-modules-cache
         uses: actions/cache@v3

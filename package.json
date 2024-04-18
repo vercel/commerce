@@ -3,7 +3,7 @@
   "packageManager": "pnpm@8.2.0",
   "engines": {
     "node": ">=18",
-    "pnpm": ">=7"
+    "pnpm": ">=8"
   },
   "scripts": {
     "dev": "next dev --turbo",
@@ -22,31 +22,31 @@
     "*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.18",
+    "@headlessui/react": "^1.7.19",
     "@heroicons/react": "^2.1.3",
     "clsx": "^2.1.0",
     "geist": "^1.3.0",
-    "next": "14.1.4",
+    "next": "14.2.2",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@tailwindcss/container-queries": "^0.1.1",
-    "@tailwindcss/typography": "^0.5.11",
-    "@types/node": "20.11.30",
-    "@types/react": "18.2.72",
-    "@types/react-dom": "18.2.22",
+    "@tailwindcss/typography": "^0.5.12",
+    "@types/node": "20.12.7",
+    "@types/react": "18.2.79",
+    "@types/react-dom": "18.2.25",
     "@vercel/git-hooks": "^1.0.0",
     "autoprefixer": "^10.4.19",
     "eslint": "^8.57.0",
-    "eslint-config-next": "^14.1.4",
+    "eslint-config-next": "^14.2.2",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-unicorn": "^51.0.1",
+    "eslint-plugin-unicorn": "^52.0.0",
     "lint-staged": "^15.2.2",
     "postcss": "^8.4.38",
     "prettier": "3.2.5",
-    "prettier-plugin-tailwindcss": "^0.5.12",
-    "tailwindcss": "^3.4.1",
-    "typescript": "5.4.3"
+    "prettier-plugin-tailwindcss": "^0.5.14",
+    "tailwindcss": "^3.4.3",
+    "typescript": "5.4.5"
   }
 }
