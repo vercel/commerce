@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { ProductOption, ProductVariant } from 'lib/shopify/types';
 import { createUrl } from 'lib/utils';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useOptimistic, useTransition } from 'react';
 
 type Combination = {
   id: string;
@@ -21,6 +22,9 @@ export function VariantSelector({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [optimisticVariants, setOptimsticVariants] = useOptimistic(variants);
+  const [pending, startTransition] = useTransition();
+
   const hasNoOptionsOrJustOneOption =
     !options.length || (options.length === 1 && options[0]?.values.length === 1);
 
@@ -28,7 +32,7 @@ export function VariantSelector({
     return null;
   }
 
-  const combinations: Combination[] = variants.map((variant) => ({
+  const combinations: Combination[] = optimisticVariants.map((variant) => ({
     id: variant.id,
     availableForSale: variant.availableForSale,
     // Adds key / value pairs for each variant (ie. "color": "Black" and "size": 'M").
@@ -40,6 +44,7 @@ export function VariantSelector({
 
   return options.map((option) => (
     <dl className="mb-8" key={option.id}>
+      {pending && <div className="">Loading...</div>}
       <dt className="mb-4 text-sm uppercase tracking-wide">{option.name}</dt>
       <dd className="flex flex-wrap gap-3">
         {option.values.map((value) => {
@@ -82,7 +87,24 @@ export function VariantSelector({
               aria-disabled={!isAvailableForSale}
               disabled={!isAvailableForSale}
               onClick={() => {
-                router.replace(optionUrl, { scroll: false });
+                startTransition(() => {
+                  const newOptimisticVariants = optimisticVariants.map((variant) => {
+                    // Assume every variant has an 'options' array where each option has an 'isActive' property.
+                    const updatedOptions = variant.selectedOptions.map((option) => {
+                      if (option.name.toLowerCase() === optionNameLowerCase) {
+                        return { ...option, value: value, isActive: true }; // Set active optimistically
+                      }
+                      return option;
+                    });
+
+                    return { ...variant, selectedOptions: updatedOptions };
+                  });
+
+                  setOptimsticVariants(newOptimisticVariants); // Update the state optimistically
+
+                  // Navigate without page reload
+                  router.replace(optionUrl, { scroll: false });
+                });
               }}
               title={`${option.name} ${value}${!isAvailableForSale ? ' (Out of Stock)' : ''}`}
               className={clsx(
