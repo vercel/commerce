@@ -24,6 +24,12 @@ const productFragment = /* GraphQL */ `
         currencyCode
       }
     }
+    collections(first: 1) {
+      nodes {
+        title
+        handle
+      }
+    }
     variants(first: 250) {
       edges {
         node {

@@ -127,6 +127,12 @@ export type ShopifyProduct = {
   seo: SEO;
   tags: string[];
   updatedAt: string;
+  collections: {
+    nodes: {
+      title: string;
+      handle: string;
+    }[];
+  };
 };
 
 export type ShopifyCartOperation = {
