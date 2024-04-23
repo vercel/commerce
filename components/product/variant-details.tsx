@@ -1,6 +1,6 @@
 'use client'
 
-import Price from "components/price";
+import Price from "components/ui/price";
 import { Product, ProductVariant } from "lib/shopify/types";
 import { useState } from "react";
 import { VariantSelector } from "./variant-selector";

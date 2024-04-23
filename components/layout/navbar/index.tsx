@@ -1,6 +1,6 @@
 import Cart from 'components/cart';
 import OpenCart from 'components/cart/open-cart';
-import LogoType from 'components/logo-type';
+import LogoType from 'components/ui/logo-type';
 import { getMenu } from 'lib/shopify';
 import { Menu } from 'lib/shopify/types';
 import Link from 'next/link';

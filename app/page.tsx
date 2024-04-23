@@ -1,8 +1,5 @@
-import { Button } from '@/components/ui/button';
-import { Carousel } from 'components/carousel';
-import { GridTileImage } from 'components/grid/tile';
 import Footer from 'components/layout/footer';
-import Link from 'next/link';
+import { Carousel } from 'components/ui/carousel';
 import { Suspense } from 'react';
 
 export const runtime = 'edge';
