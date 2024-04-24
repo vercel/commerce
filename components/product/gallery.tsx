@@ -35,7 +35,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
 
         {images.length > 1 ? (
           <div className="bottom-2 z-50 flex w-full justify-center absolute">
-            <div className="mx-auto flex h-8 items-center rounded-full border border-white bg-neutral-50/50 text-neutral-500 backdrop-blur dark:border-black dark:bg-neutral-900/80">
+            <div className="mx-auto flex h-8 items-center rounded border border-white bg-neutral-50/50 text-neutral-500 backdrop-blur dark:border-black dark:bg-neutral-900/80">
               <button
                 aria-label="Previous product image"
                 onClick={() => handleNavigate('previous')}
