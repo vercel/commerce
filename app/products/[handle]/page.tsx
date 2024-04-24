@@ -82,7 +82,7 @@ export default async function ProductPage({ params }: { params: { handle: string
         }}
       />
       <div className="mx-auto max-w-screen-2xl px-4">
-        <div className="rounded-lg border border-neutral-200 bg-white p-8 px-4 dark:border-neutral-800 dark:bg-black md:p-12 lg:grid lg:grid-cols-6">
+        <div className="rounded-lg border border-neutral-900 p-8 px-4 dark:border-neutral-800 dark:bg-black md:p-12 lg:grid lg:grid-cols-6">
           <div className="lg:col-span-3 flex justify-center">
             <Gallery
               images={product.images.map((image: Image) => ({

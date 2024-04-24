@@ -126,7 +126,7 @@ export function VariantSelector({
               href={optionUrl}
               title={`${option.name} ${value}${!isAvailableForSale ? ' (Out of Stock)' : ''}`}
               className={clsx(
-                'flex min-w-[48px] items-center justify-center rounded-full border bg-neutral-100 px-2 py-1 text-sm dark:border-neutral-800 dark:bg-neutral-900',
+                'flex min-w-[48px] items-center justify-center rounded-full border bg-neutral-777 px-2 py-1 text-sm dark:border-neutral-800 dark:bg-neutral-900',
                 {
                   'cursor-default ring-2 ring-gray-600': isActive,
                   'ring-1 ring-transparent transition duration-300 ease-in-out hover:scale-110 hover:ring-gray-600 ':
