@@ -20,7 +20,7 @@ export async function Carousel({collection}:
   if (!products?.length) return null;
 
   return (
-    <div>
+    <div className='max-w-full'>
       {scapeTitle && 
         <Link href={`/search/${scapeTitle}`}>
           <p className='text-lg text-bold'>{scapeTitle}</p>

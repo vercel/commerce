@@ -17,10 +17,10 @@ export default async function HomePage() {
       <Suspense>
 
         <div className='container grid justify-around my-4 grid-cols-1 items-center justify-items-center'>
-        <Carousel collection={undefined} />
-        <Carousel collection='flower' />
-        <Carousel collection='foliage' />
-        <Carousel collection='nature' />
+          <Carousel collection={undefined} />
+          <Carousel collection='flower' />
+          <Carousel collection='foliage' />
+          <Carousel collection='nature' />
           {/* <Link className='h-full w-full md:w-10/12 flex items-center justify-center justify-items-center' href="/wall">
             <Button className='py-3 w-full m-3 bg-transparent' variant={'dark'}>
               <h2 className='absolute z-50 text-3xl text-white'>Art for the Wall</h2>
@@ -35,9 +35,9 @@ export default async function HomePage() {
           </Link> */}
 
         </div>
-        <Suspense>
-          <Footer />
-        </Suspense>
+      </Suspense>
+      <Suspense>
+        <Footer />
       </Suspense>
     </>
   );
