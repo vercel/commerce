@@ -47,7 +47,7 @@ export function DescriptionContent({ product }: { product: Product }) {
               {itemDetails.print} - 
               {certificationLink('oekoEco')}
             </li>
-            <li className='mt-1'>{itemDetails.weight.feel} weight, {itemDetails.weight.gsm} GSM</li>
+            {/* <li className='mt-1'>{itemDetails.weight.feel} weight, {itemDetails.weight.gsm} GSM</li> */}
             {commonDetailKeys.map(detail => (
 
               // <div>{detail}</div>
