@@ -35,7 +35,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
 
         {images.length > 1 ? (
           <div className="bottom-2 z-50 flex w-full justify-center absolute">
-            <div className="mx-auto flex h-8 items-center rounded border border-white bg-neutral-50/50 text-neutral-500 backdrop-blur dark:border-black dark:bg-neutral-900/80">
+            <div className="mx-auto flex h-8 items-center rounded border border-neutral-500 bg-neutral-500/30 text-neutral-200 backdrop-blur dark:border-black dark:bg-neutral-900/80">
               <button
                 aria-label="Previous product image"
                 onClick={() => handleNavigate('previous')}
@@ -43,7 +43,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
               >
                 <ArrowLeftIcon className="h-5" />
               </button>
-              <div className="mx-1 h-6 w-px bg-neutral-500"></div>
+              <div className="mx-1 h-6 w-px bg-neutral-600"></div>
               <button
                 aria-label="Next product image"
                 onClick={() => handleNavigate('next')}
@@ -57,7 +57,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
       </div>
 
       {images.length > 1 ? (
-        <div className="flex items-center justify-center gap-2 overflow-auto py-1 pl-20 md:pl-0">
+        <div className="flex items-center justify-center gap-2 overflow-auto py-1 md:pl-0">
           {images.map((image, index) => {
             const isActive = index === currentImageIndex;
             return (
