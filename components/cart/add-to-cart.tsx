@@ -50,7 +50,7 @@ export function AddToCart({
         });
       }}
       className={clsx(
-        'relative flex w-full items-center justify-center rounded bg-gray-600 p-4 tracking-wide text-white hover:opacity-90',
+        'relative flex w-full items-center justify-center rounded bg-neutral-800 p-4 tracking-wide text-white hover:opacity-90',
         {
           'cursor-not-allowed opacity-60': !availableForSale,
           'cursor-not-allowed': isPending
