@@ -22,7 +22,7 @@ const Label = ({
         <h3 className="mr-4 inline pl-2 leading-none tracking-tight">{title}</h3>
         <Price
           // className="flex-none rounded-full bg-gray-600 p-2 text-white"
-          className="flex-none text-gray-600 text-bold"
+          className="ml-auto flex-none text-gray-600 text-bold"
           amount={amount}
           currencyCode={currencyCode}
           currencyCodeClassName="hidden @[275px]/label:inline"
