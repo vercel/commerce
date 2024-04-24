@@ -47,3 +47,11 @@ export function cn(...inputs: ClassValue[]) {
 export function normalizeUrl(domain: string, url: string) {
   return url.replace(domain, '').replace('/collections', '/search').replace('/pages', '');
 }
+
+export const parseMetaFieldValue = <T>(field: { value: string } | null): T | null => {
+  try {
+    return JSON.parse(field?.value || '{}');
+  } catch (error) {
+    return null;
+  }
+};

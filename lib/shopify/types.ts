@@ -82,6 +82,13 @@ export type ProductVariant = {
     value: string;
   }[];
   price: Money;
+  coreCharge: Money | null;
+  waiverAvailable: boolean | null;
+};
+
+export type ShopifyProductVariant = Omit<ProductVariant, 'coreCharge' | 'waiverAvailable'> & {
+  coreCharge: { value: string } | null;
+  waiverAvailable: { value: string };
 };
 
 export type SEO = {
@@ -121,7 +128,7 @@ export type ShopifyProduct = {
     maxVariantPrice: Money;
     minVariantPrice: Money;
   };
-  variants: Connection<ProductVariant>;
+  variants: Connection<ShopifyProductVariant>;
   featuredImage: Image;
   images: Connection<Image>;
   seo: SEO;

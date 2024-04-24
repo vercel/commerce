@@ -1,6 +1,6 @@
 import { HIDDEN_PRODUCT_TAG, SHOPIFY_GRAPHQL_API_ENDPOINT, TAGS } from 'lib/constants';
 import { isShopifyError } from 'lib/type-guards';
-import { ensureStartsWith, normalizeUrl } from 'lib/utils';
+import { ensureStartsWith, normalizeUrl, parseMetaFieldValue } from 'lib/utils';
 import { revalidateTag } from 'next/cache';
 import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
@@ -29,8 +29,10 @@ import {
   Connection,
   Image,
   Menu,
+  Money,
   Page,
   Product,
+  ProductVariant,
   ShopifyAddToCartOperation,
   ShopifyCart,
   ShopifyCartOperation,
@@ -45,6 +47,7 @@ import {
   ShopifyProduct,
   ShopifyProductOperation,
   ShopifyProductRecommendationsOperation,
+  ShopifyProductVariant,
   ShopifyProductsOperation,
   ShopifyRemoveFromCartOperation,
   ShopifyUpdateCartOperation
@@ -128,7 +131,13 @@ const reshapeCart = (cart: ShopifyCart): Cart => {
 
   return {
     ...cart,
-    lines: removeEdgesAndNodes(cart.lines)
+    lines: removeEdgesAndNodes(cart.lines).map((lineItem) => ({
+      ...lineItem,
+      merchandise: {
+        ...lineItem.merchandise,
+        product: reshapeProduct(lineItem.merchandise.product)
+      }
+    }))
   };
 };
 
@@ -171,6 +180,14 @@ const reshapeImages = (images: Connection<Image>, productTitle: string) => {
   });
 };
 
+const reshapeVariants = (variants: ShopifyProductVariant[]): ProductVariant[] => {
+  return variants.map((variant) => ({
+    ...variant,
+    coreCharge: parseMetaFieldValue<Money>(variant.coreCharge),
+    waiverAvailable: parseMetaFieldValue<boolean>(variant.waiverAvailable)
+  }));
+};
+
 const reshapeProduct = (product: ShopifyProduct, filterHiddenProducts: boolean = true) => {
   if (!product || (filterHiddenProducts && product.tags.includes(HIDDEN_PRODUCT_TAG))) {
     return undefined;
@@ -181,7 +198,7 @@ const reshapeProduct = (product: ShopifyProduct, filterHiddenProducts: boolean =
   return {
     ...rest,
     images: reshapeImages(images, product.title),
-    variants: removeEdgesAndNodes(variants)
+    variants: reshapeVariants(removeEdgesAndNodes(variants))
   };
 };
 

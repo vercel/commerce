@@ -44,6 +44,12 @@ const productFragment = /* GraphQL */ `
             amount
             currencyCode
           }
+          coreCharge: metafield(namespace: "custom", key: "core_charge") {
+            value
+          }
+          waiverAvailable: metafield(namespace: "custom", key: "waiver_available") {
+            value
+          }
         }
       }
     }

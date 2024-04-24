@@ -10,6 +10,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import CloseCart from './close-cart';
+import CoreChargeBadge from './core-charge-badge';
 import { DeleteItemButton } from './delete-item-button';
 import { EditItemQuantityButton } from './edit-item-quantity-button';
 import OpenCart from './open-cart';
@@ -98,7 +99,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                       return (
                         <li
                           key={i}
-                          className="flex w-full flex-col border-b border-neutral-300 dark:border-neutral-700"
+                          className="flex w-full flex-col border-b border-neutral-300 pb-3 dark:border-neutral-700"
                         >
                           <div className="relative flex w-full flex-row justify-between px-1 py-4">
                             <div className="absolute z-40 -mt-2 ml-[55px]">
@@ -122,7 +123,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                                 />
                               </div>
 
-                              <div className="flex flex-1 flex-col text-base">
+                              <div className="flex flex-1 flex-col gap-1 text-base">
                                 <span className="leading-tight">
                                   {item.merchandise.product.title}
                                 </span>
@@ -133,19 +134,25 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                                 ) : null}
                               </div>
                             </Link>
-                            <div className="flex h-16 flex-col justify-between">
+                          </div>
+                          <div className="ml-20 flex flex-col gap-2">
+                            <div className="flex flex-row items-center gap-2">
                               <Price
-                                className="flex justify-end space-y-2 text-right text-sm"
+                                className="font-semibold"
                                 amount={item.cost.totalAmount.amount}
                                 currencyCode={item.cost.totalAmount.currencyCode}
                               />
-                              <div className="ml-auto flex h-9 flex-row items-center rounded-full border border-neutral-200 dark:border-neutral-700">
-                                <EditItemQuantityButton item={item} type="minus" />
-                                <p className="w-6 text-center">
-                                  <span className="w-full text-sm">{item.quantity}</span>
-                                </p>
-                                <EditItemQuantityButton item={item} type="plus" />
-                              </div>
+                              <CoreChargeBadge
+                                variants={item.merchandise.product.variants}
+                                selectedOptions={item.merchandise.selectedOptions}
+                              />
+                            </div>
+                            <div className="flex h-9 w-fit flex-row items-center rounded-sm border border-neutral-300 dark:border-neutral-700">
+                              <EditItemQuantityButton item={item} type="minus" />
+                              <p className="w-6 text-center">
+                                <span className="w-full text-sm">{item.quantity}</span>
+                              </p>
+                              <EditItemQuantityButton item={item} type="plus" />
                             </div>
                           </div>
                         </li>
