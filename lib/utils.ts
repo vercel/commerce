@@ -29,8 +29,9 @@ export async function getLiveCollectionProducts(query: Parameters<typeof getColl
   return liveProducts;
 }
 
-export async function getAllLiveProducts(query: Parameters<typeof getProducts>[0]) {
-  const products = await getProducts(query);
+export async function getAllLiveProducts(query?: Parameters<typeof getProducts>[0]) {
+  const searchQuery = query || { query: undefined, reverse: undefined, sortKey: undefined}
+  const products = await getProducts(searchQuery);
   const liveProducts = products.filter((product) => !product.tags.includes('hidden-product'));
   return liveProducts
 }
