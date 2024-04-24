@@ -17,7 +17,7 @@ export default async function HomePage() {
       <Suspense>
 
         <div className='container grid justify-around my-4 grid-cols-1 items-center justify-items-center'>
-        <Carousel />
+        <Carousel collection={undefined} />
         <Carousel collection='flower' />
         <Carousel collection='foliage' />
         <Carousel collection='nature' />
