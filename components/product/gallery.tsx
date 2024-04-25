@@ -62,7 +62,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
                 </Link>
               </div>
             </div>
-            <p className="absolute bottom-[5%] flex w-full justify-center text-sm text-neutral-500">
+            <p className="absolute bottom-[5%] flex w-full justify-center text-xs text-neutral-500">
               Representative Image
             </p>
           </>

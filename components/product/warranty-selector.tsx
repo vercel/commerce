@@ -42,7 +42,7 @@ const WarrantySelector = () => {
           key={plan.key}
           onClick={() => setSelectedOptions(plan.key)}
           className={cn(
-            'flex  w-32 cursor-pointer flex-col items-center justify-center space-y-2 rounded-md border p-2 text-xs font-medium',
+            'flex  w-32 cursor-pointer flex-col items-center justify-center space-y-2 rounded-md border p-2 text-center text-xs font-medium',
             { 'ring-2 ring-secondary': plan.key === selectedOptions }
           )}
         >

@@ -8,12 +8,12 @@ type WarrantyProps = {
 
 const Warranty = ({ productType }: WarrantyProps) => {
   return (
-    <div className="flex flex-col text-sm">
+    <div className="flex flex-col text-xs lg:text-sm">
       <div className="mb-3 flex flex-row items-center space-x-2 text-base font-medium">
         <ShieldCheckIcon className="h-7 w-7" />
         <span> Protect your {productType ?? 'product'}</span>
       </div>
-      <div className="mb-1 flex flex-row items-center space-x-3 divide-x divide-gray-400 leading-none">
+      <div className="mb-1 flex flex-row items-center space-x-1 divide-x divide-gray-400 leading-none lg:space-x-3">
         <span>Extended Warranty</span>
         <Link href="#" className="pl-2 text-blue-800 hover:underline">
           What&apos;s Included
