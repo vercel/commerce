@@ -5,7 +5,7 @@ import { Suspense } from 'react';
 export const runtime = 'edge';
 
 export const metadata = {
-  description: 'scape²: consciously created, art to wear, altering angles, by independent artist Sammii.',
+  description: 'scape²: consciously created, art to wear, altering angles. 100% organic cotton garms. Worldwide shipping. 100% plastic free.',
   openGraph: {
     type: 'website'
   },
