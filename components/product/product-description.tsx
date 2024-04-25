@@ -3,13 +3,15 @@ import Prose from 'components/prose';
 import { Product } from 'lib/shopify/types';
 import { Suspense } from 'react';
 import PriceWithCoreCharge from './price-with-core-charge';
+import SpecialOffer from './special-offer';
 import { VariantSelector } from './variant-selector';
+import Warranty from './warranty';
 
 export function ProductDescription({ product }: { product: Product }) {
   return (
     <>
-      <div className="mb-6 flex flex-col border-b pb-6 dark:border-neutral-700">
-        <h1 className="mb-3 text-4xl font-bold">{product.title}</h1>
+      <div className="mb-5 flex flex-col dark:border-neutral-700">
+        <h1 className="mb-3 text-2xl font-bold">{product.title}</h1>
         <PriceWithCoreCharge
           variants={product.variants}
           defaultPrice={product.priceRange.minVariantPrice}
@@ -21,14 +23,21 @@ export function ProductDescription({ product }: { product: Product }) {
 
       {product.descriptionHtml ? (
         <Prose
-          className="mb-6 text-sm leading-tight dark:text-white/[60%]"
+          className="mb-4 text-sm leading-tight dark:text-white/[60%]"
           html={product.descriptionHtml}
         />
       ) : null}
 
+      <div className="mb-4 border-t py-6 dark:border-neutral-700">
+        <Warranty productType={product.productType} />
+      </div>
+
       <Suspense fallback={null}>
         <AddToCart variants={product.variants} availableForSale={product.availableForSale} />
       </Suspense>
+      <div className="mt-4 border-t pt-4">
+        <SpecialOffer />
+      </div>
     </>
   );
 }

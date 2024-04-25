@@ -84,8 +84,8 @@ export default async function ProductPage({ params }: { params: { handle: string
       />
       <div className="mx-auto max-w-screen-2xl px-4">
         <BreadcrumbComponent type="product" handle={product.handle} />
-        <div className="my-3 flex flex-col rounded-lg border border-neutral-200 bg-white p-8 md:p-12 lg:flex-row lg:gap-8 dark:border-neutral-800 dark:bg-black">
-          <div className="h-full w-full basis-full lg:basis-4/6">
+        <div className="my-3 flex flex-col space-x-0 rounded-lg border border-neutral-200 bg-white p-8 md:p-10 lg:flex-row lg:gap-8 lg:space-x-3 dark:border-neutral-800 dark:bg-black">
+          <div className="h-full w-full basis-full lg:basis-7/12">
             <Suspense
               fallback={
                 <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden" />
@@ -100,7 +100,7 @@ export default async function ProductPage({ params }: { params: { handle: string
             </Suspense>
           </div>
 
-          <div className="basis-full lg:basis-2/6">
+          <div className="basis-full lg:basis-5/12">
             <ProductDescription product={product} />
           </div>
         </div>

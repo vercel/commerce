@@ -39,29 +39,33 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
             priority={true}
           />
         )}
-
         {images.length > 1 ? (
-          <div className="absolute bottom-[15%] flex w-full justify-center">
-            <div className="mx-auto flex h-11 items-center rounded-full border border-white bg-neutral-50/80 text-neutral-500 backdrop-blur dark:border-black dark:bg-neutral-900/80">
-              <Link
-                aria-label="Previous product image"
-                href={previousUrl}
-                className={buttonClassName}
-                scroll={false}
-              >
-                <ArrowLeftIcon className="h-5" />
-              </Link>
-              <div className="mx-1 h-6 w-px bg-neutral-500"></div>
-              <Link
-                aria-label="Next product image"
-                href={nextUrl}
-                className={buttonClassName}
-                scroll={false}
-              >
-                <ArrowRightIcon className="h-5" />
-              </Link>
+          <>
+            <div className="absolute bottom-[15%] flex w-full justify-center">
+              <div className="mx-auto mb-3 flex h-11 items-center rounded-full border border-white bg-neutral-50/80 text-neutral-500 backdrop-blur dark:border-black dark:bg-neutral-900/80">
+                <Link
+                  aria-label="Previous product image"
+                  href={previousUrl}
+                  className={buttonClassName}
+                  scroll={false}
+                >
+                  <ArrowLeftIcon className="h-5" />
+                </Link>
+                <div className="mx-1 h-6 w-px bg-neutral-500"></div>
+                <Link
+                  aria-label="Next product image"
+                  href={nextUrl}
+                  className={buttonClassName}
+                  scroll={false}
+                >
+                  <ArrowRightIcon className="h-5" />
+                </Link>
+              </div>
             </div>
-          </div>
+            <p className="absolute bottom-[5%] flex w-full justify-center text-sm text-neutral-500">
+              Representative Image
+            </p>
+          </>
         ) : null}
       </div>
 

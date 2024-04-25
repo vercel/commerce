@@ -36,6 +36,8 @@ const productFragment = /* GraphQL */ `
           id
           title
           availableForSale
+          barcode
+          sku
           selectedOptions {
             name
             value
@@ -68,6 +70,9 @@ const productFragment = /* GraphQL */ `
     }
     tags
     updatedAt
+    productType: metafield(namespace: "custom", key: "product_type") {
+      value
+    }
   }
   ${imageFragment}
   ${seoFragment}

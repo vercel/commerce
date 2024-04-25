@@ -62,9 +62,10 @@ export type Page = {
   updatedAt: string;
 };
 
-export type Product = Omit<ShopifyProduct, 'variants' | 'images'> & {
+export type Product = Omit<ShopifyProduct, 'variants' | 'images' | 'productType'> & {
   variants: ProductVariant[];
   images: Image[];
+  productType: string | null;
 };
 
 export type ProductOption = {
@@ -84,6 +85,8 @@ export type ProductVariant = {
   price: Money;
   coreCharge: Money | null;
   waiverAvailable: boolean | null;
+  barcode: string | null;
+  sku: string | null;
 };
 
 export type ShopifyProductVariant = Omit<ProductVariant, 'coreCharge' | 'waiverAvailable'> & {
@@ -140,6 +143,9 @@ export type ShopifyProduct = {
       handle: string;
     }[];
   };
+  productType: {
+    value: string;
+  } | null;
 };
 
 export type ShopifyCartOperation = {
