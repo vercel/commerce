@@ -1,7 +1,6 @@
 import { AddToCart } from 'components/cart/add-to-cart';
 import { Product } from 'lib/shopify/types';
 import { DescriptionContent } from './description-content';
-import { SustainabilityInfo } from './sustainability-info';
 import { VariantDetails } from './variant-details';
 
 export function ProductDescription({ product }: { product: Product }) {
@@ -14,7 +13,7 @@ export function ProductDescription({ product }: { product: Product }) {
       <AddToCart variants={product.variants} availableForSale={product.availableForSale} />
 
       <DescriptionContent product={product} />
-      {!product.tags.includes('wall') && <SustainabilityInfo />}
+      {/* {!product.tags.includes('wall') && <SustainabilityInfo />} */}
     </>
   );
 }
