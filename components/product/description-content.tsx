@@ -40,12 +40,12 @@ export function DescriptionContent({ product }: { product: Product }) {
           <p className='font-bold mt-6'>Details:</p>
           <ul className='list-disc list-inside'>
             <li className='mt-2'>
-              {itemDetails.content}* -
-              {certificationLink('gots')}
+              {itemDetails.content}*
+              {/* {certificationLink('gots')} */}
             </li>
             <li className='mt-1'>
-              {itemDetails.print} - 
-              {certificationLink('oekoEco')}
+              {itemDetails.print}
+              {/* {certificationLink('oekoEco')} */}
             </li>
             {/* <li className='mt-1'>{itemDetails.weight.feel} weight, {itemDetails.weight.gsm} GSM</li> */}
             {commonDetailKeys.map(detail => (
@@ -60,6 +60,11 @@ export function DescriptionContent({ product }: { product: Product }) {
               * Yes you read that right, 100%, this includes our brand label.
             </p>
           </ul>
+          <Link href="/sustainability">
+              <p className='font-bold mt-4'>
+                Sustainability Statement
+              </p>
+          </Link>
         </div>
       </div>
     </>
