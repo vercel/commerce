@@ -3,7 +3,7 @@
 import { PlusIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { addItem } from 'components/cart/actions';
-import LoadingDots from 'components/loading-dots';
+import LoadingDots from 'components/ui/loading-dots';
 import { ProductVariant } from 'lib/shopify/types';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, useTransition } from 'react';
@@ -50,7 +50,7 @@ export function AddToCart({
         });
       }}
       className={clsx(
-        'relative flex w-full items-center justify-center rounded-full bg-gray-600 p-4 tracking-wide text-white hover:opacity-90',
+        'relative flex w-full items-center justify-center rounded bg-neutral-800 p-4 tracking-wide text-white hover:opacity-90',
         {
           'cursor-not-allowed opacity-60': !availableForSale,
           'cursor-not-allowed': isPending

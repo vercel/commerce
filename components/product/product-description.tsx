@@ -8,7 +8,7 @@ export function ProductDescription({ product }: { product: Product }) {
   return (
     <>
       <div className="flex flex-col">
-        <h1 className="mb-2 text-2xl md:text-3xl font-medium">{product.title}</h1>
+        <h1 className="mb-2 text-xl sm:text-2xl md:text-3xl font-medium">{product.title}</h1>
       </div>
       <VariantDetails product={product} />
       <AddToCart variants={product.variants} availableForSale={product.availableForSale} />

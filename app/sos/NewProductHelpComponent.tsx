@@ -1,8 +1,8 @@
 "use client"
 
 import { Input } from "@/components/ui/input";
-import { Combox } from "components/combox";
 import { ProductSKUs } from "components/product/sku-generator";
+import { Combox } from "components/ui/combox";
 import { collectionsSKUs, garmentHandleKeys } from "constants/sku";
 import { capitalizeFirstLetter, copyText } from "lib/helpers/actions";
 import { useMemo, useState } from "react";

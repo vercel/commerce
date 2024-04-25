@@ -1,5 +1,5 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import LoadingDots from 'components/loading-dots';
+import LoadingDots from 'components/ui/loading-dots';
 import { useRouter } from 'next/navigation';
 
 import clsx from 'clsx';
@@ -28,7 +28,7 @@ export default function DeleteItemButton({ item }: { item: CartItem }) {
       }}
       disabled={isPending}
       className={clsx(
-        'ease flex h-[17px] w-[17px] items-center justify-center rounded-full bg-neutral-500 transition-all duration-200',
+        'ease flex h-[17px] w-[17px] items-center justify-center rounded bg-neutral-500 transition-all duration-200',
         {
           'cursor-not-allowed px-0': isPending
         }

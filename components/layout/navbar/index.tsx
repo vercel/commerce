@@ -1,12 +1,11 @@
 import Cart from 'components/cart';
 import OpenCart from 'components/cart/open-cart';
-import LogoType from 'components/logo-type';
+import LogoType from 'components/ui/logo-type';
 import { getMenu } from 'lib/shopify';
 import { Menu } from 'lib/shopify/types';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import MobileMenu from './mobile-menu';
-import Search from './search';
 const { SITE_NAME } = process.env;
 
 export default async function Navbar() {
@@ -30,7 +29,7 @@ export default async function Navbar() {
             </div> */}
             <LogoType />
           </Link>
-          {menu.length ? (
+          {/* {menu.length ? (
             <ul className="hidden text-sm md:flex md:items-center">
               {menu.map((item: Menu) => (
                 <li key={item.title}>
@@ -43,11 +42,25 @@ export default async function Navbar() {
                 </li>
               ))}
             </ul>
-          ) : null}
+          ) : null} */}
         </div>
-        <div className="hidden justify-center md:flex md:w-1/3">
+        {/* <div className="hidden justify-center md:flex md:w-1/3">
           <Search />
-        </div>
+        </div> */}
+        {menu.length ? (
+            <ul className="hidden text-sm md:flex md:items-center">
+              {menu.map((item: Menu) => (
+                <li key={item.title}>
+                  <Link
+                    href={item.path}
+                    className="m-3 text-neutral-500 underline-offset-4 hover:text-black hover:underline dark:text-neutral-400 dark:hover:text-neutral-300 lg:mr-8"
+                  >
+                    {item.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : null}
         <div className="flex justify-end md:w-1/3">
           <Suspense fallback={<OpenCart />}>
             <Cart />
