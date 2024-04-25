@@ -35,7 +35,7 @@ export function DescriptionContent({ product }: { product: Product }) {
   return (
     <>
       <div className="mt-6">
-        <h4 className='text-lg'>{product.title}, an exclusive artwork by {SCAPE}</h4>
+        <h4 className='text-lg'>Consciously created, art to wear, altering angles, by {SCAPE}</h4>
         <div>
           <p className='font-bold mt-6'>Details:</p>
           <ul className='list-disc list-inside'>
