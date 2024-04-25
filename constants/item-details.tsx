@@ -10,8 +10,8 @@ const medium = 'medium'
 
 const unisex = 'unisex'
 
-const branding = 'subtle brand label on front hem'
-const creation = 'ethically and sustainably made'
+const branding = 'subtle brand label* on front hem'
+// const creation = 'ethically and sustainably made'
 
 export type GarmentDetailContent = {
   title: string;
@@ -25,7 +25,7 @@ export type GarmentDetailContent = {
   common: {
     style: string;
     branding: string;
-    creation: string;
+    // creation: string;
   };
 }
 
@@ -40,7 +40,7 @@ const commonDetails = {
   common: {
     branding,
     style: unisex,
-    creation,
+    // creation,
   }
 }
 
