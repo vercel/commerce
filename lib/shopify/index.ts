@@ -183,8 +183,9 @@ const reshapeImages = (images: Connection<Image>, productTitle: string) => {
 const reshapeVariants = (variants: ShopifyProductVariant[]): ProductVariant[] => {
   return variants.map((variant) => ({
     ...variant,
-    coreCharge: parseMetaFieldValue<Money>(variant.coreCharge),
-    waiverAvailable: parseMetaFieldValue<boolean>(variant.waiverAvailable)
+    waiverAvailable: parseMetaFieldValue<boolean>(variant.waiverAvailable),
+    coreVariantId: variant.coreVariantId?.value || null,
+    coreCharge: parseMetaFieldValue<Money>(variant.coreCharge)
   }));
 };
 
@@ -393,6 +394,18 @@ export async function getPages(): Promise<Page[]> {
 }
 
 export async function getProduct(handle: string): Promise<Product | undefined> {
+  const res = await shopifyFetch<ShopifyProductOperation>({
+    query: getProductQuery,
+    tags: [TAGS.products],
+    variables: {
+      handle
+    }
+  });
+
+  return reshapeProduct(res.body.data.product, false);
+}
+
+export async function getProductVariant(handle: string): Promise<Product | undefined> {
   const res = await shopifyFetch<ShopifyProductOperation>({
     query: getProductQuery,
     tags: [TAGS.products],

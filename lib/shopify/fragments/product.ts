@@ -52,6 +52,9 @@ const productFragment = /* GraphQL */ `
           waiverAvailable: metafield(namespace: "custom", key: "waiver_available") {
             value
           }
+          coreVariantId: metafield(namespace: "custom", key: "coreVariant") {
+            value
+          }
         }
       }
     }

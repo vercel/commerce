@@ -10,10 +10,10 @@ import { useFormState, useFormStatus } from 'react-dom';
 
 function SubmitButton({
   availableForSale,
-  selectedVariantId
+  disabled
 }: {
   availableForSale: boolean;
-  selectedVariantId: string | undefined;
+  disabled: boolean;
 }) {
   const { pending } = useFormStatus();
   const buttonClasses =
@@ -28,7 +28,7 @@ function SubmitButton({
     );
   }
 
-  if (!selectedVariantId) {
+  if (disabled) {
     return (
       <button
         aria-label="Please select an option"
@@ -75,11 +75,15 @@ export function AddToCart({
     )
   );
   const selectedVariantId = variant?.id || defaultVariantId;
+  const missingCoreVariantId = variant?.coreVariantId && !searchParams.has('coreVariantId');
   const actionWithVariant = formAction.bind(null, selectedVariantId);
 
   return (
     <form action={actionWithVariant}>
-      <SubmitButton availableForSale={availableForSale} selectedVariantId={selectedVariantId} />
+      <SubmitButton
+        availableForSale={availableForSale}
+        disabled={Boolean(!selectedVariantId || missingCoreVariantId)}
+      />
       <p aria-live="polite" className="sr-only" role="status">
         {message}
       </p>

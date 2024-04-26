@@ -87,11 +87,16 @@ export type ProductVariant = {
   waiverAvailable: boolean | null;
   barcode: string | null;
   sku: string | null;
+  coreVariantId: string | null;
 };
 
-export type ShopifyProductVariant = Omit<ProductVariant, 'coreCharge' | 'waiverAvailable'> & {
-  coreCharge: { value: string } | null;
+export type ShopifyProductVariant = Omit<
+  ProductVariant,
+  'coreCharge' | 'waiverAvailable' | 'coreVariantId'
+> & {
   waiverAvailable: { value: string };
+  coreVariantId: { value: string } | null;
+  coreCharge: { value: string } | null;
 };
 
 export type SEO = {

@@ -10,7 +10,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import CloseCart from './close-cart';
-import CoreChargeBadge from './core-charge-badge';
 import { DeleteItemButton } from './delete-item-button';
 import { EditItemQuantityButton } from './edit-item-quantity-button';
 import OpenCart from './open-cart';
@@ -136,17 +135,11 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                             </Link>
                           </div>
                           <div className="ml-20 flex flex-col gap-2">
-                            <div className="flex flex-row items-center gap-2">
-                              <Price
-                                className="font-semibold"
-                                amount={item.cost.totalAmount.amount}
-                                currencyCode={item.cost.totalAmount.currencyCode}
-                              />
-                              <CoreChargeBadge
-                                variants={item.merchandise.product.variants}
-                                selectedOptions={item.merchandise.selectedOptions}
-                              />
-                            </div>
+                            <Price
+                              className="font-semibold"
+                              amount={item.cost.totalAmount.amount}
+                              currencyCode={item.cost.totalAmount.currencyCode}
+                            />
                             <div className="flex h-9 w-fit flex-row items-center rounded-sm border border-neutral-300 dark:border-neutral-700">
                               <EditItemQuantityButton item={item} type="minus" />
                               <p className="w-6 text-center">

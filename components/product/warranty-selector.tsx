@@ -38,16 +38,19 @@ const WarrantySelector = () => {
   return (
     <ul className="flex min-h-16 flex-row space-x-4 pt-2">
       {plans.map((plan) => (
-        <li
-          key={plan.key}
-          onClick={() => setSelectedOptions(plan.key)}
-          className={cn(
-            'flex  w-32 cursor-pointer flex-col items-center justify-center space-y-2 rounded-md border p-2 text-center text-xs font-medium',
-            { 'ring-2 ring-secondary': plan.key === selectedOptions }
-          )}
-        >
-          {plan.template}
-          <Price amount={String(plan.price)} currencyCode="USD" />
+        <li key={plan.key} className="flex w-32">
+          <button
+            onClick={() => setSelectedOptions(plan.key)}
+            className={cn(
+              'flex w-full flex-col flex-wrap items-center justify-center space-y-2 rounded-md border p-2 text-center text-xs font-medium',
+              {
+                'ring-2 ring-secondary': plan.key === selectedOptions
+              }
+            )}
+          >
+            {plan.template}
+            <Price amount={String(plan.price)} currencyCode="USD" />
+          </button>
         </li>
       ))}
     </ul>
