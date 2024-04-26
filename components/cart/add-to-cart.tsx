@@ -4,6 +4,7 @@ import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { addItem } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
+import { CORE_VARIANT_ID_KEY } from 'lib/constants';
 import { ProductVariant } from 'lib/shopify/types';
 import { useSearchParams } from 'next/navigation';
 import { useFormState, useFormStatus } from 'react-dom';
@@ -75,8 +76,13 @@ export function AddToCart({
     )
   );
   const selectedVariantId = variant?.id || defaultVariantId;
-  const missingCoreVariantId = variant?.coreVariantId && !searchParams.has('coreVariantId');
-  const actionWithVariant = formAction.bind(null, selectedVariantId);
+  const missingCoreVariantId = variant?.coreVariantId && !searchParams.has(CORE_VARIANT_ID_KEY);
+
+  const coreVariantId = searchParams.get(CORE_VARIANT_ID_KEY);
+
+  const selectedVariantIds = [coreVariantId, selectedVariantId].filter(Boolean) as string[];
+
+  const actionWithVariant = formAction.bind(null, selectedVariantIds);
 
   return (
     <form action={actionWithVariant}>
