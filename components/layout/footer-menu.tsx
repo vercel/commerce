@@ -2,6 +2,7 @@
 
 import clsx from 'clsx';
 import { Menu } from 'lib/shopify/types';
+import { RemoveTheDomainFromUrl } from 'lib/utils';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -17,7 +18,7 @@ const FooterMenuItem = ({ item }: { item: Menu }) => {
   return (
     <li>
       <Link
-        href={item.path}
+        href={RemoveTheDomainFromUrl(item.path)}
         className={clsx(
           'block p-2 text-lg underline-offset-4 hover:text-black hover:underline md:inline-block md:text-sm dark:hover:text-neutral-300',
           {

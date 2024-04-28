@@ -1,10 +1,18 @@
 import { ReadonlyURLSearchParams } from 'next/navigation';
+const { SHOPIFY_STORE_DOMAIN } = process.env;
 
 export const createUrl = (pathname: string, params: URLSearchParams | ReadonlyURLSearchParams) => {
   const paramsString = params.toString();
   const queryString = `${paramsString.length ? '?' : ''}${paramsString}`;
 
   return `${pathname}${queryString}`;
+};
+
+export const RemoveTheDomainFromUrl = (url: string) => {
+  const lowercaseString = `https://${SHOPIFY_STORE_DOMAIN}`.toLowerCase();
+  const modifiedUrl = url.replace(lowercaseString, '');
+
+  return modifiedUrl;
 };
 
 export const ensureStartsWith = (stringToCheck: string, startsWith: string) =>
