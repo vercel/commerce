@@ -194,12 +194,11 @@ const reshapeProduct = (product: ShopifyProduct, filterHiddenProducts: boolean =
     return undefined;
   }
 
-  const { images, variants, productType, ...rest } = product;
+  const { images, variants, ...rest } = product;
   return {
     ...rest,
     images: reshapeImages(images, product.title),
-    variants: reshapeVariants(removeEdgesAndNodes(variants)),
-    productType: productType?.value ?? null
+    variants: reshapeVariants(removeEdgesAndNodes(variants))
   };
 };
 

@@ -4,7 +4,7 @@ import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { addItem } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
-import { CORE_VARIANT_ID_KEY } from 'lib/constants';
+import { CORE_VARIANT_ID_KEY, CORE_WAIVER } from 'lib/constants';
 import { ProductVariant } from 'lib/shopify/types';
 import { useSearchParams } from 'next/navigation';
 import { useFormState, useFormStatus } from 'react-dom';
@@ -69,18 +69,20 @@ export function AddToCart({
 }) {
   const [message, formAction] = useFormState(addItem, null);
   const searchParams = useSearchParams();
-  const defaultVariantId = variants.length === 1 ? variants[0]?.id : undefined;
   const variant = variants.find((variant: ProductVariant) =>
     variant.selectedOptions.every(
       (option) => option.value === searchParams.get(option.name.toLowerCase())
     )
   );
-  const selectedVariantId = variant?.id || defaultVariantId;
+  const selectedVariantId = variant?.id;
   const missingCoreVariantId = variant?.coreVariantId && !searchParams.has(CORE_VARIANT_ID_KEY);
 
   const coreVariantId = searchParams.get(CORE_VARIANT_ID_KEY);
 
-  const selectedVariantIds = [coreVariantId, selectedVariantId].filter(Boolean) as string[];
+  // remove special core-waiver value as it is not a valid variant
+  const selectedVariantIds = [coreVariantId, selectedVariantId]
+    .filter(Boolean)
+    .filter((value) => value !== CORE_WAIVER) as string[];
 
   const actionWithVariant = formAction.bind(null, selectedVariantIds);
 

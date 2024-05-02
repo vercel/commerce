@@ -62,10 +62,9 @@ export type Page = {
   updatedAt: string;
 };
 
-export type Product = Omit<ShopifyProduct, 'variants' | 'images' | 'productType'> & {
+export type Product = Omit<ShopifyProduct, 'variants' | 'images'> & {
   variants: ProductVariant[];
   images: Image[];
-  productType: string | null;
 };
 
 export type ProductOption = {
@@ -148,9 +147,6 @@ export type ShopifyProduct = {
       handle: string;
     }[];
   };
-  productType: {
-    value: string;
-  } | null;
 };
 
 export type ShopifyCartOperation = {
@@ -287,4 +283,10 @@ export type ShopifyProductsOperation = {
     reverse?: boolean;
     sortKey?: string;
   };
+};
+
+export type CoreChargeOption = {
+  label: string;
+  value: string;
+  price: Money;
 };
