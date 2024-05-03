@@ -55,6 +55,15 @@ const productFragment = /* GraphQL */ `
           coreVariantId: metafield(namespace: "custom", key: "coreVariant") {
             value
           }
+          estimatedDelivery: metafield(namespace: "custom", key: "delivery") {
+            value
+          }
+          mileage: metafield(namespace: "custom", key: "mileage") {
+            value
+          }
+          condition: metafield(namespace: "custom", key: "condition") {
+            value
+          }
         }
       }
     }

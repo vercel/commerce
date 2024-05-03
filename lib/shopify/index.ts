@@ -185,7 +185,10 @@ const reshapeVariants = (variants: ShopifyProductVariant[]): ProductVariant[] =>
     ...variant,
     waiverAvailable: parseMetaFieldValue<boolean>(variant.waiverAvailable),
     coreVariantId: variant.coreVariantId?.value || null,
-    coreCharge: parseMetaFieldValue<Money>(variant.coreCharge)
+    coreCharge: parseMetaFieldValue<Money>(variant.coreCharge),
+    mileage: variant.mileage?.value ?? null,
+    estimatedDelivery: variant.estimatedDelivery?.value || null,
+    condition: variant.condition?.value || null
   }));
 };
 

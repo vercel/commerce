@@ -87,15 +87,21 @@ export type ProductVariant = {
   barcode: string | null;
   sku: string | null;
   coreVariantId: string | null;
+  mileage: number | null;
+  estimatedDelivery: string | null;
+  condition: string | null;
 };
 
 export type ShopifyProductVariant = Omit<
   ProductVariant,
-  'coreCharge' | 'waiverAvailable' | 'coreVariantId'
+  'coreCharge' | 'waiverAvailable' | 'coreVariantId' | 'mileage' | 'estimatedDelivery' | 'condition'
 > & {
   waiverAvailable: { value: string };
   coreVariantId: { value: string } | null;
   coreCharge: { value: string } | null;
+  mileage: { value: number } | null;
+  estimatedDelivery: { value: string } | null;
+  condition: { value: string } | null;
 };
 
 export type SEO = {
