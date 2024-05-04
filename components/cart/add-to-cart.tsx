@@ -52,7 +52,7 @@ function SubmitButton({
       aria-disabled={pending}
       className={clsx(buttonClasses, {
         'hover:opacity-90': true,
-        disabledClasses: pending
+        [disabledClasses]: pending
       })}
     >
       <div className="absolute left-0 ml-4">
