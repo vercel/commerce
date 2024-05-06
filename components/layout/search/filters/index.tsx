@@ -1,7 +1,9 @@
 import { getMenu } from 'lib/shopify';
+import { Filter } from 'lib/shopify/types';
 import Link from 'next/link';
+import FiltersList from './filters-list';
 
-const Filters = async ({ collection }: { collection: string }) => {
+const Filters = async ({ collection, filters }: { collection: string; filters: Filter[] }) => {
   const menu = await getMenu('main-menu');
   const subMenu = menu.find((item) => item.path === `/search/${collection}`)?.items || [];
   return (
@@ -23,6 +25,8 @@ const Filters = async ({ collection }: { collection: string }) => {
           </ul>
         </>
       ) : null}
+      <h3 className="sr-only">Filters</h3>
+      <FiltersList filters={filters} />
     </div>
   );
 };

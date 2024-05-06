@@ -8,15 +8,17 @@ const SortingItem = ({ item, hover }: { item: SortFilterItem; hover: boolean }) 
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const active = searchParams.get('sort') === item.slug;
-  const q = searchParams.get('q');
-  const href = createUrl(
-    pathname,
-    new URLSearchParams({
-      ...(q && { q }),
-      ...(item.slug && item.slug.length && { sort: item.slug })
-    })
-  );
+
+  const newSearchParams = new URLSearchParams(searchParams);
+  if (item.slug && item.slug.length) {
+    newSearchParams.set('sort', item.slug);
+  } else {
+    newSearchParams.delete('sort');
+  }
+
+  const href = createUrl(pathname, newSearchParams);
   const DynamicTag = active ? 'p' : Link;
+
   return (
     <DynamicTag
       prefetch={!active ? false : undefined}

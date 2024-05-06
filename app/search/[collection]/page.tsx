@@ -8,7 +8,7 @@ import Grid from 'components/grid';
 import ProductGridItems from 'components/layout/product-grid-items';
 import Filters from 'components/layout/search/filters';
 import SortingMenu from 'components/layout/search/sorting-menu';
-import { defaultSort, sorting } from 'lib/constants';
+import { AVAILABILITY_FILTER_ID, PRICE_FILTER_ID, defaultSort, sorting } from 'lib/constants';
 import { Suspense } from 'react';
 
 export const runtime = 'edge';
@@ -29,6 +29,38 @@ export async function generateMetadata({
   };
 }
 
+const constructFilterInput = (filters: {
+  [key: string]: string | string[] | undefined;
+}): Array<object> => {
+  const results = [] as Array<object>;
+  Object.entries(filters)
+    .filter(([key]) => ![AVAILABILITY_FILTER_ID, PRICE_FILTER_ID].includes(key))
+    .forEach(([key, value]) => {
+      const [namespace, metafieldKey] = key.split('.').slice(-2);
+      if (Array.isArray(value)) {
+        results.push(
+          ...value.map((v) => ({
+            productMetafield: {
+              namespace,
+              key: metafieldKey,
+              value: v
+            }
+          }))
+        );
+      } else {
+        results.push({
+          productMetafield: {
+            namespace,
+            key: metafieldKey,
+            value
+          }
+        });
+      }
+    });
+
+  return results;
+};
+
 export default async function CategoryPage({
   params,
   searchParams
@@ -36,12 +68,21 @@ export default async function CategoryPage({
   params: { collection: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
-  const { sort } = searchParams as { [key: string]: string };
+  const { sort, q, collection: _collection, ...rest } = searchParams as { [key: string]: string };
   const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
-  const productsData = getCollectionProducts({ collection: params.collection, sortKey, reverse });
+
+  const filtersInput = constructFilterInput(rest);
+
+  const productsData = getCollectionProducts({
+    collection: params.collection,
+    sortKey,
+    reverse,
+    ...(filtersInput.length ? { filters: filtersInput } : {})
+  });
+
   const collectionData = getCollection(params.collection);
 
-  const [products, collection] = await Promise.all([productsData, collectionData]);
+  const [{ products, filters }, collection] = await Promise.all([productsData, collectionData]);
 
   return (
     <>
@@ -59,13 +100,13 @@ export default async function CategoryPage({
       <div className="flex w-full justify-end">
         <SortingMenu />
       </div>
-      <section className="mt-3 border-t pt-2">
+      <section>
         {products.length === 0 ? (
           <p className="py-3 text-lg">{`No products found in this collection`}</p>
         ) : (
           <Grid className="pt-5 lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
             <aside className="hidden lg:block">
-              <Filters collection={params.collection} />
+              <Filters collection={params.collection} filters={filters} />
             </aside>
             <div className="lg:col-span-2 xl:col-span-3">
               <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">

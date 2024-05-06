@@ -223,13 +223,16 @@ export type ShopifyCollectionOperation = {
 export type ShopifyCollectionProductsOperation = {
   data: {
     collection: {
-      products: Connection<ShopifyProduct>;
+      products: Connection<ShopifyProduct> & {
+        filters: ShopifyFilter[];
+      };
     };
   };
   variables: {
     handle: string;
     reverse?: boolean;
     sortKey?: string;
+    filters?: Array<object>;
   };
 };
 
@@ -295,4 +298,36 @@ export type CoreChargeOption = {
   label: string;
   value: string;
   price: Money;
+};
+
+export type ShopifyFilter = {
+  id: string;
+  label: string;
+  type: FilterType;
+  values: {
+    id: string;
+    input: string;
+    count: number;
+    label: string;
+  }[];
+};
+
+export enum FilterType {
+  // eslint-disable-next-line no-unused-vars
+  LIST = 'LIST',
+  // eslint-disable-next-line no-unused-vars
+  PRICE_RANGE = 'PRICE_RANGE'
+}
+
+export type Filter = {
+  id: string;
+  label: string;
+  type: FilterType;
+  values: {
+    id: string;
+    input: string;
+    count: number;
+    label: string;
+    value: unknown;
+  }[];
 };

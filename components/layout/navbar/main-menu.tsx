@@ -64,10 +64,10 @@ const MainMenu = ({ menu }: { menu: Menu[] }) => {
                   >
                     <Popover.Panel
                       static
-                      className="absolute inset-x-0 left-1/2 top-full z-10 mt-0.5 min-w-32 max-w-sm -translate-x-1/2 transform text-sm"
+                      className="absolute inset-x-0 left-1/2 top-full z-10 mt-1 min-w-32 max-w-sm -translate-x-1/2 transform text-sm"
                     >
                       <div className="overflow-hidden rounded-md shadow-lg ring-1 ring-black/5">
-                        <ul className="flex flex-col space-y-2 bg-white px-4 py-3">
+                        <ul className="flex flex-col space-y-3 bg-white px-4 py-3">
                           {item.items.map((subItem: Menu) => (
                             <li key={subItem.title}>
                               <Link

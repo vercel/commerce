@@ -1,4 +1,10 @@
-import { HIDDEN_PRODUCT_TAG, SHOPIFY_GRAPHQL_API_ENDPOINT, TAGS } from 'lib/constants';
+import {
+  AVAILABILITY_FILTER_ID,
+  HIDDEN_PRODUCT_TAG,
+  PRICE_FILTER_ID,
+  SHOPIFY_GRAPHQL_API_ENDPOINT,
+  TAGS
+} from 'lib/constants';
 import { isShopifyError } from 'lib/type-guards';
 import { ensureStartsWith, normalizeUrl, parseMetaFieldValue } from 'lib/utils';
 import { revalidateTag } from 'next/cache';
@@ -27,6 +33,7 @@ import {
   Cart,
   Collection,
   Connection,
+  Filter,
   Image,
   Menu,
   Money,
@@ -41,6 +48,7 @@ import {
   ShopifyCollectionProductsOperation,
   ShopifyCollectionsOperation,
   ShopifyCreateCartOperation,
+  ShopifyFilter,
   ShopifyMenuOperation,
   ShopifyPageOperation,
   ShopifyPagesOperation,
@@ -166,6 +174,31 @@ const reshapeCollections = (collections: ShopifyCollection[]) => {
   }
 
   return reshapedCollections;
+};
+
+const reshapeFilters = (filters: ShopifyFilter[]): Filter[] => {
+  const reshapedFilters = [];
+
+  for (const filter of filters) {
+    const values = filter.values
+      .map((valueItem) => {
+        try {
+          return {
+            ...valueItem,
+            ...(![AVAILABILITY_FILTER_ID, PRICE_FILTER_ID].includes(filter.id)
+              ? { value: JSON.parse(valueItem.input).productMetafield.value }
+              : { value: JSON.parse(valueItem.input) })
+          };
+        } catch (error) {
+          return null;
+        }
+      })
+      .filter(Boolean) as Filter['values'];
+
+    reshapedFilters.push({ ...filter, values });
+  }
+
+  return reshapedFilters;
 };
 
 const reshapeImages = (images: Connection<Image>, productTitle: string) => {
@@ -305,28 +338,34 @@ export async function getCollection(handle: string): Promise<Collection | undefi
 export async function getCollectionProducts({
   collection,
   reverse,
-  sortKey
+  sortKey,
+  filters
 }: {
   collection: string;
   reverse?: boolean;
   sortKey?: string;
-}): Promise<Product[]> {
+  filters?: Array<object>;
+}): Promise<{ products: Product[]; filters: Filter[] }> {
   const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
     query: getCollectionProductsQuery,
     tags: [TAGS.collections, TAGS.products],
     variables: {
       handle: collection,
       reverse,
-      sortKey: sortKey === 'CREATED_AT' ? 'CREATED' : sortKey
+      sortKey: sortKey === 'CREATED_AT' ? 'CREATED' : sortKey,
+      filters
     }
   });
 
   if (!res.body.data.collection) {
     console.log(`No collection found for \`${collection}\``);
-    return [];
+    return { products: [], filters: [] };
   }
 
-  return reshapeProducts(removeEdgesAndNodes(res.body.data.collection.products));
+  return {
+    products: reshapeProducts(removeEdgesAndNodes(res.body.data.collection.products)),
+    filters: reshapeFilters(res.body.data.collection.products.filters)
+  };
 }
 
 export async function getCollections(): Promise<Collection[]> {
