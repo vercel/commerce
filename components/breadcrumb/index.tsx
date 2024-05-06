@@ -1,4 +1,5 @@
-import { getProduct } from 'lib/shopify';
+import { getCollection, getMenu, getProduct } from 'lib/shopify';
+import { Menu } from 'lib/shopify/types';
 import { Fragment } from 'react';
 import {
   Breadcrumb,
@@ -12,6 +13,23 @@ import {
 type BreadcrumbProps = {
   type: 'product' | 'collection';
   handle: string;
+};
+
+const findParentCollection = (menu: Menu[], collection: string): Menu | null => {
+  let parentCollection: Menu | null = null;
+
+  for (const item of menu) {
+    if (item.items.length) {
+      console.log({ collection, item });
+      const hasParent = item.items.some((subItem) => subItem.path.includes(collection));
+      if (hasParent) {
+        parentCollection = item;
+      } else {
+        parentCollection = findParentCollection(item.items, collection);
+      }
+    }
+  }
+  return parentCollection;
 };
 
 const BreadcrumbComponent = async ({ type, handle }: BreadcrumbProps) => {
@@ -32,6 +50,25 @@ const BreadcrumbComponent = async ({ type, handle }: BreadcrumbProps) => {
     items.push({
       title: product.title,
       href: `/product/${product.handle}`
+    });
+  }
+
+  if (type === 'collection') {
+    const collectionData = getCollection(handle);
+    const menuData = getMenu('main-menu');
+    const [collection, menu] = await Promise.all([collectionData, menuData]);
+    if (!collection) return null;
+    const parentCollection = findParentCollection(menu, handle);
+    if (parentCollection && parentCollection.path !== `/search/${handle}`) {
+      items.push({
+        href: `${parentCollection.path}`,
+        title: parentCollection.title
+      });
+    }
+
+    items.push({
+      title: collection.title,
+      href: `/search/${collection.handle}`
     });
   }
 

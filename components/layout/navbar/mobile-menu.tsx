@@ -1,6 +1,6 @@
 'use client';
 
-import { Dialog, Transition } from '@headlessui/react';
+import { Dialog, Disclosure, Transition } from '@headlessui/react';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Fragment, Suspense, useEffect, useState } from 'react';
@@ -35,7 +35,7 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
       <button
         onClick={openMobileMenu}
         aria-label="Open mobile menu"
-        className="flex h-11 w-11 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors md:hidden dark:border-neutral-700 dark:text-white"
+        className="flex h-11 w-11 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors dark:border-neutral-700 dark:text-white md:hidden"
       >
         <Bars3Icon className="h-4" />
       </button>
@@ -80,12 +80,29 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
                   <ul className="flex w-full flex-col">
                     {menu.map((item: Menu) => (
                       <li
-                        className="py-2 text-xl text-black transition-colors hover:text-neutral-500 dark:text-white"
+                        className="py-2 text-xl text-neutral-600 transition-colors hover:text-black"
                         key={item.title}
                       >
-                        <Link href={item.path} onClick={closeMobileMenu}>
-                          {item.title}
-                        </Link>
+                        {item.items.length ? (
+                          <Disclosure>
+                            <Disclosure.Button>{item.title}</Disclosure.Button>
+                            <Disclosure.Panel className="flex flex-col space-y-2 px-3 py-2 text-lg text-neutral-600 hover:text-black">
+                              {item.items.map((subItem: Menu) => (
+                                <Link
+                                  key={subItem.title}
+                                  href={subItem.path}
+                                  onClick={closeMobileMenu}
+                                >
+                                  {subItem.title}
+                                </Link>
+                              ))}
+                            </Disclosure.Panel>
+                          </Disclosure>
+                        ) : (
+                          <Link href={item.path} onClick={closeMobileMenu}>
+                            {item.title}
+                          </Link>
+                        )}
                       </li>
                     ))}
                   </ul>
