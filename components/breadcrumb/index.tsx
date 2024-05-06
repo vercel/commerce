@@ -20,7 +20,6 @@ const findParentCollection = (menu: Menu[], collection: string): Menu | null => 
 
   for (const item of menu) {
     if (item.items.length) {
-      console.log({ collection, item });
       const hasParent = item.items.some((subItem) => subItem.path.includes(collection));
       if (hasParent) {
         parentCollection = item;
