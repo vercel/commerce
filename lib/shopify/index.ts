@@ -2,8 +2,10 @@ import {
   AVAILABILITY_FILTER_ID,
   HIDDEN_PRODUCT_TAG,
   PRICE_FILTER_ID,
+  PRODUCT_METAFIELD_PREFIX,
   SHOPIFY_GRAPHQL_API_ENDPOINT,
-  TAGS
+  TAGS,
+  VARIANT_METAFIELD_PREFIX
 } from 'lib/constants';
 import { isShopifyError } from 'lib/type-guards';
 import { ensureStartsWith, normalizeUrl, parseMetaFieldValue } from 'lib/utils';
@@ -38,6 +40,7 @@ import {
   Menu,
   Money,
   Page,
+  PageInfo,
   Product,
   ProductVariant,
   ShopifyAddToCartOperation,
@@ -182,16 +185,35 @@ const reshapeFilters = (filters: ShopifyFilter[]): Filter[] => {
   for (const filter of filters) {
     const values = filter.values
       .map((valueItem) => {
-        try {
+        if (filter.id === AVAILABILITY_FILTER_ID) {
           return {
             ...valueItem,
-            ...(![AVAILABILITY_FILTER_ID, PRICE_FILTER_ID].includes(filter.id)
-              ? { value: JSON.parse(valueItem.input).productMetafield.value }
-              : { value: JSON.parse(valueItem.input) })
+            value: JSON.parse(valueItem.input).available
           };
-        } catch (error) {
-          return null;
         }
+
+        if (filter.id === PRICE_FILTER_ID) {
+          return {
+            ...valueItem,
+            value: JSON.parse(valueItem.input)
+          };
+        }
+
+        if (filter.id.startsWith(PRODUCT_METAFIELD_PREFIX)) {
+          return {
+            ...valueItem,
+            value: JSON.parse(valueItem.input).productMetafield.value
+          };
+        }
+
+        if (filter.id.startsWith(VARIANT_METAFIELD_PREFIX)) {
+          return {
+            ...valueItem,
+            value: JSON.parse(valueItem.input).variantMetafield.value
+          };
+        }
+
+        return null;
       })
       .filter(Boolean) as Filter['values'];
 
@@ -345,7 +367,7 @@ export async function getCollectionProducts({
   reverse?: boolean;
   sortKey?: string;
   filters?: Array<object>;
-}): Promise<{ products: Product[]; filters: Filter[] }> {
+}): Promise<{ products: Product[]; filters: Filter[]; pageInfo: PageInfo }> {
   const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
     query: getCollectionProductsQuery,
     tags: [TAGS.collections, TAGS.products],
@@ -359,12 +381,18 @@ export async function getCollectionProducts({
 
   if (!res.body.data.collection) {
     console.log(`No collection found for \`${collection}\``);
-    return { products: [], filters: [] };
+    return {
+      products: [],
+      filters: [],
+      pageInfo: { startCursor: '', hasNextPage: false, endCursor: '' }
+    };
   }
 
+  const pageInfo = res.body.data.collection.products.pageInfo;
   return {
     products: reshapeProducts(removeEdgesAndNodes(res.body.data.collection.products)),
-    filters: reshapeFilters(res.body.data.collection.products.filters)
+    filters: reshapeFilters(res.body.data.collection.products.filters),
+    pageInfo
   };
 }
 

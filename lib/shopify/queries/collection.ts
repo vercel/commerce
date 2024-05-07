@@ -49,6 +49,7 @@ export const getCollectionProductsQuery = /* GraphQL */ `
           node {
             ...product
           }
+          cursor
         }
         filters {
           id
@@ -60,6 +61,11 @@ export const getCollectionProductsQuery = /* GraphQL */ `
             input
             label
           }
+        }
+        pageInfo {
+          endCursor
+          startCursor
+          hasNextPage
         }
       }
     }

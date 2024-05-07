@@ -8,7 +8,14 @@ import Grid from 'components/grid';
 import ProductGridItems from 'components/layout/product-grid-items';
 import Filters from 'components/layout/search/filters';
 import SortingMenu from 'components/layout/search/sorting-menu';
-import { AVAILABILITY_FILTER_ID, PRICE_FILTER_ID, defaultSort, sorting } from 'lib/constants';
+import {
+  AVAILABILITY_FILTER_ID,
+  PRICE_FILTER_ID,
+  PRODUCT_METAFIELD_PREFIX,
+  VARIANT_METAFIELD_PREFIX,
+  defaultSort,
+  sorting
+} from 'lib/constants';
 import { Suspense } from 'react';
 
 export const runtime = 'edge';
@@ -34,12 +41,18 @@ const constructFilterInput = (filters: {
 }): Array<object> => {
   const results = [] as Array<object>;
   Object.entries(filters)
-    .filter(([key]) => ![AVAILABILITY_FILTER_ID, PRICE_FILTER_ID].includes(key))
+    .filter(([key]) => key !== PRICE_FILTER_ID)
     .forEach(([key, value]) => {
       const [namespace, metafieldKey] = key.split('.').slice(-2);
-      if (Array.isArray(value)) {
+      const values = Array.isArray(value) ? value : [value];
+
+      if (key === AVAILABILITY_FILTER_ID) {
+        results.push({
+          available: value === 'true'
+        });
+      } else if (key.startsWith(PRODUCT_METAFIELD_PREFIX)) {
         results.push(
-          ...value.map((v) => ({
+          ...values.map((v) => ({
             productMetafield: {
               namespace,
               key: metafieldKey,
@@ -47,14 +60,16 @@ const constructFilterInput = (filters: {
             }
           }))
         );
-      } else {
-        results.push({
-          productMetafield: {
-            namespace,
-            key: metafieldKey,
-            value
-          }
-        });
+      } else if (key.startsWith(VARIANT_METAFIELD_PREFIX)) {
+        results.push(
+          ...values.map((v) => ({
+            variantMetafield: {
+              namespace,
+              key: metafieldKey,
+              value: v
+            }
+          }))
+        );
       }
     });
 

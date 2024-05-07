@@ -8,10 +8,16 @@ const Filters = ({ filters }: { filters: Filter[] }) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { q, sort, collection } = Object.fromEntries(searchParams);
+  const initialFilters = {
+    ...(q && { q }),
+    ...(sort && { sort }),
+    ...(collection && { collection })
+  };
 
   const handleChange = (e: React.FormEvent<HTMLFormElement>) => {
     const formData = new FormData(e.currentTarget);
-    const newSearchParams = new URLSearchParams(searchParams);
+    const newSearchParams = new URLSearchParams(initialFilters);
 
     Array.from(formData.keys()).forEach((key) => {
       const values = formData.getAll(key);

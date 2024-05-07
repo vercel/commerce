@@ -35,3 +35,5 @@ export const CORE_VARIANT_ID_KEY = 'coreVariantId';
 
 export const AVAILABILITY_FILTER_ID = 'filter.v.availability';
 export const PRICE_FILTER_ID = 'filter.v.price';
+export const PRODUCT_METAFIELD_PREFIX = 'filter.p.m';
+export const VARIANT_METAFIELD_PREFIX = 'filter.v.m';

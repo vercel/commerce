@@ -220,11 +220,18 @@ export type ShopifyCollectionOperation = {
   };
 };
 
+export type PageInfo = {
+  startCursor: string;
+  hasNextPage: boolean;
+  endCursor: string;
+};
+
 export type ShopifyCollectionProductsOperation = {
   data: {
     collection: {
       products: Connection<ShopifyProduct> & {
         filters: ShopifyFilter[];
+        pageInfo: PageInfo;
       };
     };
   };
