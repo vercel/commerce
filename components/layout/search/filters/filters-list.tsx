@@ -31,7 +31,7 @@ const Filters = ({ filters, defaultOpen = true }: { filters: Filter[]; defaultOp
   };
 
   return (
-    <form onChange={handleChange} className="space-y-5 divide-y divide-gray-200">
+    <form onChange={handleChange} className="space-y-5 divide-y divide-gray-200 border-b pb-3">
       {filters.map(({ label, id, values }) => (
         <Disclosure
           key={id}
