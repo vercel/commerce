@@ -2,9 +2,10 @@
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
-import { Filter } from 'lib/shopify/types';
+import { Filter, FilterType } from 'lib/shopify/types';
 import { createUrl } from 'lib/utils';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import PriceRange from './price-range';
 import SelectedList from './selected-list';
 
 const Filters = ({ filters, defaultOpen = true }: { filters: Filter[]; defaultOpen?: boolean }) => {
@@ -35,7 +36,7 @@ const Filters = ({ filters, defaultOpen = true }: { filters: Filter[]; defaultOp
     <>
       <SelectedList filters={filters} />
       <form onChange={handleChange} className="space-y-5 divide-y divide-gray-200 border-b pb-3">
-        {filters.map(({ label, id, values }) => (
+        {filters.map(({ label, id, values, type }) => (
           <Disclosure
             key={id}
             as="div"
@@ -47,27 +48,31 @@ const Filters = ({ filters, defaultOpen = true }: { filters: Filter[]; defaultOp
               <ChevronDownIcon className="size-4 group-data-[open]:rotate-180" />
             </DisclosureButton>
             <DisclosurePanel className="flex-grow space-y-3 overflow-auto pb-1 pl-1 pt-2">
-              {values.map(({ id: valueId, label, count, value }) => (
-                <label
-                  key={valueId}
-                  htmlFor={valueId}
-                  className={clsx('flex items-center gap-2 text-sm text-gray-600', {
-                    'cursor-not-allowed opacity-50': count === 0
-                  })}
-                >
-                  <input
-                    id={valueId}
-                    name={id}
-                    checked={searchParams.getAll(id).includes(String(value))}
-                    type="checkbox"
-                    value={String(value)}
-                    className="h-4 w-4 rounded border-gray-300 text-secondary focus:ring-secondary disabled:cursor-not-allowed disabled:opacity-50"
-                    disabled={count === 0}
-                    onChange={() => {}}
-                  />
-                  <span>{`${label} (${count})`}</span>
-                </label>
-              ))}
+              {type === FilterType.PRICE_RANGE ? (
+                <PriceRange id={id} values={values} />
+              ) : (
+                values.map(({ id: valueId, label, count, value }) => (
+                  <label
+                    key={valueId}
+                    htmlFor={valueId}
+                    className={clsx('flex items-center gap-2 text-sm text-gray-600', {
+                      'cursor-not-allowed opacity-50': count === 0
+                    })}
+                  >
+                    <input
+                      id={valueId}
+                      name={id}
+                      checked={searchParams.getAll(id).includes(String(value))}
+                      type="checkbox"
+                      value={String(value)}
+                      className="h-4 w-4 rounded border-gray-300 text-secondary focus:ring-secondary disabled:cursor-not-allowed disabled:opacity-50"
+                      disabled={count === 0}
+                      onChange={() => {}}
+                    />
+                    <span>{`${label} (${count})`}</span>
+                  </label>
+                ))
+              )}
             </DisclosurePanel>
           </Disclosure>
         ))}

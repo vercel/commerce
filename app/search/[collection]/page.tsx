@@ -43,7 +43,7 @@ const constructFilterInput = (filters: {
 }): Array<object> => {
   const results = [] as Array<object>;
   Object.entries(filters)
-    .filter(([key]) => key !== PRICE_FILTER_ID)
+    .filter(([key]) => !key.startsWith(PRICE_FILTER_ID))
     .forEach(([key, value]) => {
       const [namespace, metafieldKey] = key.split('.').slice(-2);
       const values = Array.isArray(value) ? value : [value];
@@ -75,6 +75,18 @@ const constructFilterInput = (filters: {
       }
     });
 
+  const price = {} as { min?: number; max?: number };
+
+  if (filters[`${PRICE_FILTER_ID}.min`]) {
+    price.min = Number(filters[`${PRICE_FILTER_ID}.min`]);
+  }
+  if (filters[`${PRICE_FILTER_ID}.max`]) {
+    price.max = Number(filters[`${PRICE_FILTER_ID}.max`]);
+  }
+  if (price.max && !price.min) {
+    price.min = 0;
+  }
+  results.push({ price });
   return results;
 };
 
@@ -89,7 +101,6 @@ export default async function CategoryPage({
   const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
 
   const filtersInput = constructFilterInput(rest);
-
   const productsData = getCollectionProducts({
     collection: params.collection,
     sortKey,
@@ -123,22 +134,22 @@ export default async function CategoryPage({
         <SortingMenu />
       </div>
       <section>
-        {products.length === 0 ? (
-          <p className="py-3 text-lg">{`No products found in this collection`}</p>
-        ) : (
-          <Grid className="pt-5 lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
-            <aside className="hidden lg:block">
-              <SubMenu menu={menu} collection={params.collection} />
-              <h3 className="sr-only">Filters</h3>
-              <FiltersList filters={filters} />
-            </aside>
-            <div className="lg:col-span-2 xl:col-span-3">
-              <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <Grid className="pt-5 lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
+          <aside className="hidden lg:block">
+            <SubMenu menu={menu} collection={params.collection} />
+            <h3 className="sr-only">Filters</h3>
+            <FiltersList filters={filters} />
+          </aside>
+          <div className="lg:col-span-2 xl:col-span-3">
+            <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+              {products.length === 0 ? (
+                <p className="py-3 text-lg">{`No products found in this collection`}</p>
+              ) : (
                 <ProductGridItems products={products} />
-              </Grid>
-            </div>
-          </Grid>
-        )}
+              )}
+            </Grid>
+          </div>
+        </Grid>
       </section>
     </>
   );
