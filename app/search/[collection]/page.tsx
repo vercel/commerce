@@ -20,8 +20,6 @@ import {
 } from 'lib/constants';
 import { Suspense } from 'react';
 
-export const runtime = 'edge';
-
 export async function generateMetadata({
   params
 }: {
