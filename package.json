@@ -22,7 +22,7 @@
     "*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.18",
+    "@headlessui/react": "^2.0.1",
     "@heroicons/react": "^2.1.3",
     "@radix-ui/react-checkbox": "^1.0.4",
     "clsx": "^2.1.0",

@@ -1,6 +1,6 @@
 'use client';
 
-import { Popover, Transition } from '@headlessui/react';
+import { Popover, PopoverGroup, PopoverPanel, Transition } from '@headlessui/react';
 import clsx from 'clsx';
 import { Menu } from 'lib/shopify/types';
 import Link from 'next/link';
@@ -13,7 +13,7 @@ const MainMenu = ({ menu }: { menu: Menu[] }) => {
 
   return menu.length ? (
     <div className="mt-2 hidden h-11 w-full border-b text-sm font-medium md:flex">
-      <Popover.Group as={Fragment}>
+      <PopoverGroup as={Fragment}>
         <div className="z-10 flex h-full w-full items-center justify-center gap-8 px-4 lg:gap-16">
           {menu.map((item: Menu) => {
             const isActiveItem =
@@ -62,7 +62,7 @@ const MainMenu = ({ menu }: { menu: Menu[] }) => {
                     leaveTo="opacity-0"
                     show={isOpen}
                   >
-                    <Popover.Panel
+                    <PopoverPanel
                       static
                       className="absolute inset-x-0 left-1/2 top-full z-10 mt-1 min-w-32 max-w-sm -translate-x-1/2 transform text-sm"
                     >
@@ -80,14 +80,14 @@ const MainMenu = ({ menu }: { menu: Menu[] }) => {
                           ))}
                         </ul>
                       </div>
-                    </Popover.Panel>
+                    </PopoverPanel>
                   </Transition>
                 </div>
               </Popover>
             );
           })}
         </div>
-      </Popover.Group>
+      </PopoverGroup>
     </div>
   ) : null;
 };

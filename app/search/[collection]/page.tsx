@@ -1,4 +1,4 @@
-import { getCollection, getCollectionProducts } from 'lib/shopify';
+import { getCollection, getCollectionProducts, getMenu } from 'lib/shopify';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
@@ -6,7 +6,9 @@ import Breadcrumb from 'components/breadcrumb';
 import BreadcrumbHome from 'components/breadcrumb/breadcrumb-home';
 import Grid from 'components/grid';
 import ProductGridItems from 'components/layout/product-grid-items';
-import Filters from 'components/layout/search/filters';
+import FiltersList from 'components/layout/search/filters/filters-list';
+import MobileFilters from 'components/layout/search/filters/mobile-filters';
+import SubMenu from 'components/layout/search/filters/sub-menu';
 import SortingMenu from 'components/layout/search/sorting-menu';
 import {
   AVAILABILITY_FILTER_ID,
@@ -94,10 +96,14 @@ export default async function CategoryPage({
     reverse,
     ...(filtersInput.length ? { filters: filtersInput } : {})
   });
-
   const collectionData = getCollection(params.collection);
+  const menuData = getMenu('main-menu');
 
-  const [{ products, filters }, collection] = await Promise.all([productsData, collectionData]);
+  const [{ products, filters }, collection, menu] = await Promise.all([
+    productsData,
+    collectionData,
+    menuData
+  ]);
 
   return (
     <>
@@ -107,12 +113,13 @@ export default async function CategoryPage({
         </Suspense>
       </div>
       {collection ? (
-        <div className="mb-1 mt-3 max-w-5xl">
+        <div className="mb-3 mt-3 max-w-5xl lg:mb-1">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900">{collection.title}</h1>
           <p className="mt-2 text-base text-gray-500">{collection.description}</p>
         </div>
       ) : null}
-      <div className="flex w-full justify-end">
+      <div className="flex w-full flex-wrap items-center justify-between lg:justify-end">
+        <MobileFilters collection={params.collection} filters={filters} menu={menu} />
         <SortingMenu />
       </div>
       <section>
@@ -121,7 +128,9 @@ export default async function CategoryPage({
         ) : (
           <Grid className="pt-5 lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
             <aside className="hidden lg:block">
-              <Filters collection={params.collection} filters={filters} />
+              <SubMenu menu={menu} collection={params.collection} />
+              <h3 className="sr-only">Filters</h3>
+              <FiltersList filters={filters} />
             </aside>
             <div className="lg:col-span-2 xl:col-span-3">
               <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">

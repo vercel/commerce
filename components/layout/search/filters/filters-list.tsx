@@ -1,10 +1,12 @@
 'use client';
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { Filter } from 'lib/shopify/types';
 import { createUrl } from 'lib/utils';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
-const Filters = ({ filters }: { filters: Filter[] }) => {
+const Filters = ({ filters, defaultOpen = true }: { filters: Filter[]; defaultOpen?: boolean }) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -31,9 +33,17 @@ const Filters = ({ filters }: { filters: Filter[] }) => {
   return (
     <form onChange={handleChange} className="space-y-5 divide-y divide-gray-200">
       {filters.map(({ label, id, values }) => (
-        <div key={id} className="flex h-auto max-h-[550px] flex-col gap-y-3 overflow-hidden pt-5">
-          <div className="block text-sm font-medium text-gray-900">{label}</div>
-          <div className="flex-grow space-y-3 overflow-auto pb-1 pl-1 pt-2">
+        <Disclosure
+          key={id}
+          as="div"
+          className="flex h-auto max-h-[550px] flex-col gap-y-3 overflow-hidden pt-5"
+          defaultOpen={defaultOpen}
+        >
+          <DisclosureButton className="group flex items-center justify-between">
+            <div className="text-sm font-medium text-gray-900">{label}</div>
+            <ChevronDownIcon className="size-4 group-data-[open]:rotate-180" />
+          </DisclosureButton>
+          <DisclosurePanel className="flex-grow space-y-3 overflow-auto pb-1 pl-1 pt-2">
             {values.map(({ id: valueId, label, count, value }) => (
               <label
                 key={valueId}
@@ -54,8 +64,8 @@ const Filters = ({ filters }: { filters: Filter[] }) => {
                 <span>{`${label} (${count})`}</span>
               </label>
             ))}
-          </div>
-        </div>
+          </DisclosurePanel>
+        </Disclosure>
       ))}
     </form>
   );
