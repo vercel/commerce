@@ -118,7 +118,7 @@ export default async function CategoryPage({
           <p className="mt-2 text-base text-gray-500">{collection.description}</p>
         </div>
       ) : null}
-      <div className="flex w-full flex-wrap items-center justify-between lg:justify-end">
+      <div className="flex w-full items-center justify-between gap-2 lg:justify-end">
         <MobileFilters collection={params.collection} filters={filters} menu={menu} />
         <SortingMenu />
       </div>
