@@ -82,11 +82,11 @@ const constructFilterInput = (filters: {
   }
   if (filters[`${PRICE_FILTER_ID}.max`]) {
     price.max = Number(filters[`${PRICE_FILTER_ID}.max`]);
+    !price.min && (price.min = 0);
   }
-  if (price.max && !price.min) {
-    price.min = 0;
+  if (price.max || price.min) {
+    results.push({ price });
   }
-  results.push({ price });
   return results;
 };
 
