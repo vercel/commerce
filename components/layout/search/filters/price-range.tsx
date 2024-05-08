@@ -33,8 +33,8 @@ const PriceRange = ({ id, values }: { id: string; values: Filter['values'] }) =>
   const [minPrice, setMinPrice] = useState(initialPriceMin || '');
   const [maxPrice, setMaxPrice] = useState(initialPriceMax || '');
 
-  const debouncedMinPrice = useDebounce(minPrice);
-  const debouncedMaxPrice = useDebounce(maxPrice);
+  const debouncedMinPrice = useDebounce(minPrice, 1000);
+  const debouncedMaxPrice = useDebounce(maxPrice, 1000);
 
   const minPriceRef = useRef(minPrice);
   const maxPriceRef = useRef(maxPrice);
@@ -67,44 +67,34 @@ const PriceRange = ({ id, values }: { id: string; values: Filter['values'] }) =>
   };
 
   useEffect(() => {
-    if (debouncedMinPrice) {
-      let _minPrice = debouncedMinPrice;
-      const minNum = Number(_minPrice);
-      if (minNum < 0) {
-        _minPrice = '0';
-      }
-      if (maxPriceRef.current && minNum > Number(maxPriceRef.current)) {
-        _minPrice = maxPriceRef.current;
-      }
-      if (minNum > highestPrice) {
-        _minPrice = String(highestPrice);
-      }
-      if (_minPrice !== debouncedMinPrice) {
-        handleChangeMinPrice(_minPrice);
-      }
-      updateSearchParams({ min: _minPrice, max: maxPriceRef.current });
-    } else {
+    if (!debouncedMinPrice) {
       updateSearchParams({ min: '', max: maxPriceRef.current });
+      return;
     }
+
+    let minNum = Number(debouncedMinPrice);
+    minNum = Math.max(0, minNum);
+    if (minNum.toString() !== debouncedMinPrice) {
+      handleChangeMinPrice(minNum.toString());
+    }
+    updateSearchParams({ min: minNum.toString(), max: maxPriceRef.current });
   }, [debouncedMinPrice, highestPrice, updateSearchParams]);
 
   useEffect(() => {
-    if (debouncedMaxPrice) {
-      let _maxPrice = debouncedMaxPrice;
-      const maxNum = Number(_maxPrice);
-      if (minPriceRef.current && maxNum < Number(minPriceRef.current)) {
-        _maxPrice = minPriceRef.current;
-      }
-      if (maxNum > highestPrice) {
-        _maxPrice = String(highestPrice);
-      }
-      if (_maxPrice !== debouncedMaxPrice) {
-        handleChangeMaxPrice(_maxPrice);
-      }
-      updateSearchParams({ min: minPriceRef.current, max: _maxPrice });
-    } else {
+    if (!debouncedMaxPrice) {
       updateSearchParams({ min: minPriceRef.current, max: '' });
+      return;
     }
+    let maxNum = Number(debouncedMaxPrice);
+
+    maxNum = Math.max(0, maxNum);
+    maxNum = minPriceRef.current ? Math.max(Number(minPriceRef.current), maxNum) : maxNum;
+    maxNum = Math.min(maxNum, highestPrice);
+
+    if (maxNum.toString() !== debouncedMaxPrice) {
+      handleChangeMaxPrice(maxNum.toString());
+    }
+    updateSearchParams({ min: minPriceRef.current, max: maxNum.toString() });
   }, [debouncedMaxPrice, highestPrice, updateSearchParams]);
 
   return (
