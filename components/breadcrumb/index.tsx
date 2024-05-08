@@ -17,12 +17,11 @@ type BreadcrumbProps = {
 
 const findParentCollection = (menu: Menu[], collection: string): Menu | null => {
   let parentCollection: Menu | null = null;
-
   for (const item of menu) {
     if (item.items.length) {
       const hasParent = item.items.some((subItem) => subItem.path.includes(collection));
       if (hasParent) {
-        parentCollection = item;
+        return item;
       } else {
         parentCollection = findParentCollection(item.items, collection);
       }

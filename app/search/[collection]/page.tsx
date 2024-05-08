@@ -1,4 +1,4 @@
-import { getCollection, getCollectionProducts, getMenu } from 'lib/shopify';
+import { getCollection, getCollectionProducts } from 'lib/shopify';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
@@ -9,6 +9,8 @@ import ProductGridItems from 'components/layout/product-grid-items';
 import FiltersList from 'components/layout/search/filters/filters-list';
 import MobileFilters from 'components/layout/search/filters/mobile-filters';
 import SubMenu from 'components/layout/search/filters/sub-menu';
+import Header, { HeaderPlaceholder } from 'components/layout/search/header';
+import ProductsGridPlaceholder from 'components/layout/search/placeholder';
 import SortingMenu from 'components/layout/search/sorting-menu';
 import {
   AVAILABILITY_FILTER_ID,
@@ -90,7 +92,7 @@ const constructFilterInput = (filters: {
   return results;
 };
 
-export default async function CategoryPage({
+async function CategoryPage({
   params,
   searchParams
 }: {
@@ -101,42 +103,23 @@ export default async function CategoryPage({
   const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
 
   const filtersInput = constructFilterInput(rest);
-  const productsData = getCollectionProducts({
+  const { products, filters } = await getCollectionProducts({
     collection: params.collection,
     sortKey,
     reverse,
     ...(filtersInput.length ? { filters: filtersInput } : {})
   });
-  const collectionData = getCollection(params.collection);
-  const menuData = getMenu('main-menu');
-
-  const [{ products, filters }, collection, menu] = await Promise.all([
-    productsData,
-    collectionData,
-    menuData
-  ]);
 
   return (
     <>
-      <div className="mb-2">
-        <Suspense fallback={<BreadcrumbHome />}>
-          <Breadcrumb type="collection" handle={params.collection} />
-        </Suspense>
-      </div>
-      {collection ? (
-        <div className="mb-3 mt-3 max-w-5xl lg:mb-1">
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900">{collection.title}</h1>
-          <p className="mt-2 text-base text-gray-500">{collection.description}</p>
-        </div>
-      ) : null}
       <div className="flex w-full items-center justify-between gap-2 lg:justify-end">
-        <MobileFilters collection={params.collection} filters={filters} menu={menu} />
+        <MobileFilters filters={filters} menu={<SubMenu collection={params.collection} />} />
         <SortingMenu />
       </div>
       <section>
         <Grid className="pt-5 lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
           <aside className="hidden lg:block">
-            <SubMenu menu={menu} collection={params.collection} />
+            <SubMenu collection={params.collection} />
             <h3 className="sr-only">Filters</h3>
             <FiltersList filters={filters} />
           </aside>
@@ -151,6 +134,27 @@ export default async function CategoryPage({
           </div>
         </Grid>
       </section>
+    </>
+  );
+}
+
+export default function CategorySearchPage(props: {
+  params: { collection: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) {
+  return (
+    <>
+      <div className="mb-2">
+        <Suspense fallback={<BreadcrumbHome />}>
+          <Breadcrumb type="collection" handle={props.params.collection} />
+        </Suspense>
+      </div>
+      <Suspense fallback={<HeaderPlaceholder />}>
+        <Header collection={props.params.collection} />
+      </Suspense>
+      <Suspense fallback={<ProductsGridPlaceholder />}>
+        <CategoryPage {...props} />
+      </Suspense>
     </>
   );
 }

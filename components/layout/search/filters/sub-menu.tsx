@@ -1,7 +1,9 @@
-import { Menu } from 'lib/shopify/types';
+import { getMenu } from 'lib/shopify';
 import Link from 'next/link';
 
-const SubMenu = ({ menu, collection }: { menu: Menu[]; collection: string }) => {
+const SubMenu = async ({ collection }: { collection: string }) => {
+  const menu = await getMenu('main-menu');
+
   const subMenu = menu.find((item) => item.path === `/search/${collection}`)?.items || [];
 
   return subMenu.length ? (

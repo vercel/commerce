@@ -3,20 +3,11 @@
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
 import { FunnelIcon } from '@heroicons/react/24/outline';
 import { XMarkIcon } from '@heroicons/react/24/solid';
-import { Filter, Menu } from 'lib/shopify/types';
-import { Fragment, useState } from 'react';
+import { Filter } from 'lib/shopify/types';
+import { Fragment, ReactNode, useState } from 'react';
 import Filters from './filters-list';
-import SubMenu from './sub-menu';
 
-const MobileFilters = ({
-  collection,
-  filters,
-  menu
-}: {
-  collection: string;
-  filters: Filter[];
-  menu: Menu[];
-}) => {
+const MobileFilters = ({ filters, menu }: { filters: Filter[]; menu: ReactNode }) => {
   const [openDialog, setOpenDialog] = useState(false);
 
   return (
@@ -64,7 +55,7 @@ const MobileFilters = ({
                   </button>
                 </div>
                 <div className="mt-4 border-t border-gray-200 px-4 pt-4">
-                  <SubMenu collection={collection} menu={menu} />
+                  {menu}
                   <Filters filters={filters} defaultOpen={false} />
                 </div>
               </DialogPanel>
