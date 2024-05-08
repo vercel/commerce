@@ -361,12 +361,14 @@ export async function getCollectionProducts({
   collection,
   reverse,
   sortKey,
-  filters
+  filters,
+  after
 }: {
   collection: string;
   reverse?: boolean;
   sortKey?: string;
   filters?: Array<object>;
+  after?: string;
 }): Promise<{ products: Product[]; filters: Filter[]; pageInfo: PageInfo }> {
   const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
     query: getCollectionProductsQuery,
@@ -375,7 +377,8 @@ export async function getCollectionProducts({
       handle: collection,
       reverse,
       sortKey: sortKey === 'CREATED_AT' ? 'CREATED' : sortKey,
-      filters
+      filters,
+      after
     }
   });
 
@@ -501,25 +504,30 @@ export async function getProductRecommendations(productId: string): Promise<Prod
 export async function getProducts({
   query,
   reverse,
-  sortKey
+  sortKey,
+  after
 }: {
   query?: string;
   reverse?: boolean;
   sortKey?: string;
-}): Promise<Product[]> {
+  after?: string;
+}): Promise<{ products: Product[]; pageInfo: PageInfo }> {
   const res = await shopifyFetch<ShopifyProductsOperation>({
     query: getProductsQuery,
     tags: [TAGS.products],
     variables: {
       query,
       reverse,
-      sortKey
+      sortKey,
+      after
     }
   });
-
-  return reshapeProducts(removeEdgesAndNodes(res.body.data.products));
+  const pageInfo = res.body.data.products.pageInfo;
+  return {
+    products: reshapeProducts(removeEdgesAndNodes(res.body.data.products)),
+    pageInfo
+  };
 }
-
 // This is called from `app/api/revalidate.ts` so providers can control revalidation logic.
 export async function revalidate(req: NextRequest): Promise<NextResponse> {
   console.log(`Receiving revalidation request from Shopify.`);

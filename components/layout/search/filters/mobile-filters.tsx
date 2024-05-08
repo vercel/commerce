@@ -7,7 +7,7 @@ import { Filter } from 'lib/shopify/types';
 import { Fragment, ReactNode, useState } from 'react';
 import Filters from './filters-list';
 
-const MobileFilters = ({ filters, menu }: { filters: Filter[]; menu: ReactNode }) => {
+const MobileFilters = ({ filters, menu }: { filters: Filter[]; menu?: ReactNode }) => {
   const [openDialog, setOpenDialog] = useState(false);
 
   return (

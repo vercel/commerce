@@ -240,6 +240,7 @@ export type ShopifyCollectionProductsOperation = {
     reverse?: boolean;
     sortKey?: string;
     filters?: Array<object>;
+    after?: string;
   };
 };
 
@@ -292,12 +293,15 @@ export type ShopifyProductRecommendationsOperation = {
 
 export type ShopifyProductsOperation = {
   data: {
-    products: Connection<ShopifyProduct>;
+    products: Connection<ShopifyProduct> & {
+      pageInfo: PageInfo;
+    };
   };
   variables: {
     query?: string;
     reverse?: boolean;
     sortKey?: string;
+    after?: string;
   };
 };
 

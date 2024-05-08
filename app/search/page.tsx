@@ -1,8 +1,7 @@
 import Grid from 'components/grid';
-import ProductGridItems from 'components/layout/product-grid-items';
-import { defaultSort, sorting } from 'lib/constants';
-import { getProducts } from 'lib/shopify';
-
+import ProductsList from 'components/layout/products-list';
+import { searchProducts } from 'components/layout/products-list/actions';
+import SortingMenu from 'components/layout/search/sorting-menu';
 export const runtime = 'edge';
 
 export const metadata = {
@@ -15,25 +14,31 @@ export default async function SearchPage({
 }: {
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
-  const { sort, q: searchValue } = searchParams as { [key: string]: string };
-  const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
-
-  const products = await getProducts({ sortKey, reverse, query: searchValue });
+  const { q: searchValue } = searchParams as { [key: string]: string };
+  const { products, pageInfo } = await searchProducts({ searchParams });
   const resultsText = products.length > 1 ? 'results' : 'result';
 
   return (
     <>
+      <div className="flex w-full justify-end">
+        <SortingMenu />
+      </div>
       {searchValue ? (
         <p className="mb-4">
           {products.length === 0
             ? 'There are no products that match '
-            : `Showing ${products.length} ${resultsText} for `}
+            : `Showing ${resultsText} for `}
           <span className="font-bold">&quot;{searchValue}&quot;</span>
         </p>
       ) : null}
       {products.length > 0 ? (
         <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          <ProductGridItems products={products} />
+          <ProductsList
+            initialProducts={products}
+            pageInfo={pageInfo}
+            searchParams={searchParams}
+            page="search"
+          />
         </Grid>
       ) : null}
     </>
