@@ -1,6 +1,6 @@
 'use client';
 
-import { Dialog, Transition } from '@headlessui/react';
+import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import Price from 'components/price';
@@ -8,7 +8,7 @@ import { CORE_VARIANT_ID_KEY, CORE_WAIVER } from 'lib/constants';
 import { CoreChargeOption, Money, ProductOption, ProductVariant } from 'lib/shopify/types';
 import { createUrl } from 'lib/utils';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { Fragment, MouseEvent, useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 type Combination = {
   id: string;
@@ -74,18 +74,6 @@ export function VariantSelector({
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
 
-  const handleCoreChargeClick = (
-    event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
-    coreVariantId: string | null
-  ) => {
-    event.stopPropagation();
-    if (!coreVariantId) return;
-    const optionSearchParams = new URLSearchParams(searchParams.toString());
-    optionSearchParams.set(CORE_VARIANT_ID_KEY, coreVariantId);
-    const newUrl = createUrl(pathname, optionSearchParams);
-    router.replace(newUrl, { scroll: false });
-  };
-
   return (
     <div className="mb-6 flex flex-row gap-1 text-sm font-medium">
       More Remanufactured and Used Options{' '}
@@ -99,7 +87,7 @@ export function VariantSelector({
       </button>
       <Transition show={isOpen} as={Fragment}>
         <Dialog onClose={closeModal} className="relative z-50">
-          <Transition.Child
+          <TransitionChild
             as={Fragment}
             enter="transition-all ease-in-out duration-300"
             enterFrom="opacity-0 backdrop-blur-none"
@@ -109,8 +97,8 @@ export function VariantSelector({
             leaveTo="opacity-0 backdrop-blur-none"
           >
             <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
-          </Transition.Child>
-          <Transition.Child
+          </TransitionChild>
+          <TransitionChild
             as={Fragment}
             enter="transition-all ease-in-out duration-300"
             enterFrom="translate-x-full"
@@ -119,7 +107,7 @@ export function VariantSelector({
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <Dialog.Panel className="fixed bottom-0 right-0 top-0 flex h-full w-full flex-col border-l border-neutral-200 bg-white/80 p-6 text-black backdrop-blur-xl md:w-[500px]">
+            <DialogPanel className="fixed bottom-0 right-0 top-0 flex h-full w-full flex-col border-l border-neutral-200 bg-white/80 p-6 text-black backdrop-blur-xl md:w-[500px]">
               <div className="flex items-center justify-between">
                 <p className="text-lg font-semibold">Manufactured & Used Options</p>
 
@@ -205,7 +193,10 @@ export function VariantSelector({
                             <button
                               disabled={!isAvailableForSale}
                               aria-disabled={!isAvailableForSale}
-                              onClick={() => router.replace(optionUrl, { scroll: false })}
+                              onClick={() => {
+                                router.replace(optionUrl, { scroll: false });
+                                closeModal();
+                              }}
                               className="flex w-full flex-col gap-2 px-4 py-3"
                             >
                               <div className="flex w-full flex-row items-center justify-between">
@@ -228,27 +219,15 @@ export function VariantSelector({
                               </div>
                               <div className="mt-1.5 flex flex-row flex-wrap items-center gap-3">
                                 {coreChargeOptions.map((option) => (
-                                  <button
+                                  <div
                                     key={option.value}
-                                    disabled={!isActive}
-                                    className={clsx(
-                                      'flex flex-row items-center gap-2 rounded-full border border-neutral-300 px-3 py-1 text-xs',
-                                      {
-                                        'bg-gray-200':
-                                          isActive &&
-                                          searchParams.get(CORE_VARIANT_ID_KEY) === option.value,
-                                        'bg-transparent':
-                                          searchParams.get(CORE_VARIANT_ID_KEY) !== option.value,
-                                        'cursor-not-allowed opacity-50 hover:bg-transparent':
-                                          !isActive,
-                                        'hover:bg-gray-200': isActive
-                                      }
-                                    )}
-                                    onClick={(e) => handleCoreChargeClick(e, option.value)}
+                                    className={
+                                      'flex flex-row items-center gap-2 rounded-full border border-neutral-300 bg-transparent px-3 py-1 text-xs'
+                                    }
                                   >
                                     <span>{option.label}</span>
                                     <Price {...option.price} />
-                                  </button>
+                                  </div>
                                 ))}
                               </div>
                               <div className="mt-2 flex w-full flex-col gap-1 border-t border-gray-300 pl-1 pt-2 text-xs tracking-normal">
@@ -273,8 +252,8 @@ export function VariantSelector({
                   );
                 })}
               </div>
-            </Dialog.Panel>
-          </Transition.Child>
+            </DialogPanel>
+          </TransitionChild>
         </Dialog>
       </Transition>
     </div>
