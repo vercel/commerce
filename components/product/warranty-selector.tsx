@@ -13,22 +13,17 @@ const plans: Array<{
   price: number;
 }> = [
   {
-    template: (
-      <>
-        <span>Included</span>
-        <span>3-Year Warranty</span>
-      </>
-    ),
+    template: <span className="font-bold">3-Year Warranty</span>,
     price: 0,
     key: 'Included'
   },
   {
-    template: <span>Premium Labor</span>,
+    template: <span className="font-bold">Premium Labor</span>,
     price: 150,
     key: 'Premium Labor'
   },
   {
-    template: <span>+1 Year</span>,
+    template: <span className="font-bold">+1 Year</span>,
     price: 100,
     key: '+1 Year'
   }
@@ -42,9 +37,9 @@ const WarrantySelector = () => {
           <button
             onClick={() => setSelectedOptions(plan.key)}
             className={cn(
-              'flex w-full flex-col flex-wrap items-center justify-center space-y-2 rounded-md border p-2 text-center text-xs font-medium',
+              'font-base flex w-full flex-col flex-wrap items-center justify-center space-y-0.5 rounded border text-center text-xs',
               {
-                'ring-2 ring-secondary': plan.key === selectedOptions
+                'border-0 ring-2 ring-secondary': plan.key === selectedOptions
               }
             )}
           >

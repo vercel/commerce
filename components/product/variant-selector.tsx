@@ -75,8 +75,8 @@ export function VariantSelector({
   const closeModal = () => setIsOpen(false);
 
   return (
-    <div className="mb-6 flex flex-row gap-1 text-sm font-medium">
-      More Remanufactured and Used Options{' '}
+    <div className="mb-6 flex flex-row gap-1 rounded-md border p-2 text-sm font-medium">
+      See more Remanufactured and Used Options{' '}
       <button
         className="flex flex-row gap-0.5 font-normal text-blue-800 hover:underline"
         aria-label="Open variants selector"
