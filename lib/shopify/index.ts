@@ -181,7 +181,6 @@ const reshapeCollections = (collections: ShopifyCollection[]) => {
 
 const reshapeFilters = (filters: ShopifyFilter[]): Filter[] => {
   const reshapedFilters = [];
-
   for (const filter of filters) {
     const values = filter.values
       .map((valueItem) => {

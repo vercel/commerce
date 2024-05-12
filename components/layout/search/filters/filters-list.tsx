@@ -32,6 +32,8 @@ const Filters = ({ filters, defaultOpen = true }: { filters: Filter[]; defaultOp
     router.replace(createUrl(pathname, newSearchParams), { scroll: false });
   };
 
+  if (filters.length === 0) return null;
+
   return (
     <>
       <SelectedList filters={filters} />
@@ -62,12 +64,12 @@ const Filters = ({ filters, defaultOpen = true }: { filters: Filter[]; defaultOp
                     <input
                       id={valueId}
                       name={id}
-                      checked={searchParams.getAll(id).includes(String(value))}
+                      defaultChecked={searchParams.getAll(id).includes(String(value))}
                       type="checkbox"
                       value={String(value)}
                       className="h-4 w-4 rounded border-gray-300 text-secondary focus:ring-secondary disabled:cursor-not-allowed disabled:opacity-50"
                       disabled={count === 0}
-                      onChange={() => {}}
+                      key={searchParams.getAll(id).length}
                     />
                     <span>{`${label} (${count})`}</span>
                   </label>
