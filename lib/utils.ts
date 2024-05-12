@@ -15,6 +15,17 @@ export const RemoveTheDomainFromUrl = (url: string) => {
   return modifiedUrl;
 };
 
+export const RemoveTheDomainFromArray = (menu: any) => {
+  const lowercaseString = `https://${SHOPIFY_STORE_DOMAIN}`.toLowerCase();
+
+  const modifiedUrls = menu.map((item: any) => {
+    const modifiedPath = item.path.replace(lowercaseString, '');
+    return { ...item, path: modifiedPath };
+  });
+
+  return modifiedUrls;
+};
+
 export const ensureStartsWith = (stringToCheck: string, startsWith: string) =>
   stringToCheck.startsWith(startsWith) ? stringToCheck : `${startsWith}${stringToCheck}`;
 
