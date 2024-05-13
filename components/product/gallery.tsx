@@ -28,7 +28,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
 
   return (
     <>
-      <div className="relative aspect-1 h-full max-h-[550px] w-full overflow-hidden">
+      <div className="relative hidden aspect-1 h-full max-h-[550px] w-full overflow-hidden md:block">
         {images[imageIndex] && (
           <Image
             className="h-full w-full object-contain"
@@ -70,7 +70,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
       </div>
 
       {images.length > 1 ? (
-        <ul className="my-12 flex items-center justify-center gap-2 overflow-auto py-1 lg:mb-0">
+        <ul className="mb-4 flex gap-2 overflow-auto py-1 sm:justify-start md:my-12 md:items-center md:justify-center lg:mb-0">
           {images.map((image, index) => {
             const isActive = index === imageIndex;
             const imageSearchParams = new URLSearchParams(searchParams.toString());
@@ -78,7 +78,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
             imageSearchParams.set('image', index.toString());
 
             return (
-              <li key={image.src} className="h-20 w-20">
+              <li key={image.src} className="h-16 w-16 md:h-20 md:w-20">
                 <Link
                   aria-label="Enlarge product image"
                   href={createUrl(pathname, imageSearchParams)}

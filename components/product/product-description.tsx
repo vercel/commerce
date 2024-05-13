@@ -12,7 +12,11 @@ export function ProductDescription({ product }: { product: Product }) {
   return (
     <>
       <div className="mb-5 flex flex-col dark:border-neutral-700">
-        <h1 className="mb-3 text-2xl font-bold">{product.title}</h1>
+        <h1 className="text-xl font-bold md:text-2xl">{product.title}</h1>
+        <div className="mb-5 flex items-center justify-start gap-x-2">
+          <p className="text-sm">SKU: 123456</p>
+          <p className="text-sm">Condition: Used</p>
+        </div>
         <VariantPrice
           variants={product.variants}
           defaultPrice={product.priceRange.minVariantPrice}
@@ -33,11 +37,11 @@ export function ProductDescription({ product }: { product: Product }) {
         />
       ) : null}
 
-      <div className="mb-4 border-t pb-4 pt-6 dark:border-neutral-700">
+      <div className="mb-2 border-t py-4 dark:border-neutral-700">
         <CoreCharge variants={product.variants} />
       </div>
 
-      <div className="mb-4 border-t py-6 dark:border-neutral-700">
+      <div className="mb-2 border-t py-4 dark:border-neutral-700">
         <Warranty />
       </div>
 
