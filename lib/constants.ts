@@ -20,6 +20,11 @@ export const sorting: SortFilterItem[] = [
   { title: 'Price: High to low', slug: 'price-desc', sortKey: 'PRICE', reverse: true }
 ];
 
+export const PART_TYPES = [
+  { label: 'Transmissions', value: 'transmissions' },
+  { label: 'Engines', value: 'engines' }
+];
+
 export const TAGS = {
   collections: 'collections',
   products: 'products',
@@ -35,5 +40,8 @@ export const CORE_VARIANT_ID_KEY = 'coreVariantId';
 
 export const AVAILABILITY_FILTER_ID = 'filter.v.availability';
 export const PRICE_FILTER_ID = 'filter.v.price';
+export const MAKE_FILTER_ID = 'filter.p.m.custom.make_composite';
+export const MODEL_FILTER_ID = 'filter.p.m.custom.make_model_composite';
+export const YEAR_FILTER_ID = 'filter.p.m.custom.make_model_year_composite';
 export const PRODUCT_METAFIELD_PREFIX = 'filter.p.m';
 export const VARIANT_METAFIELD_PREFIX = 'filter.v.m';

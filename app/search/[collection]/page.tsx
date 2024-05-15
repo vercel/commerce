@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 
 import Breadcrumb from 'components/breadcrumb';
 import BreadcrumbHome from 'components/breadcrumb/breadcrumb-home';
+import YMMFilters, { YMMFiltersPlaceholder } from 'components/filters';
 import Grid from 'components/grid';
 import ProductsList from 'components/layout/products-list';
 import { getProductsInCollection } from 'components/layout/products-list/actions';
@@ -92,6 +93,11 @@ export default function CategorySearchPage(props: {
       <Suspense fallback={<HeaderPlaceholder />}>
         <Header collection={props.params.collection} />
       </Suspense>
+      <div className="my-3">
+        <Suspense fallback={<YMMFiltersPlaceholder />}>
+          <YMMFilters />
+        </Suspense>
+      </div>
       <Suspense fallback={<ProductsGridPlaceholder />}>
         <CategoryPage {...props} />
       </Suspense>

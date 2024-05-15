@@ -1,11 +1,14 @@
 import {
   AVAILABILITY_FILTER_ID,
   HIDDEN_PRODUCT_TAG,
+  MAKE_FILTER_ID,
+  MODEL_FILTER_ID,
   PRICE_FILTER_ID,
   PRODUCT_METAFIELD_PREFIX,
   SHOPIFY_GRAPHQL_API_ENDPOINT,
   TAGS,
-  VARIANT_METAFIELD_PREFIX
+  VARIANT_METAFIELD_PREFIX,
+  YEAR_FILTER_ID
 } from 'lib/constants';
 import { isShopifyError } from 'lib/type-guards';
 import { ensureStartsWith, normalizeUrl, parseMetaFieldValue } from 'lib/utils';
@@ -25,6 +28,7 @@ import {
   getCollectionsQuery
 } from './queries/collection';
 import { getMenuQuery } from './queries/menu';
+import { getMetaobjectsQuery } from './queries/metaobject';
 import { getPageQuery, getPagesQuery } from './queries/page';
 import {
   getProductQuery,
@@ -38,6 +42,7 @@ import {
   Filter,
   Image,
   Menu,
+  Metaobject,
   Money,
   Page,
   PageInfo,
@@ -53,6 +58,8 @@ import {
   ShopifyCreateCartOperation,
   ShopifyFilter,
   ShopifyMenuOperation,
+  ShopifyMetaobject,
+  ShopifyMetaobjectsOperation,
   ShopifyPageOperation,
   ShopifyPagesOperation,
   ShopifyProduct,
@@ -181,7 +188,10 @@ const reshapeCollections = (collections: ShopifyCollection[]) => {
 
 const reshapeFilters = (filters: ShopifyFilter[]): Filter[] => {
   const reshapedFilters = [];
-  for (const filter of filters) {
+  const excludedYMMFilters = filters.filter(
+    (filter) => ![MODEL_FILTER_ID, MAKE_FILTER_ID, YEAR_FILTER_ID].includes(filter.id)
+  );
+  for (const filter of excludedYMMFilters) {
     const values = filter.values
       .map((valueItem) => {
         if (filter.id === AVAILABILITY_FILTER_ID) {
@@ -220,6 +230,29 @@ const reshapeFilters = (filters: ShopifyFilter[]): Filter[] => {
   }
 
   return reshapedFilters;
+};
+
+const reshapeMetaobjects = (metaobjects: ShopifyMetaobject[]): Metaobject[] => {
+  return metaobjects.map(({ fields, id }) => {
+    const groupedFieldsByKey = fields.reduce(
+      (acc, field) => {
+        return {
+          ...acc,
+          [field.key]: field.value
+        };
+      },
+      {} as {
+        [key: string]:
+          | {
+              value: string;
+              referenceId: string;
+            }
+          | string;
+      }
+    );
+
+    return { id, ...groupedFieldsByKey };
+  });
 };
 
 const reshapeImages = (images: Connection<Image>, productTitle: string) => {
@@ -445,6 +478,16 @@ export async function getMenu(handle: string): Promise<Menu[]> {
     }));
 
   return formatMenuItems(res.body?.data?.menu?.items);
+}
+
+export async function getMetaobjects(type: string) {
+  const res = await shopifyFetch<ShopifyMetaobjectsOperation>({
+    query: getMetaobjectsQuery,
+    tags: [TAGS.collections, TAGS.products],
+    variables: { type }
+  });
+
+  return reshapeMetaobjects(removeEdgesAndNodes(res.body.data.metaobjects));
 }
 
 export async function getPage(handle: string): Promise<Page> {

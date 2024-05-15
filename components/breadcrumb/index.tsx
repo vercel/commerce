@@ -1,5 +1,5 @@
 import { getCollection, getMenu, getProduct } from 'lib/shopify';
-import { Menu } from 'lib/shopify/types';
+import { findParentCollection } from 'lib/utils';
 import { Fragment } from 'react';
 import {
   Breadcrumb,
@@ -13,21 +13,6 @@ import {
 type BreadcrumbProps = {
   type: 'product' | 'collection';
   handle: string;
-};
-
-const findParentCollection = (menu: Menu[], collection: string): Menu | null => {
-  let parentCollection: Menu | null = null;
-  for (const item of menu) {
-    if (item.items.length) {
-      const hasParent = item.items.some((subItem) => subItem.path.includes(collection));
-      if (hasParent) {
-        return item;
-      } else {
-        parentCollection = findParentCollection(item.items, collection);
-      }
-    }
-  }
-  return parentCollection;
 };
 
 const BreadcrumbComponent = async ({ type, handle }: BreadcrumbProps) => {

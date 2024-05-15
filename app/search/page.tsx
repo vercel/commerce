@@ -1,7 +1,9 @@
+import YMMFilters, { YMMFiltersPlaceholder } from 'components/filters';
 import Grid from 'components/grid';
 import ProductsList from 'components/layout/products-list';
 import { searchProducts } from 'components/layout/products-list/actions';
 import SortingMenu from 'components/layout/search/sorting-menu';
+import { Suspense } from 'react';
 export const runtime = 'edge';
 
 export const metadata = {
@@ -20,7 +22,10 @@ export default async function SearchPage({
 
   return (
     <>
-      <div className="flex w-full justify-end">
+      <Suspense fallback={<YMMFiltersPlaceholder />}>
+        <YMMFilters />
+      </Suspense>
+      <div className="my-3 flex w-full justify-end">
         <SortingMenu />
       </div>
       {searchValue ? (

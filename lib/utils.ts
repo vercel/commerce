@@ -1,6 +1,7 @@
 import clsx, { ClassValue } from 'clsx';
 import { ReadonlyURLSearchParams } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
+import { Menu } from './shopify/types';
 
 export const createUrl = (pathname: string, params: URLSearchParams | ReadonlyURLSearchParams) => {
   const paramsString = params.toString();
@@ -54,4 +55,19 @@ export const parseMetaFieldValue = <T>(field: { value: string } | null): T | nul
   } catch (error) {
     return null;
   }
+};
+
+export const findParentCollection = (menu: Menu[], collection: string): Menu | null => {
+  let parentCollection: Menu | null = null;
+  for (const item of menu) {
+    if (item.items.length) {
+      const hasParent = item.items.some((subItem) => subItem.path.includes(collection));
+      if (hasParent) {
+        return item;
+      } else {
+        parentCollection = findParentCollection(item.items, collection);
+      }
+    }
+  }
+  return parentCollection;
 };

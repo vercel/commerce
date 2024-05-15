@@ -62,6 +62,22 @@ export type Page = {
   updatedAt: string;
 };
 
+export type ShopifyMetaobject = {
+  id: string;
+  fields: Array<{
+    key: string;
+    value: string;
+    reference: {
+      id: string;
+    };
+  }>;
+};
+
+export type Metaobject = {
+  id: string;
+  [key: string]: string;
+};
+
 export type Product = Omit<ShopifyProduct, 'variants' | 'images'> & {
   variants: ProductVariant[];
   images: Image[];
@@ -267,6 +283,11 @@ export type ShopifyMenuOperation = {
 export type ShopifyPageOperation = {
   data: { pageByHandle: Page };
   variables: { handle: string };
+};
+
+export type ShopifyMetaobjectsOperation = {
+  data: { metaobjects: Connection<ShopifyMetaobject> };
+  variables: { type: string };
 };
 
 export type ShopifyPagesOperation = {
