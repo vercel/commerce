@@ -59,15 +59,15 @@ export default async function ProductPage({ params }: { params: { handle: string
     '@type': 'Product',
     name: product.title,
     description: product.description,
-    image: product.featuredImage.url,
+    image: product.featuredImage?.url,
     offers: {
       '@type': 'AggregateOffer',
       availability: product.availableForSale
         ? 'https://schema.org/InStock'
         : 'https://schema.org/OutOfStock',
-      priceCurrency: product.priceRange.minVariantPrice.currencyCode,
-      highPrice: product.priceRange.maxVariantPrice.amount,
-      lowPrice: product.priceRange.minVariantPrice.amount
+      priceCurrency: product.priceRange.minVariantPrice?.currencyCode,
+      highPrice: product.priceRange.maxVariantPrice?.amount,
+      lowPrice: product.priceRange.minVariantPrice?.amount
     }
   };
 
@@ -126,10 +126,10 @@ async function RelatedProducts({ id }: { id: string }) {
                 alt={product.title}
                 label={{
                   title: product.title,
-                  amount: product.priceRange.maxVariantPrice.amount,
-                  currencyCode: product.priceRange.maxVariantPrice.currencyCode
+                  amount: product.priceRange.maxVariantPrice?.amount,
+                  currencyCode: product.priceRange.maxVariantPrice?.currencyCode
                 }}
-                src={product.featuredImage?.url}
+                src={product.featuredImage?.url!}
                 fill
                 sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, (min-width: 640px) 33vw, (min-width: 475px) 50vw, 100vw"
               />

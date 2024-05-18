@@ -5,12 +5,11 @@ module.exports = {
     ignoreDuringBuilds: true
   },
   images: {
-    formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'cdn.shopify.com',
-        pathname: '/s/files/**'
+        hostname: 'files.stripe.com',
+        pathname: '/links/**'
       }
     ]
   },

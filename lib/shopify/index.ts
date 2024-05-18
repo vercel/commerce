@@ -1,9 +1,11 @@
-import { HIDDEN_PRODUCT_TAG, SHOPIFY_GRAPHQL_API_ENDPOINT, TAGS } from 'lib/constants';
+import { SHOPIFY_GRAPHQL_API_ENDPOINT, TAGS } from 'lib/constants';
+import { stripe } from 'lib/shopify/stripe';
 import { isShopifyError } from 'lib/type-guards';
 import { ensureStartsWith } from 'lib/utils';
 import { revalidateTag } from 'next/cache';
 import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
+import Stripe from 'stripe';
 import {
   addToCartMutation,
   createCartMutation,
@@ -11,44 +13,53 @@ import {
   removeFromCartMutation
 } from './mutations/cart';
 import { getCartQuery } from './queries/cart';
-import {
-  getCollectionProductsQuery,
-  getCollectionQuery,
-  getCollectionsQuery
-} from './queries/collection';
-import { getMenuQuery } from './queries/menu';
 import { getPageQuery, getPagesQuery } from './queries/page';
 import {
-  getProductQuery,
-  getProductRecommendationsQuery,
-  getProductsQuery
-} from './queries/product';
-import {
+  BaseProduct,
   Cart,
   Collection,
   Connection,
   Image,
   Menu,
+  Money,
   Page,
   Product,
   ShopifyAddToCartOperation,
   ShopifyCart,
   ShopifyCartOperation,
-  ShopifyCollection,
-  ShopifyCollectionOperation,
-  ShopifyCollectionProductsOperation,
-  ShopifyCollectionsOperation,
   ShopifyCreateCartOperation,
-  ShopifyMenuOperation,
   ShopifyPageOperation,
   ShopifyPagesOperation,
-  ShopifyProduct,
-  ShopifyProductOperation,
-  ShopifyProductRecommendationsOperation,
-  ShopifyProductsOperation,
   ShopifyRemoveFromCartOperation,
   ShopifyUpdateCartOperation
 } from './types';
+
+const CURRENT_DATE = new Date().toISOString();
+
+const COLLECTIONS: Collection[] = [
+  {
+    handle: '',
+    title: 'All',
+    description: 'All products',
+    seo: {
+      title: 'All',
+      description: 'All products'
+    },
+    path: '/search',
+    updatedAt: CURRENT_DATE
+  },
+  {
+    handle: 'shirts',
+    title: 'Shirts',
+    description: 'Shirts',
+    seo: {
+      title: 'Shirts',
+      description: 'Shirts'
+    },
+    path: '/search',
+    updatedAt: CURRENT_DATE
+  }
+];
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
   ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, 'https://')
@@ -132,75 +143,6 @@ const reshapeCart = (cart: ShopifyCart): Cart => {
   };
 };
 
-const reshapeCollection = (collection: ShopifyCollection): Collection | undefined => {
-  if (!collection) {
-    return undefined;
-  }
-
-  return {
-    ...collection,
-    path: `/search/${collection.handle}`
-  };
-};
-
-const reshapeCollections = (collections: ShopifyCollection[]) => {
-  const reshapedCollections = [];
-
-  for (const collection of collections) {
-    if (collection) {
-      const reshapedCollection = reshapeCollection(collection);
-
-      if (reshapedCollection) {
-        reshapedCollections.push(reshapedCollection);
-      }
-    }
-  }
-
-  return reshapedCollections;
-};
-
-const reshapeImages = (images: Connection<Image>, productTitle: string) => {
-  const flattened = removeEdgesAndNodes(images);
-
-  return flattened.map((image) => {
-    const filename = image.url.match(/.*\/(.*)\..*/)[1];
-    return {
-      ...image,
-      altText: image.altText || `${productTitle} - ${filename}`
-    };
-  });
-};
-
-const reshapeProduct = (product: ShopifyProduct, filterHiddenProducts: boolean = true) => {
-  if (!product || (filterHiddenProducts && product.tags.includes(HIDDEN_PRODUCT_TAG))) {
-    return undefined;
-  }
-
-  const { images, variants, ...rest } = product;
-
-  return {
-    ...rest,
-    images: reshapeImages(images, product.title),
-    variants: removeEdgesAndNodes(variants)
-  };
-};
-
-const reshapeProducts = (products: ShopifyProduct[]) => {
-  const reshapedProducts = [];
-
-  for (const product of products) {
-    if (product) {
-      const reshapedProduct = reshapeProduct(product);
-
-      if (reshapedProduct) {
-        reshapedProducts.push(reshapedProduct);
-      }
-    }
-  }
-
-  return reshapedProducts;
-};
-
 export async function createCart(): Promise<Cart> {
   const res = await shopifyFetch<ShopifyCreateCartOperation>({
     query: createCartMutation,
@@ -271,87 +213,129 @@ export async function getCart(cartId: string): Promise<Cart | undefined> {
 }
 
 export async function getCollection(handle: string): Promise<Collection | undefined> {
-  const res = await shopifyFetch<ShopifyCollectionOperation>({
-    query: getCollectionQuery,
-    tags: [TAGS.collections],
-    variables: {
-      handle
-    }
-  });
-
-  return reshapeCollection(res.body.data.collection);
+  return COLLECTIONS.find((collection) => collection.handle === handle);
 }
+
+const reshapePrice = (price: Stripe.Price | null | undefined): Money | undefined => {
+  if (!price) {
+    return;
+  }
+
+  return {
+    amount: price.unit_amount ? (price.unit_amount / 100).toString() : '',
+    currencyCode: price.currency
+  };
+};
+
+const reshapeImage = (url: string, productTitle: string): Image => {
+  const filename = url.match(/.*\/(.*)\..*/)?.[1];
+  return {
+    url,
+    altText: `${productTitle} - ${filename}`
+  };
+};
+
+const reshapeTags = (metadata: Stripe.Metadata): string[] => {
+  return metadata.tags?.split(',') ?? [];
+};
+
+const reshapeDate = (millis: number) => {
+  return new Date(millis).toISOString();
+};
+
+const reshapeBaseProduct = (product: Stripe.Product): BaseProduct => {
+  return {
+    id: product.id,
+    handle: product.id,
+    availableForSale: product.active,
+    title: product.name,
+    description: product.description,
+    descriptionHtml: product.description,
+    options: [],
+    priceRange: {
+      maxVariantPrice: reshapePrice(product.default_price as Stripe.Price)
+    },
+    featuredImage: product.images.length
+      ? reshapeImage(product.images[0]!, product.name)
+      : undefined,
+    images: product.images.map((image) => reshapeImage(image, product.name)),
+    seo: {
+      title: product.name,
+      description: product.description
+    },
+    tags: reshapeTags(product.metadata),
+    updatedAt: reshapeDate(product.updated),
+    createdAt: reshapeDate(product.created)
+  };
+};
+
+const sortProducts = (
+  products: BaseProduct[],
+  sortKey?: string,
+  reverse?: boolean
+): BaseProduct[] => {
+  sortKey === 'PRICE' &&
+    products.sort(
+      (a, b) =>
+        parseFloat(a.priceRange.maxVariantPrice?.amount ?? '0') -
+        parseFloat(b.priceRange.maxVariantPrice?.amount ?? '0')
+    );
+
+  sortKey === 'CREATED_AT' &&
+    products.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+
+  reverse && products.reverse();
+
+  return products;
+};
 
 export async function getCollectionProducts({
   collection,
   reverse,
-  sortKey
+  sortKey,
+  limit
 }: {
-  collection: string;
+  collection?: string;
   reverse?: boolean;
   sortKey?: string;
-}): Promise<Product[]> {
-  const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
-    query: getCollectionProductsQuery,
-    tags: [TAGS.collections, TAGS.products],
-    variables: {
-      handle: collection,
-      reverse,
-      sortKey: sortKey === 'CREATED_AT' ? 'CREATED' : sortKey
-    }
-  });
-
-  if (!res.body.data.collection) {
-    console.log(`No collection found for \`${collection}\``);
-    return [];
+  limit?: number;
+}): Promise<BaseProduct[]> {
+  const filters = ['active:"true"'];
+  if (collection) {
+    filters.push(`metadata["collection"]:"${collection}"`);
   }
 
-  return reshapeProducts(removeEdgesAndNodes(res.body.data.collection.products));
+  const res = await stripe.products.search({
+    limit,
+    query: filters.join(' AND '),
+    expand: ['data.default_price']
+  });
+
+  const products = res.data.map(reshapeBaseProduct);
+  return sortProducts(products, sortKey, reverse);
 }
 
 export async function getCollections(): Promise<Collection[]> {
-  const res = await shopifyFetch<ShopifyCollectionsOperation>({
-    query: getCollectionsQuery,
-    tags: [TAGS.collections]
-  });
-  const shopifyCollections = removeEdgesAndNodes(res.body?.data?.collections);
-  const collections = [
-    {
-      handle: '',
-      title: 'All',
-      description: 'All products',
-      seo: {
-        title: 'All',
-        description: 'All products'
-      },
-      path: '/search',
-      updatedAt: new Date().toISOString()
-    },
-    // Filter out the `hidden` collections.
-    // Collections that start with `hidden-*` need to be hidden on the search page.
-    ...reshapeCollections(shopifyCollections).filter(
-      (collection) => !collection.handle.startsWith('hidden')
-    )
-  ];
-
-  return collections;
+  return COLLECTIONS;
 }
 
 export async function getMenu(handle: string): Promise<Menu[]> {
-  const res = await shopifyFetch<ShopifyMenuOperation>({
-    query: getMenuQuery,
-    tags: [TAGS.collections],
-    variables: {
-      handle
-    }
-  });
-
-  return (
-    res.body?.data?.menu?.items.map((item: { title: string; url: string }) => ({
-      title: item.title,
-      path: item.url.replace(domain, '').replace('/collections', '/search').replace('/pages', '')
-    })) || []
-  );
+  switch (handle) {
+    case 'next-js-frontend-footer-menu':
+      return [
+        { title: 'About Medusa', path: 'https://medusajs.com/' },
+        { title: 'Medusa Docs', path: 'https://docs.medusajs.com/' },
+        { title: 'Medusa Blog', path: 'https://medusajs.com/blog' }
+      ];
+    case 'next-js-frontend-header-menu':
+      return [
+        { title: 'All', path: '/search' },
+        { title: 'Shirts', path: '/search/shirts' },
+        { title: 'Stickers', path: '/search/stickers' }
+      ];
+    default:
+      return [];
+  }
 }
 
 export async function getPage(handle: string): Promise<Page> {
@@ -374,27 +358,20 @@ export async function getPages(): Promise<Page[]> {
 }
 
 export async function getProduct(handle: string): Promise<Product | undefined> {
-  const res = await shopifyFetch<ShopifyProductOperation>({
-    query: getProductQuery,
-    tags: [TAGS.products],
-    variables: {
-      handle
-    }
-  });
-
-  return reshapeProduct(res.body.data.product, false);
+  const res = await stripe.products.retrieve(handle, { expand: ['default_price'] });
+  return { ...reshapeBaseProduct(res), variants: [] };
 }
 
-export async function getProductRecommendations(productId: string): Promise<Product[]> {
-  const res = await shopifyFetch<ShopifyProductRecommendationsOperation>({
-    query: getProductRecommendationsQuery,
-    tags: [TAGS.products],
-    variables: {
-      productId
-    }
+export async function getProductRecommendations(productId: string): Promise<BaseProduct[]> {
+  const filters = ['active:"true"'];
+  filters.push(`metadata["parent"]:"${productId}"`);
+
+  const res = await stripe.products.search({
+    query: filters.join(' AND '),
+    expand: ['data.default_price']
   });
 
-  return reshapeProducts(res.body.data.productRecommendations);
+  return res.data.map(reshapeBaseProduct);
 }
 
 export async function getProducts({
@@ -405,18 +382,19 @@ export async function getProducts({
   query?: string;
   reverse?: boolean;
   sortKey?: string;
-}): Promise<Product[]> {
-  const res = await shopifyFetch<ShopifyProductsOperation>({
-    query: getProductsQuery,
-    tags: [TAGS.products],
-    variables: {
-      query,
-      reverse,
-      sortKey
-    }
+}): Promise<BaseProduct[]> {
+  const filters = ['active:"true"'];
+  if (query) {
+    filters.push(`name~"${query}"`);
+  }
+
+  const res = await stripe.products.search({
+    query: filters.join(' AND '),
+    expand: ['data.default_price']
   });
 
-  return reshapeProducts(removeEdgesAndNodes(res.body.data.products));
+  const products = res.data.map(reshapeBaseProduct);
+  return sortProducts(products, sortKey, reverse);
 }
 
 // This is called from `app/api/revalidate.ts` so providers can control revalidation logic.

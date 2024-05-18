@@ -29,15 +29,20 @@ export type CartItem = {
   };
 };
 
-export type Collection = ShopifyCollection & {
+export type Collection = {
+  handle: string;
+  title: string;
+  description: string;
+  seo: SEO;
+  updatedAt: string;
   path: string;
 };
 
 export type Image = {
   url: string;
   altText: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
 };
 
 export type Menu = {
@@ -61,9 +66,28 @@ export type Page = {
   updatedAt: string;
 };
 
-export type Product = Omit<ShopifyProduct, 'variants' | 'images'> & {
-  variants: ProductVariant[];
+export type BaseProduct = {
+  id: string;
+  handle: string;
+  availableForSale: boolean;
+  title: string;
+  description: string | null;
+  descriptionHtml: string | null;
+  options: ProductOption[];
+  priceRange: {
+    maxVariantPrice?: Money;
+    minVariantPrice?: Money;
+  };
+  featuredImage?: Image;
   images: Image[];
+  seo: SEO;
+  tags: string[];
+  updatedAt: string;
+  createdAt: string;
+};
+
+export type Product = BaseProduct & {
+  variants: ProductVariant[];
 };
 
 export type ProductOption = {
@@ -85,7 +109,7 @@ export type ProductVariant = {
 
 export type SEO = {
   title: string;
-  description: string;
+  description: string | null;
 };
 
 export type ShopifyCart = {
