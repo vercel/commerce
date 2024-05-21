@@ -8,8 +8,26 @@ export type Edge<T> = {
   node: T;
 };
 
-export type Cart = Omit<ShopifyCart, 'lines'> & {
+export type Cart = {
+  id: string;
+  checkoutUrl: string;
+  cost: {
+    subtotalAmount?: Money;
+    totalAmount: Money;
+    totalTaxAmount: Money;
+  };
+  totalQuantity: number;
   lines: CartItem[];
+};
+
+export type Merchandise = {
+  id: string;
+  title: string;
+  selectedOptions: {
+    name: string;
+    value: string;
+  }[];
+  product: BaseProduct;
 };
 
 export type CartItem = {
@@ -18,15 +36,7 @@ export type CartItem = {
   cost: {
     totalAmount: Money;
   };
-  merchandise: {
-    id: string;
-    title: string;
-    selectedOptions: {
-      name: string;
-      value: string;
-    }[];
-    product: Product;
-  };
+  merchandise: Merchandise;
 };
 
 export type Collection = {
@@ -75,8 +85,8 @@ export type BaseProduct = {
   descriptionHtml: string | null;
   options: ProductOption[];
   priceRange: {
-    maxVariantPrice?: Money;
-    minVariantPrice?: Money;
+    maxVariantPrice: Money;
+    minVariantPrice: Money;
   };
   featuredImage?: Image;
   images: Image[];

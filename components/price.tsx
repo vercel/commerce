@@ -6,9 +6,9 @@ const Price = ({
   currencyCode = 'USD',
   currencyCodeClassName
 }: {
-  amount?: string;
+  amount: string;
   className?: string;
-  currencyCode?: string;
+  currencyCode: string;
   currencyCodeClassName?: string;
 } & React.ComponentProps<'p'>) => (
   <p suppressHydrationWarning={true} className={className}>

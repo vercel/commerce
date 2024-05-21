@@ -1,40 +1,34 @@
 import { SHOPIFY_GRAPHQL_API_ENDPOINT, TAGS } from 'lib/constants';
+import { redis } from 'lib/shopify/redis';
 import { stripe } from 'lib/shopify/stripe';
 import { isShopifyError } from 'lib/type-guards';
 import { ensureStartsWith } from 'lib/utils';
+import { nanoid } from 'nanoid';
 import { revalidateTag } from 'next/cache';
 import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import {
-  addToCartMutation,
-  createCartMutation,
-  editCartItemsMutation,
-  removeFromCartMutation
-} from './mutations/cart';
-import { getCartQuery } from './queries/cart';
 import { getPageQuery, getPagesQuery } from './queries/page';
 import {
   BaseProduct,
   Cart,
+  CartItem,
   Collection,
   Connection,
   Image,
   Menu,
+  Merchandise,
   Money,
   Page,
   Product,
-  ShopifyAddToCartOperation,
+  ProductVariant,
   ShopifyCart,
-  ShopifyCartOperation,
-  ShopifyCreateCartOperation,
   ShopifyPageOperation,
-  ShopifyPagesOperation,
-  ShopifyRemoveFromCartOperation,
-  ShopifyUpdateCartOperation
+  ShopifyPagesOperation
 } from './types';
 
 const CURRENT_DATE = new Date().toISOString();
+const DEFAULT_PRICE = '0.0';
 
 const COLLECTIONS: Collection[] = [
   {
@@ -144,86 +138,139 @@ const reshapeCart = (cart: ShopifyCart): Cart => {
 };
 
 export async function createCart(): Promise<Cart> {
-  const res = await shopifyFetch<ShopifyCreateCartOperation>({
-    query: createCartMutation,
-    cache: 'no-store'
+  return await buildCart([]);
+}
+
+const reshapeMerchandise = (price: Stripe.Price): Merchandise => {
+  const product = price.product as Stripe.Product;
+
+  return {
+    id: price.id,
+    title: product.name,
+    selectedOptions: [],
+    product: reshapeBaseProduct(product)
+  };
+};
+
+const buildCart = async (cartItems: CartItem[], cartId?: string): Promise<Cart> => {
+  let totalAmount = 0;
+  let totalQuantity = 0;
+  cartItems.forEach((item) => {
+    totalQuantity += item.quantity;
+    totalAmount += parseFloat(item.cost.totalAmount.amount) * item.quantity;
   });
 
-  return reshapeCart(res.body.data.cartCreate.cart);
-}
+  const cart: Cart = {
+    id: cartId ?? nanoid(),
+    checkoutUrl: '/checkout',
+    cost: {
+      totalAmount: {
+        currencyCode: 'EUR',
+        amount: totalAmount.toString()
+      },
+      totalTaxAmount: {
+        currencyCode: 'EUR',
+        amount: DEFAULT_PRICE
+      }
+    },
+    lines: cartItems,
+    totalQuantity: totalQuantity
+  };
+
+  await setCart(cart);
+  return cart;
+};
+
+const reshapeCartItem = (
+  price: Stripe.Price,
+  lines: { merchandiseId: string; quantity: number }[]
+): CartItem => {
+  return {
+    id: price.id,
+    quantity: lines.find((line) => line.merchandiseId === price.id)?.quantity ?? 0,
+    cost: {
+      totalAmount: reshapePrice(price)
+    },
+    merchandise: reshapeMerchandise(price)
+  };
+};
 
 export async function addToCart(
   cartId: string,
   lines: { merchandiseId: string; quantity: number }[]
 ): Promise<Cart> {
-  const res = await shopifyFetch<ShopifyAddToCartOperation>({
-    query: addToCartMutation,
-    variables: {
-      cartId,
-      lines
-    },
-    cache: 'no-store'
-  });
-  return reshapeCart(res.body.data.cartLinesAdd.cart);
+  const prices = await Promise.all(
+    lines.map((line) => stripe.prices.retrieve(line.merchandiseId, { expand: ['product'] }))
+  );
+  const items: CartItem[] = prices.map((price) => reshapeCartItem(price, lines));
+
+  const cart = await getCart(cartId);
+  const cartItems = cart ? [...cart.lines, ...items] : [];
+  return await buildCart(cartItems, cartId);
 }
 
 export async function removeFromCart(cartId: string, lineIds: string[]): Promise<Cart> {
-  const res = await shopifyFetch<ShopifyRemoveFromCartOperation>({
-    query: removeFromCartMutation,
-    variables: {
-      cartId,
-      lineIds
-    },
-    cache: 'no-store'
-  });
-
-  return reshapeCart(res.body.data.cartLinesRemove.cart);
+  const cart = await getCart(cartId);
+  const cartItems = cart ? cart.lines.filter((item) => !lineIds.includes(item.id)) : [];
+  return await buildCart(cartItems, cartId);
 }
-
 export async function updateCart(
   cartId: string,
   lines: { id: string; merchandiseId: string; quantity: number }[]
 ): Promise<Cart> {
-  const res = await shopifyFetch<ShopifyUpdateCartOperation>({
-    query: editCartItemsMutation,
-    variables: {
-      cartId,
-      lines
-    },
-    cache: 'no-store'
-  });
+  const prices = await Promise.all(
+    lines.map((line) => stripe.prices.retrieve(line.merchandiseId, { expand: ['product'] }))
+  );
+  const items: CartItem[] = prices.map((price) => reshapeCartItem(price, lines));
 
-  return reshapeCart(res.body.data.cartLinesUpdate.cart);
+  const cart = await getCart(cartId);
+  const cartItems = cart
+    ? cart.lines.map((item) => {
+        const newItem = items.find((i) => i.id === item.id);
+        console.log(newItem);
+        return newItem ?? item;
+      })
+    : items;
+
+  return await buildCart(cartItems, cartId);
+}
+export async function getCart(cartId: string): Promise<Cart | null> {
+  return await redis.get<Cart>(`cart:${cartId}`);
 }
 
-export async function getCart(cartId: string): Promise<Cart | undefined> {
-  const res = await shopifyFetch<ShopifyCartOperation>({
-    query: getCartQuery,
-    variables: { cartId },
-    tags: [TAGS.cart],
-    cache: 'no-store'
-  });
-
-  // Old carts becomes `null` when you checkout.
-  if (!res.body.data.cart) {
-    return undefined;
-  }
-
-  return reshapeCart(res.body.data.cart);
+export async function setCart(cart: Cart): Promise<void> {
+  await redis.set<Cart>(`cart:${cart.id}`, cart);
 }
 
 export async function getCollection(handle: string): Promise<Collection | undefined> {
   return COLLECTIONS.find((collection) => collection.handle === handle);
 }
 
-const reshapePrice = (price: Stripe.Price | null | undefined): Money | undefined => {
+const reshapePrice = (price: Stripe.Price | null | undefined): Money => {
+  if (!price) {
+    return {
+      amount: DEFAULT_PRICE,
+      currencyCode: 'EUR'
+    };
+  }
+
+  return {
+    amount: price.unit_amount ? (price.unit_amount / 100).toString() : DEFAULT_PRICE,
+    currencyCode: price.currency
+  };
+};
+
+const reshapeVariant = (price: Stripe.Price | null | undefined): ProductVariant | undefined => {
   if (!price) {
     return;
   }
 
   return {
-    amount: price.unit_amount ? (price.unit_amount / 100).toString() : '',
-    currencyCode: price.currency
+    id: price.id,
+    title: price.nickname ?? '',
+    availableForSale: price.active,
+    selectedOptions: [],
+    price: reshapePrice(price)
   };
 };
 
@@ -253,7 +300,8 @@ const reshapeBaseProduct = (product: Stripe.Product): BaseProduct => {
     descriptionHtml: product.description,
     options: [],
     priceRange: {
-      maxVariantPrice: reshapePrice(product.default_price as Stripe.Price)
+      maxVariantPrice: reshapePrice(product.default_price as Stripe.Price),
+      minVariantPrice: reshapePrice(product.default_price as Stripe.Price)
     },
     featuredImage: product.images.length
       ? reshapeImage(product.images[0]!, product.name)
@@ -277,8 +325,8 @@ const sortProducts = (
   sortKey === 'PRICE' &&
     products.sort(
       (a, b) =>
-        parseFloat(a.priceRange.maxVariantPrice?.amount ?? '0') -
-        parseFloat(b.priceRange.maxVariantPrice?.amount ?? '0')
+        parseFloat(a.priceRange.maxVariantPrice.amount) -
+        parseFloat(b.priceRange.maxVariantPrice.amount)
     );
 
   sortKey === 'CREATED_AT' &&
@@ -359,7 +407,11 @@ export async function getPages(): Promise<Page[]> {
 
 export async function getProduct(handle: string): Promise<Product | undefined> {
   const res = await stripe.products.retrieve(handle, { expand: ['default_price'] });
-  return { ...reshapeBaseProduct(res), variants: [] };
+
+  const defaultVariant = reshapeVariant(res.default_price as Stripe.Price);
+  const variants = defaultVariant ? [defaultVariant] : [];
+
+  return { ...reshapeBaseProduct(res), variants };
 }
 
 export async function getProductRecommendations(productId: string): Promise<BaseProduct[]> {
