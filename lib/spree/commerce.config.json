@@ -1,0 +1,10 @@
+{
+  "provider": "spree",
+  "features": {
+    "wishlist": true,
+    "cart": true,
+    "search": true,
+    "customerAuth": true,
+    "customCheckout": false
+  }
+}

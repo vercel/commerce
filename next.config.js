@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
+const baseConfig = {
   eslint: {
     // Disabling on production builds because we're running checks on PRs via GitHub Actions.
     ignoreDuringBuilds: true
@@ -24,3 +24,7 @@ module.exports = {
     ];
   }
 };
+
+const spreeConfig = require('./lib/spree/next.config.js');
+
+module.exports = { ...baseConfig, ...spreeConfig };

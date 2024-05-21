@@ -15,6 +15,9 @@
     "jsx": "preserve",
     "incremental": true,
     "baseUrl": ".",
+    "paths": {
+      "@commerce/*": ["lib/spree/*"]
+    },
     "noUncheckedIndexedAccess": true,
     "plugins": [
       {
