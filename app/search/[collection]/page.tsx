@@ -86,11 +86,11 @@ export default function CategorySearchPage(props: {
   return (
     <>
       <div className="mb-2">
-        <Suspense fallback={<BreadcrumbHome />}>
+        <Suspense fallback={<BreadcrumbHome />} key={props.params.collection}>
           <Breadcrumb type="collection" handle={props.params.collection} />
         </Suspense>
       </div>
-      <Suspense fallback={<HeaderPlaceholder />}>
+      <Suspense fallback={<HeaderPlaceholder />} key={props.params.collection}>
         <Header collection={props.params.collection} />
       </Suspense>
       <div className="my-3">
@@ -98,7 +98,7 @@ export default function CategorySearchPage(props: {
           <YMMFilters />
         </Suspense>
       </div>
-      <Suspense fallback={<ProductsGridPlaceholder />}>
+      <Suspense fallback={<ProductsGridPlaceholder />} key={props.params.collection}>
         <CategoryPage {...props} />
       </Suspense>
     </>

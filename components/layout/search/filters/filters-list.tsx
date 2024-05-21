@@ -47,7 +47,10 @@ const Filters = ({ filters, defaultOpen = true }: { filters: Filter[]; defaultOp
           >
             <DisclosureButton className="group flex items-center justify-between">
               <div className="text-sm font-medium text-gray-900">{label}</div>
-              <ChevronDownIcon className="size-4 group-data-[open]:rotate-180" />
+              <ChevronDownIcon
+                aria-label="Toggle opening filters block"
+                className="size-4 group-data-[open]:rotate-180"
+              />
             </DisclosureButton>
             <DisclosurePanel className="flex-grow space-y-3 overflow-auto pb-1 pl-1 pt-2">
               {type === FilterType.PRICE_RANGE ? (

@@ -5,9 +5,9 @@ import FiltersList from './filters-list';
 const YMMFiltersContainer = ({ children }: { children: ReactNode }) => {
   return (
     <div className="rounded border bg-white px-6 pb-5 pt-4">
-      <h5 className="mb-3 text-xl font-semibold leading-tight tracking-tight text-neutral-700">
+      <p className="mb-3 text-xl font-semibold leading-tight tracking-tight text-neutral-700">
         Find Your Car Part
-      </h5>
+      </p>
       {children}
     </div>
   );

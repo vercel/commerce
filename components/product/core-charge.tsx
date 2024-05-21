@@ -2,11 +2,12 @@
 
 import { ArrowPathRoundedSquareIcon } from '@heroicons/react/24/outline';
 import Price from 'components/price';
+import SideDialog from 'components/side-dialog';
 import { CORE_VARIANT_ID_KEY, CORE_WAIVER } from 'lib/constants';
 import { CoreChargeOption, ProductVariant } from 'lib/shopify/types';
 import { cn, createUrl } from 'lib/utils';
-import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useState } from 'react';
 
 type CoreChargeProps = {
   variants: ProductVariant[];
@@ -16,6 +17,7 @@ const CoreCharge = ({ variants }: CoreChargeProps) => {
   const pathname = usePathname();
   const router = useRouter();
 
+  const [isOpenDialog, setIsOpenDialog] = useState(false);
   const optionSearchParams = new URLSearchParams(searchParams);
   const coreVariantIdSearchParam = optionSearchParams.get(CORE_VARIANT_ID_KEY);
 
@@ -52,6 +54,9 @@ const CoreCharge = ({ variants }: CoreChargeProps) => {
     handleSelectCoreChargeOption((coreChargeOptions[0] as CoreChargeOption).value);
   }
 
+  const openDialog = () => setIsOpenDialog(true);
+  const closeDialog = () => setIsOpenDialog(false);
+
   return (
     <div className="flex flex-col text-xs lg:text-sm">
       <div className="mb-1 flex flex-row items-center space-x-1 divide-x divide-gray-400 leading-none lg:space-x-3">
@@ -59,17 +64,21 @@ const CoreCharge = ({ variants }: CoreChargeProps) => {
           <ArrowPathRoundedSquareIcon className="h-5 w-5" />
           <span> Core charge </span>
         </div>
-        <Link href="#" className="pl-2 text-blue-800 hover:underline">
+        <button className="pl-2 text-blue-800 hover:underline" onClick={openDialog}>
           Understanding Core Charges and Returns
-        </Link>
+        </button>
+
+        <SideDialog title="Core Charges and Returns" onClose={closeDialog} open={isOpenDialog}>
+          <div className="mt-5 flex h-full flex-col overflow-hidden">
+            <p className="text-sm tracking-tight">
+              The core charge is a refundable deposit that is added to the price of the part. This
+              charge ensures that the old, worn-out part is returned to the supplier for proper
+              disposal or recycling. When you return the old part, you&apos;ll receive a refund of
+              the core charge.
+            </p>
+          </div>
+        </SideDialog>
       </div>
-      {/*
-      Plan is to move this to within the a modal tht opens when a user clicks on Understanding Core Charges and Returns 
-      <p className="mb-2 text-sm tracking-tight text-neutral-500">
-        The core charge is a refundable deposit that is added to the price of the part. This charge
-        ensures that the old, worn-out part is returned to the supplier for proper disposal or
-        recycling. When you return the old part, you&apos;ll receive a refund of the core charge.
-      </p> */}
       <ul className="flex min-h-16 flex-row space-x-4 pt-2">
         {coreChargeOptions.map((option) => (
           <li className="flex w-32" key={option.value}>

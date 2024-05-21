@@ -4,7 +4,7 @@ import { Product } from 'lib/shopify/types';
 import { Suspense } from 'react';
 import CoreCharge from './core-charge';
 import SpecialOffer from './special-offer';
-import VariantPrice from './vairant-price';
+import VariantDetails from './vairant-details';
 import { VariantSelector } from './variant-selector';
 import Warranty from './warranty';
 
@@ -13,11 +13,8 @@ export function ProductDescription({ product }: { product: Product }) {
     <>
       <div className="mb-5 flex flex-col dark:border-neutral-700">
         <h1 className="text-xl font-bold md:text-2xl">{product.title}</h1>
-        <div className="mb-5 flex items-center justify-start gap-x-2">
-          <p className="text-sm">SKU: 123456</p>
-          <p className="text-sm">Condition: Used</p>
-        </div>
-        <VariantPrice
+
+        <VariantDetails
           variants={product.variants}
           defaultPrice={product.priceRange.minVariantPrice}
         />

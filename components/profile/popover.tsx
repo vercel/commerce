@@ -1,6 +1,6 @@
 'use client';
 
-import { Popover, Transition } from '@headlessui/react';
+import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
 import { ArrowRightIcon } from '@heroicons/react/16/solid';
 import { Menu } from 'lib/shopify/types';
 import { Fragment } from 'react';
@@ -13,9 +13,9 @@ type ProfilePopoverProps = {
 const ProfilePopover = ({ menu }: ProfilePopoverProps) => {
   return (
     <Popover className="relative">
-      <Popover.Button className="flex">
+      <PopoverButton aria-label="Open Profile Menu" className="flex">
         <OpenProfile />
-      </Popover.Button>
+      </PopoverButton>
       <Transition
         as={Fragment}
         enter="transition ease-out duration-200"
@@ -25,7 +25,7 @@ const ProfilePopover = ({ menu }: ProfilePopoverProps) => {
         leaveFrom="opacity-100 translate-y-0"
         leaveTo="opacity-0 translate-y-1"
       >
-        <Popover.Panel className="absolute -right-10 z-10 mt-2 w-72 max-w-lg px-4 sm:px-0 lg:right-0">
+        <PopoverPanel className="absolute -right-10 z-10 mt-2 w-72 max-w-lg px-4 sm:px-0 lg:right-0">
           <div className="flex flex-col gap-2 overflow-hidden rounded-md bg-white px-4 py-3 text-black shadow-xl ring-1 ring-black/5">
             <span className="text-sm font-medium">My Account</span>
             <a
@@ -49,7 +49,7 @@ const ProfilePopover = ({ menu }: ProfilePopoverProps) => {
               </ul>
             ) : null}
           </div>
-        </Popover.Panel>
+        </PopoverPanel>
       </Transition>
     </Popover>
   );
