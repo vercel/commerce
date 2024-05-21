@@ -8,7 +8,6 @@ import { revalidateTag } from 'next/cache';
 import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import { getPageQuery, getPagesQuery } from './queries/page';
 import {
   BaseProduct,
   Cart,
@@ -21,13 +20,13 @@ import {
   Money,
   Page,
   Product,
-  ProductVariant,
-  ShopifyPageOperation,
-  ShopifyPagesOperation
+  ProductVariant
 } from './types';
 
 const CURRENT_DATE = new Date().toISOString();
 const DEFAULT_PRICE = '0.0';
+
+const PAGES: Page[] = [];
 
 const COLLECTIONS: Collection[] = [
   {
@@ -371,23 +370,12 @@ export async function getMenu(handle: string): Promise<Menu[]> {
   }
 }
 
-export async function getPage(handle: string): Promise<Page> {
-  const res = await shopifyFetch<ShopifyPageOperation>({
-    query: getPageQuery,
-    cache: 'no-store',
-    variables: { handle }
-  });
-
-  return res.body.data.pageByHandle;
+export async function getPage(handle: string): Promise<Page | undefined> {
+  return PAGES.find((page) => page.handle === handle);
 }
 
 export async function getPages(): Promise<Page[]> {
-  const res = await shopifyFetch<ShopifyPagesOperation>({
-    query: getPagesQuery,
-    cache: 'no-store'
-  });
-
-  return removeEdgesAndNodes(res.body.data.pages);
+  return PAGES;
 }
 
 export async function getProduct(handle: string): Promise<Product | undefined> {
