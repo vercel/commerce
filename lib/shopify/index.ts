@@ -50,7 +50,7 @@ const COLLECTIONS: Collection[] = [
       title: 'Shirts',
       description: 'Shirts'
     },
-    path: '/search',
+    path: '/search/shirts',
     updatedAt: CURRENT_DATE
   }
 ];
