@@ -1,4 +1,4 @@
-import { TAGS } from 'lib/constants';
+import { COLLECTIONS, PAGES, TAGS } from 'lib/constants';
 import { redis } from 'lib/stripe/redis';
 import { nanoid } from 'nanoid';
 import { revalidateTag } from 'next/cache';
@@ -19,37 +19,9 @@ import {
   ProductVariant
 } from './types';
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
-const CURRENT_DATE = new Date().toISOString();
 const DEFAULT_PRICE = '0.0';
 
-const PAGES: Page[] = [];
-
-const COLLECTIONS: Collection[] = [
-  {
-    handle: '',
-    title: 'All',
-    description: 'All products',
-    seo: {
-      title: 'All',
-      description: 'All products'
-    },
-    path: '/search',
-    updatedAt: CURRENT_DATE
-  },
-  {
-    handle: 'shirts',
-    title: 'Shirts',
-    description: 'Shirts',
-    seo: {
-      title: 'Shirts',
-      description: 'Shirts'
-    },
-    path: '/search/shirts',
-    updatedAt: CURRENT_DATE
-  }
-];
+export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export async function createCart(): Promise<Cart> {
   return await buildCart([]);
