@@ -22,7 +22,6 @@ import {
   Page,
   Product,
   ProductVariant,
-  ShopifyCart,
   ShopifyPageOperation,
   ShopifyPagesOperation
 } from './types';
@@ -123,20 +122,6 @@ const removeEdgesAndNodes = (array: Connection<any>) => {
   return array.edges.map((edge) => edge?.node);
 };
 
-const reshapeCart = (cart: ShopifyCart): Cart => {
-  if (!cart.cost?.totalTaxAmount) {
-    cart.cost.totalTaxAmount = {
-      amount: '0.0',
-      currencyCode: 'USD'
-    };
-  }
-
-  return {
-    ...cart,
-    lines: removeEdgesAndNodes(cart.lines)
-  };
-};
-
 export async function createCart(): Promise<Cart> {
   return await buildCart([]);
 }
@@ -162,7 +147,7 @@ const buildCart = async (cartItems: CartItem[], cartId?: string): Promise<Cart> 
 
   const cart: Cart = {
     id: cartId ?? nanoid(),
-    checkoutUrl: '/checkout',
+    checkoutUrl: '/api/checkout',
     cost: {
       totalAmount: {
         currencyCode: 'EUR',
