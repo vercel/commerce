@@ -1,6 +1,5 @@
 import { TAGS } from 'lib/constants';
-import { redis } from 'lib/shopify/redis';
-import { stripe } from 'lib/shopify/stripe';
+import { redis } from 'lib/stripe/redis';
 import { nanoid } from 'nanoid';
 import { revalidateTag } from 'next/cache';
 import { headers } from 'next/headers';
@@ -19,6 +18,8 @@ import {
   ProductDetail,
   ProductVariant
 } from './types';
+
+export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 const CURRENT_DATE = new Date().toISOString();
 const DEFAULT_PRICE = '0.0';
@@ -112,7 +113,7 @@ export async function addToCart(
   cartId: string,
   lines: { merchandiseId: string; quantity: number }[]
 ): Promise<Cart> {
-  const prices = await Promise.all(
+  const prices: Stripe.Price[] = await Promise.all(
     lines.map((line) => stripe.prices.retrieve(line.merchandiseId, { expand: ['product'] }))
   );
   const items: CartItem[] = prices.map((price) => reshapeCartItem(price, lines));
@@ -131,7 +132,7 @@ export async function updateCart(
   cartId: string,
   lines: { id: string; merchandiseId: string; quantity: number }[]
 ): Promise<Cart> {
-  const prices = await Promise.all(
+  const prices: Stripe.Price[] = await Promise.all(
     lines.map((line) => stripe.prices.retrieve(line.merchandiseId, { expand: ['product'] }))
   );
   const items: CartItem[] = prices.map((price) => reshapeCartItem(price, lines));
@@ -140,7 +141,6 @@ export async function updateCart(
   const cartItems = cart
     ? cart.lines.map((item) => {
         const newItem = items.find((i) => i.id === item.id);
-        console.log(newItem);
         return newItem ?? item;
       })
     : items;

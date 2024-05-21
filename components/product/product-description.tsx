@@ -1,7 +1,7 @@
 import { AddToCart } from 'components/cart/add-to-cart';
 import Price from 'components/price';
 import Prose from 'components/prose';
-import { ProductDetail } from 'lib/shopify/types';
+import { ProductDetail } from 'lib/stripe/types';
 import { Suspense } from 'react';
 import { VariantSelector } from './variant-selector';
 

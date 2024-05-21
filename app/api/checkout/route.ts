@@ -1,5 +1,4 @@
-import { getCart } from 'lib/shopify';
-import { stripe } from 'lib/shopify/stripe';
+import { getCart, stripe } from 'lib/stripe';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 

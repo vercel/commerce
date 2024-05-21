@@ -6,8 +6,8 @@ import Footer from 'components/layout/footer';
 import { Gallery } from 'components/product/gallery';
 import { ProductDescription } from 'components/product/product-description';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
-import { getProduct, getProductRecommendations } from 'lib/shopify';
-import { Image } from 'lib/shopify/types';
+import { getProduct, getProductRecommendations } from 'lib/stripe';
+import { Image } from 'lib/stripe/types';
 import Link from 'next/link';
 import { Suspense } from 'react';
 
