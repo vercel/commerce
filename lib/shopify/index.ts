@@ -1,25 +1,22 @@
-import { SHOPIFY_GRAPHQL_API_ENDPOINT, TAGS } from 'lib/constants';
+import { TAGS } from 'lib/constants';
 import { redis } from 'lib/shopify/redis';
 import { stripe } from 'lib/shopify/stripe';
-import { isShopifyError } from 'lib/type-guards';
-import { ensureStartsWith } from 'lib/utils';
 import { nanoid } from 'nanoid';
 import { revalidateTag } from 'next/cache';
 import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import {
-  BaseProduct,
   Cart,
   CartItem,
   Collection,
-  Connection,
   Image,
   Menu,
   Merchandise,
   Money,
   Page,
   Product,
+  ProductDetail,
   ProductVariant
 } from './types';
 
@@ -53,74 +50,6 @@ const COLLECTIONS: Collection[] = [
   }
 ];
 
-const domain = process.env.SHOPIFY_STORE_DOMAIN
-  ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, 'https://')
-  : '';
-const endpoint = `${domain}${SHOPIFY_GRAPHQL_API_ENDPOINT}`;
-const key = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
-
-type ExtractVariables<T> = T extends { variables: object } ? T['variables'] : never;
-
-export async function shopifyFetch<T>({
-  cache = 'force-cache',
-  headers,
-  query,
-  tags,
-  variables
-}: {
-  cache?: RequestCache;
-  headers?: HeadersInit;
-  query: string;
-  tags?: string[];
-  variables?: ExtractVariables<T>;
-}): Promise<{ status: number; body: T } | never> {
-  try {
-    const result = await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Shopify-Storefront-Access-Token': key,
-        ...headers
-      },
-      body: JSON.stringify({
-        ...(query && { query }),
-        ...(variables && { variables })
-      }),
-      cache,
-      ...(tags && { next: { tags } })
-    });
-
-    const body = await result.json();
-
-    if (body.errors) {
-      throw body.errors[0];
-    }
-
-    return {
-      status: result.status,
-      body
-    };
-  } catch (e) {
-    if (isShopifyError(e)) {
-      throw {
-        cause: e.cause?.toString() || 'unknown',
-        status: e.status || 500,
-        message: e.message,
-        query
-      };
-    }
-
-    throw {
-      error: e,
-      query
-    };
-  }
-}
-
-const removeEdgesAndNodes = (array: Connection<any>) => {
-  return array.edges.map((edge) => edge?.node);
-};
-
 export async function createCart(): Promise<Cart> {
   return await buildCart([]);
 }
@@ -132,7 +61,7 @@ const reshapeMerchandise = (price: Stripe.Price): Merchandise => {
     id: price.id,
     title: product.name,
     selectedOptions: [],
-    product: reshapeBaseProduct(product)
+    product: reshapeProduct(product)
   };
 };
 
@@ -274,7 +203,7 @@ const reshapeDate = (millis: number) => {
   return new Date(millis).toISOString();
 };
 
-const reshapeBaseProduct = (product: Stripe.Product): BaseProduct => {
+const reshapeProduct = (product: Stripe.Product): Product => {
   return {
     id: product.id,
     handle: product.id,
@@ -301,11 +230,7 @@ const reshapeBaseProduct = (product: Stripe.Product): BaseProduct => {
   };
 };
 
-const sortProducts = (
-  products: BaseProduct[],
-  sortKey?: string,
-  reverse?: boolean
-): BaseProduct[] => {
+const sortProducts = (products: Product[], sortKey?: string, reverse?: boolean): Product[] => {
   sortKey === 'PRICE' &&
     products.sort(
       (a, b) =>
@@ -331,7 +256,7 @@ export async function getCollectionProducts({
   reverse?: boolean;
   sortKey?: string;
   limit?: number;
-}): Promise<BaseProduct[]> {
+}): Promise<Product[]> {
   const filters = ['active:"true"'];
   if (collection) {
     filters.push(`metadata["collection"]:"${collection}"`);
@@ -343,7 +268,7 @@ export async function getCollectionProducts({
     expand: ['data.default_price']
   });
 
-  const products = res.data.map(reshapeBaseProduct);
+  const products = res.data.map(reshapeProduct);
   return sortProducts(products, sortKey, reverse);
 }
 
@@ -378,16 +303,16 @@ export async function getPages(): Promise<Page[]> {
   return PAGES;
 }
 
-export async function getProduct(handle: string): Promise<Product | undefined> {
+export async function getProduct(handle: string): Promise<ProductDetail | undefined> {
   const res = await stripe.products.retrieve(handle, { expand: ['default_price'] });
 
   const defaultVariant = reshapeVariant(res.default_price as Stripe.Price);
   const variants = defaultVariant ? [defaultVariant] : [];
 
-  return { ...reshapeBaseProduct(res), variants };
+  return { ...reshapeProduct(res), variants };
 }
 
-export async function getProductRecommendations(productId: string): Promise<BaseProduct[]> {
+export async function getProductRecommendations(productId: string): Promise<Product[]> {
   const filters = ['active:"true"'];
   filters.push(`metadata["parent"]:"${productId}"`);
 
@@ -396,7 +321,7 @@ export async function getProductRecommendations(productId: string): Promise<Base
     expand: ['data.default_price']
   });
 
-  return res.data.map(reshapeBaseProduct);
+  return res.data.map(reshapeProduct);
 }
 
 export async function getProducts({
@@ -407,7 +332,7 @@ export async function getProducts({
   query?: string;
   reverse?: boolean;
   sortKey?: string;
-}): Promise<BaseProduct[]> {
+}): Promise<Product[]> {
   const filters = ['active:"true"'];
   if (query) {
     filters.push(`name~"${query}"`);
@@ -418,7 +343,7 @@ export async function getProducts({
     expand: ['data.default_price']
   });
 
-  const products = res.data.map(reshapeBaseProduct);
+  const products = res.data.map(reshapeProduct);
   return sortProducts(products, sortKey, reverse);
 }
 

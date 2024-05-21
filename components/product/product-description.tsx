@@ -1,11 +1,11 @@
 import { AddToCart } from 'components/cart/add-to-cart';
 import Price from 'components/price';
 import Prose from 'components/prose';
-import { Product } from 'lib/shopify/types';
+import { ProductDetail } from 'lib/shopify/types';
 import { Suspense } from 'react';
 import { VariantSelector } from './variant-selector';
 
-export function ProductDescription({ product }: { product: Product }) {
+export function ProductDescription({ product }: { product: ProductDetail }) {
   return (
     <>
       <div className="mb-6 flex flex-col border-b pb-6 dark:border-neutral-700">
