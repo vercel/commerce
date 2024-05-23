@@ -29,6 +29,7 @@ import {
 } from './queries/collection';
 import { getMenuQuery } from './queries/menu';
 import { getMetaobjectsQuery } from './queries/metaobject';
+import { getImageQuery, getMetaobjectsByIdsQuery } from './queries/node';
 import { getPageQuery, getPagesQuery } from './queries/page';
 import {
   getProductQuery,
@@ -44,8 +45,10 @@ import {
   Menu,
   Metaobject,
   Money,
+  PAGE_TYPES,
   Page,
   PageInfo,
+  PageMetafield,
   Product,
   ProductVariant,
   ShopifyAddToCartOperation,
@@ -57,8 +60,10 @@ import {
   ShopifyCollectionsOperation,
   ShopifyCreateCartOperation,
   ShopifyFilter,
+  ShopifyImageOperation,
   ShopifyMenuOperation,
   ShopifyMetaobject,
+  ShopifyMetaobjectOperation,
   ShopifyMetaobjectsOperation,
   ShopifyPageOperation,
   ShopifyPagesOperation,
@@ -490,10 +495,36 @@ export async function getMetaobjects(type: string) {
   return reshapeMetaobjects(removeEdgesAndNodes(res.body.data.metaobjects));
 }
 
+export async function getMetaobjectsByIds(ids: string[]) {
+  if (!ids.length) return [];
+
+  const res = await shopifyFetch<ShopifyMetaobjectOperation>({
+    query: getMetaobjectsByIdsQuery,
+    variables: { ids }
+  });
+
+  return reshapeMetaobjects(res.body.data.nodes);
+}
+
+export async function getPageMetaObjects(metafield: PageMetafield) {
+  let metaobjectIds = parseMetaFieldValue<string | string[]>(metafield) || metafield.value;
+
+  if (!metaobjectIds) {
+    return null;
+  }
+
+  metaobjectIds = (Array.isArray(metaobjectIds) ? metaobjectIds : [metaobjectIds]) as string[];
+
+  const metaobjects = await getMetaobjectsByIds(metaobjectIds);
+
+  return { metaobjects, id: metafield.id, key: metafield.key };
+}
+
 export async function getPage(handle: string): Promise<Page> {
+  const metafieldIdentifiers = PAGE_TYPES.map((key) => ({ key, namespace: 'custom' }));
   const res = await shopifyFetch<ShopifyPageOperation>({
     query: getPageQuery,
-    variables: { handle }
+    variables: { handle, metafieldIdentifiers }
   });
 
   return res.body.data.pageByHandle;
@@ -604,3 +635,12 @@ export async function revalidate(req: NextRequest): Promise<NextResponse> {
 
   return NextResponse.json({ status: 200, revalidated: true, now: Date.now() });
 }
+
+export const getImage = async (id: string): Promise<Image> => {
+  const res = await shopifyFetch<ShopifyImageOperation>({
+    query: getImageQuery,
+    variables: { id }
+  });
+
+  return res.body.data.node.image;
+};

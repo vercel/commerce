@@ -53,13 +53,26 @@ export default async function Footer() {
             {copyrightName.length && !copyrightName.endsWith('.') ? '.' : ''} All rights reserved.
           </p>
           <div className="ml-0 flex flex-row items-center gap-2 md:ml-auto">
-            <Image alt="visa" src="/icons/visa.png" width={30} height={20} />
-            <Image alt="mastercard" src="/icons/mastercard.png" width={30} height={20} />
+            <Image
+              alt="visa"
+              src="/icons/visa.png"
+              width={30}
+              height={30}
+              className="h-auto w-[30px]"
+            />
+            <Image
+              alt="mastercard"
+              src="/icons/mastercard.png"
+              width={30}
+              height={30}
+              className="h-auto w-[30px]"
+            />
             <Image
               alt="american-express"
               src="/icons/american-express.png"
               width={30}
-              height={20}
+              height={30}
+              className="h-auto w-[30px]"
             />
           </div>
         </div>
