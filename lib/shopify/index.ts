@@ -28,7 +28,7 @@ import {
   getCollectionsQuery
 } from './queries/collection';
 import { getMenuQuery } from './queries/menu';
-import { getMetaobjectsQuery } from './queries/metaobject';
+import { getMetaobjectQuery, getMetaobjectsQuery } from './queries/metaobject';
 import { getImageQuery, getMetaobjectsByIdsQuery } from './queries/node';
 import { getPageQuery, getPagesQuery } from './queries/page';
 import {
@@ -45,10 +45,8 @@ import {
   Menu,
   Metaobject,
   Money,
-  PAGE_TYPES,
   Page,
   PageInfo,
-  PageMetafield,
   Product,
   ProductVariant,
   ShopifyAddToCartOperation,
@@ -63,8 +61,8 @@ import {
   ShopifyImageOperation,
   ShopifyMenuOperation,
   ShopifyMetaobject,
-  ShopifyMetaobjectOperation,
   ShopifyMetaobjectsOperation,
+  ShopifyPage,
   ShopifyPageOperation,
   ShopifyPagesOperation,
   ShopifyProduct,
@@ -238,7 +236,7 @@ const reshapeFilters = (filters: ShopifyFilter[]): Filter[] => {
 };
 
 const reshapeMetaobjects = (metaobjects: ShopifyMetaobject[]): Metaobject[] => {
-  return metaobjects.map(({ fields, id }) => {
+  return metaobjects.map(({ fields, id, type }) => {
     const groupedFieldsByKey = fields.reduce(
       (acc, field) => {
         return {
@@ -256,7 +254,7 @@ const reshapeMetaobjects = (metaobjects: ShopifyMetaobject[]): Metaobject[] => {
       }
     );
 
-    return { id, ...groupedFieldsByKey };
+    return { id, type, ...groupedFieldsByKey };
   });
 };
 
@@ -498,7 +496,10 @@ export async function getMetaobjects(type: string) {
 export async function getMetaobjectsByIds(ids: string[]) {
   if (!ids.length) return [];
 
-  const res = await shopifyFetch<ShopifyMetaobjectOperation>({
+  const res = await shopifyFetch<{
+    data: { nodes: ShopifyMetaobject[] };
+    variables: { ids: string[] };
+  }>({
     query: getMetaobjectsByIdsQuery,
     variables: { ids }
   });
@@ -506,31 +507,39 @@ export async function getMetaobjectsByIds(ids: string[]) {
   return reshapeMetaobjects(res.body.data.nodes);
 }
 
-export async function getPageMetaObjects(metafield: PageMetafield) {
-  let metaobjectIds = parseMetaFieldValue<string | string[]>(metafield) || metafield.value;
+export async function getMetaobjectById(id: string) {
+  const res = await shopifyFetch<{
+    data: { metaobject: ShopifyMetaobject };
+    variables: { id: string };
+  }>({
+    query: getMetaobjectQuery,
+    variables: { id }
+  });
 
-  if (!metaobjectIds) {
-    return null;
-  }
-
-  metaobjectIds = (Array.isArray(metaobjectIds) ? metaobjectIds : [metaobjectIds]) as string[];
-
-  const metaobjects = await getMetaobjectsByIds(metaobjectIds);
-
-  return { metaobjects, id: metafield.id, key: metafield.key };
+  return res.body.data.metaobject ? reshapeMetaobjects([res.body.data.metaobject])[0] : null;
 }
 
 export async function getPage(handle: string): Promise<Page> {
-  const metafieldIdentifiers = PAGE_TYPES.map((key) => ({ key, namespace: 'custom' }));
   const res = await shopifyFetch<ShopifyPageOperation>({
     query: getPageQuery,
-    variables: { handle, metafieldIdentifiers }
+    variables: { handle, key: 'page_content', namespace: 'custom' }
   });
 
-  return res.body.data.pageByHandle;
+  const page = res.body.data.pageByHandle;
+
+  if (page.metafield) {
+    const metaobjectIds = parseMetaFieldValue<string[]>(page.metafield) || [];
+
+    const metaobjects = await getMetaobjectsByIds(metaobjectIds);
+
+    const { metafield, ...restPage } = page;
+    return { ...restPage, metaobjects };
+  }
+
+  return page;
 }
 
-export async function getPages(): Promise<Page[]> {
+export async function getPages(): Promise<ShopifyPage[]> {
   const res = await shopifyFetch<ShopifyPagesOperation>({
     query: getPagesQuery
   });

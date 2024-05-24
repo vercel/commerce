@@ -18,3 +18,21 @@ export const getMetaobjectsQuery = /* GraphQL */ `
     }
   }
 `;
+
+export const getMetaobjectQuery = /* GraphQL */ `
+  query getMetaobject($id: ID!) {
+    metaobject(id: $id) {
+      id
+      type
+      fields {
+        reference {
+          ... on Metaobject {
+            id
+          }
+        }
+        key
+        value
+      }
+    }
+  }
+`;

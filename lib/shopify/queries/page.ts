@@ -19,12 +19,11 @@ const pageFragment = /* GraphQL */ `
 `;
 
 export const getPageQuery = /* GraphQL */ `
-  query getPage($handle: String!, $metafieldIdentifiers: [HasMetafieldsIdentifier!]!) {
+  query getPage($handle: String!, $key: String!, $namespace: String) {
     pageByHandle(handle: $handle) {
       ...page
-      metafields(identifiers: $metafieldIdentifiers) {
+      metafield(key: $key, namespace: $namespace) {
         value
-        key
         id
       }
     }

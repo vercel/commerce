@@ -18,6 +18,7 @@ export const getMetaobjectsByIdsQuery = /* GraphQL */ `
     nodes(ids: $ids) {
       ... on Metaobject {
         id
+        type
         fields {
           reference {
             ... on Metaobject {

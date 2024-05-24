@@ -53,14 +53,13 @@ export type Money = {
 
 export type PageMetafield = {
   id: string;
-  key: PageMetafieldKey;
   value: string;
 };
 
-export const PAGE_TYPES = ['page_icon_section', 'page_section', 'page_image_content'] as const;
-export type PageMetafieldKey = (typeof PAGE_TYPES)[number];
+export const PAGE_TYPES = ['image', 'icon_content_section', 'page_section', 'accordion'] as const;
+export type PageType = (typeof PAGE_TYPES)[number];
 
-export type Page = {
+export type ShopifyPage = {
   id: string;
   title: string;
   handle: string;
@@ -69,16 +68,15 @@ export type Page = {
   seo?: SEO;
   createdAt: string;
   updatedAt: string;
-  metafields: PageMetafield[];
+  metafield: PageMetafield | null;
 };
 
-export type MetafieldIdentifier = {
-  key: string;
-  namespace: string;
+export type Page = Omit<ShopifyPage, 'metafield'> & {
+  metaobjects?: Metaobject[];
 };
-
 export type ShopifyMetaobject = {
   id: string;
+  type: string;
   fields: Array<{
     key: string;
     value: string;
@@ -90,6 +88,7 @@ export type ShopifyMetaobject = {
 
 export type Metaobject = {
   id: string;
+  type: string;
   [key: string]: string;
 };
 
@@ -296,8 +295,8 @@ export type ShopifyMenuOperation = {
 };
 
 export type ShopifyPageOperation = {
-  data: { pageByHandle: Page };
-  variables: { handle: string; metafieldIdentifiers: MetafieldIdentifier[] };
+  data: { pageByHandle: ShopifyPage };
+  variables: { handle: string; key: string; namespace: string };
 };
 
 export type ShopifyImageOperation = {
@@ -312,7 +311,7 @@ export type ShopifyMetaobjectsOperation = {
 
 export type ShopifyPagesOperation = {
   data: {
-    pages: Connection<Page>;
+    pages: Connection<ShopifyPage>;
   };
 };
 
@@ -387,12 +386,6 @@ export type Filter = {
     label: string;
     value: unknown;
   }[];
-};
-
-export type PageContent = {
-  id: string;
-  key: PageMetafieldKey;
-  metaobjects: Metaobject[];
 };
 
 export const SCREEN_SIZES = ['small', 'medium', 'large', 'extra_large'] as const;

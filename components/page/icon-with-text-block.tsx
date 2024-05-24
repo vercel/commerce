@@ -1,7 +1,7 @@
 import Grid from 'components/grid';
 import DynamicHeroIcon from 'components/hero-icon';
 import { getMetaobjects, getMetaobjectsByIds } from 'lib/shopify';
-import { PageContent, ScreenSize } from 'lib/shopify/types';
+import { Metaobject, ScreenSize } from 'lib/shopify/types';
 
 export const IconBlockPlaceholder = () => {
   return (
@@ -13,15 +13,10 @@ export const IconBlockPlaceholder = () => {
   );
 };
 
-const IconWithTextBlock = async ({ content }: { content: PageContent }) => {
-  // for icon with text content, we only need the first metaobject as the array always contains only one element due to the metafield definition set up on Shopify
-  const metaobject = content.metaobjects[0];
-
-  if (!metaobject) return null;
-
+const IconWithTextBlock = async ({ block }: { block: Metaobject }) => {
   const [contentBlocks, layouts, screenSizes] = await Promise.all([
-    getMetaobjectsByIds(metaobject.content ? JSON.parse(metaobject.content) : []),
-    getMetaobjectsByIds(metaobject.layouts ? JSON.parse(metaobject.layouts) : []),
+    getMetaobjectsByIds(block.content ? JSON.parse(block.content) : []),
+    getMetaobjectsByIds(block.layouts ? JSON.parse(block.layouts) : []),
     getMetaobjects('screen_sizes')
   ]);
 
@@ -75,15 +70,18 @@ const IconWithTextBlock = async ({ content }: { content: PageContent }) => {
 
   return (
     <div className="flex flex-col gap-5 px-4 md:px-0">
-      <h3 className="text-xl font-semibold leading-6 text-gray-900">{metaobject.title}</h3>
+      {block.title ? (
+        <h3 className="text-xl font-semibold leading-6 text-gray-900">{block.title}</h3>
+      ) : null}
+
       <Grid className={validClassnames}>
         {contentBlocks.map((block) => (
           <Grid.Item key={block.id} className="flex flex-col gap-2">
             {block.icon_name && (
               <DynamicHeroIcon icon={block.icon_name} className="w-16 text-secondary" />
             )}
-            <div className="text-lg font-medium">{block.title}</div>
-            <p className="text-base text-gray-800">{block.content}</p>
+            {block.title && <div className="text-lg font-medium">{block.title}</div>}
+            {block.content && <p className="text-base text-gray-800">{block.content}</p>}
           </Grid.Item>
         ))}
       </Grid>

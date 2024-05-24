@@ -1,12 +1,8 @@
 import type { Metadata } from 'next';
 
-import IconWithTextBlock, { IconBlockPlaceholder } from 'components/page/icon-with-text-block';
-import ImageWithTextBlock from 'components/page/image-with-text-block';
-import TextBlock from 'components/page/text-block';
-import { getPage, getPageMetaObjects } from 'lib/shopify';
-import { PageContent, PageMetafieldKey } from 'lib/shopify/types';
+import PageContent from 'components/page/page-content';
+import { getPage } from 'lib/shopify';
 import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
 
 export const runtime = 'edge';
 
@@ -30,28 +26,10 @@ export async function generateMetadata({
   };
 }
 
-// eslint-disable-next-line no-unused-vars
-const contentMap: Record<PageMetafieldKey, (content: PageContent) => JSX.Element> = {
-  page_icon_section: (content) => (
-    <Suspense fallback={<IconBlockPlaceholder />}>
-      <IconWithTextBlock content={content} />
-    </Suspense>
-  ),
-  page_image_content: (content) => <ImageWithTextBlock content={content} />,
-  page_section: (content) => <TextBlock content={content} />
-};
-
 export default async function Page({ params }: { params: { page: string } }) {
   const page = await getPage(params.page);
 
   if (!page) return notFound();
-
-  const pageContents = (
-    await Promise.allSettled(page.metafields.map((metafield) => getPageMetaObjects(metafield)))
-  )
-    .filter((result) => result.status === 'fulfilled')
-    .map((result) => (result as PromiseFulfilledResult<PageContent | null>).value)
-    .filter(Boolean) as PageContent[];
 
   return (
     <>
@@ -63,8 +41,10 @@ export default async function Page({ params }: { params: { page: string } }) {
       <main>
         <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
           <div className="flex flex-col space-y-16">
-            {pageContents.map((content) => (
-              <div key={content.id}>{contentMap[content.key](content)}</div>
+            {page.metaobjects?.map((content) => (
+              <div key={content.id}>
+                <PageContent block={content} />
+              </div>
             ))}
           </div>
         </div>
