@@ -1,6 +1,7 @@
 import { Metaobject, PageType } from 'lib/shopify/types';
 import { Suspense } from 'react';
 import AccordionBlock from './accordion-block';
+import CategoryPreview, { CategoryPreviewPlaceholder } from './category-preview';
 import IconWithTextBlock, { IconBlockPlaceholder } from './icon-with-text-block';
 import ImageWithTextBlock from './image-with-text-block';
 import TextBlock from './text-block';
@@ -15,7 +16,12 @@ const PageContent = ({ block }: { block: Metaobject }) => {
     ),
     image: (block) => <ImageWithTextBlock block={block} />,
     page_section: (block) => <TextBlock block={block} />,
-    accordion: (block) => <AccordionBlock block={block} />
+    accordion: (block) => <AccordionBlock block={block} />,
+    category_preview: (block) => (
+      <Suspense fallback={<CategoryPreviewPlaceholder />}>
+        <CategoryPreview block={block} />
+      </Suspense>
+    )
   };
 
   return contentMap[block.type as PageType](block);

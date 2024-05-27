@@ -1,32 +1,35 @@
-import { Carousel } from 'components/carousel';
-import YMMFilters, { YMMFiltersPlaceholder } from 'components/filters';
-import { ThreeItemGrid } from 'components/grid/three-items';
+import Hero from 'components/hero';
+import HomePageContent from 'components/home-page-content';
 import Footer from 'components/layout/footer';
+import { getPage } from 'lib/shopify';
+import { Metadata } from 'next';
 import { Suspense } from 'react';
 
 export const runtime = 'edge';
 
-export const metadata = {
-  description: 'High-performance ecommerce store built with Next.js, Vercel, and Shopify.',
-  openGraph: {
-    type: 'website'
-  }
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await getPage('home-page');
+
+  return {
+    title: page?.seo?.title || page?.title,
+    description: page?.seo?.description || page?.bodySummary,
+    openGraph: {
+      type: 'website'
+    }
+  };
+}
 
 export default async function HomePage() {
   return (
     <>
-      <section className="mx-auto max-w-screen-2xl px-4 pb-4">
-        <Suspense fallback={<YMMFiltersPlaceholder />}>
-          <YMMFilters />
-        </Suspense>
-      </section>
-      <ThreeItemGrid />
-      <Suspense>
-        <Carousel />
+      <Hero />
+      <div className="mt-3">
         <Suspense>
-          <Footer />
+          <HomePageContent />
         </Suspense>
+      </div>
+      <Suspense>
+        <Footer />
       </Suspense>
     </>
   );

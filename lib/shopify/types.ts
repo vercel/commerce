@@ -56,7 +56,13 @@ export type PageMetafield = {
   value: string;
 };
 
-export const PAGE_TYPES = ['image', 'icon_content_section', 'page_section', 'accordion'] as const;
+export const PAGE_TYPES = [
+  'image',
+  'icon_content_section',
+  'page_section',
+  'accordion',
+  'category_preview'
+] as const;
 export type PageType = (typeof PAGE_TYPES)[number];
 
 export type ShopifyPage = {
@@ -246,7 +252,8 @@ export type ShopifyCollectionOperation = {
     collection: ShopifyCollection;
   };
   variables: {
-    handle: string;
+    handle?: string;
+    id?: string;
   };
 };
 

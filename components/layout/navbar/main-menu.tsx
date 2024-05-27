@@ -22,7 +22,7 @@ const MainMenu = ({ menu }: { menu: Menu[] }) => {
             if (!item.items.length) {
               return (
                 <Link
-                  key={item.title}
+                  key={`navbar-${item.title}-${item.path}`}
                   href={item.path}
                   className={`flex h-full items-center ${isActiveItem ? 'text-black' : 'text-neutral-600 hover:text-black'}`}
                 >
@@ -33,7 +33,7 @@ const MainMenu = ({ menu }: { menu: Menu[] }) => {
 
             const isOpen = open === item.path;
             return (
-              <Popover key={item.title} className="relative flex h-full">
+              <Popover key={`navbar-${item.title}-${item.path}`} className="relative flex h-full">
                 <div
                   className="relative flex"
                   onMouseOver={() => setOpen(item.path)}
@@ -69,7 +69,7 @@ const MainMenu = ({ menu }: { menu: Menu[] }) => {
                       <div className="overflow-hidden rounded-md shadow-lg ring-1 ring-black/5">
                         <ul className="flex flex-col space-y-3 bg-white px-4 py-3">
                           {item.items.map((subItem: Menu) => (
-                            <li key={subItem.title}>
+                            <li key={`sub-nav-${subItem.title}-${subItem.path}`}>
                               <Link
                                 href={subItem.path}
                                 className={`border-b ${subItem.path === pathname ? 'border-black text-black' : 'border-transparent text-neutral-600 hover:text-black'}`}

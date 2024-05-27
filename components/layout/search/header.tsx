@@ -1,7 +1,7 @@
 import { getCollection } from 'lib/shopify';
 
 const Header = async ({ collection }: { collection: string }) => {
-  const collectionData = await getCollection(collection);
+  const collectionData = await getCollection({ handle: collection });
 
   return collectionData ? (
     <div className="mb-3 mt-3 max-w-5xl lg:mb-1">

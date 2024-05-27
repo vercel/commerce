@@ -380,12 +380,19 @@ export async function getCart(cartId: string): Promise<Cart | undefined> {
   return reshapeCart(res.body.data.cart);
 }
 
-export async function getCollection(handle: string): Promise<Collection | undefined> {
+export async function getCollection({
+  handle,
+  id
+}: {
+  handle?: string;
+  id?: string;
+}): Promise<Collection | undefined> {
   const res = await shopifyFetch<ShopifyCollectionOperation>({
     query: getCollectionQuery,
     tags: [TAGS.collections],
     variables: {
-      handle
+      handle,
+      id
     }
   });
 

@@ -23,7 +23,7 @@ const AccordionBlock = async ({ block }: { block: Metaobject }) => {
   const accordionItemIds = JSON.parse(block.accordion || '[]') as string[];
 
   return (
-    <div className="divide-y divide-gray-900/10">
+    <div className="divide-y divide-gray-900/10 px-4 md:px-0">
       {block.title && (
         <h3 className="mb-7 text-xl font-semibold leading-6 text-gray-900">{block.title}</h3>
       )}

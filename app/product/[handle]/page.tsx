@@ -82,7 +82,7 @@ export default async function ProductPage({ params }: { params: { handle: string
           __html: JSON.stringify(productJsonLd)
         }}
       />
-      <div className="mx-auto max-w-screen-2xl px-4">
+      <div className="mx-auto mt-4 max-w-screen-2xl px-4">
         <div className="hidden lg:block">
           <BreadcrumbComponent type="product" handle={product.handle} />
         </div>

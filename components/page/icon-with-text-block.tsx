@@ -1,7 +1,8 @@
 import Grid from 'components/grid';
 import DynamicHeroIcon from 'components/hero-icon';
 import { getMetaobjects, getMetaobjectsByIds } from 'lib/shopify';
-import { Metaobject, ScreenSize } from 'lib/shopify/types';
+import { Metaobject } from 'lib/shopify/types';
+import { computeLayoutClassnames } from './layout';
 
 export const IconBlockPlaceholder = () => {
   return (
@@ -20,53 +21,7 @@ const IconWithTextBlock = async ({ block }: { block: Metaobject }) => {
     getMetaobjects('screen_sizes')
   ]);
 
-  const availableLayouts = layouts.reduce(
-    (acc, layout) => {
-      const screenSize = screenSizes.find((screen) => screen.id === layout.screen_size);
-      if (screenSize?.size) {
-        acc[screenSize.size.toLowerCase() as ScreenSize] = Number(layout.number_of_columns);
-      }
-
-      return acc;
-    },
-    {} as Record<ScreenSize, number>
-  );
-
-  let classnames = {} as { [key: string]: boolean };
-
-  if (availableLayouts.small) {
-    classnames = {
-      ...classnames,
-      'sm:grid-cols-1': availableLayouts.small === 1,
-      'sm:grid-cols-2': availableLayouts.small === 2,
-      'sm:grid-cols-3': availableLayouts.small === 3,
-      'sm:grid-cols-4': availableLayouts.small === 4
-    };
-  }
-
-  if (availableLayouts.medium) {
-    classnames = {
-      ...classnames,
-      'md:grid-cols-1': availableLayouts.medium === 1,
-      'md:grid-cols-2': availableLayouts.medium === 2,
-      'md:grid-cols-3': availableLayouts.medium === 3,
-      'md:grid-cols-4': availableLayouts.medium === 4
-    };
-  }
-
-  if (availableLayouts.large) {
-    classnames = {
-      ...classnames,
-      'lg:grid-cols-1': availableLayouts.large === 1,
-      'lg:grid-cols-2': availableLayouts.large === 2,
-      'lg:grid-cols-3': availableLayouts.large === 3,
-      'lg:grid-cols-4': availableLayouts.large === 4
-    };
-  }
-
-  const validClassnames = Object.keys(classnames)
-    .filter((key) => classnames[key])
-    .join(' ');
+  const validClassnames = computeLayoutClassnames({ layouts, screenSizes });
 
   return (
     <div className="flex flex-col gap-5 px-4 md:px-0">
@@ -74,15 +29,23 @@ const IconWithTextBlock = async ({ block }: { block: Metaobject }) => {
         <h3 className="text-xl font-semibold leading-6 text-gray-900">{block.title}</h3>
       ) : null}
 
-      <Grid className={validClassnames}>
+      <Grid className={`${validClassnames} gap-x-8`}>
         {contentBlocks.map((block) => (
-          <Grid.Item key={block.id} className="flex flex-col gap-2">
+          <div key={block.id} className="items-center sm:flex">
             {block.icon_name && (
-              <DynamicHeroIcon icon={block.icon_name} className="w-16 text-secondary" />
+              <div className="sm:flex-shrink-0">
+                <div className="flow-root">
+                  <DynamicHeroIcon icon={block.icon_name} className="w-16 text-secondary" />
+                </div>
+              </div>
             )}
-            {block.title && <div className="text-lg font-medium">{block.title}</div>}
-            {block.content && <p className="text-base text-gray-800">{block.content}</p>}
-          </Grid.Item>
+            <div className="mt-3 sm:ml-4 sm:mt-0">
+              {block.title && (
+                <div className="text-sm font-medium text-gray-900">{block.title}</div>
+              )}
+              {block.content && <p className="mt-2 text-sm text-gray-500">{block.content}</p>}
+            </div>
+          </div>
         ))}
       </Grid>
     </div>

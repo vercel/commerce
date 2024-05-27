@@ -12,7 +12,7 @@ const ImageWithTextBlock = ({ block }: { block: Metaobject }) => {
         <h3 className="text-xl font-semibold leading-6 text-gray-900">{block.title}</h3>
       )}
       {description ? (
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-x-0 gap-y-5 md:grid-cols-3 md:gap-x-5 md:gap-y-0">
           <div className="relative col-span-1">
             <Suspense>
               <ImageDisplay title={block.title || 'Image Preview'} fileId={block.file as string} />

@@ -23,7 +23,7 @@ export async function generateMetadata({
 }: {
   params: { collection: string };
 }): Promise<Metadata> {
-  const collection = await getCollection(params.collection);
+  const collection = await getCollection({ handle: params.collection });
 
   if (!collection) return notFound();
 
@@ -86,11 +86,11 @@ export default function CategorySearchPage(props: {
   return (
     <>
       <div className="mb-2">
-        <Suspense fallback={<BreadcrumbHome />} key={props.params.collection}>
+        <Suspense fallback={<BreadcrumbHome />} key={`breadcrumb-${props.params.collection}`}>
           <Breadcrumb type="collection" handle={props.params.collection} />
         </Suspense>
       </div>
-      <Suspense fallback={<HeaderPlaceholder />} key={props.params.collection}>
+      <Suspense fallback={<HeaderPlaceholder />} key={`header-${props.params.collection}`}>
         <Header collection={props.params.collection} />
       </Suspense>
       <div className="my-3">
@@ -98,7 +98,7 @@ export default function CategorySearchPage(props: {
           <YMMFilters />
         </Suspense>
       </div>
-      <Suspense fallback={<ProductsGridPlaceholder />} key={props.params.collection}>
+      <Suspense fallback={<ProductsGridPlaceholder />} key={`products-${props.params.collection}`}>
         <CategoryPage {...props} />
       </Suspense>
     </>

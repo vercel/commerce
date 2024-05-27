@@ -37,7 +37,7 @@ const BreadcrumbComponent = async ({ type, handle }: BreadcrumbProps) => {
   }
 
   if (type === 'collection') {
-    const collectionData = getCollection(handle);
+    const collectionData = getCollection({ handle });
     const menuData = getMenu('main-menu');
     const [collection, menu] = await Promise.all([collectionData, menuData]);
     if (!collection) return null;

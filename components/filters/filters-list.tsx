@@ -14,9 +14,10 @@ type FiltersListProps = {
   models: Metaobject[];
   makes: Metaobject[];
   menu: Menu[];
+  autoFocusField?: string;
 };
 
-const FiltersList = ({ years, makes, models, menu }: FiltersListProps) => {
+const FiltersList = ({ years, makes, models, menu, autoFocusField }: FiltersListProps) => {
   const params = useParams<{ collection?: string }>();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -24,20 +25,25 @@ const FiltersList = ({ years, makes, models, menu }: FiltersListProps) => {
   const parentCollection = params.collection ? findParentCollection(menu, params.collection) : null;
   // get the active collection (if any) to identify the default part type.
   // if a collection is a sub collection, we will find the parent. Normally in this case, the parent collection would either be transmissions or engines.
-  const _collection = parentCollection?.path.split('/').slice(-1)[0] || params.collection;
+  const partTypeCollection = parentCollection?.path.split('/').slice(-1)[0] || params.collection;
 
   const [partType, setPartType] = useState<{ label: string; value: string } | null>(
-    PART_TYPES.find((type) => type.value === _collection) || null
-  );
-
-  const [year, setYear] = useState<Metaobject | null>(
-    (partType && years.find((y) => y.id === searchParams.get(YEAR_FILTER_ID))) || null
+    PART_TYPES.find((type) => type.value === partTypeCollection) || null
   );
   const [make, setMake] = useState<Metaobject | null>(
-    (year && makes.find((make) => make.id === searchParams.get(MAKE_FILTER_ID))) || null
+    (partType &&
+      makes.find((make) =>
+        searchParams.get(MAKE_FILTER_ID)
+          ? make.id === searchParams.get(MAKE_FILTER_ID)
+          : make.slug === params.collection
+      )) ||
+      null
   );
   const [model, setModel] = useState<Metaobject | null>(
     (make && models.find((model) => model.id === searchParams.get(MODEL_FILTER_ID))) || null
+  );
+  const [year, setYear] = useState<Metaobject | null>(
+    (model && years.find((y) => y.id === searchParams.get(YEAR_FILTER_ID))) || null
   );
 
   const modelOptions = make ? models.filter((m) => get(m, 'make') === make.id) : models;
@@ -84,6 +90,7 @@ const FiltersList = ({ years, makes, models, menu }: FiltersListProps) => {
         options={PART_TYPES}
         getId={(option) => option.value}
         displayKey="label"
+        autoFocus={autoFocusField === 'partType'}
       />
       <FilterField
         label="Make"
@@ -92,6 +99,7 @@ const FiltersList = ({ years, makes, models, menu }: FiltersListProps) => {
         options={makes}
         getId={(option) => option.id}
         disabled={!partType}
+        autoFocus={autoFocusField === 'make'}
       />
       <FilterField
         label="Model"
@@ -100,6 +108,7 @@ const FiltersList = ({ years, makes, models, menu }: FiltersListProps) => {
         options={modelOptions}
         getId={(option) => option.id}
         disabled={!make}
+        autoFocus={autoFocusField === 'model'}
       />
       <FilterField
         label="Year"
@@ -108,6 +117,7 @@ const FiltersList = ({ years, makes, models, menu }: FiltersListProps) => {
         options={yearOptions}
         getId={(option) => option.id}
         disabled={!model || !make}
+        autoFocus={autoFocusField === 'year'}
       />
       <Button
         onClick={onSearch}
