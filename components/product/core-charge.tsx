@@ -1,5 +1,6 @@
 'use client';
 
+import { InformationCircleIcon } from '@heroicons/react/20/solid';
 import { ArrowPathRoundedSquareIcon } from '@heroicons/react/24/outline';
 import Price from 'components/price';
 import SideDialog from 'components/side-dialog';
@@ -65,17 +66,71 @@ const CoreCharge = ({ variants }: CoreChargeProps) => {
           <span> Core charge </span>
         </div>
         <button className="pl-2 text-blue-800 hover:underline" onClick={openDialog}>
-          Understanding Core Charges and Returns
+          How does the core charge work?
         </button>
 
         <SideDialog title="Core Charges and Returns" onClose={closeDialog} open={isOpenDialog}>
-          <div className="mt-5 flex h-full flex-col overflow-hidden">
-            <p className="text-sm tracking-tight">
-              The core charge is a refundable deposit that is added to the price of the part. This
-              charge ensures that the old, worn-out part is returned to the supplier for proper
-              disposal or recycling. When you return the old part, you&apos;ll receive a refund of
-              the core charge.
-            </p>
+          <div className="mt-5 flex h-full flex-col space-y-5 overflow-hidden">
+            <section>
+              <p className="text-md mb-3 font-semibold">What is a core charge?</p>
+              <p className="mb-3 text-sm">
+                When you purchase a remanufactured transmission, the price assumes that you return
+                your old transmission. This old part is called a core.
+              </p>
+              <p className="text-sm">
+                The core charge is a refundable deposit that is added to the price of the part to
+                ensure that the old part is returned for proper disposal or remanufacturing. When
+                you return the old part, you receive a refund of the core charge.
+              </p>
+            </section>
+
+            <section>
+              <p className="text-md mb-3 font-semibold">Understanding our core waiver</p>
+              <p className="mb-3 text-sm">
+                At Transmission Locator, we offer a 30-day core waiver option on some of our
+                transmissions. This means that you can choose to waive the core deposit for up to 30
+                days after your purchase. As long as you return your old part within the 30-day
+                period, you will never need to pay the core charge.
+              </p>
+              <p className="text-sm">
+                If you don't manage to return the old part within the 30-day period, we will then
+                charge you the core charge. This keeps more money in your pocket upfront.
+              </p>
+            </section>
+
+            <section>
+              <p className="text-md mb-3 font-semibold">Returning your core</p>
+              <p className="text-sm">
+                We will pick up your core at no cost to you. Simply let us know that the core is
+                ready and we will send you a prepaid label, as well as a driver to pick up the core.
+              </p>
+            </section>
+
+            <section>
+              <div className="rounded-md border border-blue-700 bg-blue-50 p-2">
+                <div className="flex items-center">
+                  <div className="flex-shrink-0 px-2">
+                    <InformationCircleIcon className="h-5 w-5 text-blue-400" aria-hidden="true" />
+                  </div>
+                  <div className="ml-3">
+                    <p className="font-medium text-blue-700">
+                      Have questions? Speak to a specialist now:
+                    </p>
+                    <div className="md:flex md:justify-between">
+                      <p className="mt-1 text-blue-700 md:mt-0">
+                        <a
+                          href="tel:+18882422605"
+                          className="whitespace-nowrap text-blue-700 hover:text-blue-600"
+                        >
+                          (888) 242-2605
+                          <span aria-hidden="true"> &rarr;</span>
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
           </div>
         </SideDialog>
       </div>
