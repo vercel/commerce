@@ -26,4 +26,19 @@ const HomePageFilters = async () => {
   );
 };
 
+export const HomePageFiltersPlaceholder = () => {
+  return (
+    <>
+      <h1 className="text-4xl font-bold tracking-tight text-white lg:text-6xl">
+        Find Your Car Part
+      </h1>
+      <div className="mt-5 flex w-full flex-col items-center gap-3 md:flex-row">
+        <div className="h-9 w-full rounded bg-gray-50 opacity-50" />
+        <div className="h-9 w-full rounded bg-gray-50 opacity-50" />
+        <div className="h-9 w-full rounded bg-gray-50 opacity-50" />
+      </div>
+    </>
+  );
+};
+
 export default HomePageFilters;

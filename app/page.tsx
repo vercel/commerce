@@ -22,7 +22,9 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function HomePage() {
   return (
     <>
-      <Hero />
+      <Suspense>
+        <Hero />
+      </Suspense>
       <div className="my-3 min-h-96">
         <Suspense>
           <HomePageContent />
