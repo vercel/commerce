@@ -40,6 +40,7 @@ const CategoryPreview = async ({ block }: { block: Metaobject }) => {
                     title={block.title || 'Image Preview'}
                     fileId={contentBlock.preview_image as string}
                     className="h-full w-full object-cover object-center"
+                    sizes="(min-width: 1024px) 33vw, 100vw"
                   />
                 </Suspense>
               </div>

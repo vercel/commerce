@@ -56,10 +56,11 @@ const Hero = () => {
             <Image
               src="/hero-image.jpeg"
               alt="Hero Image"
-              width={1247}
+              width={1103}
               height={626}
               priority
               className="h-full w-full object-cover object-center"
+              sizes="100vw"
             />
           </div>
           <div aria-hidden="true" className="absolute inset-0 bg-gray-900 opacity-60" />

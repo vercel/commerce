@@ -23,7 +23,7 @@ export default async function HomePage() {
   return (
     <>
       <Hero />
-      <div className="mt-3">
+      <div className="my-3">
         <Suspense>
           <HomePageContent />
         </Suspense>
