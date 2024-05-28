@@ -28,7 +28,8 @@ export const PART_TYPES = [
 export const TAGS = {
   collections: 'collections',
   products: 'products',
-  cart: 'cart'
+  cart: 'cart',
+  pages: 'pages'
 };
 
 export const HIDDEN_PRODUCT_TAG = 'nextjs-frontend-hidden';

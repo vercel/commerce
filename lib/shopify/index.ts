@@ -12,7 +12,7 @@ import {
 } from 'lib/constants';
 import { isShopifyError } from 'lib/type-guards';
 import { ensureStartsWith, normalizeUrl, parseMetaFieldValue } from 'lib/utils';
-import { revalidateTag } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import {
@@ -529,7 +529,8 @@ export async function getMetaobjectById(id: string) {
 export async function getPage(handle: string): Promise<Page> {
   const res = await shopifyFetch<ShopifyPageOperation>({
     query: getPageQuery,
-    variables: { handle, key: 'page_content', namespace: 'custom' }
+    variables: { handle, key: 'page_content', namespace: 'custom' },
+    tags: [TAGS.pages]
   });
 
   const page = res.body.data.pageByHandle;
@@ -630,13 +631,14 @@ export async function revalidate(req: NextRequest): Promise<NextResponse> {
   const secret = req.nextUrl.searchParams.get('secret');
   const isCollectionUpdate = collectionWebhooks.includes(topic);
   const isProductUpdate = productWebhooks.includes(topic);
+  const isPageUpdate = topic.startsWith(TAGS.pages);
 
   if (!secret || secret !== process.env.SHOPIFY_REVALIDATION_SECRET) {
     console.error('Invalid revalidation secret.');
     return NextResponse.json({ status: 200 });
   }
 
-  if (!isCollectionUpdate && !isProductUpdate) {
+  if (!isCollectionUpdate && !isProductUpdate && !isPageUpdate) {
     // We don't need to revalidate anything for any other topics.
     return NextResponse.json({ status: 200 });
   }
@@ -647,6 +649,11 @@ export async function revalidate(req: NextRequest): Promise<NextResponse> {
 
   if (isProductUpdate) {
     revalidateTag(TAGS.products);
+  }
+
+  if (isPageUpdate) {
+    const pageHandle = topic.split(':')[1];
+    pageHandle && revalidatePath(pageHandle);
   }
 
   return NextResponse.json({ status: 200, revalidated: true, now: Date.now() });
