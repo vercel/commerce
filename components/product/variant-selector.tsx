@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { ProductOption, ProductVariant } from 'lib/shopify/types';
 import { createUrl } from 'lib/utils';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useOptimistic, useTransition } from 'react';
 
 type Combination = {
   id: string;
@@ -21,6 +22,13 @@ export function VariantSelector({
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const [optimisticVariants, setOptimsticVariants] = useOptimistic(variants);
+  const [optimisticOptions, setOptimisticOptions] = useOptimistic(
+    new URLSearchParams(searchParams.toString())
+  );
+  // eslint-disable-next-line no-unused-vars
+  const [pending, startTransition] = useTransition();
+
   const hasNoOptionsOrJustOneOption =
     !options.length || (options.length === 1 && options[0]?.values.length === 1);
 
@@ -28,7 +36,7 @@ export function VariantSelector({
     return null;
   }
 
-  const combinations: Combination[] = variants.map((variant) => ({
+  const combinations: Combination[] = optimisticVariants.map((variant) => ({
     id: variant.id,
     availableForSale: variant.availableForSale,
     // Adds key / value pairs for each variant (ie. "color": "Black" and "size": 'M").
@@ -45,14 +53,6 @@ export function VariantSelector({
         {option.values.map((value) => {
           const optionNameLowerCase = option.name.toLowerCase();
 
-          // Base option params on current params so we can preserve any other param state in the url.
-          const optionSearchParams = new URLSearchParams(searchParams.toString());
-
-          // Update the option params using the current option to reflect how the url *would* change,
-          // if the option was clicked.
-          optionSearchParams.set(optionNameLowerCase, value);
-          const optionUrl = createUrl(pathname, optionSearchParams);
-
           // In order to determine if an option is available for sale, we need to:
           //
           // 1. Filter out all other param state
@@ -62,7 +62,7 @@ export function VariantSelector({
           // This is the "magic" that will cross check possible variant combinations and preemptively
           // disable combinations that are not available. For example, if the color gray is only available in size medium,
           // then all other sizes should be disabled.
-          const filtered = Array.from(optionSearchParams.entries()).filter(([key, value]) =>
+          const filtered = Array.from(optimisticOptions.entries()).filter(([key, value]) =>
             options.find(
               (option) => option.name.toLowerCase() === key && option.values.includes(value)
             )
@@ -74,7 +74,7 @@ export function VariantSelector({
           );
 
           // The option is active if it's in the url params.
-          const isActive = searchParams.get(optionNameLowerCase) === value;
+          const isActive = optimisticOptions.get(optionNameLowerCase) === value;
 
           return (
             <button
@@ -82,7 +82,28 @@ export function VariantSelector({
               aria-disabled={!isAvailableForSale}
               disabled={!isAvailableForSale}
               onClick={() => {
-                router.replace(optionUrl, { scroll: false });
+                startTransition(() => {
+                  const newOptimisticVariants = optimisticVariants.map((variant) => {
+                    const updatedOptions = variant.selectedOptions.map((option) => {
+                      if (option.name.toLowerCase() === optionNameLowerCase) {
+                        return { ...option, value: value };
+                      }
+                      return option;
+                    });
+
+                    return { ...variant, selectedOptions: updatedOptions };
+                  });
+
+                  optimisticOptions.set(optionNameLowerCase, value);
+
+                  setOptimsticVariants(newOptimisticVariants);
+                  setOptimisticOptions(new URLSearchParams(optimisticOptions.toString()));
+
+                  const optionUrl = createUrl(pathname, optimisticOptions);
+
+                  // Navigate without page reload
+                  router.replace(optionUrl, { scroll: false });
+                });
               }}
               title={`${option.name} ${value}${!isAvailableForSale ? ' (Out of Stock)' : ''}`}
               className={clsx(

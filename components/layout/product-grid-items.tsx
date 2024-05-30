@@ -1,9 +1,35 @@
+'use client';
+
 import Grid from 'components/grid';
 import { GridTileImage } from 'components/grid/tile';
 import { Product } from 'lib/shopify/types';
+import { useGlobalTransition } from 'lib/transition';
 import Link from 'next/link';
 
+function Loading() {
+  return (
+    <>
+      {Array(12)
+        .fill(0)
+        .map((_, index) => {
+          return (
+            <Grid.Item
+              key={index}
+              className="h-full w-full animate-pulse bg-neutral-100 dark:bg-neutral-800"
+            />
+          );
+        })}
+    </>
+  );
+}
+
 export default function ProductGridItems({ products }: { products: Product[] }) {
+  const { isPending } = useGlobalTransition();
+
+  if (isPending) {
+    return <Loading />;
+  }
+
   return (
     <>
       {products.map((product) => (
