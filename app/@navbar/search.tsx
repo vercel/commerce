@@ -10,7 +10,6 @@ export default function Search({ value }: { value: string }) {
 
   function searchAction(formData: FormData) {
     const search = formData.get('search') as string;
-    console.log('starting transition...');
     startTransition(() => {
       router.push(`/search?q=${search}`);
     });

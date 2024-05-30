@@ -9,7 +9,7 @@ export const metadata = {
   }
 };
 
-export default async function HomePage() {
+export default function HomePage() {
   return (
     <>
       <ThreeItemGrid />
