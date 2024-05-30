@@ -6,17 +6,25 @@ import { Menu } from 'lib/shopify/types';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import MobileMenu from './mobile-menu';
-import Search, { SearchSkeleton } from './search';
+import Search from './search';
+
 const { SITE_NAME } = process.env;
 
-export default async function Navbar() {
+export default async function Navbar({
+  searchParams
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
   const menu = await getMenu('next-js-frontend-header-menu');
+  const search = searchParams.q ? (searchParams.q as string) : '';
 
   return (
     <nav className="relative flex items-center justify-between p-4 lg:px-6">
       <div className="block flex-none md:hidden">
         <Suspense fallback={null}>
-          <MobileMenu menu={menu} />
+          <MobileMenu menu={menu}>
+            <Search value={search} />
+          </MobileMenu>
         </Suspense>
       </div>
       <div className="flex w-full items-center">
@@ -43,9 +51,7 @@ export default async function Navbar() {
           ) : null}
         </div>
         <div className="hidden justify-center md:flex md:w-1/3">
-          <Suspense fallback={<SearchSkeleton />}>
-            <Search />
-          </Suspense>
+          <Search value={search} />
         </div>
         <div className="flex justify-end md:w-1/3">
           <Suspense fallback={<OpenCart />}>

@@ -5,7 +5,7 @@ import { GridTileImage } from 'components/grid/tile';
 import { createUrl } from 'lib/utils';
 import Image from 'next/image';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { useOptimistic, useTransition } from 'react';
+import { useOptimistic } from 'react';
 
 export function Gallery({ images }: { images: { src: string; altText: string }[] }) {
   const router = useRouter();
@@ -14,8 +14,6 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
   const imageSearchParam = searchParams.get('image');
   const imageIndex = imageSearchParam ? parseInt(imageSearchParam) : 0;
   const [optimisticIndex, setOptimisticIndex] = useOptimistic(imageIndex);
-  // eslint-disable-next-line no-unused-vars
-  const [pending, startTransition] = useTransition();
 
   const buttonClassName =
     'h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-black dark:hover:text-white flex items-center justify-center';
@@ -46,10 +44,8 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
             <div className="mx-auto flex h-11 items-center rounded-full border border-white bg-neutral-50/80 text-neutral-500 backdrop-blur dark:border-black dark:bg-neutral-900/80">
               <button
                 aria-label="Previous product image"
-                onClick={() => {
-                  startTransition(() => {
-                    updateIndex(optimisticIndex - 1);
-                  });
+                formAction={() => {
+                  updateIndex(optimisticIndex - 1);
                 }}
                 className={buttonClassName}
               >
@@ -58,10 +54,8 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
               <div className="mx-1 h-6 w-px bg-neutral-500"></div>
               <button
                 aria-label="Next product image"
-                onClick={() => {
-                  startTransition(() => {
-                    updateIndex(optimisticIndex + 1);
-                  });
+                formAction={() => {
+                  updateIndex(optimisticIndex + 1);
                 }}
                 className={buttonClassName}
               >
@@ -82,10 +76,8 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
                 <button
                   aria-label="Select product image"
                   className="h-full w-full"
-                  onClick={() => {
-                    startTransition(() => {
-                      updateIndex(index);
-                    });
+                  formAction={() => {
+                    updateIndex(index);
                   }}
                 >
                   <GridTileImage
