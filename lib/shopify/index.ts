@@ -34,10 +34,13 @@ import { getPageQuery, getPagesQuery } from './queries/page';
 import {
   getProductQuery,
   getProductRecommendationsQuery,
+  getProductVariantQuery,
   getProductsQuery
 } from './queries/product';
 import {
   Cart,
+  CartItem,
+  CartProductVariant,
   Collection,
   Connection,
   Filter,
@@ -49,6 +52,7 @@ import {
   PageInfo,
   Product,
   ProductVariant,
+  ProductVariantOperation,
   ShopifyAddToCartOperation,
   ShopifyCart,
   ShopifyCartOperation,
@@ -377,7 +381,55 @@ export async function getCart(cartId: string): Promise<Cart | undefined> {
     return undefined;
   }
 
-  return reshapeCart(res.body.data.cart);
+  const cart = reshapeCart(res.body.data.cart);
+
+  let extendedCartLines = cart.lines;
+
+  const lineIdMap = {} as { [key: string]: string };
+  // get product variants details including core charge variant data
+  const productVariantPromises =
+    cart?.lines.map((line) => {
+      lineIdMap[line.merchandise.id] = line.id;
+      return getProductVariant(line?.merchandise.id);
+    }) || [];
+
+  if (productVariantPromises.length) {
+    const coreVariantIds = [] as string[];
+    const productVariantsById = (await Promise.allSettled(productVariantPromises))
+      .filter((result) => result.status === 'fulfilled')
+      .reduce(
+        (acc, result) => {
+          const _result = result as PromiseFulfilledResult<CartProductVariant>;
+          return {
+            ...acc,
+            [_result.value.id]: { ..._result.value, lineId: lineIdMap[_result.value.id] }
+          };
+        },
+        {} as { [key: string]: CartProductVariant & { lineId?: string } }
+      );
+
+    // add core charge field to cart line item if any
+    extendedCartLines = cart?.lines
+      .reduce((lines, item) => {
+        const productVariant = productVariantsById[item.merchandise.id];
+        if (productVariant && productVariant.coreVariantId) {
+          const coreCharge = productVariantsById[productVariant.coreVariantId];
+          coreVariantIds.push(productVariant.coreVariantId);
+          return lines.concat([
+            {
+              ...item,
+              coreCharge
+            }
+          ]);
+        }
+        return lines;
+      }, [] as CartItem[])
+      .filter((item) => !coreVariantIds.includes(item.merchandise.id)); // remove core charge items from cart lines as it's not a separate line item
+  }
+
+  const totalQuantity = extendedCartLines.reduce((sum, line) => sum + line.quantity, 0);
+
+  return { ...cart, totalQuantity, lines: extendedCartLines };
 }
 
 export async function getCollection({
@@ -567,16 +619,17 @@ export async function getProduct(handle: string): Promise<Product | undefined> {
   return reshapeProduct(res.body.data.product, false);
 }
 
-export async function getProductVariant(handle: string): Promise<Product | undefined> {
-  const res = await shopifyFetch<ShopifyProductOperation>({
-    query: getProductQuery,
+export async function getProductVariant(id: string) {
+  const res = await shopifyFetch<ProductVariantOperation>({
+    query: getProductVariantQuery,
     tags: [TAGS.products],
     variables: {
-      handle
+      id
     }
   });
 
-  return reshapeProduct(res.body.data.product, false);
+  const variant = res.body.data.node;
+  return { ...variant, coreVariantId: variant.coreVariantId?.value || null };
 }
 
 export async function getProductRecommendations(productId: string): Promise<Product[]> {

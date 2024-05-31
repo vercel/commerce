@@ -27,6 +27,15 @@ export type CartItem = {
     }[];
     product: Product;
   };
+  coreCharge?: {
+    id: string;
+    title: string;
+    lineId?: string;
+    selectedOptions: {
+      name: string;
+      value: string;
+    }[];
+  };
 };
 
 export type Collection = ShopifyCollection & {
@@ -126,6 +135,20 @@ export type ProductVariant = {
   mileage: number | null;
   estimatedDelivery: string | null;
   condition: string | null;
+};
+
+export type ShopifyCartProductVariant = {
+  title: string;
+  id: string;
+  selectedOptions: {
+    name: string;
+    value: string;
+  }[];
+  coreVariantId: { value: string } | null;
+};
+
+export type CartProductVariant = Omit<ShopifyCartProductVariant, 'coreVariantId'> & {
+  coreVariantId: string | null;
 };
 
 export type ShopifyProductVariant = Omit<
@@ -331,6 +354,13 @@ export type ShopifyProductOperation = {
   data: { product: ShopifyProduct };
   variables: {
     handle: string;
+  };
+};
+
+export type ProductVariantOperation = {
+  data: { node: ShopifyCartProductVariant };
+  variables: {
+    id: string;
   };
 };
 

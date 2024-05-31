@@ -35,3 +35,21 @@ export const getProductRecommendationsQuery = /* GraphQL */ `
   }
   ${productFragment}
 `;
+
+export const getProductVariantQuery = /* GraphQL */ `
+  query getProductVariant($id: ID!) {
+    node(id: $id) {
+      ... on ProductVariant {
+        id
+        title
+        selectedOptions {
+          name
+          value
+        }
+        coreVariantId: metafield(namespace: "custom", key: "coreVariant") {
+          value
+        }
+      }
+    }
+  }
+`;
