@@ -11,7 +11,7 @@ export function ProductDescriptionCard({ product }: { product: Product }) {
         <h1 className="text-3xl font-medium md:text-5xl">{product.title}</h1>
       </div>
       <div className="border-black lg:border-2 lg:p-14">
-        <div className="mb-6 flex flex-col border-b pb-6 dark:border-neutral-700">
+        <div className="mb-6 flex flex-col border-b pb-6">
           <div className="mx-auto w-auto bg-black p-2 text-lg text-white">
             <Price
               amount={product.priceRange.maxVariantPrice.amount}
@@ -22,10 +22,7 @@ export function ProductDescriptionCard({ product }: { product: Product }) {
         <VariantSelector options={product.options} variants={product.variants} />
 
         {product.descriptionHtml ? (
-          <Prose
-            className="mb-6 font-sans text-sm leading-tight dark:text-white/[60%]"
-            html={product.descriptionHtml}
-          />
+          <Prose className="mb-6 font-sans text-sm leading-tight" html={product.descriptionHtml} />
         ) : null}
 
         <AddToCart variants={product.variants} availableForSale={product.availableForSale} />

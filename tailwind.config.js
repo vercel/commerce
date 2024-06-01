@@ -3,6 +3,7 @@ const plugin = require('tailwindcss/plugin');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./app/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  darkMode: 'media',
   theme: {
     extend: {
       fontFamily: {
@@ -30,10 +31,6 @@ module.exports = {
         blink: 'blink 1.4s both infinite'
       },
     }
-  },
-  corePlugins: {
-    // Disable the dark mode variant for all utilities
-    darkMode: false,
   },
   future: {
     hoverOnlyWhenSupported: true
