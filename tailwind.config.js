@@ -28,8 +28,12 @@ module.exports = {
         fadeIn: 'fadeIn .3s ease-in-out',
         carousel: 'marquee 60s linear infinite',
         blink: 'blink 1.4s both infinite'
-      }
+      },
     }
+  },
+  corePlugins: {
+    // Disable the dark mode variant for all utilities
+    darkMode: false,
   },
   future: {
     hoverOnlyWhenSupported: true
