@@ -394,7 +394,6 @@ export async function getCart(cartId: string): Promise<Cart | undefined> {
     }) || [];
 
   if (productVariantPromises.length) {
-    const coreVariantIds = [] as string[];
     const productVariantsById = (await Promise.allSettled(productVariantPromises))
       .filter((result) => result.status === 'fulfilled')
       .reduce(
@@ -409,22 +408,19 @@ export async function getCart(cartId: string): Promise<Cart | undefined> {
       );
 
     // add core charge field to cart line item if any
-    extendedCartLines = cart?.lines
-      .reduce((lines, item) => {
-        const productVariant = productVariantsById[item.merchandise.id];
-        if (productVariant && productVariant.coreVariantId) {
-          const coreCharge = productVariantsById[productVariant.coreVariantId];
-          coreVariantIds.push(productVariant.coreVariantId);
-          return lines.concat([
-            {
-              ...item,
-              coreCharge
-            }
-          ]);
-        }
-        return lines;
-      }, [] as CartItem[])
-      .filter((item) => !coreVariantIds.includes(item.merchandise.id)); // remove core charge items from cart lines as it's not a separate line item
+    extendedCartLines = cart?.lines.reduce((lines, item) => {
+      const productVariant = productVariantsById[item.merchandise.id];
+      if (productVariant && productVariant.coreVariantId) {
+        const coreCharge = productVariantsById[productVariant.coreVariantId];
+        return lines.concat([
+          {
+            ...item,
+            coreCharge
+          }
+        ]);
+      }
+      return lines;
+    }, [] as CartItem[]);
   }
 
   const totalQuantity = extendedCartLines.reduce((sum, line) => sum + line.quantity, 0);
