@@ -9,7 +9,6 @@ import { Suspense } from 'react';
 import MainMenu from './main-menu';
 import MobileMenu from './mobile-menu';
 import Search, { SearchSkeleton } from './search';
-const { SITE_NAME } = process.env;
 
 export default async function Navbar() {
   const menu = await getMenu('main-menu');
@@ -26,12 +25,9 @@ export default async function Navbar() {
           <div className="flex w-full md:w-1/3">
             <Link
               href="/"
-              className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6"
+              className="flex w-full items-center justify-center pl-3 sm:pl-0 md:w-auto lg:mr-6"
             >
               <LogoSquare />
-              <div className="flex-none font-league-spartan text-xl font-semibold tracking-tight text-dark dark:text-white md:hidden md:text-2xl lg:block lg:text-3xl lg:leading-tight">
-                {SITE_NAME}
-              </div>
             </Link>
           </div>
           <div className="hidden justify-center md:flex md:w-1/3">

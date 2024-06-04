@@ -1,5 +1,5 @@
 import Hero from 'components/hero';
-import HomePageContent from 'components/home-page-content';
+import About from 'components/home-page/about';
 import Footer from 'components/layout/footer';
 import { getPage } from 'lib/shopify';
 import { Metadata } from 'next';
@@ -25,10 +25,8 @@ export default async function HomePage() {
       <Suspense>
         <Hero />
       </Suspense>
-      <div className="my-3 min-h-96">
-        <Suspense>
-          <HomePageContent />
-        </Suspense>
+      <div className="mx-auto flex min-h-96 max-w-7xl flex-col space-y-16 px-6 py-12 lg:px-8">
+        <About />
       </div>
       <Suspense>
         <Footer />

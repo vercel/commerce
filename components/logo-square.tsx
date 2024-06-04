@@ -1,15 +1,13 @@
-import clsx from 'clsx';
-import LogoIcon from './icons/logo';
+import Image from 'next/image';
 
-export default function LogoSquare({ sm }: { sm?: boolean }) {
+export default function LogoSquare({ dark = false }: { dark?: boolean }) {
   return (
-    <div className={clsx('flex h-[40px] w-[40px] flex-none items-center justify-center')}>
-      <LogoIcon
-        className={clsx('h-[20px] w-[20px]', {
-          'lg:h-[26px] lg:w-[26px]': !sm,
-          'lg:h-[20px]lg:w-[20px]': sm
-        })}
-      />
+    <div className="h-12 md:h-[55px]">
+      {dark ? (
+        <Image src="/dark-logo.svg" alt="Logo" width={327} height={61} className="h-full w-full" />
+      ) : (
+        <Image src="/logo.svg" alt="Logo" width={327} height={61} className="h-full w-full" />
+      )}
     </div>
   );
 }

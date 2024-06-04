@@ -1,4 +1,5 @@
 const plugin = require('tailwindcss/plugin');
+import { colors } from './lib/styles.ts';
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -6,14 +7,9 @@ module.exports = {
   content: ['./app/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
-      colors: {
-        primary: '#17E4BB',
-        dark: '#08312B',
-        secondary: '#12baa9'
-      },
+      colors,
       fontFamily: {
-        sans: ['var(--font-geist-sans)'],
-        'league-spartan': ['var(--font-league-spartan)']
+        sans: ['var(--font-geist-sans)']
       },
       keyframes: {
         fadeIn: {
