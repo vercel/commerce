@@ -1,4 +1,4 @@
-import spree from '@commerce/index';
+import spree from '@commerce/client';
 import DiseasesAndConditions from 'components/diseases/diseases-and-conditions';
 import Specialities from 'components/diseases/specialities';
 import { cache } from 'react';

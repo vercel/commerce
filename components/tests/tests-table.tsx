@@ -1,10 +1,11 @@
+import { ProductAttr } from '@spree/storefront-api-v2-sdk/dist/*';
 import Link from 'next/link';
 import CartButton from './cart-button';
 
-export default function TestsTable({ products = [] }) {
+export default function TestsTable({ products }: { products: ProductAttr[] }) {
   return (
     <div>
-      <table>
+      <table className="table w-full border-collapse border">
         <thead>
           <tr>
             <th>Number</th>

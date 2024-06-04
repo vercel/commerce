@@ -1,6 +1,7 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/components.css';
+@import 'tailwindcss/utilities.css';
+@import 'tailwindcss/base.css';
+@import './buttons.scss';
 
 @media (prefers-color-scheme: dark) {
   html {

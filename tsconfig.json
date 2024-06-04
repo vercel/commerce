@@ -16,7 +16,8 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@commerce/*": ["lib/spree/*"]
+      "@commerce/*": ["lib/spree/*"],
+      "@styles/*": ["styles/*"]
     },
     "noUncheckedIndexedAccess": true,
     "plugins": [

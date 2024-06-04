@@ -1,15 +1,25 @@
 'use client';
 
+import { addProductToCart } from '@commerce/api/cart';
+import { useFormState, useFormStatus } from 'react-dom';
+
 interface Props {
-  id: number;
+  id: number | string;
 }
 
 const CartButton: React.FC<Props> = ({ id }) => {
-  const handleClick = () => {
-    console.log('click', id);
-  };
+  const handleClick = async () => await addProductToCart(id);
 
-  return <button onClick={handleClick}>Add To Cart 1</button>;
+  const [, formAction] = useFormState(handleClick, null);
+  const { pending } = useFormStatus();
+
+  return (
+    <form action={formAction}>
+      <button className="button" disabled={pending}>
+        Add To Cart
+      </button>
+    </form>
+  );
 };
 
 export default CartButton;
