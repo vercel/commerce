@@ -4,7 +4,6 @@ import { Suspense } from 'react';
 import HomePageFilters, { HomePageFiltersPlaceholder } from './filters/hompage-filters';
 import DynamicHeroIcon from './hero-icon';
 import ImageDisplay from './page/image-display';
-import TrustPilot from './trust-pilot';
 
 const Hero = async () => {
   const [offers, heroImage] = await Promise.all([
@@ -66,17 +65,12 @@ const Hero = async () => {
           </div>
           <div aria-hidden="true" className="absolute inset-0 bg-dark opacity-80" />
           <div className="flex flex-col gap-10 px-6 py-32 text-center sm:py-64 lg:px-0">
-            <div className="mx-auto hidden max-w-[800px] items-center justify-between gap-10 md:flex">
-              <div className="relative flex items-center">
-                <Image src="/best-price.svg" alt="Best Price" width={100} height={90} />
-                <div className="ml-4 text-left text-white">
-                  <p className="tracking-wide">Best Price Guarantee</p>
-                  <p className="max-w-[200px] text-sm tracking-wide">
-                    We will match or beat any competitor&apos;s pricing.
-                  </p>
-                </div>
-              </div>
-              <TrustPilot />
+            <div className="relative mx-auto hidden flex-col items-center justify-center text-white md:flex">
+              <Image src="/best-price.svg" alt="Best Price" width={100} height={90} />
+              <p className="tracking-wide">Best Price Guarantee</p>
+              <p className="text-sm tracking-wide">
+                We will match or beat any competitor&apos;s pricing.
+              </p>
             </div>
             <div className="relative mx-auto flex max-w-4xl flex-col items-center ">
               <Suspense fallback={<HomePageFiltersPlaceholder />}>
