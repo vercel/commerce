@@ -1,20 +1,17 @@
-import { Carousel } from 'components/carousel';
-import { ThreeItemGrid } from 'components/grid/three-items';
-import Footer from 'components/layout/footer';
-
-export const metadata = {
-  description: 'High-performance ecommerce store built with Next.js, Vercel, and Shopify.',
-  openGraph: {
-    type: 'website'
-  }
-};
+import ContactUs from 'components/contact-us';
+import Quicklinks from 'components/home/quicklinks';
+import LatestNews from 'components/latest-news';
+import Hero1 from 'components/layout/hero/hero-1';
+import ScienceInnovation from 'components/science-innovation';
 
 export default async function HomePage() {
   return (
     <>
-      <ThreeItemGrid />
-      <Carousel />
-      <Footer />
+      <Hero1 />
+      <Quicklinks />
+      <LatestNews />
+      <ScienceInnovation />
+      <ContactUs />
     </>
   );
 }
