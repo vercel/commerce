@@ -64,7 +64,7 @@ const Hero = async () => {
             )}
           </div>
           <div aria-hidden="true" className="absolute inset-0 bg-dark opacity-80" />
-          <div className="flex flex-col gap-10 px-6 py-32 text-center sm:py-64 lg:px-0">
+          <div className="flex flex-col gap-10 px-6 py-32 text-center sm:py-56 lg:px-0">
             <div className="relative mx-auto hidden flex-col items-center justify-center text-white md:flex">
               <Image src="/best-price.svg" alt="Best Price" width={100} height={90} />
               <p className="tracking-wide">Best Price Guarantee</p>
