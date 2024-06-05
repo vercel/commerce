@@ -1,3 +1,4 @@
+import FAQ from 'components/faq';
 import Hero from 'components/hero';
 import About from 'components/home-page/about';
 import WhyChoose from 'components/home-page/why-choose';
@@ -24,9 +25,14 @@ export default async function HomePage() {
       <Suspense>
         <Hero />
       </Suspense>
-      <div className="mx-auto flex min-h-96 max-w-7xl flex-col space-y-14 px-6 py-16 sm:space-y-28 lg:px-8">
+      <div className="flex min-h-96 flex-col">
         <About />
-        <WhyChoose />
+        <Suspense>
+          <WhyChoose />
+        </Suspense>
+        <Suspense>
+          <FAQ />
+        </Suspense>
       </div>
       <Suspense>
         <Footer />

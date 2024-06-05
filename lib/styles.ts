@@ -4,6 +4,8 @@ export const colors = {
   secondary: '#EF6C02',
   blue: {
     800: '#1C1F35',
-    200: '#666C89'
+    200: '#666C89',
+    500: '#2D3A7B',
+    600: '#111C55'
   }
 };

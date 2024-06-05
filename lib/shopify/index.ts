@@ -562,13 +562,19 @@ export async function getMetaobjectsByIds(ids: string[]) {
   return reshapeMetaobjects(res.body.data.nodes);
 }
 
-export async function getMetaobjectById(id: string) {
+export async function getMetaobject({
+  id,
+  handle
+}: {
+  id?: string;
+  handle?: { handle: string; type: string };
+}) {
   const res = await shopifyFetch<{
     data: { metaobject: ShopifyMetaobject };
-    variables: { id: string };
+    variables: { id?: string; handle?: { handle: string; type: string } };
   }>({
     query: getMetaobjectQuery,
-    variables: { id }
+    variables: { id, handle }
   });
 
   return res.body.data.metaobject ? reshapeMetaobjects([res.body.data.metaobject])[0] : null;

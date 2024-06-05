@@ -1,14 +1,17 @@
-import { getMetaobjects } from 'lib/shopify';
+import { getMetaobject, getMetaobjects } from 'lib/shopify';
+import kebabCase from 'lodash.kebabcase';
 import Image from 'next/image';
 import { Suspense } from 'react';
 import HomePageFilters, { HomePageFiltersPlaceholder } from './filters/hompage-filters';
 import DynamicHeroIcon from './hero-icon';
 import ImageDisplay from './page/image-display';
 
+const { SITE_NAME } = process.env;
+
 const Hero = async () => {
   const [offers, heroImage] = await Promise.all([
     getMetaobjects('usp_item'),
-    getMetaobjects('hero')
+    getMetaobject({ handle: { type: 'hero', handle: `${kebabCase(SITE_NAME)}-hero` } })
   ]);
 
   return (
@@ -39,10 +42,10 @@ const Hero = async () => {
         <div className="relative bg-gray-900">
           {/* Decorative image and overlay */}
           <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
-            {heroImage.length && heroImage[0]?.file ? (
+            {heroImage ? (
               <Suspense fallback={<div className="h-[626px] w-full" />}>
                 <ImageDisplay
-                  fileId={heroImage[0].file as string}
+                  fileId={heroImage.file as string}
                   title="Hero Image"
                   priority
                   className="h-full w-full object-cover object-center"

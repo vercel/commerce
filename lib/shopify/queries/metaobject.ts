@@ -20,8 +20,8 @@ export const getMetaobjectsQuery = /* GraphQL */ `
 `;
 
 export const getMetaobjectQuery = /* GraphQL */ `
-  query getMetaobject($id: ID!) {
-    metaobject(id: $id) {
+  query getMetaobject($id: ID, $handle: MetaobjectHandleInput) {
+    metaobject(id: $id, handle: $handle) {
       id
       type
       fields {

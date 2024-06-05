@@ -15,7 +15,7 @@ const DisplayTabs = ({ items }: DisplayTabsProps) => {
           onClick={() => setSelectedIndex(index)}
           key={item}
           className={clsx(
-            'min-w-[130px] cursor-pointer rounded py-1 text-center text-sm font-medium',
+            'w-fit cursor-pointer rounded px-6 py-1 text-center text-sm font-medium',
             {
               'bg-white text-primary': index === selectedIndex,
               'bg-transparent text-gray-600': index !== selectedIndex

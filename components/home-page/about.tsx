@@ -5,7 +5,7 @@ import ButtonLink from './button-link';
 
 const About = () => {
   return (
-    <div className="grid grid-cols-1 items-start gap-x-0 gap-y-10 lg:grid-cols-2 lg:gap-x-10">
+    <div className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-x-0 gap-y-10 px-6 py-16 lg:grid-cols-2 lg:gap-x-10">
       <Image
         src="/about.png"
         alt="About Us"
