@@ -45,6 +45,14 @@ export type Menu = {
   path: string;
 };
 
+export interface MenuItem {
+  title: string;
+  path: string;
+  items: MenuItem[];
+}
+
+export type MegaMenu = MenuItem[];
+
 export type Money = {
   amount: string;
   currencyCode: string;

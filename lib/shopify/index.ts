@@ -29,6 +29,7 @@ import {
   Connection,
   Image,
   Menu,
+  MenuItem,
   Page,
   Product,
   ShopifyAddToCartOperation,
@@ -352,6 +353,30 @@ export async function getMenu(handle: string): Promise<Menu[]> {
       path: item.url.replace(domain, '').replace('/collections', '/search').replace('/pages', '')
     })) || []
   );
+}
+
+export async function getMegaMenu(handle: string): Promise<MenuItem[]> {
+  const res = await shopifyFetch<ShopifyMenuOperation>({
+    query: getMenuQuery,
+    tags: [TAGS.collections],
+    variables: {
+      handle
+    }
+  });
+
+  // Function to map the menu items and their nested items
+  const mapMenuItems = (items: any): MenuItem[] => {
+    console.log(items);
+    return items.map((item: any) => ({
+      title: item.title,
+      path: item.url
+        ? item.url.replace(domain, '').replace('/collections', '/search').replace('/pages', '')
+        : '',
+      items: item.items ? mapMenuItems(item.items) : []
+    }));
+  };
+
+  return res.body?.data?.menu?.items ? mapMenuItems(res.body.data.menu.items) : [];
 }
 
 export async function getPage(handle: string): Promise<Page> {
