@@ -4,6 +4,7 @@ export const getMetaobjectsQuery = /* GraphQL */ `
       edges {
         node {
           id
+          type
           fields {
             reference {
               ... on Metaobject {

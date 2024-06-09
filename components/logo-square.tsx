@@ -6,7 +6,14 @@ export default function LogoSquare({ dark = false }: { dark?: boolean }) {
       {dark ? (
         <Image src="/dark-logo.svg" alt="Logo" width={327} height={61} className="h-full w-full" />
       ) : (
-        <Image src="/logo.svg" alt="Logo" width={327} height={61} className="h-full w-full" />
+        <Image
+          src="/logo.svg"
+          alt="Logo"
+          width={327}
+          height={61}
+          className="h-full w-full"
+          priority
+        />
       )}
     </div>
   );

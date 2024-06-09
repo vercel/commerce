@@ -16,7 +16,7 @@ const FAQ = async () => {
   if (!faqs) return null;
 
   return (
-    <div className="bg-gray-100 px-6 py-16">
+    <div className="bg-gray-100 px-6 py-20">
       <div className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2 lg:gap-20">
         <div className="col-span-1 flex flex-col gap-3">
           <Tag text="FAQ" />
@@ -32,6 +32,7 @@ const FAQ = async () => {
               alt="FAQs background"
               fill
               className="w-full object-cover object-center"
+              sizes="(min-width 1200px) 80vw"
             />
           </div>
           <div className="absolute left-0 top-0 flex min-h-[300px] min-w-[400px] translate-y-1/4 flex-col gap-3 bg-dark px-12 py-14">

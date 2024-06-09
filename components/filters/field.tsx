@@ -80,7 +80,7 @@ const FilterField = <T extends { [key: string]: unknown }>({
         </div>
         <ComboboxOptions
           anchor="bottom"
-          className="w-[var(--input-width)] rounded-xl border border-gray-200 bg-white p-1 [--anchor-gap:6px] empty:hidden"
+          className="z-10 w-[var(--input-width)] rounded-xl border border-gray-200 bg-white p-1 [--anchor-gap:6px] empty:hidden"
         >
           {filteredOptions.map((option) => (
             <ComboboxOption

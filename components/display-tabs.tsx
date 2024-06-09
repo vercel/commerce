@@ -1,31 +1,35 @@
 'use client';
 
-import clsx from 'clsx';
-import { useState } from 'react';
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
+import { Metaobject } from 'lib/shopify/types';
+import RichTextDisplay from './page/rich-text-display';
 
 type DisplayTabsProps = {
-  items: string[];
+  items: Metaobject[];
 };
 const DisplayTabs = ({ items }: DisplayTabsProps) => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  if (items.length === 0) return null;
+
   return (
-    <div className="flex w-fit items-center rounded bg-gray-100 p-1">
-      {items.map((item, index) => (
-        <button
-          onClick={() => setSelectedIndex(index)}
-          key={item}
-          className={clsx(
-            'w-fit cursor-pointer rounded px-6 py-1 text-center text-sm font-medium',
-            {
-              'bg-white text-primary': index === selectedIndex,
-              'bg-transparent text-gray-600': index !== selectedIndex
-            }
-          )}
-        >
-          {item}
-        </button>
-      ))}
-    </div>
+    <TabGroup>
+      <TabList className="flex w-fit items-center rounded bg-gray-100 p-1">
+        {items.map((item) => (
+          <Tab
+            key={item.title}
+            className="w-fit cursor-pointer rounded bg-transparent px-6 py-1 text-center text-sm font-medium text-gray-600 focus:outline-none focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0 data-[selected]:bg-white data-[selected]:text-primary"
+          >
+            {item.title}
+          </Tab>
+        ))}
+      </TabList>
+      <TabPanels className="mt-3">
+        {items.map((item) => (
+          <TabPanel key={item.title}>
+            <RichTextDisplay contentBlocks={JSON.parse(item.content || '{}').children} />
+          </TabPanel>
+        ))}
+      </TabPanels>
+    </TabGroup>
   );
 };
 

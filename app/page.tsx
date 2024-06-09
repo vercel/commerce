@@ -1,6 +1,7 @@
 import FAQ from 'components/faq';
 import Hero from 'components/hero';
 import About from 'components/home-page/about';
+import Manufacturers from 'components/home-page/manufacturers';
 import WhyChoose from 'components/home-page/why-choose';
 import Footer from 'components/layout/footer';
 import { Metadata } from 'next';
@@ -26,12 +27,17 @@ export default async function HomePage() {
         <Hero />
       </Suspense>
       <div className="flex min-h-96 flex-col">
-        <About />
+        <Suspense>
+          <About />
+        </Suspense>
         <Suspense>
           <WhyChoose />
         </Suspense>
         <Suspense>
           <FAQ />
+        </Suspense>
+        <Suspense>
+          <Manufacturers />
         </Suspense>
       </div>
       <Suspense>

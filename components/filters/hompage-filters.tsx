@@ -4,7 +4,7 @@ import FiltersList from './filters-list';
 const HomePageFilters = async () => {
   const yearsData = getMetaobjects('make_model_year_composite');
   const modelsData = getMetaobjects('make_model_composite');
-  const makesData = getMetaobjects('make_composite');
+  const makesData = getMetaobjects('make');
 
   const [years, models, makes] = await Promise.all([yearsData, modelsData, makesData]);
   const menu = await getMenu('main-menu');

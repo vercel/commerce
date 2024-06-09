@@ -589,7 +589,7 @@ export async function getPage(handle: string): Promise<Page> {
 
   const page = res.body.data.pageByHandle;
 
-  if (page.metafield) {
+  if (page?.metafield) {
     const metaobjectIds = parseMetaFieldValue<string[]>(page.metafield) || [];
 
     const metaobjects = await getMetaobjectsByIds(metaobjectIds);

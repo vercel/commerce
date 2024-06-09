@@ -30,12 +30,13 @@ const FiltersList = ({ years, makes, models, menu, autoFocusField }: FiltersList
   const [partType, setPartType] = useState<{ label: string; value: string } | null>(
     PART_TYPES.find((type) => type.value === partTypeCollection) || null
   );
+
   const [make, setMake] = useState<Metaobject | null>(
     (partType &&
       makes.find((make) =>
         searchParams.get(MAKE_FILTER_ID)
           ? make.id === searchParams.get(MAKE_FILTER_ID)
-          : make.slug === params.collection
+          : params.collection?.includes(make.name!.toLowerCase())
       )) ||
       null
   );
@@ -100,6 +101,7 @@ const FiltersList = ({ years, makes, models, menu, autoFocusField }: FiltersList
         getId={(option) => option.id}
         disabled={!partType}
         autoFocus={autoFocusField === 'make'}
+        displayKey="display_name"
       />
       <FilterField
         label="Model"

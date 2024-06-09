@@ -19,7 +19,7 @@ const RichTextBlock = ({ block }: { block: Content }) => {
     return block.bold ? (
       <strong className="font-semibold">{block.value}</strong>
     ) : (
-      <span>{block.value}</span>
+      <span className="font-normal">{block.value}</span>
     );
   }
 
