@@ -19,7 +19,8 @@ import {
   addToCartMutation,
   createCartMutation,
   editCartItemsMutation,
-  removeFromCartMutation
+  removeFromCartMutation,
+  setCartAttributesMutation
 } from './mutations/cart';
 import { getCartQuery } from './queries/cart';
 import {
@@ -39,6 +40,7 @@ import {
 } from './queries/product';
 import {
   Cart,
+  CartAttributeInput,
   CartItem,
   CartProductVariant,
   Collection,
@@ -75,6 +77,7 @@ import {
   ShopifyProductVariant,
   ShopifyProductsOperation,
   ShopifyRemoveFromCartOperation,
+  ShopifySetCartAttributesOperation,
   ShopifyUpdateCartOperation
 } from './types';
 
@@ -339,6 +342,19 @@ export async function addToCart(
   return reshapeCart(res.body.data.cartLinesAdd.cart);
 }
 
+export async function setCartAttributes(cartId: string, attributes: CartAttributeInput[]) {
+  const res = await shopifyFetch<ShopifySetCartAttributesOperation>({
+    query: setCartAttributesMutation,
+    variables: {
+      attributes,
+      cartId
+    },
+    cache: 'no-store'
+  });
+
+  return res.body.data.cart;
+}
+
 export async function removeFromCart(cartId: string, lineIds: string[]): Promise<Cart> {
   const res = await shopifyFetch<ShopifyRemoveFromCartOperation>({
     query: removeFromCartMutation,
@@ -382,7 +398,6 @@ export async function getCart(cartId: string): Promise<Cart | undefined> {
   }
 
   const cart = reshapeCart(res.body.data.cart);
-
   let extendedCartLines = cart.lines;
 
   const lineIdMap = {} as { [key: string]: string };

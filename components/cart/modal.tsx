@@ -2,18 +2,31 @@
 
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
+import { zodResolver } from '@hookform/resolvers/zod';
+import clsx from 'clsx';
+import LoadingDots from 'components/loading-dots';
 import Price from 'components/price';
 import type { Cart } from 'lib/shopify/types';
 import { Fragment, useEffect, useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { setMetafields } from './actions';
 import CloseCart from './close-cart';
 import LineItem from './line-item';
 import OpenCart from './open-cart';
+import VehicleDetails, { VehicleFormSchema, vehicleFormSchema } from './vehicle-details';
 
 export default function CartModal({ cart }: { cart: Cart | undefined }) {
   const [isOpen, setIsOpen] = useState(false);
   const quantityRef = useRef(cart?.totalQuantity);
   const openCart = () => setIsOpen(true);
   const closeCart = () => setIsOpen(false);
+  const { control, handleSubmit } = useForm<VehicleFormSchema>({
+    resolver: zodResolver(vehicleFormSchema)
+  });
+
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState<string | undefined>();
+  const linkRef = useRef<HTMLAnchorElement | null>(null);
 
   useEffect(() => {
     // Open cart modal when quantity changes.
@@ -27,6 +40,25 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
       quantityRef.current = cart?.totalQuantity;
     }
   }, [isOpen, cart?.totalQuantity, quantityRef]);
+
+  const onSubmit = async (data: VehicleFormSchema) => {
+    if (!cart) return;
+
+    setLoading(true);
+
+    try {
+      const message = await setMetafields(cart.id, data);
+      if (message) {
+        setMessage(message);
+      } else {
+        linkRef.current?.click();
+      }
+    } catch (error) {
+      setMessage('Error updating vehicle details');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
@@ -76,34 +108,50 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                       return <LineItem item={item} closeCart={closeCart} key={item.id} />;
                     })}
                   </ul>
-                  <div className="py-4 text-sm text-neutral-500 dark:text-neutral-400">
-                    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 dark:border-neutral-700">
-                      <p>Taxes</p>
-                      <Price
-                        className="text-right text-base text-black dark:text-white"
-                        amount={cart.cost.totalTaxAmount.amount}
-                        currencyCode={cart.cost.totalTaxAmount.currencyCode}
-                      />
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <div className="py-4 text-sm text-neutral-500 dark:text-neutral-400">
+                      <VehicleDetails control={control} />
+                      <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 dark:border-neutral-700">
+                        <p>Taxes</p>
+                        <Price
+                          className="text-right text-base text-black dark:text-white"
+                          amount={cart.cost.totalTaxAmount.amount}
+                          currencyCode={cart.cost.totalTaxAmount.currencyCode}
+                        />
+                      </div>
+                      <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
+                        <p>Shipping</p>
+                        <p className="text-right">Calculated at checkout</p>
+                      </div>
+                      <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
+                        <p>Total</p>
+                        <Price
+                          className="text-right text-base text-black dark:text-white"
+                          amount={cart.cost.totalAmount.amount}
+                          currencyCode={cart.cost.totalAmount.currencyCode}
+                        />
+                      </div>
                     </div>
-                    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
-                      <p>Shipping</p>
-                      <p className="text-right">Calculated at checkout</p>
-                    </div>
-                    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
-                      <p>Total</p>
-                      <Price
-                        className="text-right text-base text-black dark:text-white"
-                        amount={cart.cost.totalAmount.amount}
-                        currencyCode={cart.cost.totalAmount.currencyCode}
-                      />
-                    </div>
-                  </div>
-                  <a
-                    href={cart.checkoutUrl}
-                    className="block w-full rounded-full bg-secondary p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100"
-                  >
-                    Proceed to Checkout
-                  </a>
+                    <a href={cart.checkoutUrl} ref={linkRef} className="hidden">
+                      Proceed to Checkout
+                    </a>
+                    <button
+                      type="submit"
+                      className={clsx(
+                        'flex w-full flex-row items-center justify-center gap-2 rounded-full  bg-secondary p-3 text-sm font-medium text-white',
+                        { 'cursor-not-allowed opacity-60 hover:opacity-60': loading },
+                        { 'cursor-pointer opacity-90 hover:opacity-100': !loading }
+                      )}
+                      aria-disabled={loading}
+                    >
+                      {loading && <LoadingDots className="bg-white" />}
+                      Proceed to Checkout
+                    </button>
+
+                    <p aria-live="polite" className="sr-only" role="status">
+                      {message}
+                    </p>
+                  </form>
                 </div>
               )}
             </DialogPanel>

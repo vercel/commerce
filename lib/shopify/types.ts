@@ -242,6 +242,16 @@ export type ShopifyAddToCartOperation = {
   };
 };
 
+export type ShopifySetCartAttributesOperation = {
+  data: {
+    cart: ShopifyCart;
+  };
+  variables: {
+    attributes: CartAttributeInput[];
+    cartId: string;
+  };
+};
+
 export type ShopifyRemoveFromCartOperation = {
   data: {
     cartLinesRemove: {
@@ -428,3 +438,8 @@ export type Filter = {
 export const SCREEN_SIZES = ['small', 'medium', 'large', 'extra_large'] as const;
 
 export type ScreenSize = (typeof SCREEN_SIZES)[number];
+
+export type CartAttributeInput = {
+  key: string;
+  value: string;
+};

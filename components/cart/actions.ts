@@ -1,7 +1,14 @@
 'use server';
 
 import { TAGS } from 'lib/constants';
-import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/shopify';
+import {
+  addToCart,
+  createCart,
+  getCart,
+  removeFromCart,
+  setCartAttributes,
+  updateCart
+} from 'lib/shopify';
 import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
 
@@ -31,6 +38,35 @@ export async function addItem(prevState: any, selectedVariantIds: Array<string>)
     revalidateTag(TAGS.cart);
   } catch (e) {
     return 'Error adding item to cart';
+  }
+}
+
+export async function setMetafields(
+  prevState: any,
+  formData: { customer_vin: string; customer_mileage: string }
+) {
+  const cartId = cookies().get('cartId')?.value;
+
+  if (!cartId) {
+    return 'Missing cart ID';
+  }
+
+  try {
+    await setCartAttributes(cartId, [
+      {
+        key: 'customer_vin',
+        value: formData.customer_vin
+      },
+      {
+        key: 'customer_mileage',
+        value: formData.customer_mileage
+      }
+    ]);
+
+    revalidateTag(TAGS.cart);
+  } catch (e) {
+    console.log(e);
+    return 'Error set cart attributes';
   }
 }
 
