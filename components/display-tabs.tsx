@@ -22,7 +22,7 @@ const DisplayTabs = ({ items }: DisplayTabsProps) => {
           </Tab>
         ))}
       </TabList>
-      <TabPanels className="mt-3">
+      <TabPanels className="mt-5">
         {items.map((item) => (
           <TabPanel key={item.title}>
             <RichTextDisplay contentBlocks={JSON.parse(item.content || '{}').children} />
