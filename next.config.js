@@ -6,7 +6,6 @@ module.exports = {
   },
   images: {
     formats: ['image/avif', 'image/webp'],
-    dangerouslyAllowSVG: true,
     remotePatterns: [
       {
         protocol: 'https',

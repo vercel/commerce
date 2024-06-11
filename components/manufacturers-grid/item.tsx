@@ -18,7 +18,8 @@ const ManufacturerItem = ({
           <ImageDisplay
             fileId={manufacturer.logo as string}
             title={manufacturer.display_name || 'Logo'}
-            className="aspect-2 h-auto w-auto"
+            className="aspect-1 h-7"
+            unoptimized
           />
         </Suspense>
       </div>

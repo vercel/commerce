@@ -21,7 +21,7 @@ const ManufacturersGrid = ({ manufacturers, variant = 'home' }: ManufacturersGri
       </p>
       <div className="mt-6 grid grid-cols-2 gap-x-12 gap-y-5 md:grid-cols-3 md:gap-y-8 lg:grid-cols-4 xl:grid-cols-5">
         {popularManufacturers.map((manufacturer) => (
-          <div key={manufacturer.id} className="flex flex-col gap-3">
+          <div key={manufacturer.id} className="flex flex-col gap-2">
             <ManufacturerItem manufacturer={manufacturer} />
             {variant === 'home' && <ButtonGroup manufacturer={manufacturer} />}
           </div>
@@ -36,7 +36,7 @@ const ManufacturersGrid = ({ manufacturers, variant = 'home' }: ManufacturersGri
         {manufacturers
           .toSorted((a, b) => a.display_name!.localeCompare(b.display_name!))
           .map((manufacturer) => (
-            <div key={manufacturer.id} className="flex flex-col gap-3">
+            <div key={manufacturer.id} className="flex flex-col gap-2">
               <ManufacturerItem manufacturer={manufacturer} />
               {variant === 'home' && <ButtonGroup manufacturer={manufacturer} />}
             </div>

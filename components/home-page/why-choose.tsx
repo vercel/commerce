@@ -29,6 +29,7 @@ const WhyChoose = async () => {
                 fileId={reason.file as string}
                 title={(reason.title || reason.name) as string}
                 className="h-[60px] w-[60px]"
+                sizes="60px"
               />
             </Suspense>
             <div className="mx-3 h-[100px] min-w-0.5 bg-gray-200" />

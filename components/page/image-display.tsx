@@ -8,10 +8,11 @@ const ImageDisplay = async ({
   className,
   ...props
 }: {
-  fileId: string;
+  fileId?: string;
   title: string;
   className?: string;
 } & Omit<React.ComponentProps<typeof Image>, 'src' | 'alt'>) => {
+  if (!fileId) return null;
   const image = await getImage(fileId);
   return (
     <Image
