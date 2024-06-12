@@ -48,9 +48,9 @@ export function EditItemQuantityButton({ item, type }: { item: CartItem; type: '
     }
   ];
 
-  if (item.coreCharge?.lineId) {
+  if (item.coreCharge) {
     payload.push({
-      lineId: item.coreCharge.lineId,
+      lineId: item.coreCharge.id,
       variantId: item.coreCharge.id,
       quantity
     });

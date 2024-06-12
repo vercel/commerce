@@ -39,7 +39,7 @@ export function DeleteItemButton({ item }: { item: CartItem }) {
   const { id: itemId, coreCharge } = item;
   const actionWithVariant = formAction.bind(null, [
     itemId,
-    ...(coreCharge?.lineId ? [coreCharge.lineId] : [])
+    ...(coreCharge?.id ? [coreCharge.id] : [])
   ]);
 
   return (
