@@ -4,7 +4,7 @@ import FiltersList from './filters-list';
 
 const YMMFiltersContainer = ({ children }: { children: ReactNode }) => {
   return (
-    <div className="rounded border bg-white px-6 pb-5 pt-4">
+    <div className="rounded border bg-white px-6 pb-5 pt-4 @container">
       <p className="mb-3 text-xl font-semibold leading-tight tracking-tight text-neutral-700">
         Find Your Car Part
       </p>
@@ -23,7 +23,9 @@ const YMMFilters = async () => {
 
   return (
     <YMMFiltersContainer>
-      <FiltersList years={years} makes={makes} models={models} menu={menu} />
+      <div className="flex grow flex-col items-center gap-3 @md:flex-row">
+        <FiltersList years={years} makes={makes} models={models} menu={menu} />
+      </div>
     </YMMFiltersContainer>
   );
 };

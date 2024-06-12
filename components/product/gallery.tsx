@@ -1,7 +1,7 @@
 'use client';
 
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
-import { GridTileImage } from 'components/grid/tile';
+import { TileImage } from 'components/grid/tile';
 import { createUrl } from 'lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -81,11 +81,11 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
               <li key={image.src} className="h-16 w-16 md:h-20 md:w-20">
                 <Link
                   aria-label="Enlarge product image"
-                  href={createUrl(pathname, imageSearchParams)}
                   scroll={false}
                   className="h-full w-full"
+                  href={createUrl(pathname, imageSearchParams)}
                 >
-                  <GridTileImage
+                  <TileImage
                     alt={image.altText}
                     src={image.src}
                     width={80}

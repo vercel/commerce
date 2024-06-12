@@ -83,7 +83,7 @@ const FiltersList = ({ years, makes, models, menu, autoFocusField }: FiltersList
   };
 
   return (
-    <div className="flex grow flex-col items-center gap-3 md:flex-row">
+    <>
       <FilterField
         label="Part Type"
         onChange={onChangePartType}
@@ -124,11 +124,11 @@ const FiltersList = ({ years, makes, models, menu, autoFocusField }: FiltersList
       <Button
         onClick={onSearch}
         disabled={disabled}
-        className="w-full rounded bg-secondary px-4 py-1.5 text-sm font-medium text-white data-[disabled]:cursor-not-allowed data-[hover]:bg-secondary/85 data-[disabled]:opacity-50 md:w-auto"
+        className="w-full rounded bg-secondary px-4 py-1.5 text-sm font-medium text-white data-[disabled]:cursor-not-allowed data-[hover]:bg-secondary/85 data-[disabled]:opacity-50 @md:w-auto"
       >
         Search
       </Button>
-    </div>
+    </>
   );
 };
 

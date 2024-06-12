@@ -7,11 +7,11 @@ const SubMenu = async ({ collection }: { collection: string }) => {
   const subMenu = menu.find((item) => item.path === `/search/${collection}`)?.items || [];
 
   return subMenu.length ? (
-    <>
-      <h3 className="sr-only">Categories</h3>
+    <div className="border-t pt-4">
+      <div className="text-sm font-medium text-gray-900">Manufacturers</div>
       <ul
         role="list"
-        className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900"
+        className="ml-1 mt-2 max-h-[300px] space-y-3 overflow-y-auto border-b border-gray-200 pb-6 text-sm text-gray-600"
       >
         {subMenu.map((subMenuItem) => (
           <li key={subMenuItem.title}>
@@ -21,7 +21,7 @@ const SubMenu = async ({ collection }: { collection: string }) => {
           </li>
         ))}
       </ul>
-    </>
+    </div>
   ) : null;
 };
 

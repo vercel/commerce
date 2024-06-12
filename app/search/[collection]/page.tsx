@@ -8,7 +8,9 @@ import YMMFilters, { YMMFiltersPlaceholder } from 'components/filters';
 import Grid from 'components/grid';
 import ProductsList from 'components/layout/products-list';
 import { getProductsInCollection } from 'components/layout/products-list/actions';
-import FiltersList from 'components/layout/search/filters/filters-list';
+import FiltersContainer, {
+  FiltersListPlaceholder
+} from 'components/layout/search/filters/filters-container';
 import MobileFilters from 'components/layout/search/filters/mobile-filters';
 import SubMenu from 'components/layout/search/filters/sub-menu';
 import Header, { HeaderPlaceholder } from 'components/layout/search/header';
@@ -47,60 +49,68 @@ async function CategoryPage({
 
   return (
     <>
-      <div className="flex w-full items-center justify-between gap-2 lg:justify-end">
-        <MobileFilters filters={filters} menu={<SubMenu collection={params.collection} />} />
-        <SortingMenu />
-      </div>
-      <section>
-        <Grid className="pt-5 lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
-          <aside className="hidden lg:block">
-            <SubMenu collection={params.collection} />
-            <h3 className="sr-only">Filters</h3>
-            <FiltersList filters={filters} />
-          </aside>
-          <div className="lg:col-span-2 xl:col-span-3">
-            <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-              {products.length === 0 ? (
-                <p className="py-3 text-lg">{`No products found in this collection`}</p>
-              ) : (
-                <ProductsList
-                  initialProducts={products}
-                  pageInfo={pageInfo}
-                  page="collection"
-                  searchParams={searchParams}
-                  key={JSON.stringify(searchParams)}
-                />
-              )}
-            </Grid>
-          </div>
-        </Grid>
-      </section>
-    </>
-  );
-}
-
-export default function CategorySearchPage(props: {
-  params: { collection: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
-}) {
-  return (
-    <>
-      <div className="mb-2">
-        <Suspense fallback={<BreadcrumbHome />} key={`breadcrumb-${props.params.collection}`}>
-          <Breadcrumb type="collection" handle={props.params.collection} />
-        </Suspense>
-      </div>
-      <Suspense fallback={<HeaderPlaceholder />} key={`header-${props.params.collection}`}>
-        <Header collection={props.params.collection} />
-      </Suspense>
-      <div className="my-3">
+      <div className="my-3 block lg:hidden">
         <Suspense fallback={<YMMFiltersPlaceholder />}>
           <YMMFilters />
         </Suspense>
       </div>
-      <Suspense fallback={<ProductsGridPlaceholder />} key={`products-${props.params.collection}`}>
-        <CategoryPage {...props} />
-      </Suspense>
+      <div className="mb-5 flex w-full items-center justify-between gap-2 lg:justify-end">
+        <MobileFilters filters={filters} menu={<SubMenu collection={params.collection} />} />
+        <SortingMenu />
+      </div>
+      <Grid className="grid-cols-1 sm:grid-cols-2 sm:gap-x-8 lg:grid-cols-3">
+        {products.length === 0 ? (
+          <p className="py-3 text-lg">{`No products found in this collection`}</p>
+        ) : (
+          <ProductsList
+            initialProducts={products}
+            pageInfo={pageInfo}
+            page="collection"
+            searchParams={searchParams}
+            key={JSON.stringify(searchParams)}
+          />
+        )}
+      </Grid>
     </>
+  );
+}
+
+export default async function CategorySearchPage(props: {
+  params: { collection: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) {
+  return (
+    <div className="grid lg:grid-cols-3 lg:gap-x-10 xl:grid-cols-4">
+      <aside className="hidden lg:block">
+        <div className="mb-5">
+          <Suspense fallback={<YMMFiltersPlaceholder />}>
+            <YMMFilters />
+          </Suspense>
+        </div>
+
+        <SubMenu collection={props.params.collection} />
+        <h3 className="sr-only">Filters</h3>
+        <Suspense fallback={<FiltersListPlaceholder />} key={`filters-${props.params.collection}`}>
+          <FiltersContainer searchParams={props.searchParams} />
+        </Suspense>
+      </aside>
+      <div className="lg:col-span-2 xl:col-span-3">
+        <div className="mb-2">
+          <Suspense fallback={<BreadcrumbHome />} key={`breadcrumb-${props.params.collection}`}>
+            <Breadcrumb type="collection" handle={props.params.collection} />
+          </Suspense>
+        </div>
+        <Suspense fallback={<HeaderPlaceholder />} key={`header-${props.params.collection}`}>
+          <Header collection={props.params.collection} />
+        </Suspense>
+
+        <Suspense
+          fallback={<ProductsGridPlaceholder />}
+          key={`products-${props.params.collection}`}
+        >
+          <CategoryPage {...props} />
+        </Suspense>
+      </div>
+    </div>
   );
 }

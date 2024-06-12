@@ -42,7 +42,7 @@ const Filters = ({ filters, defaultOpen = true }: { filters: Filter[]; defaultOp
           <Disclosure
             key={id}
             as="div"
-            className="flex h-auto max-h-[550px] flex-col gap-y-3 overflow-hidden pt-5"
+            className="flex h-auto max-h-[300px] flex-col gap-y-3 overflow-hidden pt-5"
             defaultOpen={defaultOpen}
           >
             <DisclosureButton className="group flex items-center justify-between">
