@@ -70,6 +70,12 @@ const productFragment = /* GraphQL */ `
     featuredImage {
       ...image
     }
+    engineCylinders: metafield(namespace: "custom", key: "engine_cylinders") {
+      value
+    }
+    fuelType: metafield(namespace: "custom", key: "fuel") {
+      value
+    }
     images(first: 20) {
       edges {
         node {

@@ -23,11 +23,7 @@ function ThreeItemGridItem({
         }
         priority={priority}
         alt={item.title}
-        label={{
-          title: item.title as string,
-          amount: item.priceRange.maxVariantPrice.amount,
-          currencyCode: item.priceRange.maxVariantPrice.currencyCode
-        }}
+        product={item}
         href={`/product/${item.handle}`}
       />
     </div>

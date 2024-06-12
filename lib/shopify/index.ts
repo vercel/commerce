@@ -294,6 +294,8 @@ const reshapeProduct = (product: ShopifyProduct, filterHiddenProducts: boolean =
   const { images, variants, ...rest } = product;
   return {
     ...rest,
+    engineCylinders: parseMetaFieldValue<number[]>(product.engineCylinders),
+    fuelType: product.fuelType?.value || null,
     images: reshapeImages(images, product.title),
     variants: reshapeVariants(removeEdgesAndNodes(variants))
   };
@@ -305,7 +307,6 @@ const reshapeProducts = (products: ShopifyProduct[]) => {
   for (const product of products) {
     if (product) {
       const reshapedProduct = reshapeProduct(product);
-
       if (reshapedProduct) {
         reshapedProducts.push(reshapedProduct);
       }

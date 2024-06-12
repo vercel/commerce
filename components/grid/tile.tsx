@@ -1,25 +1,23 @@
 import { ArrowRightIcon, PhotoIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import Price from 'components/price';
+import { Product } from 'lib/shopify/types';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export function GridTileImage({
   active,
-  label,
+  product,
   href,
-  place = 'grid',
   ...props
 }: {
   active?: boolean;
-  label?: {
-    title: string;
-    amount: string;
-    currencyCode: string;
-  };
-  place?: 'grid' | 'gallery';
+  product: Product;
   href: string;
 } & React.ComponentProps<typeof Image>) {
+  const metafieldKeys = ['engineCylinders', 'fuelType'] as Partial<keyof Product>[];
+  const shouldShowDescription = metafieldKeys.some((key) => product[key]);
+
   return (
     <div className="flex h-full flex-col rounded-b border bg-white">
       <div className="grow">
@@ -43,30 +41,57 @@ export function GridTileImage({
             )}
           </div>
         </div>
-        <div className="flex flex-col gap-2 divide-y px-4">
-          {label && (
-            <h3 className="mt-4 text-sm font-semibold leading-6 text-gray-800">{label.title}</h3>
-          )}
-          {label && (
-            <div className="flex w-full justify-end py-2">
-              <Price
-                className="text-lg font-medium text-gray-900"
-                amount={label.amount}
-                currencyCode={label.currencyCode}
-              />
-            </div>
-          )}
+        <h3 className="mt-4 px-4 pb-2 text-sm font-semibold leading-6 text-gray-800">
+          {product.title}
+        </h3>
+      </div>
+      <div className="px-4">
+        {shouldShowDescription && (
+          <div className="flex items-center justify-center gap-x-7 border-t py-3">
+            {product.engineCylinders?.length ? (
+              <div className="flex flex-col items-center gap-2">
+                <Image
+                  src="/icons/cylinder.png"
+                  alt="Cylinder icon"
+                  width={16}
+                  height={16}
+                  className="size-4"
+                  sizes="16px"
+                />
+                <span className="text-xs tracking-wide">{`${product.engineCylinders[0]} Cylinder`}</span>
+              </div>
+            ) : null}
+            {product.fuelType ? (
+              <div className="flex flex-col items-center gap-2">
+                <Image
+                  src="/icons/fuel.png"
+                  alt="Fuel icon"
+                  width={16}
+                  height={16}
+                  className="size-4"
+                  sizes="16px"
+                />
+                <span className="text-xs tracking-wide">{product.fuelType}</span>
+              </div>
+            ) : null}
+          </div>
+        )}
+        <div className="flex justify-end border-t py-2">
+          <Price
+            className="text-lg font-medium text-gray-900"
+            amount={product.priceRange.minVariantPrice.amount}
+            currencyCode={product.priceRange.minVariantPrice.currencyCode}
+          />
         </div>
       </div>
-      {place === 'grid' && (
-        <Link
-          href={href}
-          className="flex items-center justify-center gap-3 rounded-b bg-dark py-3 text-white"
-        >
-          <span className="text-sm font-medium tracking-wide">More details</span>
-          <ArrowRightIcon className="size-4" />
-        </Link>
-      )}
+
+      <Link
+        href={href}
+        className="flex items-center justify-center gap-3 rounded-b bg-dark py-3 text-white"
+      >
+        <span className="text-sm font-medium tracking-wide">More details</span>
+        <ArrowRightIcon className="size-4" />
+      </Link>
     </div>
   );
 }

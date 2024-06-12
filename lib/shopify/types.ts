@@ -100,9 +100,14 @@ export type Metaobject = {
   [key: string]: string;
 };
 
-export type Product = Omit<ShopifyProduct, 'variants' | 'images'> & {
+export type Product = Omit<
+  ShopifyProduct,
+  'variants' | 'images' | 'fuelType' | 'engineCylinders'
+> & {
   variants: ProductVariant[];
   images: Image[];
+  fuelType: string | null;
+  engineCylinders: number[] | null;
 };
 
 export type ProductOption = {
@@ -128,6 +133,8 @@ export type ProductVariant = {
   mileage: number | null;
   estimatedDelivery: string | null;
   condition: string | null;
+  engineCylinders: string | null;
+  fuelType: string | null;
 };
 
 export type ShopifyCartProductVariant = {
@@ -205,6 +212,8 @@ export type ShopifyProduct = {
       handle: string;
     }[];
   };
+  engineCylinders: { value: string } | null;
+  fuelType: { value: string } | null;
 };
 
 export type ShopifyCartOperation = {

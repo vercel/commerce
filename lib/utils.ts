@@ -51,7 +51,7 @@ export function normalizeUrl(domain: string, url: string) {
 
 export const parseMetaFieldValue = <T>(field: { value: string } | null): T | null => {
   try {
-    return JSON.parse(field?.value || '{}');
+    return field?.value ? JSON.parse(field.value) : null;
   } catch (error) {
     return null;
   }
