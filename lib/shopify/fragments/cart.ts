@@ -40,6 +40,9 @@ const cartFragment = /* GraphQL */ `
               product {
                 ...product
               }
+              coreVariantId: metafield(key: "coreVariant", namespace: "custom") {
+                value
+              }
             }
           }
         }

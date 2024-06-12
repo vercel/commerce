@@ -26,16 +26,9 @@ export type CartItem = {
       value: string;
     }[];
     product: Product;
+    coreVariantId: { value: string } | null;
   };
-  coreCharge?: {
-    id: string;
-    title: string;
-    lineId?: string;
-    selectedOptions: {
-      name: string;
-      value: string;
-    }[];
-  };
+  coreCharge?: CartItem;
 };
 
 export type Collection = ShopifyCollection & {

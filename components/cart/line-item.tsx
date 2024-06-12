@@ -17,23 +17,17 @@ type MerchandiseSearchParams = {
   [key: string]: string;
 };
 
-const CoreCharge = ({
-  coreCharge,
-  quantity
-}: {
-  coreCharge: CartItem['coreCharge'];
-  quantity: number;
-}) => {
+const CoreCharge = ({ coreCharge, quantity }: { coreCharge?: CartItem; quantity: number }) => {
   if (!coreCharge) return null;
 
   return (
     <div className="ml-20 mt-2 flex flex-row items-center">
       <PlusIcon className="mr-1.5 size-3" />
       <div className="flex flex-row items-center justify-start gap-2">
-        {coreCharge.selectedOptions[0] ? (
+        {coreCharge.merchandise.selectedOptions[0] ? (
           <Price
             className="text-xs font-medium"
-            amount={coreCharge.selectedOptions[0].value}
+            amount={coreCharge.merchandise.selectedOptions[0].value}
             currencyCode="USD"
           />
         ) : (

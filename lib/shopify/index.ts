@@ -35,14 +35,12 @@ import { getPageQuery, getPagesQuery } from './queries/page';
 import {
   getProductQuery,
   getProductRecommendationsQuery,
-  getProductVariantQuery,
   getProductsQuery
 } from './queries/product';
 import {
   Cart,
   CartAttributeInput,
   CartItem,
-  CartProductVariant,
   Collection,
   Connection,
   Filter,
@@ -54,7 +52,6 @@ import {
   PageInfo,
   Product,
   ProductVariant,
-  ProductVariantOperation,
   ShopifyAddToCartOperation,
   ShopifyCart,
   ShopifyCartOperation,
@@ -398,45 +395,22 @@ export async function getCart(cartId: string): Promise<Cart | undefined> {
   }
 
   const cart = reshapeCart(res.body.data.cart);
-  let extendedCartLines = cart.lines;
 
-  const lineIdMap = {} as { [key: string]: string };
-  // get product variants details including core charge variant data
-  const productVariantPromises =
-    cart?.lines.map((line) => {
-      lineIdMap[line.merchandise.id] = line.id;
-      return getProductVariant(line?.merchandise.id);
-    }) || [];
+  // attach core charge as an additional attribute of a cart line, and remove the core charge line from cart
+  const extendedCartLines = cart?.lines.reduce((lines, item) => {
+    const coreVariantId = item.merchandise.coreVariantId?.value;
+    if (coreVariantId) {
+      const relatedCoreCharge = cart.lines.find((line) => line.merchandise.id === coreVariantId);
+      return lines.concat([
+        {
+          ...item,
+          coreCharge: relatedCoreCharge
+        }
+      ]);
+    }
 
-  if (productVariantPromises.length) {
-    const productVariantsById = (await Promise.allSettled(productVariantPromises))
-      .filter((result) => result.status === 'fulfilled')
-      .reduce(
-        (acc, result) => {
-          const _result = result as PromiseFulfilledResult<CartProductVariant>;
-          return {
-            ...acc,
-            [_result.value.id]: { ..._result.value, lineId: lineIdMap[_result.value.id] }
-          };
-        },
-        {} as { [key: string]: CartProductVariant & { lineId?: string } }
-      );
-
-    // add core charge field to cart line item if any
-    extendedCartLines = cart?.lines.reduce((lines, item) => {
-      const productVariant = productVariantsById[item.merchandise.id];
-      if (productVariant && productVariant.coreVariantId) {
-        const coreCharge = productVariantsById[productVariant.coreVariantId];
-        return lines.concat([
-          {
-            ...item,
-            coreCharge
-          }
-        ]);
-      }
-      return lines;
-    }, [] as CartItem[]);
-  }
+    return lines;
+  }, [] as CartItem[]);
 
   const totalQuantity = extendedCartLines.reduce((sum, line) => sum + line.quantity, 0);
 
@@ -634,19 +608,6 @@ export async function getProduct(handle: string): Promise<Product | undefined> {
   });
 
   return reshapeProduct(res.body.data.product, false);
-}
-
-export async function getProductVariant(id: string) {
-  const res = await shopifyFetch<ProductVariantOperation>({
-    query: getProductVariantQuery,
-    tags: [TAGS.products],
-    variables: {
-      id
-    }
-  });
-
-  const variant = res.body.data.node;
-  return { ...variant, coreVariantId: variant.coreVariantId?.value || null };
 }
 
 export async function getProductRecommendations(productId: string): Promise<Product[]> {
