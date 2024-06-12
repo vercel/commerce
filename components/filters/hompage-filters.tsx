@@ -13,7 +13,7 @@ const HomePageFilters = async () => {
       <h1 className="text-4xl font-bold tracking-tight text-white lg:text-6xl">
         Find Your Car Part
       </h1>
-      <div className="mt-5">
+      <div className="mt-5 flex grow flex-col items-center gap-3 @md:flex-row">
         <FiltersList
           years={years}
           makes={makes}

@@ -75,7 +75,7 @@ const Hero = async () => {
                 We will match or beat any competitor&apos;s pricing.
               </p>
             </div>
-            <div className="relative mx-auto flex max-w-4xl flex-col items-center ">
+            <div className="relative mx-auto flex w-3/4 max-w-4xl flex-col items-center @container">
               <Suspense fallback={<HomePageFiltersPlaceholder />}>
                 <HomePageFilters />
               </Suspense>
