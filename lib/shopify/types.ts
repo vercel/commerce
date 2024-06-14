@@ -31,8 +31,9 @@ export type CartItem = {
   coreCharge?: CartItem;
 };
 
-export type Collection = ShopifyCollection & {
+export type Collection = Omit<ShopifyCollection, 'helpfulLinks'> & {
   path: string;
+  helpfulLinks: string[] | null;
 };
 
 export type Image = {
@@ -186,6 +187,7 @@ export type ShopifyCollection = {
   description: string;
   seo: SEO;
   updatedAt: string;
+  helpfulLinks: { value: string } | null;
 };
 
 export type ShopifyProduct = {

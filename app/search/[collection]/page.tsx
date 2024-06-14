@@ -14,6 +14,7 @@ import FiltersContainer, {
 import MobileFilters from 'components/layout/search/filters/mobile-filters';
 import SubMenu from 'components/layout/search/filters/sub-menu';
 import Header, { HeaderPlaceholder } from 'components/layout/search/header';
+import HelpfulLinks from 'components/layout/search/helpful-links';
 import ProductsGridPlaceholder from 'components/layout/search/placeholder';
 import SortingMenu from 'components/layout/search/sorting-menu';
 import { Suspense } from 'react';
@@ -92,6 +93,7 @@ export default async function CategorySearchPage(props: {
         <h3 className="sr-only">Filters</h3>
         <Suspense fallback={<FiltersListPlaceholder />} key={`filters-${props.params.collection}`}>
           <FiltersContainer searchParams={props.searchParams} />
+          <HelpfulLinks collection={props.params.collection} />
         </Suspense>
       </aside>
       <div className="lg:col-span-2 xl:col-span-3">
