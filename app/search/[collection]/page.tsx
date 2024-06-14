@@ -4,8 +4,10 @@ import { notFound } from 'next/navigation';
 
 import Breadcrumb from 'components/breadcrumb';
 import BreadcrumbHome from 'components/breadcrumb/breadcrumb-home';
+import FAQ from 'components/faq';
 import YMMFilters, { YMMFiltersPlaceholder } from 'components/filters';
 import Grid from 'components/grid';
+import Manufacturers from 'components/home-page/manufacturers';
 import ProductsList from 'components/layout/products-list';
 import { getProductsInCollection } from 'components/layout/products-list/actions';
 import FiltersContainer, {
@@ -82,42 +84,52 @@ export default async function CategorySearchPage(props: {
 }) {
   return (
     <>
-      <div className="grid lg:grid-cols-3 lg:gap-x-10 xl:grid-cols-4">
-        <aside className="hidden lg:block">
-          <div className="mb-5">
-            <Suspense fallback={<YMMFiltersPlaceholder />}>
-              <YMMFilters />
+      <div className="mx-auto mt-6 max-w-screen-2xl px-8 pb-10">
+        <div className="grid lg:grid-cols-3 lg:gap-x-10 xl:grid-cols-4">
+          <aside className="hidden lg:block">
+            <div className="mb-5">
+              <Suspense fallback={<YMMFiltersPlaceholder />}>
+                <YMMFilters />
+              </Suspense>
+            </div>
+
+            <SubMenu collection={props.params.collection} />
+            <h3 className="sr-only">Filters</h3>
+            <Suspense
+              fallback={<FiltersListPlaceholder />}
+              key={`filters-${props.params.collection}`}
+            >
+              <FiltersContainer searchParams={props.searchParams} />
+              <HelpfulLinks collection={props.params.collection} />
+            </Suspense>
+          </aside>
+          <div className="lg:col-span-2 xl:col-span-3">
+            <div className="mb-2">
+              <Suspense fallback={<BreadcrumbHome />} key={`breadcrumb-${props.params.collection}`}>
+                <Breadcrumb type="collection" handle={props.params.collection} />
+              </Suspense>
+            </div>
+            <Suspense fallback={<HeaderPlaceholder />} key={`header-${props.params.collection}`}>
+              <Header collection={props.params.collection} />
+            </Suspense>
+
+            <Suspense
+              fallback={<ProductsGridPlaceholder />}
+              key={`products-${props.params.collection}`}
+            >
+              <CategoryPage {...props} />
             </Suspense>
           </div>
-
-          <SubMenu collection={props.params.collection} />
-          <h3 className="sr-only">Filters</h3>
-          <Suspense
-            fallback={<FiltersListPlaceholder />}
-            key={`filters-${props.params.collection}`}
-          >
-            <FiltersContainer searchParams={props.searchParams} />
-            <HelpfulLinks collection={props.params.collection} />
-          </Suspense>
-        </aside>
-        <div className="lg:col-span-2 xl:col-span-3">
-          <div className="mb-2">
-            <Suspense fallback={<BreadcrumbHome />} key={`breadcrumb-${props.params.collection}`}>
-              <Breadcrumb type="collection" handle={props.params.collection} />
-            </Suspense>
-          </div>
-          <Suspense fallback={<HeaderPlaceholder />} key={`header-${props.params.collection}`}>
-            <Header collection={props.params.collection} />
-          </Suspense>
-
-          <Suspense
-            fallback={<ProductsGridPlaceholder />}
-            key={`products-${props.params.collection}`}
-          >
-            <CategoryPage {...props} />
-          </Suspense>
         </div>
       </div>
+      <FAQ handle="plp-faqs" />
+      <Suspense>
+        <Manufacturers
+          variant={
+            (props.params.collection as string).includes('engines') ? 'engines' : 'transmissions'
+          }
+        />
+      </Suspense>
     </>
   );
 }

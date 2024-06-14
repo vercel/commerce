@@ -6,7 +6,7 @@ import { Menu, Metaobject } from 'lib/shopify/types';
 import { createUrl, findParentCollection } from 'lib/utils';
 import get from 'lodash.get';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FilterField from './field';
 
 type FiltersListProps = {
@@ -31,11 +31,13 @@ const FiltersList = ({ years, makes, models, menu, autoFocusField }: FiltersList
     PART_TYPES.find((type) => type.value === partTypeCollection) || null
   );
 
+  const makeIdFromSearchParams = searchParams.get(MAKE_FILTER_ID);
+
   const [make, setMake] = useState<Metaobject | null>(
     (partType &&
       makes.find((make) =>
-        searchParams.get(MAKE_FILTER_ID)
-          ? make.id === searchParams.get(MAKE_FILTER_ID)
+        makeIdFromSearchParams
+          ? make.id === makeIdFromSearchParams
           : params.collection?.includes(make.name!.toLowerCase())
       )) ||
       null
@@ -51,6 +53,22 @@ const FiltersList = ({ years, makes, models, menu, autoFocusField }: FiltersList
   const yearOptions = model ? years.filter((y) => get(y, 'make_model') === model.id) : years;
 
   const disabled = !partType || !make || !model || !year;
+
+  useEffect(() => {
+    if (partType) {
+      const _make = makes.find((make) =>
+        makeIdFromSearchParams
+          ? make.id === makeIdFromSearchParams
+          : params.collection?.includes(make.name!.toLowerCase())
+      );
+
+      if (_make) {
+        setMake(_make);
+        setModel(null);
+        setYear(null);
+      }
+    }
+  }, [makeIdFromSearchParams, makes, params.collection, partType]);
 
   const onChangeMake = (value: Metaobject | null) => {
     setMake(value);
