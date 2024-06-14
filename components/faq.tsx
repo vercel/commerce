@@ -1,16 +1,13 @@
 import { PhoneIcon } from '@heroicons/react/24/outline';
 import { getMetaobject } from 'lib/shopify';
-import kebabCase from 'lodash.kebabcase';
 import Image from 'next/image';
 import { Suspense } from 'react';
 import AccordionBlock from './page/accordion-block';
 import Tag from './tag';
 
-const { SITE_NAME } = process.env;
-
-const FAQ = async () => {
+const FAQ = async ({ handle }: { handle: string }) => {
   const faqs = await getMetaobject({
-    handle: { handle: `${kebabCase(SITE_NAME)}-faqs`, type: 'accordion' }
+    handle: { handle, type: 'accordion' }
   });
 
   if (!faqs) return null;
