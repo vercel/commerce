@@ -81,7 +81,7 @@ export default async function ProductPage({ params }: { params: { handle: string
           __html: JSON.stringify(productJsonLd)
         }}
       />
-      <div className="mx-auto mt-4 max-w-screen-2xl px-4">
+      <div className="mx-auto mt-4 max-w-screen-2xl px-8 xl:px-4">
         <div className="hidden lg:block">
           <BreadcrumbComponent type="product" handle={product.handle} />
         </div>
@@ -90,7 +90,7 @@ export default async function ProductPage({ params }: { params: { handle: string
             <ProductDescription product={product} />
           </div>
 
-          <div className="basis-full lg:basis-5/12">
+          <div className="hidden lg:block lg:basis-5/12">
             <Suspense
               fallback={
                 <div className="aspect-square relative h-full max-h-[550px] w-full overflow-hidden" />
