@@ -51,3 +51,5 @@ export const CONDITIONS = {
   Used: 'Used',
   Remanufactured: 'Remanufactured'
 };
+
+export const DELIVERY_OPTION_KEY = 'delivery';

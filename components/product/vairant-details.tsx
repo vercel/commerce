@@ -1,5 +1,6 @@
 'use client';
 
+import { CheckCircleIcon } from '@heroicons/react/24/outline';
 import Price from 'components/price';
 import { Money, ProductVariant } from 'lib/shopify/types';
 import { useSearchParams } from 'next/navigation';
@@ -20,17 +21,23 @@ const VariantDetails = ({ variants, defaultPrice }: VariantDetailsProps) => {
   const price = variant?.price.amount || defaultPrice.amount;
 
   return (
-    <>
-      <div className="mb-5 flex items-center justify-start gap-x-2">
-        <p className="text-sm">SKU: {variant?.sku || 'N/A'}</p>
-        <p className="text-sm">Condition: {variant?.condition || 'N/A'}</p>
-      </div>
+    <div className="mt-1">
       <Price
         amount={price}
         currencyCode={variant?.price.currencyCode || defaultPrice.currencyCode}
         className="text-2xl font-semibold"
       />
-    </>
+      <div className="mt-2 flex items-center justify-start gap-x-2">
+        {variant?.availableForSale ? (
+          <div className="flex items-center gap-1 text-sm text-green-500">
+            <CheckCircleIcon className="size-5" /> In Stock
+          </div>
+        ) : (
+          <span className="text-sm text-red-600">Out of Stock</span>
+        )}
+        <p className="text-sm">Condition: {variant?.condition || 'N/A'}</p>
+      </div>
+    </div>
   );
 };
 

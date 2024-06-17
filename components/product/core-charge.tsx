@@ -93,8 +93,8 @@ const CoreCharge = ({ variants }: CoreChargeProps) => {
                 period, you will never need to pay the core charge.
               </p>
               <p className="text-sm">
-                If you don't manage to return the old part within the 30-day period, we will then
-                charge you the core charge. This keeps more money in your pocket upfront.
+                If you don&apos;t manage to return the old part within the 30-day period, we will
+                then charge you the core charge. This keeps more money in your pocket upfront.
               </p>
             </section>
 

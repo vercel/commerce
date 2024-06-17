@@ -3,6 +3,9 @@ import Prose from 'components/prose';
 import { Product } from 'lib/shopify/types';
 import { Suspense } from 'react';
 import CoreCharge from './core-charge';
+import Delivery from './delivery';
+import PriceSummary from './price-summary';
+import ProductDetails from './product-details';
 import SpecialOffer from './special-offer';
 import VariantDetails from './vairant-details';
 import { VariantSelector } from './variant-selector';
@@ -11,7 +14,7 @@ import Warranty from './warranty';
 export function ProductDescription({ product }: { product: Product }) {
   return (
     <>
-      <div className="mb-5 flex flex-col dark:border-neutral-700">
+      <div className="mb-4 flex flex-col">
         <h1 className="text-xl font-bold md:text-2xl">{product.title}</h1>
 
         <VariantDetails
@@ -34,6 +37,7 @@ export function ProductDescription({ product }: { product: Product }) {
         />
       ) : null}
 
+      <ProductDetails product={product} />
       <div className="mb-2 border-t py-4 dark:border-neutral-700">
         <CoreCharge variants={product.variants} />
       </div>
@@ -42,12 +46,15 @@ export function ProductDescription({ product }: { product: Product }) {
         <Warranty />
       </div>
 
+      <div className="mb-2 border-t py-4 dark:border-neutral-700">
+        <Delivery />
+      </div>
+
+      <PriceSummary variants={product.variants} defaultPrice={product.priceRange.minVariantPrice} />
       <Suspense fallback={null}>
         <AddToCart variants={product.variants} availableForSale={product.availableForSale} />
       </Suspense>
-      <div className="mt-4 border-t pt-4">
-        <SpecialOffer />
-      </div>
+      <SpecialOffer />
     </>
   );
 }

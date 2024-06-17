@@ -76,6 +76,21 @@ const productFragment = /* GraphQL */ `
     fuelType: metafield(namespace: "custom", key: "fuel") {
       value
     }
+    transmissionType: metafield(namespace: "custom", key: "transmission_type") {
+      value
+    }
+    transmissionSpeeds: metafield(namespace: "custom", key: "transmission_speeds") {
+      value
+    }
+    driveType: metafield(namespace: "custom", key: "drive_type") {
+      value
+    }
+    transmissionCode: metafield(namespace: "custom", key: "transmission_code") {
+      value
+    }
+    transmissionTag: metafield(namespace: "custom", key: "transmission_tag") {
+      value
+    }
     images(first: 20) {
       edges {
         node {

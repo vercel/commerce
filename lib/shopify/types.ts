@@ -101,14 +101,29 @@ export type Metaobject = {
   [key: string]: string;
 };
 
+export type TransmissionType = 'Automatic' | 'Manual';
+
 export type Product = Omit<
   ShopifyProduct,
-  'variants' | 'images' | 'fuelType' | 'engineCylinders'
+  | 'variants'
+  | 'images'
+  | 'fuelType'
+  | 'engineCylinders'
+  | 'driveType'
+  | 'transmissionType'
+  | 'transmissionSpeeds'
+  | 'transmissionCode'
+  | 'transmissionTag'
 > & {
   variants: ProductVariant[];
   images: Image[];
   fuelType: string | null;
   engineCylinders: number[] | null;
+  driveType: string[] | null;
+  transmissionType: TransmissionType | null;
+  transmissionSpeeds: number[] | null;
+  transmissionCode: string[] | null;
+  transmissionTag: string[] | null;
 };
 
 export type ProductOption = {
@@ -216,6 +231,11 @@ export type ShopifyProduct = {
   };
   engineCylinders: { value: string } | null;
   fuelType: { value: string } | null;
+  transmissionType: { value: string } | null;
+  transmissionTag: { value: string } | null;
+  transmissionCode: { value: string } | null;
+  driveType: { value: string } | null;
+  transmissionSpeeds: { value: string } | null;
 };
 
 export type ShopifyCartOperation = {

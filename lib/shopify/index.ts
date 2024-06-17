@@ -75,7 +75,8 @@ import {
   ShopifyProductsOperation,
   ShopifyRemoveFromCartOperation,
   ShopifySetCartAttributesOperation,
-  ShopifyUpdateCartOperation
+  ShopifyUpdateCartOperation,
+  TransmissionType
 } from './types';
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
@@ -287,7 +288,10 @@ const reshapeVariants = (variants: ShopifyProductVariant[]): ProductVariant[] =>
   }));
 };
 
-const reshapeProduct = (product: ShopifyProduct, filterHiddenProducts: boolean = true) => {
+const reshapeProduct = (
+  product: ShopifyProduct,
+  filterHiddenProducts: boolean = true
+): Product | undefined => {
   if (!product || (filterHiddenProducts && product.tags.includes(HIDDEN_PRODUCT_TAG))) {
     return undefined;
   }
@@ -295,6 +299,13 @@ const reshapeProduct = (product: ShopifyProduct, filterHiddenProducts: boolean =
   const { images, variants, ...rest } = product;
   return {
     ...rest,
+    transmissionCode: parseMetaFieldValue<string[]>(product.transmissionCode),
+    transmissionSpeeds: parseMetaFieldValue<number[]>(product.transmissionSpeeds),
+    transmissionTag: parseMetaFieldValue<string[]>(product.transmissionTag),
+    driveType: parseMetaFieldValue<string[]>(product.driveType),
+    transmissionType: product.transmissionType
+      ? (product.transmissionType.value as TransmissionType)
+      : null,
     engineCylinders: parseMetaFieldValue<number[]>(product.engineCylinders),
     fuelType: product.fuelType?.value || null,
     images: reshapeImages(images, product.title),
