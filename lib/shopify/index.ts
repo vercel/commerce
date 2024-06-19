@@ -1,4 +1,5 @@
 import {
+  ADD_ON_PRODUCT_TYPES,
   AVAILABILITY_FILTER_ID,
   HIDDEN_PRODUCT_TAG,
   MAKE_FILTER_ID,
@@ -40,7 +41,6 @@ import {
 import {
   Cart,
   CartAttributeInput,
-  CartItem,
   Collection,
   Connection,
   Filter,
@@ -161,7 +161,7 @@ const reshapeCart = (cart: ShopifyCart): Cart => {
       ...lineItem,
       merchandise: {
         ...lineItem.merchandise,
-        product: reshapeProduct(lineItem.merchandise.product)
+        product: lineItem.merchandise.product
       }
     }))
   };
@@ -277,14 +277,22 @@ const reshapeImages = (images: Connection<Image>, productTitle: string) => {
 };
 
 const reshapeVariants = (variants: ShopifyProductVariant[]): ProductVariant[] => {
-  return variants.map((variant) => ({
+  return variants.map(({ addOnProductId, addOnQuantity, ...variant }) => ({
     ...variant,
     waiverAvailable: parseMetaFieldValue<boolean>(variant.waiverAvailable),
     coreVariantId: variant.coreVariantId?.value || null,
     coreCharge: parseMetaFieldValue<Money>(variant.coreCharge),
     mileage: variant.mileage?.value ?? null,
     estimatedDelivery: variant.estimatedDelivery?.value || null,
-    condition: variant.condition?.value || null
+    condition: variant.condition?.value || null,
+    ...(addOnProductId
+      ? {
+          addOnProduct: {
+            id: addOnProductId.value,
+            quantity: addOnQuantity?.value ? Number(addOnQuantity.value) : 1
+          }
+        }
+      : {})
   }));
 };
 
@@ -410,20 +418,34 @@ export async function getCart(cartId: string): Promise<Cart | undefined> {
   const cart = reshapeCart(res.body.data.cart);
 
   // attach core charge as an additional attribute of a cart line, and remove the core charge line from cart
-  const extendedCartLines = cart?.lines.reduce((lines, item) => {
-    const coreVariantId = item.merchandise.coreVariantId?.value;
-    if (coreVariantId) {
-      const relatedCoreCharge = cart.lines.find((line) => line.merchandise.id === coreVariantId);
-      return lines.concat([
-        {
-          ...item,
-          coreCharge: relatedCoreCharge
-        }
-      ]);
-    }
+  const extendedCartLines = cart?.lines
+    .map((item) => {
+      const coreVariantId = item.merchandise.coreVariantId?.value;
+      const addOnProductId = item.merchandise.addOnProductId;
+      const _item = { ...item };
 
-    return lines;
-  }, [] as CartItem[]);
+      if (coreVariantId) {
+        const relatedCoreCharge = cart.lines.find((line) => line.merchandise.id === coreVariantId);
+        _item.coreCharge = relatedCoreCharge;
+      }
+
+      if (addOnProductId) {
+        const relatedAddOnProduct = cart.lines.find(
+          (line) => line.merchandise.id === addOnProductId.value
+        );
+        _item.addOnProduct = relatedAddOnProduct
+          ? {
+              ...relatedAddOnProduct,
+              quantity: item.merchandise.addOnQuantity
+                ? Number(item.merchandise.addOnQuantity.value)
+                : 1
+            }
+          : undefined;
+      }
+      return _item;
+    })
+    // core charge shouldn't present as a dedicated product as it's tightly coupled with the product
+    .filter((item) => item.merchandise.product.productType !== ADD_ON_PRODUCT_TYPES.coreCharge);
 
   const totalQuantity = extendedCartLines.reduce((sum, line) => sum + line.quantity, 0);
 

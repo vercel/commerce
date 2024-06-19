@@ -80,11 +80,20 @@ export function AddToCart({
   const coreVariantId = searchParams.get(CORE_VARIANT_ID_KEY);
 
   // remove special core-waiver value as it is not a valid variant
-  const selectedVariantIds = [coreVariantId, selectedVariantId]
-    .filter(Boolean)
-    .filter((value) => value !== CORE_WAIVER) as string[];
+  const addingVariants = (
+    [coreVariantId, selectedVariantId]
+      .filter(Boolean)
+      .filter((value) => value !== CORE_WAIVER) as string[]
+  ).map((id) => ({ merchandiseId: id, quantity: 1 }));
 
-  const actionWithVariant = formAction.bind(null, selectedVariantIds);
+  if (variant?.addOnProduct) {
+    addingVariants.push({
+      merchandiseId: variant.addOnProduct.id,
+      quantity: variant.addOnProduct.quantity
+    });
+  }
+
+  const actionWithVariant = formAction.bind(null, addingVariants);
 
   return (
     <form action={actionWithVariant}>

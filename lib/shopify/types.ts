@@ -25,10 +25,19 @@ export type CartItem = {
       name: string;
       value: string;
     }[];
-    product: Product;
+    product: {
+      id: string;
+      handle: string;
+      title: string;
+      featuredImage: Image;
+      productType: string;
+    };
     coreVariantId: { value: string } | null;
+    addOnQuantity: { value: string } | null;
+    addOnProductId: { value: string } | null;
   };
   coreCharge?: CartItem;
+  addOnProduct?: CartItem & { quantity: number };
 };
 
 export type Collection = Omit<ShopifyCollection, 'helpfulLinks'> & {
@@ -151,6 +160,10 @@ export type ProductVariant = {
   condition: string | null;
   engineCylinders: string | null;
   fuelType: string | null;
+  addOnProduct?: {
+    quantity: number;
+    id: string;
+  };
 };
 
 export type ShopifyCartProductVariant = {
@@ -169,7 +182,13 @@ export type CartProductVariant = Omit<ShopifyCartProductVariant, 'coreVariantId'
 
 export type ShopifyProductVariant = Omit<
   ProductVariant,
-  'coreCharge' | 'waiverAvailable' | 'coreVariantId' | 'mileage' | 'estimatedDelivery' | 'condition'
+  | 'coreCharge'
+  | 'waiverAvailable'
+  | 'coreVariantId'
+  | 'mileage'
+  | 'estimatedDelivery'
+  | 'condition'
+  | 'addOnProduct'
 > & {
   waiverAvailable: { value: string };
   coreVariantId: { value: string } | null;
@@ -177,6 +196,8 @@ export type ShopifyProductVariant = Omit<
   mileage: { value: number } | null;
   estimatedDelivery: { value: string } | null;
   condition: { value: string } | null;
+  addOnProductId: { value: string } | null;
+  addOnQuantity: { value: string } | null;
 };
 
 export type SEO = {
@@ -187,6 +208,7 @@ export type SEO = {
 export type ShopifyCart = {
   id: string;
   checkoutUrl: string;
+  attributes: { key: string; value: string }[];
   cost: {
     subtotalAmount: Money;
     totalAmount: Money;

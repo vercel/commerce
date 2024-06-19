@@ -21,7 +21,11 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
   const openCart = () => setIsOpen(true);
   const closeCart = () => setIsOpen(false);
   const { control, handleSubmit } = useForm<VehicleFormSchema>({
-    resolver: zodResolver(vehicleFormSchema)
+    resolver: zodResolver(vehicleFormSchema),
+    defaultValues: {
+      customer_vin: cart?.attributes.find((a) => a.key === 'customer_vin')?.value || '',
+      customer_mileage: cart?.attributes.find((a) => a.key === 'customer_mileage')?.value || ''
+    }
   });
 
   const [loading, setLoading] = useState(false);

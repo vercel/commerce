@@ -12,7 +12,10 @@ import {
 import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
 
-export async function addItem(prevState: any, selectedVariantIds: Array<string>) {
+export async function addItem(
+  prevState: any,
+  selectedVariantIds: Array<{ merchandiseId: string; quantity: number }>
+) {
   let cartId = cookies().get('cartId')?.value;
   let cart;
 
@@ -31,10 +34,8 @@ export async function addItem(prevState: any, selectedVariantIds: Array<string>)
   }
 
   try {
-    await addToCart(
-      cartId,
-      selectedVariantIds.map((variantId) => ({ merchandiseId: variantId, quantity: 1 }))
-    );
+    const cart = await addToCart(cartId, selectedVariantIds);
+    console.log({ cartLines: cart.lines });
     revalidateTag(TAGS.cart);
   } catch (e) {
     return 'Error adding item to cart';
@@ -65,7 +66,6 @@ export async function setMetafields(
 
     revalidateTag(TAGS.cart);
   } catch (e) {
-    console.log(e);
     return 'Error set cart attributes';
   }
 }

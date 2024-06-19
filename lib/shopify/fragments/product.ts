@@ -64,6 +64,12 @@ const productFragment = /* GraphQL */ `
           condition: metafield(namespace: "custom", key: "condition") {
             value
           }
+          addOnQuantity: metafield(namespace: "custom", key: "add_on_quantity") {
+            value
+          }
+          addOnProductId: metafield(namespace: "custom", key: "add_on") {
+            value
+          }
         }
       }
     }

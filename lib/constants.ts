@@ -53,3 +53,8 @@ export const CONDITIONS = {
 };
 
 export const DELIVERY_OPTION_KEY = 'delivery';
+
+export const ADD_ON_PRODUCT_TYPES = {
+  addOn: 'Add On',
+  coreCharge: 'Core Charge'
+};
