@@ -1,7 +1,7 @@
-import commerce from '@commerce/client';
+import commerce from '@market/client';
 import { ProductAttr, extractSuccess } from '@spree/storefront-api-v2-sdk';
 
-export const getProduct = async (id: string): Promise<ProductAttr | null> => {
+export async function getProduct(id: string): Promise<ProductAttr | null> {
   let product = null;
 
   const params = {
@@ -17,9 +17,9 @@ export const getProduct = async (id: string): Promise<ProductAttr | null> => {
   }
 
   return product;
-};
+}
 
-export const getProducts = async ({ taxons = [] } = {}): Promise<ProductAttr[]> => {
+export async function getProducts({ taxons = [] } = {}): Promise<ProductAttr[]> {
   const filter = { filter: { taxons: taxons.join(',') }, sort: '-updated_at' };
 
   const params = {
@@ -36,4 +36,4 @@ export const getProducts = async ({ taxons = [] } = {}): Promise<ProductAttr[]> 
   const successResponse = await extractSuccess(commerce.products.list(params));
 
   return successResponse.data;
-};
+}

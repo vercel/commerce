@@ -1,23 +1,23 @@
-import spree from '@commerce/client';
-import { IToken, ProductId } from '@commerce/types';
-import { ensureIToken, setCartToken } from '@commerce/utils';
+import spree from '@market/client';
+import { IToken, ProductId } from '@market/types';
+import { ensureIToken, setCartToken } from '@market/utils';
 import { FetchError, IOrder, extractSuccess } from '@spree/storefront-api-v2-sdk';
 
 /**
  * Checks if user authenticated, creates an empty cart (for user or guest)
  * and returns cart  @type {Cart}
  */
-const createEmptyCart = async () => {
+async function createEmptyCart() {
   const token: IToken | undefined = ensureIToken();
   const cartResponse = await extractSuccess(spree.cart.create(token));
   return cartResponse;
-};
+}
 
 /**
  * Checks if token is present,
  * if not creates an empty cart and returns cart  @type {Cart}
  */
-export const addProductToCart = async (productId: ProductId): Promise<IOrder | null> => {
+export async function addProductToCart(productId: ProductId): Promise<IOrder | null> {
   let cartResponse: IOrder | null;
 
   let token = ensureIToken();
@@ -54,4 +54,4 @@ export const addProductToCart = async (productId: ProductId): Promise<IOrder | n
   }
 
   return cartResponse;
-};
+}
