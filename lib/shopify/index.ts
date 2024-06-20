@@ -351,11 +351,12 @@ const reshapeMetaobjects = (metaobjects: ShopifyMetaobject[]): Metaobject[] => {
         };
       },
       {} as {
-        [key: string]: {
-          value: string;
-          referenceId: string;
-        };
-        string;
+        [key: string]:
+          | {
+              value: string;
+              referenceId: string;
+            }
+          | string;
       }
     );
 
