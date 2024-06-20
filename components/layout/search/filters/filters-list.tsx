@@ -3,7 +3,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { Filter, FilterType } from 'lib/shopify/types';
-import { createUrl } from 'lib/shopify/utils';
+import { createUrl } from 'lib/utils';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import PriceRange from './price-range';
 import SelectedList from './selected-list';

@@ -2,7 +2,7 @@ import { PlusIcon } from '@heroicons/react/16/solid';
 import Price from 'components/price';
 import { DEFAULT_OPTION } from 'lib/constants';
 import { CartItem } from 'lib/shopify/types';
-import { createUrl } from 'lib/shopify/utils';
+import { createUrl } from 'lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import { DeleteItemButton } from './delete-item-button';

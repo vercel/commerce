@@ -12,7 +12,7 @@ import {
   YEAR_FILTER_ID
 } from 'lib/constants';
 import { isShopifyError } from 'lib/type-guards';
-import { ensureStartsWith, normalizeUrl, parseJSON, parseMetaFieldValue } from 'lib/shopify/utils';
+import { ensureStartsWith, normalizeUrl, parseJSON, parseMetaFieldValue } from 'lib/utils';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';

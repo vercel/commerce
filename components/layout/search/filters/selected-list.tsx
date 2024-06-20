@@ -2,7 +2,7 @@
 
 import { XMarkIcon } from '@heroicons/react/16/solid';
 import { Filter } from 'lib/shopify/types';
-import { createUrl } from 'lib/shopify/utils';
+import { createUrl } from 'lib/utils';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 const SelectedList = ({ filters }: { filters: Filter[] }) => {

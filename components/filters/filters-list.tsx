@@ -3,7 +3,7 @@
 import { Button } from '@headlessui/react';
 import { MAKE_FILTER_ID, MODEL_FILTER_ID, PART_TYPES, YEAR_FILTER_ID } from 'lib/constants';
 import { Menu, Metaobject } from 'lib/shopify/types';
-import { createUrl, findParentCollection } from 'lib/shopify/utils';
+import { createUrl, findParentCollection } from 'lib/utils';
 import get from 'lodash.get';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';

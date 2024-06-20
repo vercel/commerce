@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { SortFilterItem } from 'lib/constants';
-import { createUrl } from 'lib/shopify/utils';
+import { createUrl } from 'lib/utils';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 

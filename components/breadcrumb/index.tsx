@@ -8,7 +8,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator
 } from './breadcrumb-list';
-import { findParentCollection } from 'lib/shopify/utils';
+import { findParentCollection } from 'lib/utils';
 
 type BreadcrumbProps = {
   type: 'product' | 'collection';
