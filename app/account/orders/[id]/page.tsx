@@ -194,15 +194,15 @@ function OrderDetails({ order }: { order: Order }) {
             <Label>Shipping Address</Label>
             <div>
               <Text>
-                {order.shippingAddress.firstName} {order.shippingAddress.lastName}
+                {order.shippingAddress!.firstName} {order.shippingAddress!.lastName}
               </Text>
-              <Text>{order.shippingAddress.address1}</Text>
-              {order.shippingAddress.address2 && <Text>{order.shippingAddress.address2}</Text>}
+              <Text>{order.shippingAddress!.address1}</Text>
+              {order.shippingAddress!.address2 && <Text>{order.shippingAddress!.address2}</Text>}
               <Text>
-                {order.shippingAddress.city} {order.shippingAddress.provinceCode}{' '}
-                {order.shippingAddress.zip}
+                {order.shippingAddress!.city} {order.shippingAddress!.provinceCode}{' '}
+                {order.shippingAddress!.zip}
               </Text>
-              <Text>{order.shippingAddress.country}</Text>
+              <Text>{order.shippingAddress!.country}</Text>
             </div>
           </div>
           <div className="flex flex-col gap-2">
@@ -219,15 +219,15 @@ function OrderDetails({ order }: { order: Order }) {
             <Label>Billing Address</Label>
             <div>
               <Text>
-                {order.billingAddress.firstName} {order.billingAddress.lastName}
+                {order.billingAddress!.firstName} {order.billingAddress!.lastName}
               </Text>
-              <Text>{order.billingAddress.address1}</Text>
-              {order.billingAddress.address2 && <Text>{order.billingAddress.address2}</Text>}
+              <Text>{order.billingAddress!.address1}</Text>
+              {order.billingAddress!.address2 && <Text>{order.billingAddress!.address2}</Text>}
               <Text>
-                {order.billingAddress.city} {order.billingAddress.provinceCode}{' '}
-                {order.billingAddress.zip}
+                {order.billingAddress!.city} {order.billingAddress!.provinceCode}{' '}
+                {order.billingAddress!.zip}
               </Text>
-              <Text>{order.billingAddress.country}</Text>
+              <Text>{order.billingAddress!.country}</Text>
             </div>
           </div>
         </div>
@@ -270,8 +270,8 @@ function OrderSummary({ order }: { order: Order }) {
             <Text>Subtotal</Text>
             <Price
               className="text-sm font-semibold"
-              amount={order.totalPrice.amount}
-              currencyCode={order.totalPrice.currencyCode}
+              amount={order.totalPrice!.amount}
+              currencyCode={order.totalPrice!.currencyCode}
             />
           </div>
           <div className="flex items-center justify-between">
@@ -293,8 +293,8 @@ function OrderSummary({ order }: { order: Order }) {
           </Heading>
           <Price
             className="font-semibold"
-            amount={order.totalPrice.amount}
-            currencyCode={order.totalPrice.currencyCode}
+            amount={order.totalPrice!.amount}
+            currencyCode={order.totalPrice!.currencyCode}
           />
         </div>
       </div>

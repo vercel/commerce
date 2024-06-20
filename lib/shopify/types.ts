@@ -136,13 +136,13 @@ export type Order = {
   fulfillments: Fulfillment[];
   transactions: Transaction[];
   lineItems: LineItem[];
-  shippingAddress: Address;
-  billingAddress: Address;
+  shippingAddress?: Address;
+  billingAddress?: Address;
   /** the price of all line items, excluding taxes and surcharges */
-  subtotal: Money;
-  totalShipping: Money;
-  totalTax: Money;
-  totalPrice: Money;
+  subtotal?: Money;
+  totalShipping?: Money;
+  totalTax?: Money;
+  totalPrice?: Money;
   shippingMethod?: {
     name: string;
     price: Money;
@@ -281,14 +281,6 @@ type ShopifyImage = {
   height: number;
   url: string;
   width: number;
-};
-
-type ShopifyFulfillmentEventConnection = {
-  edges: ShopifyFulfillmentEventEdge[];
-};
-
-type ShopifyFulfillmentEventEdge = {
-  node: ShopifyFulfillmentEvent;
 };
 
 type ShopifyFulfillmentEvent = {
