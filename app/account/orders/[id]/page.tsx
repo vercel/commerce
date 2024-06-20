@@ -1,4 +1,4 @@
-import { CheckCircleIcon, TruckIcon } from '@heroicons/react/24/outline';
+import { CheckCircleIcon, TruckIcon, ArrowLeftIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 import { Button } from 'components/button';
 import { Card } from 'components/ui/card';
@@ -9,6 +9,9 @@ import { Fulfillment, Order } from 'lib/shopify/types';
 import Text from 'components/ui/text';
 import Price from 'components/price';
 import Badge from 'components/ui/badge';
+import Link from 'next/link';
+import { Suspense } from 'react';
+import Skeleton from 'components/ui/skeleton';
 
 export const runtime = 'edge';
 
@@ -204,7 +207,7 @@ function OrderDetails({ order }: { order: Order }) {
           </div>
           <div className="flex flex-col gap-2">
             <Label>Shipping Method</Label>
-            <Text>{order.shippingMethod.name}</Text>
+            <Text>{order.shippingMethod!.name}</Text>
           </div>
         </div>
         <div className="flex flex-1 flex-col gap-4">
@@ -305,9 +308,16 @@ export default async function OrderPage({ params }: { params: { id: string } }) 
   return (
     <main className="mx-auto max-w-6xl p-6">
       <div className="mb-6 flex justify-between">
-        <div>
-          <Heading as="h1">Order {order.name}</Heading>
-          <Label>Confirmed {toPrintDate(order.processedAt)}</Label>
+        <div className="flex items-start gap-2">
+          <Link href="/account">
+            <ArrowLeftIcon className="mt-1 h-6 w-6" />
+          </Link>
+          <div>
+            <Suspense fallback={<Skeleton />}>
+              <Heading as="h1">Order {order.name}</Heading>
+            </Suspense>
+            <Label>Confirmed {toPrintDate(order.processedAt)}</Label>
+          </div>
         </div>
         <div>
           <Button>Activate Warranty</Button>
@@ -315,7 +325,9 @@ export default async function OrderPage({ params }: { params: { id: string } }) 
       </div>
       <div className="flex items-start gap-6">
         <div className="flex flex-1 flex-col gap-6">
-          <Fulfillments order={order} />
+          <Suspense fallback={<Skeleton />}>
+            <Fulfillments order={order} />
+          </Suspense>
           <Unfulfilled order={order} />
           <OrderDetails order={order} />
         </div>

@@ -349,12 +349,11 @@ const reshapeMetaobjects = (metaobjects: ShopifyMetaobject[]): Metaobject[] => {
         };
       },
       {} as {
-        [key: string]:
-          | {
-              value: string;
-              referenceId: string;
-            }
-          | string;
+        [key: string]: {
+          value: string;
+          referenceId: string;
+        };
+        string;
       }
     );
 
@@ -485,8 +484,8 @@ function reshapeOrder(shopifyOrder: ShopifyOrder): Order {
           image: {
             url: lineItem.lineItem.image?.url || placeholderProductImage,
             altText: lineItem.lineItem.image?.altText || lineItem.lineItem.title,
-            width: 100,
-            height: 100
+            width: 62,
+            height: 62
           }
         })) || []
     })) || [];
@@ -514,8 +513,8 @@ function reshapeOrder(shopifyOrder: ShopifyOrder): Order {
       image: {
         url: edge.node.image?.url || placeholderProductImage,
         altText: edge.node.image?.altText || edge.node.title,
-        width: edge.node.image?.width || 62,
-        height: edge.node.image?.height || 62
+        width: 62,
+        height: 62
       },
       price: reshapeMoney(edge.node.price),
       totalPrice: reshapeMoney(edge.node.totalPrice),
@@ -543,7 +542,6 @@ function reshapeOrder(shopifyOrder: ShopifyOrder): Order {
   }
 
   if (shopifyOrder.shippingLine) {
-    console.log('Shipping Line', shopifyOrder.shippingLine);
     order.shippingMethod = {
       name: shopifyOrder.shippingLine?.title,
       price: reshapeMoney(shopifyOrder.shippingLine.originalPrice)!
