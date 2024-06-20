@@ -34,7 +34,7 @@ export default async function HomePage() {
           <WhyChoose />
         </Suspense>
         <Suspense>
-          <FAQ />
+          <FAQ handle="home-page-faqs" />
         </Suspense>
         <Suspense>
           <Manufacturers />

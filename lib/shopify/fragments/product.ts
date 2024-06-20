@@ -64,6 +64,12 @@ const productFragment = /* GraphQL */ `
           condition: metafield(namespace: "custom", key: "condition") {
             value
           }
+          addOnQuantity: metafield(namespace: "custom", key: "add_on_quantity") {
+            value
+          }
+          addOnProductId: metafield(namespace: "custom", key: "add_on") {
+            value
+          }
         }
       }
     }
@@ -74,6 +80,21 @@ const productFragment = /* GraphQL */ `
       value
     }
     fuelType: metafield(namespace: "custom", key: "fuel") {
+      value
+    }
+    transmissionType: metafield(namespace: "custom", key: "transmission_type") {
+      value
+    }
+    transmissionSpeeds: metafield(namespace: "custom", key: "transmission_speeds") {
+      value
+    }
+    driveType: metafield(namespace: "custom", key: "drive_type") {
+      value
+    }
+    transmissionCode: metafield(namespace: "custom", key: "transmission_code") {
+      value
+    }
+    transmissionTag: metafield(namespace: "custom", key: "transmission_tag") {
       value
     }
     images(first: 20) {

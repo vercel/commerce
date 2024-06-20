@@ -81,12 +81,16 @@ export default async function ProductPage({ params }: { params: { handle: string
           __html: JSON.stringify(productJsonLd)
         }}
       />
-      <div className="mx-auto mt-4 max-w-screen-2xl px-4">
+      <div className="mx-auto mt-4 max-w-screen-2xl px-8 xl:px-4">
         <div className="hidden lg:block">
           <BreadcrumbComponent type="product" handle={product.handle} />
         </div>
-        <div className="my-3 flex flex-col space-x-0 rounded-lg border border-neutral-200 bg-white p-6 dark:border-neutral-800 dark:bg-black md:p-10 lg:flex-row lg:gap-8 lg:space-x-3">
+        <div className="my-3 flex flex-col space-x-0 lg:flex-row lg:gap-8 lg:space-x-3">
           <div className="h-full w-full basis-full lg:basis-7/12">
+            <ProductDescription product={product} />
+          </div>
+
+          <div className="hidden lg:block lg:basis-5/12">
             <Suspense
               fallback={
                 <div className="aspect-square relative h-full max-h-[550px] w-full overflow-hidden" />
@@ -100,18 +104,12 @@ export default async function ProductPage({ params }: { params: { handle: string
               />
             </Suspense>
           </div>
-
-          <div className="basis-full lg:basis-5/12">
-            <ProductDescription product={product} />
-          </div>
         </div>
         <Suspense>
           <RelatedProducts id={product.id} />
         </Suspense>
       </div>
-      <Suspense>
-        <Footer />
-      </Suspense>
+      <Footer />
     </>
   );
 }

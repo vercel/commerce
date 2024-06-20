@@ -1,16 +1,19 @@
 import ImageDisplay from 'components/page/image-display';
 import { Metaobject } from 'lib/shopify/types';
+import Link from 'next/link';
 import { Suspense } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 const ManufacturerItem = ({
   manufacturer,
-  className
+  className,
+  href
 }: {
   manufacturer: Metaobject;
   className?: string;
+  href?: string;
 }) => {
-  return (
+  const children = (
     <div className={twMerge('flex w-full flex-row items-center justify-between', className)}>
       <span className="text-sm leading-5">{manufacturer.display_name}</span>
       <div className="hidden md:block">
@@ -25,6 +28,11 @@ const ManufacturerItem = ({
       </div>
     </div>
   );
+
+  if (href) {
+    return <Link href={href}>{children}</Link>;
+  }
+  return children;
 };
 
 export default ManufacturerItem;

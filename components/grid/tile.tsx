@@ -1,9 +1,51 @@
 import { ArrowRightIcon, PhotoIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 import Price from 'components/price';
-import { Product } from 'lib/shopify/types';
+import { CONDITIONS } from 'lib/constants';
+import { Product, ProductVariant } from 'lib/shopify/types';
 import Image from 'next/image';
 import Link from 'next/link';
+
+const PriceSection = ({ variants }: { variants: ProductVariant[] }) => {
+  const usedVariants = variants.filter((variant) => variant.condition === CONDITIONS.Used);
+
+  const minUsedVariantPrice = usedVariants.length
+    ? usedVariants.reduce(
+        (min, variant) => Math.min(min, Number(variant.price.amount)),
+        Number(usedVariants[0]?.price.amount)
+      )
+    : null;
+
+  const remanVariants = variants.filter(
+    (variant) => variant.condition === CONDITIONS.Remanufactured
+  );
+
+  const minRemanufacturedPrice = remanVariants.length
+    ? remanVariants.reduce(
+        (min, variant) => Math.min(min, Number(variant.price.amount)),
+        Number(remanVariants[0]?.price.amount)
+      )
+    : null;
+
+  const currencyCode = variants[0]?.price.currencyCode || 'USD';
+
+  return (
+    <div className="flex w-full flex-col gap-1">
+      {typeof minUsedVariantPrice === 'number' && (
+        <div className="flex flex-row items-center justify-between">
+          <span className="text-sm">{CONDITIONS.Used}</span>
+          <Price amount={String(minUsedVariantPrice)} currencyCode={currencyCode} />
+        </div>
+      )}
+      {typeof minRemanufacturedPrice === 'number' && (
+        <div className="flex flex-row items-center justify-between">
+          <span className="text-sm">{CONDITIONS.Remanufactured}</span>
+          <Price amount={String(minRemanufacturedPrice)} currencyCode={currencyCode} />
+        </div>
+      )}
+    </div>
+  );
+};
 
 export function GridTileImage({
   active,
@@ -17,7 +59,7 @@ export function GridTileImage({
 } & React.ComponentProps<typeof Image>) {
   const metafieldKeys = ['engineCylinders', 'fuelType'] as Partial<keyof Product>[];
   const shouldShowDescription = metafieldKeys.some((key) => product[key]);
-
+  const variantsWithCondition = product.variants.filter((variant) => variant.condition !== null);
   return (
     <div className="flex h-full flex-col rounded-b border bg-white">
       <div className="grow">
@@ -76,12 +118,16 @@ export function GridTileImage({
             ) : null}
           </div>
         )}
-        <div className="flex justify-end border-t py-2">
-          <Price
-            className="text-lg font-medium text-gray-900"
-            amount={product.priceRange.minVariantPrice.amount}
-            currencyCode={product.priceRange.minVariantPrice.currencyCode}
-          />
+        <div className="flex justify-end border-t py-3">
+          {variantsWithCondition.length ? (
+            <PriceSection variants={variantsWithCondition} />
+          ) : (
+            <Price
+              className="text-lg font-medium text-gray-900"
+              amount={product.priceRange.minVariantPrice.amount}
+              currencyCode={product.priceRange.minVariantPrice.currencyCode}
+            />
+          )}
         </div>
       </div>
 

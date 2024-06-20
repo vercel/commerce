@@ -6,7 +6,8 @@ const Price = ({
   as,
   currencyCode = 'USD',
   currencyCodeClassName,
-  showCurrency = false
+  showCurrency = false,
+  prefix
 }: {
   amount: string;
   as?: 'p' | 'span';
@@ -14,6 +15,7 @@ const Price = ({
   currencyCode: string;
   currencyCodeClassName?: string;
   showCurrency?: boolean;
+  prefix?: string;
 } & React.ComponentProps<'p'>) => {
   // Convert string to float and check if it is zero
   const price = parseFloat(amount);
@@ -27,6 +29,7 @@ const Price = ({
   // Otherwise, format and display the price
   return (
     <Component suppressHydrationWarning={true} className={className}>
+      {prefix}
       {new Intl.NumberFormat(undefined, {
         style: 'currency',
         currency: currencyCode,

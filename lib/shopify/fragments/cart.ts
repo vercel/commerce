@@ -1,9 +1,13 @@
-import productFragment from './product';
+import imageFragment from './image';
 
 const cartFragment = /* GraphQL */ `
   fragment cart on Cart {
     id
     checkoutUrl
+    attributes {
+      key
+      value
+    }
     cost {
       subtotalAmount {
         amount
@@ -38,9 +42,20 @@ const cartFragment = /* GraphQL */ `
                 value
               }
               product {
-                ...product
+                featuredImage {
+                  ...image
+                }
+                handle
+                title
+                productType
               }
               coreVariantId: metafield(key: "coreVariant", namespace: "custom") {
+                value
+              }
+              addOnQuantity: metafield(namespace: "custom", key: "add_on_quantity") {
+                value
+              }
+              addOnProductId: metafield(namespace: "custom", key: "add_on") {
                 value
               }
             }
@@ -50,7 +65,7 @@ const cartFragment = /* GraphQL */ `
     }
     totalQuantity
   }
-  ${productFragment}
+  ${imageFragment}
 `;
 
 export default cartFragment;

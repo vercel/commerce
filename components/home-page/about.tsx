@@ -1,15 +1,13 @@
 import DisplayTabs from 'components/display-tabs';
 import RichTextDisplay from 'components/page/rich-text-display';
 import { getMetaobject, getMetaobjectsByIds } from 'lib/shopify';
-import kebabCase from 'lodash.kebabcase';
 import Image from 'next/image';
 import Tag from '../tag';
 import ButtonLink from './button-link';
 
-const { SITE_NAME } = process.env;
 const About = async () => {
   const aboutUs = await getMetaobject({
-    handle: { type: 'about_us', handle: `${kebabCase(SITE_NAME)}-about` }
+    handle: { type: 'about_us', handle: 'about-us' }
   });
 
   if (!aboutUs) return null;

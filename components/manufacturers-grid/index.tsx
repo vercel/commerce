@@ -1,11 +1,12 @@
 import { GlobeAltIcon, StarIcon } from '@heroicons/react/24/outline';
+import { MAKE_FILTER_ID } from 'lib/constants';
 import { Metaobject } from 'lib/shopify/types';
 import ButtonGroup from './button-group';
 import ManufacturerItem from './item';
 
 type ManufacturersGridProps = {
   manufacturers: Metaobject[];
-  variant?: 'engine' | 'transmission' | 'home';
+  variant?: 'engines' | 'transmissions' | 'home';
 };
 
 const ManufacturersGrid = ({ manufacturers, variant = 'home' }: ManufacturersGridProps) => {
@@ -22,7 +23,15 @@ const ManufacturersGrid = ({ manufacturers, variant = 'home' }: ManufacturersGri
       <div className="mt-6 grid grid-cols-2 gap-x-12 gap-y-5 md:grid-cols-3 md:gap-y-8 lg:grid-cols-4 xl:grid-cols-5">
         {popularManufacturers.map((manufacturer) => (
           <div key={manufacturer.id} className="flex flex-col gap-2">
-            <ManufacturerItem manufacturer={manufacturer} />
+            {variant === 'home' ? (
+              <ManufacturerItem manufacturer={manufacturer} />
+            ) : (
+              <ManufacturerItem
+                manufacturer={manufacturer}
+                className={'rounded border border-primary px-2 py-1'}
+                href={`/search/${variant}?${MAKE_FILTER_ID}=${manufacturer.id}`}
+              />
+            )}
             {variant === 'home' && <ButtonGroup manufacturer={manufacturer} />}
           </div>
         ))}
@@ -37,7 +46,15 @@ const ManufacturersGrid = ({ manufacturers, variant = 'home' }: ManufacturersGri
           .toSorted((a, b) => a.display_name!.localeCompare(b.display_name!))
           .map((manufacturer) => (
             <div key={manufacturer.id} className="flex flex-col gap-2">
-              <ManufacturerItem manufacturer={manufacturer} />
+              {variant === 'home' ? (
+                <ManufacturerItem manufacturer={manufacturer} />
+              ) : (
+                <ManufacturerItem
+                  manufacturer={manufacturer}
+                  className={'rounded border border-primary px-2 py-1'}
+                  href={`/search/${variant}?${MAKE_FILTER_ID}=${manufacturer.id}`}
+                />
+              )}
               {variant === 'home' && <ButtonGroup manufacturer={manufacturer} />}
             </div>
           ))}

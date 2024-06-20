@@ -46,3 +46,15 @@ export const MODEL_FILTER_ID = 'filter.p.m.custom.make_model_composite';
 export const YEAR_FILTER_ID = 'filter.p.m.custom.make_model_year_composite';
 export const PRODUCT_METAFIELD_PREFIX = 'filter.p.m';
 export const VARIANT_METAFIELD_PREFIX = 'filter.v.m';
+
+export const CONDITIONS = {
+  Used: 'Used',
+  Remanufactured: 'Remanufactured'
+};
+
+export const DELIVERY_OPTION_KEY = 'delivery';
+
+export const ADD_ON_PRODUCT_TYPES = {
+  addOn: 'Add On',
+  coreCharge: 'Core Charge'
+};

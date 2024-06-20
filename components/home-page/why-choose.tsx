@@ -1,14 +1,13 @@
 import ImageDisplay from 'components/page/image-display';
 import RichTextDisplay from 'components/page/rich-text-display';
 import { getMetaobject, getMetaobjectsByIds } from 'lib/shopify';
-import kebabCase from 'lodash.kebabcase';
 import { Suspense } from 'react';
 import Tag from '../tag';
 
 const { SITE_NAME } = process.env;
 const WhyChoose = async () => {
   const whyChooseContent = await getMetaobject({
-    handle: { type: 'why_choose', handle: `${kebabCase(SITE_NAME)}-why-choose` }
+    handle: { type: 'why_choose', handle: 'why-choose' }
   });
 
   if (!whyChooseContent || !whyChooseContent.items) return null;
