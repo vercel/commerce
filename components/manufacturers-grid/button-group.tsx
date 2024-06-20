@@ -3,7 +3,7 @@
 import { ArrowRightIcon } from '@heroicons/react/16/solid';
 import { MAKE_FILTER_ID } from 'lib/constants';
 import { Metaobject } from 'lib/shopify/types';
-import { createUrl } from 'lib/utils';
+import { createUrl } from 'lib/shopify/utils';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 const ButtonGroup = ({ manufacturer }: { manufacturer: Metaobject }) => {

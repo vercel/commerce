@@ -1,5 +1,5 @@
 import type { NextRequest } from 'next/server';
-import { isLoggedIn, getOrigin, authorizeFn, logoutFn } from 'lib/shopify/customer';
+import { isLoggedIn, getOrigin, authorize, logout } from 'lib/shopify/auth';
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
@@ -9,8 +9,8 @@ export async function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.startsWith('/authorize')) {
     console.log('Running Initial Authorization Middleware');
     const origin = getOrigin(request);
-    //console.log ("origin", origin)
-    return await authorizeFn(request, origin);
+    console.log('origin', origin);
+    return await authorize(request, origin);
   }
   /****
   END OF Authorize Middleware to get access tokens
@@ -22,7 +22,7 @@ export async function middleware(request: NextRequest) {
   if (request.nextUrl.pathname.startsWith('/logout')) {
     console.log('Running Logout middleware');
     const origin = getOrigin(request);
-    return await logoutFn(request, origin);
+    return await logout(request, origin);
   }
   /****
   END OF LOGOUT
@@ -45,5 +45,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/authorize', '/logout', '/account']
+  matcher: ['/authorize', '/logout', '/account/:path*']
 };

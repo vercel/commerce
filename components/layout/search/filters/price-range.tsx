@@ -3,7 +3,7 @@
 import Price from 'components/price';
 import { useDebounce } from 'hooks';
 import { Filter } from 'lib/shopify/types';
-import { createUrl } from 'lib/utils';
+import { createUrl } from 'lib/shopify/utils';
 import get from 'lodash.get';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';

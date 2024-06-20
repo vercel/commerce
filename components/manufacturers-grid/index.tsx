@@ -9,7 +9,6 @@ type ManufacturersGridProps = {
 };
 
 const ManufacturersGrid = ({ manufacturers, variant = 'home' }: ManufacturersGridProps) => {
-  console.log('manufacturers', manufacturers);
   const popularManufacturers = manufacturers.filter(
     (manufacturer) => manufacturer.is_popular === 'true'
   );

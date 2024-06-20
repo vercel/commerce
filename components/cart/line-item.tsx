@@ -2,7 +2,7 @@ import { PlusIcon } from '@heroicons/react/16/solid';
 import Price from 'components/price';
 import { DEFAULT_OPTION } from 'lib/constants';
 import { CartItem } from 'lib/shopify/types';
-import { createUrl } from 'lib/utils';
+import { createUrl } from 'lib/shopify/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import { DeleteItemButton } from './delete-item-button';
@@ -65,8 +65,10 @@ const LineItem = ({ item, closeCart }: LineItemProps) => {
               className="h-full w-full object-cover"
               width={64}
               height={64}
-              alt={item.merchandise.product.featuredImage.altText || item.merchandise.product.title}
-              src={item.merchandise.product.featuredImage.url}
+              alt={
+                item.merchandise.product?.featuredImage?.altText || item.merchandise.product.title
+              }
+              src={item.merchandise.product?.featuredImage?.url}
             />
           </div>
 

@@ -1,7 +1,7 @@
 'use client';
 
 import Price from 'components/price';
-import { cn } from 'lib/utils';
+import { cn } from 'lib/shopify/utils';
 import { ReactNode, useState } from 'react';
 
 const options = ['Included', 'Premium Labor', '+1 Year'] as const;

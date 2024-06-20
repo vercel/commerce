@@ -1,7 +1,7 @@
 import clsx, { ClassValue } from 'clsx';
 import { ReadonlyURLSearchParams } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
-import { Menu } from './shopify/types';
+import { Menu } from './types';
 
 export const createUrl = (pathname: string, params: URLSearchParams | ReadonlyURLSearchParams) => {
   const paramsString = params.toString();
@@ -14,7 +14,14 @@ export const ensureStartsWith = (stringToCheck: string, startsWith: string) =>
   stringToCheck.startsWith(startsWith) ? stringToCheck : `${startsWith}${stringToCheck}`;
 
 export const validateEnvironmentVariables = () => {
-  const requiredEnvironmentVariables = ['SHOPIFY_STORE_DOMAIN', 'SHOPIFY_STOREFRONT_ACCESS_TOKEN'];
+  const requiredEnvironmentVariables = [
+    'SHOPIFY_STORE_DOMAIN',
+    'SHOPIFY_STOREFRONT_ACCESS_TOKEN',
+    'SHOPIFY_CUSTOMER_ACCOUNT_API_CLIENT_ID',
+    'SHOPIFY_CUSTOMER_ACCOUNT_API_URL',
+    'SHOPIFY_CUSTOMER_API_VERSION',
+    'SHOPIFY_ORIGIN_URL'
+  ];
   const missingEnvironmentVariables = [] as string[];
 
   requiredEnvironmentVariables.forEach((envVar) => {
@@ -71,3 +78,12 @@ export const findParentCollection = (menu: Menu[], collection: string): Menu | n
   }
   return parentCollection;
 };
+
+export function parseJSON(json: any) {
+  if (String(json).includes('__proto__')) return JSON.parse(json, noproto);
+  return JSON.parse(json);
+}
+
+function noproto(k: string, v: string) {
+  if (k !== '__proto__') return v;
+}

@@ -11,7 +11,7 @@ import {
   YEAR_FILTER_ID
 } from 'lib/constants';
 import { isShopifyError } from 'lib/type-guards';
-import { ensureStartsWith, normalizeUrl, parseMetaFieldValue } from 'lib/utils';
+import { ensureStartsWith, normalizeUrl, parseJSON, parseMetaFieldValue } from 'lib/shopify/utils';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
@@ -38,16 +38,21 @@ import {
   getProductsQuery
 } from './queries/product';
 import {
+  Address,
   Cart,
   CartAttributeInput,
   CartItem,
   Collection,
   Connection,
+  Customer,
   Filter,
   Image,
   Menu,
   Metaobject,
   Money,
+  Order,
+  Fulfillment,
+  Transaction,
   Page,
   PageInfo,
   Product,
@@ -60,6 +65,9 @@ import {
   ShopifyCollectionProductsOperation,
   ShopifyCollectionsOperation,
   ShopifyCreateCartOperation,
+  ShopifyCustomerOperation,
+  ShopifyCustomerOrderOperation,
+  ShopifyCustomerOrdersOperation,
   ShopifyFilter,
   ShopifyImageOperation,
   ShopifyMenuOperation,
@@ -75,13 +83,31 @@ import {
   ShopifyProductsOperation,
   ShopifyRemoveFromCartOperation,
   ShopifySetCartAttributesOperation,
-  ShopifyUpdateCartOperation
+  ShopifyUpdateCartOperation,
+  ShopifyCustomer,
+  ShopifyOrder,
+  ShopifyAddress,
+  ShopifyMoneyV2,
+  LineItem
 } from './types';
+import { getCustomerQuery } from './queries/customer';
+import { getCustomerOrdersQuery } from './queries/orders';
+import { getCustomerOrderQuery } from './queries/order';
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
   ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, 'https://')
   : '';
-const endpoint = `${domain}${SHOPIFY_GRAPHQL_API_ENDPOINT}`;
+
+const customerApiUrl = process.env.SHOPIFY_CUSTOMER_ACCOUNT_API_URL;
+const customerApiVersion = process.env.SHOPIFY_CUSTOMER_API_VERSION;
+
+const storefrontEndpoint = `${domain}${SHOPIFY_GRAPHQL_API_ENDPOINT}`;
+const customerEndpoint = `${customerApiUrl}/account/customer/api/${customerApiVersion}/graphql`;
+
+const userAgent = '*';
+const placeholderProductImage =
+  'https://cdn.shopify.com/shopifycloud/customer-account-web/production/assets/8bc6556601c510713d76.svg';
+
 const key = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
 
 type ExtractVariables<T> = T extends { variables: object } ? T['variables'] : never;
@@ -100,7 +126,7 @@ export async function shopifyFetch<T>({
   variables?: ExtractVariables<T>;
 }): Promise<{ status: number; body: T } | never> {
   try {
-    const result = await fetch(endpoint, {
+    const result = await fetch(storefrontEndpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -118,6 +144,80 @@ export async function shopifyFetch<T>({
     const body = await result.json();
 
     if (body.errors) {
+      throw body.errors[0];
+    }
+
+    return {
+      status: result.status,
+      body
+    };
+  } catch (e) {
+    if (isShopifyError(e)) {
+      throw {
+        cause: e.cause?.toString() || 'unknown',
+        status: e.status || 500,
+        message: e.message,
+        query
+      };
+    }
+
+    throw {
+      error: e,
+      query
+    };
+  }
+}
+
+export async function shopifyCustomerFetch<T>({
+  query,
+  variables
+}: {
+  query: string;
+  variables?: ExtractVariables<T>;
+}): Promise<{ status: number; body: T } | never> {
+  const headersList = headers();
+  const customerToken = headersList.get('x-shop-customer-token') || '';
+
+  try {
+    const result = await fetch(customerEndpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'User-Agent': userAgent,
+        Origin: domain,
+        Authorization: customerToken
+      },
+      body: JSON.stringify({
+        ...(query && { query }),
+        ...(variables && { variables })
+      }),
+      cache: 'no-store'
+    });
+
+    const body = await result.json();
+    if (!result.ok) {
+      //the statuses here could be different, a 401 means
+      //https://shopify.dev/docs/api/customer#endpoints
+      //401 means the token is bad
+      console.log('Error in Customer Fetch Status', body.errors);
+      if (result.status === 401) {
+        // clear session because current access token is invalid
+        const errorMessage = 'unauthorized';
+        throw errorMessage; //this should throw in the catch below in the non-shopify catch
+      }
+      let errors;
+      try {
+        errors = parseJSON(body);
+      } catch (_e) {
+        errors = [{ message: body }];
+      }
+      throw errors;
+    }
+
+    //this just throws an error and the error boundary is called
+    if (body.errors) {
+      //throw 'Error'
+      console.log('Error in Customer Fetch', body.errors[0]);
       throw body.errors[0];
     }
 
@@ -315,6 +415,143 @@ const reshapeProducts = (products: ShopifyProduct[]) => {
 
   return reshapedProducts;
 };
+
+function reshapeCustomer(customer: ShopifyCustomer): Customer {
+  return {
+    firstName: customer.firstName,
+    lastName: customer.lastName,
+    displayName: customer.displayName,
+    emailAddress: customer.emailAddress.emailAddress
+  };
+}
+
+function reshapeOrders(orders: ShopifyOrder[]): any[] | Promise<Order[]> {
+  const reshapedOrders: Order[] = [];
+
+  for (const order of orders) {
+    const reshapedOrder = reshapeOrder(order);
+    if (!reshapedOrder) continue;
+
+    reshapedOrders.push(reshapedOrder);
+  }
+
+  return reshapedOrders;
+}
+
+function reshapeOrder(shopifyOrder: ShopifyOrder): Order {
+  const reshapeAddress = (address?: ShopifyAddress): Address | undefined => {
+    if (!address) return undefined;
+    return {
+      address1: address.address1,
+      address2: address.address2,
+      firstName: address.firstName,
+      lastName: address.lastName,
+      provinceCode: address.provinceCode,
+      city: address.city,
+      zip: address.zip,
+      country: address.countryCodeV2,
+      company: address.company,
+      phone: address.phone
+    };
+  };
+
+  const reshapeMoney = (money?: ShopifyMoneyV2): Money | undefined => {
+    if (!money) return undefined;
+    return {
+      amount: money.amount || '0.00',
+      currencyCode: money.currencyCode || 'USD'
+    };
+  };
+
+  const orderFulfillments: Fulfillment[] =
+    shopifyOrder.fulfillments?.edges?.map((edge) => ({
+      status: edge.node.status,
+      createdAt: edge.node.createdAt,
+      trackingInformation:
+        edge.node.trackingInformation?.map((tracking) => ({
+          number: tracking.number,
+          company: tracking.company,
+          url: tracking.url
+        })) || [],
+      events:
+        edge.node.events?.edges.map((event) => ({
+          status: event.node.status,
+          happenedAt: event.node.happenedAt
+        })) || [],
+      fulfilledLineItems:
+        edge.node.fulfillmentLineItems?.nodes.map((lineItem) => ({
+          id: lineItem.lineItem.id,
+          quantity: lineItem.quantity,
+          image: {
+            url: lineItem.lineItem.image?.url || placeholderProductImage,
+            altText: lineItem.lineItem.image?.altText || lineItem.lineItem.title,
+            width: 100,
+            height: 100
+          }
+        })) || []
+    })) || [];
+
+  const orderTransactions: Transaction[] = shopifyOrder.transactions?.map((transaction) => ({
+    processedAt: transaction.processedAt,
+    paymentIcon: {
+      url: transaction.paymentIcon.url,
+      altText: transaction.paymentIcon.altText,
+      width: 100,
+      height: 100
+    },
+    paymentDetails: {
+      last4: transaction.paymentDetails.last4,
+      cardBrand: transaction.paymentDetails.cardBrand
+    },
+    transactionAmount: reshapeMoney(transaction.transactionAmount.presentmentMoney)!
+  }));
+
+  const orderLineItems: LineItem[] =
+    shopifyOrder.lineItems?.edges.map((edge) => ({
+      id: edge.node.id,
+      title: edge.node.title,
+      quantity: edge.node.quantity,
+      image: {
+        url: edge.node.image?.url || placeholderProductImage,
+        altText: edge.node.image?.altText || edge.node.title,
+        width: edge.node.image?.width || 62,
+        height: edge.node.image?.height || 62
+      },
+      price: reshapeMoney(edge.node.price),
+      totalPrice: reshapeMoney(edge.node.totalPrice),
+      variantTitle: edge.node.variantTitle,
+      sku: edge.node.sku
+    })) || [];
+
+  const order: Order = {
+    id: shopifyOrder.id.replace('gid://shopify/Order/', ''),
+    name: shopifyOrder.name,
+    processedAt: shopifyOrder.processedAt,
+    fulfillments: orderFulfillments,
+    transactions: orderTransactions,
+    lineItems: orderLineItems,
+    shippingAddress: reshapeAddress(shopifyOrder.shippingAddress),
+    billingAddress: reshapeAddress(shopifyOrder.billingAddress),
+    subtotal: reshapeMoney(shopifyOrder.subtotal),
+    totalShipping: reshapeMoney(shopifyOrder.totalShipping),
+    totalTax: reshapeMoney(shopifyOrder.totalTax),
+    totalPrice: reshapeMoney(shopifyOrder.totalPrice)
+  };
+
+  if (shopifyOrder.customer) {
+    order.customer = reshapeCustomer(shopifyOrder.customer);
+  }
+
+  if (shopifyOrder.shippingLine) {
+    console.log('Shipping Line', shopifyOrder.shippingLine);
+    order.shippingMethod = {
+      name: shopifyOrder.shippingLine?.title,
+      price: reshapeMoney(shopifyOrder.shippingLine.originalPrice)!
+    };
+  }
+
+  return order;
+}
 
 export async function createCart(): Promise<Cart> {
   const res = await shopifyFetch<ShopifyCreateCartOperation>({
@@ -650,6 +887,33 @@ export async function getProducts({
     pageInfo
   };
 }
+
+export async function getCustomer(): Promise<Customer> {
+  const res = await shopifyCustomerFetch<ShopifyCustomerOperation>({
+    query: getCustomerQuery
+  });
+
+  const customer = res.body.data.customer;
+  return reshapeCustomer(customer);
+}
+
+export async function getCustomerOrders(): Promise<Order[]> {
+  const res = await shopifyCustomerFetch<ShopifyCustomerOrdersOperation>({
+    query: getCustomerOrdersQuery
+  });
+
+  return reshapeOrders(removeEdgesAndNodes(res.body.data.customer.orders));
+}
+
+export async function getCustomerOrder(orderId: string): Promise<Order> {
+  const res = await shopifyCustomerFetch<ShopifyCustomerOrderOperation>({
+    query: getCustomerOrderQuery,
+    variables: { orderId: `gid://shopify/Order/${orderId}` }
+  });
+
+  return reshapeOrder(res.body.data.order);
+}
+
 // This is called from `app/api/revalidate.ts` so providers can control revalidation logic.
 export async function revalidate(req: NextRequest): Promise<NextResponse> {
   console.log(`Receiving revalidation request from Shopify.`);

@@ -2,7 +2,7 @@
 
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { TileImage } from 'components/grid/tile';
-import { createUrl } from 'lib/utils';
+import { createUrl } from 'lib/shopify/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';

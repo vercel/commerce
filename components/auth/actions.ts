@@ -2,26 +2,21 @@
 //https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations#forms
 'use server';
 
-import { TAGS } from 'lib/shopify/customer/constants';
 import { redirect } from 'next/navigation';
-import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
-//import { getOrigin } from 'lib/shopify/customer'
 import {
   generateCodeVerifier,
   generateCodeChallenge,
-  generateRandomString
-} from 'lib/shopify/customer/auth-utils';
-import {
-  SHOPIFY_CUSTOMER_ACCOUNT_API_URL,
-  SHOPIFY_CLIENT_ID,
-  SHOPIFY_ORIGIN
-} from 'lib/shopify/customer/constants';
+  generateRandomString,
+  CUSTOMER_API_CLIENT_ID,
+  ORIGIN_URL,
+  CUSTOMER_API_URL
+} from 'lib/shopify/auth';
 
-export async function doLogin(prevState: any) {
-  const customerAccountApiUrl = SHOPIFY_CUSTOMER_ACCOUNT_API_URL;
-  const clientId = SHOPIFY_CLIENT_ID;
-  const origin = SHOPIFY_ORIGIN;
+export async function doLogin(_: any) {
+  const customerAccountApiUrl = CUSTOMER_API_URL;
+  const clientId = CUSTOMER_API_CLIENT_ID;
+  const origin = ORIGIN_URL;
   const loginUrl = new URL(`${customerAccountApiUrl}/auth/oauth/authorize`);
   //console.log ("previous", prevState)
 
@@ -64,6 +59,5 @@ export async function doLogin(prevState: any) {
     return 'Error logging in. Please try again';
   }
 
-  revalidateTag(TAGS.customer);
   redirect(`${loginUrl}`); // Navigate to the new post page
 }

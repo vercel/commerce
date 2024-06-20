@@ -1,5 +1,5 @@
 import { ChevronRightIcon, EllipsisHorizontalIcon } from '@heroicons/react/16/solid';
-import { cn } from 'lib/utils';
+import { cn } from 'lib/shopify/utils';
 import Link, { LinkProps } from 'next/link';
 import { ComponentPropsWithoutRef, ReactNode, forwardRef } from 'react';
 

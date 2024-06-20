@@ -6,7 +6,7 @@ import Price from 'components/price';
 import SideDialog from 'components/side-dialog';
 import { CORE_VARIANT_ID_KEY, CORE_WAIVER } from 'lib/constants';
 import { CoreChargeOption, ProductVariant } from 'lib/shopify/types';
-import { cn, createUrl } from 'lib/utils';
+import { cn, createUrl } from 'lib/shopify/utils';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 

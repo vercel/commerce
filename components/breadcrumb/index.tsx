@@ -1,5 +1,4 @@
 import { getCollection, getMenu, getProduct } from 'lib/shopify';
-import { findParentCollection } from 'lib/utils';
 import { Fragment } from 'react';
 import {
   Breadcrumb,
@@ -9,6 +8,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator
 } from './breadcrumb-list';
+import { findParentCollection } from 'lib/shopify/utils';
 
 type BreadcrumbProps = {
   type: 'product' | 'collection';

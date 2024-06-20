@@ -20,21 +20,15 @@ function SubmitButton(props: any) {
     <>
       {props?.message && <div className="my-5">{props?.message}</div>}
       <Button
-        onClick={(e: React.FormEvent<HTMLButtonElement>) => {
-          if (pending) e.preventDefault();
-        }}
+        type="submit"
         aria-label="Log in"
         aria-disabled={pending}
+        disabled={pending}
+        isLoading={pending}
+        loadingText="Signing In..."
+        className="w-full"
       >
-        {pending ? (
-          <>
-            <span>Logging In...</span>
-          </>
-        ) : (
-          <>
-            <span>Log-In</span>
-          </>
-        )}
+        Sign In
       </Button>
     </>
   );

@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from 'lib/utils';
+import { cn } from 'lib/shopify/utils';
 import { ITooltip, Tooltip as ReactTooltip } from 'react-tooltip';
 
 const Tooltip = ({ id, children, className }: ITooltip) => {

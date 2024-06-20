@@ -1,15 +1,12 @@
 'use server';
 
-import { TAGS } from 'lib/shopify/customer/constants';
-import { removeAllCookiesServerAction } from 'lib/shopify/customer/auth-helpers';
+import { CUSTOMER_API_URL, ORIGIN_URL, removeAllCookiesServerAction } from 'lib/shopify/auth';
 import { redirect } from 'next/navigation';
-import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
-import { SHOPIFY_ORIGIN, SHOPIFY_CUSTOMER_ACCOUNT_API_URL } from 'lib/shopify/customer/constants';
 
 export async function doLogout() {
-  const origin = SHOPIFY_ORIGIN;
-  const customerAccountApiUrl = SHOPIFY_CUSTOMER_ACCOUNT_API_URL;
+  const origin = ORIGIN_URL;
+  const customerAccountApiUrl = CUSTOMER_API_URL;
   let logoutUrl;
   try {
     const idToken = cookies().get('shop_id_token');
@@ -26,7 +23,6 @@ export async function doLogout() {
       );
     }
     await removeAllCookiesServerAction();
-    revalidateTag(TAGS.customer);
   } catch (e) {
     console.log('Error', e);
     //you can throw error here or return - return goes back to form b/c of state, throw will throw the error boundary

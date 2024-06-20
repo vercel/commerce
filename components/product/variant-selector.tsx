@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import Price from 'components/price';
 import { CORE_VARIANT_ID_KEY, CORE_WAIVER } from 'lib/constants';
 import { CoreChargeOption, Money, ProductOption, ProductVariant } from 'lib/shopify/types';
-import { createUrl } from 'lib/utils';
+import { createUrl } from 'lib/shopify/utils';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Fragment, useEffect, useState } from 'react';
 
