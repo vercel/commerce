@@ -1,23 +1,6 @@
 import { getCollection, getMetaobjectsByIds } from 'lib/shopify';
-import Link from 'next/link';
+import CollectionLink from './collection-link';
 
-const LinkItem = async ({
-  collectionLinkId,
-  anchorText
-}: {
-  collectionLinkId: string;
-  anchorText: string;
-}) => {
-  const collection = await getCollection({ id: collectionLinkId });
-
-  if (!collection) return null;
-
-  return (
-    <Link href={collection.path} className="border p-2 text-sm text-gray-600">
-      {anchorText}
-    </Link>
-  );
-};
 const HelpfulLinks = async ({ collection }: { collection: string }) => {
   const collectionData = await getCollection({ handle: collection });
   if (!collectionData || !collectionData.helpfulLinks) return null;
@@ -30,7 +13,7 @@ const HelpfulLinks = async ({ collection }: { collection: string }) => {
 
       <div className="flex flex-wrap items-center gap-2">
         {helpfulLinks.map((link) => (
-          <LinkItem
+          <CollectionLink
             key={link.id}
             collectionLinkId={link.collection_link!}
             anchorText={link.anchor_text!}

@@ -1,9 +1,12 @@
 'use client';
 
+import { Button } from '@headlessui/react';
+import clsx from 'clsx';
 import Grid from 'components/grid';
 import { GridTileImage } from 'components/grid/tile';
+import LoadingDots from 'components/loading-dots';
 import { Product } from 'lib/shopify/types';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { getProductsInCollection, searchProducts } from './actions';
 
 const ProductsList = ({
@@ -22,16 +25,15 @@ const ProductsList = ({
 }) => {
   const [products, setProducts] = useState(initialProducts);
   const [_pageInfo, setPageInfo] = useState(pageInfo);
-  const lastElement = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    const lastElementRef = lastElement.current;
-
-    const loadMoreProducts = async () => {
+  const handleClickLoadMore = async () => {
+    try {
       const params = {
         searchParams,
         afterCursor: _pageInfo.endCursor
       };
+      setIsLoading(true);
       const { products, pageInfo } =
         page === 'collection'
           ? await getProductsInCollection(params)
@@ -42,42 +44,45 @@ const ProductsList = ({
         hasNextPage: pageInfo.hasNextPage,
         endCursor: pageInfo.endCursor
       });
-    };
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting) {
-          loadMoreProducts();
-        }
-      },
-      { threshold: 1 }
-    );
-    lastElementRef && observer.observe(lastElementRef);
-
-    return () => {
-      if (lastElementRef) {
-        observer.unobserve(lastElementRef);
-      }
-    };
-  }, [_pageInfo.endCursor, page, searchParams]);
+    } catch (error) {
+      console.log('Failed to fetch products', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
-      {products.map((product, index) => (
-        <Grid.Item
-          key={product.handle}
-          className="animate-fadeIn"
-          ref={index === products.length - 1 && _pageInfo.hasNextPage ? lastElement : undefined}
-        >
-          <GridTileImage
-            alt={product.title}
-            product={product}
-            src={product.featuredImage?.url}
-            fill
-            sizes="(min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
-            href={`/product/${product.handle}`}
-          />
-        </Grid.Item>
-      ))}
+      <Grid className="hide-scrollbar max-h-[1000px] grid-cols-1 overflow-y-auto border-b border-gray-100 pb-4 sm:grid-cols-2 sm:gap-x-8 lg:grid-cols-3">
+        {products.map((product) => (
+          <Grid.Item key={product.handle} className="animate-fadeIn">
+            <GridTileImage
+              alt={product.title}
+              product={product}
+              src={product.featuredImage?.url}
+              fill
+              sizes="(min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
+              href={`/product/${product.handle}`}
+            />
+          </Grid.Item>
+        ))}
+      </Grid>
+      {_pageInfo.hasNextPage && (
+        <div className="mt-4 w-full">
+          <Button
+            className={clsx(
+              'mx-auto flex items-center gap-2 rounded border border-gray-600 px-2 py-1',
+              { 'opacity-50': isLoading },
+              { 'opacity-100': !isLoading }
+            )}
+            onClick={handleClickLoadMore}
+            disabled={isLoading}
+          >
+            {isLoading && <LoadingDots className="bg-black" />}
+            Load more products
+          </Button>
+        </div>
+      )}
     </>
   );
 };

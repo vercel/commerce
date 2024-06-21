@@ -12,6 +12,9 @@ const collectionFragment = /* GraphQL */ `
     helpfulLinks: metafield(namespace: "custom", key: "helpful_links") {
       value
     }
+    helpfulLinksTop: metafield(namespace: "custom", key: "helpful_links_top") {
+      value
+    }
     updatedAt
   }
   ${seoFragment}

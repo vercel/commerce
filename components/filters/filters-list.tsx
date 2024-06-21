@@ -43,10 +43,11 @@ const FiltersList = ({ years, makes, models, menu, autoFocusField }: FiltersList
       null
   );
   const [model, setModel] = useState<Metaobject | null>(
-    (make && models.find((model) => model.id === searchParams.get(MODEL_FILTER_ID))) || null
+    models.find((model) => model.id === searchParams.get(MODEL_FILTER_ID)) || null
   );
+
   const [year, setYear] = useState<Metaobject | null>(
-    (model && years.find((y) => y.id === searchParams.get(YEAR_FILTER_ID))) || null
+    years.find((y) => y.id === searchParams.get(YEAR_FILTER_ID)) || null
   );
 
   const modelOptions = make ? models.filter((m) => get(m, 'make') === make.id) : models;
@@ -63,9 +64,13 @@ const FiltersList = ({ years, makes, models, menu, autoFocusField }: FiltersList
       );
 
       if (_make) {
-        setMake(_make);
-        setModel(null);
-        setYear(null);
+        setMake((currentMake) => {
+          if (currentMake?.id !== _make.id) {
+            setModel(null);
+            setYear(null);
+          }
+          return _make;
+        });
       }
     }
   }, [makeIdFromSearchParams, makes, params.collection, partType]);

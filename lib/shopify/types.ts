@@ -40,9 +40,10 @@ export type CartItem = {
   addOnProduct?: CartItem & { quantity: number };
 };
 
-export type Collection = Omit<ShopifyCollection, 'helpfulLinks'> & {
+export type Collection = Omit<ShopifyCollection, 'helpfulLinks' | 'helpfulLinksTop'> & {
   path: string;
   helpfulLinks: string[] | null;
+  helpfulLinksTop: string[] | null;
 };
 
 export type Image = {
@@ -225,6 +226,7 @@ export type ShopifyCollection = {
   seo: SEO;
   updatedAt: string;
   helpfulLinks: { value: string } | null;
+  helpfulLinksTop: { value: string } | null;
 };
 
 export type ShopifyProduct = {

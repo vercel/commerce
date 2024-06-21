@@ -175,6 +175,7 @@ const reshapeCollection = (collection: ShopifyCollection): Collection | undefine
   return {
     ...collection,
     helpfulLinks: parseMetaFieldValue<string[]>(collection.helpfulLinks),
+    helpfulLinksTop: parseMetaFieldValue<string[]>(collection.helpfulLinksTop),
     path: `/search/${collection.handle}`
   };
 };
@@ -530,7 +531,8 @@ export async function getCollections(): Promise<Collection[]> {
       },
       path: '/search',
       updatedAt: new Date().toISOString(),
-      helpfulLinks: null
+      helpfulLinks: null,
+      helpfulLinksTop: null
     },
     // Filter out the `hidden` collections.
     // Collections that start with `hidden-*` need to be hidden on the search page.

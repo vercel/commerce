@@ -6,7 +6,6 @@ import Breadcrumb from 'components/breadcrumb';
 import BreadcrumbHome from 'components/breadcrumb/breadcrumb-home';
 import FAQ from 'components/faq';
 import YMMFilters, { YMMFiltersPlaceholder } from 'components/filters';
-import Grid from 'components/grid';
 import Manufacturers from 'components/home-page/manufacturers';
 import ProductsList from 'components/layout/products-list';
 import { getProductsInCollection } from 'components/layout/products-list/actions';
@@ -61,19 +60,18 @@ async function CategoryPage({
         <MobileFilters filters={filters} menu={<SubMenu collection={params.collection} />} />
         <SortingMenu />
       </div>
-      <Grid className="hide-scrollbar max-h-[1000px] grid-cols-1 overflow-y-auto sm:grid-cols-2 sm:gap-x-8 lg:grid-cols-3">
-        {products.length === 0 ? (
-          <p className="py-3 text-lg">{`No products found in this collection`}</p>
-        ) : (
-          <ProductsList
-            initialProducts={products}
-            pageInfo={pageInfo}
-            page="collection"
-            searchParams={searchParams}
-            key={JSON.stringify(searchParams)}
-          />
-        )}
-      </Grid>
+
+      {products.length === 0 ? (
+        <p className="py-3 text-lg">{`No products found in this collection`}</p>
+      ) : (
+        <ProductsList
+          initialProducts={products}
+          pageInfo={pageInfo}
+          page="collection"
+          searchParams={searchParams}
+          key={JSON.stringify(searchParams)}
+        />
+      )}
     </>
   );
 }
