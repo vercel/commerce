@@ -1,6 +1,5 @@
 'use client';
-
-import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
+import { CloseButton, Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
 import { ArrowRightIcon } from '@heroicons/react/16/solid';
 import { Menu } from 'lib/shopify/types';
 import { Fragment } from 'react';
@@ -8,6 +7,8 @@ import OpenProfile from './open-profile';
 import { useFormState, useFormStatus } from 'react-dom';
 import { doLogin } from 'components/auth/actions';
 import { Button } from 'components/button';
+import useAuth from 'hooks/use-auth';
+import Link from 'next/link';
 
 type ProfilePopoverProps = {
   menu: Menu[];
@@ -34,7 +35,8 @@ function SubmitButton(props: any) {
   );
 }
 const ProfilePopover = ({ menu }: ProfilePopoverProps) => {
-  const [message, formAction] = useFormState(doLogin, null);
+  const [message] = useFormState(doLogin, null);
+  const { isAuthenticated, loading } = useAuth();
 
   return (
     <Popover className="relative">
@@ -53,22 +55,29 @@ const ProfilePopover = ({ menu }: ProfilePopoverProps) => {
         <PopoverPanel className="absolute -right-10 z-50 mt-2 w-72 max-w-lg px-4 sm:px-0 lg:right-0">
           <div className="flex flex-col gap-2 overflow-hidden rounded-md bg-white px-4 py-3 text-black shadow-xl ring-1 ring-black/5">
             <span className="text-sm font-medium">My Account</span>
-            <form action={formAction}>
-              <SubmitButton message={message} />
-              <p aria-live="polite" className="sr-only" role="status">
-                {message}
-              </p>
-            </form>
+            {!isAuthenticated && !loading && <SubmitButton message={message} />}
             {menu.length ? (
-              <ul className="mt-2 flex w-full flex-col divide-y text-sm">
+              <ul className="flex w-full flex-col divide-y text-sm">
+                {isAuthenticated && (
+                  <li className="cursor-pointer py-2 hover:underline">
+                    <CloseButton
+                      as={Link}
+                      className="flex w-full flex-row items-center justify-between"
+                      href="/account"
+                    >
+                      My Orders <ArrowRightIcon className="h-3" />
+                    </CloseButton>
+                  </li>
+                )}
                 {menu.map((menuItem) => (
                   <li className="cursor-pointer py-2 hover:underline" key={menuItem.title}>
-                    <a
+                    <CloseButton
+                      as={Link}
                       className="flex w-full flex-row items-center justify-between"
                       href={menuItem.path}
                     >
                       {menuItem.title} <ArrowRightIcon className="h-3" />
-                    </a>
+                    </CloseButton>
                   </li>
                 ))}
               </ul>

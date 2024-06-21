@@ -105,14 +105,13 @@ export async function initialAccessToken(
   headersNew.append('User-Agent', userAgent);
   headersNew.append('Origin', newOrigin || '');
   const tokenRequestUrl = `${customerAccountApiUrl}/auth/oauth/token`;
-  console.log('sending request to', tokenRequestUrl);
 
   const response = await fetch(tokenRequestUrl, {
     method: 'POST',
     headers: headersNew,
     body
   });
-  console.log('ok', response.ok);
+
   if (!response.ok) {
     const error = await response.text();
     console.log('data response error auth', error);
@@ -336,7 +335,6 @@ export async function isLoggedIn(request: NextRequest, origin: string) {
   const refreshToken = request.cookies.get('shop_refresh_token');
   const refreshTokenValue = refreshToken?.value;
 
-  console.log('customer token', customerTokenValue);
   const newHeaders = new Headers(request.headers);
   if (!customerTokenValue && !refreshTokenValue) {
     const redirectUrl = new URL(`${origin}`);

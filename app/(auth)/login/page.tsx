@@ -1,5 +1,6 @@
 import { LoginMessage } from 'components/auth/login-message';
-export const runtime = 'edge'; //this needs to be here on thie page. I don't know why
+
+export const runtime = 'edge';
 
 export default async function LoginPage() {
   return (

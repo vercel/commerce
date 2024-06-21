@@ -1,5 +1,7 @@
 import { headers } from 'next/headers';
+
 export const runtime = 'edge';
+
 export default async function AuthorizationPage() {
   const headersList = headers();
   const access = headersList.get('x-shop-access');
