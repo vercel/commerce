@@ -2,13 +2,14 @@
 import { CloseButton, Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
 import { ArrowRightIcon } from '@heroicons/react/16/solid';
 import { Menu } from 'lib/shopify/types';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import OpenProfile from './open-profile';
 import { useFormState, useFormStatus } from 'react-dom';
 import { doLogin } from 'components/auth/actions';
 import { Button } from 'components/button';
 import useAuth from 'hooks/use-auth';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 type ProfilePopoverProps = {
   menu: Menu[];
@@ -35,8 +36,10 @@ function SubmitButton(props: any) {
   );
 }
 const ProfilePopover = ({ menu }: ProfilePopoverProps) => {
-  const [message] = useFormState(doLogin, null);
+  const [message, action] = useFormState(doLogin, null);
   const { isAuthenticated, loading } = useAuth();
+  const [loggingOut, setLoggingOut] = useState(false);
+  const router = useRouter();
 
   return (
     <Popover className="relative">
@@ -55,7 +58,11 @@ const ProfilePopover = ({ menu }: ProfilePopoverProps) => {
         <PopoverPanel className="absolute -right-10 z-50 mt-2 w-72 max-w-lg px-4 sm:px-0 lg:right-0">
           <div className="flex flex-col gap-2 overflow-hidden rounded-md bg-white px-4 py-3 text-black shadow-xl ring-1 ring-black/5">
             <span className="text-sm font-medium">My Account</span>
-            {!isAuthenticated && !loading && <SubmitButton message={message} />}
+            {!isAuthenticated && !loading && (
+              <form action={action}>
+                <SubmitButton message={message} />
+              </form>
+            )}
             {menu.length ? (
               <ul className="flex w-full flex-col divide-y text-sm">
                 {isAuthenticated && (
@@ -82,6 +89,18 @@ const ProfilePopover = ({ menu }: ProfilePopoverProps) => {
                 ))}
               </ul>
             ) : null}
+            {isAuthenticated && !loading && (
+              <Button
+                disabled={loggingOut}
+                onClick={() => {
+                  setLoggingOut(true);
+                  router.push('/logout');
+                }}
+                variant="outlined"
+              >
+                {loggingOut ? 'Logging Out...' : 'Log Out'}
+              </Button>
+            )}
           </div>
         </PopoverPanel>
       </Transition>

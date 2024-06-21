@@ -31,8 +31,23 @@ const buttonVariants = tv({
         root: 'text-base px-4 py-2.5'
       }
     },
+    color: {
+      primary: {},
+      content: {}
+    },
     variant: {
-      primary: {
+      solid: {},
+      outlined: {
+        root: 'border bg-white'
+      },
+      text: {}
+    }
+  },
+  compoundVariants: [
+    {
+      color: 'primary',
+      variant: 'solid',
+      class: {
         root: [
           // border
           'border-transparent',
@@ -44,48 +59,41 @@ const buttonVariants = tv({
           'hover:bg-primary-empahsis',
           // disabled
           'disabled:bg-primary-muted',
-          'hover:bg-primary-emphasis',
           'pressed:bg-primary-emphasis/80'
         ]
-      },
-      secondary: {
+      }
+    },
+    {
+      color: 'primary',
+      variant: 'outlined',
+      class: {
         root: [
           // border
-          'border-gray-300',
+          'border-primary',
           // text color
-          'text-gray-900',
+          'text-primary',
           // background color
-          ' bg-white',
-          //hover color
-          'hover:bg-gray-50',
-          // disabled
-          'disabled:text-gray-400'
-        ]
-      },
-      text: {
-        root: [
-          // border
-          'border-transparent',
-          // text color
-          'text-tremor-brand',
-          // background color
-          'bg-transparent',
+          'bg-white',
           // hover color
-          'disabled:text-gray-400'
+          'hover:bg-primary/10',
+          // disabled
+          'disabled:border-primary-muted disabled:text-primary-muted'
         ]
       }
     }
-  },
+  ],
   defaultVariants: {
-    variant: 'primary',
+    variant: 'solid',
+    color: 'primary',
     size: 'md'
   }
 });
 
-interface ButtonProps extends ButtonBaseProps, VariantProps<typeof buttonVariants> {
+interface ButtonProps extends Omit<ButtonBaseProps, 'color'>, VariantProps<typeof buttonVariants> {
   isLoading?: boolean;
   loadingText?: string;
   className?: string;
+  disabled?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(

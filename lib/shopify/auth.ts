@@ -493,7 +493,7 @@ export async function logout(request: NextRequest, origin: string) {
   //if there is no idToken, then sending to logout url will redirect shopify, so just
   //redirect to login here and delete cookies (presumably they don't even exist)
   if (!idTokenValue) {
-    const logoutUrl = new URL(`${origin}/login`);
+    const logoutUrl = new URL(`${origin}`);
     const response = NextResponse.redirect(`${logoutUrl}`);
     return removeAllCookies(response);
   }
