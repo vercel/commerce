@@ -20,6 +20,7 @@ const orderCard = /* GraphQL */ `
       edges {
         node {
           title
+          quantity
           image {
             altText
             height

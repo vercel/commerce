@@ -38,7 +38,7 @@ export default async function Page({ params }: { params: { page: string } }) {
           {page.title}
         </h1>
       </div>
-      <main>
+      <div>
         <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
           <div className="flex flex-col space-y-16">
             {page.metaobjects?.map((content) => (
@@ -48,7 +48,7 @@ export default async function Page({ params }: { params: { page: string } }) {
             ))}
           </div>
         </div>
-      </main>
+      </div>
     </>
   );
 }

@@ -10,8 +10,9 @@ import Text from 'components/ui/text';
 import Price from 'components/price';
 import Badge from 'components/ui/badge';
 import Link from 'next/link';
+import OrderSummaryMobile from 'components/account/orders/order-summary-mobile';
 import { Suspense } from 'react';
-import Skeleton from 'components/ui/skeleton';
+import OrderSummary from 'components/account/orders/order-summary';
 
 export const runtime = 'edge';
 
@@ -236,105 +237,40 @@ function OrderDetails({ order }: { order: Order }) {
   );
 }
 
-function OrderSummary({ order }: { order: Order }) {
-  return (
-    <div className="flex flex-col gap-6">
-      <Heading size="sm">Order Summary</Heading>
-      <div className="flex flex-col gap-6">
-        {order.lineItems.map((lineItem, index) => (
-          <div key={index} className="flex items-center gap-4">
-            <Badge content={lineItem.quantity!}>
-              <Image
-                src={lineItem.image.url}
-                alt={lineItem.image.altText}
-                width={lineItem.image.width}
-                height={lineItem.image.height}
-                className="rounded border"
-              />
-            </Badge>
-            <div className="flex flex-col gap-2">
-              <Text>{lineItem.title}</Text>
-              <Label>{lineItem.sku}</Label>
-            </div>
-            <Price
-              className="text-sm"
-              amount={lineItem.price!.amount}
-              currencyCode={lineItem.price!.currencyCode}
-            />
-          </div>
-        ))}
-      </div>
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-col">
-          <div className="flex items-center justify-between">
-            <Text>Subtotal</Text>
-            <Price
-              className="text-sm font-semibold"
-              amount={order.totalPrice!.amount}
-              currencyCode={order.totalPrice!.currencyCode}
-            />
-          </div>
-          <div className="flex items-center justify-between">
-            <Text>Shipping</Text>
-            {order.shippingMethod?.price.amount !== '0.0' ? (
-              <Price
-                className="text-sm font-semibold"
-                amount={order.shippingMethod!.price.amount}
-                currencyCode={order.shippingMethod!.price.currencyCode}
-              />
-            ) : (
-              <Text className="font-semibold">Free</Text>
-            )}
-          </div>
-        </div>
-        <div className="flex items-center justify-between">
-          <Heading as="span" size="sm">
-            Total
-          </Heading>
-          <Price
-            className="font-semibold"
-            amount={order.totalPrice!.amount}
-            currencyCode={order.totalPrice!.currencyCode}
-          />
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default async function OrderPage({ params }: { params: { id: string } }) {
   const order = await getCustomerOrder(params.id);
 
   return (
-    <main className="mx-auto max-w-6xl p-6">
-      <div className="mb-6 flex justify-between">
-        <div className="flex items-start gap-2">
-          <Link href="/account">
-            <ArrowLeftIcon className="mt-1 h-6 w-6" />
-          </Link>
-          <div>
-            <Suspense fallback={<Skeleton />}>
+    <>
+      <Suspense>
+        <OrderSummaryMobile order={order} />
+      </Suspense>
+      <div className="mx-auto max-w-6xl p-6">
+        <div className="mb-6 flex justify-between">
+          <div className="flex items-start gap-2">
+            <Link href="/account">
+              <ArrowLeftIcon className="mt-1 h-6 w-6" />
+            </Link>
+            <div>
               <Heading as="h1">Order {order.name}</Heading>
-            </Suspense>
-            <Label>Confirmed {toPrintDate(order.processedAt)}</Label>
+              <Label>Confirmed {toPrintDate(order.processedAt)}</Label>
+            </div>
+          </div>
+          <div>
+            <Button>Activate Warranty</Button>
           </div>
         </div>
-        <div>
-          <Button>Activate Warranty</Button>
-        </div>
-      </div>
-      <div className="flex items-start gap-6">
-        <div className="flex flex-1 flex-col gap-6">
-          <Suspense fallback={<Skeleton />}>
+        <div className="flex items-start gap-6">
+          <div className="flex flex-1 flex-col gap-6">
             <Fulfillments order={order} />
-          </Suspense>
-          <Unfulfilled order={order} />
-          <OrderDetails order={order} />
+            <Unfulfilled order={order} />
+            <OrderDetails order={order} />
+          </div>
+          <Card className="hidden lg:block lg:basis-5/12">
+            <OrderSummary order={order} />
+          </Card>
         </div>
-        <Card className="hidden md:block md:basis-5/12">
-          <OrderSummary order={order} />
-        </Card>
       </div>
-    </main>
+    </>
   );
 }

@@ -43,7 +43,9 @@ const buttonVariants = tv({
           // hover color
           'hover:bg-primary-empahsis',
           // disabled
-          'disabled:bg-primary-muted'
+          'disabled:bg-primary-muted',
+          'hover:bg-primary-emphasis',
+          'pressed:bg-primary-emphasis/80'
         ]
       },
       secondary: {

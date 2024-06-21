@@ -8,15 +8,16 @@ const cardStyles = tv({
   variants: {
     outlined: {
       true: 'border bg-white',
-      false: {}
+      false: ''
     },
     elevated: {
-      true: 'shadow-lg shadow-content/10 bg-white',
-      false: {}
+      true: 'shadow-lg bg-white',
+      false: ''
     }
   },
   defaultVariants: {
-    outlined: true
+    outlined: true,
+    elevated: false
   }
 });
 
@@ -27,8 +28,13 @@ interface CardProps extends React.ComponentPropsWithoutRef<'div'>, VariantProps<
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
   ({ className, asChild, outlined, elevated, ...props }, forwardedRef) => {
     const Component = asChild ? Slot : 'div';
+
     return (
-      <Component ref={forwardedRef} className={cardStyles({ outlined, className })} {...props} />
+      <Component
+        ref={forwardedRef}
+        className={cardStyles({ outlined, elevated, className })}
+        {...props}
+      />
     );
   }
 );
