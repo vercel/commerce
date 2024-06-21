@@ -1,0 +1,100 @@
+.navbar {
+  position: relative;
+  margin: 0 auto;
+  max-width: 1536px;
+  padding: 1rem;
+
+  @media (min-width: 1024px) {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .navbarContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .mobileMenu {
+      display: block;
+      flex: none;
+
+      @media (min-width: 768px) {
+        /* md */
+        display: none;
+      }
+    }
+
+    .navbarContent {
+      display: flex;
+      width: 100%;
+      align-items: center;
+
+      .logoContainer {
+        display: flex;
+        width: 100%;
+
+        @media (min-width: 768px) {
+          /* md */
+          width: 33.333333%; /* md:w-1/3 */
+        }
+
+        .logoLink {
+          margin-right: 0.5rem; /* mr-2 */
+          display: flex;
+          width: 100%;
+          align-items: center;
+          justify-content: center;
+
+          @media (min-width: 768px) {
+            /* md */
+            width: auto; /* md:w-auto */
+          }
+
+          @media (min-width: 1024px) {
+            /* lg */
+            margin-right: 1.5rem; /* lg:mr-6 */
+          }
+
+          .siteName {
+            margin-left: 0.5rem; /* ml-2 */
+            flex: none;
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 500; /* font-medium */
+            text-transform: uppercase;
+
+            @media (min-width: 768px) {
+              /* md */
+              display: none;
+            }
+
+            @media (min-width: 1024px) {
+              /* lg */
+              display: block;
+            }
+          }
+        }
+      }
+
+      .searchContainer {
+        display: none;
+        justify-content: center;
+
+        @media (min-width: 768px) {
+          /* md */
+          display: flex;
+          width: 33.333333%; /* md:w-1/3 */
+        }
+      }
+
+      .cartContainer {
+        display: flex;
+        justify-content: flex-end;
+
+        @media (min-width: 768px) {
+          /* md */
+          width: 33.333333%; /* md:w-1/3 */
+        }
+      }
+    }
+  }
+}

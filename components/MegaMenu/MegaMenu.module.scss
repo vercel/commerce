@@ -1,0 +1,16 @@
+.megaMenu {
+  margin-top: 1rem;
+  display: none;
+  justify-content: center;
+
+  @media (min-width: 768px) {
+    display: flex;
+  }
+
+  .menuList {
+    font-size: 1rem;
+    display: flex;
+    gap: 1.5rem;
+    font-weight: 600;
+  }
+}

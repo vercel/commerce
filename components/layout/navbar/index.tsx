@@ -5,39 +5,36 @@ import LogoSquare from 'components/logo-square';
 import { getMegaMenu } from 'lib/shopify';
 import Link from 'next/link';
 import { Suspense } from 'react';
+import classes from './index.module.scss';
 import MobileMenu from './mobile-menu';
 import Search, { SearchSkeleton } from './search';
+
 const { SITE_NAME } = process.env;
 
 export default async function Navbar() {
   const menu = await getMegaMenu('next-js-frontend-header-menu');
 
   return (
-    <nav className="relative mx-auto max-w-screen-2xl p-4 lg:px-6">
-      <div className="flex items-center justify-between">
-        <div className="block flex-none md:hidden">
+    <nav className={classes.navbar}>
+      <div className={classes.navbarContainer}>
+        <div className={classes.mobileMenu}>
           <Suspense fallback={null}>
             <MobileMenu menu={menu} />
           </Suspense>
         </div>
-        <div className="flex w-full items-center">
-          <div className="flex w-full md:w-1/3">
-            <Link
-              href="/"
-              className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6"
-            >
+        <div className={classes.navbarContent}>
+          <div className={classes.logoContainer}>
+            <Link href="/" className={classes.logoLink}>
               <LogoSquare />
-              <div className="ml-2 flex-none text-sm font-medium uppercase md:hidden lg:block">
-                {SITE_NAME}
-              </div>
+              <div className={classes.siteName}>{SITE_NAME}</div>
             </Link>
           </div>
-          <div className="hidden justify-center md:flex md:w-1/3">
+          <div className={classes.searchContainer}>
             <Suspense fallback={<SearchSkeleton />}>
               <Search />
             </Suspense>
           </div>
-          <div className="flex justify-end md:w-1/3">
+          <div className={classes.cartContainer}>
             <Suspense fallback={<OpenCart />}>
               <Cart />
             </Suspense>

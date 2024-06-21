@@ -1,4 +1,5 @@
 import { MenuItem } from '../../lib/shopify/types';
+import classes from './MegaMenu.module.scss';
 import MenuItemComponent from './menu-item-component';
 
 type MegaMenuProps = {
@@ -7,8 +8,8 @@ type MegaMenuProps = {
 
 const MegaMenu = ({ menu }: MegaMenuProps) => {
   return (
-    <div className="mt-4 hidden justify-center md:flex">
-      <ul className="text-md flex gap-6 font-semibold">
+    <div className={classes.megaMenu}>
+      <ul className={classes.menuList}>
         {menu.map((item) => (
           <MenuItemComponent key={item.title} item={item} />
         ))}

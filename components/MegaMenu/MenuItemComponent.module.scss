@@ -1,0 +1,39 @@
+.menuItem {
+  position: relative;
+  display: block;
+}
+
+.submenuItem {
+  padding: 0.5rem;
+}
+
+.menuLink {
+  padding-left: 0.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: #757575;
+  text-decoration-thickness: 4px;
+
+  &:hover {
+    color: black;
+    text-decoration: underline;
+  }
+}
+
+.subMenu {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  z-index: 10;
+  display: none;
+  width: 12rem;
+  background-color: white;
+  border-radius: 0.625rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
+
+.dropdown {
+  .menuItem:hover & {
+    display: block;
+  }
+}

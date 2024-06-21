@@ -1,0 +1,38 @@
+.searchForm {
+  max-width: 550px;
+  position: relative;
+  width: 100%;
+  @media (min-width: 1024px) {
+    width: 20rem;
+  }
+  @media (min-width: 1280px) {
+    width: 100%;
+  }
+}
+
+.searchInput {
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e5e5;
+  background-color: white;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  color: black;
+  &::placeholder {
+    color: #757575;
+  }
+}
+
+.searchIconContainer {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-right: 0.75rem;
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.searchIcon {
+  height: 1rem;
+}
