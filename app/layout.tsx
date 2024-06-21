@@ -4,6 +4,7 @@ import { GeistSans } from 'geist/font/sans';
 import { ensureStartsWith } from 'lib/utils';
 import { ReactNode, Suspense } from 'react';
 import './globals.css';
+import { AuthProvider } from 'contexts/auth-context';
 
 const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;
 const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
@@ -35,14 +36,20 @@ export const metadata = {
 export default async function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={GeistSans.variable}>
-      <body className="bg-white text-black selection:bg-teal-300 dark:bg-neutral-900 dark:text-white dark:selection:bg-pink-500 dark:selection:text-white">
-        <header>
-          <Banner />
-          <Navbar />
-        </header>
-        <Suspense>
-          <main>{children}</main>
-        </Suspense>
+      <body className="min-h-screen bg-white text-black selection:bg-primary-muted dark:bg-neutral-900 dark:text-white dark:selection:bg-primary-emphasis dark:selection:text-white">
+        <AuthProvider>
+          {/* We need to have this wrapper div because the headless ui popover clickaway event is not working properly */}
+          {/* https://github.com/tailwindlabs/headlessui/issues/2752#issuecomment-1724096430 */}
+          <div className="flex h-screen flex-col">
+            <header>
+              <Banner />
+              <Navbar />
+            </header>
+            <Suspense>
+              <main className="main group flex-1">{children}</main>
+            </Suspense>
+          </div>
+        </AuthProvider>
       </body>
     </html>
   );

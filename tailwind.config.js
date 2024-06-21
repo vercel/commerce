@@ -11,6 +11,14 @@ module.exports = {
       fontFamily: {
         sans: ['var(--font-geist-sans)']
       },
+      fontSize: {
+        'label-sm': ['0.75rem', { lineHeight: '1rem' }],
+        'label-md': ['0.875rem', { lineHeight: '1.25rem' }],
+        'label-lg': ['1rem', { lineHeight: '1.5rem' }],
+        'heading-sm': ['1.125rem', { lineHeight: '1.75rem', fontWeight: '600' }],
+        'heading-md': ['1.5rem', { lineHeight: '2rem', fontWeight: '600' }],
+        'heading-lg': ['1.875rem', { lineHeight: '2.25rem', fontWeight: '600' }]
+      },
       keyframes: {
         fadeIn: {
           from: { opacity: 0 },
@@ -37,7 +45,6 @@ module.exports = {
     hoverOnlyWhenSupported: true
   },
   plugins: [
-    require('@tailwindcss/container-queries'),
     require('@tailwindcss/typography'),
     plugin(({ matchUtilities, theme }) => {
       matchUtilities(

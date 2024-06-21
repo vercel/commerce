@@ -46,6 +46,13 @@ export type Collection = Omit<ShopifyCollection, 'helpfulLinks' | 'helpfulLinksT
   helpfulLinksTop: string[] | null;
 };
 
+export type Customer = {
+  emailAddress: string;
+  firstName?: string;
+  lastName?: string;
+  displayName?: string;
+};
+
 export type Image = {
   url: string;
   altText: string;
@@ -67,6 +74,270 @@ export type Money = {
 export type PageMetafield = {
   id: string;
   value: string;
+};
+
+export type Fulfillment = {
+  status: string;
+  createdAt: string;
+  fulfilledLineItems: {
+    id: string;
+    quantity: number;
+    image: Image;
+  }[];
+  trackingInformation: {
+    number: string;
+    company: string;
+    url: string;
+  }[];
+  events: {
+    status: string;
+    happenedAt: string;
+  }[];
+};
+
+export type Transaction = {
+  processedAt: string;
+  paymentIcon: Image;
+  paymentDetails: {
+    last4: string;
+    cardBrand: string;
+  };
+  transactionAmount: Money;
+};
+
+export type Address = {
+  address1: string;
+  address2: string | null;
+  firstName: string;
+  lastName: string;
+  provinceCode: string;
+  city: string;
+  zip: string;
+  country: string;
+  company: string | null;
+  phone: string;
+};
+
+export type LineItem = {
+  id: string;
+  title: string;
+  image: Image;
+  price?: Money;
+  quantity?: number;
+  sku?: string;
+  totalPrice?: Money;
+  variantTitle?: string;
+};
+
+export type Order = {
+  id: string;
+  name: string;
+  customer?: Customer;
+  processedAt: string;
+  fulfillments: Fulfillment[];
+  transactions: Transaction[];
+  lineItems: LineItem[];
+  shippingAddress?: Address;
+  billingAddress?: Address;
+  /** the price of all line items, excluding taxes and surcharges */
+  subtotal?: Money;
+  totalShipping?: Money;
+  totalTax?: Money;
+  totalPrice?: Money;
+  shippingMethod?: {
+    name: string;
+    price: Money;
+  };
+};
+
+export type ShopifyOrder = {
+  id: string;
+  name: string;
+  confirmationNumber: string;
+  customer: ShopifyCustomer;
+  processedAt: string;
+  cancelledAt: string | null;
+  currencyCode: string;
+  transactions: ShopifyOrderTransaction[];
+  billingAddress: ShopifyAddress;
+  shippingAddress: ShopifyAddress;
+  fulfillments: Connection<ShopifyFulfillment>;
+  lineItems: Connection<ShopifyLineItem>;
+  totalPrice: ShopifyMoneyV2;
+  subtotal: ShopifyMoneyV2;
+  totalShipping: ShopifyMoneyV2;
+  totalTax: ShopifyMoneyV2;
+  financialStatus: string;
+  totalRefunded: ShopifyMoneyV2;
+  refunds: ShopifyRefund[];
+  paymentInformation: ShopifyOrderPaymentInformation;
+  requiresShipping: boolean;
+  shippingLine: ShopifyShippingLine;
+  note: string | null;
+};
+
+type ShopifyShippingLine = {
+  title: string;
+  originalPrice: ShopifyMoneyV2;
+};
+
+type ShopifyOrderTransaction = {
+  id: string;
+  processedAt: string;
+  paymentIcon: ShopifyPaymentIconImage;
+  paymentDetails: ShopifyCardPaymentDetails;
+  transactionAmount: ShopifyMoneyBag;
+  giftCardDetails: ShopifyGiftCardDetails | null;
+  status: string;
+  kind: string;
+  transactionParentId: string | null;
+  type: string;
+  typeDetails: ShopifyTransactionTypeDetails;
+};
+
+type ShopifyPaymentIconImage = {
+  id: string;
+  url: string;
+  altText: string;
+};
+
+type ShopifyCardPaymentDetails = {
+  last4: string;
+  cardBrand: string;
+};
+
+type ShopifyGiftCardDetails = {
+  last4: string;
+  balance: ShopifyMoneyV2;
+};
+
+type ShopifyMoneyBag = {
+  presentmentMoney: ShopifyMoneyV2;
+};
+
+export type ShopifyMoneyV2 = {
+  amount: string;
+  currencyCode: string;
+};
+
+type ShopifyTransactionTypeDetails = {
+  name: string;
+  message: string | null;
+};
+
+export type ShopifyAddress = {
+  id: string;
+  address1: string;
+  address2: string | null;
+  firstName: string;
+  lastName: string;
+  provinceCode: string;
+  city: string;
+  zip: string;
+  countryCodeV2: string;
+  company: string | null;
+  phone: string;
+};
+
+type ShopifyFulfillment = {
+  id: string;
+  status: string;
+  createdAt: string;
+  estimatedDeliveryAt: string | null;
+  trackingInformation: ShopifyTrackingInformation[];
+  requiresShipping: boolean;
+  fulfillmentLineItems: ShopifyFulfillmentLineItemConnection;
+  events: Connection<ShopifyFulfillmentEvent>;
+};
+
+type ShopifyTrackingInformation = {
+  number: string;
+  company: string;
+  url: string;
+};
+
+type ShopifyFulfillmentLineItemConnection = {
+  nodes: ShopifyFulfillmentLineItem[];
+};
+
+type ShopifyFulfillmentLineItem = {
+  id: string;
+  quantity: number;
+  lineItem: ShopifyLineItem;
+};
+
+type ShopifyLineItem = {
+  id: string;
+  title: string;
+  image: ShopifyImage;
+  price: ShopifyMoneyV2;
+  quantity: number;
+  sku: string;
+  totalPrice: ShopifyMoneyV2;
+  variantTitle: string;
+};
+
+type ShopifyImage = {
+  altText: string;
+  height: number;
+  url: string;
+  width: number;
+};
+
+type ShopifyFulfillmentEvent = {
+  status: string;
+  happenedAt: string;
+};
+
+type ShopifyRefund = {
+  id: string;
+  createdAt: string;
+};
+
+type ShopifyOrderPaymentInformation = {
+  paymentCollectionUrl: string;
+  paymentStatus: string;
+  totalPaidAmount: ShopifyMoneyV2;
+  totalOutstandingAmount: ShopifyMoneyV2;
+  paymentTerms: ShopifyPaymentTerms | null;
+};
+
+type ShopifyPaymentTerms = {
+  id: string;
+  overdue: boolean;
+  nextDueAt: string;
+  paymentSchedules: ShopifyPaymentScheduleConnection;
+};
+
+type ShopifyPaymentScheduleConnection = {
+  nodes: ShopifyPaymentSchedule[];
+};
+
+type ShopifyPaymentSchedule = {
+  id: string;
+  dueAt: string;
+  completed: boolean;
+  amount: ShopifyMoneyV2;
+};
+
+export type ShopifyCustomer = {
+  id: string;
+  emailAddress: ShopifyCustomerEmailAddress;
+  firstName: string;
+  lastName: string;
+  phoneNumber: ShopifyCustomerPhoneNumber | null;
+  imageUrl: string;
+  displayName: string;
+};
+
+type ShopifyCustomerEmailAddress = {
+  emailAddress: string;
+  marketingState: string;
+};
+
+type ShopifyCustomerPhoneNumber = {
+  phoneNumber: string;
+  marketingState: string;
 };
 
 export const PAGE_TYPES = [
@@ -442,6 +713,29 @@ export type ShopifyProductsOperation = {
     reverse?: boolean;
     sortKey?: string;
     after?: string;
+  };
+};
+
+export type ShopifyCustomerOperation = {
+  data: {
+    customer: ShopifyCustomer;
+  };
+};
+
+export type ShopifyCustomerOrdersOperation = {
+  data: {
+    customer: {
+      orders: Connection<ShopifyOrder>;
+    };
+  };
+};
+
+export type ShopifyCustomerOrderOperation = {
+  data: {
+    order: ShopifyOrder;
+  };
+  variables: {
+    orderId: string;
   };
 };
 

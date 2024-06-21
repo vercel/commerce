@@ -3,12 +3,14 @@ import clsx from 'clsx';
 const Price = ({
   amount,
   className,
+  as,
   currencyCode = 'USD',
   currencyCodeClassName,
   showCurrency = false,
   prefix
 }: {
   amount: string;
+  as?: 'p' | 'span';
   className?: string;
   currencyCode: string;
   currencyCodeClassName?: string;
@@ -23,9 +25,10 @@ const Price = ({
     return <p className={className}>Included</p>;
   }
 
+  const Component = as || 'p';
   // Otherwise, format and display the price
   return (
-    <p suppressHydrationWarning={true} className={className}>
+    <Component suppressHydrationWarning={true} className={className}>
       {prefix}
       {new Intl.NumberFormat(undefined, {
         style: 'currency',
@@ -35,7 +38,7 @@ const Price = ({
       {showCurrency && (
         <span className={clsx('ml-1 inline', currencyCodeClassName)}>{currencyCode}</span>
       )}
-    </p>
+    </Component>
   );
 };
 
