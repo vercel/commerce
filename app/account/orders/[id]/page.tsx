@@ -1,20 +1,17 @@
-import { CheckCircleIcon, TruckIcon, ArrowLeftIcon } from '@heroicons/react/24/outline';
-import Image from 'next/image';
+import { ArrowLeftIcon, CheckCircleIcon, TruckIcon } from '@heroicons/react/24/outline';
 import { Button } from 'components/button';
+import OrderSummary from 'components/orders/order-summary';
+import OrderSummaryMobile from 'components/orders/order-summary-mobile';
+import Price from 'components/price';
+import Badge from 'components/ui/badge';
 import { Card } from 'components/ui/card';
 import Heading from 'components/ui/heading';
 import Label from 'components/ui/label';
+import Text from 'components/ui/text';
 import { getCustomerOrder } from 'lib/shopify';
 import { Fulfillment, Order } from 'lib/shopify/types';
-import Text from 'components/ui/text';
-import Price from 'components/price';
-import Badge from 'components/ui/badge';
+import Image from 'next/image';
 import Link from 'next/link';
-import OrderSummaryMobile from 'components/account/orders/order-summary-mobile';
-import { Suspense } from 'react';
-import OrderSummary from 'components/account/orders/order-summary';
-
-export const runtime = 'edge';
 
 function toPrintDate(date: string) {
   return new Date(date).toLocaleDateString('en-US', {
@@ -242,9 +239,7 @@ export default async function OrderPage({ params }: { params: { id: string } }) 
 
   return (
     <>
-      <Suspense>
-        <OrderSummaryMobile order={order} />
-      </Suspense>
+      <OrderSummaryMobile order={order} />
       <div className="mx-auto max-w-6xl p-6">
         <div className="mb-6 flex justify-between">
           <div className="flex items-start gap-2">

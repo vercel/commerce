@@ -20,8 +20,6 @@ import ProductsGridPlaceholder from 'components/layout/search/placeholder';
 import SortingMenu from 'components/layout/search/sorting-menu';
 import { Suspense } from 'react';
 
-export const runtime = 'edge';
-
 export async function generateMetadata({
   params
 }: {

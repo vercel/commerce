@@ -4,7 +4,6 @@ import ProductsList from 'components/layout/products-list';
 import { searchProducts } from 'components/layout/products-list/actions';
 import SortingMenu from 'components/layout/search/sorting-menu';
 import { Suspense } from 'react';
-export const runtime = 'edge';
 
 export const metadata = {
   title: 'Search',

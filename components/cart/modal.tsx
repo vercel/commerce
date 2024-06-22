@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import clsx from 'clsx';
 import LoadingDots from 'components/loading-dots';
 import Price from 'components/price';
+import useAuth from 'hooks/use-auth';
 import type { Cart } from 'lib/shopify/types';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -14,7 +15,12 @@ import CloseCart from './close-cart';
 import LineItem from './line-item';
 import OpenCart from './open-cart';
 import VehicleDetails, { VehicleFormSchema, vehicleFormSchema } from './vehicle-details';
-import useAuth from 'hooks/use-auth';
+
+const getCheckoutUrlWithAuthentication = (url: string) => {
+  const checkoutUrl = new URL(url);
+  checkoutUrl.searchParams.append('logged_in', 'true');
+  return checkoutUrl.toString();
+};
 
 export default function CartModal({ cart }: { cart: Cart | undefined }) {
   const { isAuthenticated } = useAuth();
@@ -22,7 +28,6 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
   const quantityRef = useRef(cart?.totalQuantity);
   const openCart = () => setIsOpen(true);
   const closeCart = () => setIsOpen(false);
-  const [checkoutUrl, setCheckoutUrl] = useState<string | undefined>(cart?.checkoutUrl);
   const { control, handleSubmit } = useForm<VehicleFormSchema>({
     resolver: zodResolver(vehicleFormSchema),
     defaultValues: {
@@ -47,20 +52,6 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
       quantityRef.current = cart?.totalQuantity;
     }
   }, [isOpen, cart?.totalQuantity, quantityRef]);
-
-  useEffect(() => {
-    if (!cart) return;
-    if (isAuthenticated) {
-      const newCheckoutUrl = new URL(cart.checkoutUrl);
-      newCheckoutUrl.searchParams.append('logged_in', 'true');
-
-      return setCheckoutUrl(newCheckoutUrl.toString());
-    }
-
-    if (checkoutUrl !== cart.checkoutUrl) {
-      setCheckoutUrl(cart.checkoutUrl);
-    }
-  }, [cart, isAuthenticated, checkoutUrl]);
 
   const onSubmit = async (data: VehicleFormSchema) => {
     if (!cart) return;
@@ -153,7 +144,15 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                         />
                       </div>
                     </div>
-                    <a href={checkoutUrl} ref={linkRef} className="hidden">
+                    <a
+                      href={
+                        isAuthenticated
+                          ? getCheckoutUrlWithAuthentication(cart.checkoutUrl)
+                          : cart.checkoutUrl
+                      }
+                      ref={linkRef}
+                      className="hidden"
+                    >
                       Proceed to Checkout
                     </a>
                     <button

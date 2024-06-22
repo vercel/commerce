@@ -1,26 +1,25 @@
 'use client';
 import { CloseButton, Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
 import { ArrowRightIcon } from '@heroicons/react/16/solid';
-import { Menu } from 'lib/shopify/types';
-import { Fragment, useState } from 'react';
-import OpenProfile from './open-profile';
-import { useFormState, useFormStatus } from 'react-dom';
-import { doLogin } from 'components/auth/actions';
 import { Button } from 'components/button';
 import useAuth from 'hooks/use-auth';
+import { Menu } from 'lib/shopify/types';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { Fragment } from 'react';
+import { useFormState, useFormStatus } from 'react-dom';
+import { doLogin, doLogout } from './actions';
+import OpenProfile from './open-profile';
 
 type ProfilePopoverProps = {
   menu: Menu[];
 };
 
-function SubmitButton(props: any) {
+function SignInButton({ message }: { message: string | null }) {
   const { pending } = useFormStatus();
 
   return (
     <>
-      {props?.message && <div className="my-5">{props?.message}</div>}
+      {message && <div className="my-5">{message}</div>}
       <Button
         type="submit"
         aria-label="Log in"
@@ -35,11 +34,19 @@ function SubmitButton(props: any) {
     </>
   );
 }
+
+const LogoutButton = () => {
+  const { pending } = useFormStatus();
+  return (
+    <Button disabled={pending} type="submit" variant="outlined" className="w-full">
+      {pending ? 'Logging Out...' : 'Log Out'}
+    </Button>
+  );
+};
 const ProfilePopover = ({ menu }: ProfilePopoverProps) => {
   const [message, action] = useFormState(doLogin, null);
+  const [, logoutAction] = useFormState(doLogout, null);
   const { isAuthenticated, loading } = useAuth();
-  const [loggingOut, setLoggingOut] = useState(false);
-  const router = useRouter();
 
   return (
     <Popover className="relative">
@@ -60,7 +67,7 @@ const ProfilePopover = ({ menu }: ProfilePopoverProps) => {
             <span className="text-sm font-medium">My Account</span>
             {!isAuthenticated && !loading && (
               <form action={action}>
-                <SubmitButton message={message} />
+                <SignInButton message={message} />
               </form>
             )}
             {menu.length ? (
@@ -90,16 +97,9 @@ const ProfilePopover = ({ menu }: ProfilePopoverProps) => {
               </ul>
             ) : null}
             {isAuthenticated && !loading && (
-              <Button
-                disabled={loggingOut}
-                onClick={() => {
-                  setLoggingOut(true);
-                  router.push('/logout');
-                }}
-                variant="outlined"
-              >
-                {loggingOut ? 'Logging Out...' : 'Log Out'}
-              </Button>
+              <form action={logoutAction}>
+                <LogoutButton />
+              </form>
             )}
           </div>
         </PopoverPanel>

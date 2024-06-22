@@ -34,8 +34,7 @@ export async function addItem(
   }
 
   try {
-    const cart = await addToCart(cartId, selectedVariantIds);
-    console.log({ cartLines: cart.lines });
+    await addToCart(cartId, selectedVariantIds);
     revalidateTag(TAGS.cart);
   } catch (e) {
     return 'Error adding item to cart';

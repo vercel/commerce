@@ -1,6 +1,6 @@
 'use client';
-import { isLoggedIn } from 'components/auth/actions';
-import { createContext, useState, useEffect } from 'react';
+import { isLoggedIn } from 'components/profile/actions';
+import { createContext, useEffect, useState } from 'react';
 
 type AuthContextType = {
   isAuthenticated: boolean;

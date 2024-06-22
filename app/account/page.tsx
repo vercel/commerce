@@ -1,16 +1,14 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { getCustomerOrders } from 'lib/shopify';
-import Text from 'components/ui/text';
-import Price from 'components/price';
-import Divider from 'components/divider';
 import { Button } from 'components/button';
-import Heading from 'components/ui/heading';
-import Label from 'components/ui/label';
+import Divider from 'components/divider';
+import Price from 'components/price';
 import Badge from 'components/ui/badge';
 import { Card } from 'components/ui/card';
-
-export const runtime = 'edge';
+import Heading from 'components/ui/heading';
+import Label from 'components/ui/label';
+import Text from 'components/ui/text';
+import { getCustomerOrders } from 'lib/shopify';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default async function AccountPage() {
   const orders = await getCustomerOrders();

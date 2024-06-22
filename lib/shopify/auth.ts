@@ -96,7 +96,7 @@ export async function initialAccessToken(
   const body = new URLSearchParams();
   body.append('grant_type', 'authorization_code');
   body.append('client_id', clientId);
-  body.append('redirect_uri', `${newOrigin}/authorize`);
+  body.append('redirect_uri', `${newOrigin}/api/authorize`);
   body.append('code', code);
   body.append('code_verifier', codeVerifier?.value);
   const userAgent = '*';
@@ -424,7 +424,7 @@ export async function authorize(request: NextRequest, origin: string) {
   if (!dataInitialToken.success) {
     console.log('Error: Access Denied. Check logs', dataInitialToken.message);
     newHeaders.set('x-shop-access', 'denied');
-    return NextResponse.next({
+    return NextResponse.json({
       request: {
         // New request headers
         headers: newHeaders
@@ -445,7 +445,7 @@ export async function authorize(request: NextRequest, origin: string) {
   if (!customerAccessToken.success) {
     console.log('Error: Customer Access Token');
     newHeaders.set('x-shop-access', 'denied');
-    return NextResponse.next({
+    return NextResponse.json({
       request: {
         // New request headers
         headers: newHeaders
@@ -482,27 +482,4 @@ export async function authorize(request: NextRequest, origin: string) {
     expiresAt,
     id_token
   });
-}
-
-export async function logout(request: NextRequest, origin: string) {
-  //console.log("New Origin", newOrigin)
-  const idToken = request.cookies.get('shop_id_token');
-  const idTokenValue = idToken?.value;
-  //revalidateTag(TAGS.customer); //this causes some strange error in Nextjs about invariant, so removing for now
-
-  //if there is no idToken, then sending to logout url will redirect shopify, so just
-  //redirect to login here and delete cookies (presumably they don't even exist)
-  if (!idTokenValue) {
-    const logoutUrl = new URL(`${origin}`);
-    const response = NextResponse.redirect(`${logoutUrl}`);
-    return removeAllCookies(response);
-  }
-
-  //console.log ("id toke value", idTokenValue)
-  const logoutUrl = new URL(
-    `${CUSTOMER_API_URL}/auth/logout?id_token_hint=${idTokenValue}&post_logout_redirect_uri=${origin}`
-  );
-  //console.log ("logout url", logoutUrl)
-  const logoutResponse = NextResponse.redirect(logoutUrl);
-  return removeAllCookies(logoutResponse);
 }

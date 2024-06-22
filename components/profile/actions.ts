@@ -1,17 +1,18 @@
 'use server';
 
-import { redirect } from 'next/navigation';
-import { cookies } from 'next/headers';
 import {
-  generateCodeVerifier,
-  generateCodeChallenge,
-  generateRandomString,
   CUSTOMER_API_CLIENT_ID,
+  CUSTOMER_API_URL,
   ORIGIN_URL,
-  CUSTOMER_API_URL
+  generateCodeChallenge,
+  generateCodeVerifier,
+  generateRandomString,
+  removeAllCookiesServerAction
 } from 'lib/shopify/auth';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
-export async function doLogin(_: any) {
+export async function doLogin() {
   const customerAccountApiUrl = CUSTOMER_API_URL;
   const clientId = CUSTOMER_API_CLIENT_ID;
   const origin = ORIGIN_URL;
@@ -20,7 +21,7 @@ export async function doLogin(_: any) {
   try {
     loginUrl.searchParams.set('client_id', clientId);
     loginUrl.searchParams.append('response_type', 'code');
-    loginUrl.searchParams.append('redirect_uri', `${origin}/authorize`);
+    loginUrl.searchParams.append('redirect_uri', `${origin}/api/authorize`);
     loginUrl.searchParams.set(
       'scope',
       'openid email https://api.customers.com/auth/customer.graphql'
@@ -56,3 +57,21 @@ export async function isLoggedIn() {
     return true;
   }
 }
+
+export const doLogout = async () => {
+  const idToken = cookies().get('shop_id_token');
+  const idTokenValue = idToken?.value;
+
+  await removeAllCookiesServerAction();
+  //if there is no idToken, then sending to logout url will redirect shopify, so just
+  //redirect to login here and delete cookies (presumably they don't even exist)
+  if (!idTokenValue) {
+    redirect(ORIGIN_URL);
+  }
+
+  const logoutUrl = new URL(
+    `${CUSTOMER_API_URL}/auth/logout?id_token_hint=${idTokenValue}&post_logout_redirect_uri=${ORIGIN_URL}`
+  );
+
+  redirect(logoutUrl.toString());
+};
