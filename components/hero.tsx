@@ -8,62 +8,105 @@ import ImageDisplay from './page/image-display';
 
 const { SITE_NAME } = process.env;
 
-const Hero = async () => {
-  const [offers, heroImage] = await Promise.all([
-    getMetaobjects('usp_item'),
-    getMetaobject({ handle: { type: 'hero', handle: `${kebabCase(SITE_NAME)}-hero` } })
-  ]);
+const Offers = async () => {
+  const offers = await getMetaobjects('usp_item');
 
   return (
-    <div className="flex flex-col border-b border-gray-200 lg:border-0">
-      <nav aria-label="Offers" className="order-last bg-white lg:order-first">
-        <div className="max-w-8xl mx-auto lg:px-8">
-          <ul
-            role="list"
-            className="grid grid-cols-1 divide-y divide-gray-200 lg:grid-cols-4 lg:divide-x lg:divide-y-0"
-          >
-            {offers.map((offer) => (
-              <li
-                key={offer.title}
-                className="flex w-full items-center justify-start px-4 lg:justify-center"
-              >
-                <DynamicHeroIcon
-                  icon={offer.icon_name as string}
-                  className="size-7 flex-shrink-0 text-secondary"
-                />
-                <p className="px-3 py-5 text-sm font-medium text-gray-800">{offer.title}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </nav>
+    <nav aria-label="Offers" className="order-last bg-white lg:order-first">
+      <div className="max-w-8xl mx-auto lg:px-8">
+        <ul
+          role="list"
+          className="grid grid-cols-1 divide-y divide-gray-200 lg:grid-cols-4 lg:divide-x lg:divide-y-0"
+        >
+          {offers.map((offer) => (
+            <li
+              key={offer.title}
+              className="flex w-full items-center justify-start px-4 lg:justify-center"
+            >
+              <DynamicHeroIcon
+                icon={offer.icon_name as string}
+                className="size-7 flex-shrink-0 text-secondary"
+              />
+              <p className="px-3 py-5 text-sm font-medium text-gray-800">{offer.title}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </nav>
+  );
+};
 
-      <div className="relative bg-gray-900">
+const OffersPlaceholder = () => {
+  return (
+    <nav aria-label="Offers" className="order-last bg-white lg:order-first">
+      <div className="max-w-8xl mx-auto lg:px-8">
+        <ul
+          role="list"
+          className="grid animate-pulse grid-cols-1 divide-y divide-gray-200 py-5 lg:grid-cols-4 lg:divide-x lg:divide-y-0"
+        >
+          <li className="flex w-full items-center justify-start gap-2 px-4 lg:justify-center">
+            <div className="size-7 rounded bg-gray-100" />
+            <div className="h-7 w-1/3 rounded bg-slate-100" />
+          </li>
+          <li className="flex w-full items-center justify-start gap-2 px-4 lg:justify-center">
+            <div className="size-7 rounded bg-gray-100" />
+            <div className="h-7 w-1/3 rounded bg-slate-100" />
+          </li>
+          <li className="flex w-full items-center justify-start gap-2 px-4 lg:justify-center">
+            <div className="size-7 rounded bg-gray-100" />
+            <div className="h-7 w-1/3 rounded bg-slate-100" />
+          </li>
+          <li className="flex w-full items-center justify-start gap-2 px-4 lg:justify-center">
+            <div className="size-7 rounded bg-gray-100" />
+            <div className="h-7 w-1/3 rounded bg-slate-100" />
+          </li>
+        </ul>
+      </div>
+    </nav>
+  );
+};
+const HeroImage = async () => {
+  const heroImage = await getMetaobject({
+    handle: { type: 'hero', handle: `${kebabCase(SITE_NAME)}-hero` }
+  });
+
+  return heroImage ? (
+    <Suspense>
+      <ImageDisplay
+        fileId={heroImage.file as string}
+        title="Hero Image"
+        priority
+        className="h-full w-full object-cover object-center"
+        sizes="100vw"
+        width={1103}
+        height={626}
+      />
+    </Suspense>
+  ) : (
+    <Image
+      src="/hero-image.jpeg"
+      alt="Hero Image"
+      width={1103}
+      height={626}
+      priority
+      className="h-full w-full object-cover object-center"
+      sizes="100vw"
+    />
+  );
+};
+
+const Hero = () => {
+  return (
+    <div className="flex flex-col border-b border-gray-200 lg:border-0">
+      <Suspense fallback={<OffersPlaceholder />}>
+        <Offers />
+      </Suspense>
+      <div className="relative">
         {/* Decorative image and overlay */}
         <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
-          {heroImage ? (
-            <Suspense fallback={<div className="h-[626px] w-full" />}>
-              <ImageDisplay
-                fileId={heroImage.file as string}
-                title="Hero Image"
-                priority
-                className="h-full w-full object-cover object-center"
-                sizes="100vw"
-                width={1103}
-                height={626}
-              />
-            </Suspense>
-          ) : (
-            <Image
-              src="/hero-image.jpeg"
-              alt="Hero Image"
-              width={1103}
-              height={626}
-              priority
-              className="h-full w-full object-cover object-center"
-              sizes="100vw"
-            />
-          )}
+          <Suspense fallback={<div className="h-[626px] w-full" />}>
+            <HeroImage />
+          </Suspense>
         </div>
         <div aria-hidden="true" className="absolute inset-0 bg-dark opacity-80" />
         <div className="flex flex-col gap-10 px-6 py-20 text-center sm:pb-56 sm:pt-32 lg:px-0">

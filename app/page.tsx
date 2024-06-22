@@ -23,9 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function HomePage() {
   return (
     <>
-      <Suspense>
-        <Hero />
-      </Suspense>
+      <Hero />
       <div className="flex min-h-96 flex-col">
         <Suspense>
           <About />
