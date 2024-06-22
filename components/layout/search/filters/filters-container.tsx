@@ -2,12 +2,15 @@ import { getProductsInCollection } from 'components/layout/products-list/actions
 import FiltersList from './filters-list';
 
 const FiltersContainer = async ({
-  searchParams
+  searchParams,
+  collection
 }: {
   searchParams?: { [key: string]: string | string[] | undefined };
+  collection: string;
 }) => {
   const { filters } = await getProductsInCollection({
-    searchParams
+    searchParams,
+    collection
   });
 
   return <FiltersList filters={filters} defaultOpen={false} />;

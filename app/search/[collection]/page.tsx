@@ -44,7 +44,8 @@ async function CategoryPage({
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
   const { products, filters, pageInfo } = await getProductsInCollection({
-    searchParams
+    searchParams,
+    collection: params.collection
   });
 
   return (
@@ -65,7 +66,7 @@ async function CategoryPage({
         <ProductsList
           initialProducts={products}
           pageInfo={pageInfo}
-          page="collection"
+          collection={params.collection}
           searchParams={searchParams}
           key={JSON.stringify(searchParams)}
         />
@@ -95,7 +96,10 @@ export default async function CategorySearchPage(props: {
               fallback={<FiltersListPlaceholder />}
               key={`filters-${props.params.collection}`}
             >
-              <FiltersContainer searchParams={props.searchParams} />
+              <FiltersContainer
+                searchParams={props.searchParams}
+                collection={props.params.collection}
+              />
               <HelpfulLinks collection={props.params.collection} />
             </Suspense>
           </aside>

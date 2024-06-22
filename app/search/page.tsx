@@ -41,7 +41,6 @@ export default async function SearchPage({
             initialProducts={products}
             pageInfo={pageInfo}
             searchParams={searchParams}
-            page="search"
           />
         </Grid>
       ) : null}

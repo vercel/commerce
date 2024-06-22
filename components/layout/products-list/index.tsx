@@ -13,7 +13,7 @@ const ProductsList = ({
   initialProducts,
   pageInfo,
   searchParams,
-  page
+  collection
 }: {
   initialProducts: Product[];
   pageInfo: {
@@ -21,7 +21,7 @@ const ProductsList = ({
     hasNextPage: boolean;
   };
   searchParams?: { [key: string]: string | string[] | undefined };
-  page: 'search' | 'collection';
+  collection?: string;
 }) => {
   const [products, setProducts] = useState(initialProducts);
   const [_pageInfo, setPageInfo] = useState(pageInfo);
@@ -31,13 +31,13 @@ const ProductsList = ({
     try {
       const params = {
         searchParams,
-        afterCursor: _pageInfo.endCursor
+        afterCursor: _pageInfo.endCursor,
+        collection
       };
       setIsLoading(true);
-      const { products, pageInfo } =
-        page === 'collection'
-          ? await getProductsInCollection(params)
-          : await searchProducts(params);
+      const { products, pageInfo } = collection
+        ? await getProductsInCollection(params)
+        : await searchProducts(params);
 
       setProducts((prev) => [...prev, ...products]);
       setPageInfo({

@@ -64,14 +64,16 @@ const constructFilterInput = (filters: {
 
 export const getProductsInCollection = async ({
   searchParams,
-  afterCursor
+  afterCursor,
+  collection
 }: {
   searchParams?: {
     [key: string]: string | string[] | undefined;
   };
   afterCursor?: string;
+  collection?: string;
 }) => {
-  const { sort, q, collection, ...rest } = searchParams as { [key: string]: string };
+  const { sort, q, ...rest } = searchParams as { [key: string]: string };
   const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
   const filtersInput = constructFilterInput(rest);
 
