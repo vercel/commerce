@@ -10,16 +10,9 @@ import Label from 'components/ui/label';
 import Text from 'components/ui/text';
 import { getCustomerOrder } from 'lib/shopify';
 import { Fulfillment, Order } from 'lib/shopify/types';
+import { toPrintDate } from 'lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
-
-function toPrintDate(date: string) {
-  return new Date(date).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-}
 
 function Unfulfilled({ order }: { order: Order }) {
   // Build a map of line item IDs to quantities fulfilled

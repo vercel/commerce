@@ -7,6 +7,7 @@ import {
   PRICE_FILTER_ID,
   PRODUCT_METAFIELD_PREFIX,
   SHOPIFY_GRAPHQL_API_ENDPOINT,
+  SHOPIFY_GRAPHQL_CUSTOMER_API_ENDPOINT,
   TAGS,
   VARIANT_METAFIELD_PREFIX,
   YEAR_FILTER_ID
@@ -29,9 +30,12 @@ import {
   getCollectionQuery,
   getCollectionsQuery
 } from './queries/collection';
+import { getCustomerQuery } from './queries/customer';
 import { getMenuQuery } from './queries/menu';
 import { getMetaobjectQuery, getMetaobjectsQuery } from './queries/metaobject';
 import { getImageQuery, getMetaobjectsByIdsQuery } from './queries/node';
+import { getCustomerOrderQuery } from './queries/order';
+import { getCustomerOrdersQuery } from './queries/orders';
 import { getPageQuery, getPagesQuery } from './queries/page';
 import {
   getProductQuery,
@@ -46,18 +50,19 @@ import {
   Connection,
   Customer,
   Filter,
+  Fulfillment,
   Image,
+  LineItem,
   Menu,
   Metaobject,
   Money,
   Order,
-  Fulfillment,
-  Transaction,
   Page,
   PageInfo,
   Product,
   ProductVariant,
   ShopifyAddToCartOperation,
+  ShopifyAddress,
   ShopifyCart,
   ShopifyCartOperation,
   ShopifyCollection,
@@ -65,6 +70,7 @@ import {
   ShopifyCollectionProductsOperation,
   ShopifyCollectionsOperation,
   ShopifyCreateCartOperation,
+  ShopifyCustomer,
   ShopifyCustomerOperation,
   ShopifyCustomerOrderOperation,
   ShopifyCustomerOrdersOperation,
@@ -73,6 +79,8 @@ import {
   ShopifyMenuOperation,
   ShopifyMetaobject,
   ShopifyMetaobjectsOperation,
+  ShopifyMoneyV2,
+  ShopifyOrder,
   ShopifyPage,
   ShopifyPageOperation,
   ShopifyPagesOperation,
@@ -84,26 +92,18 @@ import {
   ShopifyRemoveFromCartOperation,
   ShopifySetCartAttributesOperation,
   ShopifyUpdateCartOperation,
-  TransmissionType,
-  ShopifyCustomer,
-  ShopifyOrder,
-  ShopifyAddress,
-  ShopifyMoneyV2,
-  LineItem
+  Transaction,
+  TransmissionType
 } from './types';
-import { getCustomerQuery } from './queries/customer';
-import { getCustomerOrdersQuery } from './queries/orders';
-import { getCustomerOrderQuery } from './queries/order';
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
   ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, 'https://')
   : '';
 
 const customerApiUrl = process.env.SHOPIFY_CUSTOMER_ACCOUNT_API_URL;
-const customerApiVersion = process.env.SHOPIFY_CUSTOMER_API_VERSION;
 
 const storefrontEndpoint = `${domain}${SHOPIFY_GRAPHQL_API_ENDPOINT}`;
-const customerEndpoint = `${customerApiUrl}/account/customer/api/${customerApiVersion}/graphql`;
+const customerEndpoint = `${customerApiUrl}/${SHOPIFY_GRAPHQL_CUSTOMER_API_ENDPOINT}`;
 
 const userAgent = '*';
 const placeholderProductImage =
@@ -528,24 +528,15 @@ function reshapeOrder(shopifyOrder: ShopifyOrder): Order {
   }));
 
   const orderLineItems: LineItem[] =
-    shopifyOrder.lineItems?.edges.map((edge) => ({
-      id: edge.node.id,
-      title: edge.node.title,
-      quantity: edge.node.quantity,
-      image: {
-        url: edge.node.image?.url || placeholderProductImage,
-        altText: edge.node.image?.altText || edge.node.title,
-        width: 62,
-        height: 62
-      },
-      price: reshapeMoney(edge.node.price),
-      totalPrice: reshapeMoney(edge.node.totalPrice),
-      variantTitle: edge.node.variantTitle,
-      sku: edge.node.sku
+    shopifyOrder.lineItems?.nodes?.map((item) => ({
+      ...item,
+      price: reshapeMoney(item.price),
+      totalPrice: reshapeMoney(item.totalPrice)
     })) || [];
 
   const order: Order = {
-    id: shopifyOrder.id.replace('gid://shopify/Order/', ''),
+    id: shopifyOrder.id,
+    normalizedId: shopifyOrder.id.replace('gid://shopify/Order/', ''),
     name: shopifyOrder.name,
     processedAt: shopifyOrder.processedAt,
     fulfillments: orderFulfillments,
@@ -556,7 +547,8 @@ function reshapeOrder(shopifyOrder: ShopifyOrder): Order {
     subtotal: reshapeMoney(shopifyOrder.subtotal),
     totalShipping: reshapeMoney(shopifyOrder.totalShipping),
     totalTax: reshapeMoney(shopifyOrder.totalTax),
-    totalPrice: reshapeMoney(shopifyOrder.totalPrice)
+    totalPrice: reshapeMoney(shopifyOrder.totalPrice),
+    createdAt: shopifyOrder.createdAt
   };
 
   if (shopifyOrder.customer) {

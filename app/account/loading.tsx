@@ -1,32 +1,14 @@
-import Divider from 'components/divider';
-import Heading from 'components/ui/heading';
-import Skeleton from 'components/ui/skeleton';
+import OrdersHeader from 'components/orders/orders-header';
 
-export default function Loading() {
+export default function OrdersLoadingPage() {
   return (
-    <div className="p-6">
-      <Heading className="pb-4" as="h1">
-        Orders
-      </Heading>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <div className="flex w-full flex-col rounded border bg-white p-6">
-          <div className="flex flex-col gap-4">
-            <div>
-              <div className="flex items-center gap-2">
-                <Skeleton className="h-20 w-20 flex-none" />
-                <Skeleton />
-              </div>
-            </div>
-          </div>
-          <Divider />
-          <div className="flex flex-col gap-4">
-            <div>
-              <Skeleton className="mb-2 h-5 w-14" />
-              <Skeleton className="h-4 w-24" />
-            </div>
-            <Skeleton className="w-20" />
-          </div>
-          <Skeleton className="mt-4 h-11" />
+    <div className="py-5 sm:py-10">
+      <OrdersHeader />
+      <div className="mx-auto mt-10 max-w-7xl sm:px-2 lg:px-8">
+        <div className="mx-auto max-w-2xl animate-pulse space-y-8 sm:px-4 lg:max-w-4xl lg:px-0">
+          <div className="h-[200px] border-b border-t border-gray-200 bg-gray-100 shadow-sm sm:rounded-lg sm:border" />
+          <div className="h-[200px] border-b border-t border-gray-200 bg-gray-100 shadow-sm sm:rounded-lg sm:border" />
+          <div className="h-[200px] border-b border-t border-gray-200 bg-gray-100 shadow-sm sm:rounded-lg sm:border" />
         </div>
       </div>
     </div>

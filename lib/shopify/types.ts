@@ -121,7 +121,7 @@ export type Address = {
 export type LineItem = {
   id: string;
   title: string;
-  image: Image;
+  image: Image | null;
   price?: Money;
   quantity?: number;
   sku?: string;
@@ -131,9 +131,11 @@ export type LineItem = {
 
 export type Order = {
   id: string;
+  normalizedId: string;
   name: string;
   customer?: Customer;
   processedAt: string;
+  createdAt: string;
   fulfillments: Fulfillment[];
   transactions: Transaction[];
   lineItems: LineItem[];
@@ -156,13 +158,16 @@ export type ShopifyOrder = {
   confirmationNumber: string;
   customer: ShopifyCustomer;
   processedAt: string;
+  createdAt: string;
   cancelledAt: string | null;
   currencyCode: string;
   transactions: ShopifyOrderTransaction[];
   billingAddress: ShopifyAddress;
   shippingAddress: ShopifyAddress;
   fulfillments: Connection<ShopifyFulfillment>;
-  lineItems: Connection<ShopifyLineItem>;
+  lineItems: {
+    nodes: ShopifyLineItem[];
+  };
   totalPrice: ShopifyMoneyV2;
   subtotal: ShopifyMoneyV2;
   totalShipping: ShopifyMoneyV2;
@@ -269,19 +274,12 @@ type ShopifyFulfillmentLineItem = {
 type ShopifyLineItem = {
   id: string;
   title: string;
-  image: ShopifyImage;
+  image: Image | null;
   price: ShopifyMoneyV2;
   quantity: number;
   sku: string;
   totalPrice: ShopifyMoneyV2;
   variantTitle: string;
-};
-
-type ShopifyImage = {
-  altText: string;
-  height: number;
-  url: string;
-  width: number;
 };
 
 type ShopifyFulfillmentEvent = {

@@ -1,3 +1,5 @@
+import lineItemFragment from '../fragments/line-item';
+
 // NOTE: https://shopify.dev/docs/api/customer/latest/queries/customer
 export const getCustomerOrderQuery = /* GraphQL */ `
   query getCustomerOrderQuery($orderId: ID!) {
@@ -55,11 +57,9 @@ export const getCustomerOrderQuery = /* GraphQL */ `
       }
     }
     lineItems(first: 50) {
-      edges {
-        node {
-          id
-          ...LineItem
-        }
+      nodes {
+        id
+        ...LineItem
       }
     }
     totalPrice {
@@ -194,25 +194,6 @@ export const getCustomerOrderQuery = /* GraphQL */ `
     happenedAt
   }
 
-  fragment LineItem on LineItem {
-    title
-    image {
-      altText
-      height
-      url
-      width
-    }
-    price {
-      ...Price
-    }
-    quantity
-    sku
-    totalPrice {
-      ...Price
-    }
-    variantTitle
-  }
-
   fragment OrderPaymentInformation on OrderPaymentInformation {
     paymentStatus
     totalPaidAmount {
@@ -237,4 +218,5 @@ export const getCustomerOrderQuery = /* GraphQL */ `
       }
     }
   }
+  ${lineItemFragment}
 `;

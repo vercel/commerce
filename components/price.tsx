@@ -1,16 +1,17 @@
 import clsx from 'clsx';
+import { JSXElementConstructor } from 'react';
 
 const Price = ({
   amount,
   className,
-  as,
+  as: Component = 'p',
   currencyCode = 'USD',
   currencyCodeClassName,
   showCurrency = false,
   prefix
 }: {
   amount: string;
-  as?: 'p' | 'span';
+  as?: keyof JSX.IntrinsicElements | JSXElementConstructor<any>;
   className?: string;
   currencyCode: string;
   currencyCodeClassName?: string;
@@ -25,7 +26,6 @@ const Price = ({
     return <p className={className}>Included</p>;
   }
 
-  const Component = as || 'p';
   // Otherwise, format and display the price
   return (
     <Component suppressHydrationWarning={true} className={className}>

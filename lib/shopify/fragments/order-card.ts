@@ -1,9 +1,12 @@
+import lineItemFragment from './line-item';
+
 const orderCard = /* GraphQL */ `
   fragment OrderCard on Order {
     id
     number
     name
     processedAt
+    createdAt
     financialStatus
     fulfillments(first: 1) {
       edges {
@@ -17,20 +20,12 @@ const orderCard = /* GraphQL */ `
       currencyCode
     }
     lineItems(first: 20) {
-      edges {
-        node {
-          title
-          quantity
-          image {
-            altText
-            height
-            url
-            width
-          }
-        }
+      nodes {
+        ...LineItem
       }
     }
   }
+  ${lineItemFragment}
 `;
 
 export default orderCard;

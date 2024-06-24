@@ -87,3 +87,11 @@ export function parseJSON(json: any) {
 function noproto(k: string, v: string) {
   if (k !== '__proto__') return v;
 }
+
+export function toPrintDate(date: string) {
+  return new Date(date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}
