@@ -44,8 +44,9 @@ const MobileOrderActions = ({ order }: { order: Order }) => {
                 <Button
                   className={clsx(
                     focus ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
+                    'flex w-full px-4 py-2 text-sm'
                   )}
+                  onClick={() => setIsOpen(true)}
                 >
                   Activate Warranty
                 </Button>

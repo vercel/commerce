@@ -6,6 +6,7 @@ import {
   MODEL_FILTER_ID,
   PRICE_FILTER_ID,
   PRODUCT_METAFIELD_PREFIX,
+  SHOPIFY_GRAPHQL_ADMIN_ADMIN_API_ENDPOINT,
   SHOPIFY_GRAPHQL_API_ENDPOINT,
   SHOPIFY_GRAPHQL_CUSTOMER_API_ENDPOINT,
   TAGS,
@@ -104,12 +105,14 @@ const customerApiUrl = process.env.SHOPIFY_CUSTOMER_ACCOUNT_API_URL;
 
 const storefrontEndpoint = `${domain}${SHOPIFY_GRAPHQL_API_ENDPOINT}`;
 const customerEndpoint = `${customerApiUrl}/${SHOPIFY_GRAPHQL_CUSTOMER_API_ENDPOINT}`;
+const adminEndpoint = `${domain}${SHOPIFY_GRAPHQL_ADMIN_ADMIN_API_ENDPOINT}`;
 
 const userAgent = '*';
 const placeholderProductImage =
   'https://cdn.shopify.com/shopifycloud/customer-account-web/production/assets/8bc6556601c510713d76.svg';
 
 const key = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
+const adminAccessToken = process.env.SHOPIFY_ADMIN_API_ACCESS_TOKEN!;
 
 type ExtractVariables<T> = T extends { variables: object } ? T['variables'] : never;
 
@@ -140,6 +143,56 @@ export async function shopifyFetch<T>({
       }),
       cache,
       ...(tags && { next: { tags } })
+    });
+
+    const body = await result.json();
+
+    if (body.errors) {
+      throw body.errors[0];
+    }
+
+    return {
+      status: result.status,
+      body
+    };
+  } catch (e) {
+    if (isShopifyError(e)) {
+      throw {
+        cause: e.cause?.toString() || 'unknown',
+        status: e.status || 500,
+        message: e.message,
+        query
+      };
+    }
+
+    throw {
+      error: e,
+      query
+    };
+  }
+}
+
+async function adminFetch<T>({
+  headers,
+  query,
+  variables
+}: {
+  headers?: HeadersInit;
+  query: string;
+  variables?: ExtractVariables<T>;
+}): Promise<{ status: number; body: T } | never> {
+  try {
+    const result = await fetch(adminEndpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shopify-Access-Token': adminAccessToken,
+        ...headers
+      },
+      body: JSON.stringify({
+        ...(query && { query }),
+        ...(variables && { variables })
+      })
     });
 
     const body = await result.json();

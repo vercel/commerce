@@ -20,7 +20,8 @@ export const validateEnvironmentVariables = () => {
     'SHOPIFY_CUSTOMER_ACCOUNT_API_CLIENT_ID',
     'SHOPIFY_CUSTOMER_ACCOUNT_API_URL',
     'SHOPIFY_CUSTOMER_API_VERSION',
-    'SHOPIFY_ORIGIN_URL'
+    'SHOPIFY_ORIGIN_URL',
+    'SHOPIFY_ADMIN_API_ACCESS_TOKEN'
   ];
   const missingEnvironmentVariables = [] as string[];
 

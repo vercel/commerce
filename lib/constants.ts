@@ -36,6 +36,7 @@ export const HIDDEN_PRODUCT_TAG = 'nextjs-frontend-hidden';
 export const DEFAULT_OPTION = 'Default Title';
 export const SHOPIFY_GRAPHQL_API_ENDPOINT = '/api/2024-04/graphql.json';
 export const SHOPIFY_GRAPHQL_CUSTOMER_API_ENDPOINT = '/account/customer/api/2024-07/graphql';
+export const SHOPIFY_GRAPHQL_ADMIN_ADMIN_API_ENDPOINT = '/admin/api/2024-04/graphql.json';
 
 export const CORE_WAIVER = 'core-waiver';
 export const CORE_VARIANT_ID_KEY = 'coreVariantId';
