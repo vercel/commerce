@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export type Maybe<T> = T | null;
 
 export type Connection<T> = {
@@ -825,3 +826,33 @@ export type ShopifyCreateFileOperation = {
   };
   variables: { files: FileCreateInput[] };
 };
+
+export type Metafield = {
+  namespace: string;
+  value: string;
+  key: string;
+  type: string;
+};
+
+export type ShopifyUpdateOrderMetafieldsOperation = {
+  data: {
+    orderUpdate: {
+      order: {
+        id: string;
+      };
+      userErrors: { field: string; message: string }[];
+    };
+  };
+  variables: {
+    input: {
+      metafields: Metafield[];
+      id: string;
+    };
+  };
+};
+
+export enum WarrantyStatus {
+  Activated = 'Activated',
+  NotActivated = 'Not Activated',
+  LimitedActivated = 'Limited Activation'
+}

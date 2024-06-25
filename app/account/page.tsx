@@ -61,7 +61,7 @@ export default async function AccountPage() {
                       <span>View Order</span>
                       <span className="sr-only">{order.normalizedId}</span>
                     </Link>
-                    <ActivateWarranty orderId={order.id} />
+                    <ActivateWarranty order={order} />
                   </div>
                 </div>
 

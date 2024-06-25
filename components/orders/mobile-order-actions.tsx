@@ -55,7 +55,7 @@ const MobileOrderActions = ({ order }: { order: Order }) => {
           </div>
         </MenuItems>
       </Menu>
-      <ActivateWarrantyModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <ActivateWarrantyModal isOpen={isOpen} onClose={() => setIsOpen(false)} orderId={order.id} />
     </>
   );
 };

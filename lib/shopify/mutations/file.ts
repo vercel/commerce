@@ -18,9 +18,7 @@ export const createFileMutation = /* GraphQL */ `
     fileCreate(files: $files) {
       files {
         fileStatus
-        ... on MediaImage {
-          id
-        }
+        id
       }
       userErrors {
         field

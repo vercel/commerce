@@ -1,15 +1,36 @@
 'use client';
 
-import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react';
+import { Button, Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react';
+import clsx from 'clsx';
 import FileInput from 'components/form/file-input';
 import Input from 'components/form/input';
+import LoadingDots from 'components/loading-dots';
+import { FormEventHandler, useRef, useTransition } from 'react';
+import { activateWarranty } from './actions';
 
 type ActivateWarrantyModalProps = {
   isOpen: boolean;
   onClose: () => void;
+  orderId: string;
 };
 
-function ActivateWarrantyModal({ onClose, isOpen }: ActivateWarrantyModalProps) {
+function ActivateWarrantyModal({ onClose, isOpen, orderId }: ActivateWarrantyModalProps) {
+  const [pending, startTransition] = useTransition();
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
+    const form = formRef.current;
+    if (!form) return;
+    const formData = new FormData(form);
+
+    startTransition(async () => {
+      await activateWarranty(orderId, formData);
+      form.reset();
+      onClose();
+    });
+  };
+
   return (
     <Dialog
       open={isOpen}
@@ -25,29 +46,35 @@ function ActivateWarrantyModal({ onClose, isOpen }: ActivateWarrantyModalProps) 
         {/* The actual dialog panel  */}
         <DialogPanel className="w-full max-w-lg bg-white p-5 sm:w-[500px]">
           <DialogTitle className="mb-2 font-bold">Activate Warranty</DialogTitle>
-          <form>
+          <form onSubmit={handleSubmit} ref={formRef}>
             <div className="flex w-full flex-col gap-4">
-              <FileInput label="Odometer" name="odometer" />
-              <FileInput label="Installation Receipt" name="installation-receipt" />
-              <Input label="Customer Mileage" name="customer-mileage" type="number" />
-              <Input label="Customer VIN" name="customer-vin" />
+              <FileInput label="Odometer" name="warranty_activation_odometer" />
+              <FileInput label="Installation Receipt" name="warranty_activation_installation" />
+              <Input label="Customer Mileage" name="warranty_activation_mileage" type="number" />
+              <Input label="Customer VIN" name="warranty_activation_vin" />
+            </div>
+            <div className="mt-4 flex w-full justify-end gap-4">
+              <button
+                type="button"
+                className="text-sm font-semibold leading-6 text-gray-900"
+                onClick={onClose}
+              >
+                Cancel
+              </button>
+              <Button
+                type="submit"
+                className={clsx(
+                  'flex items-center gap-2 rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600',
+                  { 'cursor-not-allowed opacity-60': pending },
+                  { 'cursor-pointer opacity-100': !pending }
+                )}
+                disabled={pending}
+              >
+                {pending && <LoadingDots className="bg-white" />}
+                Activate
+              </Button>
             </div>
           </form>
-          <div className="mt-4 flex w-full justify-end gap-4">
-            <button
-              type="button"
-              className="text-sm font-semibold leading-6 text-gray-900"
-              onClick={onClose}
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Activate
-            </button>
-          </div>
         </DialogPanel>
       </div>
     </Dialog>

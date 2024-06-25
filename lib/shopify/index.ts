@@ -11,6 +11,7 @@ import {
   SHOPIFY_GRAPHQL_CUSTOMER_API_ENDPOINT,
   TAGS,
   VARIANT_METAFIELD_PREFIX,
+  WARRANTY_FIELDS,
   YEAR_FILTER_ID
 } from 'lib/constants';
 import { isShopifyError } from 'lib/type-guards';
@@ -26,6 +27,7 @@ import {
   setCartAttributesMutation
 } from './mutations/cart';
 import { createFileMutation, createStageUploads } from './mutations/file';
+import { updateOrderMetafieldsMutation } from './mutations/order';
 import { getCartQuery } from './queries/cart';
 import {
   getCollectionProductsQuery,
@@ -57,6 +59,7 @@ import {
   Image,
   LineItem,
   Menu,
+  Metafield,
   Metaobject,
   Money,
   Order,
@@ -97,9 +100,11 @@ import {
   ShopifySetCartAttributesOperation,
   ShopifyStagedUploadOperation,
   ShopifyUpdateCartOperation,
+  ShopifyUpdateOrderMetafieldsOperation,
   Transaction,
   TransmissionType,
-  UploadInput
+  UploadInput,
+  WarrantyStatus
 } from './types';
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
@@ -592,6 +597,7 @@ function reshapeOrder(shopifyOrder: ShopifyOrder): Order {
       totalPrice: reshapeMoney(item.totalPrice)
     })) || [];
 
+  console.log(shopifyOrder);
   const order: Order = {
     id: shopifyOrder.id,
     normalizedId: shopifyOrder.id.replace('gid://shopify/Order/', ''),
@@ -1072,5 +1078,45 @@ export const createFile = async (params: FileCreateInput) => {
     variables: { files: [params] }
   });
 
-  return res.body.data;
+  return res.body.data.fileCreate.files;
+};
+
+export const updateOrderMetafields = async ({
+  orderId,
+  metafields
+}: {
+  orderId: string;
+  metafields: { key: string; value: string | undefined | null; type: string }[];
+}) => {
+  const validMetafields = (
+    metafields.filter((field) => Boolean(field)) as Array<Omit<Metafield, 'namespace'>>
+  ).map((field) => ({
+    ...field,
+    namespace: 'custom'
+  }));
+
+  const shouldSetWarrantyStatusToActivated = WARRANTY_FIELDS.every((field) =>
+    validMetafields.find(({ key }) => key === field)
+  );
+
+  const response = await adminFetch<ShopifyUpdateOrderMetafieldsOperation>({
+    query: updateOrderMetafieldsMutation,
+    variables: {
+      input: {
+        metafields: shouldSetWarrantyStatusToActivated
+          ? validMetafields.concat([
+              {
+                key: 'warranty_status',
+                value: WarrantyStatus.Activated,
+                namespace: 'custom',
+                type: 'single_line_text_field'
+              }
+            ])
+          : validMetafields,
+        id: orderId
+      }
+    }
+  });
+
+  return response.body.data.orderUpdate.order.id;
 };

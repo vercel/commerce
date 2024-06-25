@@ -1,13 +1,14 @@
 'use client';
 
+import { Order } from 'lib/shopify/types';
 import { useState } from 'react';
 import ActivateWarrantyModal from './activate-warranty-modal';
 
 type ActivateWarrantyModalProps = {
-  orderId: string;
+  order: Order;
 };
 
-const ActivateWarranty = ({ orderId }: ActivateWarrantyModalProps) => {
+const ActivateWarranty = ({ order }: ActivateWarrantyModalProps) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
@@ -17,7 +18,7 @@ const ActivateWarranty = ({ orderId }: ActivateWarrantyModalProps) => {
       >
         Activate Warranty
       </button>
-      <ActivateWarrantyModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      <ActivateWarrantyModal isOpen={isOpen} onClose={() => setIsOpen(false)} orderId={order.id} />
     </>
   );
 };

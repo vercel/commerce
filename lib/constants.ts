@@ -35,7 +35,7 @@ export const TAGS = {
 export const HIDDEN_PRODUCT_TAG = 'nextjs-frontend-hidden';
 export const DEFAULT_OPTION = 'Default Title';
 export const SHOPIFY_GRAPHQL_API_ENDPOINT = '/api/2024-04/graphql.json';
-export const SHOPIFY_GRAPHQL_CUSTOMER_API_ENDPOINT = '/account/customer/api/2024-07/graphql';
+export const SHOPIFY_GRAPHQL_CUSTOMER_API_ENDPOINT = '/account/customer/api/2024-04/graphql';
 export const SHOPIFY_GRAPHQL_ADMIN_ADMIN_API_ENDPOINT = '/admin/api/2024-04/graphql.json';
 
 export const CORE_WAIVER = 'core-waiver';
@@ -60,3 +60,10 @@ export const ADD_ON_PRODUCT_TYPES = {
   addOn: 'Add On',
   coreCharge: 'Core Charge'
 };
+
+export const WARRANTY_FIELDS = [
+  'warranty_activation_odometer',
+  'warranty_activation_installation',
+  'warranty_activation_vin',
+  'warranty_activation_mileage'
+];
