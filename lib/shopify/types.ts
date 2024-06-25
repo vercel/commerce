@@ -783,3 +783,45 @@ export type CartAttributeInput = {
   key: string;
   value: string;
 };
+
+export type UploadInput = {
+  filename: string;
+  mimeType: string;
+  httpMethod: 'POST' | 'PUT';
+  fileSize: string;
+  resource: 'FILE' | 'IMAGE';
+};
+
+export type StagedUploadsCreatePayload = {
+  parameters: {
+    name: string;
+    value: string;
+  }[];
+  resourceUrl: string;
+  url: string;
+};
+
+export type ShopifyStagedUploadOperation = {
+  data: {
+    stagedUploadsCreate: {
+      stagedTargets: StagedUploadsCreatePayload[];
+    };
+  };
+  variables: { input: UploadInput[] };
+};
+
+export type FileCreateInput = {
+  alt: string;
+  contentType: 'FILE' | 'IMAGE';
+  originalSource: string;
+};
+
+export type ShopifyCreateFileOperation = {
+  data: {
+    fileCreate: {
+      files: { fileStatus: string; id: string }[];
+      userErrors: { code: string; field: string; message: string }[];
+    };
+  };
+  variables: { files: FileCreateInput[] };
+};

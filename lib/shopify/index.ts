@@ -25,6 +25,7 @@ import {
   removeFromCartMutation,
   setCartAttributesMutation
 } from './mutations/cart';
+import { createFileMutation, createStageUploads } from './mutations/file';
 import { getCartQuery } from './queries/cart';
 import {
   getCollectionProductsQuery,
@@ -50,6 +51,7 @@ import {
   Collection,
   Connection,
   Customer,
+  FileCreateInput,
   Filter,
   Fulfillment,
   Image,
@@ -71,6 +73,7 @@ import {
   ShopifyCollectionProductsOperation,
   ShopifyCollectionsOperation,
   ShopifyCreateCartOperation,
+  ShopifyCreateFileOperation,
   ShopifyCustomer,
   ShopifyCustomerOperation,
   ShopifyCustomerOrderOperation,
@@ -92,9 +95,11 @@ import {
   ShopifyProductsOperation,
   ShopifyRemoveFromCartOperation,
   ShopifySetCartAttributesOperation,
+  ShopifyStagedUploadOperation,
   ShopifyUpdateCartOperation,
   Transaction,
-  TransmissionType
+  TransmissionType,
+  UploadInput
 } from './types';
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
@@ -1043,4 +1048,29 @@ export const getImage = async (id: string): Promise<Image> => {
   });
 
   return res.body.data.node.image;
+};
+
+export const stageUploadFile = async (params: UploadInput) => {
+  const res = await adminFetch<ShopifyStagedUploadOperation>({
+    query: createStageUploads,
+    variables: { input: [params] }
+  });
+
+  return res.body.data.stagedUploadsCreate.stagedTargets;
+};
+
+export const uploadFile = async ({ url, formData }: { url: string; formData: FormData }) => {
+  return await fetch(url, {
+    method: 'POST',
+    body: formData
+  });
+};
+
+export const createFile = async (params: FileCreateInput) => {
+  const res = await adminFetch<ShopifyCreateFileOperation>({
+    query: createFileMutation,
+    variables: { files: [params] }
+  });
+
+  return res.body.data;
 };
