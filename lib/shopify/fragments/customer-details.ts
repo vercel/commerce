@@ -1,5 +1,5 @@
 import customerAddress from './customer-address';
-import orderCard from './order-card';
+import orderCard from './order';
 
 const customerDetailsFragment = /* GraphQL */ `
   ${customerAddress}

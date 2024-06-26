@@ -1,5 +1,5 @@
 import { ArrowLeftIcon, CheckCircleIcon, TruckIcon } from '@heroicons/react/24/outline';
-import { Button } from 'components/button';
+import ActivateWarranty from 'components/orders/activate-warranty';
 import OrderSummary from 'components/orders/order-summary';
 import OrderSummaryMobile from 'components/orders/order-summary-mobile';
 import Price from 'components/price';
@@ -8,7 +8,7 @@ import { Card } from 'components/ui/card';
 import Heading from 'components/ui/heading';
 import Label from 'components/ui/label';
 import Text from 'components/ui/text';
-import { getCustomerOrder } from 'lib/shopify';
+import { getCustomerOrder, getOrderMetafields } from 'lib/shopify';
 import { Fulfillment, Order } from 'lib/shopify/types';
 import { toPrintDate } from 'lib/utils';
 import Image from 'next/image';
@@ -228,7 +228,10 @@ function OrderDetails({ order }: { order: Order }) {
 }
 
 export default async function OrderPage({ params }: { params: { id: string } }) {
-  const order = await getCustomerOrder(params.id);
+  const [order, orderMetafields] = await Promise.all([
+    getCustomerOrder(params.id),
+    getOrderMetafields(params.id)
+  ]);
 
   return (
     <>
@@ -244,9 +247,7 @@ export default async function OrderPage({ params }: { params: { id: string } }) 
               <Label>Confirmed {toPrintDate(order.processedAt)}</Label>
             </div>
           </div>
-          <div>
-            <Button>Activate Warranty</Button>
-          </div>
+          <ActivateWarranty order={order} orderMetafields={orderMetafields} />
         </div>
         <div className="flex items-start gap-6">
           <div className="flex flex-1 flex-col gap-6">

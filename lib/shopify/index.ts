@@ -38,7 +38,7 @@ import { getCustomerQuery } from './queries/customer';
 import { getMenuQuery } from './queries/menu';
 import { getMetaobjectQuery, getMetaobjectsQuery } from './queries/metaobject';
 import { getImageQuery, getMetaobjectsByIdsQuery } from './queries/node';
-import { getCustomerOrderQuery } from './queries/order';
+import { getCustomerOrderQuery, getOrderMetafieldsQuery } from './queries/order';
 import { getCustomerOrderMetafieldsQuery, getCustomerOrdersQuery } from './queries/orders';
 import { getPageQuery, getPagesQuery } from './queries/page';
 import {
@@ -1160,4 +1160,28 @@ export const getOrdersMetafields = async (): Promise<{ [key: string]: OrderMetaf
     }),
     {} as { [key: string]: OrderMetafield }
   );
+};
+
+export const getOrderMetafields = async (orderId: string): Promise<OrderMetafield> => {
+  const res = await adminFetch<{
+    data: {
+      order: {
+        id: string;
+      } & ShopifyOrderMetafield;
+    };
+    variables: {
+      id: string;
+    };
+  }>({
+    query: getOrderMetafieldsQuery,
+    variables: { id: `gid://shopify/Order/${orderId}` },
+    tags: [`${TAGS.orderMetafields}/${orderId}`]
+  });
+
+  const order = res.body.data.order;
+
+  return {
+    warrantyStatus: order.warrantyStatus?.value ?? null,
+    warrantyActivationDeadline: order.warrantyActivationDeadline?.value ?? null
+  };
 };

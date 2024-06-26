@@ -1,4 +1,5 @@
 import lineItemFragment from '../fragments/line-item';
+import { orderMetafields } from '../fragments/order';
 
 // NOTE: https://shopify.dev/docs/api/customer/latest/queries/customer
 export const getCustomerOrderQuery = /* GraphQL */ `
@@ -219,4 +220,13 @@ export const getCustomerOrderQuery = /* GraphQL */ `
     }
   }
   ${lineItemFragment}
+`;
+
+export const getOrderMetafieldsQuery = /* GraphQL */ `
+  query getOrderMetafields($id: ID!) {
+    order(id: $id) {
+      ...OrderMetafield
+    }
+  }
+  ${orderMetafields}
 `;

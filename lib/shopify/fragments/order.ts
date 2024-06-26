@@ -28,4 +28,19 @@ const orderCard = /* GraphQL */ `
   ${lineItemFragment}
 `;
 
+export const orderMetafields = /* GraphQL */ `
+  fragment OrderMetafield on Order {
+    id
+    warrantyStatus: metafield(namespace: "custom", key: "warranty_status") {
+      value
+    }
+    warrantyActivationDeadline: metafield(
+      namespace: "custom"
+      key: "warranty_activation_deadline"
+    ) {
+      value
+    }
+  }
+`;
+
 export default orderCard;

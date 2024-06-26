@@ -4,7 +4,7 @@ import MobileOrderActions from 'components/orders/mobile-order-actions';
 import OrdersHeader from 'components/orders/orders-header';
 import Price from 'components/price';
 import { getCustomerOrders, getOrdersMetafields } from 'lib/shopify';
-import { isBeforeToday, toPrintDate } from 'lib/utils';
+import { toPrintDate } from 'lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -64,12 +64,7 @@ export default async function AccountPage() {
                       <span>View Order</span>
                       <span className="sr-only">{order.normalizedId}</span>
                     </Link>
-                    {!isBeforeToday(ordersMetafields[order.id]?.warrantyActivationDeadline) && (
-                      <ActivateWarranty
-                        order={order}
-                        orderMetafields={ordersMetafields[order.id]}
-                      />
-                    )}
+                    <ActivateWarranty order={order} orderMetafields={ordersMetafields[order.id]} />
                   </div>
                 </div>
 

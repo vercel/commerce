@@ -1,4 +1,5 @@
 import customerDetailsFragment from '../fragments/customer-details';
+import { orderMetafields } from '../fragments/order';
 
 const customerFragment = `#graphql
 `;
@@ -19,18 +20,10 @@ export const getCustomerOrderMetafieldsQuery = /* GraphQL */ `
     customer(id: $id) {
       orders(first: 20, sortKey: PROCESSED_AT, reverse: true) {
         nodes {
-          id
-          warrantyStatus: metafield(namespace: "custom", key: "warranty_status") {
-            value
-          }
-          warrantyActivationDeadline: metafield(
-            namespace: "custom"
-            key: "warranty_activation_deadline"
-          ) {
-            value
-          }
+          ...OrderMetafield
         }
       }
     }
   }
+  ${orderMetafields}
 `;
