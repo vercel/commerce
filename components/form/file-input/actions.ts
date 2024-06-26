@@ -29,7 +29,7 @@ const createStagedUploadFiles = async (params: UploadInput) => {
 
     return JSON.parse(JSON.stringify(stagedTargets[0]));
   } catch (error) {
-    console.log(error);
+    console.log('createStagedUploadFiles action', error);
   }
 };
 
@@ -54,7 +54,7 @@ const onUploadFile = async ({
       originalSource: resourceUrl
     });
   } catch (error) {
-    console.log(error);
+    console.log('onUploadFile action', error);
   }
 };
 
@@ -81,6 +81,6 @@ export const handleUploadFile = async ({ file }: { file: File }) => {
       return result?.[0]?.id;
     }
   } catch (error) {
-    console.log(error);
+    console.log('handleUploadFile action', error);
   }
 };

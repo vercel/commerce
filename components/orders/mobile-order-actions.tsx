@@ -3,13 +3,22 @@
 import { Button, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
-import { Order } from 'lib/shopify/types';
+import { Order, OrderMetafield, WarrantyStatus } from 'lib/shopify/types';
+import { isBeforeToday } from 'lib/utils';
 import Link from 'next/link';
 import { useState } from 'react';
 import ActivateWarrantyModal from './activate-warranty-modal';
 
-const MobileOrderActions = ({ order }: { order: Order }) => {
+const MobileOrderActions = ({
+  order,
+  orderMetafields
+}: {
+  order: Order;
+  orderMetafields?: OrderMetafield;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
+  const isWarrantyActivated = orderMetafields?.warrantyStatus === WarrantyStatus.Activated;
+  const isPassDeadline = isBeforeToday(orderMetafields?.warrantyActivationDeadline);
 
   return (
     <>
@@ -39,19 +48,21 @@ const MobileOrderActions = ({ order }: { order: Order }) => {
                 </Link>
               )}
             </MenuItem>
-            <MenuItem>
-              {({ focus }) => (
-                <Button
-                  className={clsx(
-                    focus ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'flex w-full px-4 py-2 text-sm'
-                  )}
-                  onClick={() => setIsOpen(true)}
-                >
-                  Activate Warranty
-                </Button>
-              )}
-            </MenuItem>
+            {!isPassDeadline && !isWarrantyActivated && (
+              <MenuItem>
+                {({ focus }) => (
+                  <Button
+                    className={clsx(
+                      focus ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                      'flex w-full px-4 py-2 text-sm'
+                    )}
+                    onClick={() => setIsOpen(true)}
+                  >
+                    Activate Warranty
+                  </Button>
+                )}
+              </MenuItem>
+            )}
           </div>
         </MenuItems>
       </Menu>

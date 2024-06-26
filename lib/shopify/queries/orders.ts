@@ -13,3 +13,24 @@ export const getCustomerOrdersQuery = `#graphql
   ${customerFragment}
   ${customerDetailsFragment}
 `;
+
+export const getCustomerOrderMetafieldsQuery = /* GraphQL */ `
+  query getCustomerOrderMetafields($id: ID!) {
+    customer(id: $id) {
+      orders(first: 20, sortKey: PROCESSED_AT, reverse: true) {
+        nodes {
+          id
+          warrantyStatus: metafield(namespace: "custom", key: "warranty_status") {
+            value
+          }
+          warrantyActivationDeadline: metafield(
+            namespace: "custom"
+            key: "warranty_activation_deadline"
+          ) {
+            value
+          }
+        }
+      }
+    }
+  }
+`;

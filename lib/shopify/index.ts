@@ -39,7 +39,7 @@ import { getMenuQuery } from './queries/menu';
 import { getMetaobjectQuery, getMetaobjectsQuery } from './queries/metaobject';
 import { getImageQuery, getMetaobjectsByIdsQuery } from './queries/node';
 import { getCustomerOrderQuery } from './queries/order';
-import { getCustomerOrdersQuery } from './queries/orders';
+import { getCustomerOrderMetafieldsQuery, getCustomerOrdersQuery } from './queries/orders';
 import { getPageQuery, getPagesQuery } from './queries/page';
 import {
   getProductQuery,
@@ -63,6 +63,7 @@ import {
   Metaobject,
   Money,
   Order,
+  OrderMetafield,
   Page,
   PageInfo,
   Product,
@@ -88,6 +89,7 @@ import {
   ShopifyMetaobjectsOperation,
   ShopifyMoneyV2,
   ShopifyOrder,
+  ShopifyOrderMetafield,
   ShopifyPage,
   ShopifyPageOperation,
   ShopifyPagesOperation,
@@ -185,11 +187,13 @@ export async function shopifyFetch<T>({
 async function adminFetch<T>({
   headers,
   query,
-  variables
+  variables,
+  tags
 }: {
   headers?: HeadersInit;
   query: string;
   variables?: ExtractVariables<T>;
+  tags?: string[];
 }): Promise<{ status: number; body: T } | never> {
   try {
     const result = await fetch(adminEndpoint, {
@@ -202,7 +206,9 @@ async function adminFetch<T>({
       body: JSON.stringify({
         ...(query && { query }),
         ...(variables && { variables })
-      })
+      }),
+      ...(tags && { next: { tags } }),
+      cache: 'no-store'
     });
 
     const body = await result.json();
@@ -505,7 +511,8 @@ function reshapeCustomer(customer: ShopifyCustomer): Customer {
     firstName: customer.firstName,
     lastName: customer.lastName,
     displayName: customer.displayName,
-    emailAddress: customer.emailAddress.emailAddress
+    emailAddress: customer.emailAddress.emailAddress,
+    id: customer.id
   };
 }
 
@@ -597,7 +604,6 @@ function reshapeOrder(shopifyOrder: ShopifyOrder): Order {
       totalPrice: reshapeMoney(item.totalPrice)
     })) || [];
 
-  console.log(shopifyOrder);
   const order: Order = {
     id: shopifyOrder.id,
     normalizedId: shopifyOrder.id.replace('gid://shopify/Order/', ''),
@@ -1119,4 +1125,39 @@ export const updateOrderMetafields = async ({
   });
 
   return response.body.data.orderUpdate.order.id;
+};
+
+export const getOrdersMetafields = async (): Promise<{ [key: string]: OrderMetafield }> => {
+  const customer = await getCustomer();
+  const res = await adminFetch<{
+    data: {
+      customer: {
+        orders: {
+          nodes: Array<
+            {
+              id: string;
+            } & ShopifyOrderMetafield
+          >;
+        };
+      };
+    };
+    variables: {
+      id: string;
+    };
+  }>({
+    query: getCustomerOrderMetafieldsQuery,
+    variables: { id: customer.id },
+    tags: [TAGS.orderMetafields]
+  });
+
+  return res.body.data.customer.orders.nodes.reduce(
+    (acc, order) => ({
+      ...acc,
+      [order.id]: {
+        warrantyStatus: order.warrantyStatus?.value ?? null,
+        warrantyActivationDeadline: order.warrantyActivationDeadline?.value ?? null
+      }
+    }),
+    {} as { [key: string]: OrderMetafield }
+  );
 };

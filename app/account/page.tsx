@@ -3,13 +3,16 @@ import ActivateWarranty from 'components/orders/activate-warranty';
 import MobileOrderActions from 'components/orders/mobile-order-actions';
 import OrdersHeader from 'components/orders/orders-header';
 import Price from 'components/price';
-import { getCustomerOrders } from 'lib/shopify';
-import { toPrintDate } from 'lib/utils';
+import { getCustomerOrders, getOrdersMetafields } from 'lib/shopify';
+import { isBeforeToday, toPrintDate } from 'lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default async function AccountPage() {
-  const orders = await getCustomerOrders();
+  const [orders, ordersMetafields] = await Promise.all([
+    getCustomerOrders(),
+    getOrdersMetafields()
+  ]);
 
   return (
     <div className="py-5 sm:py-10">
@@ -51,7 +54,7 @@ export default async function AccountPage() {
                     )}
                   </dl>
 
-                  <MobileOrderActions order={order} />
+                  <MobileOrderActions order={order} orderMetafields={ordersMetafields[order.id]} />
 
                   <div className="hidden lg:col-span-2 lg:flex lg:items-center lg:justify-end lg:space-x-4">
                     <Link
@@ -61,7 +64,12 @@ export default async function AccountPage() {
                       <span>View Order</span>
                       <span className="sr-only">{order.normalizedId}</span>
                     </Link>
-                    <ActivateWarranty order={order} />
+                    {!isBeforeToday(ordersMetafields[order.id]?.warrantyActivationDeadline) && (
+                      <ActivateWarranty
+                        order={order}
+                        orderMetafields={ordersMetafields[order.id]}
+                      />
+                    )}
                   </div>
                 </div>
 
@@ -76,7 +84,7 @@ export default async function AccountPage() {
                               src={item.image.url}
                               width={item.image.width}
                               height={item.image.height}
-                              alt={item.image.altText || item.title}
+                              alt={item.image.altText || item.title || 'Product Image'}
                               className="h-full w-full object-cover object-center"
                             />
                           ) : (

@@ -19,7 +19,6 @@ export const validateEnvironmentVariables = () => {
     'SHOPIFY_STOREFRONT_ACCESS_TOKEN',
     'SHOPIFY_CUSTOMER_ACCOUNT_API_CLIENT_ID',
     'SHOPIFY_CUSTOMER_ACCOUNT_API_URL',
-    'SHOPIFY_CUSTOMER_API_VERSION',
     'SHOPIFY_ORIGIN_URL',
     'SHOPIFY_ADMIN_API_ACCESS_TOKEN'
   ];
@@ -96,3 +95,14 @@ export function toPrintDate(date: string) {
     day: 'numeric'
   });
 }
+
+export const isBeforeToday = (date?: string | null) => {
+  if (!date) return false;
+  const today = new Date();
+  const compareDate = new Date(date);
+
+  today.setHours(0, 0, 0, 0);
+  compareDate.setHours(0, 0, 0, 0);
+
+  return compareDate <= today;
+};

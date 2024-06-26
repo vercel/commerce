@@ -1,15 +1,23 @@
 'use client';
 
-import { Order } from 'lib/shopify/types';
+import { Order, OrderMetafield, WarrantyStatus } from 'lib/shopify/types';
 import { useState } from 'react';
 import ActivateWarrantyModal from './activate-warranty-modal';
+import WarrantyActivatedBadge from './warranty-activated-badge';
 
 type ActivateWarrantyModalProps = {
   order: Order;
+  orderMetafields?: OrderMetafield;
 };
 
-const ActivateWarranty = ({ order }: ActivateWarrantyModalProps) => {
+const ActivateWarranty = ({ order, orderMetafields }: ActivateWarrantyModalProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const isWarrantyActivated = orderMetafields?.warrantyStatus === WarrantyStatus.Activated;
+
+  if (isWarrantyActivated) {
+    return <WarrantyActivatedBadge />;
+  }
+
   return (
     <>
       <button

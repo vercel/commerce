@@ -2,6 +2,7 @@
 export const getCustomerQuery = /* GraphQL */ `
   query customer {
     customer {
+      id
       emailAddress {
         emailAddress
       }

@@ -52,6 +52,7 @@ export type Customer = {
   firstName?: string;
   lastName?: string;
   displayName?: string;
+  id: string;
 };
 
 export type Image = {
@@ -856,3 +857,13 @@ export enum WarrantyStatus {
   NotActivated = 'Not Activated',
   LimitedActivated = 'Limited Activation'
 }
+
+export type ShopifyOrderMetafield = {
+  warrantyStatus: { value: WarrantyStatus } | null;
+  warrantyActivationDeadline: { value: string } | null;
+};
+
+export type OrderMetafield = {
+  warrantyStatus: WarrantyStatus | null;
+  warrantyActivationDeadline: string | null;
+};

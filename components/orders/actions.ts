@@ -1,8 +1,9 @@
 'use server';
 
 import { handleUploadFile } from 'components/form/file-input/actions';
+import { TAGS } from 'lib/constants';
 import { updateOrderMetafields } from 'lib/shopify';
-import { revalidatePath } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 
 export const activateWarranty = async (orderId: string, formData: FormData) => {
   let odometerFileId = null;
@@ -37,8 +38,9 @@ export const activateWarranty = async (orderId: string, formData: FormData) => {
       orderId,
       metafields: rawFormData
     });
-    revalidatePath('/account');
+
+    revalidateTag(TAGS.orderMetafields);
   } catch (error) {
-    console.log(error);
+    console.log('activateWarranty action', error);
   }
 };
