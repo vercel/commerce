@@ -32,3 +32,15 @@ export const getMetaobjectsByIdsQuery = /* GraphQL */ `
     }
   }
 `;
+
+export const getFileQuery = /* GraphQL */ `
+  query getFile($id: ID!) {
+    node(id: $id) {
+      ... on GenericFile {
+        id
+        url
+        alt
+      }
+    }
+  }
+`;

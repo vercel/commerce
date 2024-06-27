@@ -858,12 +858,28 @@ export enum WarrantyStatus {
   LimitedActivated = 'Limited Activation'
 }
 
-export type ShopifyOrderMetafield = {
-  warrantyStatus: { value: WarrantyStatus } | null;
-  warrantyActivationDeadline: { value: string } | null;
+export type OrderMetafieldValue<T = string> = {
+  value: T;
+  id: string;
+  key: string;
 };
 
-export type OrderMetafield = {
-  warrantyStatus: WarrantyStatus | null;
-  warrantyActivationDeadline: string | null;
+export type ShopifyOrderMetafield = {
+  warrantyStatus: OrderMetafieldValue | null;
+  warrantyActivationDeadline: OrderMetafieldValue | null;
+  warrantyActivationOdometer: OrderMetafieldValue | null;
+  warrantyActivationInstallation: OrderMetafieldValue | null;
+  warrantyActivationSelfInstall: OrderMetafieldValue | null;
+  warrantyActivationVIN: OrderMetafieldValue | null;
+  warrantyActivationMileage: OrderMetafieldValue | null;
 };
+
+export type File = {
+  id: string;
+  url: string;
+  alt: string;
+};
+
+export type UpdateOrderMetafieldInput =
+  | { key: string; value?: string | null; type: string; namespace: string }
+  | { id: string; value?: string | null; key: string };

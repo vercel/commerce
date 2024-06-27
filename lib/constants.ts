@@ -64,7 +64,7 @@ export const ADD_ON_PRODUCT_TYPES = {
 
 export const WARRANTY_FIELDS = [
   'warranty_activation_odometer',
-  'warranty_activation_installation',
+  ['warranty_activation_installation', 'warranty_activation_self_install'],
   'warranty_activation_vin',
   'warranty_activation_mileage'
 ];

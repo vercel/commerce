@@ -37,7 +37,7 @@ import {
 import { getCustomerQuery } from './queries/customer';
 import { getMenuQuery } from './queries/menu';
 import { getMetaobjectQuery, getMetaobjectsQuery } from './queries/metaobject';
-import { getImageQuery, getMetaobjectsByIdsQuery } from './queries/node';
+import { getFileQuery, getImageQuery, getMetaobjectsByIdsQuery } from './queries/node';
 import { getCustomerOrderQuery, getOrderMetafieldsQuery } from './queries/order';
 import { getCustomerOrderMetafieldsQuery, getCustomerOrdersQuery } from './queries/orders';
 import { getPageQuery, getPagesQuery } from './queries/page';
@@ -53,6 +53,7 @@ import {
   Collection,
   Connection,
   Customer,
+  File,
   FileCreateInput,
   Filter,
   Fulfillment,
@@ -63,7 +64,6 @@ import {
   Metaobject,
   Money,
   Order,
-  OrderMetafield,
   Page,
   PageInfo,
   Product,
@@ -105,6 +105,7 @@ import {
   ShopifyUpdateOrderMetafieldsOperation,
   Transaction,
   TransmissionType,
+  UpdateOrderMetafieldInput,
   UploadInput,
   WarrantyStatus
 } from './types';
@@ -1092,17 +1093,14 @@ export const updateOrderMetafields = async ({
   metafields
 }: {
   orderId: string;
-  metafields: { key: string; value: string | undefined | null; type: string }[];
+  metafields: Array<UpdateOrderMetafieldInput>;
 }) => {
-  const validMetafields = (
-    metafields.filter((field) => Boolean(field)) as Array<Omit<Metafield, 'namespace'>>
-  ).map((field) => ({
-    ...field,
-    namespace: 'custom'
-  }));
+  const validMetafields = metafields.filter((field) => Boolean(field.value)) as Array<Metafield>;
+
+  if (validMetafields.length === 0) return null;
 
   const shouldSetWarrantyStatusToActivated = WARRANTY_FIELDS.every((field) =>
-    validMetafields.find(({ key }) => key === field)
+    validMetafields.find(({ key }) => (Array.isArray(field) ? field.includes(key) : key === field))
   );
 
   const response = await adminFetch<ShopifyUpdateOrderMetafieldsOperation>({
@@ -1127,7 +1125,7 @@ export const updateOrderMetafields = async ({
   return response.body.data.orderUpdate.order.id;
 };
 
-export const getOrdersMetafields = async (): Promise<{ [key: string]: OrderMetafield }> => {
+export const getOrdersMetafields = async (): Promise<{ [key: string]: ShopifyOrderMetafield }> => {
   const customer = await getCustomer();
   const res = await adminFetch<{
     data: {
@@ -1153,16 +1151,13 @@ export const getOrdersMetafields = async (): Promise<{ [key: string]: OrderMetaf
   return res.body.data.customer.orders.nodes.reduce(
     (acc, order) => ({
       ...acc,
-      [order.id]: {
-        warrantyStatus: order.warrantyStatus?.value ?? null,
-        warrantyActivationDeadline: order.warrantyActivationDeadline?.value ?? null
-      }
+      [order.id]: order
     }),
-    {} as { [key: string]: OrderMetafield }
+    {} as { [key: string]: ShopifyOrderMetafield }
   );
 };
 
-export const getOrderMetafields = async (orderId: string): Promise<OrderMetafield> => {
+export const getOrderMetafields = async (orderId: string): Promise<ShopifyOrderMetafield> => {
   const res = await adminFetch<{
     data: {
       order: {
@@ -1175,13 +1170,26 @@ export const getOrderMetafields = async (orderId: string): Promise<OrderMetafiel
   }>({
     query: getOrderMetafieldsQuery,
     variables: { id: `gid://shopify/Order/${orderId}` },
-    tags: [`${TAGS.orderMetafields}/${orderId}`]
+    tags: [TAGS.orderMetafields]
   });
 
   const order = res.body.data.order;
 
-  return {
-    warrantyStatus: order.warrantyStatus?.value ?? null,
-    warrantyActivationDeadline: order.warrantyActivationDeadline?.value ?? null
-  };
+  return order;
+};
+
+export const getFile = async (id: string) => {
+  const res = await shopifyFetch<{
+    data: {
+      node: File;
+    };
+    variables: {
+      id: string;
+    };
+  }>({
+    query: getFileQuery,
+    variables: { id }
+  });
+
+  return res.body.data.node;
 };

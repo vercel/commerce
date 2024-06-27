@@ -1,3 +1,5 @@
+'use client';
+
 import { Field, Input as HeadlessInput, Label } from '@headlessui/react';
 import { InputHTMLAttributes } from 'react';
 

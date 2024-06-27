@@ -3,7 +3,7 @@
 import { Button, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
-import { Order, OrderMetafield, WarrantyStatus } from 'lib/shopify/types';
+import { Order, ShopifyOrderMetafield, WarrantyStatus } from 'lib/shopify/types';
 import { isBeforeToday } from 'lib/utils';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -14,11 +14,11 @@ const MobileOrderActions = ({
   orderMetafields
 }: {
   order: Order;
-  orderMetafields?: OrderMetafield;
+  orderMetafields?: ShopifyOrderMetafield;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const isWarrantyActivated = orderMetafields?.warrantyStatus === WarrantyStatus.Activated;
-  const isPassDeadline = isBeforeToday(orderMetafields?.warrantyActivationDeadline);
+  const isWarrantyActivated = orderMetafields?.warrantyStatus?.value === WarrantyStatus.Activated;
+  const isPassDeadline = isBeforeToday(orderMetafields?.warrantyActivationDeadline?.value);
 
   return (
     <>
@@ -66,7 +66,12 @@ const MobileOrderActions = ({
           </div>
         </MenuItems>
       </Menu>
-      <ActivateWarrantyModal isOpen={isOpen} onClose={() => setIsOpen(false)} orderId={order.id} />
+      <ActivateWarrantyModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        orderId={order.id}
+        orderMetafields={orderMetafields}
+      />
     </>
   );
 };

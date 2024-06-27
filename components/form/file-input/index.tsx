@@ -1,20 +1,38 @@
+'use client';
+
 import { PhotoIcon } from '@heroicons/react/24/outline';
-import { ChangeEvent, useId, useState } from 'react';
+import LoadingDots from 'components/loading-dots';
+import { File as ShopifyFile } from 'lib/shopify/types';
+import { ChangeEvent, useEffect, useId, useState, useTransition } from 'react';
+import { getFileDetails } from './actions';
 
 type FileInputProps = {
   name: string;
   label: string;
+  fileId?: string | null;
 };
 
-const FileInput = ({ name, label }: FileInputProps) => {
+const FileInput = ({ name, label, fileId }: FileInputProps) => {
   const id = useId();
   const [file, setFile] = useState<File | undefined>();
+  const [defaultFileDetails, setDefaultFileDetails] = useState<ShopifyFile | undefined>();
+
+  const [loading, startTransition] = useTransition();
 
   const onFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setFile(e.target.files[0]);
     }
   };
+
+  useEffect(() => {
+    if (!fileId) return;
+
+    startTransition(async () => {
+      const fileResponse = await getFileDetails(fileId);
+      setDefaultFileDetails(fileResponse);
+    });
+  }, [fileId]);
 
   return (
     <div>
@@ -34,7 +52,9 @@ const FileInput = ({ name, label }: FileInputProps) => {
           </div>
         </div>
       </div>
-      {file && <p className="mt-2 text-sm text-gray-500">{file.name}</p>}
+      <p className="mt-2 text-sm text-gray-500">
+        {loading ? <LoadingDots className="bg-dark" /> : file?.name || defaultFileDetails?.alt}
+      </p>
     </div>
   );
 };

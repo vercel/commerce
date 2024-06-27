@@ -1,7 +1,7 @@
 'use server';
 
-import { createFile, stageUploadFile, uploadFile } from 'lib/shopify';
-import { StagedUploadsCreatePayload, UploadInput } from 'lib/shopify/types';
+import { createFile, getFile, stageUploadFile, uploadFile } from 'lib/shopify';
+import { File as ShopifyFile, StagedUploadsCreatePayload, UploadInput } from 'lib/shopify/types';
 
 const prepareFilePayload = ({
   stagedFileUpload,
@@ -82,5 +82,15 @@ export const handleUploadFile = async ({ file }: { file: File }) => {
     }
   } catch (error) {
     console.log('handleUploadFile action', error);
+  }
+};
+
+export const getFileDetails = async (fileId?: string | null): Promise<ShopifyFile | undefined> => {
+  if (!fileId) return undefined;
+  try {
+    const file = await getFile(fileId);
+    return file;
+  } catch (error) {
+    console.log('getFileDetails action', error);
   }
 };
