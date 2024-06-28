@@ -64,3 +64,8 @@ export const findByID = <T>(collection: string, id: string) => {
   const url = `${process.env.CMS_URL}/api/${collection}/${id}`;
   return ajax<T>('GET', url);
 };
+
+export const create = <T extends object>(collection: string, body: Partial<T>) => {
+  const url = `${process.env.CMS_URL}/api/${collection}`;
+  return ajax<T>('POST', url, body);
+};

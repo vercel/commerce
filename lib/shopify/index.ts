@@ -1,23 +1,19 @@
 import { SHOPIFY_GRAPHQL_API_ENDPOINT, TAGS } from 'lib/constants';
-import { Where, find, findByID } from 'lib/shopify/payload';
-import { Category, Media, Option, Product } from 'lib/shopify/payload-types';
+import { Where, create, find, findByID } from 'lib/shopify/payload';
+import { Cart, Category, Media, Option, Product } from 'lib/shopify/payload-types';
 import { isShopifyError } from 'lib/type-guards';
 import { ensureStartsWith } from 'lib/utils';
 import { revalidateTag } from 'next/cache';
 import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
-import {
-  addToCartMutation,
-  createCartMutation,
-  editCartItemsMutation,
-  removeFromCartMutation
-} from './mutations/cart';
+import { editCartItemsMutation, removeFromCartMutation } from './mutations/cart';
 import { getCartQuery } from './queries/cart';
 import { getPageQuery } from './queries/page';
 import {
-  Cart,
+  CartItem,
   Collection,
   Connection,
+  Cart as ExCart,
   Product as ExProduct,
   Image,
   Menu,
@@ -25,10 +21,8 @@ import {
   Page,
   ProductOption,
   ProductVariant,
-  ShopifyAddToCartOperation,
   ShopifyCart,
   ShopifyCartOperation,
-  ShopifyCreateCartOperation,
   ShopifyPageOperation,
   ShopifyRemoveFromCartOperation,
   ShopifyUpdateCartOperation
@@ -102,7 +96,7 @@ const removeEdgesAndNodes = (array: Connection<any>) => {
   return array.edges.map((edge) => edge?.node);
 };
 
-const reshapeCart = (cart: ShopifyCart): Cart => {
+const reshapeCart = (cart: ShopifyCart): ExCart => {
   if (!cart.cost?.totalTaxAmount) {
     cart.cost.totalTaxAmount = {
       amount: '0.0',
@@ -116,31 +110,72 @@ const reshapeCart = (cart: ShopifyCart): Cart => {
   };
 };
 
-export async function createCart(): Promise<Cart> {
-  const res = await shopifyFetch<ShopifyCreateCartOperation>({
-    query: createCartMutation,
-    cache: 'no-store'
-  });
+const reshapeCartItems = (cartItems: Cart['lines']): CartItem[] => {
+  return (cartItems ?? []).map((item) => {
+    const product = item.product as Product;
+    const variant = product.variants.find((v) => v.id === item.variant);
 
-  return reshapeCart(res.body.data.cartCreate.cart);
+    return {
+      id: product.id,
+      quantity: item.quantity,
+      merchandise: {
+        id: item.variant,
+        title: product.title,
+        selectedOptions: [],
+        product: reshapeProduct(product)
+      },
+      cost: {
+        totalAmount: reshapePrice(variant?.price!)
+      }
+    };
+  });
+};
+
+const reshapeC = (cart: Cart): ExCart => {
+  return {
+    id: cart.id,
+    checkoutUrl: '/api/checkout',
+    cost: {
+      totalAmount: {
+        currencyCode: 'EUR',
+        amount: cart.totalAmount?.toString()!
+      },
+      totalTaxAmount: {
+        currencyCode: 'EUR',
+        amount: '0.0'
+      },
+      subtotalAmount: {
+        currencyCode: 'EUR',
+        amount: '0.0'
+      }
+    },
+    lines: reshapeCartItems(cart.lines),
+    totalQuantity: 0
+  };
+};
+
+export async function createCart(): Promise<ExCart> {
+  const cart = await create<Cart>('carts', { lines: [] });
+  return reshapeC(cart);
 }
 
 export async function addToCart(
   cartId: string,
   lines: { merchandiseId: string; quantity: number }[]
-): Promise<Cart> {
-  const res = await shopifyFetch<ShopifyAddToCartOperation>({
-    query: addToCartMutation,
-    variables: {
-      cartId,
-      lines
-    },
-    cache: 'no-store'
-  });
-  return reshapeCart(res.body.data.cartLinesAdd.cart);
+): Promise<ExCart> {
+  console.log('TEST');
+  // const res = await shopifyFetch<ShopifyAddToCartOperation>({
+  //   query: addToCartMutation,
+  //   variables: {
+  //     cartId,
+  //     lines
+  //   },
+  //   cache: 'no-store'
+  // });
+  // return reshapeCart(res.body.data.cartLinesAdd.cart);
 }
 
-export async function removeFromCart(cartId: string, lineIds: string[]): Promise<Cart> {
+export async function removeFromCart(cartId: string, lineIds: string[]): Promise<ExCart> {
   const res = await shopifyFetch<ShopifyRemoveFromCartOperation>({
     query: removeFromCartMutation,
     variables: {
@@ -156,7 +191,7 @@ export async function removeFromCart(cartId: string, lineIds: string[]): Promise
 export async function updateCart(
   cartId: string,
   lines: { id: string; merchandiseId: string; quantity: number }[]
-): Promise<Cart> {
+): Promise<ExCart> {
   const res = await shopifyFetch<ShopifyUpdateCartOperation>({
     query: editCartItemsMutation,
     variables: {
@@ -169,7 +204,7 @@ export async function updateCart(
   return reshapeCart(res.body.data.cartLinesUpdate.cart);
 }
 
-export async function getCart(cartId: string): Promise<Cart | undefined> {
+export async function getCart(cartId: string): Promise<ExCart | undefined> {
   const res = await shopifyFetch<ShopifyCartOperation>({
     query: getCartQuery,
     variables: { cartId },
@@ -228,18 +263,24 @@ const reshapeOptions = (variants: Product['variants']): ProductOption[] => {
   }));
 };
 
+const reshapeSelectedOption = (
+  selectedOptions: Product['variants'][0]['selectedOptions']
+): Array<{ name: string; value: string }> => {
+  return (selectedOptions ?? []).map((selectedOption) => {
+    const option = selectedOption.option as Option;
+    return {
+      name: option.name,
+      value: option.values.find(({ value }) => value === selectedOption.value)?.label!
+    };
+  });
+};
+
 const reshapeVariants = (variants: Product['variants']): ProductVariant[] => {
   return variants.map((variant) => ({
     id: variant.id!,
     title: `${variant.price.amount} ${variant.price.currencyCode}`,
     availableForSale: true,
-    selectedOptions: (variant.selectedOptions ?? []).map((selectedOption) => {
-      const option = selectedOption.option as Option;
-      return {
-        name: option.name,
-        value: option.values.find(({ value }) => value === selectedOption.value)?.label!
-      };
-    }),
+    selectedOptions: reshapeSelectedOption(variant.selectedOptions),
     price: reshapePrice(variant.price)
   }));
 };
