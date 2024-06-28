@@ -44,25 +44,26 @@ const reshapeCartItems = (lines: PayloadCart['lines']): CartItem[] => {
 };
 
 const reshapeCart = (cart: PayloadCart): Cart => {
+  const currencyCode = cart.currencyCode!;
   return {
     id: cart.id,
     checkoutUrl: '/api/checkout',
     cost: {
       totalAmount: {
-        currencyCode: 'EUR',
+        currencyCode,
         amount: cart.totalAmount?.toString()!
       },
       totalTaxAmount: {
-        currencyCode: 'EUR',
-        amount: '0.0'
+        currencyCode,
+        amount: cart.totalTaxAmount?.toString()!
       },
       subtotalAmount: {
-        currencyCode: 'EUR',
+        currencyCode,
         amount: '0.0'
       }
     },
     lines: reshapeCartItems(cart.lines),
-    totalQuantity: 0
+    totalQuantity: cart.totalQuantity ?? 0
   };
 };
 
