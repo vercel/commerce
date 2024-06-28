@@ -116,7 +116,7 @@ const reshapeCartItems = (cartItems: Cart['lines']): CartItem[] => {
     const variant = product.variants.find((v) => v.id === item.variant);
 
     return {
-      id: product.id,
+      id: item.variant,
       quantity: item.quantity,
       merchandise: {
         id: item.variant,
