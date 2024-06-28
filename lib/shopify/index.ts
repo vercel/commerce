@@ -1,5 +1,6 @@
 import { SHOPIFY_GRAPHQL_API_ENDPOINT, TAGS } from 'lib/constants';
-import { Where, create, find, findByID } from 'lib/shopify/payload';
+import { AjaxError } from 'lib/shopify/ajax';
+import { Where, create, find, findByID, update } from 'lib/shopify/payload';
 import { Cart, Category, Media, Option, Product } from 'lib/shopify/payload-types';
 import { isShopifyError } from 'lib/type-guards';
 import { ensureStartsWith } from 'lib/utils';
@@ -7,7 +8,6 @@ import { revalidateTag } from 'next/cache';
 import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { editCartItemsMutation, removeFromCartMutation } from './mutations/cart';
-import { getCartQuery } from './queries/cart';
 import { getPageQuery } from './queries/page';
 import {
   CartItem,
@@ -22,7 +22,6 @@ import {
   ProductOption,
   ProductVariant,
   ShopifyCart,
-  ShopifyCartOperation,
   ShopifyPageOperation,
   ShopifyRemoveFromCartOperation,
   ShopifyUpdateCartOperation
@@ -116,7 +115,7 @@ const reshapeCartItems = (cartItems: Cart['lines']): CartItem[] => {
     const variant = product.variants.find((v) => v.id === item.variant);
 
     return {
-      id: item.variant,
+      id: item.id!,
       quantity: item.quantity,
       merchandise: {
         id: item.variant,
@@ -156,23 +155,35 @@ const reshapeC = (cart: Cart): ExCart => {
 
 export async function createCart(): Promise<ExCart> {
   const cart = await create<Cart>('carts', { lines: [] });
-  return reshapeC(cart);
+  return reshapeC(cart.doc);
 }
 
 export async function addToCart(
   cartId: string,
   lines: { merchandiseId: string; quantity: number }[]
 ): Promise<ExCart> {
-  console.log('TEST');
-  // const res = await shopifyFetch<ShopifyAddToCartOperation>({
-  //   query: addToCartMutation,
-  //   variables: {
-  //     cartId,
-  //     lines
-  //   },
-  //   cache: 'no-store'
-  // });
-  // return reshapeCart(res.body.data.cartLinesAdd.cart);
+  const products = await find<Product>('products', {
+    where: {
+      'variants.id': {
+        in: lines.map((line) => line.merchandiseId)
+      }
+    }
+  });
+
+  const cart = await update<Cart>('carts', cartId, {
+    lines: lines.map((line) => {
+      const product = products.docs.find((p) =>
+        p.variants.some((variant) => variant.id === line.merchandiseId)
+      );
+      return {
+        product: product?.id!,
+        variant: line.merchandiseId,
+        quantity: line.quantity
+      };
+    })
+  });
+
+  return reshapeC(cart.doc);
 }
 
 export async function removeFromCart(cartId: string, lineIds: string[]): Promise<ExCart> {
@@ -192,6 +203,7 @@ export async function updateCart(
   cartId: string,
   lines: { id: string; merchandiseId: string; quantity: number }[]
 ): Promise<ExCart> {
+  console.log('TEST');
   const res = await shopifyFetch<ShopifyUpdateCartOperation>({
     query: editCartItemsMutation,
     variables: {
@@ -205,19 +217,18 @@ export async function updateCart(
 }
 
 export async function getCart(cartId: string): Promise<ExCart | undefined> {
-  const res = await shopifyFetch<ShopifyCartOperation>({
-    query: getCartQuery,
-    variables: { cartId },
-    tags: [TAGS.cart],
-    cache: 'no-store'
-  });
+  try {
+    const cart = await findByID<Cart>('carts', cartId);
+    return reshapeC(cart);
+  } catch (error: unknown) {
+    if (error instanceof AjaxError) {
+      if (error.statusCode === 404) {
+        return undefined;
+      }
+    }
 
-  // Old carts becomes `null` when you checkout.
-  if (!res.body.data.cart) {
-    return undefined;
+    throw error;
   }
-
-  return reshapeCart(res.body.data.cart);
 }
 
 export async function getCollection(handle: string): Promise<Collection | undefined> {

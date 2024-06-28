@@ -13,7 +13,7 @@ export class AjaxError extends Error {
   }
 }
 
-type AjaxMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
+type AjaxMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
 export const ajax = async <T>(method: AjaxMethod, url: string, data?: object): Promise<T> => {
   const response = await fetch(url, {

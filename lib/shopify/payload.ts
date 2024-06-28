@@ -45,6 +45,11 @@ export type PaginatedDocs<T> = {
   totalPages: number;
 };
 
+type Doc<T> = {
+  message: string;
+  doc: T;
+};
+
 type FindParams = {
   where?: Where;
   depth?: number;
@@ -67,5 +72,10 @@ export const findByID = <T>(collection: string, id: string) => {
 
 export const create = <T extends object>(collection: string, body: Partial<T>) => {
   const url = `${process.env.CMS_URL}/api/${collection}`;
-  return ajax<T>('POST', url, body);
+  return ajax<Doc<T>>('POST', url, body);
+};
+
+export const update = <T extends object>(collection: string, id: string, body: Partial<T>) => {
+  const url = `${process.env.CMS_URL}/api/${collection}/${id}`;
+  return ajax<Doc<T>>('PATCH', url, body);
 };
