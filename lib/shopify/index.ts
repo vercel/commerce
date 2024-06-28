@@ -20,6 +20,8 @@ import {
   ProductVariant
 } from './types';
 
+const CURRENCY_CODE = 'eur';
+
 const payload = new Payload({ baseUrl: process.env.CMS_URL });
 
 const reshapeCartItems = (lines: PayloadCart['lines']): CartItem[] => {
@@ -170,10 +172,7 @@ const reshapeImage = (media: PayloadMedia): Image => {
   };
 };
 
-type Price = {
-  amount: number;
-  currencyCode: string;
-};
+type Price = { amount: number; currencyCode: string };
 
 const reshapePrice = (price: Price): Money => {
   return {
@@ -195,7 +194,7 @@ const reshapeOptions = (variants: PayloadProduct['variants']): ProductOption[] =
   return Array.from(options, ([id, option]) => ({
     id,
     name: option.name,
-    values: option.values.map((value) => value.label)
+    values: option.values.map(({ label }) => label)
   }));
 };
 
@@ -212,16 +211,20 @@ const reshapeSelectedOption = (
 };
 
 const reshapeVariants = (variants: PayloadProduct['variants']): ProductVariant[] => {
-  return variants.map((variant) => ({
-    id: variant.id!,
-    title: `${variant.price.amount} ${variant.price.currencyCode}`,
-    availableForSale: true,
-    selectedOptions: reshapeSelectedOption(variant.selectedOptions),
-    price: reshapePrice(variant.price)
-  }));
+  return variants
+    .filter((variant) => variant.price.currencyCode === CURRENCY_CODE)
+    .map((variant) => ({
+      id: variant.id!,
+      title: `${variant.price.amount} ${variant.price.currencyCode}`,
+      availableForSale: true,
+      selectedOptions: reshapeSelectedOption(variant.selectedOptions),
+      price: reshapePrice(variant.price)
+    }));
 };
 
 const reshapeProduct = (product: PayloadProduct): Product => {
+  const sortedVariants = product.variants.sort((a, b) => a.price.amount - b.price.amount);
+
   return {
     id: product.id,
     handle: product.id,
@@ -231,8 +234,8 @@ const reshapeProduct = (product: PayloadProduct): Product => {
     descriptionHtml: product.description,
     options: reshapeOptions(product.variants),
     priceRange: {
-      maxVariantPrice: reshapePrice(product.variants[0]?.price!),
-      minVariantPrice: reshapePrice(product.variants[0]?.price!)
+      maxVariantPrice: reshapePrice(sortedVariants.at(0)?.price!),
+      minVariantPrice: reshapePrice(sortedVariants.at(-1)?.price!)
     },
     featuredImage: reshapeImage(product.media as PayloadMedia),
     images: [reshapeImage(product.media as PayloadMedia)],
