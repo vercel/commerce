@@ -68,6 +68,7 @@ export interface Post {
 export interface Category {
   id: string;
   title: string;
+  description?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -175,7 +176,6 @@ export interface Product {
  */
 export interface Cart {
   id: string;
-  name: string;
   totalAmount?: number | null;
   user?: (string | null) | User;
   lines?:

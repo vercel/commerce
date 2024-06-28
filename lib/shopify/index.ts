@@ -282,10 +282,10 @@ const reshapeCategory = (category: PayloadCategory): Collection => {
   return {
     handle: category.id,
     title: category.title,
-    description: category.title,
+    description: category.description!,
     seo: {
       title: category.title,
-      description: category.title
+      description: category.description!
     },
     path: `/search/${category.id}`,
     updatedAt: category.updatedAt
