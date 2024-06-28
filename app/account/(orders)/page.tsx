@@ -1,18 +1,17 @@
 import { InformationCircleIcon } from '@heroicons/react/24/outline';
+import OrderConfirmation from 'components/orders/order-confirmation';
 import ActivateWarranty from 'components/orders/activate-warranty';
 import MobileOrderActions from 'components/orders/mobile-order-actions';
 import OrdersHeader from 'components/orders/orders-header';
 import Price from 'components/price';
-import { getCustomerOrders, getOrdersMetafields } from 'lib/shopify';
-import { toPrintDate } from 'lib/utils';
+import { getCustomerOrders } from 'lib/shopify';
+import { isBeforeToday, toPrintDate } from 'lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
+import { Button } from 'components/ui';
 
 export default async function AccountPage() {
-  const [orders, ordersMetafields] = await Promise.all([
-    getCustomerOrders(),
-    getOrdersMetafields()
-  ]);
+  const orders = await getCustomerOrders();
 
   return (
     <div className="py-5 sm:py-10">
@@ -54,17 +53,19 @@ export default async function AccountPage() {
                     )}
                   </dl>
 
-                  <MobileOrderActions order={order} orderMetafields={ordersMetafields[order.id]} />
+                  <MobileOrderActions order={order} />
 
                   <div className="hidden lg:col-span-2 lg:flex lg:items-center lg:justify-end lg:space-x-4">
-                    <Link
-                      href={`/account/orders/${order.normalizedId}`}
-                      className="flex items-center justify-center rounded-md border border-gray-300 bg-white px-2.5 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                    >
-                      <span>View Order</span>
-                      <span className="sr-only">{order.normalizedId}</span>
+                    <Link href={`/account/orders/${order.normalizedId}`} passHref legacyBehavior>
+                      <Button as="a">
+                        View Order
+                        <span className="sr-only">{order.normalizedId}</span>
+                      </Button>
                     </Link>
-                    <ActivateWarranty order={order} orderMetafields={ordersMetafields[order.id]} />
+                    {!isBeforeToday(order?.warrantyActivationDeadline) && (
+                      <ActivateWarranty order={order} />
+                    )}
+                    {!order.orderConfirmation && <OrderConfirmation order={order} />}
                   </div>
                 </div>
 

@@ -1,24 +1,24 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { Button, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
-import { Order, ShopifyOrderMetafield, WarrantyStatus } from 'lib/shopify/types';
+import { Order, WarrantyStatus } from 'lib/shopify/types';
 import { isBeforeToday } from 'lib/utils';
 import Link from 'next/link';
 import { useState } from 'react';
 import ActivateWarrantyModal from './activate-warranty-modal';
 
-const MobileOrderActions = ({
-  order,
-  orderMetafields
-}: {
-  order: Order;
-  orderMetafields?: ShopifyOrderMetafield;
-}) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const isWarrantyActivated = orderMetafields?.warrantyStatus?.value === WarrantyStatus.Activated;
-  const isPassDeadline = isBeforeToday(orderMetafields?.warrantyActivationDeadline?.value);
+const OrderConfirmationModal = dynamic(() => import('./order-confirmation-modal'));
+
+const MobileOrderActions = ({ order }: { order: Order }) => {
+  const [isWarrantyOpen, setIsWarrantyOpen] = useState(false);
+  const [isOrderConfirmaionOpen, setIsOrderConfirmationOpen] = useState(false);
+
+  const isWarrantyActivated = order?.warrantyStatus === WarrantyStatus.Activated;
+  const isPassDeadline = isBeforeToday(order?.warrantyActivationDeadline);
+  const isOrderConfirmed = order?.orderConfirmation;
 
   return (
     <>
@@ -56,9 +56,24 @@ const MobileOrderActions = ({
                       focus ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                       'flex w-full px-4 py-2 text-sm'
                     )}
-                    onClick={() => setIsOpen(true)}
+                    onClick={() => setIsWarrantyOpen(true)}
                   >
                     Activate Warranty
+                  </Button>
+                )}
+              </MenuItem>
+            )}
+            {!isOrderConfirmed && (
+              <MenuItem>
+                {({ focus }) => (
+                  <Button
+                    className={clsx(
+                      focus ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                      'flex w-full px-4 py-2 text-sm'
+                    )}
+                    onClick={() => setIsOrderConfirmationOpen(true)}
+                  >
+                    Confirm Order
                   </Button>
                 )}
               </MenuItem>
@@ -67,11 +82,17 @@ const MobileOrderActions = ({
         </MenuItems>
       </Menu>
       <ActivateWarrantyModal
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
+        isOpen={isWarrantyOpen}
+        onClose={() => setIsWarrantyOpen(false)}
         orderId={order.id}
-        orderMetafields={orderMetafields}
       />
+      {!isOrderConfirmed && (
+        <OrderConfirmationModal
+          isOpen={isOrderConfirmaionOpen}
+          onClose={() => setIsOrderConfirmationOpen(false)}
+          order={order}
+        />
+      )}
     </>
   );
 };

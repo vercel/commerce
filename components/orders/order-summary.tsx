@@ -54,8 +54,8 @@ export default function OrderSummary({ order }: { order: Order }) {
             <Text>Subtotal</Text>
             <Price
               className="text-sm font-semibold"
-              amount={order.totalPrice!.amount}
-              currencyCode={order.totalPrice!.currencyCode}
+              amount={order.subtotal!.amount}
+              currencyCode={order.subtotal!.currencyCode}
             />
           </div>
           <div className="flex items-center justify-between">

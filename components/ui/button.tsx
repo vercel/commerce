@@ -3,7 +3,8 @@ import React from 'react';
 import { Button as ButtonBase, ButtonProps as ButtonBaseProps } from '@headlessui/react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import clsx from 'clsx';
-import Spinner from './spinner';
+import LoadingDots from './loading-dots';
+import { focusInput } from 'lib/utils';
 
 const buttonVariants = tv({
   slots: {
@@ -15,7 +16,9 @@ const buttonVariants = tv({
       // transition
       'transition-all duration-100 ease-in-out',
       // disabled
-      'disabled:pointer-events-none disabled:shadow-none'
+      'disabled:pointer-events-none disabled:shadow-none',
+      'shadow-sm',
+      focusInput
     ],
     loading: 'pointer-events-none flex shrink-0 items-center justify-center gap-1.5'
   },
@@ -36,7 +39,9 @@ const buttonVariants = tv({
       content: {}
     },
     variant: {
-      solid: {},
+      solid: {
+        root: 'border border-transparent'
+      },
       outlined: {
         root: 'border bg-white'
       },
@@ -49,17 +54,32 @@ const buttonVariants = tv({
       variant: 'solid',
       class: {
         root: [
-          // border
-          'border-transparent',
           // text color
           'text-white',
           // background color
           'bg-primary',
           // hover color
-          'hover:bg-primary-empahsis',
+          'hover:bg-primary-emphasis',
           // disabled
           'disabled:bg-primary-muted',
           'pressed:bg-primary-emphasis/80'
+        ]
+      }
+    },
+    {
+      color: 'content',
+      variant: 'solid',
+      class: {
+        root: [
+          // text color
+          'text-white',
+          // background color
+          'bg-content',
+          // hover color
+          'hover:bg-content-emphasis',
+          // disabled
+          'disabled:bg-content-muted',
+          'pressed:bg-content-emphasis/80'
         ]
       }
     },
@@ -75,25 +95,46 @@ const buttonVariants = tv({
           // background color
           'bg-white',
           // hover color
-          'hover:bg-primary/10',
+          'hover:bg-primary/5',
           // disabled
           'disabled:border-primary-muted disabled:text-primary-muted'
+        ]
+      }
+    },
+    {
+      color: 'content',
+      variant: 'outlined',
+      class: {
+        root: [
+          // border
+          'border-content-subtle',
+          // text color
+          'text-content-emphasis',
+          // background color
+          'bg-white',
+          // hover color
+          'hover:bg-content/5',
+          // disabled
+          'disabled:border-content-muted disabled:text-content-muted'
         ]
       }
     }
   ],
   defaultVariants: {
-    variant: 'solid',
-    color: 'primary',
+    variant: 'outlined',
+    color: 'content',
     size: 'md'
   }
 });
 
-interface ButtonProps extends Omit<ButtonBaseProps, 'color'>, VariantProps<typeof buttonVariants> {
+export interface ButtonProps
+  extends Omit<ButtonBaseProps, 'color' | 'as'>,
+    VariantProps<typeof buttonVariants> {
   isLoading?: boolean;
   loadingText?: string;
   className?: string;
   disabled?: boolean;
+  as?: React.ElementType;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -105,14 +146,19 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       isLoading,
       loadingText = 'Loading',
       size,
+      color,
       variant,
+      as,
       ...props
     }: ButtonProps,
     forwardedRef
   ) => {
-    const { loading, root } = buttonVariants({ variant, size });
+    const { loading, root } = buttonVariants({ variant, size, color });
+
+    const Component = as || 'button';
     return (
       <ButtonBase
+        as={Component}
         ref={forwardedRef}
         className={clsx(root(), className)}
         disabled={disabled || isLoading}
@@ -120,7 +166,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {isLoading ? (
           <span className={loading()}>
-            <Spinner />
+            <LoadingDots />
             <span className="sr-only">{loadingText}</span>
             <span>{loadingText}</span>
           </span>
@@ -134,4 +180,4 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
 Button.displayName = 'Button';
 
-export { Button, buttonVariants, type ButtonProps };
+export default Button;

@@ -30,6 +30,14 @@ export const getMetaobjectQuery = /* GraphQL */ `
           ... on Metaobject {
             id
           }
+          ... on MediaImage {
+            image {
+              url
+              altText
+              height
+              width
+            }
+          }
         }
         key
         value

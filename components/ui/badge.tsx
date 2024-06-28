@@ -19,7 +19,7 @@ const badgeStyles = tv({
   }
 });
 
-interface BadgeProps extends VariantProps<typeof badgeStyles> {
+export interface BadgeProps extends VariantProps<typeof badgeStyles> {
   content: string | number;
   className?: string;
   children: React.ReactNode;

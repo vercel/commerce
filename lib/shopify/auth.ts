@@ -390,6 +390,7 @@ export async function isLoggedIn(request: NextRequest, origin: string) {
   }
 
   newHeaders.set('x-shop-customer-token', `${customerTokenValue}`);
+  console.log('Customer Token', customerTokenValue);
   return NextResponse.next({
     request: {
       // New request headers

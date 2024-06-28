@@ -19,7 +19,7 @@ const text = tv(
   }
 );
 
-interface TextProps extends VariantProps<typeof text> {
+export interface TextProps extends VariantProps<typeof text> {
   className?: string;
   children: React.ReactNode;
   as?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'p';

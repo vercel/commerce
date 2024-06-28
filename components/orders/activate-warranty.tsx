@@ -1,6 +1,6 @@
 'use client';
 
-import { Order, ShopifyOrderMetafield, WarrantyStatus } from 'lib/shopify/types';
+import { Order, WarrantyStatus } from 'lib/shopify/types';
 import { isBeforeToday } from 'lib/utils';
 import { useState } from 'react';
 import ActivateWarrantyModal from './activate-warranty-modal';
@@ -8,13 +8,12 @@ import WarrantyActivatedBadge from './warranty-activated-badge';
 
 type ActivateWarrantyModalProps = {
   order: Order;
-  orderMetafields?: ShopifyOrderMetafield;
 };
 
-const ActivateWarranty = ({ order, orderMetafields }: ActivateWarrantyModalProps) => {
+const ActivateWarranty = ({ order }: ActivateWarrantyModalProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const isWarrantyActivated = orderMetafields?.warrantyStatus?.value === WarrantyStatus.Activated;
-  const isPassDeadline = isBeforeToday(orderMetafields?.warrantyActivationDeadline?.value);
+  const isWarrantyActivated = order?.warrantyStatus === WarrantyStatus.Activated;
+  const isPassDeadline = isBeforeToday(order?.warrantyActivationDeadline?.value);
 
   if (isWarrantyActivated) {
     return <WarrantyActivatedBadge />;
@@ -32,12 +31,7 @@ const ActivateWarranty = ({ order, orderMetafields }: ActivateWarrantyModalProps
       >
         Activate Warranty
       </button>
-      <ActivateWarrantyModal
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        orderId={order.id}
-        orderMetafields={orderMetafields}
-      />
+      <ActivateWarrantyModal isOpen={isOpen} onClose={() => setIsOpen(false)} orderId={order.id} />
     </>
   );
 };

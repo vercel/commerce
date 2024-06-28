@@ -141,17 +141,20 @@ export type Order = {
   fulfillments: Fulfillment[];
   transactions: Transaction[];
   lineItems: LineItem[];
-  shippingAddress?: Address;
-  billingAddress?: Address;
+  shippingAddress: Address;
+  billingAddress: Address;
   /** the price of all line items, excluding taxes and surcharges */
-  subtotal?: Money;
-  totalShipping?: Money;
-  totalTax?: Money;
-  totalPrice?: Money;
-  shippingMethod?: {
+  subtotal: Money;
+  totalShipping: Money;
+  totalTax: Money;
+  totalPrice: Money;
+  shippingMethod: {
     name: string;
     price: Money;
   };
+  warrantyStatus?: WarrantyStatus | null;
+  warrantyActivationDeadline?: Date | null;
+  orderConfirmation?: string | null;
 };
 
 export type ShopifyOrder = {
@@ -181,6 +184,9 @@ export type ShopifyOrder = {
   requiresShipping: boolean;
   shippingLine: ShopifyShippingLine;
   note: string | null;
+  warrantyStatus?: ShopifyMetafield;
+  warrantyActivationDeadline?: ShopifyMetafield;
+  orderConfirmation?: ShopifyMetafield;
 };
 
 type ShopifyShippingLine = {
@@ -372,14 +378,28 @@ export type ShopifyMetaobject = {
     value: string;
     reference: {
       id: string;
+      image?: Image;
     };
   }>;
+};
+
+export type ShopifyMetafield = {
+  id: string;
+  namespace: string;
+  key: string;
+  value: string;
 };
 
 export type Metaobject = {
   id: string;
   type: string;
   [key: string]: string;
+};
+
+export type OrderConfirmationContent = {
+  logo: Image;
+  body: string;
+  color: string;
 };
 
 export type TransmissionType = 'Automatic' | 'Manual';
@@ -675,8 +695,8 @@ export type ShopifyPagesOperation = {
 };
 
 export type ShopifyMetaobjectOperation = {
-  data: { nodes: ShopifyMetaobject[] };
-  variables: { ids: string[] };
+  data: { metaobject: ShopifyMetaobject };
+  variables: { id?: string; handle?: { handle: string; type: string } };
 };
 
 export type ShopifyProductOperation = {

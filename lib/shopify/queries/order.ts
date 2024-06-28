@@ -1,8 +1,11 @@
+import addressFragment from '../fragments/address';
 import lineItemFragment from '../fragments/line-item';
-import { orderMetafields } from '../fragments/order';
+import orderMetafieldsFragment from '../fragments/order-metafields';
+import orderTrasactionFragment from '../fragments/order-transaction';
+import priceFragment from '../fragments/price';
 
 // NOTE: https://shopify.dev/docs/api/customer/latest/queries/customer
-export const getCustomerOrderQuery = /* GraphQL */ `
+const getCustomerOrderQuery = /* GraphQL */ `
   query getCustomerOrderQuery($orderId: ID!) {
     customer {
       emailAddress {
@@ -95,60 +98,7 @@ export const getCustomerOrderQuery = /* GraphQL */ `
         ...Price
       }
     }
-  }
-
-  fragment OrderTransaction on OrderTransaction {
-    id
-    processedAt
-    paymentIcon {
-      id
-      url
-      altText
-    }
-    paymentDetails {
-      ... on CardPaymentDetails {
-        last4
-        cardBrand
-      }
-    }
-    transactionAmount {
-      presentmentMoney {
-        ...Price
-      }
-    }
-    giftCardDetails {
-      last4
-      balance {
-        ...Price
-      }
-    }
-    status
-    kind
-    transactionParentId
-    type
-    typeDetails {
-      name
-      message
-    }
-  }
-
-  fragment Price on MoneyV2 {
-    amount
-    currencyCode
-  }
-
-  fragment Address on CustomerAddress {
-    id
-    address1
-    address2
-    firstName
-    lastName
-    provinceCode: zoneCode
-    city
-    zip
-    countryCodeV2: territoryCode
-    company
-    phone: phoneNumber
+    ...OrderMetafields
   }
 
   fragment Fulfillment on Fulfillment {
@@ -220,13 +170,10 @@ export const getCustomerOrderQuery = /* GraphQL */ `
     }
   }
   ${lineItemFragment}
+  ${addressFragment}
+  ${priceFragment}
+  ${orderTrasactionFragment}
+  ${orderMetafieldsFragment}
 `;
 
-export const getOrderMetafieldsQuery = /* GraphQL */ `
-  query getOrderMetafields($id: ID!) {
-    order(id: $id) {
-      ...OrderMetafield
-    }
-  }
-  ${orderMetafields}
-`;
+export default getCustomerOrderQuery;

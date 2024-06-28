@@ -19,7 +19,7 @@ const label = tv(
   }
 );
 
-interface LabelProps extends VariantProps<typeof label> {
+export interface LabelProps extends VariantProps<typeof label> {
   className?: string;
   children: React.ReactNode;
   as?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'p';
