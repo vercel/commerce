@@ -1,6 +1,6 @@
-import { HIDDEN_PRODUCT_TAG, SHOPIFY_GRAPHQL_API_ENDPOINT, TAGS } from 'lib/constants';
-import { find } from 'lib/shopify/payload';
-import { Media, Option, Product } from 'lib/shopify/payload-types';
+import { SHOPIFY_GRAPHQL_API_ENDPOINT, TAGS } from 'lib/constants';
+import { find, findByID } from 'lib/shopify/payload';
+import { Media, Option, Product, Tag } from 'lib/shopify/payload-types';
 import { isShopifyError } from 'lib/type-guards';
 import { ensureStartsWith } from 'lib/utils';
 import { revalidateTag } from 'next/cache';
@@ -16,11 +16,6 @@ import { getCartQuery } from './queries/cart';
 import { getCollectionQuery, getCollectionsQuery } from './queries/collection';
 import { getPageQuery, getPagesQuery } from './queries/page';
 import {
-  getProductQuery,
-  getProductRecommendationsQuery,
-  getProductsQuery
-} from './queries/product';
-import {
   Cart,
   Collection,
   Connection,
@@ -30,6 +25,7 @@ import {
   Money,
   Page,
   ProductOption,
+  ProductVariant,
   ShopifyAddToCartOperation,
   ShopifyCart,
   ShopifyCartOperation,
@@ -39,10 +35,6 @@ import {
   ShopifyCreateCartOperation,
   ShopifyPageOperation,
   ShopifyPagesOperation,
-  ShopifyProduct,
-  ShopifyProductOperation,
-  ShopifyProductRecommendationsOperation,
-  ShopifyProductsOperation,
   ShopifyRemoveFromCartOperation,
   ShopifyUpdateCartOperation
 } from './types';
@@ -156,48 +148,6 @@ const reshapeCollections = (collections: ShopifyCollection[]) => {
   return reshapedCollections;
 };
 
-const reshapeImages = (images: Connection<Image>, productTitle: string) => {
-  const flattened = removeEdgesAndNodes(images);
-
-  return flattened.map((image) => {
-    const filename = image.url.match(/.*\/(.*)\..*/)[1];
-    return {
-      ...image,
-      altText: image.altText || `${productTitle} - ${filename}`
-    };
-  });
-};
-
-const reshapeProduct = (product: ShopifyProduct, filterHiddenProducts: boolean = true) => {
-  if (!product || (filterHiddenProducts && product.tags.includes(HIDDEN_PRODUCT_TAG))) {
-    return undefined;
-  }
-
-  const { images, variants, ...rest } = product;
-
-  return {
-    ...rest,
-    images: reshapeImages(images, product.title),
-    variants: removeEdgesAndNodes(variants)
-  };
-};
-
-const reshapeProducts = (products: ShopifyProduct[]) => {
-  const reshapedProducts = [];
-
-  for (const product of products) {
-    if (product) {
-      const reshapedProduct = reshapeProduct(product);
-
-      if (reshapedProduct) {
-        reshapedProducts.push(reshapedProduct);
-      }
-    }
-  }
-
-  return reshapedProducts;
-};
-
 export async function createCart(): Promise<Cart> {
   const res = await shopifyFetch<ShopifyCreateCartOperation>({
     query: createCartMutation,
@@ -282,7 +232,9 @@ export async function getCollection(handle: string): Promise<Collection | undefi
 const reshapeImage = (media: Media): Image => {
   return {
     url: media.url!,
-    altText: media.alt
+    altText: media.alt,
+    width: media.width,
+    height: media.height
   };
 };
 
@@ -293,24 +245,49 @@ type Price = {
 
 const reshapePrice = (price: Price): Money => {
   return {
-    amount: (price.amount / 100).toString(),
+    amount: price.amount.toString(),
     currencyCode: price.currencyCode
   };
 };
 
-const reshapeP = (product: Product): ExProduct => {
-  const options: ProductOption[] = [];
-  const map = new Map();
+const reshapeOptions = (variants: Product['variants']): ProductOption[] => {
+  const options = new Map<string, Option>();
 
-  product.variants.forEach((variant) => {
+  variants.forEach((variant) => {
     variant.selectedOptions?.forEach((selectedOption) => {
       const option = selectedOption.option as Option;
-      map.set(option.id, option.values);
+      options.set(option.id, option);
     });
   });
 
-  // console.log(map);
+  return Array.from(options, ([id, option]) => ({
+    id,
+    name: option.name,
+    values: option.values.map((value) => value.label)
+  }));
+};
 
+const reshapeVariants = (variants: Product['variants']): ProductVariant[] => {
+  return variants.map((variant) => ({
+    id: variant.id!,
+    title: `${variant.price.amount} ${variant.price.currencyCode}`,
+    availableForSale: true,
+    selectedOptions: (variant.selectedOptions ?? []).map((selectedOption) => {
+      const option = selectedOption.option as Option;
+      return {
+        name: option.name,
+        value: option.values.find(({ value }) => value === selectedOption.value)?.label!
+      };
+    }),
+    price: reshapePrice(variant.price)
+  }));
+};
+
+const reshapeTags = (tags: Tag[]): string[] => {
+  return tags.map((tag) => tag.name);
+};
+
+const reshapeProduct = (product: Product): ExProduct => {
   return {
     id: product.id,
     handle: product.id,
@@ -318,20 +295,20 @@ const reshapeP = (product: Product): ExProduct => {
     title: product.title,
     description: product.description,
     descriptionHtml: product.description,
-    options,
+    options: reshapeOptions(product.variants),
     priceRange: {
       maxVariantPrice: reshapePrice(product.variants[0]?.price!),
       minVariantPrice: reshapePrice(product.variants[0]?.price!)
     },
-    featuredImage: {} as any,
+    featuredImage: reshapeImage(product.media as Media),
     images: [],
     seo: {
       title: product.title,
       description: product.description
     },
-    // tags: product.tags ?? [],
-    updatedAt: product.updatedAt,
-    createdAt: product.createdAt
+    tags: reshapeTags(product.tags as Tag[]),
+    variants: reshapeVariants(product.variants),
+    updatedAt: product.updatedAt
   };
 };
 
@@ -344,19 +321,8 @@ export async function getCollectionProducts({
   reverse?: boolean;
   sortKey?: string;
 }): Promise<ExProduct[]> {
-  const m = await find<Product>('products', {
-    where: {
-      title: {
-        equals: 'test'
-      }
-    }
-  });
-
-  const products: ExProduct[] = m.docs.map(reshapeP);
-
-  console.log(products);
-
-  return products;
+  const products = await find<Product>('products', {});
+  return products.docs.map(reshapeProduct);
 }
 
 export async function getCollections(): Promise<Collection[]> {
@@ -425,27 +391,12 @@ export async function getPages(): Promise<Page[]> {
 }
 
 export async function getProduct(handle: string): Promise<ExProduct | undefined> {
-  const res = await shopifyFetch<ShopifyProductOperation>({
-    query: getProductQuery,
-    tags: [TAGS.products],
-    variables: {
-      handle
-    }
-  });
-
-  return reshapeProduct(res.body.data.product, false);
+  const product = await findByID<Product>('products', handle);
+  return reshapeProduct(product);
 }
 
 export async function getProductRecommendations(productId: string): Promise<ExProduct[]> {
-  const res = await shopifyFetch<ShopifyProductRecommendationsOperation>({
-    query: getProductRecommendationsQuery,
-    tags: [TAGS.products],
-    variables: {
-      productId
-    }
-  });
-
-  return reshapeProducts(res.body.data.productRecommendations);
+  return [];
 }
 
 export async function getProducts({
@@ -457,17 +408,8 @@ export async function getProducts({
   reverse?: boolean;
   sortKey?: string;
 }): Promise<ExProduct[]> {
-  const res = await shopifyFetch<ShopifyProductsOperation>({
-    query: getProductsQuery,
-    tags: [TAGS.products],
-    variables: {
-      query,
-      reverse,
-      sortKey
-    }
-  });
-
-  return reshapeProducts(removeEdgesAndNodes(res.body.data.products));
+  const products = await find<Product>('products', {});
+  return products.docs.map(reshapeProduct);
 }
 
 // This is called from `app/api/revalidate.ts` so providers can control revalidation logic.

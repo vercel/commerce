@@ -59,3 +59,8 @@ export const find = <T>(collection: string, params: FindParams) => {
   const url = `${process.env.CMS_URL}/api/${collection}${query}`;
   return ajax<PaginatedDocs<T>>('GET', url);
 };
+
+export const findByID = <T>(collection: string, id: string) => {
+  const url = `${process.env.CMS_URL}/api/${collection}/${id}`;
+  return ajax<T>('GET', url);
+};
