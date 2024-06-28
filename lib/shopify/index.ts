@@ -1,5 +1,5 @@
 import { SHOPIFY_GRAPHQL_API_ENDPOINT, TAGS } from 'lib/constants';
-import { find, findByID } from 'lib/shopify/payload';
+import { Where, find, findByID } from 'lib/shopify/payload';
 import { Category, Media, Option, Product } from 'lib/shopify/payload-types';
 import { isShopifyError } from 'lib/type-guards';
 import { ensureStartsWith } from 'lib/utils';
@@ -271,16 +271,36 @@ const reshapeProduct = (product: Product): ExProduct => {
 
 export async function getCollectionProducts({
   collection,
+  tag,
   reverse,
   sortKey
 }: {
-  collection: string;
+  collection?: string;
+  tag?: string;
   reverse?: boolean;
   sortKey?: string;
 }): Promise<ExProduct[]> {
-  console.log(collection);
+  const filters: Where[] = [];
+  if (collection) {
+    filters.push({
+      categories: {
+        equals: collection
+      }
+    });
+  }
+  if (tag) {
+    filters.push({
+      tags: {
+        equals: collection
+      }
+    });
+  }
 
-  const products = await find<Product>('products', {});
+  const products = await find<Product>('products', {
+    where: {
+      and: filters
+    }
+  });
   return products.docs.map(reshapeProduct);
 }
 
@@ -363,7 +383,25 @@ export async function getProducts({
   reverse?: boolean;
   sortKey?: string;
 }): Promise<ExProduct[]> {
-  const products = await find<Product>('products', {});
+  let where: Where | undefined;
+  if (query) {
+    where = {
+      or: [
+        {
+          title: {
+            contains: query
+          }
+        },
+        {
+          description: {
+            contains: query
+          }
+        }
+      ]
+    };
+  }
+
+  const products = await find<Product>('products', { where });
   return products.docs.map(reshapeProduct);
 }
 

@@ -26,7 +26,7 @@ type Operator = (typeof OPERATORS)[number];
 type WhereField = {
   [key in Operator]?: unknown;
 };
-type Where = {
+export type Where = {
   [key: string]: Where[] | WhereField;
   and?: Where[];
   or?: Where[];
