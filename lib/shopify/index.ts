@@ -247,13 +247,19 @@ const reshapeProduct = (product: PayloadProduct): Product => {
 
 export async function getCollectionProducts({
   collection,
-  tag
+  tag,
+  sortKey,
+  reverse
 }: {
   collection?: string;
   tag?: string;
   reverse?: boolean;
   sortKey?: string;
 }): Promise<Product[]> {
+  if (sortKey && reverse) {
+    sortKey = '-' + sortKey;
+  }
+
   const filters: Where[] = [];
   if (collection) {
     filters.push({
@@ -273,7 +279,8 @@ export async function getCollectionProducts({
   const products = await payload.find<PayloadProduct>('products', {
     where: {
       and: filters
-    }
+    },
+    sort: sortKey
   });
   return products.docs.map(reshapeProduct);
 }
@@ -345,12 +352,18 @@ export async function getProductRecommendations(productId: string): Promise<Prod
 }
 
 export async function getProducts({
-  query
+  query,
+  sortKey,
+  reverse
 }: {
   query?: string;
   reverse?: boolean;
   sortKey?: string;
 }): Promise<Product[]> {
+  if (sortKey && reverse) {
+    sortKey = '-' + sortKey;
+  }
+
   let where: Where | undefined;
   if (query) {
     where = {
@@ -369,6 +382,6 @@ export async function getProducts({
     };
   }
 
-  const products = await payload.find<PayloadProduct>('products', { where });
+  const products = await payload.find<PayloadProduct>('products', { where, sort: sortKey });
   return products.docs.map(reshapeProduct);
 }
