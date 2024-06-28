@@ -59,24 +59,36 @@ type FindParams = {
   limit?: number;
 };
 
-export const find = <T>(collection: Collection, params: FindParams) => {
-  const query = qs.stringify(params, { addQueryPrefix: true });
-
-  const url = `${process.env.CMS_URL}/api/${collection}${query}`;
-  return ajax<PaginatedDocs<T>>('GET', url);
+type PayloadOptions = {
+  baseUrl?: string;
 };
 
-export const findByID = <T>(collection: Collection, id: string) => {
-  const url = `${process.env.CMS_URL}/api/${collection}/${id}`;
-  return ajax<T>('GET', url);
-};
+export class Payload {
+  readonly baseUrl?: string;
 
-export const create = <T extends object>(collection: Collection, body: Partial<T>) => {
-  const url = `${process.env.CMS_URL}/api/${collection}`;
-  return ajax<Doc<T>>('POST', url, body);
-};
+  constructor({ baseUrl }: PayloadOptions) {
+    this.baseUrl = baseUrl;
+  }
 
-export const update = <T extends object>(collection: Collection, id: string, body: Partial<T>) => {
-  const url = `${process.env.CMS_URL}/api/${collection}/${id}`;
-  return ajax<Doc<T>>('PATCH', url, body);
-};
+  find = <T>(collection: Collection, params: FindParams) => {
+    const query = qs.stringify(params, { addQueryPrefix: true });
+
+    const url = `${this.baseUrl}/api/${collection}${query}`;
+    return ajax<PaginatedDocs<T>>('GET', url);
+  };
+
+  findByID = <T>(collection: Collection, id: string) => {
+    const url = `${this.baseUrl}/api/${collection}/${id}`;
+    return ajax<T>('GET', url);
+  };
+
+  create = <T extends object>(collection: Collection, body: Partial<T>) => {
+    const url = `${this.baseUrl}/api/${collection}`;
+    return ajax<Doc<T>>('POST', url, body);
+  };
+
+  update = <T extends object>(collection: Collection, id: string, body: Partial<T>) => {
+    const url = `${this.baseUrl}/api/${collection}/${id}`;
+    return ajax<Doc<T>>('PATCH', url, body);
+  };
+}

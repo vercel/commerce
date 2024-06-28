@@ -1,5 +1,5 @@
 import { AjaxError } from 'lib/shopify/ajax';
-import { Where, create, find, findByID, update } from 'lib/shopify/payload';
+import { Payload, Where } from 'lib/shopify/payload';
 import {
   Cart as PayloadCart,
   Category as PayloadCategory,
@@ -19,6 +19,8 @@ import {
   ProductOption,
   ProductVariant
 } from './types';
+
+const payload = new Payload({ baseUrl: process.env.CMS_URL });
 
 const reshapeCartItems = (lines: PayloadCart['lines']): CartItem[] => {
   return (lines ?? []).map((item) => {
@@ -65,7 +67,7 @@ const reshapeCart = (cart: PayloadCart): Cart => {
 };
 
 export async function createCart(): Promise<Cart> {
-  const cart = await create<PayloadCart>('carts', { lines: [] });
+  const cart = await payload.create<PayloadCart>('carts', { lines: [] });
   return reshapeCart(cart.doc);
 }
 
@@ -73,19 +75,19 @@ export async function addToCart(
   cartId: string,
   lines: { merchandiseId: string; quantity: number }[]
 ): Promise<Cart> {
-  const prevCart = await findByID<PayloadCart>('carts', cartId);
+  const prevCart = await payload.findByID<PayloadCart>('carts', cartId);
   const cartItems = await mergeItems(prevCart.lines, lines, true);
 
-  const cart = await update<PayloadCart>('carts', cartId, {
+  const cart = await payload.update<PayloadCart>('carts', cartId, {
     lines: cartItems
   });
   return reshapeCart(cart.doc);
 }
 
 export async function removeFromCart(cartId: string, lineIds: string[]): Promise<Cart> {
-  const prevCart = await findByID<PayloadCart>('carts', cartId);
+  const prevCart = await payload.findByID<PayloadCart>('carts', cartId);
   const lines = prevCart?.lines?.filter((lineItem) => !lineIds.includes(lineItem.id!)) ?? [];
-  const cart = await update<PayloadCart>('carts', cartId, { lines });
+  const cart = await payload.update<PayloadCart>('carts', cartId, { lines });
   return reshapeCart(cart.doc);
 }
 
@@ -96,7 +98,7 @@ const mergeItems = async (
 ): Promise<PayloadCart['lines']> => {
   const map = new Map((cartItems ?? []).map((item) => [item.variant, item]));
 
-  const products = await find<PayloadProduct>('products', {
+  const products = await payload.find<PayloadProduct>('products', {
     where: {
       'variants.id': {
         in: lines.map((line) => line.merchandiseId)
@@ -133,16 +135,16 @@ export async function updateCart(
   cartId: string,
   lines: { id: string; merchandiseId: string; quantity: number }[]
 ): Promise<Cart> {
-  const prevCart = await findByID<PayloadCart>('carts', cartId);
+  const prevCart = await payload.findByID<PayloadCart>('carts', cartId);
   const cartItems = await mergeItems(prevCart.lines, lines, false);
 
-  const cart = await update<PayloadCart>('carts', cartId, { lines: cartItems });
+  const cart = await payload.update<PayloadCart>('carts', cartId, { lines: cartItems });
   return reshapeCart(cart.doc);
 }
 
 export async function getCart(cartId: string): Promise<Cart | undefined> {
   try {
-    const cart = await findByID<PayloadCart>('carts', cartId);
+    const cart = await payload.findByID<PayloadCart>('carts', cartId);
     return reshapeCart(cart);
   } catch (error: unknown) {
     if (error instanceof AjaxError) {
@@ -156,7 +158,7 @@ export async function getCart(cartId: string): Promise<Cart | undefined> {
 }
 
 export async function getCollection(handle: string): Promise<Collection | undefined> {
-  const category = await findByID<PayloadCategory>('categories', handle);
+  const category = await payload.findByID<PayloadCategory>('categories', handle);
   return reshapeCategory(category);
 }
 
@@ -270,7 +272,7 @@ export async function getCollectionProducts({
     });
   }
 
-  const products = await find<PayloadProduct>('products', {
+  const products = await payload.find<PayloadProduct>('products', {
     where: {
       and: filters
     }
@@ -293,7 +295,7 @@ const reshapeCategory = (category: PayloadCategory): Collection => {
 };
 
 export async function getCollections(): Promise<Collection[]> {
-  const categories = await find<PayloadCategory>('categories', {});
+  const categories = await payload.find<PayloadCategory>('categories', {});
   return [
     {
       handle: '',
@@ -335,7 +337,7 @@ export async function getPages(): Promise<Page[]> {
 }
 
 export async function getProduct(handle: string): Promise<Product | undefined> {
-  const product = await findByID<PayloadProduct>('products', handle);
+  const product = await payload.findByID<PayloadProduct>('products', handle);
   return reshapeProduct(product);
 }
 
@@ -369,6 +371,6 @@ export async function getProducts({
     };
   }
 
-  const products = await find<PayloadProduct>('products', { where });
+  const products = await payload.find<PayloadProduct>('products', { where });
   return products.docs.map(reshapeProduct);
 }
