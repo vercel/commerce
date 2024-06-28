@@ -75,9 +75,8 @@ export async function addToCart(
   cartId: string,
   lines: { merchandiseId: string; quantity: number }[]
 ): Promise<Cart> {
-  const prevCart = await payload.findByID<PayloadCart>('carts', cartId);
+  const prevCart = await payload.findByID<PayloadCart>('carts', cartId, { depth: 0 });
   const cartItems = await mergeItems(prevCart.lines, lines, true);
-
   const cart = await payload.update<PayloadCart>('carts', cartId, {
     lines: cartItems
   });
@@ -85,7 +84,7 @@ export async function addToCart(
 }
 
 export async function removeFromCart(cartId: string, lineIds: string[]): Promise<Cart> {
-  const prevCart = await payload.findByID<PayloadCart>('carts', cartId);
+  const prevCart = await payload.findByID<PayloadCart>('carts', cartId, { depth: 0 });
   const lines = prevCart?.lines?.filter((lineItem) => !lineIds.includes(lineItem.id!)) ?? [];
   const cart = await payload.update<PayloadCart>('carts', cartId, { lines });
   return reshapeCart(cart.doc);
@@ -135,9 +134,8 @@ export async function updateCart(
   cartId: string,
   lines: { id: string; merchandiseId: string; quantity: number }[]
 ): Promise<Cart> {
-  const prevCart = await payload.findByID<PayloadCart>('carts', cartId);
+  const prevCart = await payload.findByID<PayloadCart>('carts', cartId, { depth: 0 });
   const cartItems = await mergeItems(prevCart.lines, lines, false);
-
   const cart = await payload.update<PayloadCart>('carts', cartId, { lines: cartItems });
   return reshapeCart(cart.doc);
 }
@@ -267,7 +265,7 @@ export async function getCollectionProducts({
   if (tag) {
     filters.push({
       tags: {
-        equals: collection
+        equals: tag
       }
     });
   }

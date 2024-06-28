@@ -51,7 +51,11 @@ type Doc<T> = {
   doc: T;
 };
 
-type FindParams = {
+type BaseParams = {
+  depth?: number;
+};
+
+type FindParams = BaseParams & {
   where?: Where;
   depth?: number;
   sort?: string;
@@ -70,15 +74,15 @@ export class Payload {
     this.baseUrl = baseUrl;
   }
 
-  find = <T>(collection: Collection, params: FindParams) => {
+  find = <T>(collection: Collection, params: FindParams = {}) => {
     const query = qs.stringify(params, { addQueryPrefix: true });
-
     const url = `${this.baseUrl}/api/${collection}${query}`;
     return ajax<PaginatedDocs<T>>('GET', url);
   };
 
-  findByID = <T>(collection: Collection, id: string) => {
-    const url = `${this.baseUrl}/api/${collection}/${id}`;
+  findByID = <T>(collection: Collection, id: string, params: BaseParams = {}) => {
+    const query = qs.stringify(params, { addQueryPrefix: true });
+    const url = `${this.baseUrl}/api/${collection}/${id}${query}`;
     return ajax<T>('GET', url);
   };
 
