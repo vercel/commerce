@@ -1,4 +1,4 @@
-import { SHOPIFY_GRAPHQL_API_ENDPOINT, TAGS } from 'lib/constants';
+import { COLLECTIONS, SHOPIFY_GRAPHQL_API_ENDPOINT, TAGS } from 'lib/constants';
 import { find, findByID } from 'lib/shopify/payload';
 import { Media, Option, Product, Tag } from 'lib/shopify/payload-types';
 import { isShopifyError } from 'lib/type-guards';
@@ -13,8 +13,7 @@ import {
   removeFromCartMutation
 } from './mutations/cart';
 import { getCartQuery } from './queries/cart';
-import { getCollectionQuery, getCollectionsQuery } from './queries/collection';
-import { getPageQuery, getPagesQuery } from './queries/page';
+import { getPageQuery } from './queries/page';
 import {
   Cart,
   Collection,
@@ -30,11 +29,8 @@ import {
   ShopifyCart,
   ShopifyCartOperation,
   ShopifyCollection,
-  ShopifyCollectionOperation,
-  ShopifyCollectionsOperation,
   ShopifyCreateCartOperation,
   ShopifyPageOperation,
-  ShopifyPagesOperation,
   ShopifyRemoveFromCartOperation,
   ShopifyUpdateCartOperation
 } from './types';
@@ -218,15 +214,7 @@ export async function getCart(cartId: string): Promise<Cart | undefined> {
 }
 
 export async function getCollection(handle: string): Promise<Collection | undefined> {
-  const res = await shopifyFetch<ShopifyCollectionOperation>({
-    query: getCollectionQuery,
-    tags: [TAGS.collections],
-    variables: {
-      handle
-    }
-  });
-
-  return reshapeCollection(res.body.data.collection);
+  return COLLECTIONS.find((collection) => collection.handle === handle);
 }
 
 const reshapeImage = (media: Media): Image => {
@@ -321,54 +309,33 @@ export async function getCollectionProducts({
   reverse?: boolean;
   sortKey?: string;
 }): Promise<ExProduct[]> {
+  console.log(sortKey);
+
   const products = await find<Product>('products', {});
   return products.docs.map(reshapeProduct);
 }
 
 export async function getCollections(): Promise<Collection[]> {
-  const res = await shopifyFetch<ShopifyCollectionsOperation>({
-    query: getCollectionsQuery,
-    tags: [TAGS.collections]
-  });
-  const shopifyCollections = removeEdgesAndNodes(res.body?.data?.collections);
-  const collections = [
-    {
-      handle: '',
-      title: 'All',
-      description: 'All products',
-      seo: {
-        title: 'All',
-        description: 'All products'
-      },
-      path: '/search',
-      updatedAt: new Date().toISOString()
-    },
-    // Filter out the `hidden` collections.
-    // Collections that start with `hidden-*` need to be hidden on the search page.
-    ...reshapeCollections(shopifyCollections).filter(
-      (collection) => !collection.handle.startsWith('hidden')
-    )
-  ];
-
-  return collections;
+  return COLLECTIONS;
 }
 
 export async function getMenu(handle: string): Promise<Menu[]> {
-  return [];
-  // const res = await shopifyFetch<ShopifyMenuOperation>({
-  //   query: getMenuQuery,
-  //   tags: [TAGS.collections],
-  //   variables: {
-  //     handle
-  //   }
-  // });
-
-  // return (
-  //   res.body?.data?.menu?.items.map((item: { title: string; url: string }) => ({
-  //     title: item.title,
-  //     path: item.url.replace(domain, '').replace('/collections', '/search').replace('/pages', '')
-  //   })) || []
-  // );
+  switch (handle) {
+    case 'next-js-frontend-footer-menu':
+      return [
+        { title: 'About Medusa', path: 'https://medusajs.com/' },
+        { title: 'Medusa Docs', path: 'https://docs.medusajs.com/' },
+        { title: 'Medusa Blog', path: 'https://medusajs.com/blog' }
+      ];
+    case 'next-js-frontend-header-menu':
+      return [
+        { title: 'All', path: '/search' },
+        { title: 'Shirts', path: '/search/shirts' },
+        { title: 'Stickers', path: '/search/stickers' }
+      ];
+    default:
+      return [];
+  }
 }
 
 export async function getPage(handle: string): Promise<Page> {
@@ -382,12 +349,7 @@ export async function getPage(handle: string): Promise<Page> {
 }
 
 export async function getPages(): Promise<Page[]> {
-  const res = await shopifyFetch<ShopifyPagesOperation>({
-    query: getPagesQuery,
-    cache: 'no-store'
-  });
-
-  return removeEdgesAndNodes(res.body.data.pages);
+  return [];
 }
 
 export async function getProduct(handle: string): Promise<ExProduct | undefined> {
