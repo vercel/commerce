@@ -1,6 +1,6 @@
-import { COLLECTIONS, SHOPIFY_GRAPHQL_API_ENDPOINT, TAGS } from 'lib/constants';
+import { SHOPIFY_GRAPHQL_API_ENDPOINT, TAGS } from 'lib/constants';
 import { find, findByID } from 'lib/shopify/payload';
-import { Media, Option, Product, Tag } from 'lib/shopify/payload-types';
+import { Category, Media, Option, Product } from 'lib/shopify/payload-types';
 import { isShopifyError } from 'lib/type-guards';
 import { ensureStartsWith } from 'lib/utils';
 import { revalidateTag } from 'next/cache';
@@ -28,7 +28,6 @@ import {
   ShopifyAddToCartOperation,
   ShopifyCart,
   ShopifyCartOperation,
-  ShopifyCollection,
   ShopifyCreateCartOperation,
   ShopifyPageOperation,
   ShopifyRemoveFromCartOperation,
@@ -117,33 +116,6 @@ const reshapeCart = (cart: ShopifyCart): Cart => {
   };
 };
 
-const reshapeCollection = (collection: ShopifyCollection): Collection | undefined => {
-  if (!collection) {
-    return undefined;
-  }
-
-  return {
-    ...collection,
-    path: `/search/${collection.handle}`
-  };
-};
-
-const reshapeCollections = (collections: ShopifyCollection[]) => {
-  const reshapedCollections = [];
-
-  for (const collection of collections) {
-    if (collection) {
-      const reshapedCollection = reshapeCollection(collection);
-
-      if (reshapedCollection) {
-        reshapedCollections.push(reshapedCollection);
-      }
-    }
-  }
-
-  return reshapedCollections;
-};
-
 export async function createCart(): Promise<Cart> {
   const res = await shopifyFetch<ShopifyCreateCartOperation>({
     query: createCartMutation,
@@ -214,7 +186,8 @@ export async function getCart(cartId: string): Promise<Cart | undefined> {
 }
 
 export async function getCollection(handle: string): Promise<Collection | undefined> {
-  return COLLECTIONS.find((collection) => collection.handle === handle);
+  const category = await findByID<Category>('categories', handle);
+  return reshapeCategory(category);
 }
 
 const reshapeImage = (media: Media): Image => {
@@ -271,10 +244,6 @@ const reshapeVariants = (variants: Product['variants']): ProductVariant[] => {
   }));
 };
 
-const reshapeTags = (tags: Tag[]): string[] => {
-  return tags.map((tag) => tag.name);
-};
-
 const reshapeProduct = (product: Product): ExProduct => {
   return {
     id: product.id,
@@ -294,7 +263,7 @@ const reshapeProduct = (product: Product): ExProduct => {
       title: product.title,
       description: product.description
     },
-    tags: reshapeTags(product.tags as Tag[]),
+    tags: product.tags ?? [],
     variants: reshapeVariants(product.variants),
     updatedAt: product.updatedAt
   };
@@ -309,14 +278,42 @@ export async function getCollectionProducts({
   reverse?: boolean;
   sortKey?: string;
 }): Promise<ExProduct[]> {
-  console.log(sortKey);
+  console.log(collection);
 
   const products = await find<Product>('products', {});
   return products.docs.map(reshapeProduct);
 }
 
+const reshapeCategory = (category: Category): Collection => {
+  return {
+    handle: category.id,
+    title: category.title,
+    description: category.title,
+    seo: {
+      title: category.title,
+      description: category.title
+    },
+    path: `/search/${category.id}`,
+    updatedAt: category.updatedAt
+  };
+};
+
 export async function getCollections(): Promise<Collection[]> {
-  return COLLECTIONS;
+  const categories = await find<Category>('categories', {});
+  return [
+    {
+      handle: '',
+      title: 'All',
+      description: 'All products',
+      seo: {
+        title: 'All',
+        description: 'All products'
+      },
+      path: '/search',
+      updatedAt: new Date().toISOString()
+    },
+    ...categories.docs.map(reshapeCategory)
+  ];
 }
 
 export async function getMenu(handle: string): Promise<Menu[]> {
@@ -328,11 +325,7 @@ export async function getMenu(handle: string): Promise<Menu[]> {
         { title: 'Medusa Blog', path: 'https://medusajs.com/blog' }
       ];
     case 'next-js-frontend-header-menu':
-      return [
-        { title: 'All', path: '/search' },
-        { title: 'Shirts', path: '/search/shirts' },
-        { title: 'Stickers', path: '/search/stickers' }
-      ];
+      return await getCollections();
     default:
       return [];
   }

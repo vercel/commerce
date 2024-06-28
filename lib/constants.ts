@@ -1,5 +1,3 @@
-import { Collection, Page } from 'lib/shopify/types';
-
 export type SortFilterItem = {
   title: string;
   slug: string | null;
@@ -31,31 +29,3 @@ export const TAGS = {
 export const HIDDEN_PRODUCT_TAG = 'nextjs-frontend-hidden';
 export const DEFAULT_OPTION = 'Default Title';
 export const SHOPIFY_GRAPHQL_API_ENDPOINT = '/api/2023-01/graphql.json';
-
-export const PAGES: Page[] = [];
-
-const CURRENT_DATE = new Date().toISOString();
-export const COLLECTIONS: Collection[] = [
-  {
-    handle: '',
-    title: 'All',
-    description: 'All products',
-    seo: {
-      title: 'All',
-      description: 'All products'
-    },
-    path: '/search',
-    updatedAt: CURRENT_DATE
-  },
-  {
-    handle: 'shirts',
-    title: 'Shirts',
-    description: 'Shirts',
-    seo: {
-      title: 'Shirts',
-      description: 'Shirts'
-    },
-    path: '/search/shirts',
-    updatedAt: CURRENT_DATE
-  }
-];

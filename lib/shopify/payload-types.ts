@@ -9,7 +9,7 @@
 export interface Config {
   collections: {
     posts: Post;
-    tags: Tag;
+    categories: Category;
     media: Media;
     users: User;
     options: Option;
@@ -43,7 +43,7 @@ export interface Post {
     };
     [k: string]: unknown;
   } | null;
-  tags?: (string | Tag)[] | null;
+  categories?: (string | Category)[] | null;
   publishedAt?: string | null;
   authors?: (string | User)[] | null;
   populatedAuthors?:
@@ -63,11 +63,11 @@ export interface Post {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tags".
+ * via the `definition` "categories".
  */
-export interface Tag {
+export interface Category {
   id: string;
-  name: string;
+  title: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -163,7 +163,8 @@ export interface Product {
       | null;
     id?: string | null;
   }[];
-  tags?: (string | Tag)[] | null;
+  categories?: (string | Category)[] | null;
+  tags?: string[] | null;
   stripeProductID?: string | null;
   updatedAt: string;
   createdAt: string;
