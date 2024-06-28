@@ -1,113 +1,32 @@
-import { SHOPIFY_GRAPHQL_API_ENDPOINT, TAGS } from 'lib/constants';
+import { TAGS } from 'lib/constants';
 import { AjaxError } from 'lib/shopify/ajax';
 import { Where, create, find, findByID, update } from 'lib/shopify/payload';
-import { Cart, Category, Media, Option, Product } from 'lib/shopify/payload-types';
-import { isShopifyError } from 'lib/type-guards';
-import { ensureStartsWith } from 'lib/utils';
+import {
+  Cart as PayloadCart,
+  Category as PayloadCategory,
+  Media as PayloadMedia,
+  Option as PayloadOption,
+  Product as PayloadProduct
+} from 'lib/shopify/payload-types';
 import { revalidateTag } from 'next/cache';
 import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
-import { getPageQuery } from './queries/page';
 import {
+  Cart,
   CartItem,
   Collection,
-  Connection,
-  Cart as ExCart,
-  Product as ExProduct,
+  Image,
   Menu,
   Money,
   Page,
+  Product,
   ProductOption,
-  ProductVariant,
-  ShopifyCart,
-  ShopifyPageOperation
+  ProductVariant
 } from './types';
 
-const domain = process.env.SHOPIFY_STORE_DOMAIN
-  ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, 'https://')
-  : '';
-const endpoint = `${domain}${SHOPIFY_GRAPHQL_API_ENDPOINT}`;
-const key = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
-
-type ExtractVariables<T> = T extends { variables: object } ? T['variables'] : never;
-
-export async function shopifyFetch<T>({
-  cache = 'force-cache',
-  headers,
-  query,
-  tags,
-  variables
-}: {
-  cache?: RequestCache;
-  headers?: HeadersInit;
-  query: string;
-  tags?: string[];
-  variables?: ExtractVariables<T>;
-}): Promise<{ status: number; body: T } | never> {
-  try {
-    const result = await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Shopify-Storefront-Access-Token': key,
-        ...headers
-      },
-      body: JSON.stringify({
-        ...(query && { query }),
-        ...(variables && { variables })
-      }),
-      cache,
-      ...(tags && { next: { tags } })
-    });
-
-    const body = await result.json();
-
-    if (body.errors) {
-      throw body.errors[0];
-    }
-
-    return {
-      status: result.status,
-      body
-    };
-  } catch (e) {
-    if (isShopifyError(e)) {
-      throw {
-        cause: e.cause?.toString() || 'unknown',
-        status: e.status || 500,
-        message: e.message,
-        query
-      };
-    }
-
-    throw {
-      error: e,
-      query
-    };
-  }
-}
-
-const removeEdgesAndNodes = (array: Connection<any>) => {
-  return array.edges.map((edge) => edge?.node);
-};
-
-const reshapeCart = (cart: ShopifyCart): ExCart => {
-  if (!cart.cost?.totalTaxAmount) {
-    cart.cost.totalTaxAmount = {
-      amount: '0.0',
-      currencyCode: 'USD'
-    };
-  }
-
-  return {
-    ...cart,
-    lines: removeEdgesAndNodes(cart.lines)
-  };
-};
-
-const reshapeCartItems = (lines: Cart['lines']): CartItem[] => {
+const reshapeCartItems = (lines: PayloadCart['lines']): CartItem[] => {
   return (lines ?? []).map((item) => {
-    const product = item.product as Product;
+    const product = item.product as PayloadProduct;
     const variant = product.variants.find((v) => v.id === item.variant);
 
     return {
@@ -126,7 +45,7 @@ const reshapeCartItems = (lines: Cart['lines']): CartItem[] => {
   });
 };
 
-const reshapeC = (cart: Cart): ExCart => {
+const reshapeCart = (cart: PayloadCart): Cart => {
   return {
     id: cart.id,
     checkoutUrl: '/api/checkout',
@@ -149,39 +68,39 @@ const reshapeC = (cart: Cart): ExCart => {
   };
 };
 
-export async function createCart(): Promise<ExCart> {
-  const cart = await create<Cart>('carts', { lines: [] });
-  return reshapeC(cart.doc);
+export async function createCart(): Promise<Cart> {
+  const cart = await create<PayloadCart>('carts', { lines: [] });
+  return reshapeCart(cart.doc);
 }
 
 export async function addToCart(
   cartId: string,
   lines: { merchandiseId: string; quantity: number }[]
-): Promise<ExCart> {
-  const prevCart = await findByID<Cart>('carts', cartId);
+): Promise<Cart> {
+  const prevCart = await findByID<PayloadCart>('carts', cartId);
   const cartItems = await mergeItems(prevCart.lines, lines, true);
-  console.log('ADD');
-  const cart = await update<Cart>('carts', cartId, {
+
+  const cart = await update<PayloadCart>('carts', cartId, {
     lines: cartItems
   });
-  return reshapeC(cart.doc);
+  return reshapeCart(cart.doc);
 }
 
-export async function removeFromCart(cartId: string, lineIds: string[]): Promise<ExCart> {
-  const prevCart = await findByID<Cart>('carts', cartId);
+export async function removeFromCart(cartId: string, lineIds: string[]): Promise<Cart> {
+  const prevCart = await findByID<PayloadCart>('carts', cartId);
   const lines = prevCart?.lines?.filter((lineItem) => !lineIds.includes(lineItem.id!)) ?? [];
-  const cart = await update<Cart>('carts', cartId, { lines });
-  return reshapeC(cart.doc);
+  const cart = await update<PayloadCart>('carts', cartId, { lines });
+  return reshapeCart(cart.doc);
 }
 
 const mergeItems = async (
-  cartItems: Cart['lines'],
+  cartItems: PayloadCart['lines'],
   lines: { merchandiseId: string; quantity: number }[],
   add: boolean
-): Promise<Cart['lines']> => {
+): Promise<PayloadCart['lines']> => {
   const map = new Map((cartItems ?? []).map((item) => [item.variant, item]));
 
-  const products = await find<Product>('products', {
+  const products = await find<PayloadProduct>('products', {
     where: {
       'variants.id': {
         in: lines.map((line) => line.merchandiseId)
@@ -199,7 +118,7 @@ const mergeItems = async (
       variant: line.merchandiseId,
       quantity: line.quantity
     };
-    if (add && map.has(line.merchandiseId)) {
+    if (add) {
       const added = map.get(line.merchandiseId);
       if (added) {
         item = {
@@ -217,20 +136,18 @@ const mergeItems = async (
 export async function updateCart(
   cartId: string,
   lines: { id: string; merchandiseId: string; quantity: number }[]
-): Promise<ExCart> {
-  const cart = await findByID<Cart>('carts', cartId);
-  const cartItems = await mergeItems(cart.lines, lines, false);
+): Promise<Cart> {
+  const prevCart = await findByID<PayloadCart>('carts', cartId);
+  const cartItems = await mergeItems(prevCart.lines, lines, false);
 
-  console.log(cartItems);
-
-  const c = await update<Cart>('carts', cartId, { lines: cartItems });
-  return reshapeC(c.doc);
+  const cart = await update<PayloadCart>('carts', cartId, { lines: cartItems });
+  return reshapeCart(cart.doc);
 }
 
-export async function getCart(cartId: string): Promise<ExCart | undefined> {
+export async function getCart(cartId: string): Promise<Cart | undefined> {
   try {
-    const cart = await findByID<Cart>('carts', cartId);
-    return reshapeC(cart);
+    const cart = await findByID<PayloadCart>('carts', cartId);
+    return reshapeCart(cart);
   } catch (error: unknown) {
     if (error instanceof AjaxError) {
       if (error.statusCode === 404) {
@@ -243,11 +160,11 @@ export async function getCart(cartId: string): Promise<ExCart | undefined> {
 }
 
 export async function getCollection(handle: string): Promise<Collection | undefined> {
-  const category = await findByID<Category>('categories', handle);
+  const category = await findByID<PayloadCategory>('categories', handle);
   return reshapeCategory(category);
 }
 
-const reshapeImage = (media: Media): Image => {
+const reshapeImage = (media: PayloadMedia): Image => {
   return {
     url: media.url!,
     altText: media.alt,
@@ -268,12 +185,12 @@ const reshapePrice = (price: Price): Money => {
   };
 };
 
-const reshapeOptions = (variants: Product['variants']): ProductOption[] => {
-  const options = new Map<string, Option>();
+const reshapeOptions = (variants: PayloadProduct['variants']): ProductOption[] => {
+  const options = new Map<string, PayloadOption>();
 
   variants.forEach((variant) => {
     variant.selectedOptions?.forEach((selectedOption) => {
-      const option = selectedOption.option as Option;
+      const option = selectedOption.option as PayloadOption;
       options.set(option.id, option);
     });
   });
@@ -286,10 +203,10 @@ const reshapeOptions = (variants: Product['variants']): ProductOption[] => {
 };
 
 const reshapeSelectedOption = (
-  selectedOptions: Product['variants'][0]['selectedOptions']
+  selectedOptions: PayloadProduct['variants'][0]['selectedOptions']
 ): Array<{ name: string; value: string }> => {
   return (selectedOptions ?? []).map((selectedOption) => {
-    const option = selectedOption.option as Option;
+    const option = selectedOption.option as PayloadOption;
     return {
       name: option.name,
       value: option.values.find(({ value }) => value === selectedOption.value)?.label!
@@ -297,7 +214,7 @@ const reshapeSelectedOption = (
   });
 };
 
-const reshapeVariants = (variants: Product['variants']): ProductVariant[] => {
+const reshapeVariants = (variants: PayloadProduct['variants']): ProductVariant[] => {
   return variants.map((variant) => ({
     id: variant.id!,
     title: `${variant.price.amount} ${variant.price.currencyCode}`,
@@ -307,7 +224,7 @@ const reshapeVariants = (variants: Product['variants']): ProductVariant[] => {
   }));
 };
 
-const reshapeProduct = (product: Product): ExProduct => {
+const reshapeProduct = (product: PayloadProduct): Product => {
   return {
     id: product.id,
     handle: product.id,
@@ -320,7 +237,7 @@ const reshapeProduct = (product: Product): ExProduct => {
       maxVariantPrice: reshapePrice(product.variants[0]?.price!),
       minVariantPrice: reshapePrice(product.variants[0]?.price!)
     },
-    featuredImage: reshapeImage(product.media as Media),
+    featuredImage: reshapeImage(product.media as PayloadMedia),
     images: [],
     seo: {
       title: product.title,
@@ -342,7 +259,7 @@ export async function getCollectionProducts({
   tag?: string;
   reverse?: boolean;
   sortKey?: string;
-}): Promise<ExProduct[]> {
+}): Promise<Product[]> {
   const filters: Where[] = [];
   if (collection) {
     filters.push({
@@ -359,7 +276,7 @@ export async function getCollectionProducts({
     });
   }
 
-  const products = await find<Product>('products', {
+  const products = await find<PayloadProduct>('products', {
     where: {
       and: filters
     }
@@ -367,7 +284,7 @@ export async function getCollectionProducts({
   return products.docs.map(reshapeProduct);
 }
 
-const reshapeCategory = (category: Category): Collection => {
+const reshapeCategory = (category: PayloadCategory): Collection => {
   return {
     handle: category.id,
     title: category.title,
@@ -382,7 +299,7 @@ const reshapeCategory = (category: Category): Collection => {
 };
 
 export async function getCollections(): Promise<Collection[]> {
-  const categories = await find<Category>('categories', {});
+  const categories = await find<PayloadCategory>('categories', {});
   return [
     {
       handle: '',
@@ -414,26 +331,20 @@ export async function getMenu(handle: string): Promise<Menu[]> {
   }
 }
 
-export async function getPage(handle: string): Promise<Page> {
-  const res = await shopifyFetch<ShopifyPageOperation>({
-    query: getPageQuery,
-    cache: 'no-store',
-    variables: { handle }
-  });
-
-  return res.body.data.pageByHandle;
+export async function getPage(handle: string): Promise<Page | undefined> {
+  return undefined;
 }
 
 export async function getPages(): Promise<Page[]> {
   return [];
 }
 
-export async function getProduct(handle: string): Promise<ExProduct | undefined> {
-  const product = await findByID<Product>('products', handle);
+export async function getProduct(handle: string): Promise<Product | undefined> {
+  const product = await findByID<PayloadProduct>('products', handle);
   return reshapeProduct(product);
 }
 
-export async function getProductRecommendations(productId: string): Promise<ExProduct[]> {
+export async function getProductRecommendations(productId: string): Promise<Product[]> {
   return [];
 }
 
@@ -445,7 +356,7 @@ export async function getProducts({
   query?: string;
   reverse?: boolean;
   sortKey?: string;
-}): Promise<ExProduct[]> {
+}): Promise<Product[]> {
   let where: Where | undefined;
   if (query) {
     where = {
@@ -464,7 +375,7 @@ export async function getProducts({
     };
   }
 
-  const products = await find<Product>('products', { where });
+  const products = await find<PayloadProduct>('products', { where });
   return products.docs.map(reshapeProduct);
 }
 
