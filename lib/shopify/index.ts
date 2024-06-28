@@ -1,4 +1,6 @@
 import { HIDDEN_PRODUCT_TAG, SHOPIFY_GRAPHQL_API_ENDPOINT, TAGS } from 'lib/constants';
+import { find } from 'lib/shopify/payload';
+import { Media, Option, Product } from 'lib/shopify/payload-types';
 import { isShopifyError } from 'lib/type-guards';
 import { ensureStartsWith } from 'lib/utils';
 import { revalidateTag } from 'next/cache';
@@ -11,12 +13,7 @@ import {
   removeFromCartMutation
 } from './mutations/cart';
 import { getCartQuery } from './queries/cart';
-import {
-  getCollectionProductsQuery,
-  getCollectionQuery,
-  getCollectionsQuery
-} from './queries/collection';
-import { getMenuQuery } from './queries/menu';
+import { getCollectionQuery, getCollectionsQuery } from './queries/collection';
 import { getPageQuery, getPagesQuery } from './queries/page';
 import {
   getProductQuery,
@@ -27,19 +24,19 @@ import {
   Cart,
   Collection,
   Connection,
+  Product as ExProduct,
   Image,
   Menu,
+  Money,
   Page,
-  Product,
+  ProductOption,
   ShopifyAddToCartOperation,
   ShopifyCart,
   ShopifyCartOperation,
   ShopifyCollection,
   ShopifyCollectionOperation,
-  ShopifyCollectionProductsOperation,
   ShopifyCollectionsOperation,
   ShopifyCreateCartOperation,
-  ShopifyMenuOperation,
   ShopifyPageOperation,
   ShopifyPagesOperation,
   ShopifyProduct,
@@ -282,6 +279,62 @@ export async function getCollection(handle: string): Promise<Collection | undefi
   return reshapeCollection(res.body.data.collection);
 }
 
+const reshapeImage = (media: Media): Image => {
+  return {
+    url: media.url!,
+    altText: media.alt
+  };
+};
+
+type Price = {
+  amount: number;
+  currencyCode: string;
+};
+
+const reshapePrice = (price: Price): Money => {
+  return {
+    amount: (price.amount / 100).toString(),
+    currencyCode: price.currencyCode
+  };
+};
+
+const reshapeP = (product: Product): ExProduct => {
+  const options: ProductOption[] = [];
+  const map = new Map();
+
+  product.variants.forEach((variant) => {
+    variant.selectedOptions?.forEach((selectedOption) => {
+      const option = selectedOption.option as Option;
+      map.set(option.id, option.values);
+    });
+  });
+
+  // console.log(map);
+
+  return {
+    id: product.id,
+    handle: product.id,
+    availableForSale: !product.disabled,
+    title: product.title,
+    description: product.description,
+    descriptionHtml: product.description,
+    options,
+    priceRange: {
+      maxVariantPrice: reshapePrice(product.variants[0]?.price!),
+      minVariantPrice: reshapePrice(product.variants[0]?.price!)
+    },
+    featuredImage: {} as any,
+    images: [],
+    seo: {
+      title: product.title,
+      description: product.description
+    },
+    // tags: product.tags ?? [],
+    updatedAt: product.updatedAt,
+    createdAt: product.createdAt
+  };
+};
+
 export async function getCollectionProducts({
   collection,
   reverse,
@@ -290,23 +343,20 @@ export async function getCollectionProducts({
   collection: string;
   reverse?: boolean;
   sortKey?: string;
-}): Promise<Product[]> {
-  const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
-    query: getCollectionProductsQuery,
-    tags: [TAGS.collections, TAGS.products],
-    variables: {
-      handle: collection,
-      reverse,
-      sortKey: sortKey === 'CREATED_AT' ? 'CREATED' : sortKey
+}): Promise<ExProduct[]> {
+  const m = await find<Product>('products', {
+    where: {
+      title: {
+        equals: 'test'
+      }
     }
   });
 
-  if (!res.body.data.collection) {
-    console.log(`No collection found for \`${collection}\``);
-    return [];
-  }
+  const products: ExProduct[] = m.docs.map(reshapeP);
 
-  return reshapeProducts(removeEdgesAndNodes(res.body.data.collection.products));
+  console.log(products);
+
+  return products;
 }
 
 export async function getCollections(): Promise<Collection[]> {
@@ -338,20 +388,21 @@ export async function getCollections(): Promise<Collection[]> {
 }
 
 export async function getMenu(handle: string): Promise<Menu[]> {
-  const res = await shopifyFetch<ShopifyMenuOperation>({
-    query: getMenuQuery,
-    tags: [TAGS.collections],
-    variables: {
-      handle
-    }
-  });
+  return [];
+  // const res = await shopifyFetch<ShopifyMenuOperation>({
+  //   query: getMenuQuery,
+  //   tags: [TAGS.collections],
+  //   variables: {
+  //     handle
+  //   }
+  // });
 
-  return (
-    res.body?.data?.menu?.items.map((item: { title: string; url: string }) => ({
-      title: item.title,
-      path: item.url.replace(domain, '').replace('/collections', '/search').replace('/pages', '')
-    })) || []
-  );
+  // return (
+  //   res.body?.data?.menu?.items.map((item: { title: string; url: string }) => ({
+  //     title: item.title,
+  //     path: item.url.replace(domain, '').replace('/collections', '/search').replace('/pages', '')
+  //   })) || []
+  // );
 }
 
 export async function getPage(handle: string): Promise<Page> {
@@ -373,7 +424,7 @@ export async function getPages(): Promise<Page[]> {
   return removeEdgesAndNodes(res.body.data.pages);
 }
 
-export async function getProduct(handle: string): Promise<Product | undefined> {
+export async function getProduct(handle: string): Promise<ExProduct | undefined> {
   const res = await shopifyFetch<ShopifyProductOperation>({
     query: getProductQuery,
     tags: [TAGS.products],
@@ -385,7 +436,7 @@ export async function getProduct(handle: string): Promise<Product | undefined> {
   return reshapeProduct(res.body.data.product, false);
 }
 
-export async function getProductRecommendations(productId: string): Promise<Product[]> {
+export async function getProductRecommendations(productId: string): Promise<ExProduct[]> {
   const res = await shopifyFetch<ShopifyProductRecommendationsOperation>({
     query: getProductRecommendationsQuery,
     tags: [TAGS.products],
@@ -405,7 +456,7 @@ export async function getProducts({
   query?: string;
   reverse?: boolean;
   sortKey?: string;
-}): Promise<Product[]> {
+}): Promise<ExProduct[]> {
   const res = await shopifyFetch<ShopifyProductsOperation>({
     query: getProductsQuery,
     tags: [TAGS.products],
