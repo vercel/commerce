@@ -1,4 +1,4 @@
-import { ajax } from 'lib/shopify/ajax';
+import { ajax } from 'lib/cms/ajax';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 

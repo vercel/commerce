@@ -1,5 +1,5 @@
-import { ajax } from 'lib/shopify/ajax';
-import { Config } from 'lib/shopify/payload-types';
+import { ajax } from 'lib/cms/ajax';
+import { Config } from 'lib/cms/payload-types';
 import qs from 'qs';
 
 type Collection = keyof Config['collections'];

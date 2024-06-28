@@ -1,4 +1,4 @@
-import { getCollection, getCollectionProducts } from 'lib/shopify';
+import { getCollection, getCollectionProducts } from 'lib/cms';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 

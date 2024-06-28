@@ -1,12 +1,12 @@
-import { AjaxError } from 'lib/shopify/ajax';
-import { Payload, Where } from 'lib/shopify/payload';
+import { AjaxError } from 'lib/cms/ajax';
+import { Payload, Where } from 'lib/cms/payload';
 import {
   Cart as PayloadCart,
   Category as PayloadCategory,
   Media as PayloadMedia,
   Option as PayloadOption,
   Product as PayloadProduct
-} from 'lib/shopify/payload-types';
+} from 'lib/cms/payload-types';
 import {
   Cart,
   CartItem,

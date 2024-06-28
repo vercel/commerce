@@ -1,4 +1,4 @@
-import { getCart } from 'lib/shopify';
+import { getCart } from 'lib/cms';
 import { cookies } from 'next/headers';
 import CartModal from './modal';
 

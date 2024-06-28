@@ -1,7 +1,7 @@
 import Grid from 'components/grid';
 import ProductGridItems from 'components/layout/product-grid-items';
 import { DEFAULT_SORT, SORTING } from 'lib/constants';
-import { getProducts } from 'lib/shopify';
+import { getProducts } from 'lib/cms';
 
 export const metadata = {
   title: 'Search',
