@@ -164,8 +164,8 @@ const reshapeImage = (media: PayloadMedia): Image => {
   return {
     url: media.url!,
     altText: media.alt,
-    width: media.width,
-    height: media.height
+    width: media.width ?? 0,
+    height: media.height ?? 0
   };
 };
 
@@ -247,9 +247,7 @@ const reshapeProduct = (product: PayloadProduct): Product => {
 
 export async function getCollectionProducts({
   collection,
-  tag,
-  reverse,
-  sortKey
+  tag
 }: {
   collection?: string;
   tag?: string;
@@ -327,6 +325,7 @@ export async function getMenu(handle: string): Promise<Menu[]> {
   }
 }
 
+// eslint-disable-next-line no-unused-vars
 export async function getPage(handle: string): Promise<Page | undefined> {
   return undefined;
 }
@@ -340,14 +339,13 @@ export async function getProduct(handle: string): Promise<Product | undefined> {
   return reshapeProduct(product);
 }
 
+// eslint-disable-next-line no-unused-vars
 export async function getProductRecommendations(productId: string): Promise<Product[]> {
   return [];
 }
 
 export async function getProducts({
-  query,
-  reverse,
-  sortKey
+  query
 }: {
   query?: string;
   reverse?: boolean;

@@ -36,8 +36,8 @@ export type Collection = ShopifyCollection & {
 export type Image = {
   url: string;
   altText: string;
-  width?: number | null;
-  height?: number | null;
+  width: number;
+  height: number;
 };
 
 export type Menu = {

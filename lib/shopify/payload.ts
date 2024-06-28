@@ -24,10 +24,11 @@ const OPERATORS = [
 
 type Operator = (typeof OPERATORS)[number];
 type WhereField = {
+  // eslint-disable-next-line no-unused-vars
   [key in Operator]?: unknown;
 };
 export type Where = {
-  [key: string]: Where[] | WhereField;
+  [key: string]: Where[] | WhereField | undefined;
   and?: Where[];
   or?: Where[];
 };
@@ -58,24 +59,24 @@ type FindParams = {
   limit?: number;
 };
 
-export const find = <T>(collection: string, params: FindParams) => {
+export const find = <T>(collection: Collection, params: FindParams) => {
   const query = qs.stringify(params, { addQueryPrefix: true });
 
   const url = `${process.env.CMS_URL}/api/${collection}${query}`;
   return ajax<PaginatedDocs<T>>('GET', url);
 };
 
-export const findByID = <T>(collection: string, id: string) => {
+export const findByID = <T>(collection: Collection, id: string) => {
   const url = `${process.env.CMS_URL}/api/${collection}/${id}`;
   return ajax<T>('GET', url);
 };
 
-export const create = <T extends object>(collection: string, body: Partial<T>) => {
+export const create = <T extends object>(collection: Collection, body: Partial<T>) => {
   const url = `${process.env.CMS_URL}/api/${collection}`;
   return ajax<Doc<T>>('POST', url, body);
 };
 
-export const update = <T extends object>(collection: string, id: string, body: Partial<T>) => {
+export const update = <T extends object>(collection: Collection, id: string, body: Partial<T>) => {
   const url = `${process.env.CMS_URL}/api/${collection}/${id}`;
   return ajax<Doc<T>>('PATCH', url, body);
 };
