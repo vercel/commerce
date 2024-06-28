@@ -7,7 +7,6 @@ import { ensureStartsWith } from 'lib/utils';
 import { revalidateTag } from 'next/cache';
 import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
-import { removeFromCartMutation } from './mutations/cart';
 import { getPageQuery } from './queries/page';
 import {
   CartItem,
@@ -21,8 +20,7 @@ import {
   ProductOption,
   ProductVariant,
   ShopifyCart,
-  ShopifyPageOperation,
-  ShopifyRemoveFromCartOperation
+  ShopifyPageOperation
 } from './types';
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
@@ -170,16 +168,10 @@ export async function addToCart(
 }
 
 export async function removeFromCart(cartId: string, lineIds: string[]): Promise<ExCart> {
-  const res = await shopifyFetch<ShopifyRemoveFromCartOperation>({
-    query: removeFromCartMutation,
-    variables: {
-      cartId,
-      lineIds
-    },
-    cache: 'no-store'
-  });
-
-  return reshapeCart(res.body.data.cartLinesRemove.cart);
+  const prevCart = await findByID<Cart>('carts', cartId);
+  const lines = prevCart?.lines?.filter((lineItem) => !lineIds.includes(lineItem.id!)) ?? [];
+  const cart = await update<Cart>('carts', cartId, { lines });
+  return reshapeC(cart.doc);
 }
 
 const mergeItems = async (
