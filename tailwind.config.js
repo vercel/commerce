@@ -1,5 +1,12 @@
 const plugin = require('tailwindcss/plugin');
-import { colors } from './lib/styles.ts';
+import { carPartPlanetColor, remanTransmissionColor } from './lib/styles.ts';
+
+const { STORE_PREFIX } = process.env;
+
+const getCustomColors = {
+  'car-part-planet': carPartPlanetColor,
+  'reman-transmission': remanTransmissionColor
+};
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -7,7 +14,7 @@ module.exports = {
   content: ['./app/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
-      colors,
+      colors: getCustomColors[STORE_PREFIX],
       fontFamily: {
         sans: ['var(--font-geist-sans)']
       },

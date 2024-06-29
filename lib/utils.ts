@@ -16,6 +16,7 @@ export const ensureStartsWith = (stringToCheck: string, startsWith: string) =>
 export const validateEnvironmentVariables = () => {
   const requiredEnvironmentVariables = [
     'SHOPIFY_STORE_DOMAIN',
+    'STORE_PREFIX',
     'SHOPIFY_STOREFRONT_ACCESS_TOKEN',
     'SHOPIFY_CUSTOMER_ACCOUNT_API_CLIENT_ID',
     'SHOPIFY_CUSTOMER_ACCOUNT_API_URL',

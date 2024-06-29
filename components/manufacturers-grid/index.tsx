@@ -16,27 +16,32 @@ const ManufacturersGrid = ({ manufacturers, variant = 'home' }: ManufacturersGri
 
   return (
     <div className="h-auto max-h-[700px] w-full overflow-auto rounded px-10 py-6 shadow">
-      <p className="flex items-center gap-2">
-        <StarIcon className="size-4" />
-        <span className="font-medium text-blue-800">Popular Manufacturers</span>
-      </p>
-      <div className="mt-6 grid grid-cols-2 gap-x-12 gap-y-5 md:grid-cols-3 md:gap-y-8 lg:grid-cols-4 xl:grid-cols-5">
-        {popularManufacturers.map((manufacturer) => (
-          <div key={manufacturer.id} className="flex flex-col gap-2">
-            {variant === 'home' ? (
-              <ManufacturerItem manufacturer={manufacturer} />
-            ) : (
-              <ManufacturerItem
-                manufacturer={manufacturer}
-                className={'rounded border border-primary px-2 py-1'}
-                href={`/search/${variant}?${MAKE_FILTER_ID}=${manufacturer.id}`}
-              />
-            )}
-            {variant === 'home' && <ButtonGroup manufacturer={manufacturer} />}
+      {popularManufacturers.length ? (
+        <>
+          <p className="flex items-center gap-2">
+            <StarIcon className="size-4" />
+            <span className="font-medium text-blue-800">Popular Manufacturers</span>
+          </p>
+          <div className="mt-6 grid grid-cols-2 gap-x-12 gap-y-5 md:grid-cols-3 md:gap-y-8 lg:grid-cols-4 xl:grid-cols-5">
+            {popularManufacturers.map((manufacturer) => (
+              <div key={manufacturer.id} className="flex flex-col gap-2">
+                {variant === 'home' ? (
+                  <ManufacturerItem manufacturer={manufacturer} />
+                ) : (
+                  <ManufacturerItem
+                    manufacturer={manufacturer}
+                    className={'border-primary rounded border px-2 py-1'}
+                    href={`/search/${variant}?${MAKE_FILTER_ID}=${manufacturer.id}`}
+                  />
+                )}
+                {variant === 'home' && <ButtonGroup manufacturer={manufacturer} />}
+              </div>
+            ))}{' '}
           </div>
-        ))}
-      </div>
-      <hr className="my-10 w-full" />
+          <hr className="my-10 w-full" />
+        </>
+      ) : null}
+
       <p className="flex items-center gap-2">
         <GlobeAltIcon className="size-4" />
         <span className="font-medium text-blue-800">All Manufacturers</span>
@@ -51,7 +56,7 @@ const ManufacturersGrid = ({ manufacturers, variant = 'home' }: ManufacturersGri
               ) : (
                 <ManufacturerItem
                   manufacturer={manufacturer}
-                  className={'rounded border border-primary px-2 py-1'}
+                  className={'border-primary rounded border px-2 py-1'}
                   href={`/search/${variant}?${MAKE_FILTER_ID}=${manufacturer.id}`}
                 />
               )}
