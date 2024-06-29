@@ -14,7 +14,7 @@ module.exports = {
   content: ['./app/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
-      colors: getCustomColors[STORE_PREFIX],
+      colors: getCustomColors[STORE_PREFIX] || carPartPlanetColor,
       fontFamily: {
         sans: ['var(--font-geist-sans)']
       },

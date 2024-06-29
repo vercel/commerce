@@ -3,17 +3,18 @@ import Navbar from 'components/layout/navbar';
 import { AuthProvider } from 'contexts/auth-context';
 import { GeistSans } from 'geist/font/sans';
 import { ensureStartsWith } from 'lib/utils';
+import { Metadata } from 'next';
 import { ReactNode, Suspense } from 'react';
 import './globals.css';
 
-const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;
+const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME, STORE_PREFIX } = process.env;
 const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
   ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
   : 'http://localhost:3000';
 const twitterCreator = TWITTER_CREATOR ? ensureStartsWith(TWITTER_CREATOR, '@') : undefined;
 const twitterSite = TWITTER_SITE ? ensureStartsWith(TWITTER_SITE, 'https://') : undefined;
 
-export const metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
     default: SITE_NAME!,
@@ -30,7 +31,10 @@ export const metadata = {
         creator: twitterCreator,
         site: twitterSite
       }
-    })
+    }),
+  icons: {
+    icon: `/${STORE_PREFIX}/logo-icon.svg`
+  }
 };
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
