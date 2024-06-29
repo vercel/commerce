@@ -8,7 +8,7 @@ import { Metadata } from 'next';
 import { Suspense } from 'react';
 
 export const runtime = 'edge';
-const { SITE_NAME } = process.env;
+const { SITE_NAME, STORE_PREFIX } = process.env;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -19,6 +19,11 @@ export async function generateMetadata(): Promise<Metadata> {
     }
   };
 }
+
+const manufactureVariant: Record<string, 'home' | 'engines' | 'transmissions'> = {
+  'reman-transmission': 'transmissions',
+  'car-part-planet': 'home'
+};
 
 export default async function HomePage() {
   return (
@@ -35,7 +40,7 @@ export default async function HomePage() {
           <FAQ handle="home-page-faqs" />
         </Suspense>
         <Suspense>
-          <Manufacturers />
+          <Manufacturers variant={manufactureVariant[STORE_PREFIX!]} />
         </Suspense>
       </div>
       <Suspense>

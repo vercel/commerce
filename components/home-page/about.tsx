@@ -37,7 +37,7 @@ const About = async () => {
       <div className="flex h-full flex-col justify-between pb-2">
         <div className="mb-3 flex flex-col gap-3">
           <Tag text="About Us" />
-          <h3 className="text-3xl font-semibold lg:text-4xl">Engine & Transmission Experts</h3>
+          <h3 className="text-3xl font-semibold lg:text-4xl">{aboutUs.title}</h3>
           {introduction ? <RichTextDisplay contentBlocks={introduction.children} /> : null}
 
           <DisplayTabs items={features} />
