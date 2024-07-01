@@ -22,7 +22,9 @@ export async function generateMetadata(): Promise<Metadata> {
 
 const manufactureVariant: Record<string, 'home' | 'engines' | 'transmissions'> = {
   'reman-transmission': 'transmissions',
-  'car-part-planet': 'home'
+  'car-part-planet': 'home',
+  'reman-engine': 'engines',
+  'transmission-locator': 'home'
 };
 
 export default async function HomePage() {

@@ -1,11 +1,17 @@
 const plugin = require('tailwindcss/plugin');
-import { carPartPlanetColor, remanTransmissionColor } from './lib/styles.ts';
+import {
+  carPartPlanetColor,
+  remanTransmissionColor,
+  transmissionLocatorColor
+} from './lib/styles.ts';
 
 const { STORE_PREFIX } = process.env;
 
 const getCustomColors = {
   'car-part-planet': carPartPlanetColor,
-  'reman-transmission': remanTransmissionColor
+  'reman-transmission': remanTransmissionColor,
+  'reman-engine': remanTransmissionColor,
+  'transmission-locator': transmissionLocatorColor
 };
 
 /** @type {import('tailwindcss').Config} */
