@@ -1,5 +1,4 @@
 import customerDetailsFragment from '../fragments/customer-details';
-import { orderMetafields } from '../fragments/order';
 
 const customerFragment = `#graphql
 `;
@@ -13,17 +12,4 @@ export const getCustomerOrdersQuery = `#graphql
   }
   ${customerFragment}
   ${customerDetailsFragment}
-`;
-
-export const getCustomerOrderMetafieldsQuery = /* GraphQL */ `
-  query getCustomerOrderMetafields($id: ID!) {
-    customer(id: $id) {
-      orders(first: 20, sortKey: PROCESSED_AT, reverse: true) {
-        nodes {
-          ...OrderMetafield
-        }
-      }
-    }
-  }
-  ${orderMetafields}
 `;

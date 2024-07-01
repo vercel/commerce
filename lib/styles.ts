@@ -5,7 +5,7 @@ export const carPartPlanetColor = {
     muted: '#E6CCB7'
   },
   content: {
-    subtle: '#9ca3af', // gray-400
+    subtle: '#d1d5db', // gray-300
     DEFAULT: '#6b7280', // gray-500
     emphasis: '#374151', // gray-700
     strong: '#111827', // gray-900

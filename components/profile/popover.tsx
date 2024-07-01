@@ -1,7 +1,7 @@
 'use client';
 import { CloseButton, Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
 import { ArrowRightIcon } from '@heroicons/react/16/solid';
-import { Button } from 'components/button';
+import { Button } from 'components/ui';
 import useAuth from 'hooks/use-auth';
 import { Menu } from 'lib/shopify/types';
 import Link from 'next/link';

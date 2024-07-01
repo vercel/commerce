@@ -1,18 +1,19 @@
 import { ArrowLeftIcon, CheckCircleIcon, TruckIcon } from '@heroicons/react/24/outline';
-import ActivateWarranty from 'components/orders/activate-warranty';
+import OrderConfirmation from 'components/orders/order-confirmation';
+import PaymentsDetails from 'components/orders/payment-details';
 import OrderSummary from 'components/orders/order-summary';
 import OrderSummaryMobile from 'components/orders/order-summary-mobile';
-import Price from 'components/price';
 import Badge from 'components/ui/badge';
-import { Card } from 'components/ui/card';
+import { Card } from 'components/ui';
 import Heading from 'components/ui/heading';
 import Label from 'components/ui/label';
 import Text from 'components/ui/text';
-import { getCustomerOrder, getOrderMetafields } from 'lib/shopify';
+import { getCustomerOrder } from 'lib/shopify';
 import { Fulfillment, Order } from 'lib/shopify/types';
 import { toPrintDate } from 'lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
+import ActivateWarranty from 'components/orders/activate-warranty';
 
 function Unfulfilled({ order }: { order: Order }) {
   // Build a map of line item IDs to quantities fulfilled
@@ -144,30 +145,6 @@ function Fulfillments({ order }: { order: Order }) {
   );
 }
 
-function PaymentsDetails({ order }: { order: Order }) {
-  return (
-    <>
-      {order.transactions.map((transaction, index) => (
-        <div key={index} className="flex items-start gap-2">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={transaction.paymentIcon.url} alt={transaction.paymentIcon.altText} width={36} />
-          <div>
-            <Text>
-              Ending with {transaction.paymentDetails.last4} -
-              <Price
-                as="span"
-                amount={transaction.transactionAmount.amount}
-                currencyCode={transaction.transactionAmount.currencyCode}
-              />
-            </Text>
-            <Label>{toPrintDate(transaction.processedAt)}</Label>
-          </div>
-        </div>
-      ))}
-    </>
-  );
-}
-
 function OrderDetails({ order }: { order: Order }) {
   return (
     <Card className="flex flex-col gap-4">
@@ -228,10 +205,7 @@ function OrderDetails({ order }: { order: Order }) {
 }
 
 export default async function OrderPage({ params }: { params: { id: string } }) {
-  const [order, orderMetafields] = await Promise.all([
-    getCustomerOrder(params.id),
-    getOrderMetafields(params.id)
-  ]);
+  const order = await getCustomerOrder(params.id);
 
   return (
     <>
@@ -247,7 +221,10 @@ export default async function OrderPage({ params }: { params: { id: string } }) 
               <Label>Confirmed {toPrintDate(order.processedAt)}</Label>
             </div>
           </div>
-          <ActivateWarranty order={order} orderMetafields={orderMetafields} />
+          <div className="flex items-start gap-2">
+            <OrderConfirmation order={order} />
+            <ActivateWarranty order={order} />
+          </div>
         </div>
         <div className="flex items-start gap-6">
           <div className="flex flex-1 flex-col gap-6">

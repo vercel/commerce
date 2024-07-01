@@ -3,6 +3,7 @@ export type Maybe<T> = T | null;
 
 export type Connection<T> = {
   edges: Array<Edge<T>>;
+  pageInfo?: PageInfo;
 };
 
 export type Edge<T> = {
@@ -141,18 +142,18 @@ export type Order = {
   fulfillments: Fulfillment[];
   transactions: Transaction[];
   lineItems: LineItem[];
-  shippingAddress?: Address;
-  billingAddress?: Address;
+  shippingAddress: Address;
+  billingAddress: Address;
   /** the price of all line items, excluding taxes and surcharges */
-  subtotal?: Money;
-  totalShipping?: Money;
-  totalTax?: Money;
-  totalPrice?: Money;
-  shippingMethod?: {
+  subtotal: Money;
+  totalShipping: Money;
+  totalTax: Money;
+  totalPrice: Money;
+  shippingMethod: {
     name: string;
     price: Money;
   };
-};
+} & ShopifyOrderMetafield;
 
 export type ShopifyOrder = {
   id: string;
@@ -181,7 +182,7 @@ export type ShopifyOrder = {
   requiresShipping: boolean;
   shippingLine: ShopifyShippingLine;
   note: string | null;
-};
+} & ShopifyOrderMetafield;
 
 type ShopifyShippingLine = {
   title: string;
@@ -372,14 +373,28 @@ export type ShopifyMetaobject = {
     value: string;
     reference: {
       id: string;
+      image?: Image;
     };
   }>;
+};
+
+export type ShopifyMetafield = {
+  id: string;
+  namespace: string;
+  key: string;
+  value: string;
 };
 
 export type Metaobject = {
   id: string;
   type: string;
   [key: string]: string;
+};
+
+export type OrderConfirmationContent = {
+  logo: Image;
+  body: string;
+  color: string;
 };
 
 export type TransmissionType = 'Automatic' | 'Manual';
@@ -665,7 +680,7 @@ export type ShopifyImageOperation = {
 
 export type ShopifyMetaobjectsOperation = {
   data: { metaobjects: Connection<ShopifyMetaobject> };
-  variables: { type: string };
+  variables: { type: string; after?: string };
 };
 
 export type ShopifyPagesOperation = {
@@ -675,8 +690,8 @@ export type ShopifyPagesOperation = {
 };
 
 export type ShopifyMetaobjectOperation = {
-  data: { nodes: ShopifyMetaobject[] };
-  variables: { ids: string[] };
+  data: { metaobject: ShopifyMetaobject };
+  variables: { id?: string; handle?: { handle: string; type: string } };
 };
 
 export type ShopifyProductOperation = {
@@ -858,20 +873,15 @@ export enum WarrantyStatus {
   LimitedActivated = 'Limited Activation'
 }
 
-export type OrderMetafieldValue<T = string> = {
-  value: T;
-  id: string;
-  key: string;
-};
-
 export type ShopifyOrderMetafield = {
-  warrantyStatus: OrderMetafieldValue | null;
-  warrantyActivationDeadline: OrderMetafieldValue | null;
-  warrantyActivationOdometer: OrderMetafieldValue | null;
-  warrantyActivationInstallation: OrderMetafieldValue | null;
-  warrantyActivationSelfInstall: OrderMetafieldValue | null;
-  warrantyActivationVIN: OrderMetafieldValue | null;
-  warrantyActivationMileage: OrderMetafieldValue | null;
+  orderConfirmation: ShopifyMetafield | null;
+  warrantyStatus: ShopifyMetafield | null;
+  warrantyActivationDeadline: ShopifyMetafield | null;
+  warrantyActivationOdometer: ShopifyMetafield | null;
+  warrantyActivationInstallation: ShopifyMetafield | null;
+  warrantyActivationSelfInstall: ShopifyMetafield | null;
+  warrantyActivationVIN: ShopifyMetafield | null;
+  warrantyActivationMileage: ShopifyMetafield | null;
 };
 
 export type File = {

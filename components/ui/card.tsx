@@ -21,7 +21,9 @@ const cardStyles = tv({
   }
 });
 
-interface CardProps extends React.ComponentPropsWithoutRef<'div'>, VariantProps<typeof cardStyles> {
+export interface CardProps
+  extends React.ComponentPropsWithoutRef<'div'>,
+    VariantProps<typeof cardStyles> {
   asChild?: boolean;
 }
 
@@ -41,4 +43,4 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
 
 Card.displayName = 'Card';
 
-export { Card, type CardProps };
+export default Card;
