@@ -1,12 +1,6 @@
 import Image from 'next/image';
 import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react';
-import Text from 'components/ui/text';
-import { Input } from 'components/ui/input';
-import { InputLabel } from 'components/ui/input-label';
-import Skeleton from 'components/ui/skeleton';
 import { toPrintDate } from 'lib/utils';
-import Label from 'components/ui/label';
-import Heading from 'components/ui/heading';
 import PaymentsDetails from './payment-details';
 import Price from 'components/price';
 import Divider from 'components/divider';
@@ -14,7 +8,7 @@ import Markdown from 'markdown-to-jsx';
 import { Order, OrderConfirmationContent } from 'lib/shopify/types';
 import { FormEventHandler, useEffect, useRef, useState, useTransition } from 'react';
 import { confirmOrder } from 'components/orders/actions';
-import { Button } from 'components/ui';
+import { Button, Heading, Text, Label, Skeleton, InputLabel, Input } from 'components/ui';
 
 function OrderConfirmationDetails({
   content,
@@ -218,6 +212,7 @@ export default function OrderConfirmationModal({
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
+    setLoading(true);
     const form = formRef.current;
     if (!form) return;
     const formData = new FormData(form);
@@ -276,11 +271,15 @@ export default function OrderConfirmationModal({
                 </InputLabel>
                 <Input id="signature2" name="signature2" required />
               </div>
-              <div className="space-x-2">
-                <Button variant="outlined" color="content">
-                  Cancel
-                </Button>
-                <Button type="submit" disabled={loading}>
+              <div className="flex justify-end gap-2">
+                <Button variant="text">Cancel</Button>
+                <Button
+                  type="submit"
+                  variant="solid"
+                  color="primary"
+                  disabled={loading}
+                  isLoading={loading}
+                >
                   Submit
                 </Button>
               </div>

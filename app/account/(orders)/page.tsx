@@ -62,7 +62,7 @@ export default async function AccountPage() {
                         <span className="sr-only">{order.normalizedId}</span>
                       </Button>
                     </Link>
-                    {!isBeforeToday(order?.warrantyActivationDeadline) && (
+                    {!isBeforeToday(order?.warrantyActivationDeadline?.value) && (
                       <ActivateWarranty order={order} />
                     )}
                     {!order.orderConfirmation && <OrderConfirmation order={order} />}

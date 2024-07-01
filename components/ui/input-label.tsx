@@ -3,7 +3,8 @@ import * as LabelPrimitives from '@radix-ui/react-label';
 
 import { cx } from 'lib/utils';
 
-interface InputLabelProps extends React.ComponentPropsWithoutRef<typeof LabelPrimitives.Root> {
+export interface InputLabelProps
+  extends React.ComponentPropsWithoutRef<typeof LabelPrimitives.Root> {
   disabled?: boolean;
 }
 
@@ -29,4 +30,4 @@ const InputLabel = React.forwardRef<React.ElementRef<typeof LabelPrimitives.Root
 );
 InputLabel.displayName = 'InputLabel';
 
-export { InputLabel };
+export default InputLabel;

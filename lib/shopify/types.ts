@@ -3,6 +3,7 @@ export type Maybe<T> = T | null;
 
 export type Connection<T> = {
   edges: Array<Edge<T>>;
+  pageInfo?: PageInfo;
 };
 
 export type Edge<T> = {
@@ -152,10 +153,7 @@ export type Order = {
     name: string;
     price: Money;
   };
-  warrantyStatus?: WarrantyStatus | null;
-  warrantyActivationDeadline?: Date | null;
-  orderConfirmation?: string | null;
-};
+} & ShopifyOrderMetafield;
 
 export type ShopifyOrder = {
   id: string;
@@ -184,10 +182,7 @@ export type ShopifyOrder = {
   requiresShipping: boolean;
   shippingLine: ShopifyShippingLine;
   note: string | null;
-  warrantyStatus?: ShopifyMetafield;
-  warrantyActivationDeadline?: ShopifyMetafield;
-  orderConfirmation?: ShopifyMetafield;
-};
+} & ShopifyOrderMetafield;
 
 type ShopifyShippingLine = {
   title: string;
@@ -685,7 +680,7 @@ export type ShopifyImageOperation = {
 
 export type ShopifyMetaobjectsOperation = {
   data: { metaobjects: Connection<ShopifyMetaobject> };
-  variables: { type: string };
+  variables: { type: string; after?: string };
 };
 
 export type ShopifyPagesOperation = {
@@ -878,20 +873,15 @@ export enum WarrantyStatus {
   LimitedActivated = 'Limited Activation'
 }
 
-export type OrderMetafieldValue<T = string> = {
-  value: T;
-  id: string;
-  key: string;
-};
-
 export type ShopifyOrderMetafield = {
-  warrantyStatus: OrderMetafieldValue | null;
-  warrantyActivationDeadline: OrderMetafieldValue | null;
-  warrantyActivationOdometer: OrderMetafieldValue | null;
-  warrantyActivationInstallation: OrderMetafieldValue | null;
-  warrantyActivationSelfInstall: OrderMetafieldValue | null;
-  warrantyActivationVIN: OrderMetafieldValue | null;
-  warrantyActivationMileage: OrderMetafieldValue | null;
+  orderConfirmation: ShopifyMetafield | null;
+  warrantyStatus: ShopifyMetafield | null;
+  warrantyActivationDeadline: ShopifyMetafield | null;
+  warrantyActivationOdometer: ShopifyMetafield | null;
+  warrantyActivationInstallation: ShopifyMetafield | null;
+  warrantyActivationSelfInstall: ShopifyMetafield | null;
+  warrantyActivationVIN: ShopifyMetafield | null;
+  warrantyActivationMileage: ShopifyMetafield | null;
 };
 
 export type File = {

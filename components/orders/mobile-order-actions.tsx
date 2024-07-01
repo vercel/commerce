@@ -16,9 +16,9 @@ const MobileOrderActions = ({ order }: { order: Order }) => {
   const [isWarrantyOpen, setIsWarrantyOpen] = useState(false);
   const [isOrderConfirmaionOpen, setIsOrderConfirmationOpen] = useState(false);
 
-  const isWarrantyActivated = order?.warrantyStatus === WarrantyStatus.Activated;
-  const isPassDeadline = isBeforeToday(order?.warrantyActivationDeadline);
-  const isOrderConfirmed = order?.orderConfirmation;
+  const isWarrantyActivated = order?.warrantyStatus?.value === WarrantyStatus.Activated;
+  const isPassDeadline = isBeforeToday(order?.warrantyActivationDeadline?.value);
+  const isOrderConfirmed = order?.orderConfirmation?.value;
 
   return (
     <>
@@ -84,7 +84,7 @@ const MobileOrderActions = ({ order }: { order: Order }) => {
       <ActivateWarrantyModal
         isOpen={isWarrantyOpen}
         onClose={() => setIsWarrantyOpen(false)}
-        orderId={order.id}
+        order={order}
       />
       {!isOrderConfirmed && (
         <OrderConfirmationModal

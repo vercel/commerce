@@ -5,10 +5,25 @@ import OrderConfirmationPdf from 'components/orders/order-confirmation-pdf';
 import { handleUploadFile } from 'components/form/file-input/actions';
 import { TAGS } from 'lib/constants';
 import { updateOrderMetafields } from 'lib/shopify';
-import { Order, OrderConfirmationContent } from 'lib/shopify/types';
+import {
+  Order,
+  OrderConfirmationContent,
+  ShopifyOrderMetafield,
+  UpdateOrderMetafieldInput
+} from 'lib/shopify/types';
 import { revalidateTag } from 'next/cache';
 
-export const activateWarranty = async (orderId: string, formData: FormData) => {
+const getMetafieldValue = (
+  key: keyof ShopifyOrderMetafield,
+  newValue: { value?: string | null; type: string; key: string },
+  orderMetafields?: ShopifyOrderMetafield
+): UpdateOrderMetafieldInput => {
+  return orderMetafields?.[key]?.id
+    ? { id: orderMetafields[key]?.id!, value: newValue.value, key: newValue.key }
+    : { ...newValue, namespace: 'custom' };
+};
+
+export const activateWarranty = async (order: Order, formData: FormData) => {
   let odometerFileId = null;
   let installationFileId = null;
   const odometerFile = formData.get('warranty_activation_odometer');
@@ -21,24 +36,58 @@ export const activateWarranty = async (orderId: string, formData: FormData) => {
     installationFileId = await handleUploadFile({ file: installationFile as File });
   }
 
+  // https://shopify.dev/docs/api/admin-graphql/2024-01/mutations/orderUpdate
   const rawFormData = [
-    { key: 'warranty_activation_odometer', value: odometerFileId, type: 'file_reference' },
-    { key: 'warranty_activation_installation', value: installationFileId, type: 'file_reference' },
-    {
-      key: 'warranty_activation_mileage',
-      value: formData.get('warranty_activation_mileage') as string | null,
-      type: 'number_integer'
-    },
-    {
-      key: 'warranty_activation_vin',
-      value: formData.get('warranty_activation_vin') as string | null,
-      type: 'single_line_text_field'
-    }
+    getMetafieldValue(
+      'warrantyActivationOdometer',
+      {
+        key: 'warranty_activation_odometer',
+        value: odometerFileId,
+        type: 'file_reference'
+      },
+      order
+    ),
+    getMetafieldValue(
+      'warrantyActivationInstallation',
+      {
+        key: 'warranty_activation_installation',
+        value: installationFileId,
+        type: 'file_reference'
+      },
+      order
+    ),
+    getMetafieldValue(
+      'warrantyActivationSelfInstall',
+      {
+        key: 'warranty_activation_self_install',
+        value: formData.get('warranty_activation_self_install') === 'on' ? 'true' : 'false',
+        type: 'boolean'
+      },
+      order
+    ),
+    getMetafieldValue(
+      'warrantyActivationMileage',
+      {
+        key: 'warranty_activation_mileage',
+        value: formData.get('warranty_activation_mileage') as string | null,
+        type: 'number_integer'
+      },
+      order
+    ),
+    getMetafieldValue(
+      'warrantyActivationVIN',
+      {
+        key: 'warranty_activation_vin',
+        value: formData.get('warranty_activation_vin') as string | null,
+        type: 'single_line_text_field'
+      },
+      order
+    )
   ];
 
   try {
     await updateOrderMetafields({
-      orderId,
+      orderId: order.id,
       metafields: rawFormData
     });
 
@@ -91,7 +140,12 @@ export const confirmOrder = async ({ order, content, formData }: ConfirmOrderOpt
   const confirmationPDFId = await handleUploadFile({ file });
 
   const rawFormData = [
-    { key: 'customer_confirmation', value: confirmationPDFId, type: 'file_reference' }
+    {
+      key: 'customer_confirmation',
+      value: confirmationPDFId,
+      type: 'file_reference',
+      namespace: 'custom'
+    }
   ];
 
   try {

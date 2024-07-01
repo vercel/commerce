@@ -5,7 +5,6 @@ export * from './button';
 export { default as Card } from './card';
 export * from './card';
 export { default as Checkbox } from './checkbox';
-export * from './checkbox';
 export { default as Heading } from './heading';
 export { default as InputLabel } from './input-label';
 export * from './input-label';

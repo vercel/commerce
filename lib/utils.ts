@@ -124,12 +124,13 @@ export function toPrintDate(date: string) {
   });
 }
 
-export const isBeforeToday = (date?: Date | null) => {
+export const isBeforeToday = (date?: string | null) => {
   if (!date) return false;
   const today = new Date();
+  const compareDate = new Date(date);
 
   today.setHours(0, 0, 0, 0);
-  date.setHours(0, 0, 0, 0);
+  compareDate.setHours(0, 0, 0, 0);
 
-  return date <= today;
+  return compareDate <= today;
 };

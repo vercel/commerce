@@ -1,6 +1,6 @@
 export const getMetaobjectsQuery = /* GraphQL */ `
-  query getMetaobjects($type: String!) {
-    metaobjects(type: $type, first: 200) {
+  query getMetaobjects($type: String!, $after: String) {
+    metaobjects(type: $type, first: 200, after: $after) {
       edges {
         node {
           id
@@ -15,6 +15,10 @@ export const getMetaobjectsQuery = /* GraphQL */ `
             value
           }
         }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
       }
     }
   }

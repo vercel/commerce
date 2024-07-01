@@ -6,23 +6,17 @@ import CheckboxField from 'components/form/checkbox-field';
 import FileInput from 'components/form/file-input';
 import Input from 'components/form/input-field';
 import LoadingDots from 'components/loading-dots';
-import { ShopifyOrderMetafield } from 'lib/shopify/types';
+import { Order } from 'lib/shopify/types';
 import { FormEventHandler, useRef, useTransition } from 'react';
 import { activateWarranty } from './actions';
 
 type ActivateWarrantyModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  orderId: string;
-  orderMetafields?: ShopifyOrderMetafield;
+  order: Order;
 };
 
-function ActivateWarrantyModal({
-  onClose,
-  isOpen,
-  orderId,
-  orderMetafields
-}: ActivateWarrantyModalProps) {
+function ActivateWarrantyModal({ onClose, isOpen, order }: ActivateWarrantyModalProps) {
   const [pending, startTransition] = useTransition();
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -33,7 +27,7 @@ function ActivateWarrantyModal({
     const formData = new FormData(form);
 
     startTransition(async () => {
-      await activateWarranty(orderId, formData, orderMetafields);
+      await activateWarranty(order, formData);
       form.reset();
       onClose();
     });
@@ -59,28 +53,28 @@ function ActivateWarrantyModal({
               <FileInput
                 label="Odometer"
                 name="warranty_activation_odometer"
-                fileId={orderMetafields?.warrantyActivationOdometer?.value}
+                fileId={order?.warrantyActivationOdometer?.value}
               />
               <FileInput
                 label="Installation Receipt"
                 name="warranty_activation_installation"
-                fileId={orderMetafields?.warrantyActivationInstallation?.value}
+                fileId={order?.warrantyActivationInstallation?.value}
               />
               <CheckboxField
                 label="Self Installed"
                 name="warranty_activation_self_install"
-                defaultChecked={orderMetafields?.warrantyActivationSelfInstall?.value === 'true'}
+                defaultChecked={order?.warrantyActivationSelfInstall?.value === 'true'}
               />
               <Input
                 label="Customer Mileage"
                 name="warranty_activation_mileage"
                 type="number"
-                defaultValue={orderMetafields?.warrantyActivationMileage?.value}
+                defaultValue={order?.warrantyActivationMileage?.value}
               />
               <Input
                 label="Customer VIN"
                 name="warranty_activation_vin"
-                defaultValue={orderMetafields?.warrantyActivationVIN?.value}
+                defaultValue={order?.warrantyActivationVIN?.value}
               />
             </div>
             <div className="mt-4 flex w-full justify-end gap-4">

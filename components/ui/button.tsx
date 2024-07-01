@@ -17,7 +17,6 @@ const buttonVariants = tv({
       'transition-all duration-100 ease-in-out',
       // disabled
       'disabled:pointer-events-none disabled:shadow-none',
-      'shadow-sm',
       focusInput
     ],
     loading: 'pointer-events-none flex shrink-0 items-center justify-center gap-1.5'
@@ -40,12 +39,14 @@ const buttonVariants = tv({
     },
     variant: {
       solid: {
-        root: 'border border-transparent'
+        root: 'border border-transparent shadow-sm'
       },
       outlined: {
-        root: 'border bg-white'
+        root: 'border bg-white shadow-sm'
       },
-      text: {}
+      text: {
+        root: 'border border-transparent'
+      }
     }
   },
   compoundVariants: [
@@ -116,6 +117,22 @@ const buttonVariants = tv({
           'hover:bg-content/5',
           // disabled
           'disabled:border-content-muted disabled:text-content-muted'
+        ]
+      }
+    },
+    {
+      color: 'content',
+      variant: 'text',
+      class: {
+        root: [
+          // text color
+          'text-content-emphasis',
+          // background color
+          'bg-transparent',
+          // hover color
+          'hover:bg-content/5',
+          // disabled
+          'disabled:text-content-muted'
         ]
       }
     }

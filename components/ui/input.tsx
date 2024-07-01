@@ -41,7 +41,7 @@ const inputStyles = tv({
   }
 });
 
-interface InputProps
+export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement>,
     VariantProps<typeof inputStyles> {
   inputClassName?: string;
@@ -67,4 +67,4 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
 Input.displayName = 'Input';
 
-export { Input, inputStyles, type InputProps };
+export default Input;

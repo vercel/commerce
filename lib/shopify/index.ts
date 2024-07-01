@@ -37,7 +37,7 @@ import {
 import { getCustomerQuery } from './queries/customer';
 import { getMenuQuery } from './queries/menu';
 import { getMetaobjectQuery, getMetaobjectsQuery } from './queries/metaobject';
-import { getImageQuery, getMetaobjectsByIdsQuery } from './queries/node';
+import { getFileQuery, getImageQuery, getMetaobjectsByIdsQuery } from './queries/node';
 import { getCustomerOrdersQuery } from './queries/orders';
 import { getPageQuery, getPagesQuery } from './queries/page';
 import {
@@ -52,6 +52,7 @@ import {
   Collection,
   Connection,
   Customer,
+  File,
   FileCreateInput,
   Filter,
   Fulfillment,
@@ -313,7 +314,7 @@ export async function shopifyCustomerFetch<T>({
   }
 }
 
-const removeEdgesAndNodes = (array: Connection<any>) => {
+const removeEdgesAndNodes = <T = any>(array: Connection<T>) => {
   return array.edges.map((edge) => edge?.node);
 };
 
@@ -439,7 +440,7 @@ const reshapeImages = (images: Connection<Image>, productTitle: string) => {
   const flattened = removeEdgesAndNodes(images);
 
   return flattened.map((image) => {
-    const filename = image.url.match(/.*\/(.*)\..*/)[1];
+    const filename = (image.url.match(/.*\/(.*)\..*/) || [])[1];
     return {
       ...image,
       altText: image.altText || `${productTitle} - ${filename}`
@@ -621,23 +622,19 @@ function reshapeOrder(shopifyOrder: ShopifyOrder): Order {
     shippingMethod: {
       name: shopifyOrder.shippingLine?.title,
       price: reshapeMoney(shopifyOrder.shippingLine.originalPrice)!
-    }
+    },
+    warrantyActivationDeadline: shopifyOrder.warrantyActivationDeadline,
+    warrantyStatus: shopifyOrder.warrantyStatus,
+    warrantyActivationInstallation: shopifyOrder.warrantyActivationInstallation,
+    warrantyActivationMileage: shopifyOrder.warrantyActivationMileage,
+    warrantyActivationOdometer: shopifyOrder.warrantyActivationOdometer,
+    warrantyActivationSelfInstall: shopifyOrder.warrantyActivationSelfInstall,
+    warrantyActivationVIN: shopifyOrder.warrantyActivationVIN,
+    orderConfirmation: shopifyOrder.orderConfirmation
   };
 
   if (shopifyOrder.customer) {
     order.customer = reshapeCustomer(shopifyOrder.customer);
-  }
-
-  if (shopifyOrder.warrantyStatus) {
-    order.warrantyStatus = shopifyOrder.warrantyStatus.value as WarrantyStatus;
-  }
-
-  if (shopifyOrder.warrantyActivationDeadline) {
-    order.warrantyActivationDeadline = new Date(shopifyOrder.warrantyActivationDeadline.value);
-  }
-
-  if (shopifyOrder.orderConfirmation) {
-    order.orderConfirmation = shopifyOrder.orderConfirmation.value;
   }
 
   return order;
@@ -889,6 +886,31 @@ export async function getMetaobjects(type: string) {
   });
 
   return reshapeMetaobjects(removeEdgesAndNodes(res.body.data.metaobjects));
+}
+
+export async function getAllMetaobjects(type: string) {
+  const allMetaobjects: Metaobject[] = [];
+  let hasNextPage = true;
+  let after: string | undefined;
+
+  while (hasNextPage) {
+    const res = await shopifyFetch<ShopifyMetaobjectsOperation>({
+      query: getMetaobjectsQuery,
+      tags: [TAGS.collections, TAGS.products],
+      variables: { type, after }
+    });
+
+    const metaobjects = reshapeMetaobjects(removeEdgesAndNodes(res.body.data.metaobjects));
+
+    for (const metaobject of metaobjects) {
+      allMetaobjects.push(metaobject);
+    }
+
+    hasNextPage = res.body.data.metaobjects.pageInfo?.hasNextPage || false;
+    after = res.body.data.metaobjects.pageInfo?.endCursor;
+  }
+
+  return allMetaobjects;
 }
 
 export async function getMetaobjectsByIds(ids: string[]) {
@@ -1146,4 +1168,20 @@ export const updateOrderMetafields = async ({
   });
 
   return response.body.data.orderUpdate.order.id;
+};
+
+export const getFile = async (id: string) => {
+  const res = await shopifyFetch<{
+    data: {
+      node: File;
+    };
+    variables: {
+      id: string;
+    };
+  }>({
+    query: getFileQuery,
+    variables: { id }
+  });
+
+  return res.body.data.node;
 };
