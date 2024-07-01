@@ -11,7 +11,8 @@ const getCustomColors = {
   'car-part-planet': carPartPlanetColor,
   'reman-transmission': remanTransmissionColor,
   'reman-engine': remanTransmissionColor,
-  'transmission-locator': transmissionLocatorColor
+  'transmission-locator': transmissionLocatorColor,
+  'engine-locator': transmissionLocatorColor
 };
 
 /** @type {import('tailwindcss').Config} */

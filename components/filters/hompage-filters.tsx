@@ -1,6 +1,16 @@
 import { getMenu, getMetaobjects } from 'lib/shopify';
 import FiltersList from './filters-list';
 
+const title: Record<string, string> = {
+  'reman-transmission': 'Find your Transmission',
+  'car-part-planet': 'Find Your Car Part',
+  'reman-engine': 'Fine your Engine',
+  'transmission-locator': 'Find your Transmission',
+  'engine-locator': 'Find your Engine'
+};
+
+const { STORE_PREFIX } = process.env;
+
 const HomePageFilters = async () => {
   const yearsData = getMetaobjects('make_model_year_composite');
   const modelsData = getMetaobjects('make_model_composite');
@@ -11,7 +21,7 @@ const HomePageFilters = async () => {
   return (
     <>
       <h1 className="text-4xl font-bold tracking-tight text-white lg:text-6xl">
-        Find Your Car Part
+        {title[STORE_PREFIX!] || 'Find Your Car Part'}
       </h1>
       <div className="mt-5 flex grow flex-col items-center gap-3 @md:flex-row">
         <FiltersList

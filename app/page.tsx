@@ -24,7 +24,8 @@ const manufactureVariant: Record<string, 'home' | 'engines' | 'transmissions'> =
   'reman-transmission': 'transmissions',
   'car-part-planet': 'home',
   'reman-engine': 'engines',
-  'transmission-locator': 'home'
+  'transmission-locator': 'transmissions',
+  'engine-locator': 'engines'
 };
 
 export default async function HomePage() {
