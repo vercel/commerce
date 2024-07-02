@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react';
+import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react';
 import { toPrintDate } from 'lib/utils';
 import PaymentsDetails from './payment-details';
 import Price from 'components/price';
@@ -7,8 +7,9 @@ import Divider from 'components/divider';
 import Markdown from 'markdown-to-jsx';
 import { Order, OrderConfirmationContent } from 'lib/shopify/types';
 import { FormEventHandler, useEffect, useRef, useState, useTransition } from 'react';
-import { confirmOrder } from 'components/orders/actions';
-import { Button, Heading, Text, Label, Skeleton, InputLabel, Input } from 'components/ui';
+import { confirmOrder, fetchOrderConfirmationContent } from 'components/orders/actions';
+import { Button, Heading, Text, Label, Input, Skeleton } from 'components/ui';
+import LoadingDots from 'components/loading-dots';
 
 function OrderConfirmationDetails({
   content,
@@ -188,31 +189,28 @@ export default function OrderConfirmationModal({
   onClose: () => void;
 }) {
   const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
   const [orderConfirmationContent, setOrderConfirmationContent] =
     useState<OrderConfirmationContent>();
   const [, startTransition] = useTransition();
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
-    const fetchOrderConfirmationContent = async () => {
-      const res = await fetch('/api/orders/confirmation');
-      const data = await res.json();
-
-      setOrderConfirmationContent(data);
-
-      setLoading(false);
-    };
-
     // If the order has already been confirmed, don't fetch the content
     if (order.orderConfirmation) return;
 
-    fetchOrderConfirmationContent();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (!isOpen) return;
+
+    (async () => {
+      const data = await fetchOrderConfirmationContent();
+      setOrderConfirmationContent(data);
+      setLoading(false);
+    })();
+  }, [isOpen, order.orderConfirmation]);
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    setLoading(true);
+    setSubmitting(true);
     const form = formRef.current;
     if (!form) return;
     const formData = new FormData(form);
@@ -223,7 +221,6 @@ export default function OrderConfirmationModal({
         content: orderConfirmationContent!,
         formData
       });
-      form.reset();
     });
   };
 
@@ -239,46 +236,39 @@ export default function OrderConfirmationModal({
         <div className="flex min-h-full items-center justify-center">
           <DialogPanel
             transition
-            className="max-w-3xl space-y-4 rounded bg-white p-12 duration-300 ease-out data-[closed]:scale-95 data-[closed]:opacity-0"
+            className="w-full max-w-3xl space-y-4 rounded bg-white p-5 duration-300 ease-out data-[closed]:scale-95 data-[closed]:opacity-0"
           >
+            <DialogTitle className="mb-2 font-bold">Confirm Order</DialogTitle>
             {loading ? (
-              <Skeleton />
+              <LoadingDots size="lg" rootClassName="flex justify-center" />
             ) : (
               <OrderConfirmationDetails content={orderConfirmationContent!} order={order} />
             )}
-            <form onSubmit={handleSubmit} ref={formRef} className="space-y-4">
-              <div className="space-y-2">
-                <InputLabel htmlFor="date">Today&apos;s date</InputLabel>
+            <form onSubmit={handleSubmit} ref={formRef}>
+              <div className="max-w-md space-y-4">
                 <Input
                   type="date"
-                  id="date"
-                  name="date"
                   readOnly
+                  label="Date"
                   value={new Date().toLocaleDateString('en-CA', {
                     year: 'numeric',
                     month: '2-digit',
                     day: '2-digit'
                   })}
                 />
-              </div>
-              <div className="space-y-2">
-                <InputLabel htmlFor="signature1">Print your name to sign</InputLabel>
-                <Input id="signature1" name="signature1" required />
-              </div>
-              <div className="space-y-2">
-                <InputLabel htmlFor="signature2">
-                  Credit card holder&apos;s electronic signature
-                </InputLabel>
-                <Input id="signature2" name="signature2" required />
+                <Input required label="Print your name to sign" />
+                <Input required label="Credit card holder's electronic signature" />
               </div>
               <div className="flex justify-end gap-2">
-                <Button variant="text">Cancel</Button>
+                <Button variant="text" onClick={onClose}>
+                  Cancel
+                </Button>
                 <Button
                   type="submit"
                   variant="solid"
                   color="primary"
-                  disabled={loading}
-                  isLoading={loading}
+                  disabled={submitting || loading}
+                  isLoading={submitting}
                 >
                   Submit
                 </Button>

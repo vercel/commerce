@@ -244,7 +244,6 @@ export async function checkExpires({
     //this will return success: true or success: false - depending on result of refresh
     return { ranRefresh: isExpired, refresh };
   }
-  console.log('is expired is false - just sending back success', isExpired);
   return { ranRefresh: isExpired, success: true };
 }
 
@@ -355,7 +354,6 @@ export async function isLoggedIn(request: NextRequest, origin: string) {
     expiresAt: expiresTokenValue,
     origin: origin
   });
-  console.log('is Expired?', isExpired);
   //only execute the code below to reset the cookies if it was expired!
   if (isExpired.ranRefresh) {
     const isSuccess = isExpired?.refresh?.success;
@@ -390,7 +388,6 @@ export async function isLoggedIn(request: NextRequest, origin: string) {
   }
 
   newHeaders.set('x-shop-customer-token', `${customerTokenValue}`);
-  console.log('Customer Token', customerTokenValue);
   return NextResponse.next({
     request: {
       // New request headers
@@ -402,7 +399,6 @@ export async function isLoggedIn(request: NextRequest, origin: string) {
 //when we are running on the production website we just get the origin from the request.nextUrl
 export function getOrigin(request: NextRequest) {
   const nextOrigin = request.nextUrl.origin;
-  console.log('Current Origin', nextOrigin);
   //when running localhost, we want to use fake origin otherwise we use the real origin
   let newOrigin = nextOrigin;
   if (nextOrigin === 'https://localhost:3000' || nextOrigin === 'http://localhost:3000') {
@@ -410,7 +406,6 @@ export function getOrigin(request: NextRequest) {
   } else {
     newOrigin = nextOrigin;
   }
-  console.log('New Origin', newOrigin);
   return newOrigin;
 }
 

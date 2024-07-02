@@ -3,7 +3,7 @@ import React from 'react';
 import { Button as ButtonBase, ButtonProps as ButtonBaseProps } from '@headlessui/react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import clsx from 'clsx';
-import LoadingDots from './loading-dots';
+import LoadingDots from 'components/loading-dots';
 import { focusInput } from 'lib/utils';
 
 const buttonVariants = tv({
@@ -183,7 +183,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {isLoading ? (
           <span className={loading()}>
-            <LoadingDots />
+            <LoadingDots className="bg-white" />
             <span className="sr-only">{loadingText}</span>
             <span>{loadingText}</span>
           </span>

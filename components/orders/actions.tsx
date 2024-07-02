@@ -4,7 +4,7 @@ import { renderToBuffer } from '@react-pdf/renderer';
 import OrderConfirmationPdf from 'components/orders/order-confirmation-pdf';
 import { handleUploadFile } from 'components/form/file-input/actions';
 import { TAGS } from 'lib/constants';
-import { updateOrderMetafields } from 'lib/shopify';
+import { getOrderConfirmationContent, updateOrderMetafields } from 'lib/shopify';
 import {
   Order,
   OrderConfirmationContent,
@@ -12,6 +12,7 @@ import {
   UpdateOrderMetafieldInput
 } from 'lib/shopify/types';
 import { revalidateTag } from 'next/cache';
+import { cache } from 'react';
 
 const getMetafieldValue = (
   key: keyof ShopifyOrderMetafield,
@@ -114,6 +115,10 @@ async function generateOrderConfirmationPDF(
     />
   );
 }
+
+export const fetchOrderConfirmationContent = cache(async () => {
+  return getOrderConfirmationContent();
+});
 
 type ConfirmOrderOptions = {
   order: Order;
