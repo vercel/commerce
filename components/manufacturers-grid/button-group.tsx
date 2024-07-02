@@ -13,7 +13,7 @@ const ButtonGroup = ({ manufacturer }: { manufacturer: Metaobject }) => {
   const handleClick = (type: 'engines' | 'transmissions') => {
     _newSearchParams.set(MAKE_FILTER_ID, manufacturer.id);
 
-    router.push(createUrl(`/search/${type}`, _newSearchParams));
+    router.push(createUrl(`/${type}`, _newSearchParams));
   };
 
   return (

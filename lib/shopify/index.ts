@@ -15,7 +15,13 @@ import {
   YEAR_FILTER_ID
 } from 'lib/constants';
 import { isShopifyError } from 'lib/type-guards';
-import { ensureStartsWith, normalizeUrl, parseJSON, parseMetaFieldValue } from 'lib/utils';
+import {
+  ensureStartsWith,
+  getCollectionUrl,
+  normalizeUrl,
+  parseJSON,
+  parseMetaFieldValue
+} from 'lib/utils';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
@@ -38,6 +44,7 @@ import { getCustomerQuery } from './queries/customer';
 import { getMenuQuery } from './queries/menu';
 import { getMetaobjectQuery, getMetaobjectsQuery } from './queries/metaobject';
 import { getFileQuery, getImageQuery, getMetaobjectsByIdsQuery } from './queries/node';
+import getCustomerOrderQuery from './queries/order';
 import { getCustomerOrdersQuery } from './queries/orders';
 import { getPageQuery, getPagesQuery } from './queries/page';
 import {
@@ -109,7 +116,6 @@ import {
   UploadInput,
   WarrantyStatus
 } from './types';
-import getCustomerOrderQuery from './queries/order';
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
   ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, 'https://')
@@ -347,7 +353,7 @@ const reshapeCollection = (collection: ShopifyCollection): Collection | undefine
     ...collection,
     helpfulLinks: parseMetaFieldValue<string[]>(collection.helpfulLinks),
     helpfulLinksTop: parseMetaFieldValue<string[]>(collection.helpfulLinksTop),
-    path: `/search/${collection.handle}`
+    path: getCollectionUrl(collection.handle)
   };
 };
 
@@ -833,26 +839,9 @@ export async function getCollections(): Promise<Collection[]> {
     tags: [TAGS.collections]
   });
   const shopifyCollections = removeEdgesAndNodes(res.body?.data?.collections);
-  const collections = [
-    {
-      handle: '',
-      title: 'All',
-      description: 'All products',
-      seo: {
-        title: 'All',
-        description: 'All products'
-      },
-      path: '/search',
-      updatedAt: new Date().toISOString(),
-      helpfulLinks: null,
-      helpfulLinksTop: null
-    },
-    // Filter out the `hidden` collections.
-    // Collections that start with `hidden-*` need to be hidden on the search page.
-    ...reshapeCollections(shopifyCollections).filter(
-      (collection) => !collection.handle.startsWith('hidden')
-    )
-  ];
+  const collections = reshapeCollections(shopifyCollections).filter(
+    (collection) => !collection.handle.startsWith('hidden')
+  );
 
   return collections;
 }

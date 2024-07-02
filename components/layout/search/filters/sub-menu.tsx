@@ -1,10 +1,10 @@
 import { getMenu } from 'lib/shopify';
+import { getCollectionUrl } from 'lib/utils';
 import Link from 'next/link';
 
 const SubMenu = async ({ collection }: { collection: string }) => {
   const menu = await getMenu('main-menu');
-
-  const subMenu = menu.find((item) => item.path === `/search/${collection}`)?.items || [];
+  const subMenu = menu.find((item) => item.path === getCollectionUrl(collection))?.items || [];
 
   return subMenu.length ? (
     <div className="border-t pt-4">

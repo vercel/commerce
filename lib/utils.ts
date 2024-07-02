@@ -82,7 +82,13 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function normalizeUrl(domain: string, url: string) {
-  return url.replace(domain, '').replace('/collections', '/search').replace('/pages', '');
+  const cleanUrl = url.replace(domain, '');
+
+  if (cleanUrl.startsWith('/collections')) {
+    return getCollectionUrl(cleanUrl.replace('/collections', ''), false);
+  }
+
+  return cleanUrl.replace('/pages', '');
 }
 
 export const parseMetaFieldValue = <T>(field: { value: string } | null): T | null => {
@@ -97,7 +103,9 @@ export const findParentCollection = (menu: Menu[], collection: string): Menu | n
   let parentCollection: Menu | null = null;
   for (const item of menu) {
     if (item.items.length) {
-      const hasParent = item.items.some((subItem) => subItem.path.includes(collection));
+      const hasParent = item.items.some((subItem) =>
+        subItem.path.includes(getCollectionUrl(collection))
+      );
       if (hasParent) {
         return item;
       } else {
@@ -134,4 +142,10 @@ export const isBeforeToday = (date?: string | null) => {
   compareDate.setHours(0, 0, 0, 0);
 
   return compareDate <= today;
+};
+
+export const getCollectionUrl = (handle: string, includeSlashPrefix = true) => {
+  const rewriteUrl = handle.split('-').filter(Boolean).join('/');
+
+  return includeSlashPrefix ? `/${rewriteUrl}` : rewriteUrl;
 };

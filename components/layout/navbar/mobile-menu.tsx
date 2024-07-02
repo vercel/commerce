@@ -1,6 +1,14 @@
 'use client';
 
-import { Dialog, Disclosure, Transition } from '@headlessui/react';
+import {
+  Dialog,
+  DialogPanel,
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+  Transition,
+  TransitionChild
+} from '@headlessui/react';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Fragment, Suspense, useEffect, useState } from 'react';
@@ -41,7 +49,7 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
       </button>
       <Transition show={isOpen}>
         <Dialog onClose={closeMobileMenu} className="relative z-50">
-          <Transition.Child
+          <TransitionChild
             as={Fragment}
             enter="transition-all ease-in-out duration-300"
             enterFrom="opacity-0 backdrop-blur-none"
@@ -51,8 +59,8 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
             leaveTo="opacity-0 backdrop-blur-none"
           >
             <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
-          </Transition.Child>
-          <Transition.Child
+          </TransitionChild>
+          <TransitionChild
             as={Fragment}
             enter="transition-all ease-in-out duration-300"
             enterFrom="translate-x-[-100%]"
@@ -61,7 +69,7 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
             leaveFrom="translate-x-0"
             leaveTo="translate-x-[-100%]"
           >
-            <Dialog.Panel className="fixed bottom-0 left-0 right-0 top-0 flex h-full w-full flex-col bg-white pb-6 dark:bg-black">
+            <DialogPanel className="fixed bottom-0 left-0 right-0 top-0 flex h-full w-full flex-col bg-white pb-6 dark:bg-black">
               <div className="p-4">
                 <button
                   className="mb-4 flex h-11 w-11 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors dark:border-neutral-700 dark:text-white"
@@ -85,8 +93,8 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
                       >
                         {item.items.length ? (
                           <Disclosure>
-                            <Disclosure.Button>{item.title}</Disclosure.Button>
-                            <Disclosure.Panel className="flex flex-col space-y-2 px-3 py-2 text-lg text-neutral-600 hover:text-black">
+                            <DisclosureButton>{item.title}</DisclosureButton>
+                            <DisclosurePanel className="flex flex-col space-y-2 px-3 py-2 text-lg text-neutral-600 hover:text-black">
                               {item.items.map((subItem: Menu) => (
                                 <Link
                                   key={subItem.title}
@@ -96,7 +104,7 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
                                   {subItem.title}
                                 </Link>
                               ))}
-                            </Disclosure.Panel>
+                            </DisclosurePanel>
                           </Disclosure>
                         ) : (
                           <Link href={item.path} onClick={closeMobileMenu}>
@@ -108,8 +116,8 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
                   </ul>
                 ) : null}
               </div>
-            </Dialog.Panel>
-          </Transition.Child>
+            </DialogPanel>
+          </TransitionChild>
         </Dialog>
       </Transition>
     </>

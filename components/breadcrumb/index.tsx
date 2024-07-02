@@ -1,4 +1,5 @@
 import { getCollection, getMenu, getProduct } from 'lib/shopify';
+import { findParentCollection, getCollectionUrl } from 'lib/utils';
 import { Fragment } from 'react';
 import {
   Breadcrumb,
@@ -8,7 +9,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator
 } from './breadcrumb-list';
-import { findParentCollection } from 'lib/utils';
 
 type BreadcrumbProps = {
   type: 'product' | 'collection';
@@ -25,7 +25,7 @@ const BreadcrumbComponent = async ({ type, handle }: BreadcrumbProps) => {
 
     if (collection) {
       items.push({
-        href: `/search/${collection.handle}`,
+        href: getCollectionUrl(collection.handle),
         title: collection.title
       });
     }
@@ -42,16 +42,17 @@ const BreadcrumbComponent = async ({ type, handle }: BreadcrumbProps) => {
     const [collection, menu] = await Promise.all([collectionData, menuData]);
     if (!collection) return null;
     const parentCollection = findParentCollection(menu, handle);
-    if (parentCollection && parentCollection.path !== `/search/${handle}`) {
+
+    if (parentCollection && parentCollection.path !== `/${handle}`) {
       items.push({
-        href: `${parentCollection.path}`,
+        href: getCollectionUrl(parentCollection.path, false),
         title: parentCollection.title
       });
     }
 
     items.push({
       title: collection.title,
-      href: `/search/${collection.handle}`
+      href: getCollectionUrl(collection.handle)
     });
   }
 

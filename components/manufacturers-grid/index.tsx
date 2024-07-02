@@ -30,8 +30,8 @@ const ManufacturersGrid = ({ manufacturers, variant = 'home' }: ManufacturersGri
                 ) : (
                   <ManufacturerItem
                     manufacturer={manufacturer}
-                    className={'border-primary rounded border px-2 py-1'}
-                    href={`/search/${variant}?${MAKE_FILTER_ID}=${manufacturer.id}`}
+                    className="rounded border border-primary px-2 py-1"
+                    href={`/${variant}?${MAKE_FILTER_ID}=${manufacturer.id}`}
                   />
                 )}
                 {variant === 'home' && <ButtonGroup manufacturer={manufacturer} />}
@@ -56,8 +56,8 @@ const ManufacturersGrid = ({ manufacturers, variant = 'home' }: ManufacturersGri
               ) : (
                 <ManufacturerItem
                   manufacturer={manufacturer}
-                  className={'border-primary rounded border px-2 py-1'}
-                  href={`/search/${variant}?${MAKE_FILTER_ID}=${manufacturer.id}`}
+                  className="rounded border border-primary px-2 py-1"
+                  href={`/${variant}?${MAKE_FILTER_ID}=${manufacturer.id}`}
                 />
               )}
               {variant === 'home' && <ButtonGroup manufacturer={manufacturer} />}
