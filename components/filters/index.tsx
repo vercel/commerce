@@ -1,4 +1,4 @@
-import { getMenu, getMetaobjects } from 'lib/shopify';
+import { getAllMetaobjects, getMenu } from 'lib/shopify';
 import { ReactNode } from 'react';
 import FiltersList from './filters-list';
 
@@ -14,9 +14,9 @@ const YMMFiltersContainer = ({ children }: { children: ReactNode }) => {
 };
 
 const YMMFilters = async () => {
-  const yearsData = getMetaobjects('make_model_year_composite');
-  const modelsData = getMetaobjects('make_model_composite');
-  const makesData = getMetaobjects('make');
+  const yearsData = getAllMetaobjects('make_model_year_composite');
+  const modelsData = getAllMetaobjects('make_model_composite');
+  const makesData = getAllMetaobjects('make');
 
   const [years, models, makes] = await Promise.all([yearsData, modelsData, makesData]);
   const menu = await getMenu('main-menu');
@@ -33,7 +33,7 @@ const YMMFilters = async () => {
 export const YMMFiltersPlaceholder = () => {
   return (
     <YMMFiltersContainer>
-      <div className="flex grow animate-pulse flex-col items-center gap-3 md:flex-row">
+      <div className="flex grow animate-pulse flex-col items-center gap-3 @md:flex-row">
         <div className="h-9 w-full rounded bg-gray-100" />
         <div className="h-9 w-full rounded bg-gray-100" />
         <div className="h-9 w-full rounded bg-gray-100" />

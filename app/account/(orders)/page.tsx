@@ -1,16 +1,16 @@
 import { InformationCircleIcon } from '@heroicons/react/24/outline';
+import ActivateWarranty from 'components/orders/activate-warranty';
 import MobileOrderActions from 'components/orders/mobile-order-actions';
 import OrdersHeader from 'components/orders/orders-header';
 import Price from 'components/price';
+import { Button } from 'components/ui';
 import { getCustomerOrders } from 'lib/shopify';
-import { isBeforeToday, toPrintDate } from 'lib/utils';
+import { toPrintDate } from 'lib/utils';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button } from 'components/ui';
-import dynamic from 'next/dynamic';
 
 const OrderConfirmation = dynamic(() => import('components/orders/order-confirmation'));
-const ActivateWarranty = dynamic(() => import('components/orders/activate-warranty'));
 
 export default async function AccountPage() {
   const orders = await getCustomerOrders();
@@ -64,9 +64,7 @@ export default async function AccountPage() {
                         <span className="sr-only">{order.normalizedId}</span>
                       </Button>
                     </Link>
-                    {!isBeforeToday(order?.warrantyActivationDeadline?.value) && (
-                      <ActivateWarranty order={order} />
-                    )}
+                    <ActivateWarranty order={order} />
                     {!order.orderConfirmation && <OrderConfirmation order={order} />}
                   </div>
                 </div>
