@@ -22,11 +22,10 @@ function SignInButton({ message }: { message: string | null }) {
       {message && <div className="my-5">{message}</div>}
       <Button
         type="submit"
-        aria-label="Log in"
-        aria-disabled={pending}
+        aria-label="Sign In"
         disabled={pending}
         isLoading={pending}
-        loadingText="Signing In..."
+        loadingText="Signing In"
         className="w-full"
       >
         Sign In
@@ -38,11 +37,18 @@ function SignInButton({ message }: { message: string | null }) {
 const LogoutButton = () => {
   const { pending } = useFormStatus();
   return (
-    <Button disabled={pending} type="submit" variant="outlined" className="w-full">
-      {pending ? 'Logging Out...' : 'Log Out'}
+    <Button
+      disabled={pending}
+      type="submit"
+      className="w-full"
+      isLoading={pending}
+      loadingText="Logging Out"
+    >
+      Log Out
     </Button>
   );
 };
+
 const ProfilePopover = ({ menu }: ProfilePopoverProps) => {
   const [message, action] = useFormState(doLogin, null);
   const [, logoutAction] = useFormState(doLogout, null);

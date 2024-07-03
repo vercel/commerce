@@ -19,7 +19,8 @@ const buttonVariants = tv({
       'disabled:pointer-events-none disabled:shadow-none',
       focusInput
     ],
-    loading: 'pointer-events-none flex shrink-0 items-center justify-center gap-1.5'
+    loading: 'pointer-events-none flex shrink-0 items-center justify-center gap-1.5',
+    loadingDots: ''
   },
   variants: {
     size: {
@@ -39,13 +40,15 @@ const buttonVariants = tv({
     },
     variant: {
       solid: {
-        root: 'border border-transparent shadow-sm'
+        root: 'shadow-sm',
+        loadingDots: 'bg-white'
       },
       outlined: {
-        root: 'border bg-white shadow-sm'
+        root: 'bg-white shadow-sm ring-1 ring-inset ring-gray-300',
+        loadingDots: 'bg-content'
       },
       text: {
-        root: 'border border-transparent'
+        loadingDots: 'bg-content'
       }
     }
   },
@@ -161,7 +164,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       className,
       disabled,
       isLoading,
-      loadingText = 'Loading',
+      loadingText,
       size,
       color,
       variant,
@@ -170,7 +173,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     }: ButtonProps,
     forwardedRef
   ) => {
-    const { loading, root } = buttonVariants({ variant, size, color });
+    const { loading, loadingDots, root } = buttonVariants({ variant, size, color });
 
     const Component = as || 'button';
     return (
@@ -183,7 +186,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {isLoading ? (
           <span className={loading()}>
-            <LoadingDots className="bg-white" />
+            <LoadingDots className={loadingDots()} />
             <span className="sr-only">{loadingText}</span>
             <span>{loadingText}</span>
           </span>

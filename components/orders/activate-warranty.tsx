@@ -15,6 +15,11 @@ const ActivateWarranty = ({ order }: ActivateWarrantyModalProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const isWarrantyActivated = order?.warrantyStatus?.value === WarrantyStatus.Activated;
   const isPassDeadline = isBeforeToday(order?.warrantyActivationDeadline?.value);
+  const isOrderConfirmed = order?.orderConfirmation?.value;
+
+  if (!isOrderConfirmed) {
+    return null;
+  }
 
   if (isWarrantyActivated) {
     return <WarrantyActivatedBadge />;
