@@ -54,7 +54,7 @@ const ProductsList = ({
   return (
     <>
       <Grid className="hide-scrollbar max-h-[1000px] grid-cols-1 overflow-y-auto border-b border-gray-100 pb-4 sm:grid-cols-2 sm:gap-x-8 lg:grid-cols-3">
-        {products.map((product) => (
+        {products.map((product, index) => (
           <Grid.Item key={product.handle} className="animate-fadeIn">
             <GridTileImage
               alt={product.title}
@@ -63,6 +63,7 @@ const ProductsList = ({
               fill
               sizes="(min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
               href={`/product/${product.handle}`}
+              priority={index > 10 ? false : true}
             />
           </Grid.Item>
         ))}

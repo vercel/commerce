@@ -38,7 +38,8 @@ import { getCartQuery } from './queries/cart';
 import {
   getCollectionProductsQuery,
   getCollectionQuery,
-  getCollectionsQuery
+  getCollectionsQuery,
+  getTransmissionCodesQuery
 } from './queries/collection';
 import { getCustomerQuery } from './queries/customer';
 import { getMenuQuery } from './queries/menu';
@@ -373,10 +374,10 @@ const reshapeCollections = (collections: ShopifyCollection[]) => {
   return reshapedCollections;
 };
 
-const reshapeFilters = (filters: ShopifyFilter[]): Filter[] => {
+const reshapeFilters = (filters: ShopifyFilter[], excludeYMM = true): Filter[] => {
   const reshapedFilters = [];
-  const excludedYMMFilters = filters.filter(
-    (filter) => ![MODEL_FILTER_ID, MAKE_FILTER_ID, YEAR_FILTER_ID].includes(filter.id)
+  const excludedYMMFilters = filters.filter((filter) =>
+    excludeYMM ? ![MODEL_FILTER_ID, MAKE_FILTER_ID, YEAR_FILTER_ID].includes(filter.id) : true
   );
   for (const filter of excludedYMMFilters) {
     const values = filter.values
@@ -1174,3 +1175,32 @@ export const getFile = async (id: string) => {
 
   return res.body.data.node;
 };
+
+export async function getProductFilters(
+  { collection, make }: { collection: string; make?: string },
+  filterId: string
+): Promise<Filter | null | undefined> {
+  const [namespace, metafieldKey] = MAKE_FILTER_ID.split('.').slice(-2);
+
+  const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
+    query: getTransmissionCodesQuery,
+    tags: [TAGS.collections, TAGS.products],
+    variables: {
+      handle: collection,
+      ...(make
+        ? {
+            filters: [{ productMetafield: { namespace, key: metafieldKey, value: make } }]
+          }
+        : {})
+    }
+  });
+
+  if (!res.body.data.collection) {
+    console.log(`No collection found for \`${collection}\``);
+    return null;
+  }
+
+  const filters = res.body.data.collection.products.filters;
+  const selectedFilters = filters.find((filter) => filter.id === filterId);
+  return selectedFilters ? reshapeFilters([selectedFilters], false)[0] : null;
+}

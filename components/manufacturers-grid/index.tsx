@@ -36,7 +36,7 @@ const ManufacturersGrid = ({ manufacturers, variant = 'home' }: ManufacturersGri
                 )}
                 {variant === 'home' && <ButtonGroup manufacturer={manufacturer} />}
               </div>
-            ))}{' '}
+            ))}
           </div>
           <hr className="my-10 w-full" />
         </>

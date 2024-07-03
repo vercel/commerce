@@ -78,3 +78,22 @@ export const getCollectionProductsQuery = /* GraphQL */ `
   }
   ${productFragment}
 `;
+
+export const getTransmissionCodesQuery = /* GraphQL */ `
+  query getTransmissionCodes($handle: String!, $filters: [ProductFilter!]) {
+    collection(handle: $handle) {
+      products(first: 1, filters: $filters) {
+        filters {
+          id
+          label
+          type
+          values {
+            id
+            input
+            label
+          }
+        }
+      }
+    }
+  }
+`;

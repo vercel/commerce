@@ -42,6 +42,7 @@ export const SHOPIFY_GRAPHQL_ADMIN_ADMIN_API_ENDPOINT = '/admin/api/2024-04/grap
 export const CORE_WAIVER = 'core-waiver';
 export const CORE_VARIANT_ID_KEY = 'coreVariantId';
 
+export const TRANSMISSION_CODE_FILTER_ID = 'filter.p.m.custom.transmission_code';
 export const AVAILABILITY_FILTER_ID = 'filter.v.availability';
 export const PRICE_FILTER_ID = 'filter.v.price';
 export const MAKE_FILTER_ID = 'filter.p.m.custom.make_composite';

@@ -18,6 +18,9 @@ import Header, { HeaderPlaceholder } from 'components/layout/search/header';
 import HelpfulLinks from 'components/layout/search/helpful-links';
 import ProductsGridPlaceholder from 'components/layout/search/placeholder';
 import SortingMenu from 'components/layout/search/sorting-menu';
+import TransmissionCode from 'components/transmission-codes';
+import TransmissionModels from 'components/transmission-model';
+import { MAKE_FILTER_ID } from 'lib/constants';
 import { Suspense } from 'react';
 
 export async function generateMetadata({
@@ -79,6 +82,7 @@ export default async function CategorySearchPage(props: {
   params: { collection: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
+  const collectionHandle = props.params.collection;
   return (
     <>
       <div className="mx-auto mt-6 max-w-screen-2xl px-8 pb-10">
@@ -90,44 +94,49 @@ export default async function CategorySearchPage(props: {
               </Suspense>
             </div>
 
-            <SubMenu collection={props.params.collection} />
+            <SubMenu collection={collectionHandle} />
             <h3 className="sr-only">Filters</h3>
-            <Suspense
-              fallback={<FiltersListPlaceholder />}
-              key={`filters-${props.params.collection}`}
-            >
-              <FiltersContainer
-                searchParams={props.searchParams}
-                collection={props.params.collection}
-              />
-              <HelpfulLinks collection={props.params.collection} />
+            <Suspense fallback={<FiltersListPlaceholder />} key={`filters-${collectionHandle}`}>
+              <FiltersContainer searchParams={props.searchParams} collection={collectionHandle} />
+              <HelpfulLinks collection={collectionHandle} />
             </Suspense>
           </aside>
           <div className="lg:col-span-2 xl:col-span-3">
             <div className="mb-2">
-              <Suspense fallback={<BreadcrumbHome />} key={`breadcrumb-${props.params.collection}`}>
-                <Breadcrumb type="collection" handle={props.params.collection} />
+              <Suspense fallback={<BreadcrumbHome />} key={`breadcrumb-${collectionHandle}`}>
+                <Breadcrumb type="collection" handle={collectionHandle} />
               </Suspense>
             </div>
-            <Suspense fallback={<HeaderPlaceholder />} key={`header-${props.params.collection}`}>
-              <Header collection={props.params.collection} />
+            <Suspense fallback={<HeaderPlaceholder />} key={`header-${collectionHandle}`}>
+              <Header collection={collectionHandle} />
             </Suspense>
 
-            <Suspense
-              fallback={<ProductsGridPlaceholder />}
-              key={`products-${props.params.collection}`}
-            >
+            <Suspense fallback={<ProductsGridPlaceholder />} key={`products-${collectionHandle}`}>
               <CategoryPage {...props} />
             </Suspense>
           </div>
         </div>
       </div>
       <FAQ handle="plp-faqs" />
+      {collectionHandle.startsWith('transmissions') && (
+        <>
+          <Suspense>
+            <TransmissionCode
+              collectionHandle={collectionHandle}
+              make={props.searchParams?.[MAKE_FILTER_ID] as string | undefined}
+            />
+          </Suspense>
+          <Suspense>
+            <TransmissionModels
+              collectionHandle={collectionHandle}
+              make={props.searchParams?.[MAKE_FILTER_ID] as string | undefined}
+            />
+          </Suspense>
+        </>
+      )}
       <Suspense>
         <Manufacturers
-          variant={
-            (props.params.collection as string).includes('engines') ? 'engines' : 'transmissions'
-          }
+          variant={(collectionHandle as string).includes('engines') ? 'engines' : 'transmissions'}
         />
       </Suspense>
     </>
