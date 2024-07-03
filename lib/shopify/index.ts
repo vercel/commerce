@@ -1177,19 +1177,22 @@ export const getFile = async (id: string) => {
 };
 
 export async function getProductFilters(
-  { collection, make }: { collection: string; make?: string },
+  { collection, make }: { collection: string; make?: string | string[] },
   filterId: string
 ): Promise<Filter | null | undefined> {
   const [namespace, metafieldKey] = MAKE_FILTER_ID.split('.').slice(-2);
+  const _make = Array.isArray(make) ? make : make ? [make] : undefined;
 
   const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
     query: getTransmissionCodesQuery,
     tags: [TAGS.collections, TAGS.products],
     variables: {
       handle: collection,
-      ...(make
+      ...(_make
         ? {
-            filters: [{ productMetafield: { namespace, key: metafieldKey, value: make } }]
+            filters: _make.map((make) => ({
+              productMetafield: { namespace, key: metafieldKey, value: make }
+            }))
           }
         : {})
     }
@@ -1202,5 +1205,6 @@ export async function getProductFilters(
 
   const filters = res.body.data.collection.products.filters;
   const selectedFilters = filters.find((filter) => filter.id === filterId);
+
   return selectedFilters ? reshapeFilters([selectedFilters], false)[0] : null;
 }

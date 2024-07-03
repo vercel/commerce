@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 
 import Breadcrumb from 'components/breadcrumb';
 import BreadcrumbHome from 'components/breadcrumb/breadcrumb-home';
+import EngineSizes from 'components/engine-sizes';
 import FAQ from 'components/faq';
 import YMMFilters, { YMMFiltersPlaceholder } from 'components/filters';
 import Manufacturers from 'components/home-page/manufacturers';
@@ -18,8 +19,8 @@ import Header, { HeaderPlaceholder } from 'components/layout/search/header';
 import HelpfulLinks from 'components/layout/search/helpful-links';
 import ProductsGridPlaceholder from 'components/layout/search/placeholder';
 import SortingMenu from 'components/layout/search/sorting-menu';
+import Models from 'components/models';
 import TransmissionCode from 'components/transmission-codes';
-import TransmissionModels from 'components/transmission-model';
 import { MAKE_FILTER_ID } from 'lib/constants';
 import { Suspense } from 'react';
 
@@ -119,21 +120,30 @@ export default async function CategorySearchPage(props: {
       </div>
       <FAQ handle="plp-faqs" />
       {collectionHandle.startsWith('transmissions') && (
-        <>
-          <Suspense>
-            <TransmissionCode
-              collectionHandle={collectionHandle}
-              make={props.searchParams?.[MAKE_FILTER_ID] as string | undefined}
-            />
-          </Suspense>
-          <Suspense>
-            <TransmissionModels
-              collectionHandle={collectionHandle}
-              make={props.searchParams?.[MAKE_FILTER_ID] as string | undefined}
-            />
-          </Suspense>
-        </>
+        <Suspense>
+          <TransmissionCode
+            collectionHandle={collectionHandle}
+            make={props.searchParams?.[MAKE_FILTER_ID]}
+          />
+        </Suspense>
       )}
+      {['transmissions', 'engines', 'remanufactured-engines'].some((url) =>
+        collectionHandle.startsWith(url)
+      ) && (
+        <Suspense>
+          <Models collectionHandle={collectionHandle} make={props.searchParams?.[MAKE_FILTER_ID]} />
+        </Suspense>
+      )}
+
+      {['engines', 'remanufactured-engines'].some((url) => collectionHandle.startsWith(url)) && (
+        <Suspense>
+          <EngineSizes
+            collectionHandle={collectionHandle}
+            make={props.searchParams?.[MAKE_FILTER_ID]}
+          />
+        </Suspense>
+      )}
+
       <Suspense>
         <Manufacturers
           variant={(collectionHandle as string).includes('engines') ? 'engines' : 'transmissions'}

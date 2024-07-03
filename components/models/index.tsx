@@ -4,12 +4,12 @@ import { getProductFilters } from 'lib/shopify';
 import { getCollectionUrl } from 'lib/utils';
 import Link from 'next/link';
 
-const TransmissionModels = async ({
+const Models = async ({
   collectionHandle,
   make
 }: {
   collectionHandle: string;
-  make?: string;
+  make?: string | string[];
 }) => {
   // eg: collectionHandle = transmission-bmw-x5
   const makeFromCollectionHandle = collectionHandle.split('-')[1];
@@ -17,7 +17,6 @@ const TransmissionModels = async ({
   if (!makeFromCollectionHandle && !make) {
     return null;
   }
-
   const transmissionModels = await getProductFilters(
     { collection: collectionHandle, make },
     MODEL_FILTER_ID
@@ -27,10 +26,12 @@ const TransmissionModels = async ({
     return null;
   }
 
+  const prefix = collectionHandle.startsWith('transmissions') ? 'Transmissions' : 'Engines';
+
   return (
     <div className="px-6 pt-20">
       <div className="mx-auto max-w-7xl">
-        <h3 className="mb-6 text-3xl font-semibold lg:text-4xl">Browse By Transmission Models</h3>
+        <h3 className="mb-6 text-3xl font-semibold lg:text-4xl">{`Browse ${prefix} By Model`}</h3>
         <div className="h-auto max-h-[700px] w-full overflow-auto rounded px-10 py-6 shadow">
           <p className="flex items-center gap-2">
             <GlobeAltIcon className="size-4" />
@@ -52,4 +53,4 @@ const TransmissionModels = async ({
   );
 };
 
-export default TransmissionModels;
+export default Models;

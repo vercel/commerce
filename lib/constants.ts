@@ -43,6 +43,7 @@ export const CORE_WAIVER = 'core-waiver';
 export const CORE_VARIANT_ID_KEY = 'coreVariantId';
 
 export const TRANSMISSION_CODE_FILTER_ID = 'filter.p.m.custom.transmission_code';
+export const ENGINE_SIZE_FILTER_ID = 'filter.p.m.custom.engine_size';
 export const AVAILABILITY_FILTER_ID = 'filter.v.availability';
 export const PRICE_FILTER_ID = 'filter.v.price';
 export const MAKE_FILTER_ID = 'filter.p.m.custom.make_composite';
@@ -68,4 +69,11 @@ export const WARRANTY_FIELDS = [
   ['warranty_activation_installation', 'warranty_activation_self_install'],
   'warranty_activation_vin',
   'warranty_activation_mileage'
+];
+
+export const URL_PREFIXES = [
+  '/transmissions',
+  '/engines',
+  '/transfer-cases',
+  '/remanufactured-engines'
 ];

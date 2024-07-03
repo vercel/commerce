@@ -10,7 +10,7 @@ const TransmissionCode = async ({
   make
 }: {
   collectionHandle: string;
-  make?: string;
+  make?: string | string[];
 }) => {
   const transmissionCodes = await getProductFilters(
     { collection: collectionHandle, make },
