@@ -12,7 +12,7 @@ const HelpfulLinks = async ({ ids }: { ids: string[] | null }) => {
       {links.map((link) => (
         <CollectionLink
           key={link.id}
-          collectionLinkId={link.collection_link!}
+          collectionLinkId={link.collection_link}
           anchorText={link.anchor_text!}
           className="rounded border border-gray-600 px-3 py-1 text-sm"
         />

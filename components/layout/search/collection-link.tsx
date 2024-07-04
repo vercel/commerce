@@ -7,10 +7,12 @@ const CollectionLink = async ({
   anchorText,
   className
 }: {
-  collectionLinkId: string;
+  collectionLinkId?: string;
   anchorText: string;
   className?: string;
 }) => {
+  if (!collectionLinkId) return null;
+
   const collection = await getCollection({ id: collectionLinkId });
 
   if (!collection) return null;
