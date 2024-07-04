@@ -4,7 +4,7 @@ import { VariantProps, tv } from 'tailwind-variants';
 const loadingDots = tv({
   slots: {
     root: 'mx-2 inline-flex items-center',
-    dots: 'bg-content  inline-block animate-blink rounded-full'
+    dots: 'bg-content inline-block animate-blink rounded-full'
   },
   variants: {
     size: {

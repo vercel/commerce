@@ -189,10 +189,9 @@ export default function OrderConfirmationModal({
   onClose: () => void;
 }) {
   const [loading, setLoading] = useState(true);
-  const [submitting, setSubmitting] = useState(false);
   const [orderConfirmationContent, setOrderConfirmationContent] =
     useState<OrderConfirmationContent>();
-  const [, startTransition] = useTransition();
+  const [submitting, startTransition] = useTransition();
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
@@ -210,12 +209,11 @@ export default function OrderConfirmationModal({
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    setSubmitting(true);
     const form = formRef.current;
     if (!form) return;
-    const formData = new FormData(form);
 
     startTransition(async () => {
+      const formData = new FormData(form);
       await confirmOrder({
         order,
         content: orderConfirmationContent!,
@@ -269,6 +267,7 @@ export default function OrderConfirmationModal({
                   color="primary"
                   disabled={submitting || loading}
                   isLoading={submitting}
+                  loadingText="Submitting"
                 >
                   Submit
                 </Button>
