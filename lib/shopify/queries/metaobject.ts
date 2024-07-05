@@ -34,6 +34,21 @@ export const getMetaobjectQuery = /* GraphQL */ `
           ... on Metaobject {
             id
           }
+        }
+        key
+        value
+      }
+    }
+  }
+`;
+
+export const getOrderConfirmationQuery = /* GraphQL */ `
+  query getOrderConfirmation($handle: MetaobjectHandleInput) {
+    metaobject(handle: $handle) {
+      id
+      type
+      fields {
+        reference {
           ... on MediaImage {
             image {
               url

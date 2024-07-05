@@ -6,18 +6,17 @@ import { Menu, Metaobject } from 'lib/shopify/types';
 import { createUrl, findParentCollection } from 'lib/utils';
 import get from 'lodash.get';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useTransition } from 'react';
+import { fetMetaobjects } from './actions';
 import FilterField from './field';
 
 type FiltersListProps = {
-  years: Metaobject[];
-  models: Metaobject[];
   makes: Metaobject[];
   menu: Menu[];
   autoFocusField?: string;
 };
 
-const FiltersList = ({ years, makes, models, menu, autoFocusField }: FiltersListProps) => {
+const FiltersList = ({ makes, menu, autoFocusField }: FiltersListProps) => {
   const params = useParams<{ collection?: string }>();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -32,6 +31,12 @@ const FiltersList = ({ years, makes, models, menu, autoFocusField }: FiltersList
   );
 
   const makeIdFromSearchParams = searchParams.get(MAKE_FILTER_ID);
+  const modelIdFromSearchParams = searchParams.get(MODEL_FILTER_ID);
+  const yearIdFromSearchParams = searchParams.get(YEAR_FILTER_ID);
+
+  const [models, setModels] = useState<Metaobject[]>([]);
+  const [years, setYears] = useState<Metaobject[]>([]);
+  const [isLoading, startTransition] = useTransition();
 
   const [make, setMake] = useState<Metaobject | null>(
     (partType &&
@@ -75,13 +80,43 @@ const FiltersList = ({ years, makes, models, menu, autoFocusField }: FiltersList
     }
   }, [makeIdFromSearchParams, makes, params.collection, partType]);
 
-  const onChangeMake = (value: Metaobject | null) => {
+  useEffect(() => {
+    if (make?.id && models.length === 0) {
+      startTransition(async () => {
+        const modelsResponse = await fetMetaobjects('make_model_composite');
+        if (modelIdFromSearchParams) {
+          setModel(
+            (currentModel) =>
+              modelsResponse?.find((model) => model.id === modelIdFromSearchParams) || currentModel
+          );
+        }
+        setModels(modelsResponse || []);
+      });
+    }
+  }, [make?.id, modelIdFromSearchParams, models.length]);
+
+  useEffect(() => {
+    if (model?.id && years.length === 0) {
+      startTransition(async () => {
+        const yearsResponse = await fetMetaobjects('make_model_year_composite');
+        if (yearIdFromSearchParams) {
+          setYear(
+            (currentYear) =>
+              yearsResponse?.find((year) => year.id === yearIdFromSearchParams) || currentYear
+          );
+        }
+        setYears(yearsResponse || []);
+      });
+    }
+  }, [model?.id, yearIdFromSearchParams, years.length]);
+
+  const onChangeMake = async (value: Metaobject | null) => {
     setMake(value);
     setModel(null);
     setYear(null);
   };
 
-  const onChangeModel = (value: Metaobject | null) => {
+  const onChangeModel = async (value: Metaobject | null) => {
     setModel(value);
     setYear(null);
   };
@@ -134,6 +169,7 @@ const FiltersList = ({ years, makes, models, menu, autoFocusField }: FiltersList
         getId={(option) => option.id}
         disabled={!make}
         autoFocus={autoFocusField === 'model'}
+        isLoading={isLoading}
       />
       <FilterField
         label="Year"
@@ -143,6 +179,7 @@ const FiltersList = ({ years, makes, models, menu, autoFocusField }: FiltersList
         getId={(option) => option.id}
         disabled={!model || !make}
         autoFocus={autoFocusField === 'year'}
+        isLoading={isLoading}
       />
       <Button
         onClick={onSearch}

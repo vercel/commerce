@@ -12,25 +12,16 @@ const title: Record<string, string> = {
 const { STORE_PREFIX } = process.env;
 
 const HomePageFilters = async () => {
-  const yearsData = getAllMetaobjects('make_model_year_composite');
-  const modelsData = getAllMetaobjects('make_model_composite');
-  const makesData = getAllMetaobjects('make');
-
-  const [years, models, makes] = await Promise.all([yearsData, modelsData, makesData]);
+  const makes = await getAllMetaobjects('make');
   const menu = await getMenu('main-menu');
+
   return (
     <>
       <h1 className="text-4xl font-bold tracking-tight text-white lg:text-6xl">
         {title[STORE_PREFIX!] || 'Find Your Car Part'}
       </h1>
       <div className="mt-5 flex grow flex-col items-center gap-3 @md:flex-row">
-        <FiltersList
-          years={years}
-          makes={makes}
-          models={models}
-          menu={menu}
-          autoFocusField="partType"
-        />
+        <FiltersList makes={makes} menu={menu} autoFocusField="partType" />
       </div>
     </>
   );

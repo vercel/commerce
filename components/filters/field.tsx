@@ -8,6 +8,7 @@ import {
   ComboboxOptions
 } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/16/solid';
+import Spinner from 'components/spinner';
 import get from 'lodash.get';
 import { useCallback, useState } from 'react';
 
@@ -22,6 +23,7 @@ type FilterFieldProps<T extends { [key: string]: unknown }> = {
   getId: (option: T) => string;
   disabled?: boolean;
   autoFocus?: boolean;
+  isLoading?: boolean;
 };
 
 const FilterField = <T extends { [key: string]: unknown }>({
@@ -32,6 +34,7 @@ const FilterField = <T extends { [key: string]: unknown }>({
   displayKey = 'name',
   getId,
   disabled,
+  isLoading,
   autoFocus = false
 }: FilterFieldProps<T>) => {
   const [query, setQuery] = useState('');
@@ -63,7 +66,7 @@ const FilterField = <T extends { [key: string]: unknown }>({
         onChange={onChange}
         onClose={() => setQuery('')}
         immediate
-        disabled={disabled}
+        disabled={disabled || isLoading}
       >
         <div className="relative">
           <ComboboxInput
@@ -75,7 +78,11 @@ const FilterField = <T extends { [key: string]: unknown }>({
             autoFocus={autoFocus}
           />
           <ComboboxButton className="group absolute inset-y-0 right-0 px-2.5 data-[disabled]:cursor-not-allowed data-[disabled]:opacity-50">
-            <ChevronDownIcon className="size-5 fill-black/60 group-data-[hover]:fill-black" />
+            {isLoading ? (
+              <Spinner className="fill-black/60" />
+            ) : (
+              <ChevronDownIcon className="size-5 fill-black/60 group-data-[hover]:fill-black" />
+            )}
           </ComboboxButton>
         </div>
         <ComboboxOptions

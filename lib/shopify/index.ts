@@ -43,7 +43,11 @@ import {
 } from './queries/collection';
 import { getCustomerQuery } from './queries/customer';
 import { getMenuQuery } from './queries/menu';
-import { getMetaobjectQuery, getMetaobjectsQuery } from './queries/metaobject';
+import {
+  getMetaobjectQuery,
+  getMetaobjectsQuery,
+  getOrderConfirmationQuery
+} from './queries/metaobject';
 import { getFileQuery, getImageQuery, getMetaobjectsByIdsQuery } from './queries/node';
 import getCustomerOrderQuery from './queries/order';
 import { getCustomerOrdersQuery } from './queries/orders';
@@ -934,7 +938,7 @@ export async function getMetaobject({
 
 export async function getOrderConfirmationContent(): Promise<OrderConfirmationContent> {
   const res = await shopifyFetch<ShopifyMetaobjectOperation>({
-    query: getMetaobjectQuery,
+    query: getOrderConfirmationQuery,
     variables: { handle: { handle: 'order-confirmation-pdf', type: 'order_confirmation_pdf' } }
   });
 

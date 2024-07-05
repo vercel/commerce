@@ -14,17 +14,13 @@ const YMMFiltersContainer = ({ children }: { children: ReactNode }) => {
 };
 
 const YMMFilters = async () => {
-  const yearsData = getAllMetaobjects('make_model_year_composite');
-  const modelsData = getAllMetaobjects('make_model_composite');
-  const makesData = getAllMetaobjects('make');
-
-  const [years, models, makes] = await Promise.all([yearsData, modelsData, makesData]);
+  const makes = await getAllMetaobjects('make');
   const menu = await getMenu('main-menu');
 
   return (
     <YMMFiltersContainer>
       <div className="flex grow flex-col items-center gap-3 @md:flex-row">
-        <FiltersList years={years} makes={makes} models={models} menu={menu} />
+        <FiltersList makes={makes} menu={menu} />
       </div>
     </YMMFiltersContainer>
   );
