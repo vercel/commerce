@@ -12,7 +12,7 @@ export async function middleware(request: NextRequest) {
 
   if (URL_PREFIXES.some((url) => request.nextUrl.pathname.startsWith(url))) {
     // /transmissions/bmw/x5 would turn into /transmissions-bmw-x5
-    const requestPathname = request.nextUrl.pathname.split('/').filter(Boolean).join('-');
+    const requestPathname = request.nextUrl.pathname.split('/').filter(Boolean).join('_');
     const searchString = request.nextUrl.search;
 
     return NextResponse.rewrite(

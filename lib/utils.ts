@@ -145,23 +145,7 @@ export const isBeforeToday = (date?: string | null) => {
 };
 
 export const getCollectionUrl = (handle: string, includeSlashPrefix = true) => {
-  let rewriteUrl = '';
-  const enginesPattern = /^\/?remanufactured-engines(-.+)?$/;
-  const transferCasesPattern = /^\/?transfer-cases(-.+)?$/;
-
-  if (enginesPattern.test(handle)) {
-    rewriteUrl = handle
-      .replace(/-/g, '/')
-      .replace('/engines/', '-engines/')
-      .replace('/engines', '-engines');
-  } else if (transferCasesPattern.test(handle)) {
-    rewriteUrl = handle
-      .replace(/-/g, '/')
-      .replace('/cases/', '-cases/')
-      .replace('/cases', '-cases');
-  } else {
-    rewriteUrl = handle.split('-').filter(Boolean).join('/');
-  }
+  const rewriteUrl = handle.split('_').filter(Boolean).join('/');
 
   return includeSlashPrefix ? `/${rewriteUrl}` : rewriteUrl;
 };

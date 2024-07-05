@@ -39,7 +39,7 @@ import {
   getCollectionProductsQuery,
   getCollectionQuery,
   getCollectionsQuery,
-  getTransmissionCodesQuery
+  getProductFiltersQuery
 } from './queries/collection';
 import { getCustomerQuery } from './queries/customer';
 import { getMenuQuery } from './queries/menu';
@@ -1188,7 +1188,7 @@ export async function getProductFilters(
   const _make = Array.isArray(make) ? make : make ? [make] : undefined;
 
   const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
-    query: getTransmissionCodesQuery,
+    query: getProductFiltersQuery,
     tags: [TAGS.collections, TAGS.products],
     variables: {
       handle: collection,

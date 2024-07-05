@@ -1,12 +1,13 @@
 'use client';
 
 import { Button } from '@headlessui/react';
-import { MAKE_FILTER_ID, MODEL_FILTER_ID, PART_TYPES, YEAR_FILTER_ID } from 'lib/constants';
+import { PART_TYPES } from 'lib/constants';
 import { Menu, Metaobject } from 'lib/shopify/types';
-import { createUrl, findParentCollection } from 'lib/utils';
+import { findParentCollection } from 'lib/utils';
 import get from 'lodash.get';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState, useTransition } from 'react';
+import kebabCase from 'lodash.kebabcase';
+import { useParams, useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { fetMetaobjects } from './actions';
 import FilterField from './field';
 
@@ -19,42 +20,35 @@ type FiltersListProps = {
 const FiltersList = ({ makes, menu, autoFocusField }: FiltersListProps) => {
   const params = useParams<{ collection?: string }>();
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const [, initialMake, initialModel, initialYear] = params.collection?.split('_') || [];
 
   const parentCollection = params.collection ? findParentCollection(menu, params.collection) : null;
   // get the active collection (if any) to identify the default part type.
   // if a collection is a sub collection, we will find the parent. Normally in this case, the parent collection would either be transmissions or engines.
   const partTypeCollection = parentCollection?.path.split('/').slice(-1)[0] || params.collection;
-
   const [partType, setPartType] = useState<{ label: string; value: string } | null>(
-    PART_TYPES.find((type) => type.value === partTypeCollection) || null
+    PART_TYPES.find(
+      (type) =>
+        type.value === partTypeCollection ||
+        (partTypeCollection && partTypeCollection.includes(type.value))
+    ) || null
   );
-
-  const makeIdFromSearchParams = searchParams.get(MAKE_FILTER_ID);
-  const modelIdFromSearchParams = searchParams.get(MODEL_FILTER_ID);
-  const yearIdFromSearchParams = searchParams.get(YEAR_FILTER_ID);
-
-  const [models, setModels] = useState<Metaobject[]>([]);
-  const [years, setYears] = useState<Metaobject[]>([]);
-  const [isLoading, startTransition] = useTransition();
-
   const [make, setMake] = useState<Metaobject | null>(
     (partType &&
       makes.find((make) =>
-        makeIdFromSearchParams
-          ? make.id === makeIdFromSearchParams
+        initialMake
+          ? kebabCase(make.name) === initialMake
           : params.collection?.includes(make.name!.toLowerCase())
       )) ||
       null
   );
-  const [model, setModel] = useState<Metaobject | null>(
-    models.find((model) => model.id === searchParams.get(MODEL_FILTER_ID)) || null
-  );
+  const [model, setModel] = useState<Metaobject | null>(null);
+  const [year, setYear] = useState<Metaobject | null>(null);
 
-  const [year, setYear] = useState<Metaobject | null>(
-    years.find((y) => y.id === searchParams.get(YEAR_FILTER_ID)) || null
-  );
+  const [models, setModels] = useState<Metaobject[]>([]);
+  const [years, setYears] = useState<Metaobject[]>([]);
 
+  const [loadingAttribute, setLoadingAttribute] = useState<'models' | 'years'>();
   const modelOptions = make ? models.filter((m) => get(m, 'make') === make.id) : models;
   const yearOptions = model ? years.filter((y) => get(y, 'make_model') === model.id) : years;
 
@@ -63,8 +57,8 @@ const FiltersList = ({ makes, menu, autoFocusField }: FiltersListProps) => {
   useEffect(() => {
     if (partType) {
       const _make = makes.find((make) =>
-        makeIdFromSearchParams
-          ? make.id === makeIdFromSearchParams
+        initialMake
+          ? kebabCase(make.name) === initialMake
           : params.collection?.includes(make.name!.toLowerCase())
       );
 
@@ -78,37 +72,44 @@ const FiltersList = ({ makes, menu, autoFocusField }: FiltersListProps) => {
         });
       }
     }
-  }, [makeIdFromSearchParams, makes, params.collection, partType]);
+  }, [initialMake, makes, params.collection, partType]);
 
   useEffect(() => {
+    const fetchModels = async () => {
+      setLoadingAttribute('models');
+      const modelsResponse = await fetMetaobjects('make_model_composite');
+      if (initialModel) {
+        setModel(
+          (currentModel) =>
+            modelsResponse?.find((model) => kebabCase(model.name) === initialModel) || currentModel
+        );
+      }
+      setModels(modelsResponse || []);
+      setLoadingAttribute(undefined);
+    };
+
     if (make?.id && models.length === 0) {
-      startTransition(async () => {
-        const modelsResponse = await fetMetaobjects('make_model_composite');
-        if (modelIdFromSearchParams) {
-          setModel(
-            (currentModel) =>
-              modelsResponse?.find((model) => model.id === modelIdFromSearchParams) || currentModel
-          );
-        }
-        setModels(modelsResponse || []);
-      });
+      fetchModels();
     }
-  }, [make?.id, modelIdFromSearchParams, models.length]);
+  }, [make?.id, initialModel, models.length]);
 
   useEffect(() => {
+    const fetchYears = async () => {
+      setLoadingAttribute('years');
+      const yearsResponse = await fetMetaobjects('make_model_year_composite');
+      if (initialYear) {
+        setYear(
+          (currentYear) => yearsResponse?.find((year) => year.name === initialYear) || currentYear
+        );
+      }
+      setYears(yearsResponse || []);
+      setLoadingAttribute(undefined);
+    };
+
     if (model?.id && years.length === 0) {
-      startTransition(async () => {
-        const yearsResponse = await fetMetaobjects('make_model_year_composite');
-        if (yearIdFromSearchParams) {
-          setYear(
-            (currentYear) =>
-              yearsResponse?.find((year) => year.id === yearIdFromSearchParams) || currentYear
-          );
-        }
-        setYears(yearsResponse || []);
-      });
+      fetchYears();
     }
-  }, [model?.id, yearIdFromSearchParams, years.length]);
+  }, [model?.id, initialYear, years.length]);
 
   const onChangeMake = async (value: Metaobject | null) => {
     setMake(value);
@@ -133,11 +134,10 @@ const FiltersList = ({ makes, menu, autoFocusField }: FiltersListProps) => {
   };
 
   const onSearch = () => {
-    const newSearchParams = new URLSearchParams(searchParams.toString());
-    newSearchParams.set(MAKE_FILTER_ID, make?.id || '');
-    newSearchParams.set(MODEL_FILTER_ID, model?.id || '');
-    newSearchParams.set(YEAR_FILTER_ID, year?.id || '');
-    router.push(createUrl(`/search/${partType?.value}`, newSearchParams), { scroll: false });
+    router.push(
+      `/${partType?.value}/${kebabCase(make?.name)}/${kebabCase(model?.name)}/${kebabCase(year?.name)}`,
+      { scroll: false }
+    );
   };
 
   return (
@@ -169,7 +169,7 @@ const FiltersList = ({ makes, menu, autoFocusField }: FiltersListProps) => {
         getId={(option) => option.id}
         disabled={!make}
         autoFocus={autoFocusField === 'model'}
-        isLoading={isLoading}
+        isLoading={loadingAttribute === 'models'}
       />
       <FilterField
         label="Year"
@@ -179,7 +179,7 @@ const FiltersList = ({ makes, menu, autoFocusField }: FiltersListProps) => {
         getId={(option) => option.id}
         disabled={!model || !make}
         autoFocus={autoFocusField === 'year'}
-        isLoading={isLoading}
+        isLoading={loadingAttribute === 'years'}
       />
       <Button
         onClick={onSearch}

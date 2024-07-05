@@ -13,6 +13,7 @@ import { getProductsInCollection } from 'components/layout/products-list/actions
 import FiltersContainer, {
   FiltersListPlaceholder
 } from 'components/layout/search/filters/filters-container';
+import MakeModelFilters from 'components/layout/search/filters/make-model-filters';
 import MobileFilters from 'components/layout/search/filters/mobile-filters';
 import SubMenu from 'components/layout/search/filters/sub-menu';
 import Header, { HeaderPlaceholder } from 'components/layout/search/header';
@@ -96,6 +97,9 @@ export default async function CategorySearchPage(props: {
             </div>
 
             <SubMenu collection={collectionHandle} />
+            <Suspense>
+              <MakeModelFilters collection={collectionHandle} />
+            </Suspense>
             <h3 className="sr-only">Filters</h3>
             <Suspense fallback={<FiltersListPlaceholder />} key={`filters-${collectionHandle}`}>
               <FiltersContainer searchParams={props.searchParams} collection={collectionHandle} />
