@@ -1,23 +1,17 @@
-import { ENGINE_SIZE_FILTER_ID, MAKE_FILTER_ID } from 'lib/constants';
+import { ENGINE_SIZE_FILTER_ID } from 'lib/constants';
 import { getProductFilters } from 'lib/shopify';
 import { getCollectionUrl } from 'lib/utils';
 import Link from 'next/link';
 
-const EngineSizes = async ({
-  collectionHandle,
-  make
-}: {
-  collectionHandle: string;
-  make?: string | string[];
-}) => {
-  // eg: collectionHandle = transmission-bmw-x5
-  const makeFromCollectionHandle = collectionHandle.split('-')[1];
+const EngineSizes = async ({ collectionHandle }: { collectionHandle: string }) => {
+  // eg: collectionHandle = transmission_bmw_x5
+  const makeFromCollectionHandle = collectionHandle.split('_')[1];
 
-  if (!makeFromCollectionHandle && !make) {
+  if (!makeFromCollectionHandle) {
     return null;
   }
   const engineSizes = await getProductFilters(
-    { collection: collectionHandle, make },
+    { collection: collectionHandle },
     ENGINE_SIZE_FILTER_ID
   );
 
@@ -33,7 +27,7 @@ const EngineSizes = async ({
           <div className="mt-6 grid grid-cols-2 gap-x-12 gap-y-5 md:grid-cols-3 md:gap-y-8 lg:grid-cols-4 xl:grid-cols-5">
             {engineSizes.values.map((engineSize) => (
               <Link
-                href={`${getCollectionUrl(collectionHandle)}?${ENGINE_SIZE_FILTER_ID}=${engineSize.value}${make ? `&${MAKE_FILTER_ID}=${make}` : ''}`}
+                href={`${getCollectionUrl(collectionHandle)}?${ENGINE_SIZE_FILTER_ID}=${engineSize.value}`}
                 key={engineSize.id}
               >
                 <div className="rounded border border-primary px-2 py-1 text-sm">

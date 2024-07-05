@@ -22,7 +22,6 @@ import ProductsGridPlaceholder from 'components/layout/search/placeholder';
 import SortingMenu from 'components/layout/search/sorting-menu';
 import Models from 'components/models';
 import TransmissionCode from 'components/transmission-codes';
-import { MAKE_FILTER_ID } from 'lib/constants';
 import { Suspense } from 'react';
 
 export async function generateMetadata({
@@ -125,26 +124,20 @@ export default async function CategorySearchPage(props: {
       <FAQ handle="plp-faqs" />
       {collectionHandle.startsWith('transmissions') && (
         <Suspense>
-          <TransmissionCode
-            collectionHandle={collectionHandle}
-            make={props.searchParams?.[MAKE_FILTER_ID]}
-          />
+          <TransmissionCode collectionHandle={collectionHandle} />
         </Suspense>
       )}
       {['transmissions', 'engines', 'remanufactured-engines'].some((url) =>
         collectionHandle.startsWith(url)
       ) && (
         <Suspense>
-          <Models collectionHandle={collectionHandle} make={props.searchParams?.[MAKE_FILTER_ID]} />
+          <Models collectionHandle={collectionHandle} />
         </Suspense>
       )}
 
       {['engines', 'remanufactured-engines'].some((url) => collectionHandle.startsWith(url)) && (
         <Suspense>
-          <EngineSizes
-            collectionHandle={collectionHandle}
-            make={props.searchParams?.[MAKE_FILTER_ID]}
-          />
+          <EngineSizes collectionHandle={collectionHandle} />
         </Suspense>
       )}
 

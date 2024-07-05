@@ -1181,24 +1181,14 @@ export const getFile = async (id: string) => {
 };
 
 export async function getProductFilters(
-  { collection, make }: { collection: string; make?: string | string[] },
+  { collection }: { collection: string },
   filterId: string
 ): Promise<Filter | null | undefined> {
-  const [namespace, metafieldKey] = MAKE_FILTER_ID.split('.').slice(-2);
-  const _make = Array.isArray(make) ? make : make ? [make] : undefined;
-
   const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
     query: getProductFiltersQuery,
     tags: [TAGS.collections, TAGS.products],
     variables: {
-      handle: collection,
-      ...(_make
-        ? {
-            filters: _make.map((make) => ({
-              productMetafield: { namespace, key: metafieldKey, value: make }
-            }))
-          }
-        : {})
+      handle: collection
     }
   });
 
