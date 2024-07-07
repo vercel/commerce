@@ -1,3 +1,5 @@
+import clsx from 'clsx';
+
 type Text = {
   type: 'text';
   value: string;
@@ -9,7 +11,7 @@ type Content =
   | Text
   | {
       type: 'list';
-      listType: 'bullet' | 'ordered';
+      listType: 'bullet' | 'ordered' | 'unordered';
       children: Array<{ type: 'listItem'; children: Text[] }>;
     }
   | { type: 'listItem'; children: Text[] };
@@ -27,9 +29,14 @@ const RichTextBlock = ({ block }: { block: Content }) => {
     return block.children.map((child, index) => <RichTextBlock key={index} block={child} />);
   }
 
-  if (block.type === 'list' && block.listType === 'ordered') {
+  if (block.type === 'list') {
     return (
-      <ol className="ml-10 list-decimal">
+      <ol
+        className={clsx('spacy-y-0.5 ml-7', {
+          'list-decimal': block.listType === 'ordered',
+          'list-disc': block.listType === 'unordered'
+        })}
+      >
         {block.children.map((child, index) => (
           <li key={index}>
             <RichTextBlock block={child} />
