@@ -5,6 +5,7 @@ import { Suspense } from 'react';
 import BreadcrumbComponent from 'components/breadcrumb';
 import { GridTileImage } from 'components/grid/tile';
 import Footer from 'components/layout/footer';
+import AdditionalInformation from 'components/product/additional-information';
 import { Gallery } from 'components/product/gallery';
 import { ProductDescription } from 'components/product/product-description';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
@@ -49,7 +50,13 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProductPage({ params }: { params: { handle: string } }) {
+export default async function ProductPage({
+  params,
+  searchParams
+}: {
+  params: { handle: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) {
   const product = await getProduct(params.handle);
 
   if (!product) return notFound();
@@ -86,6 +93,9 @@ export default async function ProductPage({ params }: { params: { handle: string
         <div className="my-3 flex flex-col space-x-0 lg:flex-row lg:gap-8 lg:space-x-3">
           <div className="h-full w-full basis-full lg:basis-7/12">
             <ProductDescription product={product} />
+            <Suspense>
+              <AdditionalInformation product={product} searchParams={searchParams} />
+            </Suspense>
           </div>
 
           <div className="hidden lg:block lg:basis-5/12">
@@ -95,7 +105,7 @@ export default async function ProductPage({ params }: { params: { handle: string
               }
             >
               <Gallery
-                images={product.images.map((image: Image) => ({
+                images={product.images.slice(0, 5).map((image: Image) => ({
                   src: image.url,
                   altText: image.altText
                 }))}

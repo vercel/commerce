@@ -1,7 +1,7 @@
 'use client';
 
 import Price from 'components/price';
-import { useDebounce } from 'hooks';
+import { useDebounce } from 'hooks/use-debounce';
 import { Filter } from 'lib/shopify/types';
 import { createUrl } from 'lib/utils';
 import get from 'lodash.get';

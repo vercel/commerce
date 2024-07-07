@@ -1,7 +1,7 @@
 import clsx, { ClassValue } from 'clsx';
 import { ReadonlyURLSearchParams } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
-import { Menu } from './shopify/types';
+import { Menu, Product, ProductVariant } from './shopify/types';
 
 export function cx(...args: ClassValue[]) {
   return twMerge(clsx(...args));
@@ -148,4 +148,20 @@ export const getCollectionUrl = (handle: string, includeSlashPrefix = true) => {
   const rewriteUrl = handle.split('_').filter(Boolean).join('/');
 
   return includeSlashPrefix ? `/${rewriteUrl}` : rewriteUrl;
+};
+
+export const getSelectedProductVariant = ({
+  product,
+  searchParams
+}: {
+  product: Product;
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) => {
+  const variant = product.variants.find((variant: ProductVariant) =>
+    variant.selectedOptions.every(
+      (option) => option.value === searchParams?.[option.name.toLowerCase()]
+    )
+  );
+
+  return variant || product.variants[0];
 };

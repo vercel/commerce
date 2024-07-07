@@ -2,7 +2,6 @@ import { AddToCart } from 'components/cart/add-to-cart';
 import Prose from 'components/prose';
 import { Product } from 'lib/shopify/types';
 import { Suspense } from 'react';
-import AdditionalInformation from './additional-information';
 import CoreCharge from './core-charge';
 import Delivery from './delivery';
 import PriceSummary from './price-summary';
@@ -56,7 +55,6 @@ export function ProductDescription({ product }: { product: Product }) {
         <AddToCart variants={product.variants} availableForSale={product.availableForSale} />
       </Suspense>
       <SpecialOffer />
-      <AdditionalInformation product={product} />
     </>
   );
 }

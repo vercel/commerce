@@ -40,7 +40,7 @@ const RichTextBlock = ({ block }: { block: Content }) => {
   }
 
   return (
-    <p className="text-blue-200">
+    <p className="text-black-700">
       {block.children.map((child, index) => (
         <RichTextBlock key={index} block={child} />
       ))}
@@ -50,7 +50,7 @@ const RichTextBlock = ({ block }: { block: Content }) => {
 
 const RichTextDisplay = ({ contentBlocks }: { contentBlocks: Content[] }) => {
   return (
-    <div className="flex w-full flex-col gap-2">
+    <div className="flex w-full flex-col gap-4">
       {contentBlocks.map((block, index) => (
         <RichTextBlock key={index} block={block} />
       ))}
