@@ -79,11 +79,25 @@ async function CategoryPage({
   );
 }
 
+const manufactureVariantMap: Record<
+  string,
+  'engines' | 'transmissions' | 'remanufactured-engines' | 'transfer-cases'
+> = {
+  transmissions: 'transmissions',
+  engines: 'engines',
+  'remanufactured-engines': 'remanufactured-engines',
+  'transfer-cases': 'transfer-cases'
+};
+
 export default async function CategorySearchPage(props: {
   params: { collection: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
   const collectionHandle = props.params.collection;
+
+  const manufacturerVariant =
+    Object.keys(manufactureVariantMap).find((key) => collectionHandle.startsWith(key)) || 'engines';
+
   return (
     <>
       <div className="mx-auto mt-6 max-w-screen-2xl px-8 pb-10">
@@ -142,9 +156,7 @@ export default async function CategorySearchPage(props: {
       )}
 
       <Suspense>
-        <Manufacturers
-          variant={(collectionHandle as string).includes('engines') ? 'engines' : 'transmissions'}
-        />
+        <Manufacturers variant={manufactureVariantMap[manufacturerVariant]} />
       </Suspense>
     </>
   );

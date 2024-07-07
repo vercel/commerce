@@ -1,12 +1,12 @@
 import { GlobeAltIcon, StarIcon } from '@heroicons/react/24/outline';
-import { MAKE_FILTER_ID } from 'lib/constants';
 import { Metaobject } from 'lib/shopify/types';
+import kebabCase from 'lodash.kebabcase';
 import ButtonGroup from './button-group';
 import ManufacturerItem from './item';
 
 type ManufacturersGridProps = {
   manufacturers: Metaobject[];
-  variant?: 'engines' | 'transmissions' | 'home';
+  variant?: 'engines' | 'transmissions' | 'home' | 'remanufactured-engines' | 'transfer-cases';
 };
 
 const ManufacturersGrid = ({ manufacturers, variant = 'home' }: ManufacturersGridProps) => {
@@ -31,7 +31,7 @@ const ManufacturersGrid = ({ manufacturers, variant = 'home' }: ManufacturersGri
                   <ManufacturerItem
                     manufacturer={manufacturer}
                     className="rounded border border-primary px-2 py-1"
-                    href={`/${variant}?${MAKE_FILTER_ID}=${manufacturer.id}`}
+                    href={`/${variant}/${kebabCase(manufacturer.name)}`}
                   />
                 )}
                 {variant === 'home' && <ButtonGroup manufacturer={manufacturer} />}
@@ -57,7 +57,7 @@ const ManufacturersGrid = ({ manufacturers, variant = 'home' }: ManufacturersGri
                 <ManufacturerItem
                   manufacturer={manufacturer}
                   className="rounded border border-primary px-2 py-1"
-                  href={`/${variant}?${MAKE_FILTER_ID}=${manufacturer.id}`}
+                  href={`/${variant}/${kebabCase(manufacturer.name)}`}
                 />
               )}
               {variant === 'home' && <ButtonGroup manufacturer={manufacturer} />}

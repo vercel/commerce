@@ -20,10 +20,13 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-const manufactureVariant: Record<string, 'home' | 'engines' | 'transmissions'> = {
+const manufactureVariant: Record<
+  string,
+  'home' | 'engines' | 'transmissions' | 'remanufactured-engines'
+> = {
   'reman-transmission': 'transmissions',
   'car-part-planet': 'home',
-  'reman-engine': 'engines',
+  'reman-engine': 'remanufactured-engines',
   'transmission-locator': 'transmissions',
   'engine-locator': 'engines'
 };

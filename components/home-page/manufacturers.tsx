@@ -5,13 +5,15 @@ import { getMetaobjects } from 'lib/shopify';
 const Manufacturers = async ({
   variant = 'home'
 }: {
-  variant?: 'engines' | 'transmissions' | 'home';
+  variant?: 'engines' | 'transmissions' | 'home' | 'remanufactured-engines' | 'transfer-cases';
 }) => {
   const manufacturers = await getMetaobjects('make');
   const title: Record<typeof variant, string> = {
     engines: 'Engines',
     home: 'Parts',
-    transmissions: 'Transmissions'
+    transmissions: 'Transmissions',
+    'remanufactured-engines': 'Remanufactured Engines',
+    'transfer-cases': 'Transfer Cases'
   };
 
   return (
