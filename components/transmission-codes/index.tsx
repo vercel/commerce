@@ -28,7 +28,7 @@ const TransmissionCode = async ({ collectionHandle }: { collectionHandle: string
           <div className="mt-6 grid grid-cols-2 gap-x-12 gap-y-5 md:grid-cols-3 md:gap-y-8 lg:grid-cols-4 xl:grid-cols-5">
             {transmissionCodes.values.map((transmissionCode) => (
               <Link
-                href={`${getCollectionUrl(collectionHandle)}?${TRANSMISSION_CODE_FILTER_ID}=${transmissionCode.value}`}
+                href={`${getCollectionUrl(collectionHandle)}/${transmissionCode.label.toLowerCase()}`}
                 key={transmissionCode.id}
               >
                 <div className="rounded border border-primary px-2 py-1 text-sm">

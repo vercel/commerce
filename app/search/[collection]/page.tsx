@@ -21,6 +21,7 @@ import HelpfulLinks from 'components/layout/search/helpful-links';
 import ProductsGridPlaceholder from 'components/layout/search/placeholder';
 import SortingMenu from 'components/layout/search/sorting-menu';
 import Models from 'components/models';
+import Content from 'components/plp/content';
 import TransmissionCode from 'components/transmission-codes';
 import { Suspense } from 'react';
 
@@ -135,6 +136,9 @@ export default async function CategorySearchPage(props: {
           </div>
         </div>
       </div>
+      <Suspense>
+        <Content collection={collectionHandle} />
+      </Suspense>
       <FAQ handle="plp-faqs" />
       {collectionHandle.startsWith('transmissions') && (
         <Suspense>

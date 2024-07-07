@@ -145,7 +145,7 @@ export const isBeforeToday = (date?: string | null) => {
 };
 
 export const getCollectionUrl = (handle: string, includeSlashPrefix = true) => {
-  const rewriteUrl = handle.split('_').filter(Boolean).join('/');
+  const rewriteUrl = handle.split('_').filter(Boolean).join('/').toLowerCase();
 
   return includeSlashPrefix ? `/${rewriteUrl}` : rewriteUrl;
 };

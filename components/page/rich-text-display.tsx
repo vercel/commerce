@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import Link from 'next/link';
 
 type Text = {
   type: 'text';
@@ -14,7 +15,8 @@ type Content =
       listType: 'bullet' | 'ordered' | 'unordered';
       children: Array<{ type: 'listItem'; children: Text[] }>;
     }
-  | { type: 'listItem'; children: Text[] };
+  | { type: 'listItem'; children: Text[] }
+  | { type: 'link'; children: Text[]; target: string; title: string; url: string };
 
 const RichTextBlock = ({ block }: { block: Content }) => {
   if (block.type === 'text') {
@@ -22,6 +24,14 @@ const RichTextBlock = ({ block }: { block: Content }) => {
       <strong className="font-semibold">{block.value}</strong>
     ) : (
       <span className="font-normal">{block.value}</span>
+    );
+  }
+
+  if (block.type === 'link') {
+    return (
+      <Link href={block.url} target={block.target} title={block.title} className="underline">
+        {block.children[0]?.value || block.title}
+      </Link>
     );
   }
 
