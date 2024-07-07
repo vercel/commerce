@@ -2,6 +2,7 @@ import PageContent from 'components/page/page-content';
 import { getMetaobject, getMetaobjectsByIds } from 'lib/shopify';
 import { Product } from 'lib/shopify/types';
 import { getSelectedProductVariant } from 'lib/utils';
+import kebabCase from 'lodash.kebabcase';
 
 const AdditionalInformation = async ({
   product,
@@ -16,7 +17,7 @@ const AdditionalInformation = async ({
 
   const pdpContent = await getMetaobject({
     handle: {
-      handle: `${selectedVariant.condition}-${product.productType}`.toLowerCase(),
+      handle: `${selectedVariant.condition}-${kebabCase(product.productType)}`.toLowerCase(),
       type: 'pdp_content'
     }
   });
