@@ -12,3 +12,5 @@ export * from './skeleton';
 export { default as Skeleton } from './skeleton';
 export * from './text';
 export { default as Text } from './text';
+export { default as Chip } from './chip';
+export * from './chip';

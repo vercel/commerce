@@ -8,10 +8,14 @@ const text = tv(
         sm: 'text-xs',
         md: 'text-sm',
         lg: 'text-md'
+      },
+      bold: {
+        true: 'font-medium'
       }
     },
     defaultVariants: {
-      size: 'md'
+      size: 'md',
+      bold: false
     }
   },
   {
@@ -25,8 +29,8 @@ export interface TextProps extends VariantProps<typeof text> {
   as?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'p';
 }
 
-export default function Text({ children, className, size, as }: TextProps) {
+export default function Text({ children, className, size, as, bold }: TextProps) {
   const Component = as || 'p';
 
-  return <Component className={text({ size, className })}>{children}</Component>;
+  return <Component className={text({ size, bold, className })}>{children}</Component>;
 }

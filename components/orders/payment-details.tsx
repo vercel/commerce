@@ -20,7 +20,9 @@ export default function PaymentsDetails({ order, hideIcon }: { order: Order; hid
 
           <div>
             <Text>
-              Ending with {transaction.paymentDetails.last4} -
+              {transaction?.paymentDetails
+                ? `Ending with ${transaction.paymentDetails.last4} - `
+                : 'Manual - '}
               <Price
                 as="span"
                 amount={transaction.transactionAmount.amount}

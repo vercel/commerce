@@ -22,7 +22,7 @@ const heading = tv(
 export interface HeadingProps extends VariantProps<typeof heading> {
   className?: string;
   children: React.ReactNode;
-  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'p';
+  as?: React.ElementType;
 }
 
 export default function Heading({ children, className, size, as }: HeadingProps) {

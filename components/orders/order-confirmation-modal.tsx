@@ -8,7 +8,7 @@ import Markdown from 'markdown-to-jsx';
 import { Order, OrderConfirmationContent } from 'lib/shopify/types';
 import { FormEventHandler, useEffect, useRef, useState, useTransition } from 'react';
 import { confirmOrder, fetchOrderConfirmationContent } from 'components/orders/actions';
-import { Button, Heading, Text, Label, Input, Skeleton } from 'components/ui';
+import { Button, Heading, Text, Label, Input } from 'components/ui';
 import LoadingDots from 'components/loading-dots';
 
 function OrderConfirmationDetails({
@@ -228,7 +228,7 @@ export default function OrderConfirmationModal({
     <Dialog open={isOpen} onClose={onClose} className="relative z-50">
       <DialogBackdrop
         transition
-        className="fixed inset-0 bg-black/30 duration-300 ease-out data-[closed]:opacity-0"
+        className="bg-black/30 fixed inset-0 duration-300 ease-out data-[closed]:opacity-0"
       />
       <div className="fixed inset-0 w-screen overflow-y-auto p-4">
         <div className="flex min-h-full items-center justify-center">

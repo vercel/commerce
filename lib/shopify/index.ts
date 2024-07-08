@@ -136,6 +136,9 @@ const userAgent = '*';
 const placeholderProductImage =
   'https://cdn.shopify.com/shopifycloud/customer-account-web/production/assets/8bc6556601c510713d76.svg';
 
+const placeholderPaymentIcon =
+  'https://cdn.shopify.com/shopifycloud/customer-account-web/production/assets/7bea2f.svg';
+
 const key = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
 const adminAccessToken = process.env.SHOPIFY_ADMIN_API_ACCESS_TOKEN!;
 
@@ -601,15 +604,17 @@ function reshapeOrder(shopifyOrder: ShopifyOrder): Order {
   const orderTransactions: Transaction[] = shopifyOrder.transactions?.map((transaction) => ({
     processedAt: transaction.processedAt,
     paymentIcon: {
-      url: transaction.paymentIcon.url,
-      altText: transaction.paymentIcon.altText,
+      url: transaction.paymentIcon?.url || placeholderPaymentIcon,
+      altText: transaction.paymentIcon?.altText || 'Payment Icon',
       width: 100,
       height: 100
     },
-    paymentDetails: {
-      last4: transaction.paymentDetails.last4,
-      cardBrand: transaction.paymentDetails.cardBrand
-    },
+    paymentDetails: transaction.paymentDetails
+      ? {
+          last4: transaction.paymentDetails.last4,
+          cardBrand: transaction.paymentDetails.cardBrand
+        }
+      : undefined,
     transactionAmount: reshapeMoney(transaction.transactionAmount.presentmentMoney)!
   }));
 
@@ -646,7 +651,17 @@ function reshapeOrder(shopifyOrder: ShopifyOrder): Order {
     warrantyActivationOdometer: shopifyOrder.warrantyActivationOdometer,
     warrantyActivationSelfInstall: shopifyOrder.warrantyActivationSelfInstall,
     warrantyActivationVIN: shopifyOrder.warrantyActivationVIN,
-    orderConfirmation: shopifyOrder.orderConfirmation
+    orderConfirmation: shopifyOrder.orderConfirmation,
+    coreReturnStatus: shopifyOrder.coreReturnStatus,
+    coreReturnDeadline: shopifyOrder.coreReturnDeadline,
+    coreReturnName: shopifyOrder.coreReturnName,
+    coreReturnAddress: shopifyOrder.coreReturnAddress,
+    coreReturnEmail: shopifyOrder.coreReturnEmail,
+    coreReturnPhone: shopifyOrder.coreReturnPhone,
+    coreReturnCity: shopifyOrder.coreReturnCity,
+    coreReturnState: shopifyOrder.coreReturnState,
+    coreReturnZip: shopifyOrder.coreReturnZip,
+    coreReturnDescription: shopifyOrder.coreReturnDescription
   };
 
   if (shopifyOrder.customer) {
