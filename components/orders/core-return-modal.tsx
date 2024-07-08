@@ -3,7 +3,7 @@ import { Order } from 'lib/shopify/types';
 import { Button, Heading, Input } from 'components/ui';
 import StatesCombobox from 'components/states-combobox';
 import { useTransition } from 'react';
-import { returnCore } from './actions';
+// import { returnCore } from './actions';
 
 export function CoreReturnModal({
   isOpen,
@@ -18,7 +18,8 @@ export function CoreReturnModal({
 
   async function submitCoreReturn(formData: FormData) {
     startTransition(async () => {
-      returnCore(order, formData);
+      // returnCore(order, formData);
+      console.log(formData);
     });
   }
 
