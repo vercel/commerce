@@ -891,7 +891,6 @@ export async function getAllMetaobjects(type: string) {
   while (hasNextPage) {
     const res = await shopifyFetch<ShopifyMetaobjectsOperation>({
       query: getMetaobjectsQuery,
-      tags: [TAGS.collections, TAGS.products],
       variables: { type, after }
     });
 
