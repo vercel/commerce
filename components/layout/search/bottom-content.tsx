@@ -19,10 +19,7 @@ const manufactureVariantMap: Record<
 const BottomContent = async ({ collectionHandle }: { collectionHandle: string }) => {
   const collection = await getCollection({ handle: collectionHandle });
 
-  if (
-    !collection ||
-    (!collection.dynamicContent && !collection.transmissionCodeLinks && !collection.engineSizeLinks)
-  ) {
+  if (!collection) {
     return null;
   }
 
@@ -33,22 +30,24 @@ const BottomContent = async ({ collectionHandle }: { collectionHandle: string })
       <Suspense>
         <Content collection={collection} />
       </Suspense>
-      <div className="mt-10 space-y-3">
-        <Tag text="Get Started" />
-        <div className="space-y-16">
-          <Suspense>
-            <TransmissionCode collection={collection} />
-          </Suspense>
-          {!collection.plpType || collection.plpType === 'Product Type' ? (
+      {!collection.transmissionCodeLinks && !collection.engineSizeLinks ? null : (
+        <div className="mt-10 space-y-3">
+          <Tag text="Get Started" />
+          <div className="space-y-16">
             <Suspense>
-              <Manufacturers variant={manufactureVariantMap[partType || 'engines']} />
+              <TransmissionCode collection={collection} />
             </Suspense>
-          ) : null}
-          <Suspense>
-            <EngineSizes collection={collection} />
-          </Suspense>
+            {!collection.plpType || collection.plpType === 'Product Type' ? (
+              <Suspense>
+                <Manufacturers variant={manufactureVariantMap[partType || 'engines']} />
+              </Suspense>
+            ) : null}
+            <Suspense>
+              <EngineSizes collection={collection} />
+            </Suspense>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

@@ -13,7 +13,7 @@ const DefaultContent = async () => {
   const sectionIds = defaultPLPContent.sections ? JSON.parse(defaultPLPContent.sections) : [];
 
   return (
-    <div className="spacy-y-3">
+    <div className="space-y-3">
       <Tag text="Learn More" />
       <h3 className="mb-3 text-3xl font-semibold text-black-700 lg:text-4xl">
         {defaultPLPContent.title}
