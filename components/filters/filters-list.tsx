@@ -47,13 +47,14 @@ const FiltersList = ({ makes = [], menu, autoFocusField }: FiltersListProps) => 
   const yearOptions = model ? years.filter((y) => get(y, 'make_model') === model.id) : years;
 
   const disabled = !partType || !make || !model || !year;
+  const [, initialMake, initialModel, initialYear] = params.collection?.split('_') || [];
 
   useEffect(() => {
     if (partType) {
       const _make = makes.find((make) =>
         makeIdFromSearchParams
           ? make.id === makeIdFromSearchParams
-          : params.collection?.includes(make.name!.toLowerCase())
+          : initialMake === make.name!.toLowerCase()
       );
 
       if (_make) {
@@ -72,12 +73,15 @@ const FiltersList = ({ makes = [], menu, autoFocusField }: FiltersListProps) => 
     const getModels = async () => {
       setLoadingAttribute('models');
       const modelsResponse = await fetchModels();
-      if (modelIdFromSearchParams) {
-        setModel(
-          (currentModel) =>
-            modelsResponse?.find((model) => model.id === modelIdFromSearchParams) || currentModel
-        );
-      }
+      setModel(
+        (currentModel) =>
+          modelsResponse?.find((model) =>
+            modelIdFromSearchParams
+              ? model.id === modelIdFromSearchParams
+              : initialModel === model.name!.toLowerCase()
+          ) || currentModel
+      );
+
       setModels(modelsResponse || []);
       setLoadingAttribute(undefined);
     };
@@ -91,12 +95,12 @@ const FiltersList = ({ makes = [], menu, autoFocusField }: FiltersListProps) => 
     const getYears = async () => {
       setLoadingAttribute('years');
       const yearsResponse = await fetchYears();
-      if (yearIdFromSearchParams) {
-        setYear(
-          (currentYear) =>
-            yearsResponse?.find((year) => year.id === yearIdFromSearchParams) || currentYear
-        );
-      }
+      setYear(
+        (currentYear) =>
+          yearsResponse?.find((year) =>
+            yearIdFromSearchParams ? year.id === yearIdFromSearchParams : initialYear === year.name
+          ) || currentYear
+      );
       setYears(yearsResponse || []);
       setLoadingAttribute(undefined);
     };
