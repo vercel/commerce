@@ -6,17 +6,17 @@ import { Menu, Metaobject } from 'lib/shopify/types';
 import { createUrl, findParentCollection } from 'lib/utils';
 import get from 'lodash.get';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useMemo, useState } from 'react';
-import { fetMetaobjects } from './actions';
+import { useEffect, useState } from 'react';
+import { fetchModels, fetchYears } from './actions';
 import FilterField from './field';
 
 type FiltersListProps = {
-  makes: Metaobject[];
+  makes?: Metaobject[];
   menu: Menu[];
   autoFocusField?: string;
 };
 
-const FiltersList = ({ makes, menu, autoFocusField }: FiltersListProps) => {
+const FiltersList = ({ makes = [], menu, autoFocusField }: FiltersListProps) => {
   const params = useParams<{ collection?: string }>();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -69,9 +69,9 @@ const FiltersList = ({ makes, menu, autoFocusField }: FiltersListProps) => {
   }, [makeIdFromSearchParams, makes, params.collection, partType]);
 
   useEffect(() => {
-    const fetchModels = async () => {
+    const getModels = async () => {
       setLoadingAttribute('models');
-      const modelsResponse = await fetMetaobjects('make_model_composite');
+      const modelsResponse = await fetchModels();
       if (modelIdFromSearchParams) {
         setModel(
           (currentModel) =>
@@ -83,14 +83,14 @@ const FiltersList = ({ makes, menu, autoFocusField }: FiltersListProps) => {
     };
 
     if (make?.id && models.length === 0) {
-      fetchModels();
+      getModels();
     }
   }, [make?.id, modelIdFromSearchParams, models.length]);
 
   useEffect(() => {
-    const fetchYears = async () => {
+    const getYears = async () => {
       setLoadingAttribute('years');
-      const yearsResponse = await fetMetaobjects('make_model_year_composite');
+      const yearsResponse = await fetchYears();
       if (yearIdFromSearchParams) {
         setYear(
           (currentYear) =>
@@ -102,7 +102,7 @@ const FiltersList = ({ makes, menu, autoFocusField }: FiltersListProps) => {
     };
 
     if (model?.id && years.length === 0) {
-      fetchYears();
+      getYears();
     }
   }, [model?.id, yearIdFromSearchParams, years.length]);
 
@@ -136,31 +136,6 @@ const FiltersList = ({ makes, menu, autoFocusField }: FiltersListProps) => {
     router.push(createUrl(`/search/${partType?.value}`, newSearchParams), { scroll: false });
   };
 
-  // Sorting logic
-  const sortedMakes = useMemo(() => {
-    return [...makes].sort((a, b) => {
-      const makeA = get(a, 'display_name').toLowerCase();
-      const makeB = get(b, 'display_name').toLowerCase();
-      return makeA.localeCompare(makeB);
-    });
-  }, [makes]);
-
-  const sortedModelOptions = useMemo(() => {
-    return [...modelOptions].sort((a, b) => {
-      const modelA = get(a, 'name').toLowerCase();
-      const modelB = get(b, 'name').toLowerCase();
-      return modelA.localeCompare(modelB);
-    });
-  }, [modelOptions]);
-
-  const sortedYearOptions = useMemo(() => {
-    return [...yearOptions].sort((a, b) => {
-      const yearA = parseInt(get(a, 'name'), 10);
-      const yearB = parseInt(get(b, 'name'), 10);
-      return yearB - yearA; // Descending order for years
-    });
-  }, [yearOptions]);
-
   return (
     <>
       <FilterField
@@ -176,7 +151,7 @@ const FiltersList = ({ makes, menu, autoFocusField }: FiltersListProps) => {
         label="Make"
         onChange={onChangeMake}
         selectedValue={make}
-        options={sortedMakes}
+        options={makes}
         getId={(option) => option.id}
         disabled={!partType}
         autoFocus={autoFocusField === 'make'}
@@ -186,7 +161,7 @@ const FiltersList = ({ makes, menu, autoFocusField }: FiltersListProps) => {
         label="Model"
         onChange={onChangeModel}
         selectedValue={model}
-        options={sortedModelOptions}
+        options={modelOptions}
         getId={(option) => option.id}
         disabled={!make}
         autoFocus={autoFocusField === 'model'}
@@ -196,7 +171,7 @@ const FiltersList = ({ makes, menu, autoFocusField }: FiltersListProps) => {
         label="Year"
         onChange={onChangeYear}
         selectedValue={year}
-        options={sortedYearOptions}
+        options={yearOptions}
         getId={(option) => option.id}
         disabled={!model || !make}
         autoFocus={autoFocusField === 'year'}

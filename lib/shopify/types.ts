@@ -44,12 +44,22 @@ export type CartItem = {
 
 export type Collection = Omit<
   ShopifyCollection,
-  'helpfulLinks' | 'helpfulLinksTop' | 'dynamicContent'
+  | 'helpfulLinks'
+  | 'helpfulLinksTop'
+  | 'dynamicContent'
+  | 'plpType'
+  | 'lhnLinks'
+  | 'engineSizeLinks'
+  | 'transmissionCodeLinks'
 > & {
   path: string;
   helpfulLinks: string[] | null;
   helpfulLinksTop: string[] | null;
   dynamicContent: string | null;
+  plpType: PLPType | null;
+  lhnLinks: string[] | null;
+  engineSizeLinks: string[] | null;
+  transmissionCodeLinks: string[] | null;
 };
 
 export type Customer = {
@@ -509,6 +519,14 @@ export type ShopifyCart = {
   totalQuantity: number;
 };
 
+export type PLPType =
+  | 'Product Type'
+  | 'Make'
+  | 'Model'
+  | 'Year'
+  | 'Transmission Code'
+  | 'Engine Size';
+
 export type ShopifyCollection = {
   handle: string;
   title: string;
@@ -518,6 +536,10 @@ export type ShopifyCollection = {
   helpfulLinks: { value: string } | null;
   helpfulLinksTop: { value: string } | null;
   dynamicContent: { value: string } | null;
+  plpType: { value: PLPType } | null;
+  lhnLinks: { value: string } | null;
+  engineSizeLinks: { value: string } | null;
+  transmissionCodeLinks: { value: string } | null;
 };
 
 export type ShopifyProduct = {
