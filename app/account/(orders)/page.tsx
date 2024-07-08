@@ -1,7 +1,9 @@
 import { InformationCircleIcon } from '@heroicons/react/24/outline';
+import Divider from 'components/divider';
 import ActivateWarranty from 'components/orders/activate-warranty';
 import MobileOrderActions from 'components/orders/mobile-order-actions';
 import OrderConfirmation from 'components/orders/order-confirmation';
+import OrderStatuses from 'components/orders/order-statuses';
 import OrdersHeader from 'components/orders/orders-header';
 import Price from 'components/price';
 import { Button } from 'components/ui';
@@ -28,7 +30,7 @@ export default async function AccountPage() {
                 <h3 className="sr-only">
                   Order placed on <time dateTime={order.createdAt}>{order.createdAt}</time>
                 </h3>
-                <div className="flex items-center border-b border-gray-200 p-4 sm:grid sm:grid-cols-4 sm:gap-x-6 sm:p-6">
+                <div className="flex items-center p-4 sm:grid sm:grid-cols-4 sm:gap-x-6 sm:p-6">
                   <dl className="grid flex-1 grid-cols-2 gap-x-6 text-sm sm:col-span-3 sm:grid-cols-3 lg:col-span-2">
                     <div>
                       <dt className="font-medium text-gray-900">Order</dt>
@@ -66,6 +68,10 @@ export default async function AccountPage() {
                     <OrderConfirmation order={order} />
                   </div>
                 </div>
+                <div className="p-4 pt-0 sm:p-6 sm:pt-0">
+                  <OrderStatuses order={order} className="flex flex-wrap gap-4" />
+                </div>
+                <Divider hasSpacing={false} />
 
                 <h4 className="sr-only">Items</h4>
                 <ul role="list" className="divide-y divide-gray-200">

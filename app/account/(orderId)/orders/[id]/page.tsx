@@ -14,6 +14,9 @@ import { toPrintDate } from 'lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import ActivateWarranty from 'components/orders/activate-warranty';
+import OrderStatuses from 'components/orders/order-statuses';
+import Divider from 'components/divider';
+import { CoreReturn } from 'components/orders/core-return';
 
 function Unfulfilled({ order }: { order: Order }) {
   // Build a map of line item IDs to quantities fulfilled
@@ -222,10 +225,13 @@ export default async function OrderPage({ params }: { params: { id: string } }) 
             </div>
           </div>
           <div className="flex items-start gap-2">
+            <OrderStatuses order={order} className="hidden flex-wrap gap-2 lg:flex" />
             <OrderConfirmation order={order} />
             <ActivateWarranty order={order} />
+            <CoreReturn order={order} />
           </div>
         </div>
+        <OrderStatuses order={order} className="my-6 flex flex-wrap gap-2 lg:hidden" />
         <div className="flex items-start gap-6">
           <div className="flex flex-1 flex-col gap-6">
             <Fulfillments order={order} />

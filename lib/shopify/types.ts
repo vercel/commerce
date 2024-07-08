@@ -105,7 +105,7 @@ export type Fulfillment = {
 export type Transaction = {
   processedAt: string;
   paymentIcon: Image;
-  paymentDetails: {
+  paymentDetails?: {
     last4: string;
     cardBrand: string;
   };
@@ -196,8 +196,8 @@ type ShopifyShippingLine = {
 type ShopifyOrderTransaction = {
   id: string;
   processedAt: string;
-  paymentIcon: ShopifyPaymentIconImage;
-  paymentDetails: ShopifyCardPaymentDetails;
+  paymentIcon: ShopifyPaymentIconImage | null;
+  paymentDetails: ShopifyCardPaymentDetails | null;
   transactionAmount: ShopifyMoneyBag;
   giftCardDetails: ShopifyGiftCardDetails | null;
   status: string;
@@ -879,6 +879,14 @@ export enum WarrantyStatus {
   LimitedActivated = 'Limited Activation'
 }
 
+export enum CoreReturnStatus {
+  CoreNeeded = 'Core Needed',
+  PickupRequested = 'Pickup Requested',
+  BOLCreated = 'BOL Created',
+  CoreReceived = 'Core Received',
+  CoreRefunded = 'Core Refunded'
+}
+
 export type ShopifyOrderMetafield = {
   orderConfirmation: ShopifyMetafield | null;
   warrantyStatus: ShopifyMetafield | null;
@@ -888,6 +896,16 @@ export type ShopifyOrderMetafield = {
   warrantyActivationSelfInstall: ShopifyMetafield | null;
   warrantyActivationVIN: ShopifyMetafield | null;
   warrantyActivationMileage: ShopifyMetafield | null;
+  coreReturnStatus: ShopifyMetafield | null;
+  coreReturnDeadline: ShopifyMetafield | null;
+  coreReturnName: ShopifyMetafield | null;
+  coreReturnAddress: ShopifyMetafield | null;
+  coreReturnEmail: ShopifyMetafield | null;
+  coreReturnPhone: ShopifyMetafield | null;
+  coreReturnCity: ShopifyMetafield | null;
+  coreReturnState: ShopifyMetafield | null;
+  coreReturnZip: ShopifyMetafield | null;
+  coreReturnDescription: ShopifyMetafield | null;
 };
 
 export type File = {
