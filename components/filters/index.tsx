@@ -1,5 +1,6 @@
-import { getAllMetaobjects, getMenu } from 'lib/shopify';
+import { getMenu } from 'lib/shopify';
 import { ReactNode } from 'react';
+import { fetchMakes, fetchModels, fetchYears } from './actions';
 import FiltersList from './filters-list';
 
 const YMMFiltersContainer = ({ children }: { children: ReactNode }) => {
@@ -14,8 +15,11 @@ const YMMFiltersContainer = ({ children }: { children: ReactNode }) => {
 };
 
 const YMMFilters = async () => {
-  const makes = await getAllMetaobjects('make');
+  const makes = await fetchMakes();
   const menu = await getMenu('main-menu');
+  // preload models and years
+  fetchModels();
+  fetchYears();
 
   return (
     <YMMFiltersContainer>

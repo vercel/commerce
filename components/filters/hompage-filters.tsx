@@ -1,4 +1,5 @@
-import { getAllMetaobjects, getMenu } from 'lib/shopify';
+import { getMenu } from 'lib/shopify';
+import { fetchMakes, fetchModels, fetchYears } from './actions';
 import FiltersList from './filters-list';
 
 const title: Record<string, string> = {
@@ -12,8 +13,11 @@ const title: Record<string, string> = {
 const { STORE_PREFIX } = process.env;
 
 const HomePageFilters = async () => {
-  const makes = await getAllMetaobjects('make');
+  const makes = await fetchMakes();
   const menu = await getMenu('main-menu');
+  // preload models and years
+  fetchModels();
+  fetchYears();
 
   return (
     <>
