@@ -13,14 +13,12 @@ import { getProductsInCollection } from 'components/layout/products-list/actions
 import FiltersContainer, {
   FiltersListPlaceholder
 } from 'components/layout/search/filters/filters-container';
-import MakeModelFilters from 'components/layout/search/filters/make-model-filters';
 import MobileFilters from 'components/layout/search/filters/mobile-filters';
-import SubMenu from 'components/layout/search/filters/sub-menu';
+import SubMenu, { SubMenuPlaceholder } from 'components/layout/search/filters/sub-menu';
 import Header, { HeaderPlaceholder } from 'components/layout/search/header';
 import HelpfulLinks from 'components/layout/search/helpful-links';
 import ProductsGridPlaceholder from 'components/layout/search/placeholder';
 import SortingMenu from 'components/layout/search/sorting-menu';
-import Models from 'components/models';
 import Content from 'components/plp/content';
 import TransmissionCode from 'components/transmission-codes';
 import { Suspense } from 'react';
@@ -61,7 +59,14 @@ async function CategoryPage({
         </Suspense>
       </div>
       <div className="mb-5 flex w-full items-center justify-between gap-2 lg:justify-end">
-        <MobileFilters filters={filters} menu={<SubMenu collection={params.collection} />} />
+        <MobileFilters
+          filters={filters}
+          menu={
+            <Suspense fallback={<SubMenuPlaceholder />}>
+              <SubMenu collection={params.collection} />
+            </Suspense>
+          }
+        />
         <SortingMenu />
       </div>
 
@@ -108,10 +113,8 @@ export default async function CategorySearchPage(props: {
                 <YMMFilters />
               </Suspense>
             </div>
-
-            <SubMenu collection={collectionHandle} />
-            <Suspense>
-              <MakeModelFilters collection={collectionHandle} />
+            <Suspense fallback={<SubMenuPlaceholder />}>
+              <SubMenu collection={collectionHandle} />
             </Suspense>
             <h3 className="sr-only">Filters</h3>
             <Suspense fallback={<FiltersListPlaceholder />} key={`filters-${collectionHandle}`}>
@@ -139,24 +142,12 @@ export default async function CategorySearchPage(props: {
         <Content collection={collectionHandle} />
       </Suspense>
       <FAQ handle="plp-faqs" />
-      {collectionHandle.startsWith('transmissions') && (
-        <Suspense>
-          <TransmissionCode collectionHandle={collectionHandle} />
-        </Suspense>
-      )}
-      {['transmissions', 'engines', 'remanufactured-engines'].some((url) =>
-        collectionHandle.startsWith(url)
-      ) && (
-        <Suspense>
-          <Models collectionHandle={collectionHandle} />
-        </Suspense>
-      )}
-
-      {['engines', 'remanufactured-engines'].some((url) => collectionHandle.startsWith(url)) && (
-        <Suspense>
-          <EngineSizes collectionHandle={collectionHandle} />
-        </Suspense>
-      )}
+      <Suspense>
+        <TransmissionCode collectionHandle={collectionHandle} />
+      </Suspense>
+      <Suspense>
+        <EngineSizes collectionHandle={collectionHandle} />
+      </Suspense>
       {!make ? (
         <Suspense>
           <Manufacturers variant={manufactureVariantMap[partType || 'engines']} />
