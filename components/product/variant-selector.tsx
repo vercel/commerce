@@ -123,8 +123,6 @@ export function VariantSelector({
                       className="flex-grow flex-col space-y-4 overflow-auto px-2 py-4"
                     >
                       {option.values.map((value) => {
-                        console.log('option', option);
-                        console.log('variants', variants);
                         const optionNameLowerCase = option.name.toLowerCase();
                         const optionSearchParams = new URLSearchParams(searchParams.toString());
 
