@@ -45,9 +45,11 @@ export default async function HomePage() {
         <Suspense>
           <FAQ handle="home-page-faqs" />
         </Suspense>
-        <Suspense>
-          <Manufacturers variant={manufactureVariant[STORE_PREFIX!]} />
-        </Suspense>
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-20">
+          <Suspense>
+            <Manufacturers variant={manufactureVariant[STORE_PREFIX!]} />
+          </Suspense>
+        </div>
       </div>
       <Suspense>
         <Footer />

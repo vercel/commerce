@@ -4,12 +4,10 @@ import { notFound } from 'next/navigation';
 
 import Breadcrumb from 'components/breadcrumb';
 import BreadcrumbHome from 'components/breadcrumb/breadcrumb-home';
-import EngineSizes from 'components/engine-sizes';
-import FAQ from 'components/faq';
 import YMMFilters, { YMMFiltersPlaceholder } from 'components/filters';
-import Manufacturers from 'components/home-page/manufacturers';
 import ProductsList from 'components/layout/products-list';
 import { getProductsInCollection } from 'components/layout/products-list/actions';
+import BottomContent from 'components/layout/search/bottom-content';
 import FiltersContainer, {
   FiltersListPlaceholder
 } from 'components/layout/search/filters/filters-container';
@@ -19,8 +17,6 @@ import Header, { HeaderPlaceholder } from 'components/layout/search/header';
 import HelpfulLinks from 'components/layout/search/helpful-links';
 import ProductsGridPlaceholder from 'components/layout/search/placeholder';
 import SortingMenu from 'components/layout/search/sorting-menu';
-import Content from 'components/plp/content';
-import TransmissionCode from 'components/transmission-codes';
 import { Suspense } from 'react';
 
 export async function generateMetadata({
@@ -85,23 +81,11 @@ async function CategoryPage({
   );
 }
 
-const manufactureVariantMap: Record<
-  string,
-  'engines' | 'transmissions' | 'remanufactured-engines' | 'transfer-cases'
-> = {
-  transmissions: 'transmissions',
-  engines: 'engines',
-  'remanufactured-engines': 'remanufactured-engines',
-  'transfer-cases': 'transfer-cases'
-};
-
 export default async function CategorySearchPage(props: {
   params: { collection: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
   const collectionHandle = props.params.collection;
-
-  const [partType, make] = collectionHandle.split('_');
 
   return (
     <>
@@ -139,20 +123,8 @@ export default async function CategorySearchPage(props: {
         </div>
       </div>
       <Suspense>
-        <Content collection={collectionHandle} />
+        <BottomContent collectionHandle={collectionHandle} />
       </Suspense>
-      <FAQ handle="plp-faqs" />
-      <Suspense>
-        <TransmissionCode collectionHandle={collectionHandle} />
-      </Suspense>
-      <Suspense>
-        <EngineSizes collectionHandle={collectionHandle} />
-      </Suspense>
-      {!make ? (
-        <Suspense>
-          <Manufacturers variant={manufactureVariantMap[partType || 'engines']} />
-        </Suspense>
-      ) : null}
     </>
   );
 }

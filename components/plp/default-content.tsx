@@ -13,9 +13,9 @@ const DefaultContent = async () => {
   const sectionIds = defaultPLPContent.sections ? JSON.parse(defaultPLPContent.sections) : [];
 
   return (
-    <div className="mx-auto mt-6 max-w-screen-2xl px-8 pb-10">
+    <div className="spacy-y-3">
       <Tag text="Learn More" />
-      <h3 className="mb-5 text-3xl font-bold leading-loose text-black-700">
+      <h3 className="mb-3 text-3xl font-semibold text-black-700 lg:text-4xl">
         {defaultPLPContent.title}
       </h3>
       <Suspense fallback={<TabsPlaceholder />}>

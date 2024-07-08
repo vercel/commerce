@@ -1,19 +1,14 @@
-import { getCollection, getMetaobject } from 'lib/shopify';
+import { getMetaobject } from 'lib/shopify';
+import { Collection } from 'lib/shopify/types';
 import DefaultContent from './default-content';
 import DynamicContent from './dynamic-content';
 
-const Content = async ({ collection }: { collection: string }) => {
-  const collectionData = await getCollection({ handle: collection });
-
-  if (!collectionData) {
-    return null;
-  }
-
-  if (!collectionData.dynamicContent) {
+const Content = async ({ collection }: { collection: Collection }) => {
+  if (!collection.dynamicContent) {
     return <DefaultContent />;
   }
 
-  const content = await getMetaobject({ id: collectionData.dynamicContent });
+  const content = await getMetaobject({ id: collection.dynamicContent });
   if (!content) {
     return <DefaultContent />;
   }

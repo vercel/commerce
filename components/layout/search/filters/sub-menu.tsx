@@ -18,6 +18,17 @@ const MenuItem = async ({ collectionId, title }: { collectionId?: string; title:
     </li>
   );
 };
+
+const sortOptions = (options: Metaobject[], displayField: string) => {
+  return options.toSorted((a, b) =>
+    get(a, displayField).toLowerCase().localeCompare(get(b, displayField).toLowerCase())
+  );
+};
+
+const sortYearOptions = (options: Metaobject[]) => {
+  return options.toSorted((a, b) => parseInt(get(b, 'year'), 10) - parseInt(get(a, 'year'), 10));
+};
+
 const SubMenu = async ({ collection }: { collection: string }) => {
   const collectionData = await getCollection({ handle: collection });
 
@@ -29,19 +40,22 @@ const SubMenu = async ({ collection }: { collection: string }) => {
   if (collectionData.plpType === 'Product Type' && collectionData.lhnLinks) {
     displayField = 'make';
     title = 'Make';
-    subMenu = await getMetaobjectsByIds(collectionData.lhnLinks);
+    const response = await getMetaobjectsByIds(collectionData.lhnLinks);
+    subMenu = sortOptions(response, displayField);
   }
 
   if (collectionData.plpType === 'Make' && collectionData.lhnLinks) {
     displayField = 'model';
     title = 'Model';
-    subMenu = await getMetaobjectsByIds(collectionData.lhnLinks);
+    const response = await getMetaobjectsByIds(collectionData.lhnLinks);
+    subMenu = sortOptions(response, displayField);
   }
 
   if (collectionData.plpType === 'Model' && collectionData.lhnLinks) {
     displayField = 'year';
     title = 'Year';
-    subMenu = await getMetaobjectsByIds(collectionData.lhnLinks);
+    const response = await getMetaobjectsByIds(collectionData.lhnLinks);
+    subMenu = sortYearOptions(response);
   }
 
   return subMenu.length ? (

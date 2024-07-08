@@ -1,5 +1,6 @@
+import { StarIcon } from '@heroicons/react/24/outline';
 import { getCollection, getMetaobjectsByIds } from 'lib/shopify';
-import { Metaobject } from 'lib/shopify/types';
+import { Collection, Metaobject } from 'lib/shopify/types';
 import Link from 'next/link';
 
 const { STORE_PREFIX } = process.env;
@@ -20,9 +21,8 @@ const LinkBlock = async ({ collectionId, title }: { collectionId?: string; title
   );
 };
 
-const EngineSizes = async ({ collectionHandle }: { collectionHandle: string }) => {
-  const collection = await getCollection({ handle: collectionHandle });
-  if (!collection || !collection.plpType || !validStores.includes(STORE_PREFIX!)) {
+const EngineSizes = async ({ collection }: { collection: Collection }) => {
+  if (!collection.plpType || !validStores.includes(STORE_PREFIX!)) {
     return null;
   }
 
@@ -37,19 +37,23 @@ const EngineSizes = async ({ collectionHandle }: { collectionHandle: string }) =
   }
 
   return (
-    <div className="px-6 py-10">
-      <div className="mx-auto max-w-7xl">
-        <h3 className="mb-6 text-3xl font-semibold lg:text-4xl">Browse Engines By Engine Sizes</h3>
-        <div className="h-auto max-h-[700px] w-full overflow-auto rounded px-10 py-6 shadow">
-          <div className="mt-6 grid grid-cols-2 gap-x-12 gap-y-5 md:grid-cols-3 md:gap-y-8 lg:grid-cols-4 xl:grid-cols-5">
-            {engineSizes.map((engineSize) => (
-              <LinkBlock
-                collectionId={engineSize.collection_link}
-                title={engineSize.engine_size}
-                key={engineSize.id}
-              />
-            ))}
-          </div>
+    <div>
+      <h3 className="mb-3 text-3xl font-semibold text-black-700 lg:text-4xl">
+        Browse Engines By Engine Sizes
+      </h3>
+      <div className="h-auto max-h-[700px] w-full overflow-auto rounded px-10 py-6 shadow">
+        <p className="flex items-center gap-2">
+          <StarIcon className="size-4" />
+          <span className="font-medium text-blue-800">Popular Engine Sizes</span>
+        </p>
+        <div className="mt-6 grid grid-cols-2 gap-x-12 gap-y-5 md:grid-cols-3 md:gap-y-8 lg:grid-cols-4 xl:grid-cols-5">
+          {engineSizes.map((engineSize) => (
+            <LinkBlock
+              collectionId={engineSize.collection_link}
+              title={engineSize.engine_size}
+              key={engineSize.id}
+            />
+          ))}
         </div>
       </div>
     </div>

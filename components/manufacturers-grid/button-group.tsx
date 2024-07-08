@@ -17,7 +17,7 @@ const ButtonGroup = ({ manufacturer }: { manufacturer: Metaobject }) => {
   };
 
   return (
-    <div className="flex flex-col items-start justify-between gap-2 md:flex-row md:items-center md:gap-0">
+    <div className="flex flex-col items-start justify-between gap-2 md:flex-row md:items-center md:gap-x-2">
       <button
         className="flex items-center gap-1 rounded border border-primary px-1 py-0.5 text-xs text-primary"
         onClick={() => handleClick('engines')}

@@ -7,9 +7,9 @@ const DynamicContent = async ({ content }: { content: Metaobject }) => {
   const sectionIds = content.sections ? JSON.parse(content.sections) : [];
 
   return (
-    <div className="mx-auto mt-6 max-w-screen-2xl px-8 pb-10">
+    <div className="space-y-3">
       <Tag text="Learn More" />
-      <h3 className="mb-5 text-3xl font-bold leading-loose text-black-700">{content.title}</h3>
+      <h3 className="mb-3 text-3xl font-semibold text-black-700 lg:text-4xl">{content.title}</h3>
       <Suspense fallback={<TabsPlaceholder />}>
         <Tabs tabItemIds={sectionIds} />
       </Suspense>
