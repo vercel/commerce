@@ -30,12 +30,19 @@ const VariantDetails = ({ variants, defaultPrice }: VariantDetailsProps) => {
       <div className="mt-2 flex items-center justify-start gap-x-2">
         {variant?.availableForSale ? (
           <div className="flex items-center gap-1 text-sm text-green-500">
-            <CheckCircleIcon className="size-5" /> In Stock
+            <CheckCircleIcon className="size-5" /> <strong>In Stock</strong>
           </div>
         ) : (
           <span className="text-sm text-red-600">Out of Stock</span>
         )}
-        <p className="text-sm">Condition: {variant?.condition || 'N/A'}</p>
+        <span className="text-sm">|</span>
+        <p className="text-sm">
+          <strong>SKU:</strong> {variant?.sku || 'N/A'}
+        </p>
+        <span className="text-sm">|</span>
+        <p className="text-sm">
+          <strong>Condition:</strong> {variant?.condition || 'N/A'}
+        </p>
       </div>
     </div>
   );
