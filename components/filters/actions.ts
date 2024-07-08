@@ -1,43 +1,47 @@
 'use server';
 
 import { getAllMetaobjects } from 'lib/shopify';
-import { Metaobject } from 'lib/shopify/types';
 import get from 'lodash.get';
 import { cache } from 'react';
 
-export const fetMetaobjects = async (
-  type: string,
-  // eslint-disable-next-line no-unused-vars
-  sortFn?: (a: Metaobject, b: Metaobject) => number
-) => {
+export const fetchModels = cache(async () => {
   try {
-    const data = await getAllMetaobjects(type);
+    const data = await getAllMetaobjects('make_model_composite');
 
-    return sortFn ? data.toSorted(sortFn) : data;
+    return data.toSorted((a, b) => {
+      const modelA = get(a, 'name').toLowerCase();
+      const modelB = get(b, 'name').toLowerCase();
+      return modelA.localeCompare(modelB);
+    });
   } catch (error) {
-    console.log('fetMetaobjects action', error);
+    console.log('fetchModels action', error);
   }
-};
+});
 
-const sortModelsFn = (a: Metaobject, b: Metaobject) => {
-  const modelA = get(a, 'name').toLowerCase();
-  const modelB = get(b, 'name').toLowerCase();
-  return modelA.localeCompare(modelB);
-};
+export const fetchYears = cache(async () => {
+  try {
+    const data = await getAllMetaobjects('make_model_year_composite');
 
-const sortYearsFn = (a: Metaobject, b: Metaobject) => {
-  const yearA = parseInt(get(a, 'name'), 10);
-  const yearB = parseInt(get(b, 'name'), 10);
-  return yearB - yearA; // Descending order for years
-};
+    return data.toSorted((a, b) => {
+      const yearA = parseInt(get(a, 'name'), 10);
+      const yearB = parseInt(get(b, 'name'), 10);
+      return yearB - yearA; // Descending order for years
+    });
+  } catch (error) {
+    console.log('fetchYears action', error);
+  }
+});
 
-const sortMakesFn = (a: Metaobject, b: Metaobject) => {
-  const makeA = get(a, 'display_name').toLowerCase();
-  const makeB = get(b, 'display_name').toLowerCase();
-  return makeA.localeCompare(makeB);
-};
+export const fetchMakes = cache(async () => {
+  try {
+    const data = await getAllMetaobjects('make');
 
-export const fetchModels = cache(() => fetMetaobjects('make_model_composite', sortModelsFn));
-export const fetchYears = cache(() => fetMetaobjects('make_model_year_composite', sortYearsFn));
-
-export const fetchMakes = cache(() => fetMetaobjects('make', sortMakesFn));
+    return data.toSorted((a, b) => {
+      const makeA = get(a, 'display_name').toLowerCase();
+      const makeB = get(b, 'display_name').toLowerCase();
+      return makeA.localeCompare(makeB);
+    });
+  } catch (error) {
+    console.log('fetchMakes action', error);
+  }
+});

@@ -359,6 +359,10 @@ const reshapeCollection = (collection: ShopifyCollection): Collection | undefine
     helpfulLinks: parseMetaFieldValue<string[]>(collection.helpfulLinks),
     helpfulLinksTop: parseMetaFieldValue<string[]>(collection.helpfulLinksTop),
     dynamicContent: collection.dynamicContent?.value || null,
+    plpType: collection.plpType?.value || null,
+    lhnLinks: parseMetaFieldValue<string[]>(collection.lhnLinks),
+    engineSizeLinks: parseMetaFieldValue<string[]>(collection.engineSizeLinks),
+    transmissionCodeLinks: parseMetaFieldValue<string[]>(collection.transmissionCodeLinks),
     path: getCollectionUrl(collection.handle)
   };
 };

@@ -18,6 +18,18 @@ const collectionFragment = /* GraphQL */ `
     dynamicContent: metafield(namespace: "custom", key: "plp_content") {
       value
     }
+    plpType: metafield(namespace: "custom", key: "plp_type") {
+      value
+    }
+    lhnLinks: metafield(namespace: "custom", key: "lhn_links") {
+      value
+    }
+    engineSizeLinks: metafield(namespace: "custom", key: "engine_size_links") {
+      value
+    }
+    transmissionCodeLinks: metafield(namespace: "custom", key: "transmission_code_links") {
+      value
+    }
     updatedAt
   }
   ${seoFragment}
