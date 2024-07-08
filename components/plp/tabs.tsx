@@ -7,7 +7,7 @@ const TabPanelContent = async ({ ids }: { ids: string[] }) => {
   const content = await getMetaobjectsByIds(ids);
 
   return (
-    <TabPanel className="flex min-w-full space-y-5">
+    <TabPanel className="flex min-w-full flex-col space-y-5">
       {content.map((block) => (
         <PageContent key={block.id} block={block} />
       ))}

@@ -96,8 +96,7 @@ export default async function CategorySearchPage(props: {
 }) {
   const collectionHandle = props.params.collection;
 
-  const manufacturerVariant =
-    Object.keys(manufactureVariantMap).find((key) => collectionHandle.startsWith(key)) || 'engines';
+  const [partType, make] = collectionHandle.split('_');
 
   return (
     <>
@@ -158,10 +157,11 @@ export default async function CategorySearchPage(props: {
           <EngineSizes collectionHandle={collectionHandle} />
         </Suspense>
       )}
-
-      <Suspense>
-        <Manufacturers variant={manufactureVariantMap[manufacturerVariant]} />
-      </Suspense>
+      {!make ? (
+        <Suspense>
+          <Manufacturers variant={manufactureVariantMap[partType || 'engines']} />
+        </Suspense>
+      ) : null}
     </>
   );
 }
