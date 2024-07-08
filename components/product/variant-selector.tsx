@@ -96,7 +96,7 @@ export function VariantSelector({
             leaveFrom="opacity-100 backdrop-blur-[.5px]"
             leaveTo="opacity-0 backdrop-blur-none"
           >
-            <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+            <div className="bg-black/30 fixed inset-0" aria-hidden="true" />
           </TransitionChild>
           <TransitionChild
             as={Fragment}
@@ -107,7 +107,7 @@ export function VariantSelector({
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <DialogPanel className="fixed bottom-0 right-0 top-0 flex h-full w-full flex-col border-l border-neutral-200 bg-white/80 p-6 text-black backdrop-blur-xl md:w-[500px]">
+            <DialogPanel className="text-black fixed bottom-0 right-0 top-0 flex h-full w-full flex-col border-l border-neutral-200 bg-white/80 p-6 backdrop-blur-xl md:w-[500px]">
               <div className="flex items-center justify-between">
                 <p className="text-lg font-semibold">Manufactured & Used Options</p>
 
@@ -123,6 +123,8 @@ export function VariantSelector({
                       className="flex-grow flex-col space-y-4 overflow-auto px-2 py-4"
                     >
                       {option.values.map((value) => {
+                        console.log('option', option);
+                        console.log('variants', variants);
                         const optionNameLowerCase = option.name.toLowerCase();
                         const optionSearchParams = new URLSearchParams(searchParams.toString());
 
@@ -209,10 +211,10 @@ export function VariantSelector({
                                     />
                                   ) : null}
                                   <div className="flex items-center gap-1">
-                                    <span className="text-xs font-medium text-gray-600">
-                                      {option.name}:
+                                    <span className="text-xs font-medium text-gray-600">SKU:</span>
+                                    <span className="text-xs text-gray-600">
+                                      {variant?.sku || 'N/A'}
                                     </span>
-                                    <span className="text-xs text-gray-600">{value}</span>
                                   </div>
                                 </div>
                                 {!isAvailableForSale ? <span>Out of Stock</span> : null}
