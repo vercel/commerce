@@ -156,7 +156,9 @@ export default function OrderConfirmationPdf({
             <Text style={styles.label}>Payment</Text>
             <View>
               <Text style={styles.p}>
-                Ending with {order.transactions[0]!.paymentDetails.last4} -
+                {order.transactions[0]?.paymentDetails
+                  ? `Ending with ${order.transactions[0]!.paymentDetails.last4} - `
+                  : 'Manual - '}
                 <PDFPrice
                   amount={order.transactions[0]!.transactionAmount.amount}
                   currencyCode={order.transactions[0]!.transactionAmount.currencyCode}

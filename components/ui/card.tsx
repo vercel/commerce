@@ -7,7 +7,7 @@ const cardStyles = tv({
   base: 'rounded p-6 text-left w-full',
   variants: {
     outlined: {
-      true: 'border bg-white',
+      true: 'border bg-white shadow-sm',
       false: ''
     },
     elevated: {

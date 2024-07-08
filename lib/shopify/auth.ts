@@ -203,7 +203,6 @@ export async function refreshToken({ request, origin }: { request: NextRequest; 
     return { success: false, message: `no_refresh_token` };
   }
   const data = await response.json();
-  console.log('data response from initial fetch to refresh', data);
   const { access_token, expires_in, refresh_token } = data;
 
   const customerAccessToken = await exchangeAccessToken(
@@ -238,10 +237,7 @@ export async function checkExpires({
   let isExpired = false;
   if (parseInt(expiresAt, 10) - 1000 < new Date().getTime()) {
     isExpired = true;
-    console.log('Isexpired is true, we are running refresh token!');
     const refresh = await refreshToken({ request, origin });
-    console.log('refresh', refresh);
-    //this will return success: true or success: false - depending on result of refresh
     return { ranRefresh: isExpired, refresh };
   }
   return { ranRefresh: isExpired, success: true };
@@ -364,8 +360,6 @@ export async function isLoggedIn(request: NextRequest, origin: string) {
       //return { success: false, message: `no_refresh_token` }
     } else {
       const refreshData = isExpired?.refresh?.data;
-      //console.log ("refresh data", refreshData)
-      console.log('We used the refresh token, so now going to reset the token and cookies');
       const newCustomerAccessToken = refreshData?.customerAccessToken;
       const expires_in = refreshData?.expires_in;
       //const test_expires_in = 180 //to test to see if it expires in 60 seconds!
@@ -468,7 +462,6 @@ export async function authorize(request: NextRequest, origin: string) {
   //sets an expires time 2 minutes before expiration which we can use in refresh strategy
   //const test_expires_in = 180 //to test to see if it expires in 60 seconds!
   const expiresAt = new Date(new Date().getTime() + (expires_in! - 120) * 1000).getTime() + '';
-  console.log('expires at', expiresAt);
 
   return await createAllCookies({
     response: authResponse,

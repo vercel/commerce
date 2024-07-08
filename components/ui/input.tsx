@@ -70,7 +70,12 @@ function Input({
   const { root, label: labelStyles, input } = inputStyles({ hasError });
   return (
     <Field disabled={disabled} className={root({ className })}>
-      {label && <Label className={labelStyles({ className: labelClassName })}>{label}</Label>}
+      {label && (
+        <Label className={labelStyles({ className: labelClassName })}>
+          {label}
+          {props.required && <span className="text-red-500"> *</span>}
+        </Label>
+      )}
       <HeadlessInput
         disabled={disabled}
         className={input({ className: inputClassName })}

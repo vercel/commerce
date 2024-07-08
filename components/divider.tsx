@@ -12,7 +12,7 @@ const divider = tv({
         element: 'w-full h-[1px] '
       },
       vertical: {
-        root: 'flex justify-between items-stretch text-tremor-default text-tremor-content',
+        root: 'flex justify-between items-stretch text-tremor-default text-tremor-content h-full',
         element: 'h-full w-[1px]'
       }
     },
@@ -42,12 +42,17 @@ const divider = tv({
 type DividerProps = {
   orientation?: 'horizontal' | 'vertical';
   hasSpacing?: boolean;
+  className?: string;
 };
-export default function Divider({ orientation = 'horizontal', hasSpacing = true }: DividerProps) {
+export default function Divider({
+  orientation = 'horizontal',
+  hasSpacing = true,
+  className
+}: DividerProps) {
   const { root, element } = divider({ orientation, hasSpacing });
 
   return (
-    <div className={root()}>
+    <div className={root({ className })}>
       <span className={element()} />
     </div>
   );

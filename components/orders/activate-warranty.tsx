@@ -4,7 +4,6 @@ import { Order, WarrantyStatus } from 'lib/shopify/types';
 import { isBeforeToday } from 'lib/utils';
 import { useState } from 'react';
 import ActivateWarrantyModal from './activate-warranty-modal';
-import WarrantyActivatedBadge from './warranty-activated-badge';
 import { Button } from 'components/ui';
 
 type ActivateWarrantyModalProps = {
@@ -13,7 +12,7 @@ type ActivateWarrantyModalProps = {
 
 const ActivateWarranty = ({ order }: ActivateWarrantyModalProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const isWarrantyActivated = order?.warrantyStatus?.value === WarrantyStatus.Activated;
+  const isActivated = order?.warrantyStatus?.value === WarrantyStatus.Activated;
   const isPassDeadline = isBeforeToday(order?.warrantyActivationDeadline?.value);
   const isOrderConfirmed = order?.orderConfirmation?.value;
 
@@ -21,11 +20,7 @@ const ActivateWarranty = ({ order }: ActivateWarrantyModalProps) => {
     return null;
   }
 
-  if (isWarrantyActivated) {
-    return <WarrantyActivatedBadge />;
-  }
-
-  if (isPassDeadline) {
+  if (isPassDeadline || isActivated) {
     return null;
   }
 
