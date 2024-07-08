@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { cn } from 'lib/utils';
 import Link from 'next/link';
 
 type Text = {
@@ -16,14 +17,38 @@ type Content =
       children: Array<{ type: 'listItem'; children: Text[] }>;
     }
   | { type: 'listItem'; children: Text[] }
-  | { type: 'link'; children: Text[]; target: string; title: string; url: string };
+  | { type: 'link'; children: Text[]; target: string; title: string; url: string }
+  | {
+      type: 'heading';
+      level: number;
+      children: Text[];
+    };
 
-const RichTextBlock = ({ block }: { block: Content }) => {
+const RichTextBlock = ({ block, className }: { block: Content; className?: string }) => {
   if (block.type === 'text') {
     return block.bold ? (
       <strong className="font-semibold">{block.value}</strong>
     ) : (
-      <span className="font-normal">{block.value}</span>
+      <span className={cn('font-normal', className)}>{block.value}</span>
+    );
+  }
+
+  if (block.type === 'heading') {
+    const Heading = `h${block.level}` as keyof JSX.IntrinsicElements;
+    return (
+      <Heading
+        className={clsx('text-black-700', {
+          'text-3xl': block.level === 2,
+          'text-2xl': block.level === 3,
+          'text-lg': block.level === 4,
+          'text-base': block.level === 5,
+          'text-sm': block.level === 6
+        })}
+      >
+        {block.children.map((child, index) => (
+          <RichTextBlock key={index} block={child} className="font-semibold" />
+        ))}
+      </Heading>
     );
   }
 

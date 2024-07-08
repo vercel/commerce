@@ -8,18 +8,18 @@ const DefaultContent = async () => {
     handle: { handle: 'default-plp-content', type: 'plp_content' }
   });
 
-  if (!defaultPLPContent) return null;
+  if (!defaultPLPContent) {
+    return null;
+  }
 
-  const sectionIds = defaultPLPContent.sections ? JSON.parse(defaultPLPContent.sections) : [];
+  const { id, type, title, ...fields } = defaultPLPContent;
 
   return (
-    <div className="space-y-3">
+    <div>
       <Tag text="Learn More" />
-      <h3 className="mb-3 text-3xl font-semibold text-black-700 lg:text-4xl">
-        {defaultPLPContent.title}
-      </h3>
+      <h3 className="mb-5 mt-3 text-3xl font-semibold text-black-700 lg:text-4xl">{title}</h3>
       <Suspense fallback={<TabsPlaceholder />}>
-        <Tabs tabItemIds={sectionIds} />
+        <Tabs fields={fields} />
       </Suspense>
     </div>
   );

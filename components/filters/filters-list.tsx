@@ -86,10 +86,10 @@ const FiltersList = ({ makes = [], menu, autoFocusField }: FiltersListProps) => 
       setLoadingAttribute(undefined);
     };
 
-    if (make?.id && models.length === 0) {
+    if (models.length === 0) {
       getModels();
     }
-  }, [make?.id, modelIdFromSearchParams, models.length]);
+  }, [modelIdFromSearchParams, models.length]);
 
   useEffect(() => {
     const getYears = async () => {
@@ -105,10 +105,10 @@ const FiltersList = ({ makes = [], menu, autoFocusField }: FiltersListProps) => 
       setLoadingAttribute(undefined);
     };
 
-    if (model?.id && years.length === 0) {
+    if (years.length === 0) {
       getYears();
     }
-  }, [model?.id, yearIdFromSearchParams, years.length]);
+  }, [yearIdFromSearchParams, years.length]);
 
   const onChangeMake = async (value: Metaobject | null) => {
     setMake(value);

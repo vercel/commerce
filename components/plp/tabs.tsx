@@ -1,41 +1,30 @@
 import { ChevronRightIcon } from '@heroicons/react/24/solid';
-import PageContent from 'components/page/page-content';
-import { getMetaobjectsByIds } from 'lib/shopify';
+import RichTextDisplay from 'components/page/rich-text-display';
+import startCase from 'lodash.startcase';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from './tab-components';
 
-const TabPanelContent = async ({ ids }: { ids: string[] }) => {
-  const content = await getMetaobjectsByIds(ids);
-
-  return (
-    <TabPanel className="flex min-w-full flex-col space-y-5">
-      {content.map((block) => (
-        <PageContent key={block.id} block={block} />
-      ))}
-    </TabPanel>
-  );
-};
-
-const Tabs = async ({ tabItemIds }: { tabItemIds: string[] }) => {
-  const tabItems = await getMetaobjectsByIds(tabItemIds);
-  if (!tabItems || tabItems.length === 0) return null;
+const Tabs = ({ fields }: { fields: { [key: string]: string } }) => {
+  const keys = Object.keys(fields);
 
   return (
     <TabGroup vertical>
       <div className="flex w-full gap-x-10">
         <TabList className="flex shrink-0 basis-1/4 flex-col gap-2">
-          {tabItems.map((item) => (
+          {keys.map((key) => (
             <Tab
-              key={item.id}
+              key={key}
               className="flex items-center justify-between rounded-sm bg-gray-200/60 p-3 text-left text-sm font-medium text-black-700 focus:outline-none focus:ring-0 data-[selected]:bg-primary data-[selected]:text-white"
             >
-              {item.title}
+              {startCase(key)}
               <ChevronRightIcon className="size-4" />
             </Tab>
           ))}
         </TabList>
         <TabPanels className="flex basis-3/4">
-          {tabItems.map((item) => (
-            <TabPanelContent key={item.id} ids={item.content ? JSON.parse(item.content) : []} />
+          {keys.map((key) => (
+            <TabPanel className="flex min-w-full flex-col space-y-5">
+              <RichTextDisplay contentBlocks={JSON.parse(fields[key] || '{}').children} />
+            </TabPanel>
           ))}
         </TabPanels>
       </div>
