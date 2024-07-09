@@ -18,7 +18,8 @@ export function CoreReturnModal({
 
   async function submitCoreReturn(formData: FormData) {
     startTransition(async () => {
-      returnCore(order, formData);
+      await returnCore(order, formData);
+      onClose();
     });
   }
 
@@ -77,10 +78,16 @@ export function CoreReturnModal({
                 <StatesCombobox defaultStateCode={order.shippingAddress.provinceCode} />
               </Fieldset>
               <div className="flex justify-end gap-2">
-                <Button variant="text" onClick={onClose}>
+                <Button variant="text" onClick={onClose} type="button">
                   Close
                 </Button>
-                <Button color="primary" variant="solid" disabled={submitting}>
+                <Button
+                  type="submit"
+                  color="primary"
+                  variant="solid"
+                  disabled={submitting}
+                  isLoading={submitting}
+                >
                   Submit
                 </Button>
               </div>

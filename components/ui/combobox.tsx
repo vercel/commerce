@@ -141,7 +141,7 @@ const Combobox = <T extends Record<string, unknown>, TMultiple extends boolean |
             autoFocus={autoFocus}
           />
           <ComboboxButton className={button()}>
-            <ChevronDownIcon className="fill-black/60 group-data-[hover]:fill-black size-5" />
+            <ChevronDownIcon className="size-5 fill-black/60 group-data-[hover]:fill-black" />
           </ComboboxButton>
         </div>
         <ComboboxOptions anchor="bottom" className={optionsStyles()}>
