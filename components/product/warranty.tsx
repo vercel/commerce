@@ -2,6 +2,7 @@
 
 import { ShieldCheckIcon } from '@heroicons/react/24/outline';
 import SideDialog from 'components/side-dialog';
+import Link from 'next/link';
 import { useState } from 'react';
 import WarrantySelector from './warranty-selector';
 
@@ -23,27 +24,103 @@ const Warranty = () => {
             What&apos;s Included
           </button>
           <SideDialog
-            title="What's Included"
+            title="Warranty for Remanufactured Engines"
             onClose={() => setOpeningDialog(null)}
             open={openingDialog === 'included'}
           >
-            <p>Warranty Included</p>
+            <section>
+              <p className="mb-2 text-sm">
+                Car Part Planet warrants remanufactured engine parts to be free of defects in any
+                parts/materials and workmanship for the warranty period indicated from the date of
+                installation, assuming the part was (and can be documented as) installed by a
+                Licensed Automotive Repair Facility.
+              </p>
+            </section>
+
+            <section>
+              <p className="mb-1 mt-2 text-sm font-semibold">Gasoline Engines</p>
+              <p className="text-sm">
+                Gas engines that come standard in small automobiles and trucks up to 11,000 gross
+                volume weight.
+              </p>
+            </section>
+
+            <section>
+              <p className="mb-1 mt-2 text-sm font-semibold">Year 2000 and Older</p>
+              <p className="text-sm">
+                3-years / unlimited mileage, $50/ hour labor reimbursement rate. Parts and labor are
+                paid only upon inspected and approved claims.
+              </p>
+            </section>
+
+            <section>
+              <p className="mb-1 mt-2 text-sm font-semibold">Year 2001 and Newer</p>
+              <p className="text-sm">
+                5-years / unlimited mileage, $50/ hour labor reimbursement rate. Parts and labor are
+                paid only on approved claims after factory inspection. Purchases made prior to
+                January 1, 2018, carry a warranty of 3 years with unlimited mileage. A first-time
+                part replacement is free.
+              </p>
+            </section>
+
+            <section>
+              <p className="mb-1 mt-2 text-sm font-semibold">
+                Gas Engines in Fleet Vehicles and Small Trucks
+              </p>
+              <p className="text-sm">
+                3-years / 75,000 miles, $50/ hour labor reimbursement rate. Parts and labor are paid
+                only on inspected and approved claims. First-time part replacement is free.
+              </p>
+            </section>
+
+            <section>
+              <p className="mb-1 mt-2 text-sm font-semibold">
+                Gas Engines Large Trucks (more than 11,000 G.V.W.)
+              </p>
+              <p className="text-sm">
+                12 months / 12,000 miles, $50/ hour Mitchell labor reimbursement rate is only on
+                inspected and approved claims. First-time part replacement is FREE.
+              </p>
+            </section>
+
+            <section>
+              <p className="mb-1 mt-2 text-sm font-semibold">
+                Diesel Engines (Vehicles exceeding 11,000 G.V.W.)
+              </p>
+              <p className="text-sm">
+                12 months / 12,000 miles, $50/ hour Mitchell labor reimbursement rate is only on
+                inspected and approved claims. First-time part replacement is FREE.
+              </p>
+            </section>
+
+            <section>
+              <p className="mb-1 mt-2 text-sm font-semibold">Marine Engines</p>
+              <p className="text-sm">
+                18 months / unlimited hours, $50/ hour is the warranty labor reimbursement rate with
+                a cap of $800;
+              </p>
+            </section>
+
+            <section className="mt-5">
+              <p className="mb-2 text-sm">
+                If it is determined that the part must be replaced, the original part must be
+                returned before any warranty claims will be paid out.
+              </p>
+              <p className="text-sm">
+                Please visit our warranty page at https://carpartplanet.com/warranty-info for our
+                full warranty disclosure.
+              </p>
+            </section>
           </SideDialog>
         </div>
         <div className="pl-2">
-          <button
-            onClick={() => setOpeningDialog('terms-conditions')}
+          <Link
+            href="/warranty-info"
+            target="_blank"
             className="text-xs text-blue-800 hover:underline lg:text-sm"
           >
             Terms & Conditions
-          </button>
-          <SideDialog
-            title="Terms & Conditions"
-            onClose={() => setOpeningDialog(null)}
-            open={openingDialog === 'terms-conditions'}
-          >
-            <p>Terms & Conditions</p>
-          </SideDialog>
+          </Link>
         </div>
       </div>
       <WarrantySelector />
