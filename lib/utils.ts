@@ -1,6 +1,7 @@
 import clsx, { ClassValue } from 'clsx';
 import { ReadonlyURLSearchParams } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
+import { MAKE_FILTER_ID, MODEL_FILTER_ID, YEAR_FILTER_ID } from './constants';
 import { Menu, Product, ProductVariant } from './shopify/types';
 
 export function cx(...args: ClassValue[]) {
@@ -160,4 +161,27 @@ export const getSelectedProductVariant = ({
   );
 
   return variant || product.variants[0];
+};
+
+const YMM_KEYS = [MAKE_FILTER_ID, YEAR_FILTER_ID, MODEL_FILTER_ID];
+
+export const getInitialSearchParams = (searchParams: URLSearchParams) => {
+  const { q, sort, collection, ...rest } = Object.fromEntries(searchParams);
+
+  const initialFilters: { [key: string]: string } = {
+    ...(q && { q }),
+    ...(sort && { sort }),
+    ...(collection && { collection })
+  };
+
+  Object.keys(rest)
+    .filter((key) => YMM_KEYS.includes(key))
+    .forEach((key) => {
+      const value = searchParams.get(key);
+      if (value) {
+        initialFilters[key] = value;
+      }
+    });
+
+  return initialFilters;
 };

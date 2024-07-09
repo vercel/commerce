@@ -15,11 +15,12 @@ const YMMFiltersContainer = ({ children }: { children: ReactNode }) => {
 };
 
 const YMMFilters = async () => {
-  const makes = await fetchMakes();
-  const menu = await getMenu('main-menu');
   // preload models and years
   fetchModels();
   fetchYears();
+
+  const makes = await fetchMakes();
+  const menu = await getMenu('main-menu');
 
   return (
     <YMMFiltersContainer>

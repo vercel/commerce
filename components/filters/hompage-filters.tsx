@@ -13,11 +13,12 @@ const title: Record<string, string> = {
 const { STORE_PREFIX } = process.env;
 
 const HomePageFilters = async () => {
-  const makes = await fetchMakes();
-  const menu = await getMenu('main-menu');
   // preload models and years
   fetchModels();
   fetchYears();
+
+  const makes = await fetchMakes();
+  const menu = await getMenu('main-menu');
 
   return (
     <>

@@ -2,7 +2,7 @@
 
 import { XMarkIcon } from '@heroicons/react/16/solid';
 import { Filter } from 'lib/shopify/types';
-import { createUrl } from 'lib/utils';
+import { createUrl, getInitialSearchParams } from 'lib/utils';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 const SelectedList = ({ filters }: { filters: Filter[] }) => {
@@ -36,14 +36,9 @@ const SelectedList = ({ filters }: { filters: Filter[] }) => {
   };
 
   const handleClearAll = () => {
-    const sort = searchParams.get('sort');
-    const collection = searchParams.get('collection');
-    const q = searchParams.get('q');
-    const newSearchParams = new URLSearchParams({
-      ...(sort && { sort }),
-      ...(collection && { collection }),
-      ...(q && { q })
-    });
+    const initialSearchParams = getInitialSearchParams(searchParams);
+    const newSearchParams = new URLSearchParams(initialSearchParams);
+
     router.replace(createUrl(pathname, newSearchParams), { scroll: false });
   };
 

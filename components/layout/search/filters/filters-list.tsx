@@ -3,7 +3,7 @@ import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { Filter, FilterType } from 'lib/shopify/types';
-import { createUrl } from 'lib/utils';
+import { createUrl, getInitialSearchParams } from 'lib/utils';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import PriceRange from './price-range';
 import SelectedList from './selected-list';
@@ -12,12 +12,7 @@ const Filters = ({ filters, defaultOpen = true }: { filters: Filter[]; defaultOp
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const { q, sort, collection } = Object.fromEntries(searchParams);
-  const initialFilters = {
-    ...(q && { q }),
-    ...(sort && { sort }),
-    ...(collection && { collection })
-  };
+  const initialFilters = getInitialSearchParams(searchParams);
 
   const handleChange = (e: React.FormEvent<HTMLFormElement>) => {
     const formData = new FormData(e.currentTarget);
