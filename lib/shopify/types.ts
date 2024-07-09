@@ -390,6 +390,7 @@ export type ShopifyMetaobject = {
       image?: Image;
     };
   }>;
+  referencedBy?: Connection<{ referencer: ShopifyMetaobject }> & { pageInfo: PageInfo };
 };
 
 export type ShopifyMetafield = {

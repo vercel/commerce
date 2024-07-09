@@ -37,6 +37,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.51.5",
+    "react-intersection-observer": "^9.10.3",
     "react-tooltip": "^5.26.3",
     "tailwind-merge": "^2.2.2",
     "tailwind-variants": "^0.2.1",

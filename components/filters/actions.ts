@@ -1,34 +1,18 @@
 'use server';
 
-import { getAllMetaobjects } from 'lib/shopify';
+import { getAllMetaobjects, getMetaobjectReferences } from 'lib/shopify';
 import get from 'lodash.get';
 import { cache } from 'react';
 
-export const fetchModels = cache(async () => {
-  try {
-    const data = await getAllMetaobjects('make_model_composite');
-
-    return data.toSorted((a, b) => {
-      const modelA = get(a, 'name').toLowerCase();
-      const modelB = get(b, 'name').toLowerCase();
-      return modelA.localeCompare(modelB);
-    });
-  } catch (error) {
-    console.log('fetchModels action', error);
+export const fetchMetaobjectReferences = cache(async (id?: string, after?: string) => {
+  if (!id) {
+    return null;
   }
-});
-
-export const fetchYears = cache(async () => {
   try {
-    const data = await getAllMetaobjects('make_model_year_composite');
-
-    return data.toSorted((a, b) => {
-      const yearA = parseInt(get(a, 'name'), 10);
-      const yearB = parseInt(get(b, 'name'), 10);
-      return yearB - yearA; // Descending order for years
-    });
+    const data = await getMetaobjectReferences(id, after);
+    return data;
   } catch (error) {
-    console.log('fetchYears action', error);
+    console.log('fetchMetaobjectReferences action', error);
   }
 });
 

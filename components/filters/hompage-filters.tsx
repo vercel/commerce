@@ -1,5 +1,5 @@
 import { getMenu } from 'lib/shopify';
-import { fetchMakes, fetchModels, fetchYears } from './actions';
+import { fetchMakes } from './actions';
 import FiltersList from './filters-list';
 
 const title: Record<string, string> = {
@@ -13,10 +13,6 @@ const title: Record<string, string> = {
 const { STORE_PREFIX } = process.env;
 
 const HomePageFilters = async () => {
-  // preload models and years
-  fetchModels();
-  fetchYears();
-
   const makes = await fetchMakes();
   const menu = await getMenu('main-menu');
 

@@ -34,6 +34,7 @@ import {
 } from './mutations/cart';
 import { createFileMutation, createStageUploads } from './mutations/file';
 import { updateOrderMetafieldsMutation } from './mutations/order';
+import { getMetaobjectReferencesQuery } from './queries/admin/metaobjects';
 import { getCartQuery } from './queries/cart';
 import {
   getCollectionProductsQuery,
@@ -924,6 +925,34 @@ export async function getAllMetaobjects(type: string) {
   }
 
   return allMetaobjects;
+}
+
+export async function getMetaobjectReferences(
+  id: string,
+  after?: string
+): Promise<{ references: Metaobject[]; pageInfo: PageInfo | null }> {
+  const res = await shopifyAdminFetch<{
+    variables: {
+      id: string;
+      after?: string;
+    };
+    data: { metaobject: ShopifyMetaobject };
+  }>({
+    query: getMetaobjectReferencesQuery,
+    variables: { id, after }
+  });
+
+  const metaobject = res.body.data.metaobject;
+  if (!metaobject || !metaobject.referencedBy) {
+    return { references: [], pageInfo: null };
+  }
+
+  const references = removeEdgesAndNodes(metaobject.referencedBy).map(
+    ({ referencer }) => referencer
+  );
+  const pageInfo = metaobject.referencedBy.pageInfo;
+
+  return { references: reshapeMetaobjects(references), pageInfo };
 }
 
 export async function getMetaobjectsByIds(ids: string[]) {

@@ -9,8 +9,10 @@ import {
 } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/16/solid';
 import Spinner from 'components/spinner';
+import { useDebounce } from 'hooks/use-debounce';
 import get from 'lodash.get';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 
 type FilterFieldProps<T extends { [key: string]: unknown }> = {
   options: T[];
@@ -24,6 +26,9 @@ type FilterFieldProps<T extends { [key: string]: unknown }> = {
   disabled?: boolean;
   autoFocus?: boolean;
   isLoading?: boolean;
+  // eslint-disable-next-line no-unused-vars
+  loadMore?: (reset?: boolean) => void;
+  hasNextPage?: boolean;
 };
 
 const FilterField = <T extends { [key: string]: unknown }>({
@@ -35,7 +40,9 @@ const FilterField = <T extends { [key: string]: unknown }>({
   getId,
   disabled,
   isLoading,
-  autoFocus = false
+  autoFocus = false,
+  loadMore,
+  hasNextPage
 }: FilterFieldProps<T>) => {
   const [query, setQuery] = useState('');
   const getDisplayValue = useCallback(
@@ -50,6 +57,7 @@ const FilterField = <T extends { [key: string]: unknown }>({
     },
     [displayKey]
   );
+  const [scrollTrigger, isInView] = useInView();
 
   const filteredOptions =
     query === ''
@@ -57,6 +65,26 @@ const FilterField = <T extends { [key: string]: unknown }>({
       : options.filter((option) => {
           return getDisplayValue(option).toLocaleLowerCase().includes(query.toLowerCase());
         });
+
+  const loadMoreFnRef = useRef<Function>();
+
+  useEffect(() => {
+    loadMoreFnRef.current = loadMore;
+  }, [loadMore]);
+
+  useEffect(() => {
+    if (isInView && hasNextPage) {
+      loadMoreFnRef.current?.();
+    }
+  }, [isInView, hasNextPage]);
+
+  const debouncedQuery = useDebounce(query);
+
+  useEffect(() => {
+    if (debouncedQuery && !filteredOptions.length) {
+      loadMoreFnRef.current?.(true);
+    }
+  }, [debouncedQuery, filteredOptions.length]);
 
   return (
     <div className="w-full">
@@ -81,7 +109,7 @@ const FilterField = <T extends { [key: string]: unknown }>({
             {isLoading ? (
               <Spinner className="fill-black/60" />
             ) : (
-              <ChevronDownIcon className="size-5 fill-black/60 group-data-[hover]:fill-black" />
+              <ChevronDownIcon className="fill-black/60 group-data-[hover]:fill-black size-5" />
             )}
           </ComboboxButton>
         </div>
@@ -94,6 +122,7 @@ const FilterField = <T extends { [key: string]: unknown }>({
               key={getId(option)}
               value={option}
               className="flex cursor-default select-none items-center gap-2 rounded-lg px-3 py-1.5 text-sm/6 data-[focus]:bg-secondary/10"
+              ref={scrollTrigger}
             >
               {getDisplayValue(option)}
             </ComboboxOption>
