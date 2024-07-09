@@ -6,6 +6,10 @@ import { Tab, TabGroup, TabList, TabPanel, TabPanels } from './tab-components';
 const Tabs = ({ fields }: { fields: { [key: string]: string } }) => {
   const keys = Object.keys(fields);
 
+  if (!keys.length) {
+    return null;
+  }
+
   return (
     <TabGroup vertical>
       <div className="flex w-full gap-x-10">
@@ -22,8 +26,8 @@ const Tabs = ({ fields }: { fields: { [key: string]: string } }) => {
         </TabList>
         <TabPanels className="flex basis-3/4">
           {keys.map((key) => (
-            <TabPanel className="flex min-w-full flex-col space-y-5">
-              <RichTextDisplay contentBlocks={JSON.parse(fields[key] || '{}').children} />
+            <TabPanel className="flex min-w-full flex-col space-y-5" key={key}>
+              <RichTextDisplay contentBlocks={JSON.parse(fields[key] || '{}').children || []} />
             </TabPanel>
           ))}
         </TabPanels>

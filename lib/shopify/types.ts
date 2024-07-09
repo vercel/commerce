@@ -526,7 +526,8 @@ export type PLPType =
   | 'Model'
   | 'Year'
   | 'Transmission Code'
-  | 'Engine Size';
+  | 'Engine Size'
+  | 'Home';
 
 export type ShopifyCollection = {
   handle: string;

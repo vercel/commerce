@@ -1,5 +1,5 @@
-import ManufacturersGrid from 'components/manufacturers-grid';
 import { getMetaobjects } from 'lib/shopify';
+import ManufacturersGrid from './grid';
 
 const Manufacturers = async ({
   variant = 'home'

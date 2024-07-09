@@ -1,5 +1,5 @@
 import EngineSizes from 'components/engine-sizes';
-import Manufacturers from 'components/home-page/manufacturers';
+import Manufacturers from 'components/manufacturers-grid/manufacturers';
 import Content from 'components/plp/content';
 import Tag from 'components/tag';
 import TransmissionCode from 'components/transmission-codes';

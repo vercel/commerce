@@ -28,7 +28,7 @@ const TransmissionCode = async ({ collection }: { collection: Collection }) => {
   let transmissionCodes = [] as Metaobject[];
 
   if (
-    (collection.plpType === 'Product Type' || collection.plpType === 'Make') &&
+    ['Product Type', 'Make', 'Home'].includes(collection.plpType) &&
     collection.transmissionCodeLinks
   ) {
     transmissionCodes = await getMetaobjectsByIds(collection.transmissionCodeLinks);

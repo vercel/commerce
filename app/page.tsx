@@ -1,14 +1,14 @@
 import FAQ from 'components/faq';
 import Hero from 'components/hero';
 import About from 'components/home-page/about';
-import Manufacturers from 'components/home-page/manufacturers';
+import InlinkBlock from 'components/home-page/inlink-block';
 import WhyChoose from 'components/home-page/why-choose';
 import Footer from 'components/layout/footer';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
 
 export const runtime = 'edge';
-const { SITE_NAME, STORE_PREFIX } = process.env;
+const { SITE_NAME } = process.env;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -19,17 +19,6 @@ export async function generateMetadata(): Promise<Metadata> {
     }
   };
 }
-
-const manufactureVariant: Record<
-  string,
-  'home' | 'engines' | 'transmissions' | 'remanufactured-engines'
-> = {
-  'reman-transmission': 'transmissions',
-  'car-part-planet': 'home',
-  'reman-engine': 'remanufactured-engines',
-  'transmission-locator': 'transmissions',
-  'engine-locator': 'engines'
-};
 
 export default async function HomePage() {
   return (
@@ -46,9 +35,7 @@ export default async function HomePage() {
           <FAQ handle="home-page-faqs" />
         </Suspense>
         <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-20">
-          <Suspense>
-            <Manufacturers variant={manufactureVariant[STORE_PREFIX!]} />
-          </Suspense>
+          <InlinkBlock />
         </div>
       </div>
       <Suspense>
