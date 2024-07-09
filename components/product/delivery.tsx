@@ -10,7 +10,6 @@ import { ReactNode, useState } from 'react';
 
 const options = ['Commercial', 'Residential'] as const;
 const { STORE_PREFIX, SITE_NAME } = process.env;
-const storeName = SITE_NAME;
 
 // Conditional price values based on STORE_PREFIX
 const commercialPrice = STORE_PREFIX === 'reman-transmission' ? 299 : 0;
@@ -137,8 +136,8 @@ const Delivery = () => {
                   (excluding weekends and holidays). However, due to increased order volumes,
                   weather conditions, or circumstances beyond our control, we will ship your order
                   out as soon as possible. Please note all shipping times are estimates and not
-                  guarantees. We will not be responsible for any additional fees that the carrier
-                  may charge due to re-delivery or storage.
+                  guarantees. {SITE_NAME} will not be responsible for any additional fees that the
+                  carrier may charge due to re-delivery or storage.
                 </p>
               </section>
 
