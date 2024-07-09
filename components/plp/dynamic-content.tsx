@@ -9,7 +9,7 @@ const DynamicContent = ({ content }: { content: Metaobject }) => {
   return (
     <div>
       <Tag text="Learn More" />
-      <h3 className="mb-5 mt-3 text-3xl font-semibold text-black-700 lg:text-4xl">
+      <h3 className="mb-5 mt-3 text-3xl font-semibold text-content-strong lg:text-4xl">
         {content.title}
       </h3>
       <Suspense fallback={<TabsPlaceholder />}>

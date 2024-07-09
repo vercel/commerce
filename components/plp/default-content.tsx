@@ -17,7 +17,7 @@ const DefaultContent = async () => {
   return (
     <div>
       <Tag text="Learn More" />
-      <h3 className="mb-5 mt-3 text-3xl font-semibold text-black-700 lg:text-4xl">{title}</h3>
+      <h3 className="mb-5 mt-3 text-3xl font-semibold text-content-strong lg:text-4xl">{title}</h3>
       <Suspense fallback={<TabsPlaceholder />}>
         <Tabs fields={fields} />
       </Suspense>

@@ -23,12 +23,14 @@ const MiniIconBlock = async ({ block }: { block: Metaobject }) => {
           {content.title && content.content && (
             <div>
               {content.title && (
-                <div className="text-sm font-medium text-black-700">{content.title}</div>
+                <div className="text-sm font-medium text-content-strong">{content.title}</div>
               )}
-              {content.content && <p className="mt-2 text-sm text-black-700">{content.content}</p>}
+              {content.content && (
+                <p className="mt-2 text-sm text-content-strong">{content.content}</p>
+              )}
             </div>
           )}
-          {content.title && <div className="text-sm text-black-700">{content.title}</div>}
+          {content.title && <div className="text-sm text-content-strong">{content.title}</div>}
         </div>
       ))}
     </div>

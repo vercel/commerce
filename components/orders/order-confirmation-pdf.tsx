@@ -216,8 +216,10 @@ export default function OrderConfirmationPdf({
                 <Text style={styles.span}>Shipping</Text>
                 <PDFPrice
                   style={styles.span}
-                  amount={order.shippingMethod!.price.amount}
-                  currencyCode={order.shippingMethod!.price.currencyCode}
+                  amount={(order.shippingMethod && order.shippingMethod.price.amount) || '0.0'}
+                  currencyCode={
+                    (order.shippingMethod && order.shippingMethod.price.currencyCode) || 'USD'
+                  }
                 />
               </View>
               <View

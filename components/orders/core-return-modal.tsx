@@ -3,7 +3,7 @@ import { Order } from 'lib/shopify/types';
 import { Button, Heading, Input } from 'components/ui';
 import StatesCombobox from 'components/states-combobox';
 import { useTransition } from 'react';
-// import { returnCore } from './actions';
+import { returnCore } from './actions';
 
 export function CoreReturnModal({
   isOpen,
@@ -18,8 +18,7 @@ export function CoreReturnModal({
 
   async function submitCoreReturn(formData: FormData) {
     startTransition(async () => {
-      // returnCore(order, formData);
-      console.log(formData);
+      returnCore(order, formData);
     });
   }
 
@@ -27,7 +26,7 @@ export function CoreReturnModal({
     <Dialog open={isOpen} onClose={onClose} className="relative z-50">
       <DialogBackdrop
         transition
-        className="bg-black/30 fixed inset-0 duration-300 ease-out data-[closed]:opacity-0"
+        className="fixed inset-0 bg-black/30 duration-300 ease-out data-[closed]:opacity-0"
       />
       <div className="fixed inset-0 w-screen overflow-y-auto p-4">
         <div className="flex min-h-full items-center justify-center">

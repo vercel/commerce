@@ -121,11 +121,11 @@ function OrderConfirmationDetails({
           </div>
           <div className="flex items-center justify-between">
             <Text>Shipping</Text>
-            {order.shippingMethod.price.amount !== '0.0' ? (
+            {order.shippingMethod && order.shippingMethod.price.amount !== '0.0' ? (
               <Price
                 className="text-sm font-semibold"
-                amount={order.shippingMethod!.price.amount}
-                currencyCode={order.shippingMethod!.price.currencyCode}
+                amount={order.shippingMethod.price.amount}
+                currencyCode={order.shippingMethod.price.currencyCode}
               />
             ) : (
               <Text className="font-semibold">Free</Text>
@@ -228,7 +228,7 @@ export default function OrderConfirmationModal({
     <Dialog open={isOpen} onClose={onClose} className="relative z-50">
       <DialogBackdrop
         transition
-        className="bg-black/30 fixed inset-0 duration-300 ease-out data-[closed]:opacity-0"
+        className="fixed inset-0 bg-black/30 duration-300 ease-out data-[closed]:opacity-0"
       />
       <div className="fixed inset-0 w-screen overflow-y-auto p-4">
         <div className="flex min-h-full items-center justify-center">

@@ -82,7 +82,7 @@ const RichTextBlock = ({ block, className }: { block: Content; className?: strin
   }
 
   return (
-    <p className="text-black-700">
+    <p className="text-content-strong">
       {block.children.map((child, index) => (
         <RichTextBlock key={index} block={child} />
       ))}

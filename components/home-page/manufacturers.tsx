@@ -17,7 +17,7 @@ const Manufacturers = async ({
 
   return (
     <div>
-      <h3 className="mb-3 text-3xl font-semibold text-black-700 lg:text-4xl">{`Browse ${title[variant]} By Manufacturer`}</h3>
+      <h3 className="mb-3 text-3xl font-semibold text-content-strong lg:text-4xl">{`Browse ${title[variant]} By Manufacturer`}</h3>
       <ManufacturersGrid manufacturers={manufacturers} variant={variant} />
     </div>
   );

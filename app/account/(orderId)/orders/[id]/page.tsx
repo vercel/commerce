@@ -15,7 +15,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ActivateWarranty from 'components/orders/activate-warranty';
 import OrderStatuses from 'components/orders/order-statuses';
-import Divider from 'components/divider';
 import { CoreReturn } from 'components/orders/core-return';
 
 function Unfulfilled({ order }: { order: Order }) {
@@ -178,7 +177,7 @@ function OrderDetails({ order }: { order: Order }) {
           </div>
           <div className="flex flex-col gap-2">
             <Label>Shipping Method</Label>
-            <Text>{order.shippingMethod!.name}</Text>
+            <Text>{order.shippingMethod ? order.shippingMethod.name : 'N/A'}</Text>
           </div>
         </div>
         <div className="flex flex-1 flex-col gap-4">

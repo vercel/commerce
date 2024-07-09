@@ -38,7 +38,7 @@ const EngineSizes = async ({ collection }: { collection: Collection }) => {
 
   return (
     <div>
-      <h3 className="mb-3 text-3xl font-semibold text-black-700 lg:text-4xl">
+      <h3 className="mb-3 text-3xl font-semibold text-content-strong lg:text-4xl">
         Browse Engines By Engine Sizes
       </h3>
       <div className="h-auto max-h-[700px] w-full overflow-auto rounded px-10 py-6 shadow">

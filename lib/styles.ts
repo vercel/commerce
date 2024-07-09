@@ -18,9 +18,6 @@ export const carPartPlanetColor = {
     200: '#666C89',
     500: '#2D3A7B',
     600: '#111C55'
-  },
-  black: {
-    700: '#1A1A25'
   }
 };
 
@@ -44,9 +41,6 @@ export const remanTransmissionColor = {
     200: '#666C89',
     500: '#2D3A7B',
     600: '#111C55'
-  },
-  black: {
-    700: '#1A1A25'
   }
 };
 
@@ -70,8 +64,5 @@ export const transmissionLocatorColor = {
     200: '#666C89',
     500: '#2D3A7B',
     600: '#111C55'
-  },
-  black: {
-    700: '#1A1A25'
   }
 };

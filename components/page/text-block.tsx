@@ -8,7 +8,7 @@ const TextBlock = ({ block }: { block: Metaobject }) => {
     <div className="flex flex-col gap-8">
       <div className="flex flex-col gap-5 px-4 md:px-0">
         {block.title && (
-          <h3 className="text-xl font-bold leading-6 text-black-700">{block.title}</h3>
+          <h3 className="text-xl font-bold leading-6 text-content-strong">{block.title}</h3>
         )}
 
         <RichTextDisplay contentBlocks={content.children} />

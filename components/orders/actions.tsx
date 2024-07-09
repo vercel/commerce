@@ -165,59 +165,23 @@ export const confirmOrder = async ({ order, content, formData }: ConfirmOrderOpt
   }
 };
 
-export async function returnCore() {
-  // const rawFormData = [
-  //   getMetafieldValue(
-  //     'coreReturnZip',
-  //     {
-  //       key: '',
-  //       value: formData.get('name') as string | null,
-  //       type: 'file_reference'
-  //     },
-  //     order
-  //   ),
-  //   getMetafieldValue(
-  //     'warrantyActivationInstallation',
-  //     {
-  //       key: 'warranty_activation_installation',
-  //       value: installationFileId,
-  //       type: 'file_reference'
-  //     },
-  //     order
-  //   ),
-  //   getMetafieldValue(
-  //     'warrantyActivationSelfInstall',
-  //     {
-  //       key: 'warranty_activation_self_install',
-  //       value: formData.get('warranty_activation_self_install') === 'on' ? 'true' : 'false',
-  //       type: 'boolean'
-  //     },
-  //     order
-  //   ),
-  //   getMetafieldValue(
-  //     'warrantyActivationMileage',
-  //     {
-  //       key: 'warranty_activation_mileage',
-  //       value: formData.get('warranty_activation_mileage') as string | null,
-  //       type: 'number_integer'
-  //     },
-  //     order
-  //   ),
-  //   getMetafieldValue(
-  //     'warrantyActivationVIN',
-  //     {
-  //       key: 'warranty_activation_vin',
-  //       value: formData.get('warranty_activation_vin') as string | null,
-  //       type: 'single_line_text_field'
-  //     },
-  //     order
-  //   )
-  // ];
+export async function returnCore(order: Order, formData: FormData) {
+  const rawFormData = [
+    getMetafieldValue(
+      'coreReturnZip',
+      {
+        key: '',
+        value: formData.get('name') as string | null,
+        type: 'file_reference'
+      },
+      order
+    )
+  ];
   try {
-    // await updateOrderMetafields({
-    //   orderId: order.id,
-    //   metafields: rawFormData
-    // });
+    await updateOrderMetafields({
+      orderId: order.id,
+      metafields: rawFormData
+    });
 
     revalidateTag(TAGS.orderMetafields);
   } catch (error) {

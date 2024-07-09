@@ -60,11 +60,11 @@ export default function OrderSummary({ order }: { order: Order }) {
           </div>
           <div className="flex items-center justify-between">
             <Text>Shipping</Text>
-            {order.shippingMethod?.price.amount !== '0.0' ? (
+            {order.shippingMethod && order.shippingMethod.price.amount !== '0.0' ? (
               <Price
                 className="text-sm font-semibold"
-                amount={order.shippingMethod!.price.amount}
-                currencyCode={order.shippingMethod!.price.currencyCode}
+                amount={order.shippingMethod.price.amount}
+                currencyCode={order.shippingMethod.price.currencyCode}
               />
             ) : (
               <Text className="font-semibold">Free</Text>

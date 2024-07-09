@@ -26,6 +26,6 @@ export interface HeadingProps extends VariantProps<typeof heading> {
 }
 
 export default function Heading({ children, className, size, as }: HeadingProps) {
-  const Component = as || 'h2';
+  const Component = as || 'span';
   return <Component className={heading({ size, className })}>{children}</Component>;
 }

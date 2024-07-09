@@ -163,7 +163,7 @@ export type Order = {
   totalShipping: Money;
   totalTax: Money;
   totalPrice: Money;
-  shippingMethod: {
+  shippingMethod?: {
     name: string;
     price: Money;
   };

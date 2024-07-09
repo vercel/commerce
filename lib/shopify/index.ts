@@ -643,10 +643,6 @@ function reshapeOrder(shopifyOrder: ShopifyOrder): Order {
     totalTax: reshapeMoney(shopifyOrder.totalTax),
     totalPrice: reshapeMoney(shopifyOrder.totalPrice),
     createdAt: shopifyOrder.createdAt,
-    shippingMethod: {
-      name: shopifyOrder.shippingLine?.title,
-      price: reshapeMoney(shopifyOrder.shippingLine.originalPrice)!
-    },
     warrantyActivationDeadline: shopifyOrder.warrantyActivationDeadline,
     warrantyStatus: shopifyOrder.warrantyStatus,
     warrantyActivationInstallation: shopifyOrder.warrantyActivationInstallation,
@@ -666,6 +662,13 @@ function reshapeOrder(shopifyOrder: ShopifyOrder): Order {
     coreReturnZip: shopifyOrder.coreReturnZip,
     coreReturnDescription: shopifyOrder.coreReturnDescription
   };
+
+  if (shopifyOrder.shippingLine) {
+    order.shippingMethod = {
+      name: shopifyOrder.shippingLine.title,
+      price: reshapeMoney(shopifyOrder.shippingLine.originalPrice)
+    };
+  }
 
   if (shopifyOrder.customer) {
     order.customer = reshapeCustomer(shopifyOrder.customer);

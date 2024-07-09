@@ -13,7 +13,7 @@ const Tabs = ({ fields }: { fields: { [key: string]: string } }) => {
           {keys.map((key) => (
             <Tab
               key={key}
-              className="flex items-center justify-between rounded-sm bg-gray-200/60 p-3 text-left text-sm font-medium text-black-700 focus:outline-none focus:ring-0 data-[selected]:bg-primary data-[selected]:text-white"
+              className="flex items-center justify-between rounded-sm bg-gray-200/60 p-3 text-left text-sm font-medium text-content-strong focus:outline-none focus:ring-0 data-[selected]:bg-primary data-[selected]:text-white"
             >
               {startCase(key)}
               <ChevronRightIcon className="size-4" />
