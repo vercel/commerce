@@ -16,16 +16,6 @@ const plans: Array<{
     template: <span className="font-bold">3-Year Warranty</span>,
     price: 0,
     key: 'Included'
-  },
-  {
-    template: <span className="font-bold">Premium Labor</span>,
-    price: 150,
-    key: 'Premium Labor'
-  },
-  {
-    template: <span className="font-bold">+1 Year</span>,
-    price: 100,
-    key: '+1 Year'
   }
 ];
 const WarrantySelector = () => {
