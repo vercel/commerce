@@ -22,7 +22,7 @@ const HomePageFilters = async () => {
         {title[STORE_PREFIX!] || 'Find Your Car Part'}
       </h1>
       <div className="mt-5 flex grow flex-col items-center gap-3 @md:flex-row">
-        <FiltersList makes={makes} menu={menu} autoFocusField="partType" />
+        <FiltersList makes={makes} menu={menu} />
       </div>
     </>
   );
