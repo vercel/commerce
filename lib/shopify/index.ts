@@ -205,12 +205,14 @@ async function shopifyAdminFetch<T>({
   headers,
   query,
   variables,
-  tags
+  tags,
+  cache = 'no-store'
 }: {
   headers?: HeadersInit;
   query: string;
   variables?: ExtractVariables<T>;
   tags?: string[];
+  cache?: RequestCache;
 }): Promise<{ status: number; body: T } | never> {
   try {
     const result = await fetch(adminEndpoint, {
@@ -225,7 +227,7 @@ async function shopifyAdminFetch<T>({
         ...(variables && { variables })
       }),
       ...(tags && { next: { tags } }),
-      cache: 'no-store'
+      cache
     });
 
     const body = await result.json();
@@ -939,7 +941,8 @@ export async function getMetaobjectReferences(
     data: { metaobject: ShopifyMetaobject };
   }>({
     query: getMetaobjectReferencesQuery,
-    variables: { id, after }
+    variables: { id, after },
+    cache: 'force-cache'
   });
 
   const metaobject = res.body.data.metaobject;
