@@ -39,21 +39,21 @@ const SubMenu = async ({ collection }: { collection: string }) => {
 
   if (collectionData.plpType === 'Product Type' && collectionData.lhnLinks) {
     displayField = 'make';
-    title = 'Make';
+    title = 'Populer Makes';
     const response = await getMetaobjectsByIds(collectionData.lhnLinks);
     subMenu = sortOptions(response, displayField);
   }
 
   if (collectionData.plpType === 'Make' && collectionData.lhnLinks) {
     displayField = 'model';
-    title = 'Model';
+    title = 'Popular Models';
     const response = await getMetaobjectsByIds(collectionData.lhnLinks);
     subMenu = sortOptions(response, displayField);
   }
 
   if (collectionData.plpType === 'Model' && collectionData.lhnLinks) {
     displayField = 'year';
-    title = 'Year';
+    title = 'Popular Years';
     const response = await getMetaobjectsByIds(collectionData.lhnLinks);
     subMenu = sortYearOptions(response);
   }

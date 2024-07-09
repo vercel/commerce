@@ -27,7 +27,7 @@ const Offers = async () => {
                 icon={offer.icon_name as string}
                 className="size-7 flex-shrink-0 text-secondary"
               />
-              <p className="px-3 py-5 text-sm font-medium text-gray-800">{offer.title}</p>
+              <p className="px-3 py-4 text-sm font-medium text-gray-800 md:py-5">{offer.title}</p>
             </li>
           ))}
         </ul>
@@ -42,7 +42,7 @@ const OffersPlaceholder = () => {
       <div className="max-w-8xl mx-auto lg:px-8">
         <ul
           role="list"
-          className="grid animate-pulse grid-cols-1 divide-y divide-gray-200 py-5 lg:grid-cols-4 lg:divide-x lg:divide-y-0"
+          className="grid animate-pulse grid-cols-1 divide-y divide-gray-200 py-4 md:py-5 lg:grid-cols-4 lg:divide-x lg:divide-y-0"
         >
           <li className="flex w-full items-center justify-start gap-2 px-4 lg:justify-center">
             <div className="size-7 rounded bg-gray-100" />
@@ -109,7 +109,7 @@ const Hero = () => {
           </Suspense>
         </div>
         <div aria-hidden="true" className="absolute inset-0 bg-dark opacity-80" />
-        <div className="flex flex-col gap-10 px-6 py-20 text-center sm:pb-56 sm:pt-32 lg:px-0">
+        <div className="flex flex-col gap-10 px-6 py-5 text-center sm:pb-56 sm:pt-32 lg:px-0">
           <div className="relative mx-auto hidden items-center justify-center gap-4 text-white md:flex">
             <Image src="/best-price.svg" alt="Best Price" width={100} height={90} />
             <div className="flex w-1/2 flex-col items-start gap-0.5 text-left">
@@ -119,7 +119,7 @@ const Hero = () => {
               </p>
             </div>
           </div>
-          <div className="relative mx-auto flex w-3/4 max-w-4xl flex-col items-center @container">
+          <div className="relative mx-auto flex w-full max-w-4xl flex-col items-center @container md:w-3/4">
             <Suspense fallback={<HomePageFiltersPlaceholder />}>
               <HomePageFilters />
             </Suspense>
