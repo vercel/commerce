@@ -21,7 +21,7 @@ export default async function Navbar() {
         </Suspense>
       </div>
       <div className="flex w-full flex-col">
-        <div className="flex w-full items-center pr-4 md:px-4">
+        <div className="flex w-full items-center gap-x-2 pr-4 md:px-4">
           <div className="flex w-full md:w-1/3">
             <Link
               href="/"
@@ -35,7 +35,7 @@ export default async function Navbar() {
               <Search />
             </Suspense>
           </div>
-          <div className="flex justify-end gap-5 pr-2 md:w-1/3">
+          <div className="flex justify-end gap-x-4 pr-2 md:w-1/3">
             <Suspense fallback={<OpenProfile />}>
               <Profile />
             </Suspense>

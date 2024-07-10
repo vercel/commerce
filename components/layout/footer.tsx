@@ -22,11 +22,11 @@ export default async function Footer() {
           <Link className="flex items-center text-white md:pt-1" href="/">
             <LogoSquare dark />
           </Link>
-          <a href={`tel:${8882422605}`} className="ml-16 text-white">
+          <a href={`tel:${8882422605}`} className="ml-2 text-white">
             (888) 242-2605
           </a>
-          <p className="ml-16">Monday - Friday 9:00am - 8:00pm EST</p>
-          <p className="ml-16">Saturday 11:00am - 4:00pm EST</p>
+          <p className="ml-2">Monday - Friday 9:00am - 8:00pm EST</p>
+          <p className="ml-2">Saturday 11:00am - 4:00pm EST</p>
         </div>
         <Suspense
           fallback={
