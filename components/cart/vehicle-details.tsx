@@ -24,7 +24,7 @@ const VehicleDetails = ({ control }: VehicleDetailsProps) => {
           <Field className="mt-4">
             <Label className="block text-sm font-medium text-gray-700">Vin Number</Label>
             <Input
-              type="number"
+              type="text"
               className="mt-1 block w-full rounded-md border-gray-300 text-dark shadow-sm focus:outline-none data-[focus]:border-primary/50 data-[focus]:ring-primary/50 sm:text-sm"
               autoFocus
               {...field}
