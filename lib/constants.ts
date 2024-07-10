@@ -71,6 +71,16 @@ export const WARRANTY_FIELDS = [
   'warranty_activation_mileage'
 ];
 
+export const CORE_RETURN_FIELDS = [
+  'core_return_name',
+  'core_return_email',
+  'core_return_phone',
+  'core_return_address',
+  'core_return_city',
+  'core_return_zip',
+  'core_return_state'
+];
+
 export const URL_PREFIXES = [
   '/transmissions',
   '/engines',

@@ -3,13 +3,15 @@
 import { renderToBuffer } from '@react-pdf/renderer';
 import OrderConfirmationPdf from 'components/orders/order-confirmation-pdf';
 import { handleUploadFile } from 'components/form/file-input/actions';
-import { TAGS } from 'lib/constants';
+import { CORE_RETURN_FIELDS, TAGS, WARRANTY_FIELDS } from 'lib/constants';
 import { getOrderConfirmationContent, updateOrderMetafields } from 'lib/shopify';
 import {
+  CoreReturnStatus,
   Order,
   OrderConfirmationContent,
   ShopifyOrderMetafield,
-  UpdateOrderMetafieldInput
+  UpdateOrderMetafieldInput,
+  WarrantyStatus
 } from 'lib/shopify/types';
 import { revalidateTag } from 'next/cache';
 import { cache } from 'react';
@@ -38,7 +40,7 @@ export const activateWarranty = async (order: Order, formData: FormData) => {
   }
 
   // https://shopify.dev/docs/api/admin-graphql/2024-01/mutations/orderUpdate
-  const rawFormData = [
+  const metafields = [
     getMetafieldValue(
       'warrantyActivationOdometer',
       {
@@ -86,10 +88,23 @@ export const activateWarranty = async (order: Order, formData: FormData) => {
     )
   ];
 
+  const shouldSetWarrantyStatusToActivated = WARRANTY_FIELDS.every((field) =>
+    metafields.find(({ key }) => (Array.isArray(field) ? field.includes(key) : key === field))
+  );
+
+  if (shouldSetWarrantyStatusToActivated) {
+    metafields.push({
+      key: 'warranty_status',
+      value: WarrantyStatus.Activated,
+      namespace: 'custom',
+      type: 'single_line_text_field'
+    });
+  }
+
   try {
     await updateOrderMetafields({
       orderId: order.id,
-      metafields: rawFormData
+      metafields
     });
 
     revalidateTag(TAGS.orderMetafields);
@@ -166,21 +181,89 @@ export const confirmOrder = async ({ order, content, formData }: ConfirmOrderOpt
 };
 
 export async function returnCore(order: Order, formData: FormData) {
-  const rawFormData = [
+  const metafields = [
+    getMetafieldValue(
+      'coreReturnName',
+      {
+        key: 'core_return_name',
+        value: formData.get('name') as string | null,
+        type: 'single_line_text_field'
+      },
+      order
+    ),
+    getMetafieldValue(
+      'coreReturnEmail',
+      {
+        key: 'core_return_email',
+        value: formData.get('email') as string | null,
+        type: 'single_line_text_field'
+      },
+      order
+    ),
+    getMetafieldValue(
+      'coreReturnPhone',
+      {
+        key: 'core_return_phone',
+        value: formData.get('phone') as string | null,
+        type: 'single_line_text_field'
+      },
+      order
+    ),
+    getMetafieldValue(
+      'coreReturnAddress',
+      {
+        key: 'core_return_address',
+        value: formData.get('address') as string | null,
+        type: 'single_line_text_field'
+      },
+      order
+    ),
+    getMetafieldValue(
+      'coreReturnCity',
+      {
+        key: 'core_return_city',
+        value: formData.get('city') as string | null,
+        type: 'single_line_text_field'
+      },
+      order
+    ),
+    getMetafieldValue(
+      'coreReturnState',
+      {
+        key: 'core_return_state',
+        value: formData.get('state[code]') as string | null,
+        type: 'single_line_text_field'
+      },
+      order
+    ),
     getMetafieldValue(
       'coreReturnZip',
       {
-        key: '',
-        value: formData.get('name') as string | null,
-        type: 'file_reference'
+        key: 'core_return_zip',
+        value: formData.get('zip') as string | null,
+        type: 'single_line_text_field'
       },
       order
     )
   ];
+
+  const shouldSetCoreStatusToReturned = CORE_RETURN_FIELDS.every((field) =>
+    metafields.find(({ key }) => (Array.isArray(field) ? field.includes(key) : key === field))
+  );
+
+  if (shouldSetCoreStatusToReturned) {
+    metafields.push({
+      key: 'core_status',
+      value: CoreReturnStatus.PickupRequested,
+      namespace: 'custom',
+      type: 'single_line_text_field'
+    });
+  }
+
   try {
     await updateOrderMetafields({
       orderId: order.id,
-      metafields: rawFormData
+      metafields
     });
 
     revalidateTag(TAGS.orderMetafields);

@@ -11,7 +11,6 @@ import {
   SHOPIFY_GRAPHQL_CUSTOMER_API_ENDPOINT,
   TAGS,
   VARIANT_METAFIELD_PREFIX,
-  WARRANTY_FIELDS,
   YEAR_FILTER_ID
 } from 'lib/constants';
 import { isShopifyError } from 'lib/type-guards';
@@ -1191,25 +1190,13 @@ export const updateOrderMetafields = async ({
   const validMetafields = metafields.filter((field) => Boolean(field.value)) as Array<Metafield>;
 
   if (validMetafields.length === 0) return null;
-
-  const shouldSetWarrantyStatusToActivated = WARRANTY_FIELDS.every((field) =>
-    validMetafields.find(({ key }) => (Array.isArray(field) ? field.includes(key) : key === field))
-  );
+  console.log('Updating order metafields', { orderId, metafields: validMetafields });
 
   const response = await shopifyAdminFetch<ShopifyUpdateOrderMetafieldsOperation>({
     query: updateOrderMetafieldsMutation,
     variables: {
       input: {
-        metafields: shouldSetWarrantyStatusToActivated
-          ? validMetafields.concat([
-              {
-                key: 'warranty_status',
-                value: WarrantyStatus.Activated,
-                namespace: 'custom',
-                type: 'single_line_text_field'
-              }
-            ])
-          : validMetafields,
+        metafields: validMetafields,
         id: orderId
       }
     }
