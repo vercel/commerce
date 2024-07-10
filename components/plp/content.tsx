@@ -5,12 +5,12 @@ import DynamicContent from './dynamic-content';
 
 const Content = async ({ collection }: { collection: Collection }) => {
   if (!collection.dynamicContent) {
-    return <DefaultContent />;
+    return <DefaultContent collection={collection} />;
   }
 
   const content = await getMetaobject({ id: collection.dynamicContent });
   if (!content) {
-    return <DefaultContent />;
+    return <DefaultContent collection={collection} />;
   }
 
   return <DynamicContent content={content} />;
