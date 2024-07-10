@@ -6,7 +6,7 @@ import { Menu, Metaobject, PageInfo } from 'lib/shopify/types';
 import { createUrl, findParentCollection } from 'lib/utils';
 import get from 'lodash.get';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useTransition } from 'react';
 import { fetchMetaobjectReferences } from './actions';
 import FilterField from './field';
 
@@ -35,13 +35,14 @@ const sortOptions = (options: Metaobject[], displayField: string) => {
     return modelA.localeCompare(modelB);
   });
 };
+
 const FiltersList = ({ makes = [], menu, autoFocusField }: FiltersListProps) => {
   const params = useParams<{ collection?: string }>();
   const router = useRouter();
   const searchParams = useSearchParams();
   const makeIdFromSearchParams = searchParams.get(MAKE_FILTER_ID);
-  // const modelIdFromSearchParams = searchParams.get(MODEL_FILTER_ID);
-  // const yearIdFromSearchParams = searchParams.get(YEAR_FILTER_ID);
+  const modelIdFromSearchParams = searchParams.get(MODEL_FILTER_ID);
+  const yearIdFromSearchParams = searchParams.get(YEAR_FILTER_ID);
 
   const parentCollection = params.collection ? findParentCollection(menu, params.collection) : null;
   // get the active collection (if any) to identify the default part type.
@@ -54,6 +55,8 @@ const FiltersList = ({ makes = [], menu, autoFocusField }: FiltersListProps) => 
         (partTypeCollection && partTypeCollection.includes(type.value))
     ) || null
   );
+  const [, initialMake, modelFromHandle, yearFromHandle] = params.collection?.split('_') || [];
+
   const [make, setMake] = useState<Metaobject | null>(null);
   const [model, setModel] = useState<Metaobject | null>(null);
   const [year, setYear] = useState<Metaobject | null>(null);
@@ -61,58 +64,10 @@ const FiltersList = ({ makes = [], menu, autoFocusField }: FiltersListProps) => 
   const [models, setModels] = useState<Options>({ options: [], pageInfo: null });
   const [years, setYears] = useState<Options>({ options: [], pageInfo: null });
 
-  const [loadingAttribute, setLoadingAttribute] = useState<'models' | 'years'>();
-
   const disabled = !partType || !make || !model || !year;
-  const [, initialMake] = params.collection?.split('_') || [];
 
-  const handleFetchModels = useCallback(
-    async (params: { makeId?: string; reset?: boolean; after?: string }) => {
-      const { makeId, reset, after } = params;
-      setLoadingAttribute('models');
-      const modelsResponse = await fetchMetaobjectReferences(makeId, after);
-
-      setModels((models) => {
-        if (reset) {
-          return {
-            options: modelsResponse?.references || [],
-            pageInfo: modelsResponse?.pageInfo || null
-          };
-        }
-
-        return {
-          options: models.options.concat(modelsResponse?.references || []),
-          pageInfo: modelsResponse?.pageInfo || models.pageInfo
-        };
-      });
-      setLoadingAttribute(undefined);
-    },
-    []
-  );
-
-  const handleFetchYears = useCallback(
-    async (params: { modelId?: string; after?: string; reset?: boolean }) => {
-      const { modelId, after, reset } = params;
-      setLoadingAttribute('years');
-      const yearsResponse = await fetchMetaobjectReferences(modelId, after);
-
-      setYears((years) => {
-        if (reset) {
-          return {
-            options: yearsResponse?.references || [],
-            pageInfo: yearsResponse?.pageInfo || null
-          };
-        }
-
-        return {
-          options: years.options.concat(yearsResponse?.references || []),
-          pageInfo: yearsResponse?.pageInfo || years.pageInfo
-        };
-      });
-      setLoadingAttribute(undefined);
-    },
-    []
-  );
+  const [isLoadingModels, startLoadingModels] = useTransition();
+  const [isLoadingYears, startLoadingYears] = useTransition();
 
   useEffect(() => {
     if (partType) {
@@ -134,17 +89,152 @@ const FiltersList = ({ makes = [], menu, autoFocusField }: FiltersListProps) => 
     }
   }, [initialMake, makeIdFromSearchParams, makes, partType]);
 
-  useEffect(() => {
-    if (make?.id) {
-      handleFetchModels({ makeId: make?.id, reset: true });
-    }
-  }, [make?.id, handleFetchModels]);
+  const loadRestModels = useCallback(
+    async (pageInfo?: PageInfo | null) => {
+      let _pageInfo = pageInfo;
+      const results = [] as Metaobject[];
+      while (_pageInfo?.hasNextPage) {
+        const modelsResponse = await fetchMetaobjectReferences(make?.id, _pageInfo?.endCursor);
+        results.push(...(modelsResponse?.references || []));
+        _pageInfo = modelsResponse?.pageInfo || null;
+      }
+      setModels((models) => {
+        return {
+          options: models.options.concat(results),
+          pageInfo: _pageInfo || null
+        };
+      });
+    },
+    [make?.id]
+  );
+
+  const loadRestYears = useCallback(
+    async (pageInfo?: PageInfo | null) => {
+      let _pageInfo = pageInfo;
+      const results = [] as Metaobject[];
+      while (_pageInfo?.hasNextPage) {
+        const yearsResponse = await fetchMetaobjectReferences(model?.id, _pageInfo?.endCursor);
+        results.push(...(yearsResponse?.references || []));
+        _pageInfo = yearsResponse?.pageInfo || null;
+      }
+      setYears((years) => {
+        return {
+          options: years.options.concat(results),
+          pageInfo: _pageInfo || null
+        };
+      });
+    },
+    [model?.id]
+  );
 
   useEffect(() => {
-    if (model?.id) {
-      handleFetchYears({ modelId: model?.id, reset: true });
+    const handleFetchModels = async (params: {
+      makeId?: string;
+      reset?: boolean;
+      after?: string;
+    }) => {
+      const { makeId, reset, after } = params;
+      const modelsResponse = await fetchMetaobjectReferences(makeId, after);
+
+      setModels((models) => {
+        if (reset) {
+          return {
+            options: modelsResponse?.references || [],
+            pageInfo: modelsResponse?.pageInfo || null
+          };
+        }
+
+        return {
+          options: models.options.concat(modelsResponse?.references || []),
+          pageInfo: modelsResponse?.pageInfo || models.pageInfo
+        };
+      });
+
+      if (modelsResponse?.pageInfo?.hasNextPage) {
+        loadRestModels(modelsResponse?.pageInfo);
+      }
+    };
+
+    if (make?.id) {
+      startLoadingModels(async () => {
+        await handleFetchModels({ makeId: make?.id, reset: true });
+      });
     }
-  }, [handleFetchYears, model?.id]);
+  }, [make?.id, loadRestModels]);
+
+  useEffect(() => {
+    const handleFetchYears = async (params: {
+      modelId?: string;
+      after?: string;
+      reset?: boolean;
+    }) => {
+      const { modelId, after, reset } = params;
+      const yearsResponse = await fetchMetaobjectReferences(modelId, after);
+
+      setYears((years) => {
+        if (reset) {
+          return {
+            options: yearsResponse?.references || [],
+            pageInfo: yearsResponse?.pageInfo || null
+          };
+        }
+
+        return {
+          options: years.options.concat(yearsResponse?.references || []),
+          pageInfo: yearsResponse?.pageInfo || years.pageInfo
+        };
+      });
+
+      if (yearsResponse?.pageInfo?.hasNextPage) {
+        loadRestYears(yearsResponse?.pageInfo);
+      }
+    };
+
+    if (model?.id) {
+      startLoadingYears(async () => {
+        await handleFetchYears({ modelId: model?.id, reset: true });
+      });
+    }
+  }, [loadRestYears, model?.id]);
+
+  // compute the initial model from the url
+  useEffect(() => {
+    if (modelIdFromSearchParams || modelFromHandle) {
+      const selectedModel =
+        models.options.find((model) =>
+          modelIdFromSearchParams
+            ? model.id === modelIdFromSearchParams
+            : modelFromHandle === model.name!.toLowerCase()
+        ) || null;
+
+      setModel((currentModel) =>
+        currentModel?.id !== selectedModel?.id ? selectedModel : currentModel
+      );
+    }
+  }, [modelFromHandle, modelIdFromSearchParams, models.options]);
+
+  // compute the initial year from the url
+  useEffect(() => {
+    if (yearIdFromSearchParams || yearFromHandle) {
+      const selectedYear =
+        years.options.find((year) =>
+          yearIdFromSearchParams
+            ? year.id === yearIdFromSearchParams
+            : yearFromHandle === year.name!.toLowerCase()
+        ) || null;
+
+      setYear((currentYear) => (currentYear?.id !== selectedYear?.id ? selectedYear : currentYear));
+    }
+  }, [yearFromHandle, yearIdFromSearchParams, years.options]);
+
+  useEffect(() => {
+    const selectedModel = models.options.find((model) =>
+      modelIdFromSearchParams
+        ? model.id === modelIdFromSearchParams
+        : modelFromHandle === model.name!.toLowerCase()
+    );
+    setModel(selectedModel || null);
+  }, [modelFromHandle, modelIdFromSearchParams, models.options]);
 
   const onChangeMake = async (value: Metaobject | null) => {
     setMake(value);
@@ -174,14 +264,6 @@ const FiltersList = ({ makes = [], menu, autoFocusField }: FiltersListProps) => 
     newSearchParams.set(MODEL_FILTER_ID, model?.id || '');
     newSearchParams.set(YEAR_FILTER_ID, year?.id || '');
     router.push(createUrl(`/search/${partType?.value}`, newSearchParams), { scroll: false });
-  };
-
-  const handleLoadMoreModels = (reset?: boolean) => {
-    return handleFetchModels({ makeId: make?.id, after: models.pageInfo?.endCursor, reset });
-  };
-
-  const handleLoadMoreYears = (reset?: boolean) => {
-    return handleFetchYears({ modelId: model?.id, after: years.pageInfo?.endCursor, reset });
   };
 
   const sortedyear = sortYears(years.options);
@@ -216,9 +298,7 @@ const FiltersList = ({ makes = [], menu, autoFocusField }: FiltersListProps) => 
         getId={(option) => option.id}
         disabled={!make}
         autoFocus={autoFocusField === 'model'}
-        isLoading={loadingAttribute === 'models'}
-        loadMore={handleLoadMoreModels}
-        hasNextPage={models.pageInfo?.hasNextPage}
+        isLoading={isLoadingModels}
       />
       <FilterField
         label="Year"
@@ -228,9 +308,7 @@ const FiltersList = ({ makes = [], menu, autoFocusField }: FiltersListProps) => 
         getId={(option) => option.id}
         disabled={!model || !make}
         autoFocus={autoFocusField === 'year'}
-        isLoading={loadingAttribute === 'years'}
-        loadMore={handleLoadMoreYears}
-        hasNextPage={years.pageInfo?.hasNextPage}
+        isLoading={isLoadingYears}
       />
       <Button
         onClick={onSearch}
