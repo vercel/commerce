@@ -37,7 +37,7 @@ const RichTextBlock = ({ block, className }: { block: Content; className?: strin
     const Heading = `h${block.level}` as keyof JSX.IntrinsicElements;
     return (
       <Heading
-        className={clsx('text-black-700', {
+        className={clsx('text-content-strong', {
           'text-3xl': block.level === 2,
           'text-2xl': block.level === 3,
           'text-lg': block.level === 4,

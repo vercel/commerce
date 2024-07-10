@@ -1,7 +1,26 @@
 import { ChevronRightIcon } from '@heroicons/react/24/solid';
 import RichTextDisplay from 'components/page/rich-text-display';
+import Table from 'components/page/table';
+import { getMetaobject } from 'lib/shopify';
 import startCase from 'lodash.startcase';
 import { Tab, TabGroup, TabList, TabPanel, TabPanels } from './tab-components';
+
+const TabContent = async ({ id }: { id?: string }) => {
+  if (!id) {
+    return null;
+  }
+
+  const metaobject = await getMetaobject({ id });
+  if (!metaobject || metaobject.type !== 'plp_content_tables') return null;
+
+  return (
+    <Table
+      columns={JSON.parse(metaobject.columns || '[]')}
+      data={JSON.parse(metaobject.data || '[]')}
+      title={metaobject.name || 'Table'}
+    />
+  );
+};
 
 const Tabs = ({ fields }: { fields: { [key: string]: string } }) => {
   const keys = Object.keys(fields);
@@ -9,6 +28,8 @@ const Tabs = ({ fields }: { fields: { [key: string]: string } }) => {
   if (!keys.length) {
     return null;
   }
+
+  const isShopifyId = (value?: string) => value?.startsWith('gid://shopify');
 
   return (
     <TabGroup vertical>
@@ -27,7 +48,11 @@ const Tabs = ({ fields }: { fields: { [key: string]: string } }) => {
         <TabPanels className="flex basis-3/4">
           {keys.map((key) => (
             <TabPanel className="flex min-w-full flex-col space-y-5" key={key}>
-              <RichTextDisplay contentBlocks={JSON.parse(fields[key] || '{}').children || []} />
+              {isShopifyId(fields[key]) ? (
+                <TabContent id={fields[key]} />
+              ) : (
+                <RichTextDisplay contentBlocks={JSON.parse(fields[key] || '{}').children || []} />
+              )}
             </TabPanel>
           ))}
         </TabPanels>
