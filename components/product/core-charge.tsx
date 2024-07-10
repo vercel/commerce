@@ -4,7 +4,7 @@ import { InformationCircleIcon } from '@heroicons/react/20/solid';
 import { ArrowPathRoundedSquareIcon } from '@heroicons/react/24/outline';
 import Price from 'components/price';
 import SideDialog from 'components/side-dialog';
-import { CORE_VARIANT_ID_KEY, CORE_WAIVER } from 'lib/constants';
+import { CORE_VARIANT_ID_KEY, CORE_WAIVER, phoneNumber } from 'lib/constants';
 import { CoreChargeOption, ProductVariant } from 'lib/shopify/types';
 import { cn, createUrl } from 'lib/utils';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -119,10 +119,10 @@ const CoreCharge = ({ variants }: CoreChargeProps) => {
                     <div className="md:flex md:justify-between">
                       <p className="mt-1 text-blue-700 md:mt-0">
                         <a
-                          href="tel:+18882422605"
+                          href={phoneNumber?.link}
                           className="whitespace-nowrap text-blue-700 hover:text-blue-600"
                         >
-                          (888) 242-2605
+                          {phoneNumber?.title}
                           <span aria-hidden="true"> &rarr;</span>
                         </a>
                       </p>

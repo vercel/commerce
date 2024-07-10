@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import FooterMenu from 'components/layout/footer-menu';
 import LogoSquare from 'components/logo-square';
+import { phoneNumber } from 'lib/constants';
 import { getMenu } from 'lib/shopify';
 import Image from 'next/image';
 import { Suspense } from 'react';
@@ -22,8 +23,8 @@ export default async function Footer() {
           <Link className="flex items-center text-white md:pt-1" href="/">
             <LogoSquare dark />
           </Link>
-          <a href={`tel:${8882422605}`} className="ml-2 text-white">
-            (888) 242-2605
+          <a href={phoneNumber?.link} className="ml-2 text-white">
+            {phoneNumber?.title}
           </a>
           <p className="ml-2">Monday - Friday 9:00am - 8:00pm EST</p>
           <p className="ml-2">Saturday 11:00am - 4:00pm EST</p>

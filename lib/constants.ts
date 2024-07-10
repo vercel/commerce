@@ -87,3 +87,30 @@ export const URL_PREFIXES = [
   '/transfer-cases',
   '/remanufactured-engines'
 ];
+
+const phoneNumberMap: Record<string, { title: string; link: string }> = {
+  'reman-transmission': {
+    title: '(888) 242-2605',
+    link: 'tel:8882422605'
+  },
+  'car-part-planet': {
+    title: '(888) 412-2772',
+    link: 'tel:8884122772'
+  },
+  'reman-engine': {
+    title: '(877) 343-7352',
+    link: 'tel:8773437352'
+  },
+  'engine-locator': {
+    title: '(302) 966-3140',
+    link: 'tel:3029663140'
+  },
+  'transmission-locator': {
+    title: '(302) 966-3141',
+    link: 'tel:3029663141'
+  }
+};
+
+const { STORE_PREFIX } = process.env;
+
+export const phoneNumber = phoneNumberMap[STORE_PREFIX!];

@@ -3,7 +3,7 @@
 import { InformationCircleIcon, TruckIcon } from '@heroicons/react/24/outline';
 import Price from 'components/price';
 import SideDialog from 'components/side-dialog';
-import { DELIVERY_OPTION_KEY } from 'lib/constants';
+import { DELIVERY_OPTION_KEY, phoneNumber } from 'lib/constants';
 import { cn, createUrl } from 'lib/utils';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { ReactNode, useState } from 'react';
@@ -168,10 +168,10 @@ const Delivery = () => {
                       <div className="md:flex md:justify-between">
                         <p className="mt-1 text-blue-700 md:mt-0">
                           <a
-                            href="tel:+18882422605"
+                            href={phoneNumber?.link}
                             className="whitespace-nowrap text-blue-700 hover:text-blue-600"
                           >
-                            (888) 242-2605
+                            {phoneNumber?.title}
                             <span aria-hidden="true"> &rarr;</span>
                           </a>
                         </p>

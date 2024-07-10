@@ -1,4 +1,4 @@
-import { getMetaobject, getMetaobjects } from 'lib/shopify';
+import { getMetaobject } from 'lib/shopify';
 import kebabCase from 'lodash.kebabcase';
 import Image from 'next/image';
 import { Suspense } from 'react';
@@ -8,9 +8,26 @@ import ImageDisplay from './page/image-display';
 
 const { SITE_NAME } = process.env;
 
-const Offers = async () => {
-  const offers = await getMetaobjects('usp_item');
+const offers = [
+  {
+    title: 'Free Shipping (Commercial Address)',
+    icon: 'truck'
+  },
+  {
+    title: 'Up to 5 Years Unlimited Miles Warranty',
+    icon: 'arrow-path-rounded-square'
+  },
+  {
+    title: 'No Core Charge for 30 Days',
+    icon: 'currency-dollar'
+  },
+  {
+    title: 'Excellent Customer Support',
+    icon: 'star'
+  }
+];
 
+const Offers = () => {
   return (
     <nav aria-label="Offers" className="order-last bg-white lg:order-first">
       <div className="max-w-8xl mx-auto lg:px-8">
@@ -23,10 +40,7 @@ const Offers = async () => {
               key={offer.title}
               className="flex w-full items-center justify-start px-4 lg:justify-center"
             >
-              <DynamicHeroIcon
-                icon={offer.icon_name as string}
-                className="size-7 flex-shrink-0 text-secondary"
-              />
+              <DynamicHeroIcon icon={offer.icon} className="size-7 flex-shrink-0 text-secondary" />
               <p className="px-3 py-4 text-sm font-medium text-gray-800 md:py-5">{offer.title}</p>
             </li>
           ))}
@@ -36,35 +50,6 @@ const Offers = async () => {
   );
 };
 
-const OffersPlaceholder = () => {
-  return (
-    <nav aria-label="Offers" className="order-last bg-white lg:order-first">
-      <div className="max-w-8xl mx-auto lg:px-8">
-        <ul
-          role="list"
-          className="grid animate-pulse grid-cols-1 divide-y divide-gray-200 py-4 md:py-5 lg:grid-cols-4 lg:divide-x lg:divide-y-0"
-        >
-          <li className="flex w-full items-center justify-start gap-2 px-4 lg:justify-center">
-            <div className="size-7 rounded bg-gray-100" />
-            <div className="h-7 w-1/3 rounded bg-slate-100" />
-          </li>
-          <li className="flex w-full items-center justify-start gap-2 px-4 lg:justify-center">
-            <div className="size-7 rounded bg-gray-100" />
-            <div className="h-7 w-1/3 rounded bg-slate-100" />
-          </li>
-          <li className="flex w-full items-center justify-start gap-2 px-4 lg:justify-center">
-            <div className="size-7 rounded bg-gray-100" />
-            <div className="h-7 w-1/3 rounded bg-slate-100" />
-          </li>
-          <li className="flex w-full items-center justify-start gap-2 px-4 lg:justify-center">
-            <div className="size-7 rounded bg-gray-100" />
-            <div className="h-7 w-1/3 rounded bg-slate-100" />
-          </li>
-        </ul>
-      </div>
-    </nav>
-  );
-};
 const HeroImage = async () => {
   const heroImage = await getMetaobject({
     handle: { type: 'hero', handle: `${kebabCase(SITE_NAME)}-hero` }
@@ -98,9 +83,7 @@ const HeroImage = async () => {
 const Hero = () => {
   return (
     <div className="flex flex-col border-b border-gray-200 lg:border-0">
-      <Suspense fallback={<OffersPlaceholder />}>
-        <Offers />
-      </Suspense>
+      <Offers />
       <div className="relative">
         {/* Decorative image and overlay */}
         <div aria-hidden="true" className="absolute inset-0 overflow-hidden">
