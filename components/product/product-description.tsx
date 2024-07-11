@@ -3,6 +3,7 @@ import Prose from 'components/prose';
 import { Product } from 'lib/shopify/types';
 import { Suspense } from 'react';
 import CoreCharge from './core-charge';
+import CoreDialogContent from './core-dialog-content';
 import Delivery from './delivery';
 import PriceSummary from './price-summary';
 import ProductDetails from './product-details';
@@ -39,7 +40,9 @@ export function ProductDescription({ product }: { product: Product }) {
 
       <ProductDetails product={product} />
       <div className="mb-2 border-t py-4 dark:border-neutral-700">
-        <CoreCharge variants={product.variants} />
+        <CoreCharge variants={product.variants}>
+          <CoreDialogContent />
+        </CoreCharge>
       </div>
 
       <div className="mb-2 border-t py-4 dark:border-neutral-700">

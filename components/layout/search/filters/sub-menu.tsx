@@ -39,7 +39,7 @@ const SubMenu = async ({ collection }: { collection: string }) => {
 
   if (collectionData.plpType === 'Product Type' && collectionData.lhnLinks) {
     displayField = 'make';
-    title = 'Populer Makes';
+    title = 'Popular Makes';
     const response = await getMetaobjectsByIds(collectionData.lhnLinks);
     subMenu = sortOptions(response, displayField);
   }
