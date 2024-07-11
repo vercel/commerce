@@ -1,4 +1,5 @@
 import { PhoneIcon } from '@heroicons/react/24/outline';
+import { phoneNumber } from 'lib/constants';
 import { getMetaobject } from 'lib/shopify';
 import Image from 'next/image';
 import { Suspense } from 'react';
@@ -43,7 +44,7 @@ const FAQ = async ({ handle }: { handle: string }) => {
               </div>
               <div>
                 <p>Have Any Questions</p>
-                <a href={`tel:${8882422605}`}>(888) 242-2605</a>
+                <a href={phoneNumber?.link}>{phoneNumber?.title}</a>
               </div>
             </div>
             <button className="mt-5 w-fit rounded bg-primary px-4 py-2 text-sm text-white">
