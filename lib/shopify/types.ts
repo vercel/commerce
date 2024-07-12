@@ -460,6 +460,7 @@ export type ProductVariant = {
   mileage: number | null;
   estimatedDelivery: string | null;
   supplier: string | null;
+  warranty_years: string | null;
   condition: string | null;
   engineCylinders: string | null;
   fuelType: string | null;
@@ -491,6 +492,7 @@ export type ShopifyProductVariant = Omit<
   | 'mileage'
   | 'estimatedDelivery'
   | 'supplier'
+  | 'warranty_years'
   | 'condition'
   | 'addOnProduct'
 > & {
@@ -500,6 +502,7 @@ export type ShopifyProductVariant = Omit<
   mileage: { value: number } | null;
   estimatedDelivery: { value: string } | null;
   supplier: { value: string } | null;
+  warranty_years: { value: string } | null;
   condition: { value: string } | null;
   addOnProductId: { value: string } | null;
   addOnQuantity: { value: string } | null;
