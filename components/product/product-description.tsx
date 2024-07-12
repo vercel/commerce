@@ -13,9 +13,6 @@ import Warranty from './warranty';
 
 export function ProductDescription({ product }: { product: Product }) {
   const { STORE_PREFIX, SITE_NAME } = process.env;
-
-  console.log('Product:', product);
-
   return (
     <>
       <div className="mb-4 flex flex-col">
