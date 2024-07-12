@@ -9,32 +9,36 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { ReactNode, useState } from 'react';
 
 const options = ['Commercial', 'Residential'] as const;
-const { STORE_PREFIX, SITE_NAME } = process.env;
-
-// Conditional price values based on STORE_PREFIX
-const commercialPrice = STORE_PREFIX === 'reman-transmission' ? 299 : 0;
-const residentialPrice = STORE_PREFIX === 'reman-transmission' ? 398 : 99;
 
 type Option = (typeof options)[number];
 
-export const deliveryOptions: Array<{
+export const getDeliveryOptions = (
+  commercialPrice: number,
+  residentialPrice: number
+): Array<{
   key: Option;
   template: ReactNode;
   price: number;
-}> = [
+}> => [
   {
     template: <span className="font-bold">Commercial</span>,
     price: commercialPrice,
-    key: 'Commercial'
+    key: 'Commercial' as Option
   },
   {
     template: <span className="font-bold">Residential</span>,
     price: residentialPrice,
-    key: 'Residential'
+    key: 'Residential' as Option
   }
 ];
 
-const Delivery = () => {
+const Delivery = ({
+  storePrefix,
+  siteName
+}: {
+  storePrefix: string | undefined;
+  siteName: string | undefined;
+}) => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
@@ -57,6 +61,12 @@ const Delivery = () => {
     handleSelectDelivery(options[0]);
   }
 
+  // Conditional price values based on storePrefix
+  const commercialPrice = storePrefix === 'reman-transmission' ? 299 : 0;
+  const residentialPrice = storePrefix === 'reman-transmission' ? 398 : 99;
+
+  const deliveryOptions = getDeliveryOptions(commercialPrice, residentialPrice);
+
   return (
     <div className="flex flex-col text-xs lg:text-sm">
       <div className="mb-3 flex flex-row items-center space-x-1 divide-x divide-gray-400 leading-none lg:space-x-3">
@@ -76,9 +86,9 @@ const Delivery = () => {
             onClose={() => setOpeningDialog(null)}
             open={openingDialog === 'information'}
           >
-            <div className="mt-5 flex h-full flex-col space-y-3 overflow-hidden">
+            <div className="mt-5 flex h-full flex-col space-y-3 overflow-y-auto">
               <section>
-                {STORE_PREFIX === 'reman-transmission' ? (
+                {storePrefix === 'reman-transmission' ? (
                   <>
                     <p className="text-md mb-3 font-semibold">
                       Flat Rate Shipping to Commercial Addresses
@@ -116,7 +126,7 @@ const Delivery = () => {
                 <p className="text-md mb-2 font-semibold">Residential Address / Liftgate Fee</p>
                 <p className="mb-2 text-sm">
                   If you are shipping to a residential address, there will be a surcharge of $99.00
-                  to accomodate the need for a liftgate- based delivery.
+                  to accomodate the need for a liftgate-based delivery.
                 </p>
                 <p className="mb-2 text-sm">
                   Please make sure your address location is capable of receiving freight without the
@@ -136,7 +146,7 @@ const Delivery = () => {
                   (excluding weekends and holidays). However, due to increased order volumes,
                   weather conditions, or circumstances beyond our control, we will ship your order
                   out as soon as possible. Please note all shipping times are estimates and not
-                  guarantees. {SITE_NAME} will not be responsible for any additional fees that the
+                  guarantees. ${siteName} will not be responsible for any additional fees that the
                   carrier may charge due to re-delivery or storage.
                 </p>
               </section>

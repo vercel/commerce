@@ -467,6 +467,8 @@ const reshapeVariants = (variants: ShopifyProductVariant[]): ProductVariant[] =>
     coreVariantId: variant.coreVariantId?.value || null,
     coreCharge: parseMetaFieldValue<Money>(variant.coreCharge),
     mileage: variant.mileage?.value ?? null,
+    supplier: variant.supplier?.value || null,
+    warranty_years: variant.warranty_years?.value || null,
     estimatedDelivery: variant.estimatedDelivery?.value || null,
     condition: variant.condition?.value || null,
     ...(addOnProductId

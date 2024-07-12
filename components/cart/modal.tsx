@@ -72,6 +72,23 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
     }
   };
 
+  // Sort cart lines such that items with productType "Add On" come last
+  const sortedCartLines = cart?.lines.slice().sort((a, b) => {
+    if (
+      a.merchandise.product.productType === 'Add On' &&
+      b.merchandise.product.productType !== 'Add On'
+    ) {
+      return 1;
+    }
+    if (
+      a.merchandise.product.productType !== 'Add On' &&
+      b.merchandise.product.productType === 'Add On'
+    ) {
+      return -1;
+    }
+    return 0;
+  });
+
   return (
     <>
       <button aria-label="Open cart" onClick={openCart}>
@@ -116,7 +133,7 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
               ) : (
                 <div className="flex h-full flex-col justify-between overflow-hidden p-1">
                   <ul className="flex-grow overflow-auto py-4">
-                    {cart.lines.map((item) => {
+                    {sortedCartLines?.map((item) => {
                       return <LineItem item={item} closeCart={closeCart} key={item.id} />;
                     })}
                   </ul>
