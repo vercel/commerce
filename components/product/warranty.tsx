@@ -20,6 +20,8 @@ const Warranty = ({ product }: { product: Product }) => {
     )
   );
 
+  const warrantyYears = selectedVariant?.warranty_years || '3';
+
   return (
     <div className="flex flex-col text-xs lg:text-sm">
       <div className="mb-3 flex flex-row items-center space-x-1 divide-x divide-gray-400 leading-none lg:space-x-3">
@@ -134,7 +136,7 @@ const Warranty = ({ product }: { product: Product }) => {
           </Link>
         </div>
       </div>
-      <WarrantySelector />
+      <WarrantySelector years={warrantyYears} />
     </div>
   );
 };
