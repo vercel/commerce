@@ -36,6 +36,10 @@ const PriceSummary = ({ variants, defaultPrice, storePrefix }: PriceSummaryProps
   const corePrice = selectedCoreChargeOption === CORE_WAIVER ? 0 : variant?.coreCharge?.amount ?? 0;
 
   const totalPrice = Number(price) + deliveryPrice + Number(corePrice);
+
+  // Determine shipping label based on deliveryPrice
+  const shippingLabel = deliveryPrice === 0 ? 'Free Shipping' : 'Flat Rate Shipping';
+
   return (
     <div className="mb-3 flex flex-col gap-2">
       <div className="flex flex-row items-center justify-between">
@@ -56,7 +60,7 @@ const PriceSummary = ({ variants, defaultPrice, storePrefix }: PriceSummaryProps
         )}
       </div>
       <div className="flex flex-row items-center justify-between">
-        <span className="text-sm text-gray-400">{`Flat Rate Shipping (${selectedDeliveryOption} address)`}</span>
+        <span className="text-sm text-gray-400">{`${shippingLabel} (${selectedDeliveryOption} address)`}</span>
         <Price
           amount={String(deliveryPrice)}
           currencyCode={currencyCode}

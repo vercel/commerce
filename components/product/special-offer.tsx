@@ -17,13 +17,13 @@ const storeConfig: Record<
     shippingTitle: 'Flat Rate Shipping',
     shippingText: 'We offer a flat $299 shipping fee to commercial addresses',
     warrantyTitle: 'Unbeatable Warranty',
-    warrantyText: 'Up to 5 years with unlimited miles'
+    warrantyText: 'Up to 5 years with unlimited miles on select parts'
   },
   default: {
     shippingTitle: 'Free Shipping',
     shippingText: 'We offer free shipping to commercial addresses',
-    warrantyTitle: 'Standard Warranty',
-    warrantyText: 'Up to 3 years with unlimited miles'
+    warrantyTitle: 'Unbeatable Warranty',
+    warrantyText: 'Up to 5 years with unlimited miles on select parts'
   }
 };
 
