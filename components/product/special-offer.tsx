@@ -7,16 +7,18 @@ import {
   UsersIcon
 } from '@heroicons/react/24/outline';
 
-const { STORE_PREFIX } = process.env;
+const { STORE_PREFIX } = process.env as { STORE_PREFIX?: string };
 
-const storeConfig = {
+const storeConfig: Record<
+  string,
+  { shippingTitle: string; shippingText: string; warrantyTitle: string; warrantyText: string }
+> = {
   'reman-transmission': {
     shippingTitle: 'Flat Rate Shipping',
     shippingText: 'We offer a flat $299 shipping fee to commercial addresses',
     warrantyTitle: 'Unbeatable Warranty',
     warrantyText: 'Up to 5 years with unlimited miles'
   },
-
   default: {
     shippingTitle: 'Free Shipping',
     shippingText: 'We offer free shipping to commercial addresses',
@@ -25,7 +27,7 @@ const storeConfig = {
   }
 };
 
-const config = storeConfig[STORE_PREFIX] || storeConfig.default;
+const config = storeConfig[STORE_PREFIX!] || storeConfig.default;
 
 const SpecialOffer = () => {
   return (
@@ -33,8 +35,8 @@ const SpecialOffer = () => {
       <div className="flex items-start gap-3">
         <TruckIcon className="size-10 text-primary" />
         <div className="flex flex-col">
-          <span className="font-medium uppercase">{config.shippingTitle}</span>
-          <span className="mr-2.5 text-sm font-light">{config.shippingText}</span>
+          <span className="font-medium uppercase">{config?.shippingTitle}</span>
+          <span className="mr-2.5 text-sm font-light">{config?.shippingText}</span>
         </div>
       </div>
       <div className="flex items-start gap-3">
@@ -49,8 +51,8 @@ const SpecialOffer = () => {
       <div className="flex items-start gap-3">
         <ShieldCheckIcon className="size-8 text-primary" />
         <div className="flex flex-col">
-          <span className="font-medium uppercase">{config.warrantyTitle}</span>
-          <span className="mr-2.5 text-sm font-light">{config.warrantyText}</span>
+          <span className="font-medium uppercase">{config?.warrantyTitle}</span>
+          <span className="mr-2.5 text-sm font-light">{config?.warrantyText}</span>
         </div>
       </div>
 
