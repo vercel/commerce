@@ -233,7 +233,9 @@ export function VariantSelector({
                                     </span>
                                   </div>
                                 </div>
-                                {!isAvailableForSale ? <span>Out of Stock</span> : null}
+                                {!isAvailableForSale ? (
+                                  <span>Call for additional availability</span>
+                                ) : null}
                               </div>
                               <div className="mt-1.5 flex flex-row flex-wrap items-center gap-3">
                                 {coreChargeOptions.map((option) => (
