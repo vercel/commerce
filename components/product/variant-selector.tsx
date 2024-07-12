@@ -44,6 +44,24 @@ export function VariantSelector({
     return { ...acc, [variant.id]: variant };
   }, {});
 
+  // Filter out variants that are not available for sale
+  const availableVariants = variants.filter((variant) => variant.availableForSale);
+
+  // Calculate minimum price from available variants
+  const minAvailablePrice = availableVariants.length
+    ? availableVariants.reduce(
+        (min, variant) => Math.min(min, Number(variant.price.amount)),
+        Number(availableVariants[0]?.price.amount)
+      )
+    : null;
+
+  const currencyCode = availableVariants[0]?.price.currencyCode || 'USD';
+
+  const updatedMinPrice = {
+    amount: minAvailablePrice ? String(minAvailablePrice) : minPrice.amount,
+    currencyCode: currencyCode
+  };
+
   // If a variant is not selected, we want to select the first available for sale variant as default
   useEffect(() => {
     const hasSelectedVariant = Array.from(searchParams.entries()).some(([key, value]) => {
@@ -83,7 +101,7 @@ export function VariantSelector({
         onClick={openModal}
       >
         from
-        <Price amount={minPrice.amount} currencyCode={minPrice.currencyCode} />
+        <Price amount={updatedMinPrice.amount} currencyCode={updatedMinPrice.currencyCode} />
       </button>
       <Transition show={isOpen} as={Fragment}>
         <Dialog onClose={closeModal} className="relative z-50">
@@ -215,7 +233,9 @@ export function VariantSelector({
                                     </span>
                                   </div>
                                 </div>
-                                {!isAvailableForSale ? <span>Out of Stock</span> : null}
+                                {!isAvailableForSale ? (
+                                  <span>Call for additional availability</span>
+                                ) : null}
                               </div>
                               <div className="mt-1.5 flex flex-row flex-wrap items-center gap-3">
                                 {coreChargeOptions.map((option) => (
