@@ -76,7 +76,7 @@ const Delivery = () => {
             onClose={() => setOpeningDialog(null)}
             open={openingDialog === 'information'}
           >
-            <div className="mt-5 flex h-full flex-col space-y-3 overflow-hidden">
+            <div className="mt-5 flex h-full flex-col space-y-3 overflow-y-auto">
               <section>
                 {STORE_PREFIX === 'reman-transmission' ? (
                   <>
