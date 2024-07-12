@@ -252,13 +252,14 @@ const Warranty = ({ product, siteName }: { product: Product; siteName: string | 
                 accordance with rate but not to exceed $50.00 an hour. Do-it yourself repairs,
                 repairs performed by unlicensed repair facilities, or repairs made to units not
                 originally installed by licensed auto repair facility, labor will not be reimbursed.
-                RT is not responsible for any charges associated with improper transmission
-                installation and or labor costs. RT will not assume towing, shipping, transportation
-                charges or rental car costs Modifed vehicles will have no warranty coverage If
-                return or exchange was authorized by RT, the part needs to be received in the same
-                assembled condition as it was originally shipped to the customer. If the part is not
-                received in the same condition there will be absolutely NO REFUND under any
-                circumstances. If transmission was disassembled or altered in any way without RT
+                {siteName} is not responsible for any charges associated with improper transmission
+                installation and or labor costs. {siteName} will not assume towing, shipping,
+                transportation charges or rental car costs Modifed vehicles will have no warranty
+                coverage If return or exchange was authorized by RT, the part needs to be received
+                in the same assembled condition as it was originally shipped to the customer. If the
+                part is not received in the same condition there will be absolutely NO REFUND under
+                any circumstances. If transmission was disassembled or altered in any way without{' '}
+                {siteName}
                 written authorization the warranty will be void. If core is not returned or paid
                 for, warranty will be voided.
               </p>
@@ -269,42 +270,34 @@ const Warranty = ({ product, siteName }: { product: Product; siteName: string | 
               <p className="text-sm">
                 Transmission was not properly installed. Transmission was used for racing.
                 Transmission was used without proper lubrication or cooling regardless of the
-                reason. Complete warranty coverage can be found at
-                www.reman-transmission.com/warranty-info. Our inventory is located at various
-                supplier facilities, delivery times may vary, but it normally takes 7-14 BUSINESS
-                days (excluding weekends and holidays). Even though its uncommon but sometimes
-                delivery times may be affected due to unusual circumstances that may require some
-                additional time. We offer Flat Rate shipping (Commercial address) to address within
-                Continental USA. All returned parts or cancelled orders are subject to a 25%
-                handling and restocking fees, customer assumes all the shipping costs unless
-                replacement is authorized by RT during warranty period. If order was cancelled after
-                payment was processed, but part was not shipped out, customer is responsible for 10%
-                cancellation fee. Customer is responsible for fulflling the terms of payment. If
-                customer defaults on the payment terms he/she will be responsible for all of the
-                charges associated with collection. These charges will include all collection costs
-                and attorney fees. Wrong parts ordered or parts that were incorrectly diagnosed are
-                non-refundable. RT will not assume towing, shipping, lodging, transportation charges
-                or rental car costs. Falsifying any information will automatically void your
-                warranty. Please note that you are purchasing used part! We do our best to make the
-                part as presentable as possible but we make no guarantees towards the appearance of
-                it Please inspect all the parts before signing on delivery. The mileage stated is
-                approximate whenever is available to the best of our knowledge. RT warranty does not
-                apply to oil leaks/damage on engines due to seals, gaskets and flters that has not
-                been replaced. OEM auto parts are interchangeable within multiple years, makes and
-                models. Same part throughout multiple year range will result in exact ft for
-                multiple makes and models as determined by OEM standards. Deposits made to us are
-                non-refundable unless otherwise noted. If return or exchange was authorized by RT,
-                the part needs to be received in the same assembled condition as it was originally
-                shipped to the customer. If the part is not received in the same condition there
-                will be absolutely NO REFUND under any circumstances. Refunds are only authorized if
-                replacement is not available. If the engine was disassembled or altered in any way
-                without RT written authorization the warranty will be void. Transmission is not
-                installed within 30 days after delivery. Used Transmission warranty will cover only
-                a one-time claim per product purchased from us. Reman-transmission warranty claim
-                representative will work with you to ensure your experience is a complete success.
-                We reserve the right to charge any applicable fees in connection with processing of
-                your warranty claim. Used transmission warranty is for the original purchaser only
-                and is not transferrable.
+                reason. Our inventory is located at various supplier facilities, delivery times may
+                vary, but it normally takes 7-14 business days (excluding weekends and holidays).
+                Even though its uncommon but sometimes delivery times may be affected due to unusual
+                circumstances that may require some additional time. We offer Flat Rate shipping
+                (Commercial address) to address within Continental USA.
+                {siteName} will not assume towing, shipping, lodging, transportation charges or
+                rental car costs. Falsifying any information will automatically void your warranty.
+                Please note that you are purchasing a used part! We do our best to make the part as
+                presentable as possible but we make no guarantees towards the appearance of it.
+                Please inspect all the parts before signing on delivery. The mileage stated is
+                approximate whenever is available to the best of our knowledge.
+                {siteName} warranty does notvapply to oil leaks/damage on engines due to seals,
+                gaskets and flters that has not been replaced. OEM auto parts are interchangeable
+                within multiple years, makes and models. Same part throughout multiple year range
+                will result in exact ft for multiple makes and models as determined by OEM
+                standards. Deposits made to us are non-refundable unless otherwise noted. If return
+                or exchange was authorized by {siteName}, the part needs to be received in the same
+                assembled condition as it was originally shipped to the customer. If the part is not
+                received in the same condition there will be absolutely NO REFUND under any
+                circumstances. Refunds are only authorized if replacement is not available. If the
+                engine was disassembled or altered in any way without {siteName} written
+                authorization the warranty will be void. Transmission is not installed within 30
+                days after delivery. Used transmission warranty will cover only a one-time claim per
+                product purchased from us.
+                {siteName} warranty claim representative will work with you to ensure your
+                experience is a complete success. We reserve the right to charge any applicable fees
+                in connection with processing of your warranty claim. Used transmission warranty is
+                for the original purchaser only and is not transferrable.
               </p>
             </section>
 
