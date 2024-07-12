@@ -4,14 +4,15 @@ import Price from 'components/price';
 import { CORE_VARIANT_ID_KEY, CORE_WAIVER, DELIVERY_OPTION_KEY } from 'lib/constants';
 import { Money, ProductVariant } from 'lib/shopify/types';
 import { useSearchParams } from 'next/navigation';
-import { deliveryOptions } from './delivery';
+import { getDeliveryOptions } from './delivery';
 
 type PriceSummaryProps = {
   variants: ProductVariant[];
   defaultPrice: Money;
+  storePrefix: string | undefined;
 };
 
-const PriceSummary = ({ variants, defaultPrice }: PriceSummaryProps) => {
+const PriceSummary = ({ variants, defaultPrice, storePrefix }: PriceSummaryProps) => {
   const searchParams = useSearchParams();
 
   const variant = variants.find((variant) =>
@@ -23,6 +24,12 @@ const PriceSummary = ({ variants, defaultPrice }: PriceSummaryProps) => {
   const price = variant?.price.amount || defaultPrice.amount;
   const selectedCoreChargeOption = searchParams.get(CORE_VARIANT_ID_KEY);
   const selectedDeliveryOption = searchParams.get(DELIVERY_OPTION_KEY);
+
+  // Determine delivery prices based on storePrefix
+  const commercialPrice = storePrefix === 'reman-transmission' ? 299 : 0;
+  const residentialPrice = storePrefix === 'reman-transmission' ? 398 : 99;
+  const deliveryOptions = getDeliveryOptions(commercialPrice, residentialPrice);
+
   const deliveryPrice =
     deliveryOptions.find((option) => option.key === selectedDeliveryOption)?.price ?? 0;
   const currencyCode = variant?.price.currencyCode || defaultPrice.currencyCode;

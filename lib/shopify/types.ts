@@ -459,6 +459,8 @@ export type ProductVariant = {
   coreVariantId: string | null;
   mileage: number | null;
   estimatedDelivery: string | null;
+  supplier: string | null;
+  warranty_years: string | null;
   condition: string | null;
   engineCylinders: string | null;
   fuelType: string | null;
@@ -489,6 +491,8 @@ export type ShopifyProductVariant = Omit<
   | 'coreVariantId'
   | 'mileage'
   | 'estimatedDelivery'
+  | 'supplier'
+  | 'warranty_years'
   | 'condition'
   | 'addOnProduct'
 > & {
@@ -497,6 +501,8 @@ export type ShopifyProductVariant = Omit<
   coreCharge: { value: string } | null;
   mileage: { value: number } | null;
   estimatedDelivery: { value: string } | null;
+  supplier: { value: string } | null;
+  warranty_years: { value: string } | null;
   condition: { value: string } | null;
   addOnProductId: { value: string } | null;
   addOnQuantity: { value: string } | null;

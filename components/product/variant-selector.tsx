@@ -96,7 +96,7 @@ export function VariantSelector({
             leaveFrom="opacity-100 backdrop-blur-[.5px]"
             leaveTo="opacity-0 backdrop-blur-none"
           >
-            <div className="bg-black/30 fixed inset-0" aria-hidden="true" />
+            <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
           </TransitionChild>
           <TransitionChild
             as={Fragment}
@@ -107,9 +107,9 @@ export function VariantSelector({
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <DialogPanel className="text-black fixed bottom-0 right-0 top-0 flex h-full w-full flex-col border-l border-neutral-200 bg-white/80 p-6 backdrop-blur-xl md:w-[500px]">
+            <DialogPanel className="fixed bottom-0 right-0 top-0 flex h-full w-full flex-col border-l border-neutral-200 bg-white/80 p-6 text-black backdrop-blur-xl md:w-[500px]">
               <div className="flex items-center justify-between">
-                <p className="text-lg font-semibold">Manufactured & Used Options</p>
+                <p className="text-lg font-semibold">Remanufactured & Used Options</p>
 
                 <button aria-label="Close cart" onClick={closeModal} className="text-black">
                   <XMarkIcon className="h-6" />
