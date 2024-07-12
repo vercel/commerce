@@ -1,7 +1,6 @@
 'use server';
 
 import {
-  AVAILABILITY_FILTER_ID,
   PRICE_FILTER_ID,
   PRODUCT_METAFIELD_PREFIX,
   VARIANT_METAFIELD_PREFIX,
@@ -13,18 +12,14 @@ import { getCollectionProducts, getProducts } from 'lib/shopify';
 const constructFilterInput = (filters: {
   [key: string]: string | string[] | undefined;
 }): Array<object> => {
-  const results = [] as Array<object>;
+  const results = [{ available: true }] as Array<object>;
   Object.entries(filters)
     .filter(([key]) => !key.startsWith(PRICE_FILTER_ID))
     .forEach(([key, value]) => {
       const [namespace, metafieldKey] = key.split('.').slice(-2);
       const values = Array.isArray(value) ? value : [value];
 
-      if (key === AVAILABILITY_FILTER_ID) {
-        results.push({
-          available: value === 'true'
-        });
-      } else if (key.startsWith(PRODUCT_METAFIELD_PREFIX)) {
+      if (key.startsWith(PRODUCT_METAFIELD_PREFIX)) {
         results.push(
           ...values.map((v) => ({
             productMetafield: {

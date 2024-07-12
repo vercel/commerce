@@ -38,8 +38,7 @@ import { getCartQuery } from './queries/cart';
 import {
   getCollectionProductsQuery,
   getCollectionQuery,
-  getCollectionsQuery,
-  getProductFiltersQuery
+  getCollectionsQuery
 } from './queries/collection';
 import { getCustomerQuery } from './queries/customer';
 import { getMenuQuery } from './queries/menu';
@@ -118,8 +117,7 @@ import {
   Transaction,
   TransmissionType,
   UpdateOrderMetafieldInput,
-  UploadInput,
-  WarrantyStatus
+  UploadInput
 } from './types';
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
@@ -388,21 +386,15 @@ const reshapeCollections = (collections: ShopifyCollection[]) => {
   return reshapedCollections;
 };
 
-const reshapeFilters = (filters: ShopifyFilter[], excludeYMM = true): Filter[] => {
+const reshapeFilters = (filters: ShopifyFilter[]): Filter[] => {
   const reshapedFilters = [];
-  const excludedYMMFilters = filters.filter((filter) =>
-    excludeYMM ? ![MODEL_FILTER_ID, MAKE_FILTER_ID, YEAR_FILTER_ID].includes(filter.id) : true
+  const excludedYMMFilters = filters.filter(
+    (filter) =>
+      ![MODEL_FILTER_ID, MAKE_FILTER_ID, YEAR_FILTER_ID, AVAILABILITY_FILTER_ID].includes(filter.id)
   );
   for (const filter of excludedYMMFilters) {
     const values = filter.values
       .map((valueItem) => {
-        if (filter.id === AVAILABILITY_FILTER_ID) {
-          return {
-            ...valueItem,
-            value: JSON.parse(valueItem.input).available
-          };
-        }
-
         if (filter.id === PRICE_FILTER_ID) {
           return {
             ...valueItem,
@@ -1220,26 +1212,3 @@ export const getFile = async (id: string) => {
 
   return res.body.data.node;
 };
-
-export async function getProductFilters(
-  { collection }: { collection: string },
-  filterId: string
-): Promise<Filter | null | undefined> {
-  const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
-    query: getProductFiltersQuery,
-    tags: [TAGS.collections, TAGS.products],
-    variables: {
-      handle: collection
-    }
-  });
-
-  if (!res.body.data.collection) {
-    console.log(`No collection found for \`${collection}\``);
-    return null;
-  }
-
-  const filters = res.body.data.collection.products.filters;
-  const selectedFilters = filters.find((filter) => filter.id === filterId);
-
-  return selectedFilters ? reshapeFilters([selectedFilters], false)[0] : null;
-}
