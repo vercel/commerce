@@ -7,7 +7,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const PriceSection = ({ variants }: { variants: ProductVariant[] }) => {
-  const usedVariants = variants.filter((variant) => variant.condition === CONDITIONS.Used);
+  // Filter out variants that are not available for sale
+  const availableVariants = variants.filter((variant) => variant.availableForSale);
+
+  const usedVariants = availableVariants.filter((variant) => variant.condition === CONDITIONS.Used);
 
   const minUsedVariantPrice = usedVariants.length
     ? usedVariants.reduce(
@@ -16,7 +19,7 @@ const PriceSection = ({ variants }: { variants: ProductVariant[] }) => {
       )
     : null;
 
-  const remanVariants = variants.filter(
+  const remanVariants = availableVariants.filter(
     (variant) => variant.condition === CONDITIONS.Remanufactured
   );
 
