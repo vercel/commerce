@@ -62,6 +62,9 @@ const productFragment = /* GraphQL */ `
           mileage: metafield(namespace: "custom", key: "mileage") {
             value
           }
+          supplier: metafield(namespace: "custom", key: "supplier") {
+            value
+          }
           condition: metafield(namespace: "custom", key: "condition") {
             value
           }
