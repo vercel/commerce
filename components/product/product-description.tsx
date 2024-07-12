@@ -47,7 +47,7 @@ export function ProductDescription({ product }: { product: Product }) {
       </div>
 
       <div className="mb-2 border-t py-4 dark:border-neutral-700">
-        <Warranty product={product} />
+        <Warranty product={product} siteName={SITE_NAME} />
       </div>
 
       <div className="mb-2 border-t py-4 dark:border-neutral-700">
