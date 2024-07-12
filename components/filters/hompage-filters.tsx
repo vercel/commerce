@@ -1,5 +1,5 @@
 import { getMenu } from 'lib/shopify';
-import { fetchMakes } from './actions';
+import { getMMYFilters } from 'lib/vercel-kv';
 import FiltersList from './filters-list';
 
 const title: Record<string, string> = {
@@ -13,8 +13,8 @@ const title: Record<string, string> = {
 const { STORE_PREFIX } = process.env;
 
 const HomePageFilters = async () => {
-  const makes = await fetchMakes();
   const menu = await getMenu('main-menu');
+  const data = await getMMYFilters();
 
   return (
     <>
@@ -22,7 +22,7 @@ const HomePageFilters = async () => {
         {title[STORE_PREFIX!] || 'Find Your Part'}
       </h1>
       <div className="mt-5 flex grow flex-col items-center gap-3 @md:flex-row">
-        <FiltersList makes={makes} menu={menu} />
+        <FiltersList menu={menu} {...data} />
       </div>
     </>
   );

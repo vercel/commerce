@@ -1,6 +1,6 @@
 import { getMenu } from 'lib/shopify';
+import { getMMYFilters } from 'lib/vercel-kv';
 import { ReactNode } from 'react';
-import { fetchMakes } from './actions';
 import FiltersList from './filters-list';
 
 const YMMFiltersContainer = ({ children }: { children: ReactNode }) => {
@@ -15,13 +15,13 @@ const YMMFiltersContainer = ({ children }: { children: ReactNode }) => {
 };
 
 const YMMFilters = async () => {
-  const makes = await fetchMakes();
+  const data = await getMMYFilters();
   const menu = await getMenu('main-menu');
 
   return (
     <YMMFiltersContainer>
       <div className="flex grow flex-col items-center gap-3 @md:flex-row">
-        <FiltersList makes={makes} menu={menu} />
+        <FiltersList {...data} menu={menu} />
       </div>
     </YMMFiltersContainer>
   );
