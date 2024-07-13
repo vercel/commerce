@@ -42,7 +42,7 @@ const Warranty = ({ product, siteName }: { product: Product; siteName: string | 
             open={openingDialog === 'included'}
           >
             <section>
-              <p className="mb-1 mt-2 text-sm font-semibold">WHAT DOES “NO HASSLE” MEAN?</p>
+              <p className="mb-1 mt-5 text-sm font-semibold">WHAT DOES “NO HASSLE” MEAN?</p>
               <p className="text-sm">
                 Transferrable
                 <br />
@@ -70,18 +70,24 @@ const Warranty = ({ product, siteName }: { product: Product; siteName: string | 
                 accordance with rate but not to exceed $50.00 an hour. Do-it yourself repairs,
                 repairs performed by unlicensed repair facilities, or repairs made to units not
                 originally installed by licensed auto repair facility, labor will not be reimbursed.
-                {siteName} is not responsible for any charges associated with improper transmission
-                installation and or labor costs. {siteName} will not assume towing, shipping,
-                transportation charges or rental car costs Modifed vehicles will have no warranty
-                coverage. If return or exchange was authorized by {siteName}, the part needs to be
-                received in the same assembled condition as it was originally shipped to the
-                customer.
               </p>
             </section>
 
             <section>
-              <p className="mb-2 text-sm">
-                {siteName} warrants remanufactured engine parts to be free of defects in any
+              <p className="mb-2 mt-2 text-sm">
+                {siteName} is not responsible for any charges associated with improper transmission
+                installation and or labor costs.
+                <br />
+                {siteName} will not assume towing, shipping, transportation charges or rental car
+                costs Modifed vehicles will have no warranty coverage. If return or exchange was
+                authorized by {siteName}, the part needs to be received in the same assembled
+                condition as it was originally shipped to the customer.
+              </p>
+            </section>
+
+            <section>
+              <p className="mb-2 mt-2 text-sm">
+                {siteName} warrants remanufactured parts to be free of defects in any
                 parts/materials and workmanship for the warranty period indicated from the date of
                 installation, assuming the part was (and can be documented as) installed by a
                 Licensed Automotive Repair Facility.
@@ -89,15 +95,7 @@ const Warranty = ({ product, siteName }: { product: Product; siteName: string | 
             </section>
 
             <section>
-              <h3>Remanufactured Engines</h3>
-            </section>
-
-            <section>
-              <p className="mb-2 text-sm">
-                We guarantee that any used engine sold engine sold by {siteName} shall be free from
-                knocking, excessive oil consumption and cracks in the block, and is subject to the
-                following terms and conditions.
-              </p>
+              <h2 className="mb-2 mt-4 font-bold">Remanufactured Engines</h2>
             </section>
 
             <section>
@@ -165,7 +163,7 @@ const Warranty = ({ product, siteName }: { product: Product; siteName: string | 
             </section>
 
             <section>
-              <h3>Used Engines</h3>
+              <h2 className="mb-2 mt-4 font-bold">Used Engines</h2>
             </section>
 
             <section>
@@ -183,7 +181,15 @@ const Warranty = ({ product, siteName }: { product: Product; siteName: string | 
             </section>
 
             <section>
-              <h3>Remanufactured Transmissions</h3>
+              <p className="mb-2 text-sm">
+                We guarantee that any used engine sold engine sold by {siteName} shall be free from
+                knocking, excessive oil consumption and cracks in the block, and is subject to the
+                following terms and conditions.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="mb-2 mt-4 font-bold">Remanufactured Transmissions</h2>
             </section>
 
             <section>
@@ -230,7 +236,7 @@ const Warranty = ({ product, siteName }: { product: Product; siteName: string | 
             </section>
 
             <section>
-              <h3>Used Transmissions</h3>
+              <h2 className="mb-2 mt-4 font-bold">Used Transmissions</h2>
             </section>
 
             <section>
@@ -323,8 +329,8 @@ const Warranty = ({ product, siteName }: { product: Product; siteName: string | 
                 The serial number of the product has been removed. If the part is not received in
                 the same condition there will be absolutely NO REFUND under any circumstances.
                 <br />
-                If transmission was disassembled or altered in any way without {siteName}
-                written authorization the warranty will be void.
+                If transmission was disassembled or altered in any way without {siteName} written
+                authorization the warranty will be void.
                 <br />
                 If core is not returned or paid for, warranty will be voided.
               </p>
@@ -405,11 +411,7 @@ const Warranty = ({ product, siteName }: { product: Product; siteName: string | 
               </p>
               <p className="text-sm">
                 Please visit our{' '}
-                <Link
-                  href="/warranty-info"
-                  target="_blank"
-                  className="text-blue-800 hover:underline"
-                >
+                <Link href="/warranty-info" target="_blank" className="text-blue-800 underline">
                   warranty page
                 </Link>{' '}
                 for our full warranty disclosure.
