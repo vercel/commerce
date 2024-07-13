@@ -11,7 +11,7 @@ const ProductDetails = ({ product }: { product: Product }) => {
   return (
     <div className="mb-3 flex flex-col gap-3">
       <span className="font-medium">Details</span>
-      <div className="grid grid-cols-4 gap-y-3 text-sm">
+      <div className="grid grid-cols-3 gap-y-3 text-sm sm:grid-cols-4">
         {product.transmissionType && (
           <div className="flex flex-row items-center gap-2">
             <CubeTransparentIcon className="size-4 text-primary" />
