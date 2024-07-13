@@ -28,7 +28,7 @@ const EngineSizes = async ({ collection }: { collection: Collection }) => {
 
   let engineSizes = [] as Metaobject[];
 
-  if (collection.plpType === 'Product Type' && collection.engineSizeLinks) {
+  if (['Product Type', 'Make'].includes(collection.plpType) && collection.engineSizeLinks) {
     engineSizes = await getMetaobjectsByIds(collection.engineSizeLinks);
   }
 
