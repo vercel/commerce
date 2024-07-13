@@ -93,14 +93,15 @@ export function VariantSelector({
   const closeModal = () => setIsOpen(false);
 
   return (
-    <div className="mb-6 flex flex-row gap-1 rounded-md border p-2 text-sm font-medium">
-      See more Remanufactured and Used Options{' '}
+    <div className="mb-6 flex flex-col gap-1 rounded-md border p-2 text-sm font-medium sm:flex-row">
+      <span>See more Remanufactured and Used Options</span>
       <button
         className="flex flex-row gap-0.5 font-normal text-blue-800 hover:underline"
         aria-label="Open variants selector"
         onClick={openModal}
       >
-        from
+        <span className="sm:hidden">from</span>
+        <span className="hidden sm:inline"> from </span>
         <Price amount={updatedMinPrice.amount} currencyCode={updatedMinPrice.currencyCode} />
       </button>
       <Transition show={isOpen} as={Fragment}>
