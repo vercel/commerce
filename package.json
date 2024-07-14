@@ -34,7 +34,7 @@
     "lodash.kebabcase": "^4.1.1",
     "lodash.startcase": "^4.4.0",
     "markdown-to-jsx": "^7.4.7",
-    "next": "14.2.4",
+    "next": "14.2.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.51.5",

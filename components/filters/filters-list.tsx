@@ -87,10 +87,9 @@ const FiltersList = ({
     const newSearchParams = new URLSearchParams(searchParams.toString());
     newSearchParams.set(YEAR_FILTER_ID, year?.value ? toShopifyId(year.value) : '');
 
-    router.push(createUrl(`/search/${partType?.value}`, newSearchParams), { scroll: false });
+    router.push(createUrl(`/${partType?.value}`, newSearchParams), { scroll: false });
   };
 
-  console.log({ partType, makes });
   const makeOptions = makes.filter((make) => make.parent === partType?.label);
   const modelsOptions = models.filter(
     (model) => model.parent === `${partType?.label}_${make?.label}`
