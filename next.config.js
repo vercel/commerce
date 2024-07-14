@@ -20,6 +20,17 @@ module.exports = {
         source: '/password',
         destination: '/',
         permanent: true
+      },
+      {
+        source: '/:partType/:make/:model/:year/:product',
+        destination: (params) => {
+          const { partType, make, model, year } = params;
+          // Replace underscores with hyphens in the make and model
+          const newMake = make.replace(/_/g, '-');
+          const newModel = model.replace(/_/g, '-');
+          return `/${partType}/${newMake}/${newModel}/${year}`;
+        },
+        permanent: true
       }
     ];
   }
