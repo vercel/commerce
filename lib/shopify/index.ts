@@ -1168,7 +1168,6 @@ export const updateOrderMetafields = async ({
   const validMetafields = metafields.filter((field) => Boolean(field.value)) as Array<Metafield>;
 
   if (validMetafields.length === 0) return null;
-  console.log('Updating order metafields', { orderId, metafields: validMetafields });
 
   const response = await shopifyAdminFetch<ShopifyUpdateOrderMetafieldsOperation>({
     query: updateOrderMetafieldsMutation,

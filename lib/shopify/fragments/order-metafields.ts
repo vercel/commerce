@@ -49,33 +49,53 @@ const orderMetafieldsFragment = /* GraphQL */ `
     }
     orderConfirmation: metafield(namespace: "custom", key: "customer_confirmation") {
       value
+      id
+      key
     }
     coreReturnStatus: metafield(namespace: "custom", key: "core_status") {
       value
+      id
+      key
     }
     coreReturnDeadline: metafield(namespace: "custom", key: "core_return_deadline") {
       value
+      id
+      key
     }
     coreReturnName: metafield(namespace: "custom", key: "core_return_name") {
       value
+      id
+      key
     }
     coreReturnEmail: metafield(namespace: "custom", key: "core_return_email") {
       value
+      id
+      key
     }
     coreReturnPhone: metafield(namespace: "custom", key: "core_return_phone") {
       value
+      id
+      key
     }
     coreReturnAddress: metafield(namespace: "custom", key: "core_return_address") {
       value
+      id
+      key
     }
     coreReturnCity: metafield(namespace: "custom", key: "core_return_city") {
       value
+      id
+      key
     }
     coreReturnState: metafield(namespace: "custom", key: "core_return_state") {
       value
+      id
+      key
     }
     coreReturnZip: metafield(namespace: "custom", key: "core_return_zip") {
       value
+      id
+      key
     }
   }
 `;

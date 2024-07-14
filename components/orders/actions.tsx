@@ -22,7 +22,11 @@ const getMetafieldValue = (
   orderMetafields?: ShopifyOrderMetafield
 ): UpdateOrderMetafieldInput => {
   return orderMetafields?.[key]?.id
-    ? { id: orderMetafields[key]?.id!, value: newValue.value, key: newValue.key }
+    ? {
+        id: orderMetafields[key]?.id!,
+        value: newValue.value,
+        key: newValue.key
+      }
     : { ...newValue, namespace: 'custom' };
 };
 
@@ -93,12 +97,17 @@ export const activateWarranty = async (order: Order, formData: FormData) => {
   );
 
   if (shouldSetWarrantyStatusToActivated) {
-    metafields.push({
-      key: 'warranty_status',
-      value: WarrantyStatus.Activated,
-      namespace: 'custom',
-      type: 'single_line_text_field'
-    });
+    metafields.push(
+      getMetafieldValue(
+        'warrantyStatus',
+        {
+          key: 'warranty_status',
+          value: WarrantyStatus.Activated,
+          type: 'single_line_text_field'
+        },
+        order
+      )
+    );
   }
 
   try {
@@ -252,12 +261,17 @@ export async function returnCore(order: Order, formData: FormData) {
   );
 
   if (shouldSetCoreStatusToReturned) {
-    metafields.push({
-      key: 'core_status',
-      value: CoreReturnStatus.PickupRequested,
-      namespace: 'custom',
-      type: 'single_line_text_field'
-    });
+    metafields.push(
+      getMetafieldValue(
+        'coreReturnStatus',
+        {
+          key: 'core_status',
+          value: CoreReturnStatus.PickupRequested,
+          type: 'single_line_text_field'
+        },
+        order
+      )
+    );
   }
 
   try {
