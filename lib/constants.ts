@@ -30,7 +30,8 @@ export const TAGS = {
   products: 'products',
   cart: 'cart',
   pages: 'pages',
-  orderMetafields: 'orderMetafields'
+  orderMetafields: 'orderMetafields',
+  metaobject: 'metaobject'
 };
 
 export const HIDDEN_PRODUCT_TAG = 'nextjs-frontend-hidden';

@@ -945,9 +945,19 @@ export async function getMetaobject({
   id?: string;
   handle?: { handle: string; type: string };
 }) {
+  let tag = TAGS.metaobject;
+  if (id) {
+    tag += `/${id}`;
+  }
+
+  if (handle) {
+    tag += `/${handle.type}_${handle.handle}`;
+  }
+
   const res = await shopifyFetch<ShopifyMetaobjectOperation>({
     query: getMetaobjectQuery,
-    variables: { id, handle }
+    variables: { id, handle },
+    tags: [tag]
   });
 
   return res.body.data.metaobject ? reshapeMetaobjects([res.body.data.metaobject])[0] : null;
@@ -1078,18 +1088,18 @@ export async function revalidate(req: NextRequest): Promise<NextResponse> {
   const productWebhooks = ['products/create', 'products/delete', 'products/update'];
   const topic = headers().get('x-shopify-topic') || 'unknown';
   console.log(`Receiving revalidation request with topic.`, { topic });
-
   const secret = req.nextUrl.searchParams.get('secret');
   const isCollectionUpdate = collectionWebhooks.includes(topic);
   const isProductUpdate = productWebhooks.includes(topic);
   const isPageUpdate = topic.startsWith(TAGS.pages);
+  const isMetaobjectUpdate = topic.startsWith(TAGS.metaobject);
 
   if (!secret || secret !== process.env.SHOPIFY_REVALIDATION_SECRET) {
     console.error('Invalid revalidation secret.');
     return NextResponse.json({ status: 200 });
   }
 
-  if (!isCollectionUpdate && !isProductUpdate && !isPageUpdate) {
+  if (!isCollectionUpdate && !isProductUpdate && !isPageUpdate && !isMetaobjectUpdate) {
     // We don't need to revalidate anything for any other topics.
     return NextResponse.json({ status: 200 });
   }
@@ -1105,6 +1115,10 @@ export async function revalidate(req: NextRequest): Promise<NextResponse> {
   if (isPageUpdate) {
     const pageHandle = topic.split(':')[1];
     pageHandle && revalidatePath(pageHandle);
+  }
+
+  if (isMetaobjectUpdate) {
+    revalidateTag(topic);
   }
 
   return NextResponse.json({ status: 200, revalidated: true, now: Date.now() });
