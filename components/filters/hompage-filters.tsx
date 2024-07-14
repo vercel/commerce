@@ -6,7 +6,7 @@ import FiltersList from './filters-list';
 const title: Record<string, string> = {
   'reman-transmission': 'Find Your Transmission',
   'car-part-planet': 'Find Your Part',
-  'reman-engine': 'Fine Your Engine',
+  'reman-engine': 'Find Your Engine',
   'transmission-locator': 'Find Your Transmission',
   'engine-locator': 'Find Your Engine'
 };
