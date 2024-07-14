@@ -7,10 +7,8 @@ import { Metadata } from 'next';
 import { ReactNode, Suspense } from 'react';
 import './globals.css';
 
-const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME, STORE_PREFIX } = process.env;
-const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-  ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-  : 'http://localhost:3000';
+const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME, STORE_PREFIX, SHOPIFY_ORIGIN_URL } = process.env;
+const baseUrl = SHOPIFY_ORIGIN_URL ? SHOPIFY_ORIGIN_URL : 'http://localhost:3000';
 const twitterCreator = TWITTER_CREATOR ? ensureStartsWith(TWITTER_CREATOR, '@') : undefined;
 const twitterSite = TWITTER_SITE ? ensureStartsWith(TWITTER_SITE, 'https://') : undefined;
 
