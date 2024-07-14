@@ -1,6 +1,6 @@
 import { getMenu } from 'lib/shopify';
 import { getMMYFilters } from 'lib/vercel-kv';
-import { ReactNode } from 'react';
+import { ReactNode, cache } from 'react';
 import FiltersList from './filters-list';
 
 const YMMFiltersContainer = ({ children }: { children: ReactNode }) => {
@@ -14,8 +14,12 @@ const YMMFiltersContainer = ({ children }: { children: ReactNode }) => {
   );
 };
 
+const loadMMMYFilters = cache(async () => {
+  return await getMMYFilters();
+});
+
 const YMMFilters = async () => {
-  const data = await getMMYFilters();
+  const data = await loadMMMYFilters();
   const menu = await getMenu('main-menu');
 
   return (

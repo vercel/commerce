@@ -1,5 +1,6 @@
 import { getMenu } from 'lib/shopify';
 import { getMMYFilters } from 'lib/vercel-kv';
+import { cache } from 'react';
 import FiltersList from './filters-list';
 
 const title: Record<string, string> = {
@@ -12,9 +13,13 @@ const title: Record<string, string> = {
 
 const { STORE_PREFIX } = process.env;
 
+const loadMMMYFilters = cache(async () => {
+  return await getMMYFilters();
+});
+
 const HomePageFilters = async () => {
   const menu = await getMenu('main-menu');
-  const data = await getMMYFilters();
+  const data = await loadMMMYFilters();
 
   return (
     <>
