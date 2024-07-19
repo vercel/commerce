@@ -1,4 +1,4 @@
-op.name: '[Develop] Deploy Functions'
+name: '[Develop] Deploy Functions'
 
 on:
   push:
