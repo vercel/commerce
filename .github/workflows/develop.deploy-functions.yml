@@ -7,11 +7,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  job_id:
-    setup:
-      runs-on: ubuntu-latest
-      environment: develop
+  setup:
+    runs-on: ubuntu-latest
+    environment: develop
 
+  job_id:
     permissions:
       contents: 'read'
       id-token: 'write'
