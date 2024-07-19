@@ -1,0 +1,42 @@
+op.name: '[Develop] Deploy Functions'
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  job_id:
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - uses: 'actions/checkout@v4'
+
+      - name: Authenticate with Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          project_id: ${{ vars.PROJECT_ID }}
+          service_account: ${{ vars.WORKLOAD_SERVICE_ACCOUNT }}
+          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER }}
+          create_credentials_file: true
+
+      # https://github.com/marketplace/actions/deploy-to-cloud-run
+      - id: 'deploy'
+        uses: 'google-github-actions/deploy-cloudrun@v2'
+        with:
+          service: ${{ vars.APP_NAME }}
+          env_vars: |-
+            COMPANY_NAME=${{ vars.COMPANY_NAME }}
+            TWITTER_CREATOR=${{ vars.TWITTER_CREATOR }}
+            TWITTER_SITE=${{ vars.TWITTER_SITE }}
+            SITE_NAME=${{ vars.SITE_NAME }}
+            SHOPIFY_REVALIDATION_SECRET=${{ secrets.SHOPIFY_REVALIDATION_SECRET }}
+            SHOPIFY_STOREFRONT_ACCESS_TOKEN=${{ vars.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
+            SHOPIFY_STORE_DOMAIN=${{ vars.SHOPIFY_STORE_DOMAIN }}
+
+      - name: 'Use output'
+        run: 'curl "${{ steps.deploy.outputs.url }}"'
