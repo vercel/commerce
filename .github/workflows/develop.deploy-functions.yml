@@ -23,7 +23,7 @@ jobs:
         with:
           project_id: ${{ vars.PROJECT_ID }}
           service_account: ${{ vars.WORKLOAD_SERVICE_ACCOUNT }}
-          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER }}
+          workload_identity_provider: ${{ env.WORKLOAD_IDENTITY_PROVIDER }}
           create_credentials_file: true
 
       # https://github.com/marketplace/actions/deploy-to-cloud-run
