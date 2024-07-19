@@ -32,6 +32,7 @@ jobs:
         uses: 'google-github-actions/deploy-cloudrun@v2'
         with:
           service: ${{ vars.APP_NAME }}
+          source: ./
           env_vars: |-
             COMPANY_NAME=${{ vars.COMPANY_NAME }}
             TWITTER_CREATOR=${{ vars.TWITTER_CREATOR }}
