@@ -4,24 +4,18 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
-  setup:
+  deploy-to-gcp:
     runs-on: ubuntu-latest
-    environment: develop
-
-  job_id:
-    runs-on: ubuntu-latest
-    environment: develop
-    needs: setup
 
     permissions:
       contents: 'read'
       id-token: 'write'
 
     steps:
-      - uses: 'actions/checkout@v4'
+      - name: Checkout repository
+        uses: 'actions/checkout@v4'
 
       - name: Authenticate with Google Cloud
         id: auth
@@ -33,7 +27,8 @@ jobs:
           create_credentials_file: true
 
       # https://github.com/marketplace/actions/deploy-to-cloud-run
-      - id: 'deploy'
+      - name: Build and Deploy to Google CloudRun
+        id: 'deploy'
         uses: 'google-github-actions/deploy-cloudrun@v2'
         with:
           service: ${{ vars.APP_NAME }}
