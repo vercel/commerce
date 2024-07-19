@@ -8,6 +8,10 @@ on:
 
 jobs:
   job_id:
+    setup:
+      runs-on: ubuntu-latest
+      environment: develop
+
     permissions:
       contents: 'read'
       id-token: 'write'
