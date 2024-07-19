@@ -12,6 +12,10 @@ jobs:
     environment: develop
 
   job_id:
+    runs-on: ubuntu-latest
+    environment: develop
+    needs: setup
+
     permissions:
       contents: 'read'
       id-token: 'write'
