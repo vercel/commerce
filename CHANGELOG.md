@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.1.3...v1.2.0) (2024-07-20)
+
+
+### Features
+
+* **cart:** cart is now based on store configuration ([86ecab7](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/86ecab7c3f40c540aa94fec421c78ad1735de7a2))
+
 ## [1.1.3](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.1.2...v1.1.3) (2024-07-20)
 
 
