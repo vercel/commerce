@@ -31,6 +31,7 @@ jobs:
               repo: context.repo.repo,
               sha: context.sha
             });
+            console.log(deployments.data);
             return deployments.data;
       - name: Semantic Release
         id: semantic
