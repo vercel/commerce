@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "next dev --turbo",
-    "build": "next build",
+    "build": "echo $SHOPIFY_STORE_DOMAIN && next build",
     "start": "next start",
     "lint": "next lint",
     "lint-staged": "lint-staged",
