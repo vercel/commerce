@@ -19,8 +19,10 @@ jobs:
     runs-on: ubuntu-latest
     environment: develop
     permissions:
-      contents: 'read'
+      contents: 'write'
       id-token: 'write'
+      issues: 'write'
+      pull-requests: 'write'
 
     steps:
       - name: Checkout repository
