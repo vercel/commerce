@@ -24,7 +24,6 @@ jobs:
           project_id: ${{ vars.PROJECT_ID }}
           service_account: ${{ vars.WORKLOAD_SERVICE_ACCOUNT }}
           workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER }}
-          create_credentials_file: true
 
       # https://github.com/marketplace/actions/deploy-to-cloud-run
       - name: Build and Deploy to Google CloudRun
@@ -32,6 +31,8 @@ jobs:
         uses: 'google-github-actions/deploy-cloudrun@v2'
         with:
           service: ${{ vars.APP_NAME }}
+          project_id: ${{ vars.PROJECT_ID }}
+          region: ${{ vars.REGION }}
           source: ./
           env_vars: |-
             COMPANY_NAME=${{ vars.COMPANY_NAME }}
