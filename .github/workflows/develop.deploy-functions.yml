@@ -30,10 +30,12 @@ jobs:
         with:
           persist-credentials: false
       - name: Semantic Release
+        id: semantic
         uses: cycjimmy/semantic-release-action@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       - name: Set Environment Variables
+        if: steps.semantic.outputs.new_release_published == 'true'
         run: |
           echo COMPANY_NAME="${{ env.COMPANY_NAME }}" > .env
           echo TWITTER_CREATOR="${{ env.TWITTER_CREATOR }}" >> .env
@@ -44,24 +46,29 @@ jobs:
           echo SHOPIFY_STORE_DOMAIN="${{ env.SHOPIFY_STORE_DOMAIN }}" >> .env
 
       - name: Authenticate with Google Cloud
+        if: steps.semantic.outputs.new_release_published == 'true'
         id: auth
         uses: google-github-actions/auth@v2
         with:
           project_id: ${{ vars.PROJECT_ID }}
           credentials_json: ${{secrets.CREDENTIALS_JSON}}
       - name: Set up Cloud SDK
+        if: steps.semantic.outputs.new_release_published == 'true'
         uses: 'google-github-actions/setup-gcloud@v2'
 
       - name: Configure Docker
+        if: steps.semantic.outputs.new_release_published == 'true'
         run: |
           gcloud auth configure-docker
 
       - name: Build and Push Docker Image
+        if: steps.semantic.outputs.new_release_published == 'true'
         run: |
           docker build -t gcr.io/${{ vars.PROJECT_ID }}/${{ vars.DOCKER_IMAGE_NAME }}:latest .
           docker push gcr.io/${{ vars.PROJECT_ID}}/${{ vars.DOCKER_IMAGE_NAME }}:latest
 
       - name: Deploy to Cloud Run
+        if: steps.semantic.outputs.new_release_published == 'true'
         run: |
           gcloud run deploy ${{vars.APP_NAME}} \
             --image gcr.io/${{ vars.PROJECT_ID }}/${{ vars.DOCKER_IMAGE_NAME }}:latest \
