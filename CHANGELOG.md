@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.0.3...v1.1.0) (2024-07-20)
+
+
+### Bug Fixes
+
+* **github-actions:** Update develop.deploy-functions.yml ([31d3a93](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/31d3a93ed91029d2686db51bef0f71ebc15bd1fd))
+
+
+### Features
+
+* **ContentLandingPage:** dynamic landing page based on configuration ([6b19c30](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/6b19c305160b0fc5aff15bf772b7333a0d46a5a5))
+
 ## [1.0.3](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.0.2...v1.0.3) (2024-07-20)
 
 

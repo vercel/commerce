@@ -8,6 +8,33 @@ export type Edge<T> = {
   node: T;
 };
 
+export type Brand = {
+  brandId: string;
+  companyName: string;
+};
+
+export type Content = {
+  contentId: string;
+  contentUrl: string;
+};
+
+export type ContentLandingPage = {
+  contentLandingPageId: string;
+  content: Content;
+  brand: Brand;
+  store: Store;
+  productId: string;
+};
+
+export type ContentLandingPages = {
+  [key: string]: ContentLandingPage;
+};
+
+export type Store = {
+  domain: string;
+  key: string;
+};
+
 export type Cart = Omit<ShopifyCart, 'lines'> & {
   lines: CartItem[];
 };
@@ -239,9 +266,11 @@ export type ShopifyPagesOperation = {
 
 export type ShopifyProductOperation = {
   data: { product: ShopifyProduct };
-  variables: {
-    handle: string;
-  };
+  variables:
+    | {
+        handle: string;
+      }
+    | { id: string };
 };
 
 export type ShopifyProductRecommendationsOperation = {
