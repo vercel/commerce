@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.1.2...v1.1.3) (2024-07-20)
+
+
+### Bug Fixes
+
+* Add deployment status update step in develop.deploy-functions.yml ([d84c3a2](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/d84c3a2d2b2f9f7e301c41cd0771ca46adea5c9c))
+
 ## [1.1.2](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.1.1...v1.1.2) (2024-07-20)
 
 
