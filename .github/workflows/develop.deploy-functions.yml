@@ -31,8 +31,7 @@ jobs:
         uses: google-github-actions/auth@v2
         with:
           project_id: ${{ vars.PROJECT_ID }}
-          service_account: ${{ vars.WORKLOAD_SERVICE_ACCOUNT }}
-          workload_identity_provider: ${{ vars.WORKLOAD_IDENTITY_PROVIDER }}
+          credentials_json: ${{secrets.CREDENTIALS_JSON}}
 
       # https://github.com/marketplace/actions/deploy-to-cloud-run
       - name: Build and Deploy to Google CloudRun
