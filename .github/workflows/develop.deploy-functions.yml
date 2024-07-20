@@ -23,6 +23,7 @@ jobs:
       id-token: 'write'
       issues: 'write'
       pull-requests: 'write'
+      deployments: 'write'
 
     steps:
       - name: Checkout repository
@@ -44,7 +45,13 @@ jobs:
           echo SHOPIFY_REVALIDATION_SECRET="${{ env.SHOPIFY_REVALIDATION_SECRET }}" >> .env
           echo SHOPIFY_STOREFRONT_ACCESS_TOKEN="${{ env.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}" >> .env
           echo SHOPIFY_STORE_DOMAIN="${{ env.SHOPIFY_STORE_DOMAIN }}" >> .env
-
+      - uses: chrnorm/deployment-action@v2
+        name: Create GitHub deployment
+        id: deployment
+        with:
+          token: '${{ secrets.GH_TOKEN}}'
+          environment-url: http://my-app-url.com
+          environment: production
       - name: Authenticate with Google Cloud
         if: steps.semantic.outputs.new_release_published == 'true'
         id: auth
@@ -66,12 +73,12 @@ jobs:
         run: |
           docker build -t gcr.io/${{ vars.PROJECT_ID }}/${{ vars.DOCKER_IMAGE_NAME }}:latest .
           docker push gcr.io/${{ vars.PROJECT_ID}}/${{ vars.DOCKER_IMAGE_NAME }}:latest
-
-      - name: Deploy to Cloud Run
+      - id: 'deploy'
         if: steps.semantic.outputs.new_release_published == 'true'
-        run: |
-          gcloud run deploy ${{vars.APP_NAME}} \
-            --image gcr.io/${{ vars.PROJECT_ID }}/${{ vars.DOCKER_IMAGE_NAME }}:latest \
-            --platform managed \
-            --region us-central1 \
-            --allow-unauthenticated
+        uses: 'google-github-actions/deploy-cloudrun@v2'
+        with:
+          service: ${{vars.APP_NAME}}
+          image: 'gcr.io/${{ vars.PROJECT_ID }}/${{ vars.DOCKER_IMAGE_NAME }}:latest'
+
+      - name: 'Use output'
+        run: 'curl "${{ steps.deploy.outputs.url }}"'
