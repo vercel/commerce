@@ -1,11 +1,11 @@
 import { AddToCart } from 'components/cart/add-to-cart';
 import Price from 'components/price';
 import Prose from 'components/prose';
-import { Product } from 'lib/shopify/types';
+import { Product, Store } from 'lib/shopify/types';
 import { Suspense } from 'react';
 import { VariantSelector } from './variant-selector';
 
-export function ProductDescription({ product }: { product: Product }) {
+export function ProductDescription({ product, store }: { product: Product; store: Store }) {
   return (
     <>
       <div className="mb-6 flex flex-col border-b pb-6 dark:border-neutral-700">
@@ -29,7 +29,11 @@ export function ProductDescription({ product }: { product: Product }) {
       ) : null}
 
       <Suspense fallback={null}>
-        <AddToCart variants={product.variants} availableForSale={product.availableForSale} />
+        <AddToCart
+          variants={product.variants}
+          availableForSale={product.availableForSale}
+          store={store}
+        />
       </Suspense>
     </>
   );

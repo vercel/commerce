@@ -4,7 +4,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { removeItem } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
-import type { CartItem } from 'lib/shopify/types';
+import type { CartItem, Store } from 'lib/shopify/types';
 import { useFormState, useFormStatus } from 'react-dom';
 
 function SubmitButton() {
@@ -34,10 +34,10 @@ function SubmitButton() {
   );
 }
 
-export function DeleteItemButton({ item }: { item: CartItem }) {
+export function DeleteItemButton({ item, store }: { item: CartItem; store: Store }) {
   const [message, formAction] = useFormState(removeItem, null);
   const itemId = item.id;
-  const actionWithVariant = formAction.bind(null, itemId);
+  const actionWithVariant = formAction.bind(null, { lineId: itemId, store });
 
   return (
     <form action={actionWithVariant}>

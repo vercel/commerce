@@ -102,7 +102,7 @@ export default async function Page({ params }: { params: { ContentLandingPage: s
           </div>
 
           <div className="basis-full lg:basis-2/6">
-            <ProductDescription product={instance.product} />
+            <ProductDescription product={instance.product} store={instance.store} />
           </div>
         </div>
         <RelatedProducts id={instance.product.id} store={instance.store} />
