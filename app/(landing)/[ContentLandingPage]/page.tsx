@@ -1,73 +1,78 @@
-import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-
 import { GridTileImage } from 'components/grid/tile';
-import Footer from 'components/layout/footer';
 import { Gallery } from 'components/product/gallery';
 import { ProductDescription } from 'components/product/product-description';
-import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
-import { getProduct, getProductRecommendations } from 'lib/shopify';
-import { Image } from 'lib/shopify/types';
+import { getProductById, getProductRecommendations } from 'lib/shopify';
+import { ContentLandingPages, Image, Store } from 'lib/shopify/types';
 import Link from 'next/link';
 import { Suspense } from 'react';
 
-export async function generateMetadata({
-  params
-}: {
-  params: { handle: string };
-}): Promise<Metadata> {
-  const product = await getProduct(params.handle);
-
-  if (!product) return notFound();
-
-  const { url, width, height, altText: alt } = product.featuredImage || {};
-  const indexable = !product.tags.includes(HIDDEN_PRODUCT_TAG);
-
-  return {
-    title: product.seo.title || product.title,
-    description: product.seo.description || product.description,
-    robots: {
-      index: indexable,
-      follow: indexable,
-      googleBot: {
-        index: indexable,
-        follow: indexable
-      }
+const lookupContentLandingPage = async (contentLandingPageId: string) => {
+  const contentLandingPages: ContentLandingPages = {
+    ABC: {
+      contentLandingPageId: 'ABC',
+      content: {
+        contentId: 'ABC-123',
+        contentUrl: 'https://vercel.com'
+      },
+      brand: {
+        brandId: '123456789',
+        companyName: 'Vercel'
+      },
+      store: {
+        domain: 'https://test-app-furie.myshopify.com',
+        key: '30f0c9b2ee5c69d6c0de2e7a048eb6b4'
+      },
+      productId: 'gid://shopify/Product/8587441176812'
     },
-    openGraph: url
-      ? {
-          images: [
-            {
-              url,
-              width,
-              height,
-              alt
-            }
-          ]
-        }
-      : null
+    '123': {
+      contentLandingPageId: '123',
+      content: {
+        contentId: '123-ABC',
+        contentUrl: 'https://vercel.com'
+      },
+      brand: {
+        brandId: '123456789',
+        companyName: 'Vercel'
+      },
+      store: {
+        domain: 'https://test-app-furie.myshopify.com',
+        key: '30f0c9b2ee5c69d6c0de2e7a048eb6b4'
+      },
+      productId: 'gid://shopify/Product/8587440849132'
+    }
   };
-}
 
-export default async function ProductPage({ params }: { params: { handle: string } }) {
-  const product = await getProduct(params.handle);
+  const contentLandingPage = contentLandingPages[contentLandingPageId];
 
-  if (!product) return notFound();
+  if (!contentLandingPage) {
+    throw new Error('Content Landing Page not found');
+  }
+
+  const product = await getProductById(contentLandingPage.store, contentLandingPage?.productId);
+  return { ...contentLandingPage, product };
+};
+
+export default async function Page({ params }: { params: { ContentLandingPage: string } }) {
+  const instance = await lookupContentLandingPage(params.ContentLandingPage);
+
+  if (!instance.product) {
+    return <div>Product not found</div>;
+  }
 
   const productJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: product.title,
-    description: product.description,
-    image: product.featuredImage.url,
+    name: instance.product.title,
+    description: instance.product.description,
+    image: instance.product.featuredImage.url,
     offers: {
       '@type': 'AggregateOffer',
-      availability: product.availableForSale
+      availability: instance.product.availableForSale
         ? 'https://schema.org/InStock'
         : 'https://schema.org/OutOfStock',
-      priceCurrency: product.priceRange.minVariantPrice.currencyCode,
-      highPrice: product.priceRange.maxVariantPrice.amount,
-      lowPrice: product.priceRange.minVariantPrice.amount
+      priceCurrency: instance.product.priceRange.minVariantPrice.currencyCode,
+      highPrice: instance.product.priceRange.maxVariantPrice.amount,
+      lowPrice: instance.product.priceRange.minVariantPrice.amount
     }
   };
 
@@ -88,7 +93,7 @@ export default async function ProductPage({ params }: { params: { handle: string
               }
             >
               <Gallery
-                images={product.images.map((image: Image) => ({
+                images={instance.product.images.map((image: Image) => ({
                   src: image.url,
                   altText: image.altText
                 }))}
@@ -97,18 +102,17 @@ export default async function ProductPage({ params }: { params: { handle: string
           </div>
 
           <div className="basis-full lg:basis-2/6">
-            <ProductDescription product={product} />
+            <ProductDescription product={instance.product} />
           </div>
         </div>
-        <RelatedProducts id={product.id} />
+        <RelatedProducts id={instance.product.id} store={instance.store} />
       </div>
-      <Footer />
     </>
   );
 }
 
-async function RelatedProducts({ id }: { id: string }) {
-  const relatedProducts = await getProductRecommendations(id);
+async function RelatedProducts({ store, id }: { store: Store; id: string }) {
+  const relatedProducts = await getProductRecommendations(store, id);
 
   if (!relatedProducts.length) return null;
 
