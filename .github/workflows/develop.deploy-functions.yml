@@ -67,3 +67,5 @@ jobs:
         with:
           service: ${{vars.APP_NAME}}
           image: 'gcr.io/${{ vars.PROJECT_ID }}/${{ vars.DOCKER_IMAGE_NAME }}:latest'
+      - name: 'print result'
+        run: echo ${{ steps.deploy.outputs.url }}
