@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.2.1...v1.3.0) (2024-07-20)
+
+
+### Features
+
+* Add 'print result' step to develop.deploy-functions.yml ([57fec24](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/57fec24cfd609160c81febb658ebe50f9565f28b))
+
 ## [1.2.1](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.2.0...v1.2.1) (2024-07-20)
 
 
