@@ -78,3 +78,4 @@ Your app should now be running on [localhost:3000](http://localhost:3000/).
 You can use this comprehensive [integration guide](https://vercel.com/docs/integrations/ecommerce/shopify) with step-by-step instructions on how to configure Shopify as a headless CMS using Next.js Commerce as your headless Shopify storefront on Vercel.
 
 Testing an readme update
+Testing an readme update
