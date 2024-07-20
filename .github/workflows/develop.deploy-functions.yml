@@ -21,8 +21,7 @@ jobs:
         uses: 'actions/checkout@v4'
         with:
           persist-credentials: false
-      - name: Get Previous deployments
-        id: get_deployments
+      - name: Delete Previous deployments
         uses: actions/github-script@v6
         with:
           script: |
@@ -31,14 +30,27 @@ jobs:
               repo: context.repo.repo,
               sha: context.sha
             });
-            console.log(deployments.data);
-            return deployments.data;
+            await Promise.all(
+              deployments.data.map(async (deployment) => {
+                # we can only delete inactive deployments, so let's deactivate them first
+                await github.rest.repos.createDeploymentStatus({ 
+                  owner: context.repo.owner, 
+                  repo: context.repo.repo, 
+                  deployment_id: deployment.id, 
+                  state: 'inactive' 
+                });
+                return github.rest.repos.deleteDeployment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  deployment_id: deployment.id
+                });
+              })
+            );
       - name: Semantic Release
         id: semantic
         uses: cycjimmy/semantic-release-action@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-
       - name: Set Environment Variables
         if: steps.semantic.outputs.new_release_published == 'true'
         run: |
@@ -49,13 +61,13 @@ jobs:
           echo SHOPIFY_REVALIDATION_SECRET="${{ env.SHOPIFY_REVALIDATION_SECRET }}" >> .env
           echo SHOPIFY_STOREFRONT_ACCESS_TOKEN="${{ env.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}" >> .env
           echo SHOPIFY_STORE_DOMAIN="${{ env.SHOPIFY_STORE_DOMAIN }}" >> .env
-      # - uses: chrnorm/deployment-action@v2
-      #   name: Create GitHub deployment
-      #   id: deployment
-      #   with:
-      #     token: '${{ secrets.GH_TOKEN}}'
-      #     environment-url: http://my-app-url.com
-      #     environment: develop
+      - uses: chrnorm/deployment-action@v2
+        name: Create GitHub deployment
+        id: deployment
+        with:
+          token: '${{ secrets.GH_TOKEN}}'
+          environment-url: http://my-app-url.com
+          environment: develop
       - name: Authenticate with Google Cloud
         if: steps.semantic.outputs.new_release_published == 'true'
         id: auth
@@ -91,11 +103,11 @@ jobs:
           token: '${{ secrets.GH_TOKEN }}'
           environment-url: ${{steps.deploy.outputs.url}}
           state: 'success'
-          deployment-id: ${{ steps.get_deployments.outputs[0].id }}
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
       - name: Update deployment status (failure)
         if: failure()
         uses: chrnorm/deployment-status@v2
         with:
           token: '${{ secrets.GH_TOKEN}}'
           state: 'failure'
-          deployment-id: ${{ steps.get_deployments.outputs[0].id }}
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
