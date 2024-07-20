@@ -2,8 +2,8 @@
   "private": true,
   "packageManager": "pnpm@8.2.0",
   "engines": {
-    "node": ">=18",
-    "pnpm": ">=8"
+    "node": "18",
+    "pnpm": "8"
   },
   "scripts": {
     "dev": "next dev --turbo",
