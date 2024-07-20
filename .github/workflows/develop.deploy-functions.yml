@@ -21,11 +21,23 @@ jobs:
         uses: 'actions/checkout@v4'
         with:
           persist-credentials: false
+      - name: Get Previous deployments
+        id: get_deployments
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const deployments = await github.rest.repos.listDeployments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha
+            });
+            return deployments.data;
       - name: Semantic Release
         id: semantic
         uses: cycjimmy/semantic-release-action@v4
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
       - name: Set Environment Variables
         if: steps.semantic.outputs.new_release_published == 'true'
         run: |
@@ -78,11 +90,11 @@ jobs:
           token: '${{ secrets.GH_TOKEN }}'
           environment-url: ${{steps.deploy.outputs.url}}
           state: 'success'
-          deployment-id: ${{ github.run_id }}
+          deployment-id: ${{ steps.get_deployments.outputs[0].id }}
       - name: Update deployment status (failure)
         if: failure()
         uses: chrnorm/deployment-status@v2
         with:
           token: '${{ secrets.GH_TOKEN}}'
           state: 'failure'
-          deployment-id: ${{ github.run_id }}
+          deployment-id: ${{ steps.get_deployments.outputs[0].id }}
