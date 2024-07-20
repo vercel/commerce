@@ -51,7 +51,7 @@ jobs:
         with:
           token: '${{ secrets.GH_TOKEN}}'
           environment-url: http://my-app-url.com
-          environment: production
+          environment: develop
       - name: Authenticate with Google Cloud
         if: steps.semantic.outputs.new_release_published == 'true'
         id: auth
@@ -82,3 +82,19 @@ jobs:
 
       - name: 'Use output'
         run: 'curl "${{ steps.deploy.outputs.url }}"'
+
+      - name: Update deployment status (success)
+        if: success()
+        uses: chrnorm/deployment-status@v2
+        with:
+          token: '${{ secrets.GH_TOKEN }}'
+          environment-url: ${{steps.deploy.outputs.url}}
+          state: 'success'
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+      - name: Update deployment status (failure)
+        if: failure()
+        uses: chrnorm/deployment-status@v2
+        with:
+          token: '${{ secrets.GH_TOKEN}}'
+          state: 'failure'
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
