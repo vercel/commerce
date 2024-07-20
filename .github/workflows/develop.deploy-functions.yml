@@ -80,9 +80,6 @@ jobs:
           service: ${{vars.APP_NAME}}
           image: 'gcr.io/${{ vars.PROJECT_ID }}/${{ vars.DOCKER_IMAGE_NAME }}:latest'
 
-      - name: 'Use output'
-        run: 'curl "${{ steps.deploy.outputs.url }}"'
-
       - name: Update deployment status (success)
         if: success()
         uses: chrnorm/deployment-status@v2
