@@ -25,6 +25,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: 'actions/checkout@v4'
+        with:
+          persist-credentials: false
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       - name: Set Environment Variables
         run: |
           echo COMPANY_NAME="${{ env.COMPANY_NAME }}" > .env
