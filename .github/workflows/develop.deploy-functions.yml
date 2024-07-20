@@ -67,13 +67,3 @@ jobs:
         with:
           service: ${{vars.APP_NAME}}
           image: 'gcr.io/${{ vars.PROJECT_ID }}/${{ vars.DOCKER_IMAGE_NAME }}:latest'
-      - id: set_state_final
-        if: always()
-        name: Set deployment status
-        uses: rsotnychenko/deployment-status-update@0.2.1
-        with:
-          status: ${{ job.status }}
-          run_id: ${{ github.run_id }}
-          environment_url: ${{ steps.deploy.outputs.url }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
