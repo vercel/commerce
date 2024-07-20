@@ -3,7 +3,7 @@ import { Store } from 'lib/shopify/types';
 import { cookies } from 'next/headers';
 import CartModal from './modal';
 
-export default async function Cart(store: Store) {
+export default async function Cart({ store }: { store: Store }) {
   const cartId = cookies().get('cartId')?.value;
   let cart;
 
