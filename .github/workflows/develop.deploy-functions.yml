@@ -6,7 +6,22 @@ on:
       - develop
 
 jobs:
+  build-release:
+    runs-on: ubuntu-latest
+    outputs:
+      new_release_published: ${{ steps.semantic.outputs.new_release_published }}
+    steps:
+      - name: Checkout repository
+        uses: 'actions/checkout@v4'
+      - name: Semantic Release
+        id: semantic
+        uses: cycjimmy/semantic-release-action@v4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
   deploy-to-gcp:
+    needs: build-release
+    if: needs.build-release.outputs.new_release_published == 'true'
     runs-on: ubuntu-latest
     environment: develop
     permissions:
@@ -19,42 +34,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: 'actions/checkout@v4'
-      - name: Delete Previous deployments
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const deployments = await github.rest.repos.listDeployments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              sha: context.sha
-            });
-            await Promise.all(
-              deployments.data.map(async (deployment) => {
-                # we can only delete inactive deployments, so let's deactivate them first
-                await github.rest.repos.createDeploymentStatus({ 
-                  owner: context.repo.owner, 
-                  repo: context.repo.repo, 
-                  deployment_id: deployment.id, 
-                  state: 'inactive' 
-                });
-                return github.rest.repos.deleteDeployment({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  deployment_id: deployment.id
-                });
-              })
-            );
-      - name: Checkout repository
-        uses: 'actions/checkout@v4'
         with:
           persist-credentials: false
-      - name: Semantic Release
-        id: semantic
-        uses: cycjimmy/semantic-release-action@v4
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       - name: Set Environment Variables
-        if: steps.semantic.outputs.new_release_published == 'true'
         run: |
           echo COMPANY_NAME="${{ env.COMPANY_NAME }}" > .env
           echo TWITTER_CREATOR="${{ env.TWITTER_CREATOR }}" >> .env
@@ -63,53 +45,25 @@ jobs:
           echo SHOPIFY_REVALIDATION_SECRET="${{ env.SHOPIFY_REVALIDATION_SECRET }}" >> .env
           echo SHOPIFY_STOREFRONT_ACCESS_TOKEN="${{ env.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}" >> .env
           echo SHOPIFY_STORE_DOMAIN="${{ env.SHOPIFY_STORE_DOMAIN }}" >> .env
-      - uses: chrnorm/deployment-action@v2
-        name: Create GitHub deployment
-        id: deployment
-        with:
-          token: '${{ secrets.GH_TOKEN}}'
-          environment-url: http://my-app-url.com
-          environment: develop
       - name: Authenticate with Google Cloud
-        if: steps.semantic.outputs.new_release_published == 'true'
         id: auth
         uses: google-github-actions/auth@v2
         with:
           project_id: ${{ vars.PROJECT_ID }}
           credentials_json: ${{secrets.CREDENTIALS_JSON}}
       - name: Set up Cloud SDK
-        if: steps.semantic.outputs.new_release_published == 'true'
         uses: 'google-github-actions/setup-gcloud@v2'
 
       - name: Configure Docker
-        if: steps.semantic.outputs.new_release_published == 'true'
         run: |
           gcloud auth configure-docker
 
       - name: Build and Push Docker Image
-        if: steps.semantic.outputs.new_release_published == 'true'
         run: |
           docker build -t gcr.io/${{ vars.PROJECT_ID }}/${{ vars.DOCKER_IMAGE_NAME }}:latest .
           docker push gcr.io/${{ vars.PROJECT_ID}}/${{ vars.DOCKER_IMAGE_NAME }}:latest
       - id: 'deploy'
-        if: steps.semantic.outputs.new_release_published == 'true'
         uses: 'google-github-actions/deploy-cloudrun@v2'
         with:
           service: ${{vars.APP_NAME}}
           image: 'gcr.io/${{ vars.PROJECT_ID }}/${{ vars.DOCKER_IMAGE_NAME }}:latest'
-
-      - name: Update deployment status (success)
-        if: success() && steps.semantic.outputs.new_release_published == 'true'
-        uses: chrnorm/deployment-status@v2
-        with:
-          token: '${{ secrets.GH_TOKEN }}'
-          environment-url: ${{steps.deploy.outputs.url}}
-          state: 'success'
-          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
-      - name: Update deployment status (failure)
-        if: failure() && steps.semantic.outputs.new_release_published == 'true'
-        uses: chrnorm/deployment-status@v2
-        with:
-          token: '${{ secrets.GH_TOKEN}}'
-          state: 'failure'
-          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
