@@ -97,7 +97,7 @@ jobs:
           image: 'gcr.io/${{ vars.PROJECT_ID }}/${{ vars.DOCKER_IMAGE_NAME }}:latest'
 
       - name: Update deployment status (success)
-        if: success()
+        if: success() && steps.semantic.outputs.new_release_published == 'true'
         uses: chrnorm/deployment-status@v2
         with:
           token: '${{ secrets.GH_TOKEN }}'
@@ -105,7 +105,7 @@ jobs:
           state: 'success'
           deployment-id: ${{ steps.deployment.outputs.deployment_id }}
       - name: Update deployment status (failure)
-        if: failure()
+        if: failure() && steps.semantic.outputs.new_release_published == 'true'
         uses: chrnorm/deployment-status@v2
         with:
           token: '${{ secrets.GH_TOKEN}}'
