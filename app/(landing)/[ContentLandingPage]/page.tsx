@@ -1,3 +1,5 @@
+import Cart from 'components/cart';
+import OpenCart from 'components/cart/open-cart';
 import { GridTileImage } from 'components/grid/tile';
 import { Gallery } from 'components/product/gallery';
 import { ProductDescription } from 'components/product/product-description';
@@ -35,10 +37,10 @@ const lookupContentLandingPage = async (contentLandingPageId: string) => {
         companyName: 'Vercel'
       },
       store: {
-        domain: 'https://test-app-furie.myshopify.com',
-        key: '30f0c9b2ee5c69d6c0de2e7a048eb6b4'
+        domain: 'https://quickstart-ba952e54.myshopify.com',
+        key: '8efbd119747c632000b04ed68313abf1'
       },
-      productId: 'gid://shopify/Product/8587440849132'
+      productId: 'gid://shopify/Product/7913032548543'
     }
   };
 
@@ -84,6 +86,18 @@ export default async function Page({ params }: { params: { ContentLandingPage: s
           __html: JSON.stringify(productJsonLd)
         }}
       />
+      <nav className="relative flex items-center justify-between p-4 lg:px-6">
+        <div className="block flex-none md:hidden">
+          <Suspense fallback={null}></Suspense>
+        </div>
+        <div className="flex w-full items-center">
+          <div className="flex justify-end md:w-1/3">
+            <Suspense fallback={<OpenCart />}>
+              <Cart store={instance.store} />
+            </Suspense>
+          </div>
+        </div>
+      </nav>
       <div className="mx-auto max-w-screen-2xl px-4">
         <div className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 md:p-12 lg:flex-row lg:gap-8 dark:border-neutral-800 dark:bg-black">
           <div className="h-full w-full basis-full lg:basis-4/6">
