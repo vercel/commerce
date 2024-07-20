@@ -13,7 +13,8 @@
     "lint-staged": "lint-staged",
     "prettier": "prettier --write --ignore-unknown .",
     "prettier:check": "prettier --check --ignore-unknown .",
-    "test": "pnpm lint && pnpm prettier:check"
+    "test": "pnpm lint && pnpm prettier:check",
+    "create-env": "printenv > .env"
   },
   "git": {
     "pre-commit": "lint-staged"

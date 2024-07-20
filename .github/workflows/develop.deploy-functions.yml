@@ -60,5 +60,6 @@ jobs:
             SHOPIFY_STOREFRONT_ACCESS_TOKEN="${{ env.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}"
             SHOPIFY_STORE_DOMAIN="${{ env.SHOPIFY_STORE_DOMAIN }}"
           env_vars_update_strategy: 'overwrite'
+
       - name: 'Use output'
         run: 'curl "${{ steps.deploy.outputs.url }}"'
