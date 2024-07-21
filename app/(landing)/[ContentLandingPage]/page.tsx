@@ -3,59 +3,16 @@ import OpenCart from 'components/cart/open-cart';
 import { GridTileImage } from 'components/grid/tile';
 import { Gallery } from 'components/product/gallery';
 import { ProductDescription } from 'components/product/product-description';
-import { getProductById, getProductRecommendations } from 'lib/shopify';
-import { ContentLandingPages, Store } from 'lib/shopify/types';
+import { getContentLandingPageConfig } from 'lib/aspire';
+import { Store } from 'lib/aspire/types';
+import { getProductRecommendations } from 'lib/shopify';
+import type { Image as ShopifyImage } from 'lib/shopify/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from 'react';
 
 const icon = '/image.png';
 const contentReel = '/snowboardLong.mp4';
-const lookupContentLandingPage = async (contentLandingPageId: string) => {
-  const contentLandingPages: ContentLandingPages = {
-    ABC: {
-      contentLandingPageId: 'ABC',
-      content: {
-        contentId: 'ABC-123',
-        contentUrl: 'https://vercel.com'
-      },
-      brand: {
-        brandId: '123456789',
-        companyName: 'Vercel'
-      },
-      store: {
-        domain: 'https://test-app-furie.myshopify.com',
-        key: '30f0c9b2ee5c69d6c0de2e7a048eb6b4'
-      },
-      productId: 'gid://shopify/Product/8587441176812'
-    },
-    '123': {
-      contentLandingPageId: '123',
-      content: {
-        contentId: '123-ABC',
-        contentUrl: 'https://vercel.com'
-      },
-      brand: {
-        brandId: '123456789',
-        companyName: 'Vercel'
-      },
-      store: {
-        domain: 'https://quickstart-ba952e54.myshopify.com',
-        key: '8efbd119747c632000b04ed68313abf1'
-      },
-      productId: 'gid://shopify/Product/7913032548543'
-    }
-  };
-
-  const contentLandingPage = contentLandingPages[contentLandingPageId];
-
-  if (!contentLandingPage) {
-    throw new Error('Content Landing Page not found');
-  }
-
-  const product = await getProductById(contentLandingPage.store, contentLandingPage?.productId);
-  return { ...contentLandingPage, product };
-};
 
 const CheckoutForm = () => {
   return (
@@ -101,7 +58,7 @@ const CheckoutForm = () => {
               data-arrow=""
               defaultValue="1"
             >
-              {[...Array(50).keys()].map((i) => (
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
                 <option key={i + 1} value={i + 1}>
                   {i + 1}
                 </option>
@@ -247,26 +204,26 @@ const ShoreThingComponent = () => {
 };
 
 export default async function Page({ params }: { params: { ContentLandingPage: string } }) {
-  const instance = await lookupContentLandingPage(params.ContentLandingPage);
+  const config = await getContentLandingPageConfig(params.ContentLandingPage);
 
-  if (!instance.product) {
+  if (!config.product) {
     return <div>Product not found</div>;
   }
 
   const productJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: instance.product.title,
-    description: instance.product.description,
-    image: instance.product.featuredImage.url,
+    name: config.product.title,
+    description: config.product.description,
+    image: config.product.featuredImage.url,
     offers: {
       '@type': 'AggregateOffer',
-      availability: instance.product.availableForSale
+      availability: config.product.availableForSale
         ? 'https://schema.org/InStock'
         : 'https://schema.org/OutOfStock',
-      priceCurrency: instance.product.priceRange.minVariantPrice.currencyCode,
-      highPrice: instance.product.priceRange.maxVariantPrice.amount,
-      lowPrice: instance.product.priceRange.minVariantPrice.amount
+      priceCurrency: config.product.priceRange.minVariantPrice.currencyCode,
+      highPrice: config.product.priceRange.maxVariantPrice.amount,
+      lowPrice: config.product.priceRange.minVariantPrice.amount
     }
   };
 
@@ -284,7 +241,9 @@ export default async function Page({ params }: { params: { ContentLandingPage: s
         </div>
         <div className="flex w-full items-center">
           <div className="flex justify-end md:w-1/3">
-           
+            <Suspense fallback={<OpenCart />}>
+              <Cart store={config.store} />
+            </Suspense>
           </div>
         </div>
       </nav> */}
@@ -314,7 +273,7 @@ export default async function Page({ params }: { params: { ContentLandingPage: s
                   }
                 >
                   <Gallery
-                    images={instance.product.images.map((image: Image) => ({
+                    images={config.product.images.map((image: ShopifyImage) => ({
                       src: image.url,
                       altText: image.altText
                     }))}
@@ -323,13 +282,13 @@ export default async function Page({ params }: { params: { ContentLandingPage: s
               </div>
 
               <div className="basis-full lg:basis-2/6">
-                <ProductDescription product={instance.product} store={instance.store} />
+                <ProductDescription product={config.product} store={config.store} />
               </div>
             </div>
-            <RelatedProducts id={instance.product.id} store={instance.store} />
+            <RelatedProducts id={config.product.id} store={config.store} />
           </div>
           <Suspense fallback={<OpenCart />}>
-            <Cart store={instance.store} />
+            <Cart store={config.store} />
           </Suspense>
           <CheckoutForm />
         </div>
