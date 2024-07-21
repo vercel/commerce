@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.6.0...v1.7.0) (2024-07-21)
+
+
+### Features
+
+* **landing:** components take a product or a store ([0f7bbe1](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/0f7bbe11f60e33b9932389dc4a4c542ec04529ae))
+
 # [1.6.0](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.5.0...v1.6.0) (2024-07-21)
 
 
