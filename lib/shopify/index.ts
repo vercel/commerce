@@ -1,3 +1,4 @@
+import { Store } from 'lib/aspire/types';
 import { HIDDEN_PRODUCT_TAG, SHOPIFY_GRAPHQL_API_ENDPOINT, TAGS } from 'lib/constants';
 import { isShopifyError } from 'lib/type-guards';
 import { revalidateTag } from 'next/cache';
@@ -47,8 +48,7 @@ import {
   ShopifyProductRecommendationsOperation,
   ShopifyProductsOperation,
   ShopifyRemoveFromCartOperation,
-  ShopifyUpdateCartOperation,
-  Store
+  ShopifyUpdateCartOperation
 } from './types';
 
 /*
