@@ -1,8 +1,8 @@
 'use server';
 
+import { Store } from 'lib/aspire/types';
 import { TAGS } from 'lib/constants';
 import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/shopify';
-import { Store } from 'lib/shopify/types';
 import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
 

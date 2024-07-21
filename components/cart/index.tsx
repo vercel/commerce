@@ -1,5 +1,5 @@
+import { Store } from 'lib/aspire/types';
 import { getCart } from 'lib/shopify';
-import { Store } from 'lib/shopify/types';
 import { cookies } from 'next/headers';
 import CartModal from './modal';
 

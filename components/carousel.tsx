@@ -1,5 +1,5 @@
+import { Store } from 'lib/aspire/types';
 import { getCollectionProducts } from 'lib/shopify';
-import { Store } from 'lib/shopify/types';
 import Link from 'next/link';
 import { GridTileImage } from './grid/tile';
 
