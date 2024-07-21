@@ -23,6 +23,8 @@ export type ContentLandingPages = {
 
 export type Store = {
   storeId: string;
+  name: string;
+  logoUrl: string;
   domain: string;
   key: string;
 };

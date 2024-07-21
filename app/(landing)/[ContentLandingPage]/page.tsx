@@ -1,12 +1,10 @@
 import Cart from 'components/cart';
 import OpenCart from 'components/cart/open-cart';
 import { GridTileImage } from 'components/grid/tile';
-import { Gallery } from 'components/product/gallery';
-import { ProductDescription } from 'components/product/product-description';
 import { getContentLandingPageConfig } from 'lib/aspire';
 import { Store } from 'lib/aspire/types';
 import { getProductRecommendations } from 'lib/shopify';
-import type { Image as ShopifyImage } from 'lib/shopify/types';
+import type { Product } from 'lib/shopify/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from 'react';
@@ -14,7 +12,7 @@ import { Suspense } from 'react';
 const icon = '/image.png';
 const contentReel = '/snowboardLong.mp4';
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ product }: { product: Product }) => {
   return (
     <div className="sticky inset-x-0 bottom-0 border-t border-neutral-200 bg-white p-4">
       <form
@@ -36,17 +34,18 @@ const CheckoutForm = () => {
               <img
                 alt=""
                 className="size-12 rounded-sm bg-neutral-100 object-contain ring-1 ring-inset ring-black/5"
-                src="https://cdn.shopify.com/s/files/1/0179/9331/files/Group378_96x96.png?v=1717536648"
+                src={product.featuredImage?.url}
               />
             </div>
             <div className="min-w-0 grow">
               <div className="truncate text-base/6 font-medium text-black group-hover/link:underline">
-                The Shore Thing Chair
+                {product.title}
               </div>
               <div className="flex gap-x-1 text-sm/6 text-black">
-                <span>$165.00</span>
+                <span>{product.variants?.[0]?.price.amount}</span>
                 <span className="text-xs/6 line-through opacity-60">
-                  <span className="sr-only">Compare at:</span>$183.00
+                  <span className="sr-only">Compare at:</span>
+                  {product.variants?.[0]?.compareAtPrice?.amount}
                 </span>
               </div>
             </div>
@@ -98,7 +97,7 @@ const CheckoutForm = () => {
   );
 };
 
-const Banner = () => {
+const Banner = ({ store }: { store: Store }) => {
   return (
     <div className="relative">
       <div className="width-full bg-banner-bg text-banner-text relative h-11 shrink-0 overflow-hidden truncate bg-white text-center text-sm/[2.75rem] font-medium tracking-tight text-black md:text-base/[2.75rem]">
@@ -112,43 +111,44 @@ const Banner = () => {
             <div className="flex shrink-0 -space-x-3">
               <Image
                 src={icon}
-                alt="Dan Shank"
+                alt={store.name}
                 className="inline-block size-8 rounded bg-neutral-100 object-cover"
                 width={32}
                 height={32}
               />
             </div>
             <span className="group-hover/link:underline">
-              <strong className="whitespace-nowrap text-white">Dan Shanks Boards</strong>
+              <strong className="whitespace-nowrap text-white">{store.name}</strong>
             </span>
           </div>
         </a>
-        <a className="group/link text-white" data-discover="true" href="/cart">
-          <span className="text-white group-hover/link:underline">Cart</span>
+        <a className="group/link text-white" data-discover="true">
+          <Suspense fallback={<OpenCart />}>
+            <Cart store={store} />
+          </Suspense>
         </a>
       </div>
     </div>
   );
 };
 
-const ShoreThingComponent = () => {
+const ProductPreview = ({ product }: { product: Product }) => {
   return (
     <div className="pointer-events-none absolute inset-x-0 bottom-0 top-[40%] flex flex-col items-center justify-end gap-3 bg-gradient-to-t from-black/90 p-4">
       <a className="group/link pointer-events-auto w-full" href="#content">
         <div className="flex w-full items-center gap-2 text-sm text-white transition-colors md:text-base">
           <div className="shrink-0">
             <img
-              srcSet="https://cdn.shopify.com/s/files/1/0179/9331/files/Shore_Thing_48x48.png?v=1717536592, https://cdn.shopify.com/s/files/1/0179/9331/files/Shore_Thing_192x192.png?v=1717536592 2x, https://cdn.shopify.com/s/files/1/0179/9331/files/Shore_Thing_432x432.png?v=1717536592 3x"
-              src="https://cdn.shopify.com/s/files/1/0179/9331/files/Shore_Thing_48x48.png?v=1717536592"
+              src={product.featuredImage.url}
               className="size-12 rounded-sm bg-neutral-100 object-contain"
               alt="Shore Thing"
             />
           </div>
           <div className="flex min-w-0 grow flex-col gap-1 px-1">
-            <div className="truncate group-hover/link:underline">The Shore Thing Chair</div>
+            <div className="truncate group-hover/link:underline">{product.title}</div>
             <div className="flex flex-wrap items-center justify-between gap-x-2 text-xs">
               <div className="flex gap-x-1">
-                <span>From $110.00</span>
+                <span>From {product.priceRange.minVariantPrice.amount}</span>
               </div>
               <div className="shrink-0">
                 <div className="flex items-center gap-x-[0.2em]">
@@ -235,19 +235,7 @@ export default async function Page({ params }: { params: { ContentLandingPage: s
           __html: JSON.stringify(productJsonLd)
         }}
       />
-      {/* <nav className="relative flex items-center justify-between p-4 lg:px-6">
-        <div className="block flex-none md:hidden">
-          <Suspense fallback={null}></Suspense>
-        </div>
-        <div className="flex w-full items-center">
-          <div className="flex justify-end md:w-1/3">
-            <Suspense fallback={<OpenCart />}>
-              <Cart store={config.store} />
-            </Suspense>
-          </div>
-        </div>
-      </nav> */}
-      <Banner />
+      <Banner store={config.store} />
       <div className="relative flex min-h-0 grow flex-col">
         <div className="relative bg-black">
           <div className="relative">
@@ -261,37 +249,12 @@ export default async function Page({ params }: { params: { ContentLandingPage: s
               src={contentReel}
             ></video>
           </div>
-          <ShoreThingComponent />
+          <ProductPreview product={config.product} />
         </div>
-        <div className="content">
-          <div className="mx-auto max-w-screen-2xl px-4">
-            <div className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 md:p-12 lg:flex-row lg:gap-8 dark:border-neutral-800 dark:bg-black">
-              <div className="h-full w-full basis-full lg:basis-4/6">
-                <Suspense
-                  fallback={
-                    <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden" />
-                  }
-                >
-                  <Gallery
-                    images={config.product.images.map((image: ShopifyImage) => ({
-                      src: image.url,
-                      altText: image.altText
-                    }))}
-                  />
-                </Suspense>
-              </div>
-
-              <div className="basis-full lg:basis-2/6">
-                <ProductDescription product={config.product} store={config.store} />
-              </div>
-            </div>
-            <RelatedProducts id={config.product.id} store={config.store} />
-          </div>
-          <Suspense fallback={<OpenCart />}>
-            <Cart store={config.store} />
-          </Suspense>
-          <CheckoutForm />
-        </div>
+      </div>
+      <div className="content bg-white">
+        <div className="m-8 py-64 "> Below the fold content...</div>
+        <CheckoutForm product={config.product} />
       </div>
     </>
   );

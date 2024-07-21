@@ -16,6 +16,8 @@ export async function getContentLandingPageConfig(contentLandingPageId: string) 
       },
       store: {
         storeId: '01J39NYCJY8ZW27ES9BB7KEVXN',
+        name: 'Aspire Snowboards',
+        logoUrl: '',
         domain: 'https://test-app-furie.myshopify.com',
         key: '30f0c9b2ee5c69d6c0de2e7a048eb6b4'
       },
@@ -33,7 +35,9 @@ export async function getContentLandingPageConfig(contentLandingPageId: string) 
         companyName: 'Vercel'
       },
       store: {
-        storeId: 'quickstart-ba952e54',
+        storeId: '01J39V34AN3RKG0X7MCSAGKECH',
+        name: "Josh's Snowboards",
+        logoUrl: '',
         domain: 'https://quickstart-ba952e54.myshopify.com',
         key: '8efbd119747c632000b04ed68313abf1'
       },
