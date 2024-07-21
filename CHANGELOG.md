@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.5.0...v1.6.0) (2024-07-21)
+
+
+### Features
+
+* Update body CSS to use flex layout for better responsiveness add video and other styles ([15e017a](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/15e017a36fdd833ff392ee3d3e293d402e52f28b))
+
 # [1.5.0](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.4.0...v1.5.0) (2024-07-21)
 
 ### Bug Fixes
