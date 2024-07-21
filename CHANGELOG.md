@@ -1,3 +1,16 @@
+# [1.5.0](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.4.0...v1.5.0) (2024-07-21)
+
+
+### Bug Fixes
+
+* **refactor:** refactor code for isolation ([4ffb965](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/4ffb965688f81c866ae4a6304b13357a9a119449))
+* Remove deployment status update step in develop.deploy-functions.yml ([d07b816](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/d07b816dba2f29a5331299fabb49e0c0175fef0b))
+
+
+### Features
+
+* Add 'print result' step to develop.deploy-functions.yml ([1161253](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/116125392f6ed6513cefe81672cd34a6e6c90951))
+
 # [1.4.0](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.3.0...v1.4.0) (2024-07-20)
 
 
