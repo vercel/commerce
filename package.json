@@ -5,6 +5,8 @@
     "node": "18",
     "pnpm": "8"
   },
+  "name": "distributed-checkout-nextjs-vercel-commerce",
+  "version": "1.7.0",
   "scripts": {
     "dev": "next dev --turbo",
     "build": "echo $SHOPIFY_STORE_DOMAIN && next build",
