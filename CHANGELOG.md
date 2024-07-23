@@ -1,3 +1,13 @@
+# [1.9.0](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.8.0...v1.9.0) (2024-07-23)
+
+### Bug Fixes
+
+- **checkout:** cleaned up checkout a bit more ([52616fe](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/52616fedc4120cfdfb6683f357076b6b94c7f9e2))
+
+### Features
+
+- **shoppay:** fake shopPay button ([40874f8](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/40874f894c599a29fed71739dcc612eacfefd96e))
+
 # [1.8.0](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.7.3...v1.8.0) (2024-07-23)
 
 ### Features
