@@ -49,10 +49,8 @@ const CheckoutForm = async ({ product, store }: { product: Product; store: Store
         </div>
         <div className="shrink-0">
           <select
-            name="quantity"
-            className="grow appearance-none rounded-md border-none bg-transparent px-3 py-2.5 text-center text-inherit text-neutral-700 ring-1 ring-neutral-200 [text-align-last:center] disabled:cursor-not-allowed disabled:opacity-40 data-[arrow]:bg-[url:--bg-down-arrow] data-[arrow]:bg-[length:1.25rem] data-[arrow]:bg-[right_0.5rem_center] data-[arrow]:bg-no-repeat data-[arrow]:pr-8 data-[arrow]:text-left data-[arrow]:[text-align-last:left]"
-            data-arrow=""
-            defaultValue="1"
+            id="large"
+            className="block w-full rounded-lg border border-gray-300 bg-gray-50 px-2 py-3 text-base text-gray-900"
           >
             {Array.from({ length: 10 }, (_, i) => i + 1).map((i) => (
               <option key={i} value={i}>
@@ -65,14 +63,14 @@ const CheckoutForm = async ({ product, store }: { product: Product; store: Store
 
       <div className="mt-4 block gap-2 md:flex">
         <Suspense fallback={null}>
-          <div className="w-1/2">
+          <div className="w-full md:w-1/2">
             <AddToCart
               variants={product.variants}
               availableForSale={product.availableForSale}
               store={store}
             />
           </div>
-          <div className="w-1/2">
+          <div className="mt-4 w-full md:mt-0 md:w-1/2">
             <BuyNow
               variants={product.variants}
               availableForSale={product.availableForSale}
