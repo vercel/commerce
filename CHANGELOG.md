@@ -1,3 +1,9 @@
+## [1.7.3](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.7.2...v1.7.3) (2024-07-23)
+
+### Bug Fixes
+
+- **readme:** Add additional testing for readme update ([8db657f](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/8db657fea3e689c8c527aa73a6569a7399a3c378))
+
 ## [1.7.2](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.7.1...v1.7.2) (2024-07-23)
 
 ### Bug Fixes
