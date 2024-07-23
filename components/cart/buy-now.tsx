@@ -2,7 +2,7 @@
 
 import { PlusIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
-import { addItem } from 'components/cart/actions';
+import { buyNow } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
 import { Store } from 'lib/aspire/types';
 import { ProductVariant } from 'lib/shopify/types';
@@ -39,7 +39,7 @@ function SubmitButton({
         <div className="absolute left-0 ml-4 ">
           <PlusIcon className="h-5" />
         </div>
-        Add To Cart
+        Buy Now
       </button>
     );
   }
@@ -59,12 +59,12 @@ function SubmitButton({
       <div className="absolute left-0 ml-4">
         {pending ? <LoadingDots className="mb-3 bg-white" /> : <></>}
       </div>
-      Add To Cart
+      Buy Now
     </button>
   );
 }
 
-export function AddToCart({
+export function BuyNow({
   store,
   variants,
   availableForSale
@@ -73,7 +73,7 @@ export function AddToCart({
   variants: ProductVariant[];
   availableForSale: boolean;
 }) {
-  const [message, formAction] = useFormState(addItem, null);
+  const [response, formAction] = useFormState(buyNow, null);
   const searchParams = useSearchParams();
   const defaultVariantId = variants.length === 1 ? variants[0]?.id : undefined;
   const variant = variants.find((variant: ProductVariant) =>
@@ -84,11 +84,15 @@ export function AddToCart({
   const selectedVariantId = variant?.id || defaultVariantId;
   const actionWithVariant = formAction.bind(null, { selectedVariantId, store });
 
+  if (response && !response.error && response?.checkoutUrl) {
+    window.location.href = response.checkoutUrl;
+  }
+
   return (
     <form action={actionWithVariant}>
       <SubmitButton availableForSale={availableForSale} selectedVariantId={selectedVariantId} />
       <p aria-live="polite" className="sr-only" role="status">
-        {message}
+        {response?.error}
       </p>
     </form>
   );
