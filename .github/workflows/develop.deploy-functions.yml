@@ -13,6 +13,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: 'actions/checkout@v4'
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
+          run_install: |
+            - recursive: true
+              args: [--frozen-lockfile, --strict-peer-dependencies]
+            - args: [--global, semantic-release-jira-notes, semantic-release-jira-releases]
       - name: Semantic Release
         id: semantic
         uses: cycjimmy/semantic-release-action@v4
