@@ -19,7 +19,7 @@ jobs:
           run_install: |
             - recursive: true
               args: [--frozen-lockfile, --strict-peer-dependencies]
-            - args: [--global, semantic-release-jira-notes, semantic-release-jira-releases]
+            - args: [--global, semantic-release-jira-notes]
       - name: Semantic Release
         id: semantic
         uses: cycjimmy/semantic-release-action@v4

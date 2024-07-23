@@ -31,14 +31,6 @@
         ]
       }
     ],
-    "@semantic-release/github",
-    [
-      "semantic-release-jira-releases",
-      {
-        "projectId": "DC",
-        "jiraHost": "aspireiq.atlassian.net",
-        "ticketRegex": "[a-zA-Z]{3,5}-\\d{3,5}"
-      }
-    ]
+    "@semantic-release/github"
   ]
 }
