@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.7.0...v1.7.1) (2024-07-23)
+
+
+### Bug Fixes
+
+* **semantic-release:** add npm for package versioning ([c3a9b6c](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/c3a9b6c61f093a5e8898909af287faa6d6e0fa76))
+
 # [1.7.0](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.6.0...v1.7.0) (2024-07-21)
 
 
