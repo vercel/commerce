@@ -65,14 +65,14 @@ const CheckoutForm = async ({ product, store }: { product: Product; store: Store
 
       <div className="mt-4 block gap-2 md:flex">
         <Suspense fallback={null}>
-          <div className="w-1/2">
+          <div className="w-full md:w-1/2">
             <AddToCart
               variants={product.variants}
               availableForSale={product.availableForSale}
               store={store}
             />
           </div>
-          <div className="w-1/2">
+          <div className="mt-4 w-full md:mt-0 md:w-1/2">
             <BuyNow
               variants={product.variants}
               availableForSale={product.availableForSale}
