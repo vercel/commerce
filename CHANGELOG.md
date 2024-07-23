@@ -1,23 +1,26 @@
-## [1.7.1](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.7.0...v1.7.1) (2024-07-23)
-
+## [1.7.2](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.7.1...v1.7.2) (2024-07-23)
 
 ### Bug Fixes
 
-* **semantic-release:** add npm for package versioning ([c3a9b6c](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/c3a9b6c61f093a5e8898909af287faa6d6e0fa76))
+- Add additional testing for readme update ([e15eafc](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/e15eafcfcbe79b134d104506759f547ca0066a92))
+
+## [1.7.1](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.7.0...v1.7.1) (2024-07-23)
+
+### Bug Fixes
+
+- **semantic-release:** add npm for package versioning ([c3a9b6c](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/c3a9b6c61f093a5e8898909af287faa6d6e0fa76))
 
 # [1.7.0](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.6.0...v1.7.0) (2024-07-21)
 
-
 ### Features
 
-* **landing:** components take a product or a store ([0f7bbe1](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/0f7bbe11f60e33b9932389dc4a4c542ec04529ae))
+- **landing:** components take a product or a store ([0f7bbe1](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/0f7bbe11f60e33b9932389dc4a4c542ec04529ae))
 
 # [1.6.0](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.5.0...v1.6.0) (2024-07-21)
 
-
 ### Features
 
-* Update body CSS to use flex layout for better responsiveness add video and other styles ([15e017a](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/15e017a36fdd833ff392ee3d3e293d402e52f28b))
+- Update body CSS to use flex layout for better responsiveness add video and other styles ([15e017a](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/15e017a36fdd833ff392ee3d3e293d402e52f28b))
 
 # [1.5.0](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.4.0...v1.5.0) (2024-07-21)
 
