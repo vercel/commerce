@@ -6,6 +6,31 @@ import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/
 import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
 
+export async function buyNow(
+  prevState: any,
+  payload: { selectedVariantId: string | undefined; store: Store }
+) {
+  let cartId = '';
+  let cart;
+
+  cart = await createCart(payload.store);
+  cartId = cart.id;
+
+  if (!payload.selectedVariantId) {
+    return { error: 'Missing product variant ID' };
+  }
+
+  try {
+    await addToCart(payload.store, cartId, [
+      { merchandiseId: payload.selectedVariantId, quantity: 1 }
+    ]);
+
+    return { cartId, checkoutUrl: cart.checkoutUrl };
+  } catch (e) {
+    return { error: 'Error unable to add to cart and buy now' };
+  }
+}
+
 export async function addItem(
   prevState: any,
   payload: { selectedVariantId: string | undefined; store: Store }
