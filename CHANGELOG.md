@@ -1,3 +1,9 @@
+# [1.10.0](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.9.0...v1.10.0) (2024-07-23)
+
+### Features
+
+- Add Datadog initialization component for client-side tracking ([10c42be](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/10c42beb108ce6812d75fcf8437ea0363520d9a8))
+
 # [1.9.0](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.8.0...v1.9.0) (2024-07-23)
 
 ### Bug Fixes
