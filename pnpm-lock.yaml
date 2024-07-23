@@ -1,6 +1,9 @@
 lockfileVersion: '6.0'
 
 dependencies:
+  '@datadog/browser-rum':
+    specifier: ^5.23.0
+    version: 5.23.0
   '@headlessui/react':
     specifier: ^1.7.19
     version: 1.7.19(react-dom@18.2.0)(react@18.2.0)
@@ -127,6 +130,28 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@datadog/browser-core@5.23.0:
+    resolution: {integrity: sha512-Nu8ux1sa+Bdtph+DTkB0MhziFKE1Grsqp+l59rWcFOjZjOUCmLT/0hpfiYYfahBOWvfLPAZZg799ykVLmEjnlw==}
+    dev: false
+
+  /@datadog/browser-rum-core@5.23.0:
+    resolution: {integrity: sha512-iF1Bl+x20edGbQ3h0rSfqUzhHJ0OkReJtyXLaUhOAnbyos/6tuzELbEbFmiwqO8Aafo4GYq0MsjgtsbYC60noA==}
+    dependencies:
+      '@datadog/browser-core': 5.23.0
+    dev: false
+
+  /@datadog/browser-rum@5.23.0:
+    resolution: {integrity: sha512-6x7n51TKf7hwpbwBGJolgyQD9l3QZI4jXFn0IW2s6tyHsE/Yh2oLczAE28tHgcqCoz3zQW7zw7FszcnD5cDEUQ==}
+    peerDependencies:
+      '@datadog/browser-logs': 5.23.0
+    peerDependenciesMeta:
+      '@datadog/browser-logs':
+        optional: true
+    dependencies:
+      '@datadog/browser-core': 5.23.0
+      '@datadog/browser-rum-core': 5.23.0
+    dev: false
 
   /@eslint-community/eslint-utils@4.4.0(eslint@8.57.0):
     resolution: {integrity: sha512-1/sA4dwrzBAyeUoQ6oxahHKmrZvsnLCg4RfxW3ZFGGmQkSNQPFNLV9CUEFQP1x9EYXHTo5p6xdhZM1Ne9p/AfA==}

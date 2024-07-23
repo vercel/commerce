@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       new_release_published: ${{ steps.semantic.outputs.new_release_published }}
+      new_release_version: ${{ steps.semantic.outputs.new_release_version }}
     steps:
       - name: Checkout repository
         uses: 'actions/checkout@v4'
@@ -52,6 +53,10 @@ jobs:
           echo SHOPIFY_REVALIDATION_SECRET="${{ env.SHOPIFY_REVALIDATION_SECRET }}" >> .env
           echo SHOPIFY_STOREFRONT_ACCESS_TOKEN="${{ env.SHOPIFY_STOREFRONT_ACCESS_TOKEN }}" >> .env
           echo SHOPIFY_STORE_DOMAIN="${{ env.SHOPIFY_STORE_DOMAIN }}" >> .env
+          echo NEXT_PUBLIC_DD_APPLICATION_ID="${{ secrets.NEXT_PUBLIC_DD_APPLICATION_ID }}" >> .env
+          echo NEXT_PUBLIC_DD_CLIENT_ID="${{ secrets.NEXT_PUBLIC_DD_CLIENT_ID }}" >> .env
+          echo NEXT_PUBLIC_ENV="develop" >> .env
+          echo NEXT_PUBLIC_VERSION="${{ steps.build-release.outputs.new_release_version }}" >> .env
       - name: Authenticate with Google Cloud
         id: auth
         uses: google-github-actions/auth@v2
