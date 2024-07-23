@@ -1,3 +1,9 @@
+# [1.8.0](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.7.3...v1.8.0) (2024-07-23)
+
+### Features
+
+- **cart:** working add to cart and buy now ([7acb622](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/7acb62249ff306d9d0aef704fb8673ab5182a6c3))
+
 ## [1.7.3](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.7.2...v1.7.3) (2024-07-23)
 
 ### Bug Fixes
