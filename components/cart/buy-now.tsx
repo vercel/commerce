@@ -49,7 +49,7 @@ function SubmitButton({
       onClick={(e: React.FormEvent<HTMLButtonElement>) => {
         if (pending) e.preventDefault();
       }}
-      aria-label="Add to cart"
+      aria-label="Buy now with Shop Pay"
       aria-disabled={pending}
       className={clsx(buttonClasses, {
         'hover:opacity-90': true,
@@ -59,8 +59,6 @@ function SubmitButton({
       <div className="absolute left-0 ml-4">
         {pending ? <LoadingDots className="mb-3 bg-white" /> : <></>}
       </div>
-
-      <span className="pr-1 text-white">Buy with</span>
       <svg
         role="img"
         width="67.2"
