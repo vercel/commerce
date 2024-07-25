@@ -10,8 +10,7 @@ import type { Product } from 'lib/shopify/types';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Suspense } from 'react';
-
+import { ImgHTMLAttributes, Suspense } from 'react';
 const icon = '/image.png';
 const contentReel = '/snowboardLong.mp4';
 
@@ -71,6 +70,7 @@ const CheckoutForm = async ({ product, store }: { product: Product; store: Store
             />
           </div>
           <div className="mt-4 w-full md:mt-0 md:w-1/2">
+            {/* <ShopPay product={product} store={store} /> */}
             <BuyNow
               variants={product.variants}
               availableForSale={product.availableForSale}
@@ -189,6 +189,127 @@ const ProductPreview = ({ product }: { product: Product }) => {
   );
 };
 
+const ProductHeader = () => {
+  return (
+    <div className="flex flex-col gap-2 text-black">
+      <h1 className="text-2xl font-bold">The Shore Thing Chair</h1>
+      <div className="flex items-center">
+        <div className="flex grow items-center gap-x-2">
+          <span className="text-lg font-bold">$165.00</span>
+          <span className="line-through opacity-60">
+            <span className="sr-only">Compare at:</span>$183.00
+          </span>
+        </div>
+        <div className="shrink-0 text-sm">
+          <div className="flex items-center gap-x-[0.2em]">
+            <span className="flex items-center gap-x-[0.2em]" aria-label="4.4 stars">
+              4.4
+              <svg
+                aria-hidden="true"
+                width="1em"
+                height="1em"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401Z"
+                  clipRule="evenodd"
+                ></path>
+              </svg>
+            </span>
+            <span className="opacity-60" aria-label="34 reviews">
+              (34)
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const ImageGallery = () => {
+  const images = [
+    {
+      alt: '',
+      src: 'https://cdn.shopify.com/s/files/1/0179/9331/files/Shore_Thing_96x96.png?v=1717536592',
+      loading: 'lazy'
+    },
+    {
+      alt: '',
+      src: 'https://cdn.shopify.com/s/files/1/0179/9331/files/Shore_Thing_l_96x96.png?v=1717536594',
+      loading: 'lazy'
+    },
+    {
+      alt: 'Deep Blue Stripe',
+      src: 'https://cdn.shopify.com/s/files/1/0179/9331/files/Creamsicle_e56d992e-bc7a-4257-94d1-ae235eaf7806_96x96.png?v=1721244266',
+      loading: 'lazy'
+    }
+    // Add the rest of the images here following the same structure
+  ] as ImgHTMLAttributes<HTMLImageElement>[];
+
+  return (
+    <ul
+      className="scrollbar-none relative -mx-1 flex snap-x snap-mandatory gap-1 overflow-x-auto py-2"
+      aria-hidden="true"
+    >
+      {images.map((image, index) => (
+        <li className="shrink-0 snap-center" key={index}>
+          <button className="rounded-lg border-2 border-transparent bg-neutral-100 bg-clip-content p-0.5 transition-colors hover:border-neutral-400">
+            <img
+              alt={image.alt || ''}
+              className="size-12 rounded object-cover"
+              loading="lazy"
+              src={image.src}
+            />
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
+};
+
+const ImageSlider = ({ scrollIntoView }: { scrollIntoView: () => void }) => {
+  const images = [
+    {
+      alt: '',
+      srcSet:
+        'https://cdn.shopify.com/s/files/1/0179/9331/files/Shore_Thing_576x576.png?v=1717536592, https://cdn.shopify.com/s/files/1/0179/9331/files/Shore_Thing_1152x1152.png?v=1717536592 2x, https://cdn.shopify.com/s/files/1/0179/9331/files/Shore_Thing_1728x1728.png?v=1717536592 3x',
+      src: 'https://cdn.shopify.com/s/files/1/0179/9331/files/Shore_Thing_576x576.png?v=1717536592',
+      loading: 'eager'
+    },
+    {
+      alt: '',
+      srcSet:
+        'https://cdn.shopify.com/s/files/1/0179/9331/files/Shore_Thing_l_576x576.png?v=1717536594, https://cdn.shopify.com/s/files/1/0179/9331/files/Shore_Thing_l_1152x1152.png?v=1717536594 2x, https://cdn.shopify.com/s/files/1/0179/9331/files/Shore_Thing_l_1728x1728.png?v=1717536594 3x',
+      src: 'https://cdn.shopify.com/s/files/1/0179/9331/files/Shore_Thing_l_576x576.png?v=1717536594',
+      loading: 'lazy'
+    },
+    {
+      alt: 'Deep Blue Stripe',
+      srcSet:
+        'https://cdn.shopify.com/s/files/1/0179/9331/files/Creamsicle_e56d992e-bc7a-4257-94d1-ae235eaf7806_576x576.png?v=1721244266, https://cdn.shopify.com/s/files/1/0179/9331/files/Creamsicle_e56d992e-bc7a-4257-94d1-ae235eaf7806_1152x1152.png?v=1721244266 2x, https://cdn.shopify.com/s/files/1/0179/9331/files/Creamsicle_e56d992e-bc7a-4257-94d1-ae235eaf7806_1728x1728.png?v=1721244266 3x',
+      src: 'https://cdn.shopify.com/s/files/1/0179/9331/files/Creamsicle_e56d992e-bc7a-4257-94d1-ae235eaf7806_576x576.png?v=1721244266',
+      loading: 'lazy'
+    }
+    // Add the rest of the images here following the same structure
+  ] as ImgHTMLAttributes<HTMLImageElement>[];
+
+  return (
+    <ul className="scrollbar-none grid snap-x snap-mandatory auto-cols-[100%] grid-flow-col overflow-x-auto">
+      {images.map((image, index) => (
+        <li className="snap-center" key={index}>
+          <img
+            className="aspect-square h-auto w-full object-contain"
+            {...image}
+            onClick={scrollIntoView}
+          />
+        </li>
+      ))}
+    </ul>
+  );
+};
+
 export default async function Page({ params }: { params: { ContentLandingPage: string } }) {
   const config = await getContentLandingPageConfig(params.ContentLandingPage);
 
@@ -236,14 +357,22 @@ export default async function Page({ params }: { params: { ContentLandingPage: s
             ></video>
           </div>
           <ProductPreview product={config.product} />
-          <div className="content">
-            <div className="mx-auto max-w-screen-2xl px-4"></div>
-          </div>
         </div>
-      </div>
-      <div className="content bg-white">
-        <div className="m-8 py-64 "> Below the fold content...</div>
-        <CheckoutForm product={config.product} store={config.store} />
+        <div className="content bg-white">
+          <div className="mx-auto flex max-w-screen-lg flex-col gap-12 px-4 py-6 sm:w-[40rem] lg:w-[64rem]">
+            <div className="grid lg:grid-cols-12 lg:gap-x-8 lg:gap-y-6">
+              <div className="col-span-5 max-w-screen-sm lg:col-start-8">
+                <ProductHeader />
+              </div>
+              <div className="lg:col-start-0 col-span-7 lg:row-start-1">
+                <ImageSlider />
+                <ImageGallery />
+              </div>
+            </div>
+          </div>
+          <div className="m-8 py-64 "> Below the fold content...</div>
+          <CheckoutForm product={config.product} store={config.store} />
+        </div>
       </div>
     </>
   );
