@@ -24,6 +24,7 @@ type MerchandiseSearchParams = {
 type NewState = {
   itemId: string;
   newQuantity: number;
+  type: 'plus' | 'minus';
 };
 
 function reducer(state: Cart | undefined, newState: NewState) {
@@ -31,30 +32,54 @@ function reducer(state: Cart | undefined, newState: NewState) {
     return state;
   }
 
-  const updatedLines = state.lines.map((item: CartItem) => {
-    if (item.id === newState.itemId) {
-      const singleItemAmount = Number(item.cost.totalAmount.amount) / item.quantity;
-      const newTotalAmount = Number(item.cost.totalAmount.amount) + singleItemAmount;
-      return {
-        ...item,
-        quantity: newState.newQuantity,
-        cost: {
-          ...item.cost,
-          totalAmount: {
-            ...item.cost.totalAmount,
-            amount: newTotalAmount.toString()
-          }
+  let updatedLines = state.lines
+    .map((item: CartItem) => {
+      if (item.id === newState.itemId) {
+        if (newState.type === 'minus' && newState.newQuantity === 0) {
+          // Remove the item if quantity becomes 0
+          return null;
         }
-      };
-    }
-    return item;
-  });
+
+        const singleItemAmount = Number(item.cost.totalAmount.amount) / item.quantity;
+        const newTotalAmount = singleItemAmount * newState.newQuantity;
+
+        return {
+          ...item,
+          quantity: newState.newQuantity,
+          cost: {
+            ...item.cost,
+            totalAmount: {
+              ...item.cost.totalAmount,
+              amount: newTotalAmount.toString()
+            }
+          }
+        };
+      }
+      return item;
+    })
+    .filter(Boolean) as CartItem[];
 
   const newTotalQuantity = updatedLines.reduce((sum, item) => sum + item.quantity, 0);
   const newTotalAmount = updatedLines.reduce(
     (sum, item) => sum + Number(item.cost.totalAmount.amount),
     0
   );
+
+  // If there are no items left, return an empty cart
+  if (updatedLines.length === 0) {
+    return {
+      ...state,
+      lines: [],
+      totalQuantity: 0,
+      cost: {
+        ...state.cost,
+        totalAmount: {
+          ...state.cost.totalAmount,
+          amount: '0'
+        }
+      }
+    };
+  }
 
   return {
     ...state,
