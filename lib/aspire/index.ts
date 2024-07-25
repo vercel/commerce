@@ -42,6 +42,26 @@ export async function getContentLandingPageConfig(contentLandingPageId: string) 
         key: '8efbd119747c632000b04ed68313abf1'
       },
       productId: 'gid://shopify/Product/7913032548543'
+    },
+    ABD: {
+      contentLandingPageId: '124',
+      slug: '124',
+      content: {
+        contentId: '01J39NY002BQ5FDH6BFJR78V8E',
+        contentUrl: 'https://vercel.com'
+      },
+      brand: {
+        brandId: '01J39NXQGAKT82JQWEYXP9MFE3',
+        companyName: 'Vercel'
+      },
+      store: {
+        storeId: '01J39NYCJY8ZW27ES9BB7KEVXN',
+        name: 'Aspire Snowboards',
+        logoUrl: '',
+        domain: 'https://test-app-furie.myshopify.com',
+        key: '30f0c9b2ee5c69d6c0de2e7a048eb6b4'
+      },
+      productId: 'gid://shopify/Product/8587441111276'
     }
   };
 

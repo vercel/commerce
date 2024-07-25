@@ -3,6 +3,7 @@ import { AddToCart } from 'components/cart/add-to-cart';
 import { BuyNow } from 'components/cart/buy-now';
 import OpenCart from 'components/cart/open-cart';
 import { GridTileImage } from 'components/grid/tile';
+import { Images } from 'components/images';
 import { getContentLandingPageConfig } from 'lib/aspire';
 import { Store } from 'lib/aspire/types';
 import { getCart, getProductRecommendations } from 'lib/shopify';
@@ -10,7 +11,7 @@ import type { Product } from 'lib/shopify/types';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ImgHTMLAttributes, Suspense } from 'react';
+import { Suspense } from 'react';
 const icon = '/image.png';
 const contentReel = '/snowboardLong.mp4';
 
@@ -228,88 +229,6 @@ const ProductHeader = () => {
   );
 };
 
-const ImageGallery = () => {
-  const images = [
-    {
-      alt: '',
-      src: 'https://cdn.shopify.com/s/files/1/0179/9331/files/Shore_Thing_96x96.png?v=1717536592',
-      loading: 'lazy'
-    },
-    {
-      alt: '',
-      src: 'https://cdn.shopify.com/s/files/1/0179/9331/files/Shore_Thing_l_96x96.png?v=1717536594',
-      loading: 'lazy'
-    },
-    {
-      alt: 'Deep Blue Stripe',
-      src: 'https://cdn.shopify.com/s/files/1/0179/9331/files/Creamsicle_e56d992e-bc7a-4257-94d1-ae235eaf7806_96x96.png?v=1721244266',
-      loading: 'lazy'
-    }
-    // Add the rest of the images here following the same structure
-  ] as ImgHTMLAttributes<HTMLImageElement>[];
-
-  return (
-    <ul
-      className="scrollbar-none relative -mx-1 flex snap-x snap-mandatory gap-1 overflow-x-auto py-2"
-      aria-hidden="true"
-    >
-      {images.map((image, index) => (
-        <li className="shrink-0 snap-center" key={index}>
-          <button className="rounded-lg border-2 border-transparent bg-neutral-100 bg-clip-content p-0.5 transition-colors hover:border-neutral-400">
-            <img
-              alt={image.alt || ''}
-              className="size-12 rounded object-cover"
-              loading="lazy"
-              src={image.src}
-            />
-          </button>
-        </li>
-      ))}
-    </ul>
-  );
-};
-
-const ImageSlider = ({ scrollIntoView }: { scrollIntoView: () => void }) => {
-  const images = [
-    {
-      alt: '',
-      srcSet:
-        'https://cdn.shopify.com/s/files/1/0179/9331/files/Shore_Thing_576x576.png?v=1717536592, https://cdn.shopify.com/s/files/1/0179/9331/files/Shore_Thing_1152x1152.png?v=1717536592 2x, https://cdn.shopify.com/s/files/1/0179/9331/files/Shore_Thing_1728x1728.png?v=1717536592 3x',
-      src: 'https://cdn.shopify.com/s/files/1/0179/9331/files/Shore_Thing_576x576.png?v=1717536592',
-      loading: 'eager'
-    },
-    {
-      alt: '',
-      srcSet:
-        'https://cdn.shopify.com/s/files/1/0179/9331/files/Shore_Thing_l_576x576.png?v=1717536594, https://cdn.shopify.com/s/files/1/0179/9331/files/Shore_Thing_l_1152x1152.png?v=1717536594 2x, https://cdn.shopify.com/s/files/1/0179/9331/files/Shore_Thing_l_1728x1728.png?v=1717536594 3x',
-      src: 'https://cdn.shopify.com/s/files/1/0179/9331/files/Shore_Thing_l_576x576.png?v=1717536594',
-      loading: 'lazy'
-    },
-    {
-      alt: 'Deep Blue Stripe',
-      srcSet:
-        'https://cdn.shopify.com/s/files/1/0179/9331/files/Creamsicle_e56d992e-bc7a-4257-94d1-ae235eaf7806_576x576.png?v=1721244266, https://cdn.shopify.com/s/files/1/0179/9331/files/Creamsicle_e56d992e-bc7a-4257-94d1-ae235eaf7806_1152x1152.png?v=1721244266 2x, https://cdn.shopify.com/s/files/1/0179/9331/files/Creamsicle_e56d992e-bc7a-4257-94d1-ae235eaf7806_1728x1728.png?v=1721244266 3x',
-      src: 'https://cdn.shopify.com/s/files/1/0179/9331/files/Creamsicle_e56d992e-bc7a-4257-94d1-ae235eaf7806_576x576.png?v=1721244266',
-      loading: 'lazy'
-    }
-    // Add the rest of the images here following the same structure
-  ] as ImgHTMLAttributes<HTMLImageElement>[];
-
-  return (
-    <ul className="scrollbar-none grid snap-x snap-mandatory auto-cols-[100%] grid-flow-col overflow-x-auto">
-      {images.map((image, index) => (
-        <li className="snap-center" key={index}>
-          <img
-            className="aspect-square h-auto w-full object-contain"
-            {...image}
-            onClick={scrollIntoView}
-          />
-        </li>
-      ))}
-    </ul>
-  );
-};
-
 export default async function Page({ params }: { params: { ContentLandingPage: string } }) {
   const config = await getContentLandingPageConfig(params.ContentLandingPage);
 
@@ -365,8 +284,7 @@ export default async function Page({ params }: { params: { ContentLandingPage: s
                 <ProductHeader />
               </div>
               <div className="lg:col-start-0 col-span-7 lg:row-start-1">
-                <ImageSlider />
-                <ImageGallery />
+                <Images product={config.product} />
               </div>
             </div>
           </div>
