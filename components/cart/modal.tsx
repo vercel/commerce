@@ -179,7 +179,7 @@ export default function CartModal({ cart: initialCart }: { cart: Cart | undefine
                         >
                           <div className="relative flex w-full flex-row justify-between px-1 py-4">
                             <div className="absolute z-40 -mt-2 ml-[55px]">
-                              <DeleteItemButton item={item} />
+                              <DeleteItemButton item={item} optimisticUpdate={updateCartItem} />
                             </div>
                             <Link
                               href={merchandiseUrl}
