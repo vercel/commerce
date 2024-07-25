@@ -1,3 +1,9 @@
+## [1.11.2](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.11.1...v1.11.2) (2024-07-25)
+
+### Bug Fixes
+
+- Update Docker image repository URL for deployment ([ca7b791](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/ca7b79104f74d11853e1e5f2b98a6a6d644c6a9f))
+
 ## [1.11.1](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.11.0...v1.11.1) (2024-07-25)
 
 ### Bug Fixes
