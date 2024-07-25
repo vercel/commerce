@@ -72,8 +72,8 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          docker build -t gcr.io/${{ vars.PROJECT_ID }}/${{ vars.DOCKER_IMAGE_NAME }}:latest .
-          docker push gcr.io/${{ vars.PROJECT_ID}}/${{ vars.DOCKER_IMAGE_NAME }}:latest
+          docker build -t us-central1-docker.pkg.dev/${{ vars.PROJECT_ID }}/${{ vars.DOCKER_IMAGE_NAME }}:latest .
+          docker push us-central1-docker.pkg.dev/${{ vars.PROJECT_ID}}/${{ vars.DOCKER_IMAGE_NAME }}:latest
       - id: 'deploy'
         uses: 'google-github-actions/deploy-cloudrun@v2'
         with:
