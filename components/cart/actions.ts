@@ -4,6 +4,7 @@ import { TAGS } from 'lib/constants';
 import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/shopify';
 import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 export async function addItem(prevState: any, selectedVariantId: string | undefined) {
   let cartId = cookies().get('cartId')?.value;
@@ -80,4 +81,9 @@ export async function updateItemQuantity(
   } catch (e) {
     return 'Error updating item quantity';
   }
+}
+
+export async function redirectToCheckout(formData: FormData) {
+  const url = formData.get('url') as string;
+  redirect(url);
 }

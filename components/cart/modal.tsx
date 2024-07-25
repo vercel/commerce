@@ -2,13 +2,16 @@
 
 import { Dialog, Transition } from '@headlessui/react';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
+import LoadingDots from 'components/loading-dots';
 import Price from 'components/price';
 import { DEFAULT_OPTION } from 'lib/constants';
-import type { Cart } from 'lib/shopify/types';
+import type { Cart, CartItem } from 'lib/shopify/types';
 import { createUrl } from 'lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useOptimistic, useRef, useState } from 'react';
+import { useFormStatus } from 'react-dom';
+import { redirectToCheckout } from './actions';
 import CloseCart from './close-cart';
 import { DeleteItemButton } from './delete-item-button';
 import { EditItemQuantityButton } from './edit-item-quantity-button';
@@ -18,8 +21,58 @@ type MerchandiseSearchParams = {
   [key: string]: string;
 };
 
-export default function CartModal({ cart }: { cart: Cart | undefined }) {
+type NewState = {
+  itemId: string;
+  newQuantity: number;
+};
+
+function reducer(state: Cart | undefined, newState: NewState) {
+  if (!state) {
+    return state;
+  }
+
+  const updatedLines = state.lines.map((item: CartItem) => {
+    if (item.id === newState.itemId) {
+      const singleItemAmount = Number(item.cost.totalAmount.amount) / item.quantity;
+      const newTotalAmount = Number(item.cost.totalAmount.amount) + singleItemAmount;
+      return {
+        ...item,
+        quantity: newState.newQuantity,
+        cost: {
+          ...item.cost,
+          totalAmount: {
+            ...item.cost.totalAmount,
+            amount: newTotalAmount.toString()
+          }
+        }
+      };
+    }
+    return item;
+  });
+
+  const newTotalQuantity = updatedLines.reduce((sum, item) => sum + item.quantity, 0);
+  const newTotalAmount = updatedLines.reduce(
+    (sum, item) => sum + Number(item.cost.totalAmount.amount),
+    0
+  );
+
+  return {
+    ...state,
+    lines: updatedLines,
+    totalQuantity: newTotalQuantity,
+    cost: {
+      ...state.cost,
+      totalAmount: {
+        ...state.cost.totalAmount,
+        amount: newTotalAmount.toString()
+      }
+    }
+  };
+}
+
+export default function CartModal({ cart: initialCart }: { cart: Cart | undefined }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [cart, updateCartItem] = useOptimistic(initialCart, reducer);
   const quantityRef = useRef(cart?.totalQuantity);
   const openCart = () => setIsOpen(true);
   const closeCart = () => setIsOpen(false);
@@ -67,7 +120,6 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
             <Dialog.Panel className="fixed bottom-0 right-0 top-0 flex h-full w-full flex-col border-l border-neutral-200 bg-white/80 p-6 text-black backdrop-blur-xl md:w-[390px] dark:border-neutral-700 dark:bg-black/80 dark:text-white">
               <div className="flex items-center justify-between">
                 <p className="text-lg font-semibold">My Cart</p>
-
                 <button aria-label="Close cart" onClick={closeCart}>
                   <CloseCart />
                 </button>
@@ -140,11 +192,19 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                                 currencyCode={item.cost.totalAmount.currencyCode}
                               />
                               <div className="ml-auto flex h-9 flex-row items-center rounded-full border border-neutral-200 dark:border-neutral-700">
-                                <EditItemQuantityButton item={item} type="minus" />
+                                <EditItemQuantityButton
+                                  item={item}
+                                  type="minus"
+                                  optimisticUpdate={updateCartItem}
+                                />
                                 <p className="w-6 text-center">
                                   <span className="w-full text-sm">{item.quantity}</span>
                                 </p>
-                                <EditItemQuantityButton item={item} type="plus" />
+                                <EditItemQuantityButton
+                                  item={item}
+                                  type="plus"
+                                  optimisticUpdate={updateCartItem}
+                                />
                               </div>
                             </div>
                           </div>
@@ -174,18 +234,32 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                       />
                     </div>
                   </div>
-                  <a
-                    href={cart.checkoutUrl}
-                    className="block w-full rounded-full bg-blue-600 p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100"
-                  >
-                    Proceed to Checkout
-                  </a>
+                  <form action={redirectToCheckout}>
+                    <CheckoutButton cart={cart} />
+                  </form>
                 </div>
               )}
             </Dialog.Panel>
           </Transition.Child>
         </Dialog>
       </Transition>
+    </>
+  );
+}
+
+function CheckoutButton({ cart }: { cart: Cart }) {
+  const { pending } = useFormStatus();
+
+  return (
+    <>
+      <input type="hidden" name="url" value={cart.checkoutUrl} />
+      <button
+        className="block w-full rounded-full bg-blue-600 p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100"
+        type="submit"
+        disabled={pending}
+      >
+        {pending ? <LoadingDots className="bg-white" /> : 'Proceed to Checkout'}
+      </button>
     </>
   );
 }
