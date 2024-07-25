@@ -26,7 +26,11 @@ type NewState = {
   newQuantity: number;
 };
 
-function reducer(state: Cart, newState: NewState) {
+function reducer(state: Cart | undefined, newState: NewState) {
+  if (!state) {
+    return state;
+  }
+
   const updatedLines = state.lines.map((item: CartItem) => {
     if (item.id === newState.itemId) {
       const singleItemAmount = Number(item.cost.totalAmount.amount) / item.quantity;
@@ -66,7 +70,7 @@ function reducer(state: Cart, newState: NewState) {
   };
 }
 
-export default function CartModal({ cart: initialCart }: { cart: Cart }) {
+export default function CartModal({ cart: initialCart }: { cart: Cart | undefined }) {
   const [isOpen, setIsOpen] = useState(false);
   const [cart, updateCartItem] = useOptimistic(initialCart, reducer);
   const quantityRef = useRef(cart?.totalQuantity);
