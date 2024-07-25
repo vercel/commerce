@@ -1,3 +1,9 @@
+# [1.11.0](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.10.1...v1.11.0) (2024-07-25)
+
+### Features
+
+- Add react-device-detect dependency for device detection ([91d89bf](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/91d89bf0fc3c0d15e144f564b8919018adf8e087))
+
 ## [1.10.1](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.10.0...v1.10.1) (2024-07-24)
 
 ### Bug Fixes
