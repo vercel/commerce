@@ -1,3 +1,9 @@
+## [1.10.1](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.10.0...v1.10.1) (2024-07-24)
+
+### Bug Fixes
+
+- **shoppay:** shopify shoppay looks slightly diff but button is the same as ours ([db9d3c5](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/db9d3c505479408c7e1a935505ce067ebd0df68d))
+
 # [1.10.0](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.9.0...v1.10.0) (2024-07-23)
 
 ### Features
