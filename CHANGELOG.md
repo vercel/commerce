@@ -1,3 +1,9 @@
+# [1.12.0](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.11.3...v1.12.0) (2024-07-26)
+
+### Features
+
+- Add more product info ([2f55e4b](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/2f55e4b7c118b9d612f53f953f04551850781b5f))
+
 ## [1.11.3](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.11.2...v1.11.3) (2024-07-25)
 
 ### Bug Fixes
