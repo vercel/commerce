@@ -34,6 +34,11 @@ const productFragment = /* GraphQL */ `
             name
             value
           }
+          image {
+            id
+            url
+            altText
+          }
           price {
             amount
             currencyCode

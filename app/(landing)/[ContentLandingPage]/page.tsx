@@ -2,12 +2,13 @@ import Cart from 'components/cart';
 import { AddToCart } from 'components/cart/add-to-cart';
 import { BuyNow } from 'components/cart/buy-now';
 import OpenCart from 'components/cart/open-cart';
+import { DisclosureSection } from 'components/disclosure-section';
 import { GridTileImage } from 'components/grid/tile';
 import { Images } from 'components/images';
 import { getContentLandingPageConfig } from 'lib/aspire';
 import { Store } from 'lib/aspire/types';
 import { getCart, getProductRecommendations } from 'lib/shopify';
-import type { Product } from 'lib/shopify/types';
+import type { Product, ProductVariant } from 'lib/shopify/types';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -190,15 +191,16 @@ const ProductPreview = ({ product }: { product: Product }) => {
   );
 };
 
-const ProductHeader = () => {
+const ProductHeader = ({ product }: { product: Product }) => {
   return (
     <div className="flex flex-col gap-2 text-black">
-      <h1 className="text-2xl font-bold">The Shore Thing Chair</h1>
+      <h1 className="text-2xl font-bold">{product?.title}</h1>
       <div className="flex items-center">
         <div className="flex grow items-center gap-x-2">
-          <span className="text-lg font-bold">$165.00</span>
+          <span className="text-lg font-bold">{product?.variants[0]?.price.amount}</span>
           <span className="line-through opacity-60">
-            <span className="sr-only">Compare at:</span>$183.00
+            <span className="sr-only">Compare at:</span>
+            {product?.variants[0]?.compareAtPrice?.amount}
           </span>
         </div>
         <div className="shrink-0 text-sm">
@@ -229,6 +231,227 @@ const ProductHeader = () => {
   );
 };
 
+const VariantSelector = ({ variants }: { variants: ProductVariant[] }) => {
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="truncate text-base text-black">
+        <span className="font-semibold">Color</span>: {variants?.[0]?.title}
+      </div>
+      <div className="-mx-1 flex flex-row flex-wrap gap-1">
+        {variants.map((variant) => (
+          <a
+            key={variant.id}
+            className="size-11 rounded-full border-2 border-transparent bg-neutral-200 bg-cover bg-clip-content p-0.5 text-neutral-700 transition-colors hover:border-neutral-400"
+            style={{
+              backgroundImage: `url(${variant.image?.url})`
+            }}
+            data-discover="true"
+            href={`/ABD?variant=${variant.id}`}
+          >
+            <div className="sr-only">Deep Blue Stripe</div>
+          </a>
+        ))}
+        {/* <a
+          className="size-11 rounded-full border-2 border-neutral-900 bg-white bg-cover bg-clip-content p-0.5 text-neutral-700 transition-colors aria-disabled:pointer-events-none aria-disabled:opacity-40"
+          style={{
+            backgroundImage:
+              'url(https://cdn.accentuate.io/47890787598611/11944981069876/NavyStripe-v1704751082540.jpeg?200x200)'
+          }}
+          data-discover="true"
+          href="/591976448466620419?v=Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80Nzg5MDc4NzYzMTM3OQ=="
+        >
+          <div className="sr-only">Deep Blue Stripe</div>
+        </a>
+        <a
+          className="size-11 rounded-full border-2 border-transparent bg-neutral-200 bg-cover bg-clip-content p-0.5 text-neutral-700 transition-colors hover:border-neutral-400 aria-disabled:pointer-events-none aria-disabled:opacity-40"
+          style={{ backgroundColor: 'rgb(31, 49, 98)' }}
+          data-discover="true"
+          href="/591976448466620419?v=Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80Nzg5MDc4NzQzNDc3MQ=="
+        >
+          <div className="sr-only">Ocean Navy</div>
+        </a>
+        <a
+          className="size-11 rounded-full border-2 border-transparent bg-neutral-200 bg-cover bg-clip-content p-0.5 text-neutral-700 transition-colors hover:border-neutral-400 aria-disabled:pointer-events-none aria-disabled:opacity-40"
+          style={{
+            backgroundImage:
+              'url(https://cdn.accentuate.io/47890788122899/11944981069876/rosestripe-v1704751102457.jpeg?200x200)'
+          }}
+          data-discover="true"
+          href="/591976448466620419?v=Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80Nzg5MDc4ODE1NTY2Nw=="
+        >
+          <div className="sr-only">Rosé Pink Stripe</div>
+        </a>
+        <a
+          className="size-11 rounded-full border-2 border-transparent bg-neutral-200 bg-cover bg-clip-content p-0.5 text-neutral-700 transition-colors hover:border-neutral-400 aria-disabled:pointer-events-none aria-disabled:opacity-40"
+          style={{ backgroundColor: 'rgb(244, 204, 204)' }}
+          data-discover="true"
+          href="/591976448466620419?v=Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80Nzg5MDc4Nzk1OTA1OQ=="
+        >
+          <div className="sr-only">Rosé Pink</div>
+        </a>
+        <a
+          className="size-11 rounded-full border-2 border-transparent bg-neutral-200 bg-cover bg-clip-content p-0.5 text-neutral-700 transition-colors hover:border-neutral-400 aria-disabled:pointer-events-none aria-disabled:opacity-40"
+          style={{
+            backgroundImage:
+              'url(https://cdn.accentuate.io/47890787074323/11944981069876/skybluestripe-v1704750996500.jpeg?200x200)'
+          }}
+          data-discover="true"
+          href="/591976448466620419?v=Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80Nzg5MDc4NzM2OTIzNQ=="
+        >
+          <div className="sr-only">Sky Blue Stripe</div>
+        </a>
+        <a
+          className="size-11 rounded-full border-2 border-transparent bg-neutral-200 bg-cover bg-clip-content p-0.5 text-neutral-700 transition-colors hover:border-neutral-400 aria-disabled:pointer-events-none aria-disabled:opacity-40"
+          style={{ backgroundColor: 'rgb(161, 241, 239)' }}
+          data-discover="true"
+          href="/591976448466620419?v=Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80Nzg5MDc4NzMwMzY5OQ=="
+        >
+          <div className="sr-only">Sky Blue</div>
+        </a>
+        <a
+          className="size-11 rounded-full border-2 border-transparent bg-neutral-200 bg-cover bg-clip-content p-0.5 text-neutral-700 transition-colors hover:border-neutral-400 aria-disabled:pointer-events-none aria-disabled:opacity-40"
+          style={{
+            backgroundImage:
+              'url(https://cdn.accentuate.io/47890787074323/11944981069876/Sunshinestripe-v1704737986517.jpg?200x200)'
+          }}
+          data-discover="true"
+          href="/591976448466620419?v=Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80Nzg5MDc4NzEwNzA5MQ=="
+        >
+          <div className="sr-only">Sunshine Yellow Stripe</div>
+        </a>
+        <a
+          className="aria-disabled:pointer-events:none size-11 rounded-full border-2 border-transparent bg-neutral-200 bg-cover bg-clip-content p-0.5 text-neutral-700 transition-colors hover:border-neutral-400 aria-disabled:opacity-40"
+          style={{ backgroundColor: 'rgb(250, 191, 65)' }}
+          data-discover="true"
+          href="/591976448466620419?v=Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80Nzg5MDc4NzA0MTU1NQ=="
+        >
+          <div className="sr-only">Creamsicle</div>
+        </a>
+        <a
+          className="aria-disabled:pointer-events:none size-11 rounded-full border-2 border-transparent bg-neutral-200 bg-cover bg-clip-content p-0.5 text-neutral-700 transition-colors hover:border-neutral-400 aria-disabled:opacity-40"
+          style={{ backgroundColor: '#f5f5f5' }}
+          data-discover="true"
+          href="/591976448466620419?v=Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80Nzg5MDc4NzIzODE2Mw=="
+        >
+          <div className="sr-only">Seashell White</div>
+        </a>
+        <a
+          className="aria-disabled:pointer-events:none size-11 rounded-full border-2 border-transparent bg-neutral-200 bg-cover bg-clip-content p-0.5 text-neutral-700 transition-colors hover:border-neutral-400 aria-disabled:opacity-40"
+          style={{
+            backgroundImage:
+              'url(https://cdn.accentuate.io/47890787533075/11944981069876/GreyStripe-v1704751047442.jpeg?200x200)'
+          }}
+          data-discover="true"
+          href="/591976448466620419?v=Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80Nzg5MDc4NzU2NTg0Mw=="
+        >
+          <div className="sr-only">Oyster Gray Stripe</div>
+        </a>
+        <a
+          className="aria-disabled:pointer-events:none size-11 rounded-full border-2 border-transparent bg-neutral-200 bg-cover bg-clip-content p-0.5 text-neutral-700 transition-colors hover:border-neutral-400 aria-disabled:opacity-40"
+          style={{ backgroundColor: 'rgb(191, 191, 191)' }}
+          data-discover="true"
+          href="/591976448466620419?v=Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80Nzg5MDc4NzUwMDMwNw=="
+        >
+          <div className="sr-only">Oyster Gray</div>
+        </a> */}
+      </div>
+    </div>
+  );
+};
+
+const BundleSelector = () => {
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="max-w-[400px] truncate text-base text-black">
+        <span className="font-semibold">Bundle</span>: The Shore Thing Chair with Sun Shade and
+        Drink Holder
+      </div>
+      <div className="-mx-1 flex flex-wrap gap-1">
+        <a
+          className="flex min-w-11 justify-center rounded-lg border-2 border-transparent bg-neutral-200 bg-clip-content p-0.5 text-sm text-neutral-700 transition-colors hover:border-neutral-400 aria-disabled:pointer-events-none aria-disabled:opacity-40"
+          data-discover="true"
+          href="/591976448466620419?v=Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80Nzg5MDc4NzU5ODYxMQ=="
+        >
+          <div className="rounded p-2">The Shore Thing Chair</div>
+        </a>
+        <a
+          className="flex min-w-11 justify-center rounded-lg border-2 border-neutral-900 bg-white bg-clip-content p-0.5 text-sm text-neutral-700 transition-colors aria-disabled:pointer-events-none aria-disabled:opacity-40"
+          data-discover="true"
+          href="/591976448466620419?v=Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80Nzg5MDc4NzYzMTM3OQ=="
+        >
+          <div className="rounded p-2">The Shore Thing Chair with Sun Shade and Drink Holder</div>
+        </a>
+      </div>
+    </div>
+  );
+};
+
+const DiscountTable = () => {
+  return (
+    <div className="prose mb-4 rounded-xl border border-neutral-200 p-4 text-sm/relaxed shadow-xl">
+      <h2 className="mt-0 text-base font-semibold">Buy more and save!</h2>
+      <table className="text-left">
+        <caption className="mt-4 caption-bottom text-left text-xs">
+          Discount applied at checkout.
+        </caption>
+        <thead>
+          <tr>
+            <th>Quantity</th>
+            <th>Discount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className="border-b-[1px] border-b-neutral-200">
+            <td>Any 2+ chairs</td>
+            <td>
+              <strong>10% off</strong>
+            </td>
+          </tr>
+          <tr className="border-b-[1px] border-b-neutral-200">
+            <td>Any 4+ chairs</td>
+            <td>
+              <strong>15% off</strong>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+const Info = () => {
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="prose text-sm/relaxed">
+        The Shore Thing Chair introduced in 2024 is the lightest and simplest version of our chairs.
+        It features our iconic patented design, premium materials, and in vibrant colors and
+        patterns.
+      </div>
+      <a
+        rel="noopener"
+        target="_blank"
+        href="https://getsunflow.com/products/the-shore-thing-chair"
+        className="group/link inline-flex items-center gap-x-1 text-neutral-700"
+      >
+        <span className="underline decoration-neutral-700/50 decoration-2 underline-offset-4 group-hover/link:decoration-neutral-700">
+          More details on SUNFLOW
+        </span>
+        <svg aria-hidden="true" width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+          <path
+            fillRule="evenodd"
+            d="M3 4.25A2.25 2.25 0 0 1 5.25 2h5.5A2.25 2.25 0 0 1 13 4.25v2a.75.75 0 0 1-1.5 0v-2a.75.75 0 0 0-.75-.75h-5.5a.75.75 0 0 0-.75.75v11.5c0 .414.336.75.75.75h5.5a.75.75 0 0 0 .75-.75v-2a.75.75 0 0 1 1.5 0v2A2.25 2.25 0 0 1 10.75 18h-5.5A2.25 2.25 0 0 1 3 15.75V4.25Z"
+            clipRule="evenodd"
+          />
+          <path
+            fillRule="evenodd"
+            d="M6 10a.75.75 0 0 1 .75-.75h9.546l-1.048-.943a.75.75 0 1 1 1.004-1.114l2.5 2.25a.75.75 0 0 1 0 1.114l-2.5 2.25a.75.75 0 1 1-1.004-1.114l1.048-.943H6.75A.75.75 0 0 1 6 10Z"
+            clipRule="evenodd"
+          />
+        </svg>
+      </a>
+    </div>
+  );
+};
 export default async function Page({ params }: { params: { ContentLandingPage: string } }) {
   const config = await getContentLandingPageConfig(params.ContentLandingPage);
 
@@ -280,11 +503,59 @@ export default async function Page({ params }: { params: { ContentLandingPage: s
         <div className="content bg-white">
           <div className="mx-auto flex max-w-screen-lg flex-col gap-12 px-4 py-6 sm:w-[40rem] lg:w-[64rem]">
             <div className="grid lg:grid-cols-12 lg:gap-x-8 lg:gap-y-6">
-              <div className="col-span-5 max-w-screen-sm lg:col-start-8">
-                <ProductHeader />
+              <div className=" max-w-screen-sm lg:col-span-5 lg:col-start-8">
+                <ProductHeader product={config.product} />
               </div>
-              <div className="lg:col-start-0 col-span-7 lg:row-start-1">
+              <div className="lg:col-start-0  lg:col-span-7  lg:col-start-1 lg:row-span-3 lg:row-start-1">
                 <Images product={config.product} />
+              </div>
+              <div className=" flex flex-col gap-6 lg:col-span-5 lg:col-start-8">
+                <div className="flex flex-col gap-6">
+                  <VariantSelector variants={config.product.variants} />
+                  <BundleSelector />
+                </div>
+                <DiscountTable />
+
+                <Info />
+                <div className="gap-2 divide-y empty:hidden">
+                  <DisclosureSection title={'Product Details'}>
+                    <div>
+                      <p>
+                        The Shore Thing Chair introduces a simplified version of our original
+                        SUNFLOW chair and features our iconic patented design, premium materials,
+                        vibrant colors and patterns.&nbsp;
+                      </p>
+                      <ul>
+                        <li>Rust resistant, powder coated, ultimate strength, aluminum frame</li>
+                        <li>
+                          Made from Greenguard Gold Certified Water Resistant Marine Fabrics 70% PVC
+                          / 30% Poly
+                        </li>
+                        <li>
+                          Features:&nbsp;
+                          <ul>
+                            <li>Patented iconic design</li>
+                            <li>Reclines to 3 positions</li>
+                            <li>Arm rests for comfort</li>
+                            <li>Simple to carry, open and close</li>
+                            <li>Backpack straps</li>
+                            <li>Limited lifetime warranty for manufacturing defects&nbsp;</li>
+                          </ul>
+                        </li>
+                        <li>Imported</li>
+                      </ul>
+                    </div>
+                  </DisclosureSection>
+                  <DisclosureSection title={'Technical Specs'}>
+                    <div></div>
+                  </DisclosureSection>
+                  <DisclosureSection title={'Shipping Policy'}>
+                    <div></div>
+                  </DisclosureSection>
+                  <DisclosureSection title={'Refund Policy'}>
+                    <div></div>
+                  </DisclosureSection>
+                </div>
               </div>
             </div>
           </div>

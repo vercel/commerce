@@ -45,7 +45,6 @@ export const Images = ({ product }: { product: Product }) => {
       <ImageSlider
         images={sliderImages}
         selectedImageIndex={selectedImageIndex}
-        // TODO: Implement scrollIntoView
         scrollIntoView={() => {
           /* empty */
         }}
