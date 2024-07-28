@@ -52,7 +52,7 @@ function createOrUpdateCartItem(
   const totalAmount = calculateItemCost(quantity, variant.price.amount);
 
   return {
-    id: existingItem?.id || `${variant.id}_${Date.now()}`,
+    id: existingItem?.id,
     quantity,
     cost: {
       totalAmount: {
@@ -91,7 +91,7 @@ function updateCartTotals(lines: CartItem[]): Pick<Cart, 'totalQuantity' | 'cost
 
 function createEmptyCart(): Cart {
   return {
-    id: `optimistic_${Date.now()}`,
+    id: undefined,
     checkoutUrl: '',
     totalQuantity: 0,
     lines: [],

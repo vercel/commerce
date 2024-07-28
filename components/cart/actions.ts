@@ -37,7 +37,7 @@ export async function removeItem(prevState: any, merchandiseId: string) {
 
     const lineItem = cart.lines.find((line) => line.merchandise.id === merchandiseId);
 
-    if (lineItem) {
+    if (lineItem && lineItem.id) {
       await removeFromCart(cartId, [lineItem.id]);
       revalidateTag(TAGS.cart);
     } else {
@@ -72,7 +72,7 @@ export async function updateItemQuantity(
 
     const lineItem = cart.lines.find((line) => line.merchandise.id === merchandiseId);
 
-    if (lineItem) {
+    if (lineItem && lineItem.id) {
       if (quantity === 0) {
         await removeFromCart(cartId, [lineItem.id]);
       } else {
@@ -114,5 +114,5 @@ export async function redirectToCheckout() {
 
 export async function createCartAndSetCookie() {
   let cart = await createCart();
-  cookies().set('cartId', cart.id);
+  cookies().set('cartId', cart.id!);
 }

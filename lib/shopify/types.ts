@@ -20,7 +20,7 @@ export type CartProduct = {
 };
 
 export type CartItem = {
-  id: string;
+  id: string | undefined;
   quantity: number;
   cost: {
     totalAmount: Money;
@@ -96,7 +96,7 @@ export type SEO = {
 };
 
 export type ShopifyCart = {
-  id: string;
+  id: string | undefined;
   checkoutUrl: string;
   cost: {
     subtotalAmount: Money;
