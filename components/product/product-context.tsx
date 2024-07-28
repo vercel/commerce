@@ -3,71 +3,70 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { createContext, useContext, useMemo, useOptimistic } from 'react';
 
-type ProductOptionsState = {
+type ProductState = {
   [key: string]: string;
+} & {
+  image?: string;
 };
 
-type ProductOptionsAction = { type: 'UPDATE_OPTION'; payload: { name: string; value: string } };
-
-type ProductOptionsContextType = {
-  options: ProductOptionsState;
+type ProductContextType = {
+  state: ProductState;
   updateOption: (name: string, value: string) => void;
+  updateImage: (index: string) => void;
 };
 
-const ProductOptionsContext = createContext<ProductOptionsContextType | undefined>(undefined);
+const ProductContext = createContext<ProductContextType | undefined>(undefined);
 
-function productOptionsReducer(
-  state: ProductOptionsState,
-  action: ProductOptionsAction
-): ProductOptionsState {
-  switch (action.type) {
-    case 'UPDATE_OPTION': {
-      return {
-        ...state,
-        [action.payload.name]: action.payload.value
-      };
-    }
-    default:
-      return state;
-  }
-}
-
-export function ProductOptionsProvider({ children }: { children: React.ReactNode }) {
+export function ProductProvider({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const getInitialOptions = () => {
-    const params: ProductOptionsState = {};
+  const getInitialState = () => {
+    const params: ProductState = {};
     for (const [key, value] of searchParams.entries()) {
       params[key] = value;
     }
     return params;
   };
 
-  const [options, updateOptions] = useOptimistic(getInitialOptions(), productOptionsReducer);
+  const [state, setOptimisticState] = useOptimistic(
+    getInitialState(),
+    (prevState: ProductState, update: ProductState) => ({
+      ...prevState,
+      ...update
+    })
+  );
 
   const updateOption = (name: string, value: string) => {
-    updateOptions({ type: 'UPDATE_OPTION', payload: { name, value } });
+    setOptimisticState({ [name]: value });
     const newParams = new URLSearchParams(window.location.search);
     newParams.set(name, value);
     router.push(`?${newParams.toString()}`, { scroll: false });
   };
 
+  const updateImage = (index: string) => {
+    setOptimisticState({ image: index });
+    const newParams = new URLSearchParams(window.location.search);
+    newParams.set('image', index);
+    router.push(`?${newParams.toString()}`, { scroll: false });
+  };
+
   const value = useMemo(
     () => ({
-      options,
-      updateOption
+      state,
+      updateOption,
+      updateImage
     }),
-    [options]
+    [state]
   );
 
-  return <ProductOptionsContext.Provider value={value}>{children}</ProductOptionsContext.Provider>;
+  return <ProductContext.Provider value={value}>{children}</ProductContext.Provider>;
 }
 
-export function useProductOptions() {
-  const context = useContext(ProductOptionsContext);
+export function useProduct() {
+  const context = useContext(ProductContext);
   if (context === undefined) {
-    throw new Error('useProductOptions must be used within a ProductOptionsProvider');
+    throw new Error('useProduct must be used within a ProductProvider');
   }
   return context;
 }

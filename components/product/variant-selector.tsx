@@ -1,7 +1,7 @@
 'use client';
 
 import clsx from 'clsx';
-import { useProductOptions } from 'components/product/product-context';
+import { useProduct } from 'components/product/product-context';
 import { ProductOption, ProductVariant } from 'lib/shopify/types';
 
 type Combination = {
@@ -17,7 +17,7 @@ export function VariantSelector({
   options: ProductOption[];
   variants: ProductVariant[];
 }) {
-  const { options: selectedOptions, updateOption } = useProductOptions();
+  const { state, updateOption } = useProduct();
   const hasNoOptionsOrJustOneOption =
     !options.length || (options.length === 1 && options[0]?.values.length === 1);
 
@@ -42,7 +42,7 @@ export function VariantSelector({
           const optionNameLowerCase = option.name.toLowerCase();
 
           // Base option params on current selectedOptions so we can preserve any other param state.
-          const optionParams = { ...selectedOptions, [optionNameLowerCase]: value };
+          const optionParams = { ...state, [optionNameLowerCase]: value };
 
           // Filter out invalid options and check if the option combination is available for sale.
           const filtered = Object.entries(optionParams).filter(([key, value]) =>
@@ -57,7 +57,7 @@ export function VariantSelector({
           );
 
           // The option is active if it's in the selected options.
-          const isActive = selectedOptions[optionNameLowerCase] === value;
+          const isActive = state[optionNameLowerCase] === value;
 
           return (
             <button

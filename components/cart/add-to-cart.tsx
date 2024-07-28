@@ -3,7 +3,7 @@
 import { PlusIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { addItem } from 'components/cart/actions';
-import { useProductOptions } from 'components/product/product-context';
+import { useProduct } from 'components/product/product-context';
 import { Product, ProductVariant } from 'lib/shopify/types';
 import { useFormState } from 'react-dom';
 import { useCart } from './cart-context';
@@ -60,13 +60,11 @@ function SubmitButton({
 export function AddToCart({ product }: { product: Product }) {
   const { variants, availableForSale } = product;
   const { addCartItem } = useCart();
-  const { options: selectedOptions } = useProductOptions();
+  const { state } = useProduct();
   const [message, formAction] = useFormState(addItem, null);
 
   const variant = variants.find((variant: ProductVariant) =>
-    variant.selectedOptions.every(
-      (option) => option.value === selectedOptions[option.name.toLowerCase()]
-    )
+    variant.selectedOptions.every((option) => option.value === state[option.name.toLowerCase()])
   );
   const defaultVariantId = variants.length === 1 ? variants[0]?.id : undefined;
   const selectedVariantId = variant?.id || defaultVariantId;
