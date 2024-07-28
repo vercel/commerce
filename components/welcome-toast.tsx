@@ -19,11 +19,11 @@ export function WelcomeToast() {
           <>
             This is a high-performance, SSR storefront powered by Shopify, Next.js, and Vercel.{' '}
             <a
-              href="https://github.com/vercel/commerce"
+              href="https://vercel.com/templates/next.js/nextjs-commerce"
               className="text-blue-600 hover:underline"
               target="_blank"
             >
-              Get the Source
+              Deploy your own
             </a>
             .
           </>
