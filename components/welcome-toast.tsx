@@ -1,0 +1,36 @@
+'use client';
+
+import { useEffect } from 'react';
+import { toast } from 'sonner';
+
+export function WelcomeToast() {
+  useEffect(() => {
+    // ignore if screen height is too small
+    if (window.innerHeight < 650) return;
+    if (!document.cookie.includes('welcome-toast=2')) {
+      console.log('Welcome to Next.js Commerce!');
+      toast('🛍️ Welcome to Next.js Commerce!', {
+        id: 'welcome-toast',
+        duration: Infinity,
+        onDismiss: () => {
+          document.cookie += 'welcome-toast=2;max-age=31536000';
+        },
+        description: (
+          <>
+            This is a high-performance, SSR storefront powered by Shopify, Next.js, and Vercel.{' '}
+            <a
+              href="https://github.com/vercel/commerce"
+              className="text-blue-600 hover:underline"
+              target="_blank"
+            >
+              Get the Source
+            </a>
+            .
+          </>
+        )
+      });
+    }
+  }, []);
+
+  return null;
+}

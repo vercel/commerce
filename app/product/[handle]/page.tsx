@@ -88,7 +88,7 @@ export default async function ProductPage({ params }: { params: { handle: string
               }
             >
               <Gallery
-                images={product.images.map((image: Image) => ({
+                images={product.images.slice(0, 5).map((image: Image) => ({
                   src: image.url,
                   altText: image.altText
                 }))}

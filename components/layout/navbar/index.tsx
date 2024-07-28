@@ -9,7 +9,7 @@ import Search, { SearchSkeleton } from './search';
 
 const { SITE_NAME } = process.env;
 
-export default async function Navbar() {
+export async function Navbar() {
   const menu = await getMenu('next-js-frontend-header-menu');
 
   return (
