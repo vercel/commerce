@@ -38,8 +38,7 @@ export function EditItemQuantityButton({
 }) {
   const [message, formAction] = useFormState(updateItemQuantity, null);
   const payload = {
-    lineId: item.id,
-    variantId: item.merchandise.id,
+    merchandiseId: item.merchandise.id,
     quantity: type === 'plus' ? item.quantity + 1 : item.quantity - 1
   };
   const actionWithVariant = formAction.bind(null, payload);
@@ -47,7 +46,7 @@ export function EditItemQuantityButton({
   return (
     <form
       action={async () => {
-        optimisticUpdate(payload.lineId, type);
+        optimisticUpdate(payload.merchandiseId, type);
         await actionWithVariant();
       }}
     >

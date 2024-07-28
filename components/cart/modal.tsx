@@ -10,7 +10,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { useFormStatus } from 'react-dom';
-import { redirectToCheckout } from './actions';
+import { createCartAndSetCookie, redirectToCheckout } from './actions';
 import { useCart } from './cart-context';
 import CloseCart from './close-cart';
 import { DeleteItemButton } from './delete-item-button';
@@ -29,7 +29,17 @@ export default function CartModal() {
   const closeCart = () => setIsOpen(false);
 
   useEffect(() => {
-    if (cart?.totalQuantity !== quantityRef.current) {
+    if (!cart) {
+      createCartAndSetCookie();
+    }
+  }, [cart]);
+
+  useEffect(() => {
+    if (
+      cart?.totalQuantity &&
+      cart?.totalQuantity !== quantityRef.current &&
+      cart?.totalQuantity > 0
+    ) {
       if (!isOpen) {
         setIsOpen(true);
       }

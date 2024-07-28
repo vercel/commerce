@@ -6,12 +6,12 @@ import React, { createContext, use, useContext, useMemo, useOptimistic } from 'r
 type UpdateType = 'plus' | 'minus' | 'delete';
 
 type CartAction =
-  | { type: 'UPDATE_ITEM'; payload: { itemId: string; updateType: UpdateType } }
+  | { type: 'UPDATE_ITEM'; payload: { merchandiseId: string; updateType: UpdateType } }
   | { type: 'ADD_ITEM'; payload: { variant: ProductVariant; product: Product } };
 
 type CartContextType = {
-  cart: Cart | undefined;
-  updateCartItem: (itemId: string, updateType: UpdateType) => void;
+  cart: Cart | null;
+  updateCartItem: (merchandiseId: string, updateType: UpdateType) => void;
   addCartItem: (variant: ProductVariant, product: Product) => void;
 };
 
@@ -89,40 +89,59 @@ function updateCartTotals(lines: CartItem[]): Pick<Cart, 'totalQuantity' | 'cost
   };
 }
 
-function cartReducer(state: Cart | undefined, action: CartAction): Cart | undefined {
-  if (!state) return state;
+function createEmptyCart(): Cart {
+  return {
+    id: `optimistic_${Date.now()}`,
+    checkoutUrl: '',
+    totalQuantity: 0,
+    lines: [],
+    cost: {
+      subtotalAmount: { amount: '0', currencyCode: 'USD' },
+      totalAmount: { amount: '0', currencyCode: 'USD' },
+      totalTaxAmount: { amount: '0', currencyCode: 'USD' }
+    }
+  };
+}
+
+function cartReducer(state: Cart | null, action: CartAction): Cart {
+  const currentCart = state || createEmptyCart();
 
   switch (action.type) {
     case 'UPDATE_ITEM': {
-      const { itemId, updateType } = action.payload;
-      const updatedLines = state.lines
-        .map((item) => (item.id === itemId ? updateCartItem(item, updateType) : item))
+      const { merchandiseId, updateType } = action.payload;
+      const updatedLines = currentCart.lines
+        .map((item) =>
+          item.merchandise.id === merchandiseId ? updateCartItem(item, updateType) : item
+        )
         .filter(Boolean) as CartItem[];
 
       if (updatedLines.length === 0) {
         return {
-          ...state,
+          ...currentCart,
           lines: [],
           totalQuantity: 0,
-          cost: { ...state.cost, totalAmount: { ...state.cost.totalAmount, amount: '0' } }
+          cost: {
+            ...currentCart.cost,
+            totalAmount: { ...currentCart.cost.totalAmount, amount: '0' }
+          }
         };
       }
 
-      return { ...state, ...updateCartTotals(updatedLines), lines: updatedLines };
+      return { ...currentCart, ...updateCartTotals(updatedLines), lines: updatedLines };
     }
     case 'ADD_ITEM': {
       const { variant, product } = action.payload;
-      const existingItem = state.lines.find((item) => item.merchandise.id === variant.id);
+      const existingItem = currentCart.lines.find((item) => item.merchandise.id === variant.id);
       const updatedItem = createOrUpdateCartItem(existingItem, variant, product);
 
       const updatedLines = existingItem
-        ? state.lines.map((item) => (item.merchandise.id === variant.id ? updatedItem : item))
-        : [...state.lines, updatedItem];
+        ? currentCart.lines.map((item) => (item.merchandise.id === variant.id ? updatedItem : item))
+        : [...currentCart.lines, updatedItem];
 
-      return { ...state, ...updateCartTotals(updatedLines), lines: updatedLines };
+      return { ...currentCart, ...updateCartTotals(updatedLines), lines: updatedLines };
     }
     default:
-      return state;
+      return currentCart;
   }
 }
 
@@ -131,13 +150,13 @@ export function CartProvider({
   cartPromise
 }: {
   children: React.ReactNode;
-  cartPromise: Promise<Cart | undefined>;
+  cartPromise: Promise<Cart | null>;
 }) {
   const initialCart = use(cartPromise);
   const [optimisticCart, updateOptimisticCart] = useOptimistic(initialCart, cartReducer);
 
-  const updateCartItem = (itemId: string, updateType: UpdateType) => {
-    updateOptimisticCart({ type: 'UPDATE_ITEM', payload: { itemId, updateType } });
+  const updateCartItem = (merchandiseId: string, updateType: UpdateType) => {
+    updateOptimisticCart({ type: 'UPDATE_ITEM', payload: { merchandiseId, updateType } });
   };
 
   const addCartItem = (variant: ProductVariant, product: Product) => {
