@@ -51,7 +51,6 @@ function createOrUpdateCartItem(
   const quantity = existingItem ? existingItem.quantity + 1 : 1;
   const totalAmount = calculateItemCost(quantity, variant.price.amount);
 
-  console.log('quantity', quantity);
   return {
     id: existingItem?.id || `${variant.id}_${Date.now()}`,
     quantity,
@@ -118,7 +117,7 @@ function cartReducer(state: Cart | undefined, action: CartAction): Cart | undefi
 
       const updatedLines = existingItem
         ? state.lines.map((item) => (item.merchandise.id === variant.id ? updatedItem : item))
-        : [updatedItem, ...state.lines];
+        : [...state.lines, updatedItem];
 
       return { ...state, ...updateCartTotals(updatedLines), lines: updatedLines };
     }
