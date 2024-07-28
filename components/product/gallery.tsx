@@ -16,7 +16,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
     'h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-black dark:hover:text-white flex items-center justify-center';
 
   return (
-    <>
+    <form>
       <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden">
         {images[imageIndex] && (
           <Image
@@ -33,16 +33,16 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
           <div className="absolute bottom-[15%] flex w-full justify-center">
             <div className="mx-auto flex h-11 items-center rounded-full border border-white bg-neutral-50/80 text-neutral-500 backdrop-blur dark:border-black dark:bg-neutral-900/80">
               <button
+                formAction={() => updateImage(previousImageIndex.toString())}
                 aria-label="Previous product image"
-                onClick={() => updateImage(previousImageIndex.toString())}
                 className={buttonClassName}
               >
                 <ArrowLeftIcon className="h-5" />
               </button>
               <div className="mx-1 h-6 w-px bg-neutral-500"></div>
               <button
+                formAction={() => updateImage(nextImageIndex.toString())}
                 aria-label="Next product image"
-                onClick={() => updateImage(nextImageIndex.toString())}
                 className={buttonClassName}
               >
                 <ArrowRightIcon className="h-5" />
@@ -60,9 +60,9 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
             return (
               <li key={image.src} className="h-20 w-20">
                 <button
+                  formAction={() => updateImage(index.toString())}
                   aria-label="Select product image"
                   className="h-full w-full"
-                  onClick={() => updateImage(index.toString())}
                 >
                   <GridTileImage
                     alt={image.altText}
@@ -77,6 +77,6 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
           })}
         </ul>
       ) : null}
-    </>
+    </form>
   );
 }
