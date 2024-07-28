@@ -5,13 +5,13 @@ import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import LoadingDots from 'components/loading-dots';
 import Price from 'components/price';
 import { DEFAULT_OPTION } from 'lib/constants';
-import type { Cart, CartItem } from 'lib/shopify/types';
 import { createUrl } from 'lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Fragment, useEffect, useOptimistic, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { redirectToCheckout } from './actions';
+import { useCart } from './cart-context';
 import CloseCart from './close-cart';
 import { DeleteItemButton } from './delete-item-button';
 import { EditItemQuantityButton } from './edit-item-quantity-button';
@@ -21,96 +21,18 @@ type MerchandiseSearchParams = {
   [key: string]: string;
 };
 
-type NewState = {
-  itemId: string;
-  newQuantity: number;
-  type: 'plus' | 'minus';
-};
-
-function reducer(state: Cart | undefined, newState: NewState) {
-  if (!state) {
-    return state;
-  }
-
-  let updatedLines = state.lines
-    .map((item: CartItem) => {
-      if (item.id === newState.itemId) {
-        if (newState.type === 'minus' && newState.newQuantity === 0) {
-          // Remove the item if quantity becomes 0
-          return null;
-        }
-
-        const singleItemAmount = Number(item.cost.totalAmount.amount) / item.quantity;
-        const newTotalAmount = singleItemAmount * newState.newQuantity;
-
-        return {
-          ...item,
-          quantity: newState.newQuantity,
-          cost: {
-            ...item.cost,
-            totalAmount: {
-              ...item.cost.totalAmount,
-              amount: newTotalAmount.toString()
-            }
-          }
-        };
-      }
-      return item;
-    })
-    .filter(Boolean) as CartItem[];
-
-  const newTotalQuantity = updatedLines.reduce((sum, item) => sum + item.quantity, 0);
-  const newTotalAmount = updatedLines.reduce(
-    (sum, item) => sum + Number(item.cost.totalAmount.amount),
-    0
-  );
-
-  // If there are no items left, return an empty cart
-  if (updatedLines.length === 0) {
-    return {
-      ...state,
-      lines: [],
-      totalQuantity: 0,
-      cost: {
-        ...state.cost,
-        totalAmount: {
-          ...state.cost.totalAmount,
-          amount: '0'
-        }
-      }
-    };
-  }
-
-  return {
-    ...state,
-    lines: updatedLines,
-    totalQuantity: newTotalQuantity,
-    cost: {
-      ...state.cost,
-      totalAmount: {
-        ...state.cost.totalAmount,
-        amount: newTotalAmount.toString()
-      }
-    }
-  };
-}
-
-export default function CartModal({ cart: initialCart }: { cart: Cart | undefined }) {
+export default function CartModal() {
+  const { cart, updateCartItem } = useCart();
   const [isOpen, setIsOpen] = useState(false);
-  const [cart, updateCartItem] = useOptimistic(initialCart, reducer);
   const quantityRef = useRef(cart?.totalQuantity);
   const openCart = () => setIsOpen(true);
   const closeCart = () => setIsOpen(false);
 
   useEffect(() => {
-    // Open cart modal when quantity changes.
     if (cart?.totalQuantity !== quantityRef.current) {
-      // But only if it's not already open (quantity also changes when editing items in cart).
       if (!isOpen) {
         setIsOpen(true);
       }
-
-      // Always update the quantity reference
       quantityRef.current = cart?.totalQuantity;
     }
   }, [isOpen, cart?.totalQuantity, quantityRef]);
@@ -260,7 +182,7 @@ export default function CartModal({ cart: initialCart }: { cart: Cart | undefine
                     </div>
                   </div>
                   <form action={redirectToCheckout}>
-                    <CheckoutButton cart={cart} />
+                    <CheckoutButton />
                   </form>
                 </div>
               )}
@@ -272,19 +194,16 @@ export default function CartModal({ cart: initialCart }: { cart: Cart | undefine
   );
 }
 
-function CheckoutButton({ cart }: { cart: Cart }) {
+function CheckoutButton() {
   const { pending } = useFormStatus();
 
   return (
-    <>
-      <input type="hidden" name="url" value={cart.checkoutUrl} />
-      <button
-        className="block w-full rounded-full bg-blue-600 p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100"
-        type="submit"
-        disabled={pending}
-      >
-        {pending ? <LoadingDots className="bg-white" /> : 'Proceed to Checkout'}
-      </button>
-    </>
+    <button
+      className="block w-full rounded-full bg-blue-600 p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100"
+      type="submit"
+      disabled={pending}
+    >
+      {pending ? <LoadingDots className="bg-white" /> : 'Proceed to Checkout'}
+    </button>
   );
 }

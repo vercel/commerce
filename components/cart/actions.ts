@@ -79,11 +79,18 @@ export async function updateItemQuantity(
     ]);
     revalidateTag(TAGS.cart);
   } catch (e) {
+    console.log(e);
     return 'Error updating item quantity';
   }
 }
 
-export async function redirectToCheckout(formData: FormData) {
-  const url = formData.get('url') as string;
-  redirect(url);
+export async function redirectToCheckout() {
+  let cartId = cookies().get('cartId')?.value;
+  let cart = await getCart(cartId);
+
+  if (!cart) {
+    return;
+  }
+
+  redirect(cart.checkoutUrl);
 }

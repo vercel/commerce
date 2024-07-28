@@ -47,7 +47,7 @@ export function EditItemQuantityButton({
   return (
     <form
       action={async () => {
-        optimisticUpdate({ itemId: payload.lineId, newQuantity: payload.quantity, type });
+        optimisticUpdate(payload.lineId, type);
         await actionWithVariant();
       }}
     >

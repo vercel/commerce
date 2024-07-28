@@ -3,10 +3,10 @@
 import { PlusIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { addItem } from 'components/cart/actions';
-import LoadingDots from 'components/loading-dots';
-import { ProductVariant } from 'lib/shopify/types';
+import { Product, ProductVariant } from 'lib/shopify/types';
 import { useSearchParams } from 'next/navigation';
-import { useFormState, useFormStatus } from 'react-dom';
+import { useFormState } from 'react-dom';
+import { useCart } from './cart-context';
 
 function SubmitButton({
   availableForSale,
@@ -15,7 +15,6 @@ function SubmitButton({
   availableForSale: boolean;
   selectedVariantId: string | undefined;
 }) {
-  const { pending } = useFormStatus();
   const buttonClasses =
     'relative flex w-full items-center justify-center rounded-full bg-blue-600 p-4 tracking-wide text-white';
   const disabledClasses = 'cursor-not-allowed opacity-60 hover:opacity-60';
@@ -45,31 +44,22 @@ function SubmitButton({
 
   return (
     <button
-      onClick={(e: React.FormEvent<HTMLButtonElement>) => {
-        if (pending) e.preventDefault();
-      }}
       aria-label="Add to cart"
-      aria-disabled={pending}
       className={clsx(buttonClasses, {
-        'hover:opacity-90': true,
-        [disabledClasses]: pending
+        'hover:opacity-90': true
       })}
     >
       <div className="absolute left-0 ml-4">
-        {pending ? <LoadingDots className="mb-3 bg-white" /> : <PlusIcon className="h-5" />}
+        <PlusIcon className="h-5" />
       </div>
       Add To Cart
     </button>
   );
 }
 
-export function AddToCart({
-  variants,
-  availableForSale
-}: {
-  variants: ProductVariant[];
-  availableForSale: boolean;
-}) {
+export function AddToCart({ product }: { product: Product }) {
+  const { variants, availableForSale } = product;
+  const { addCartItem } = useCart();
   const [message, formAction] = useFormState(addItem, null);
   const searchParams = useSearchParams();
   const defaultVariantId = variants.length === 1 ? variants[0]?.id : undefined;
@@ -80,9 +70,15 @@ export function AddToCart({
   );
   const selectedVariantId = variant?.id || defaultVariantId;
   const actionWithVariant = formAction.bind(null, selectedVariantId);
+  const finalVariant = variants.find((variant) => variant.id === selectedVariantId)!;
 
   return (
-    <form action={actionWithVariant}>
+    <form
+      action={async () => {
+        addCartItem(finalVariant, product);
+        await actionWithVariant();
+      }}
+    >
       <SubmitButton availableForSale={availableForSale} selectedVariantId={selectedVariantId} />
       <p aria-live="polite" className="sr-only" role="status">
         {message}

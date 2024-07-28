@@ -12,6 +12,13 @@ export type Cart = Omit<ShopifyCart, 'lines'> & {
   lines: CartItem[];
 };
 
+export type CartProduct = {
+  id: string;
+  handle: string;
+  title: string;
+  featuredImage: Image;
+};
+
 export type CartItem = {
   id: string;
   quantity: number;
@@ -25,7 +32,7 @@ export type CartItem = {
       name: string;
       value: string;
     }[];
-    product: Product;
+    product: CartProduct;
   };
 };
 

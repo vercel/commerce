@@ -29,7 +29,7 @@ export function ProductDescription({ product }: { product: Product }) {
       ) : null}
 
       <Suspense fallback={null}>
-        <AddToCart variants={product.variants} availableForSale={product.availableForSale} />
+        <AddToCart product={product} />
       </Suspense>
     </>
   );
