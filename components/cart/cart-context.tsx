@@ -10,7 +10,7 @@ type CartAction =
   | { type: 'ADD_ITEM'; payload: { variant: ProductVariant; product: Product } };
 
 type CartContextType = {
-  cart: Cart | null;
+  cart: Cart | undefined;
   updateCartItem: (merchandiseId: string, updateType: UpdateType) => void;
   addCartItem: (variant: ProductVariant, product: Product) => void;
 };
@@ -103,7 +103,7 @@ function createEmptyCart(): Cart {
   };
 }
 
-function cartReducer(state: Cart | null, action: CartAction): Cart {
+function cartReducer(state: Cart | undefined, action: CartAction): Cart {
   const currentCart = state || createEmptyCart();
 
   switch (action.type) {
@@ -150,7 +150,7 @@ export function CartProvider({
   cartPromise
 }: {
   children: React.ReactNode;
-  cartPromise: Promise<Cart | null>;
+  cartPromise: Promise<Cart | undefined>;
 }) {
   const initialCart = use(cartPromise);
   const [optimisticCart, updateOptimisticCart] = useOptimistic(initialCart, cartReducer);
