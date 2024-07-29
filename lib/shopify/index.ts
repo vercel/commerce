@@ -114,7 +114,7 @@ export async function shopifyFetch<T>({
   }
 }
 
-const removeEdgesAndNodes = (array: Connection<any>) => {
+const removeEdgesAndNodes = <T>(array: Connection<T>): T[] => {
   return array.edges.map((edge) => edge?.node);
 };
 
@@ -163,7 +163,7 @@ const reshapeImages = (images: Connection<Image>, productTitle: string) => {
   const flattened = removeEdgesAndNodes(images);
 
   return flattened.map((image) => {
-    const filename = image.url.match(/.*\/(.*)\..*/)[1];
+    const filename = image.url.match(/.*\/(.*)\..*/)?.[1];
     return {
       ...image,
       altText: image.altText || `${productTitle} - ${filename}`
@@ -254,12 +254,15 @@ export async function updateCart(
   return reshapeCart(res.body.data.cartLinesUpdate.cart);
 }
 
-export async function getCart(cartId: string): Promise<Cart | undefined> {
+export async function getCart(cartId: string | undefined): Promise<Cart | undefined> {
+  if (!cartId) {
+    return undefined;
+  }
+
   const res = await shopifyFetch<ShopifyCartOperation>({
     query: getCartQuery,
     variables: { cartId },
-    tags: [TAGS.cart],
-    cache: 'no-store'
+    tags: [TAGS.cart]
   });
 
   // Old carts becomes `null` when you checkout.
@@ -357,6 +360,7 @@ export async function getMenu(handle: string): Promise<Menu[]> {
 export async function getPage(handle: string): Promise<Page> {
   const res = await shopifyFetch<ShopifyPageOperation>({
     query: getPageQuery,
+    cache: 'no-store',
     variables: { handle }
   });
 
@@ -365,7 +369,8 @@ export async function getPage(handle: string): Promise<Page> {
 
 export async function getPages(): Promise<Page[]> {
   const res = await shopifyFetch<ShopifyPagesOperation>({
-    query: getPagesQuery
+    query: getPagesQuery,
+    cache: 'no-store'
   });
 
   return removeEdgesAndNodes(res.body.data.pages);

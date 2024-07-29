@@ -1,17 +1,16 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
 
 import { GridTileImage } from 'components/grid/tile';
 import Footer from 'components/layout/footer';
 import { Gallery } from 'components/product/gallery';
+import { ProductProvider } from 'components/product/product-context';
 import { ProductDescription } from 'components/product/product-description';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { getProduct, getProductRecommendations } from 'lib/shopify';
 import { Image } from 'lib/shopify/types';
 import Link from 'next/link';
-
-export const runtime = 'edge';
+import { Suspense } from 'react';
 
 export async function generateMetadata({
   params
@@ -74,7 +73,7 @@ export default async function ProductPage({ params }: { params: { handle: string
   };
 
   return (
-    <>
+    <ProductProvider>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -90,7 +89,7 @@ export default async function ProductPage({ params }: { params: { handle: string
               }
             >
               <Gallery
-                images={product.images.map((image: Image) => ({
+                images={product.images.slice(0, 5).map((image: Image) => ({
                   src: image.url,
                   altText: image.altText
                 }))}
@@ -99,17 +98,15 @@ export default async function ProductPage({ params }: { params: { handle: string
           </div>
 
           <div className="basis-full lg:basis-2/6">
-            <ProductDescription product={product} />
+            <Suspense fallback={null}>
+              <ProductDescription product={product} />
+            </Suspense>
           </div>
         </div>
-        <Suspense>
-          <RelatedProducts id={product.id} />
-        </Suspense>
+        <RelatedProducts id={product.id} />
       </div>
-      <Suspense>
-        <Footer />
-      </Suspense>
-    </>
+      <Footer />
+    </ProductProvider>
   );
 }
 
@@ -127,7 +124,11 @@ async function RelatedProducts({ id }: { id: string }) {
             key={product.handle}
             className="aspect-square w-full flex-none min-[475px]:w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5"
           >
-            <Link className="relative h-full w-full" href={`/product/${product.handle}`}>
+            <Link
+              className="relative h-full w-full"
+              href={`/product/${product.handle}`}
+              prefetch={true}
+            >
               <GridTileImage
                 alt={product.title}
                 label={{
