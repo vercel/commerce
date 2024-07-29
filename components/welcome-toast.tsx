@@ -8,7 +8,6 @@ export function WelcomeToast() {
     // ignore if screen height is too small
     if (window.innerHeight < 650) return;
     if (!document.cookie.includes('welcome-toast=2')) {
-      console.log('Welcome to Next.js Commerce!');
       toast('🛍️ Welcome to Next.js Commerce!', {
         id: 'welcome-toast',
         duration: Infinity,
