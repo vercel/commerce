@@ -2,18 +2,9 @@
 
 # Next.js Commerce
 
-A Next.js 14 and App Router-ready ecommerce template featuring:
+A high-perfomance, server-rendered Next.js App Router ecommerce application.
 
-- Next.js App Router
-- Optimized for SEO using Next.js's Metadata
-- React Server Components (RSCs) and Suspense
-- Server Actions for mutations
-- Edge Runtime
-- New fetching and caching paradigms
-- Dynamic OG images
-- Styling with Tailwind CSS
-- Checkout and payments with Shopify
-- Automatic light/dark mode based on system settings
+This template uses React Server Components, Server Actions, `Suspense`, `useOptimistic`, and more.
 
 <h3 id="v1-note"></h3>
 
