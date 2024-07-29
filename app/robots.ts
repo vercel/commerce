@@ -1,6 +1,4 @@
-const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-  ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-  : 'http://localhost:3000';
+import { BASE_URL } from "lib/constants";
 
 export default function robots() {
   return {
@@ -9,7 +7,7 @@ export default function robots() {
         userAgent: '*'
       }
     ],
-    sitemap: `${baseUrl}/sitemap.xml`,
-    host: baseUrl
+    sitemap: `${BASE_URL}/sitemap.xml`,
+    host: BASE_URL
   };
 }
