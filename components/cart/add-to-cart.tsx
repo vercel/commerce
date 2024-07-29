@@ -21,17 +21,18 @@ function SubmitButton({
 
   if (!availableForSale) {
     return (
-      <button aria-disabled className={clsx(buttonClasses, disabledClasses)}>
+      <button disabled className={clsx(buttonClasses, disabledClasses)}>
         Out Of Stock
       </button>
     );
   }
 
+  console.log(selectedVariantId);
   if (!selectedVariantId) {
     return (
       <button
         aria-label="Please select an option"
-        aria-disabled
+        disabled
         className={clsx(buttonClasses, disabledClasses)}
       >
         <div className="absolute left-0 ml-4">
