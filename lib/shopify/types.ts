@@ -12,8 +12,15 @@ export type Cart = Omit<ShopifyCart, 'lines'> & {
   lines: CartItem[];
 };
 
-export type CartItem = {
+export type CartProduct = {
   id: string;
+  handle: string;
+  title: string;
+  featuredImage: Image;
+};
+
+export type CartItem = {
+  id: string | undefined;
   quantity: number;
   cost: {
     totalAmount: Money;
@@ -25,7 +32,7 @@ export type CartItem = {
       name: string;
       value: string;
     }[];
-    product: Product;
+    product: CartProduct;
   };
 };
 
@@ -89,7 +96,7 @@ export type SEO = {
 };
 
 export type ShopifyCart = {
-  id: string;
+  id: string | undefined;
   checkoutUrl: string;
   cost: {
     subtotalAmount: Money;

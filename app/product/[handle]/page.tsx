@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { GridTileImage } from 'components/grid/tile';
 import Footer from 'components/layout/footer';
 import { Gallery } from 'components/product/gallery';
+import { ProductProvider } from 'components/product/product-context';
 import { ProductDescription } from 'components/product/product-description';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { getProduct, getProductRecommendations } from 'lib/shopify';
@@ -72,7 +73,7 @@ export default async function ProductPage({ params }: { params: { handle: string
   };
 
   return (
-    <>
+    <ProductProvider>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -88,7 +89,7 @@ export default async function ProductPage({ params }: { params: { handle: string
               }
             >
               <Gallery
-                images={product.images.map((image: Image) => ({
+                images={product.images.slice(0, 5).map((image: Image) => ({
                   src: image.url,
                   altText: image.altText
                 }))}
@@ -97,13 +98,15 @@ export default async function ProductPage({ params }: { params: { handle: string
           </div>
 
           <div className="basis-full lg:basis-2/6">
-            <ProductDescription product={product} />
+            <Suspense fallback={null}>
+              <ProductDescription product={product} />
+            </Suspense>
           </div>
         </div>
         <RelatedProducts id={product.id} />
       </div>
       <Footer />
-    </>
+    </ProductProvider>
   );
 }
 
