@@ -37,7 +37,7 @@ export async function Navbar() {
                 <li key={item.title}>
                   <Link
                     href={item.path}
-                    prefetch={true}
+                    prefetch={item.path === '/search' ? undefined : true}
                     className="text-neutral-500 underline-offset-4 hover:text-black hover:underline dark:text-neutral-400 dark:hover:text-neutral-300"
                   >
                     {item.title}
