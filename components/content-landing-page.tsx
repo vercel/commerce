@@ -7,6 +7,7 @@ import ContentHeader from './content-header';
 import MoreDetailsLink from './content-product-details-link';
 import DiscountTable from './content-product-discount-table';
 import ProductHeader from './content-product-header';
+import ProductReviews from './content-product-review';
 import { ImageVariantSelector, TitleVariantSelector } from './content-product-variants';
 
 export default async function ContentLandingPage({
@@ -26,14 +27,6 @@ export default async function ContentLandingPage({
 
   if (!config.product) {
     return <div>Product not found</div>;
-  }
-
-  if (variantId) {
-    const vid = variantId.startsWith('gid:')
-      ? variantId
-      : `gid://shopify/ProductVariant/${variantId}`;
-
-    config.product.variants = config.product.variants.filter((v) => v.id === vid);
   }
 
   const productJsonLd = {
@@ -109,9 +102,10 @@ export default async function ContentLandingPage({
                 </div>
               </div>
             </div>
+            <ProductReviews />
           </div>
           <div className="m-8 py-64 "> Below the fold content...</div>
-          <CheckoutForm product={config.product} store={config.store} />
+          <CheckoutForm product={config.product} store={config.store} variantId={variantId} />
         </div>
       </div>
     </>

@@ -6,14 +6,13 @@ import { buyNow } from 'components/cart/actions';
 import LoadingDots from 'components/loading-dots';
 import { Store } from 'lib/aspire/types';
 import { ProductVariant } from 'lib/shopify/types';
-import { useSearchParams } from 'next/navigation';
 import { useFormState, useFormStatus } from 'react-dom';
 
 function SubmitButton({
-  availableForSale,
+  isAvailableForSale,
   selectedVariantId
 }: {
-  availableForSale: boolean;
+  isAvailableForSale: boolean;
   selectedVariantId: string | undefined;
 }) {
   const { pending } = useFormStatus();
@@ -21,7 +20,7 @@ function SubmitButton({
     'relative flex w-full items-center justify-center rounded-md bg-[#5433eb] p-4 tracking-wide text-white ';
   const disabledClasses = 'cursor-not-allowed opacity-60 hover:opacity-60';
 
-  if (!availableForSale) {
+  if (!isAvailableForSale) {
     return (
       <button aria-disabled className={clsx(buttonClasses, disabledClasses)}>
         Out Of Stock
@@ -96,24 +95,9 @@ function SubmitButton({
   );
 }
 
-export function BuyNow({
-  store,
-  variants,
-  availableForSale
-}: {
-  store: Store;
-  variants: ProductVariant[];
-  availableForSale: boolean;
-}) {
+export function BuyNow({ store, variant }: { store: Store; variant: ProductVariant }) {
   const [response, formAction] = useFormState(buyNow, null);
-  const searchParams = useSearchParams();
-  const defaultVariantId = variants.length === 1 ? variants[0]?.id : undefined;
-  const variant = variants.find((variant: ProductVariant) =>
-    variant.selectedOptions.every(
-      (option) => option.value === searchParams.get(option.name.toLowerCase())
-    )
-  );
-  const selectedVariantId = variant?.id || defaultVariantId;
+  const selectedVariantId = variant.id;
   const actionWithVariant = formAction.bind(null, { selectedVariantId, store });
 
   if (response && !response.error && response?.checkoutUrl) {
@@ -122,7 +106,10 @@ export function BuyNow({
 
   return (
     <form action={actionWithVariant}>
-      <SubmitButton availableForSale={availableForSale} selectedVariantId={selectedVariantId} />
+      <SubmitButton
+        isAvailableForSale={variant.availableForSale}
+        selectedVariantId={selectedVariantId}
+      />
       <p aria-live="polite" className="sr-only" role="status">
         {response?.error}
       </p>

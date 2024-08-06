@@ -1,17 +1,34 @@
 import { Store } from 'lib/aspire/types';
 import { getCart } from 'lib/shopify';
 import { Product } from 'lib/shopify/types';
+import { uniqueShopifyVariantId } from 'lib/uniqueShopifyProductId';
 import { cookies } from 'next/headers';
 import { Suspense } from 'react';
 import { AddToCart } from './cart/add-to-cart';
 import { BuyNow } from './cart/buy-now';
 
-export default async function CheckoutForm({ product, store }: { product: Product; store: Store }) {
+export default async function CheckoutForm({
+  product,
+  store,
+  variantId
+}: {
+  product: Product;
+  store: Store;
+  variantId?: string;
+}) {
   const cartId = cookies().get('cartId')?.value;
   let cart;
 
   if (cartId) {
     cart = await getCart(store, cartId);
+  }
+
+  const vId = variantId ? uniqueShopifyVariantId(variantId) : null;
+
+  const selectedVariant = vId ? product.variants.find((v) => v.id === vId) : product.variants[0];
+
+  if (!selectedVariant) {
+    return null;
   }
 
   return (
@@ -22,18 +39,18 @@ export default async function CheckoutForm({ product, store }: { product: Produc
             <img
               alt=""
               className="size-12 rounded-sm bg-neutral-100 object-contain ring-1 ring-inset ring-black/5"
-              src={product.featuredImage?.url}
+              src={selectedVariant?.image.url}
             />
           </div>
           <div className="min-w-0 grow">
             <div className="truncate text-base/6 font-medium text-black group-hover/link:underline">
-              {product.title}
+              {selectedVariant?.title}
             </div>
             <div className="flex gap-x-1 text-sm/6 text-black">
-              <span>{product.variants?.[0]?.price.amount}</span>
+              <span>{selectedVariant?.price.amount}</span>
               <span className="text-xs/6 line-through opacity-60">
                 <span className="sr-only">Compare at:</span>
-                {product.variants?.[0]?.compareAtPrice?.amount}
+                {selectedVariant?.compareAtPrice?.amount}
               </span>
             </div>
           </div>
@@ -55,19 +72,10 @@ export default async function CheckoutForm({ product, store }: { product: Produc
       <div className="mt-4 block gap-2 md:flex">
         <Suspense fallback={null}>
           <div className="w-full md:w-1/2">
-            <AddToCart
-              variants={product.variants}
-              availableForSale={product.availableForSale}
-              store={store}
-            />
+            <AddToCart variant={selectedVariant} store={store} />
           </div>
           <div className="mt-4 w-full md:mt-0 md:w-1/2">
-            {/* <ShopPay product={product} store={store} /> */}
-            <BuyNow
-              variants={product.variants}
-              availableForSale={product.availableForSale}
-              store={store}
-            />
+            <BuyNow variant={selectedVariant} store={store} />
           </div>
         </Suspense>
       </div>
