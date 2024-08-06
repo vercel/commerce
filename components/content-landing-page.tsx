@@ -10,6 +10,7 @@ import DiscountTable from './content-product-discount-table';
 import ProductHeader from './content-product-header';
 import ProductReviews from './content-product-review';
 import { VariantSelector } from './content-product-variants';
+import { RelatedProducts } from './content-related-products';
 
 export default async function ContentLandingPage({
   contentLandingPage,
@@ -32,6 +33,7 @@ export default async function ContentLandingPage({
 
   const vId = variantId ? uniqueShopifyVariantId(variantId) : null;
   const pId = config.product.id.split('/').at(-1);
+  const currentPath = `/${contentLandingPage}`;
   const currentProductPath = `/${contentLandingPage}/${productId ?? pId}`;
 
   const productVariant = vId
@@ -142,6 +144,13 @@ export default async function ContentLandingPage({
                   </DisclosureSection>
                 </div>
               </div>
+            </div>
+            <div>
+              <RelatedProducts
+                store={config.store}
+                productId={config.product.id}
+                currentPath={currentPath}
+              />
             </div>
             <div className="mb-28">
               <ProductReviews />
