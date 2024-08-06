@@ -1,3 +1,9 @@
+## [1.13.1](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.13.0...v1.13.1) (2024-08-06)
+
+### Bug Fixes
+
+- scroll bug fix ([5d4868f](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/5d4868f97ecaeb4d4942ec9866affc5bdd9cf66c))
+
 # [1.13.0](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.12.0...v1.13.0) (2024-08-06)
 
 ### Features
