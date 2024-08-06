@@ -142,9 +142,10 @@ export default async function ContentLandingPage({
                 </div>
               </div>
             </div>
-            <ProductReviews />
+            <div className="mb-28">
+              <ProductReviews />
+            </div>
           </div>
-          <div className="m-8 py-64 "> Below the fold content...</div>
           <CheckoutForm productVariant={productVariant} store={config.store} />
         </div>
       </div>
