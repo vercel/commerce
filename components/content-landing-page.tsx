@@ -1,13 +1,15 @@
 import { DisclosureSection } from 'components/disclosure-section';
 import { Images } from 'components/images';
 import { getContentLandingPageConfig } from 'lib/aspire';
+import { uniqueShopifyVariantId } from 'lib/uniqueShopifyProductId';
 import CheckoutForm from './content-checkout';
 import ContentFooter from './content-footer';
 import ContentHeader from './content-header';
 import MoreDetailsLink from './content-product-details-link';
 import DiscountTable from './content-product-discount-table';
 import ProductHeader from './content-product-header';
-import { ImageVariantSelector, TitleVariantSelector } from './content-product-variants';
+import ProductReviews from './content-product-review';
+import { VariantSelector } from './content-product-variants';
 
 export default async function ContentLandingPage({
   contentLandingPage,
@@ -18,6 +20,7 @@ export default async function ContentLandingPage({
   productId?: string;
   variantId?: string;
 }) {
+  const currentProductPath = `/${contentLandingPage}/${productId}`;
   const config = await getContentLandingPageConfig(contentLandingPage, productId, variantId);
 
   if (!config) {
@@ -28,12 +31,14 @@ export default async function ContentLandingPage({
     return <div>Product not found</div>;
   }
 
-  if (variantId) {
-    const vid = variantId.startsWith('gid:')
-      ? variantId
-      : `gid://shopify/ProductVariant/${variantId}`;
+  const vId = variantId ? uniqueShopifyVariantId(variantId) : null;
 
-    config.product.variants = config.product.variants.filter((v) => v.id === vid);
+  const productVariant = vId
+    ? config.product.variants.find((v) => v.id === vId)
+    : config.product.variants[0];
+
+  if (!productVariant) {
+    return <div>Product variant not found</div>;
   }
 
   const productJsonLd = {
@@ -81,15 +86,18 @@ export default async function ContentLandingPage({
           <div className="mx-auto flex max-w-screen-lg flex-col gap-12 px-4 py-6 sm:w-[40rem] lg:w-[64rem]">
             <div className="grid lg:grid-cols-12 lg:gap-x-8 lg:gap-y-6">
               <div className=" max-w-screen-sm lg:col-span-5 lg:col-start-8">
-                <ProductHeader product={config.product} reviews={config.reviews} />
+                <ProductHeader productVariant={productVariant} reviews={config.reviews} />
               </div>
               <div className="lg:col-start-0  lg:col-span-7  lg:col-start-1 lg:row-span-3 lg:row-start-1">
                 <Images product={config.product} />
               </div>
               <div className=" flex flex-col gap-6 lg:col-span-5 lg:col-start-8">
                 <div className="flex flex-col gap-6">
-                  <ImageVariantSelector variants={config.product.variants} />
-                  <TitleVariantSelector variants={config.product.variants} />
+                  <VariantSelector
+                    variants={config.product.variants}
+                    selectedVariant={productVariant}
+                    currentProductPath={currentProductPath}
+                  />
                 </div>
                 <DiscountTable />
                 <MoreDetailsLink store={config.store} />
@@ -98,20 +106,46 @@ export default async function ContentLandingPage({
                     <div>{config.product.description}</div>
                   </DisclosureSection>
                   <DisclosureSection title={'Technical Specs'}>
-                    <div className="p-4 font-normal">(technical details to be disclosed)</div>
+                    <div className="p-4 font-normal">
+                      <ul>
+                        <li>Base: Lightning Fast Isosport 7500 Sintered Base</li>
+                        <li> Base Glass: Super Pop Triaxial Fiberglass </li>
+                        <li>Sidewalls: Premium ABS/TPU </li>
+                        <li>Top Glass: Super Pop Triaxial Fiberglass Core Material: Spruce</li>
+                      </ul>
+                    </div>
                   </DisclosureSection>
                   <DisclosureSection title={'Shipping Policy'}>
-                    <div>(shipping policy details to be disclosed)</div>
+                    <div className="p-4 font-normal">
+                      <p>
+                        Shipping is free on purchases over $250. Canada rates are available at
+                        checkout. Rest of world is a one time fee of $175 to ship.
+                      </p>
+                      <p>
+                        Your snowboard will process within 1-3 business days of your purchase! Allow
+                        4 to 10 business days to receive it. This does not apply to Pre Orders.
+                      </p>
+                    </div>
                   </DisclosureSection>
                   <DisclosureSection title={'Refund Policy'}>
-                    <div>(refund policy details to be disclosed)</div>
+                    <div className="p-4 font-normal">
+                      <p>
+                        It is good to note that double checking you ordered the right size before
+                        placing your final order helps reduce the amount of return shipments.
+                        However, if you do need to make a return you have 45 days to do so. The
+                        board needs to be in plastic, new condition to be accepted as a full return.
+                        However, once the board has been ridden it is yours to keep as we do not
+                        accept returns or exchanges on used boards.
+                      </p>
+                    </div>
                   </DisclosureSection>
                 </div>
               </div>
             </div>
+            <ProductReviews />
           </div>
           <div className="m-8 py-64 "> Below the fold content...</div>
-          <CheckoutForm product={config.product} store={config.store} />
+          <CheckoutForm productVariant={productVariant} store={config.store} />
         </div>
       </div>
     </>
