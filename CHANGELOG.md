@@ -1,3 +1,10 @@
+# [1.13.0](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.12.0...v1.13.0) (2024-08-06)
+
+### Features
+
+- **product:** enable checkout with correct product variant selected ([ee47689](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/ee47689dc6114bc438b1e807fff8f7893cc0e242))
+- **variants:** variant selection supported ([01a3827](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/01a3827def10d70786d76863a6cc3aaa1a10eb24))
+
 # [1.12.0](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.11.3...v1.12.0) (2024-07-26)
 
 ### Features
