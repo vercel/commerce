@@ -20,7 +20,6 @@ export default async function ContentLandingPage({
   productId?: string;
   variantId?: string;
 }) {
-  const currentProductPath = `/${contentLandingPage}/${productId}`;
   const config = await getContentLandingPageConfig(contentLandingPage, productId, variantId);
 
   if (!config) {
@@ -32,6 +31,8 @@ export default async function ContentLandingPage({
   }
 
   const vId = variantId ? uniqueShopifyVariantId(variantId) : null;
+  const pId = config.product.id.split('/').at(-1);
+  const currentProductPath = `/${contentLandingPage}/${productId ?? pId}`;
 
   const productVariant = vId
     ? config.product.variants.find((v) => v.id === vId)
