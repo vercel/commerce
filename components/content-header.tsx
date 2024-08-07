@@ -1,10 +1,19 @@
 import { Store } from 'lib/aspire/types';
+import { ShopifyShop } from 'lib/shopify/types';
 import Image from 'next/image';
 import { Suspense } from 'react';
 import Cart from './cart';
 import OpenCart from './cart/open-cart';
 
-export default function ContentHeader({ store, banner }: { store: Store; banner?: string }) {
+export default function ContentHeader({
+  store,
+  banner,
+  shop
+}: {
+  store: Store;
+  banner?: string;
+  shop: ShopifyShop;
+}) {
   return (
     <div className="relative">
       {banner && (
@@ -19,15 +28,15 @@ export default function ContentHeader({ store, banner }: { store: Store; banner?
           <div className="flex items-center gap-2">
             <div className="flex shrink-0 -space-x-3">
               <Image
-                src={store.logoUrl}
-                alt={store.name}
+                src={shop.brand.logo?.image?.url}
+                alt={shop.brand.logo?.image?.altText}
                 className="inline-block size-8 rounded bg-neutral-100 object-cover"
                 width={32}
                 height={32}
               />
             </div>
             <span className="group-hover/link:underline">
-              <strong className="whitespace-nowrap text-white">{store.name}</strong>
+              <strong className="whitespace-nowrap text-white">{shop.name}</strong>
             </span>
           </div>
         </a>
