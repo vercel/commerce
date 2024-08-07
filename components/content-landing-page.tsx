@@ -107,7 +107,7 @@ export default async function ContentLandingPage({
                   />
                 </div>
                 <DiscountTable />
-                <MoreDetailsLink store={config.store} />
+                <MoreDetailsLink shop={config.shop} />
                 <div className="gap-2 divide-y empty:hidden">
                   <DisclosureSection title={'Product Details'}>
                     <div className="p-4 font-normal">{config.product.description}</div>
