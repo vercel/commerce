@@ -1,3 +1,15 @@
+# [1.14.0](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.13.1...v1.14.0) (2024-08-07)
+
+### Bug Fixes
+
+- **currentProductPath:** resolved issue where the path was undefined ([77fce01](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/77fce01b8f221eb5e600e67d83a38038207384f5))
+- scroll bug fix ([60afae9](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/60afae9ff4e84fb53645e2e050d449eb1ced3151))
+
+### Features
+
+- **related-products:** implmented related products ([fed8701](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/fed870140d3ebabe9ca4a393c95275ce1f1fb3c7))
+- **shop:** ShopifyShop implemented ([ecbc936](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/commit/ecbc936214dd0aa06fa7098e5d422b90ff17e160))
+
 ## [1.13.1](https://github.com/Revfluence/distributed-checkout-nextjs-vercel-commerce/compare/v1.13.0...v1.13.1) (2024-08-06)
 
 ### Bug Fixes
