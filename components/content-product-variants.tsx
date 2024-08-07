@@ -16,7 +16,7 @@ function ImageVariantSelector({
   return (
     <div className="flex flex-col gap-2">
       <div className="truncate text-base text-black">
-        <span className="font-semibold">Color</span>: {variants?.[0]?.title}
+        <span className="font-semibold">Color</span>: {selectedVariant.title}
       </div>
       <div className="-mx-1 flex flex-row flex-wrap gap-1">
         {variants.map((variant) => (
@@ -64,8 +64,8 @@ function TitleVariantSelector({
             <a
               key={variant.id}
               className={classNames(
-                variant.id === selectedVariant.id ? 'border-neutral-500' : 'bg-neutral-200',
-                'flex min-w-11 justify-center rounded-lg border-2 border-transparent bg-clip-content p-0.5 text-sm text-neutral-700 transition-colors hover:border-neutral-400 aria-disabled:pointer-events-none aria-disabled:opacity-40'
+                variant.id === selectedVariant.id ? 'border-neutral-500 bg-neutral-200' : '',
+                'flex min-w-11 justify-center rounded-lg border-2 bg-clip-content p-0.5 text-sm text-neutral-700 transition-colors hover:border-neutral-400 aria-disabled:pointer-events-none aria-disabled:opacity-40'
               )}
               data-discover="true"
               href={`${currentProductPath}/${variantId}`}

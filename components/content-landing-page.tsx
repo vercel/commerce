@@ -2,6 +2,7 @@ import { DisclosureSection } from 'components/disclosure-section';
 import { Images } from 'components/images';
 import { getContentLandingPageConfig } from 'lib/aspire';
 import { uniqueShopifyVariantId } from 'lib/uniqueShopifyProductId';
+import Head from 'next/head';
 import CheckoutForm from './content-checkout';
 import ContentFooter from './content-footer';
 import ContentHeader from './content-header';
@@ -10,6 +11,7 @@ import DiscountTable from './content-product-discount-table';
 import ProductHeader from './content-product-header';
 import ProductReviews from './content-product-review';
 import { VariantSelector } from './content-product-variants';
+import { RelatedProducts } from './content-related-products';
 
 export default async function ContentLandingPage({
   contentLandingPage,
@@ -20,7 +22,6 @@ export default async function ContentLandingPage({
   productId?: string;
   variantId?: string;
 }) {
-  const currentProductPath = `/${contentLandingPage}/${productId}`;
   const config = await getContentLandingPageConfig(contentLandingPage, productId, variantId);
 
   if (!config) {
@@ -32,6 +33,9 @@ export default async function ContentLandingPage({
   }
 
   const vId = variantId ? uniqueShopifyVariantId(variantId) : null;
+  const pId = config.product.id.split('/').at(-1);
+  const currentPath = `/${contentLandingPage}`;
+  const currentProductPath = `/${contentLandingPage}/${productId ?? pId}`;
 
   const productVariant = vId
     ? config.product.variants.find((v) => v.id === vId)
@@ -66,7 +70,10 @@ export default async function ContentLandingPage({
           __html: JSON.stringify(productJsonLd)
         }}
       />
-      <ContentHeader store={config.store} banner={config.banner} />
+      <Head>
+        <title>{config.shop?.name}</title>
+      </Head>
+      <ContentHeader store={config.store} banner={config.banner} shop={config.shop!} />
       <div className="relative flex min-h-0 grow flex-col">
         <div className="relative bg-black">
           <div className="relative">
@@ -103,16 +110,15 @@ export default async function ContentLandingPage({
                 <MoreDetailsLink store={config.store} />
                 <div className="gap-2 divide-y empty:hidden">
                   <DisclosureSection title={'Product Details'}>
-                    <div>{config.product.description}</div>
+                    <div className="p-4 font-normal">{config.product.description}</div>
                   </DisclosureSection>
                   <DisclosureSection title={'Technical Specs'}>
                     <div className="p-4 font-normal">
-                      <ul>
-                        <li>Base: Lightning Fast Isosport 7500 Sintered Base</li>
-                        <li> Base Glass: Super Pop Triaxial Fiberglass </li>
-                        <li>Sidewalls: Premium ABS/TPU </li>
-                        <li>Top Glass: Super Pop Triaxial Fiberglass Core Material: Spruce</li>
-                      </ul>
+                      <span>
+                        Base: Lightning Fast Isosport 7500 Sintered Base Base Glass: Super Pop
+                        Triaxial Fiberglass Sidewalls: Premium ABS/TPU Top Glass: Super Pop Triaxial
+                        Fiberglass Core Material: Spruce
+                      </span>
                     </div>
                   </DisclosureSection>
                   <DisclosureSection title={'Shipping Policy'}>
@@ -142,9 +148,17 @@ export default async function ContentLandingPage({
                 </div>
               </div>
             </div>
-            <ProductReviews />
+            <div>
+              <RelatedProducts
+                store={config.store}
+                productId={config.product.id}
+                currentPath={currentPath}
+              />
+            </div>
+            <div className="mb-28">
+              <ProductReviews />
+            </div>
           </div>
-          <div className="m-8 py-64 "> Below the fold content...</div>
           <CheckoutForm productVariant={productVariant} store={config.store} />
         </div>
       </div>

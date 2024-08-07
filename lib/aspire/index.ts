@@ -1,4 +1,4 @@
-import { getProductById } from 'lib/shopify';
+import { getProductById, getShop } from 'lib/shopify';
 import { ContentLandingPages } from './types';
 
 export async function getContentLandingPageConfig(
@@ -15,14 +15,9 @@ export async function getContentLandingPageConfig(
         contentId: '01J39NY002BQ5FDH6BFJR78V8E',
         contentUrl: '/snowboardLong.mp4'
       },
-      brand: {
-        brandId: '01J39NXQGAKT82JQWEYXP9MFE3',
-        companyName: 'Vercel'
-      },
       store: {
         storeId: '01J39NYCJY8ZW27ES9BB7KEVXN',
-        name: 'Aspire Snowboards',
-        logoUrl: '/image.png',
+        clientId: '',
         domain: 'https://test-app-furie.myshopify.com',
         key: '30f0c9b2ee5c69d6c0de2e7a048eb6b4'
       },
@@ -48,14 +43,9 @@ export async function getContentLandingPageConfig(
         contentId: '01J39P1K9DY9XM2B5Y9T5RVJNP',
         contentUrl: '/snowboardLong.mp4'
       },
-      brand: {
-        brandId: '123456789',
-        companyName: 'Vercel'
-      },
       store: {
         storeId: '01J39V34AN3RKG0X7MCSAGKECH',
-        name: "Josh's Snowboards",
-        logoUrl: '/image.png',
+        clientId: '',
         domain: 'https://quickstart-ba952e54.myshopify.com',
         key: '8efbd119747c632000b04ed68313abf1'
       },
@@ -80,14 +70,9 @@ export async function getContentLandingPageConfig(
         contentId: '01J39NY002BQ5FDH6BFJR78V8E',
         contentUrl: '/snowboardLong.mp4'
       },
-      brand: {
-        brandId: '01J39NXQGAKT82JQWEYXP9MFE3',
-        companyName: 'Vercel'
-      },
       store: {
         storeId: '01J39NYCJY8ZW27ES9BB7KEVXN',
-        name: 'Aspire Snowboards',
-        logoUrl: '/image.png',
+        clientId: '',
         domain: 'https://test-app-furie.myshopify.com',
         key: '30f0c9b2ee5c69d6c0de2e7a048eb6b4'
       },
@@ -111,5 +96,7 @@ export async function getContentLandingPageConfig(
     productId ? `gid://shopify/Product/${productId}` : contentLandingPage?.productId
   );
 
-  return { ...contentLandingPage, product };
+  const shop = await getShop(contentLandingPage.store);
+
+  return { ...contentLandingPage, product, shop };
 }

@@ -24,6 +24,7 @@ import {
   getProductRecommendationsQuery,
   getProductsQuery
 } from './queries/product';
+import { getShopQuery } from './queries/shop';
 import {
   Cart,
   Collection,
@@ -48,6 +49,8 @@ import {
   ShopifyProductRecommendationsOperation,
   ShopifyProductsOperation,
   ShopifyRemoveFromCartOperation,
+  ShopifyShop,
+  ShopifyShopOperation,
   ShopifyUpdateCartOperation
 } from './types';
 
@@ -80,7 +83,7 @@ export async function shopifyFetch<T>({
     throw new Error('Missing Shopify store configuration.');
   }
   const url = `${store.domain}${SHOPIFY_GRAPHQL_API_ENDPOINT}`;
-  console.log({ url, query });
+  //console.log({ url, query });
   try {
     const result = await fetch(url, {
       method: 'POST',
@@ -416,6 +419,15 @@ export async function getProduct(store: Store, handle: string): Promise<Product 
   });
 
   return reshapeProduct(res.body.data.product, false);
+}
+
+export async function getShop(store: Store): Promise<ShopifyShop | undefined> {
+  const res = await shopifyFetch<ShopifyShopOperation>({
+    store,
+    query: getShopQuery
+  });
+
+  return res.body.data.shop;
 }
 
 export async function getProductById(

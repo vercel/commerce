@@ -249,6 +249,10 @@ export type ShopifyProductOperation = {
     | { id: string };
 };
 
+export type ShopifyShopOperation = {
+  data: { shop: ShopifyShop };
+};
+
 export type ShopifyProductRecommendationsOperation = {
   data: {
     productRecommendations: ShopifyProduct[];
@@ -267,4 +271,51 @@ export type ShopifyProductsOperation = {
     reverse?: boolean;
     sortKey?: string;
   };
+};
+
+export type ShopifyPolicy = {
+  body: string;
+  handle: string;
+  id: string;
+  title: string;
+  url: string;
+};
+
+export type ShopifyBrand = {
+  coverImage: {
+    image: Image;
+  };
+  logo: {
+    image: Image;
+  };
+  shortDescription: string;
+  slogan: string;
+  squareLogo: {
+    image: Image;
+  };
+  colors: {
+    primary: {
+      background: string;
+      foreground: string;
+    };
+    secondary: {
+      background: string;
+      foreground: string;
+    };
+  };
+};
+
+export type ShopifyShop = {
+  brand: ShopifyBrand;
+  name: string;
+  description: string;
+  primaryDomain: {
+    url: string;
+  };
+  seo: SEO;
+  refundPolicy: ShopifyPolicy;
+  shippingPolicy: ShopifyPolicy;
+  privacyPolicy: ShopifyPolicy;
+  termsOfService: ShopifyPolicy;
+  subscriptionPolicy: ShopifyPolicy;
 };

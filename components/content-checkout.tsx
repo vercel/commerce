@@ -36,7 +36,7 @@ export default async function CheckoutForm({
               {productVariant.title}
             </div>
             <div className="flex gap-x-1 text-sm/6 text-black">
-              <span>{productVariant.price.amount}</span>
+              <span>${productVariant.price.amount}</span>
               <span className="text-xs/6 line-through opacity-60">
                 <span className="sr-only">Compare at:</span>
                 {productVariant.compareAtPrice?.amount}
@@ -44,18 +44,7 @@ export default async function CheckoutForm({
             </div>
           </div>
         </div>
-        <div className="shrink-0">
-          <select
-            id="large"
-            className="block w-full rounded-lg border border-gray-300 bg-gray-50 px-2 py-3 text-base text-gray-900"
-          >
-            {Array.from({ length: 10 }, (_, i) => i + 1).map((i) => (
-              <option key={i} value={i}>
-                {i}
-              </option>
-            ))}
-          </select>
-        </div>
+        <div className="shrink-0"></div>
       </div>
 
       <div className="mt-4 block gap-2 md:flex">

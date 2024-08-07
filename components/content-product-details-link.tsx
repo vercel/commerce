@@ -1,17 +1,17 @@
-import { Store } from 'lib/aspire/types';
+import { ShopifyShop } from 'lib/shopify/types';
 
-export default function MoreDetailsLink({ store }: { store: Store }) {
+export default function MoreDetailsLink({ shop }: { shop: ShopifyShop }) {
   return (
     <div className="flex flex-col gap-4">
       <div className="prose text-sm/relaxed">{}</div>
       <a
         rel="noreferrer"
         target="_blank"
-        href={store.domain}
+        href={shop.primaryDomain.url}
         className="group/link inline-flex items-center gap-x-1 text-neutral-700"
       >
         <span className="underline decoration-neutral-700/50 decoration-2 underline-offset-4 group-hover/link:decoration-neutral-700">
-          More details on {store.name}
+          More details on {shop.name}
         </span>
         <svg aria-hidden="true" width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
           <path
