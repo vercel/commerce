@@ -98,5 +98,9 @@ export async function getContentLandingPageConfig(
 
   const shop = await getShop(contentLandingPage.store);
 
+  if (!shop) {
+    throw new Error('Shop not found');
+  }
+
   return { ...contentLandingPage, product, shop };
 }

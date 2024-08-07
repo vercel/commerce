@@ -2,19 +2,27 @@ import { AddToCart } from 'components/cart/add-to-cart';
 import Price from 'components/price';
 import Prose from 'components/prose';
 import { Store } from 'lib/aspire/types';
-import { Product } from 'lib/shopify/types';
+import { Product, ProductVariant } from 'lib/shopify/types';
 import { Suspense } from 'react';
 import { VariantSelector } from './variant-selector';
 
-export function ProductDescription({ product, store }: { product: Product; store: Store }) {
+export function ProductDescription({
+  product,
+  productVariant,
+  store
+}: {
+  product: Product;
+  productVariant: ProductVariant;
+  store: Store;
+}) {
   return (
     <>
       <div className="mb-6 flex flex-col border-b pb-6 dark:border-neutral-700">
         <h1 className="mb-2 text-5xl font-medium">{product.title}</h1>
         <div className="mr-auto w-auto rounded-full bg-blue-600 p-2 text-sm text-white">
           <Price
-            amount={product.priceRange.maxVariantPrice.amount}
-            currencyCode={product.priceRange.maxVariantPrice.currencyCode}
+            amount={productVariant.price.amount}
+            currencyCode={productVariant.price.currencyCode}
           />
         </div>
       </div>
@@ -30,11 +38,7 @@ export function ProductDescription({ product, store }: { product: Product; store
       ) : null}
 
       <Suspense fallback={null}>
-        <AddToCart
-          variants={product.variants}
-          availableForSale={product.availableForSale}
-          store={store}
-        />
+        <AddToCart variant={product.variants[0]!} store={store} />
       </Suspense>
     </>
   );
