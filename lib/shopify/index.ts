@@ -343,7 +343,7 @@ export async function getCollections(): Promise<Collection[]> {
 export async function getMenu(handle: string): Promise<Menu[]> {
   const res = await shopifyFetch<ShopifyMenuOperation>({
     query: getMenuQuery,
-    tags: [TAGS.collections],
+    cache: 'no-store',
     variables: {
       handle
     }
