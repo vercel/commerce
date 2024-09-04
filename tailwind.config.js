@@ -6,7 +6,11 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-geist-sans)']
+        baskerville: ['Libre Baskerville', 'serif']
+      },
+      colors: {
+        lightText: '#FFF2DB',
+        mainBG: '#F8E8D1'
       },
       keyframes: {
         fadeIn: {

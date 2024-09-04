@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -12,6 +13,10 @@
   img[loading='lazy'] {
     clip-path: inset(0.6px);
   }
+}
+
+body {
+  @apply font-baskerville;
 }
 
 a,

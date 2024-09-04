@@ -28,10 +28,13 @@
     "@types/node": "20.14.12",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
+    "@types/react-slick": "^0.23.13",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.39",
     "prettier": "3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.5",
+    "react-slick": "^0.30.2",
+    "swiper": "^11.1.12",
     "tailwindcss": "^3.4.6",
     "typescript": "5.5.4"
   }
