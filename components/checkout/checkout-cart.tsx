@@ -40,7 +40,7 @@ export async function CheckoutCart() {
       </div>
       <div className="flex justify-between">
         <span>Shipping</span>
-        <span className="text-gray-400">Calulated during Shipping</span>
+        <span className="text-gray-400">Calculated during Shipping</span>
       </div>
       <div className="flex justify-between font-bold">
         <span>Total</span>
