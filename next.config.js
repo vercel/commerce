@@ -11,6 +11,10 @@ module.exports = {
       {
         protocol: 'https',
         hostname: 'zylq-002.dx.commercecloud.salesforce.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'edge.disstg.commercecloud.salesforce.com',
       }
     ]
   }
