@@ -3,7 +3,8 @@ import { ThreeItemGrid } from 'components/grid/three-items';
 import Footer from 'components/layout/footer';
 
 export const metadata = {
-  description: 'High-performance ecommerce store built with Next.js, Vercel, and Shopify.',
+  description:
+    'High-performance ecommerce store built with Next.js, Vercel, and Salesforce Commerce Cloud.',
   openGraph: {
     type: 'website'
   }

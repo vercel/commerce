@@ -7,6 +7,10 @@ module.exports = {
         protocol: 'https',
         hostname: 'cdn.shopify.com',
         pathname: '/s/files/**'
+      },
+      {
+        protocol: 'https',
+        hostname: 'zylq-002.dx.commercecloud.salesforce.com',
       }
     ]
   }

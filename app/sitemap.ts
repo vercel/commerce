@@ -1,5 +1,6 @@
-import { getCollections, getPages, getProducts } from 'lib/shopify';
-import { validateEnvironmentVariables } from 'lib/utils';
+import { getCollections, getProducts } from 'lib/sfcc';
+import { getPages } from 'lib/sfcc/content';
+import { validateEnvironmentVariables } from 'lib/sfcc/utils';
 import { MetadataRoute } from 'next';
 
 type Route = {

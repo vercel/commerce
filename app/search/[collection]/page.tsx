@@ -1,10 +1,10 @@
-import { getCollection, getCollectionProducts } from 'lib/shopify';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import Grid from 'components/grid';
 import ProductGridItems from 'components/layout/product-grid-items';
-import { defaultSort, sorting } from 'lib/constants';
+import { getCollection, getCollectionProducts } from 'lib/sfcc';
+import { defaultSort, sorting } from 'lib/sfcc/constants';
 
 export async function generateMetadata({
   params
