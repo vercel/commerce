@@ -36,17 +36,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }))
   );
 
-  const pagesPromise = getPages().then((pages) =>
-    pages.map((page) => ({
-      url: `${baseUrl}/${page.handle}`,
-      lastModified: page.updatedAt
-    }))
-  );
+  const pages = getPages().map((page) => ({
+    url: `${baseUrl}/${page.handle}`,
+    lastModified: page.updatedAt
+  }));
 
   let fetchedRoutes: Route[] = [];
 
   try {
-    fetchedRoutes = (await Promise.all([collectionsPromise, productsPromise, pagesPromise])).flat();
+    fetchedRoutes = [
+      ...(await Promise.all([collectionsPromise, productsPromise])).flat(),
+      ...pages
+    ];
   } catch (error) {
     throw JSON.stringify(error, null, 2);
   }
