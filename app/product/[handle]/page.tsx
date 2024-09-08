@@ -8,7 +8,6 @@ import { ProductProvider } from 'components/product/product-context';
 import { ProductDescription } from 'components/product/product-description';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { getProduct, getProductRecommendations } from 'lib/fourthwall';
-import { Image } from 'lib/shopify/types';
 import Link from 'next/link';
 import { Suspense } from 'react';
 
@@ -51,7 +50,6 @@ export async function generateMetadata({
 }
 
 export default async function ProductPage({ params, searchParams }: { params: { handle: string }, searchParams: { currency?: string } }) {
-  const currency = searchParams.currency || 'USD';
   const product = await getProduct({
     handle: params.handle,
     currency: searchParams.currency || 'USD'
@@ -93,10 +91,7 @@ export default async function ProductPage({ params, searchParams }: { params: { 
               }
             >
               <Gallery
-                images={product.images.slice(0, 5).map((image: Image) => ({
-                  src: image.url,
-                  altText: image.altText
-                }))}
+                product={product}
               />
             </Suspense>
           </div>

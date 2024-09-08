@@ -107,6 +107,7 @@ const reshapeVariants = (variants: FourthwallProductVariant[]): ProductVariant[]
     id: v.id,
     title: v.name,
     availableForSale: true,
+    images: reshapeImages(v.images, v.name),
     selectedOptions: [{
       name: 'Size',
       value: v.attributes.size.name

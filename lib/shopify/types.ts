@@ -88,6 +88,7 @@ export type ProductVariant = {
     value: string;
   }[];
   price: Money;
+  images: Image[];
 };
 
 export type SEO = {
