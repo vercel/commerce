@@ -165,10 +165,6 @@ export const reshapeCart = (cart: FourthwallCart): Cart => {
         amount: totalValue.toString(),
         currencyCode,
       },
-      totalTaxAmount: {
-        amount: '0.0',
-        currencyCode,
-      }
     },
     lines: cart.items.map(reshapeCartItem),
     // TODO: Stubbed out

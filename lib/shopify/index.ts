@@ -13,13 +13,11 @@ import {
   getProductsQuery
 } from './queries/product';
 import {
-  Cart,
   Collection,
   Connection,
   Image,
   Page,
   Product,
-  ShopifyCart,
   ShopifyCollection,
   ShopifyCollectionOperation,
   ShopifyCollectionsOperation,
@@ -95,20 +93,6 @@ export async function shopifyFetch<T>({
 
 const removeEdgesAndNodes = <T>(array: Connection<T>): T[] => {
   return array.edges.map((edge) => edge?.node);
-};
-
-const reshapeCart = (cart: ShopifyCart): Cart => {
-  if (!cart.cost?.totalTaxAmount) {
-    cart.cost.totalTaxAmount = {
-      amount: '0.0',
-      currencyCode: 'USD'
-    };
-  }
-
-  return {
-    ...cart,
-    lines: removeEdgesAndNodes(cart.lines)
-  };
 };
 
 const reshapeCollection = (collection: ShopifyCollection): Collection | undefined => {
