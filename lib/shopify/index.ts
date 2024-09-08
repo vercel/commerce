@@ -10,7 +10,6 @@ import {
   editCartItemsMutation,
   removeFromCartMutation
 } from './mutations/cart';
-import { getCartQuery } from './queries/cart';
 import {
   getCollectionQuery,
   getCollectionsQuery
@@ -30,7 +29,6 @@ import {
   Product,
   ShopifyAddToCartOperation,
   ShopifyCart,
-  ShopifyCartOperation,
   ShopifyCollection,
   ShopifyCollectionOperation,
   ShopifyCollectionsOperation,
@@ -247,25 +245,6 @@ export async function updateCart(
   });
 
   return reshapeCart(res.body.data.cartLinesUpdate.cart);
-}
-
-export async function getCart(cartId: string | undefined): Promise<Cart | undefined> {
-  if (!cartId) {
-    return undefined;
-  }
-
-  const res = await shopifyFetch<ShopifyCartOperation>({
-    query: getCartQuery,
-    variables: { cartId },
-    tags: [TAGS.cart]
-  });
-
-  // Old carts becomes `null` when you checkout.
-  if (!res.body.data.cart) {
-    return undefined;
-  }
-
-  return reshapeCart(res.body.data.cart);
 }
 
 export async function getCollection(handle: string): Promise<Collection | undefined> {

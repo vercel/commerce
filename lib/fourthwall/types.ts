@@ -30,3 +30,20 @@ export type FourthwallProductVariant = {
 
   // other attr
 };
+
+
+export type FourthwallCart = {
+  id: string | undefined;
+  // checkoutUrl: string;
+  // cost: {
+  //   subtotalAmount: Money;
+  //   totalAmount: Money;
+  //   totalTaxAmount: Money;
+  // };
+  items: FourthwallCartItem[];
+};
+
+export type FourthwallCartItem = {
+  variant: FourthwallProductVariant;
+  quantity: number;
+};

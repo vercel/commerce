@@ -1,6 +1,9 @@
-import { Image, Money, Product, ProductVariant } from "lib/shopify/types";
-import { FourthwallMoney, FourthwallProduct, FourthwallProductImage, FourthwallProductVariant } from "./types";
+import { Cart, CartItem, Image, Money, Product, ProductVariant } from "lib/shopify/types";
+import { FourthwallCart, FourthwallCartItem, FourthwallMoney, FourthwallProduct, FourthwallProductImage, FourthwallProductVariant } from "./types";
 
+/**
+ * Utils
+ */
 const DEFAULT_IMAGE: Image = {
   url: '',
   altText: '',
@@ -8,6 +11,17 @@ const DEFAULT_IMAGE: Image = {
   height: 0
 }
 
+
+const reshapeMoney = (money: FourthwallMoney): Money => {
+  return {
+    amount: money.value.toString(),
+    currencyCode: money.currencyCode
+  };
+}
+
+/**
+ * Products
+ */
 export const reshapeProducts = (products: FourthwallProduct[]) => {
   const reshapedProducts = [];
 
@@ -44,8 +58,6 @@ const reshapeProduct = (product: FourthwallProduct): Product | undefined => {
     description: product.description,
     images: reshapeImages(images, product.name),
     variants: reshapeVariants(variants),
-    // stubbed out
-    availableForSale: true,
     priceRange: {
       minVariantPrice: {
         amount: minPrice.toString(),
@@ -56,8 +68,10 @@ const reshapeProduct = (product: FourthwallProduct): Product | undefined => {
         currencyCode,
       }
     },
-    options: [],
     featuredImage: reshapeImages(images, product.name)[0] || DEFAULT_IMAGE,
+    // TODO: stubbed out
+    availableForSale: true,
+    options: [],
     seo: {
       title: product.name,
       description: product.description,
@@ -87,9 +101,59 @@ const reshapeVariants = (variants: FourthwallProductVariant[]): ProductVariant[]
   }))
 }
 
-const reshapeMoney = (money: FourthwallMoney): Money => {
+/**
+ * Cart
+ */
+const reshapeCartItem = (item: FourthwallCartItem): CartItem => {
   return {
-    amount: money.value.toString(),
-    currencyCode: money.currencyCode
+    id: item.variant.id,
+    quantity: item.quantity,
+    cost: {
+      totalAmount: reshapeMoney(item.variant.unitPrice)
+    },
+    merchandise: {
+      id: item.variant.id,
+      title: item.variant.name,
+      // TODO: Stubbed out
+      selectedOptions: [],
+      product: {
+        id: 'TT',
+        handle: 'TT',
+        title: 'TT',
+        featuredImage: {
+          url: item.variant.images[0]?.url || 'TT',
+          altText: 'TT',
+          width: item.variant.images[0]?.width || 100,
+          height: item.variant.images[0]?.height || 100
+        }
+      }
+    }
   };
 }
+
+export const reshapeCart = (cart: FourthwallCart): Cart => {
+  const totalValue = cart.items.map((item) => item.quantity * item.variant.unitPrice.value).reduce((a, b) => a + b, 0);
+  const currencyCode = cart.items[0]?.variant.unitPrice.currencyCode || 'USD';
+
+  return {
+    ...cart,
+    cost: {
+      totalAmount: {
+        amount: totalValue.toString(),
+        currencyCode,
+      },
+      subtotalAmount: {
+        amount: totalValue.toString(),
+        currencyCode,
+      },
+      totalTaxAmount: {
+        amount: '0.0',
+        currencyCode,
+      }
+    },
+    lines: cart.items.map(reshapeCartItem),
+    // TODO: Stubbed out
+    checkoutUrl: 'TT', 
+    totalQuantity: cart.items.map((item) => item.quantity).reduce((a, b) => a + b, 0)
+  };
+};

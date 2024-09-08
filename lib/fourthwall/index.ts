@@ -1,5 +1,6 @@
-import { Menu, Product } from "lib/shopify/types";
-import { reshapeProducts } from "./reshape";
+import { Cart, Menu, Product } from "lib/shopify/types";
+import { reshapeCart, reshapeProducts } from "./reshape";
+import { FourthwallCart } from "./types";
 
 /**
  * Helpers
@@ -60,9 +61,8 @@ async function fourthwallPost<T>(url: string, data: any, options: RequestInit = 
 }
 
 /**
- * Calls
+ * Collection operations
  */
-
 export async function getCollectionProducts({
   collection,
   reverse,
@@ -87,9 +87,24 @@ export async function getCollectionProducts({
   return reshapeProducts(res.body.results);
 }
 
+/**
+ * Cart operations
+ */
+export async function getCart(cartId: string | undefined): Promise<Cart | undefined> {
+  if (!cartId) {
+    return undefined;
+  }
+
+  const res = await fourthwallGet<FourthwallCart>(`${process.env.FW_URL}/api/public/v1.0/carts/${cartId}?secret=${process.env.FW_SECRET}`, {
+    cache: 'no-store'
+  });
+
+  return reshapeCart(res.body);
+}
+
 
 /**
- * Stubbed out
+ * TODO: Stubbed out
  */
 export async function getMenu(handle: string): Promise<Menu[]> {
   return [];
