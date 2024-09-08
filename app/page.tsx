@@ -9,11 +9,13 @@ export const metadata = {
   }
 };
 
-export default function HomePage() {
+export default function HomePage({ searchParams }: { searchParams: { currency?: string } }) {
+  const currency = searchParams.currency || 'USD';
+
   return (
     <>
-      <ThreeItemGrid />
-      <Carousel />
+      <ThreeItemGrid currency={currency} />
+      <Carousel currency={currency}/>
       <Footer />
     </>
   );

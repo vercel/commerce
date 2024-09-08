@@ -5,10 +5,12 @@ import Link from 'next/link';
 
 function ThreeItemGridItem({
   item,
+  currency,
   size,
   priority
 }: {
   item: Product;
+  currency: string;
   size: 'full' | 'half';
   priority?: boolean;
 }) {
@@ -18,7 +20,7 @@ function ThreeItemGridItem({
     >
       <Link
         className="relative block aspect-square h-full w-full"
-        href={`/product/${item.handle}`}
+        href={`/product/${item.handle}?currency=${currency}`}
         prefetch={true}
       >
         <GridTileImage
@@ -41,10 +43,11 @@ function ThreeItemGridItem({
   );
 }
 
-export async function ThreeItemGrid() {
+export async function ThreeItemGrid({ currency } : { currency: string }) {
   // Collections that start with `hidden-*` are hidden from the search page.
   const homepageItems = await getCollectionProducts({
     collection: process.env.FW_COLLECTION || '',
+    currency
   });
 
   if (!homepageItems[0] || !homepageItems[1] || !homepageItems[2]) return null;
@@ -53,9 +56,9 @@ export async function ThreeItemGrid() {
 
   return (
     <section className="mx-auto grid max-w-screen-2xl gap-4 px-4 pb-4 md:grid-cols-6 md:grid-rows-2 lg:max-h-[calc(100vh-200px)]">
-      <ThreeItemGridItem size="full" item={firstProduct} priority={true} />
-      <ThreeItemGridItem size="half" item={secondProduct} priority={true} />
-      <ThreeItemGridItem size="half" item={thirdProduct} />
+      <ThreeItemGridItem size="full" item={firstProduct} priority={true} currency={currency}/>
+      <ThreeItemGridItem size="half" item={secondProduct} priority={true} currency={currency}/>
+      <ThreeItemGridItem size="half" item={thirdProduct} currency={currency}/>
     </section>
   );
 }

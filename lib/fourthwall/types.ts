@@ -1,6 +1,6 @@
 export type FourthwallMoney = {
   value: number;
-  currencyCode: string;
+  currency: string;
 }
 
 export type FourthwallProduct = {
@@ -29,17 +29,21 @@ export type FourthwallProductVariant = {
   images: FourthwallProductImage[];
 
   // other attr
+  attributes: {
+    description: string;
+    color: {
+      name: string;
+      swatch: string;
+    },
+    size: {
+      name: string;
+    };
+  }
 };
 
 
 export type FourthwallCart = {
   id: string | undefined;
-  // checkoutUrl: string;
-  // cost: {
-  //   subtotalAmount: Money;
-  //   totalAmount: Money;
-  //   totalTaxAmount: Money;
-  // };
   items: FourthwallCartItem[];
 };
 

@@ -65,18 +65,22 @@ async function fourthwallPost<T>(url: string, data: any, options: RequestInit = 
  */
 export async function getCollectionProducts({
   collection,
+  currency,
   reverse,
   sortKey
 }: {
   collection: string;
+  currency: string;
   reverse?: boolean;
   sortKey?: string;
 }): Promise<Product[]> {
-  const res = await fourthwallGet<{results: FourthwallProduct[]}>(`${process.env.FW_URL}/api/public/v1.0/collections/${collection}/products?secret=${process.env.FW_SECRET}`, {
+  const res = await fourthwallGet<{results: FourthwallProduct[]}>(`${process.env.FW_URL}/api/public/v1.0/collections/${collection}/products?secret=${process.env.FW_SECRET}&currency=${currency}`, {
     headers: {
       'X-ShopId': process.env.FW_SHOPID || ''
     }
   });
+
+  console.warn(JSON.stringify(res.body.results, null, 2));
 
   if (!res.body.results) {
     console.log(`No collection found for \`${collection}\``);
@@ -90,9 +94,9 @@ export async function getCollectionProducts({
 /**
  * Product operations
  */
-export async function getProduct(handle: string): Promise<Product | undefined> {
+export async function getProduct({ handle, currency } : { handle: string, currency: string }): Promise<Product | undefined> {
   // TODO: replace with real URL
-  const res = await fourthwallGet<{results: FourthwallProduct[]}>(`${process.env.FW_URL}/api/public/v1.0/collections/${process.env.FW_COLLECTION}/products?secret=${process.env.FW_SECRET}`, {
+  const res = await fourthwallGet<{results: FourthwallProduct[]}>(`${process.env.FW_URL}/api/public/v1.0/collections/${process.env.FW_COLLECTION}/products?secret=${process.env.FW_SECRET}&currency=${currency}`, {
     headers: {
       'X-ShopId': process.env.FW_SHOPID || ''
     }
@@ -111,7 +115,7 @@ export async function getProductRecommendations(productId: string): Promise<Prod
 /**
  * Cart operations
  */
-export async function getCart(cartId: string | undefined): Promise<Cart | undefined> {
+export async function getCart(cartId: string | undefined, currency: string): Promise<Cart | undefined> {
   if (!cartId) {
     return undefined;
   }

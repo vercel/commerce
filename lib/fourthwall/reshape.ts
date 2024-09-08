@@ -15,7 +15,7 @@ const DEFAULT_IMAGE: Image = {
 const reshapeMoney = (money: FourthwallMoney): Money => {
   return {
     amount: money.value.toString(),
-    currencyCode: money.currencyCode
+    currencyCode: money.currency
   };
 }
 
@@ -48,7 +48,10 @@ export const reshapeProduct = (product: FourthwallProduct): Product | undefined 
   const minPrice = Math.min(...variants.map((v) => v.unitPrice.value));
   const maxPrice = Math.max(...variants.map((v) => v.unitPrice.value));
 
-  const currencyCode = variants[0]?.unitPrice.currencyCode || 'USD';
+  const currencyCode = variants[0]?.unitPrice.currency || 'USD';
+
+  const sizes = new Set(variants.map((v) => v.attributes.size.name));
+  const colors = new Set(variants.map((v) => v.attributes.color.name));
 
   return {
     ...rest,
@@ -69,9 +72,17 @@ export const reshapeProduct = (product: FourthwallProduct): Product | undefined 
       }
     },
     featuredImage: reshapeImages(images, product.name)[0] || DEFAULT_IMAGE,
+    options: [{
+      id: 'color',
+      name: 'Color',
+      values: [...colors]
+    }, {
+      id: 'size',
+      name: 'Size',
+      values: [...sizes]
+    }],    
     // TODO: stubbed out
     availableForSale: true,
-    options: [],
     seo: {
       title: product.name,
       description: product.description,
@@ -96,7 +107,13 @@ const reshapeVariants = (variants: FourthwallProductVariant[]): ProductVariant[]
     id: v.id,
     title: v.name,
     availableForSale: true,
-    selectedOptions: [],
+    selectedOptions: [{
+      name: 'Size',
+      value: v.attributes.size.name
+    }, {
+      name: 'Color',
+      value: v.attributes.color.name
+    }],
     price: reshapeMoney(v.unitPrice),
   }))
 }
@@ -134,7 +151,7 @@ const reshapeCartItem = (item: FourthwallCartItem): CartItem => {
 
 export const reshapeCart = (cart: FourthwallCart): Cart => {
   const totalValue = cart.items.map((item) => item.quantity * item.variant.unitPrice.value).reduce((a, b) => a + b, 0);
-  const currencyCode = cart.items[0]?.variant.unitPrice.currencyCode || 'USD';
+  const currencyCode = cart.items[0]?.variant.unitPrice.currency || 'USD';
 
   return {
     ...cart,

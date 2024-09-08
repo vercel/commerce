@@ -17,7 +17,7 @@ export async function generateMetadata({
 }: {
   params: { handle: string };
 }): Promise<Metadata> {
-  const product = await getProduct(params.handle);
+  const product = await getProduct({ handle: params.handle, currency: 'USD' });
 
   if (!product) return notFound();
 
@@ -50,8 +50,12 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProductPage({ params }: { params: { handle: string } }) {
-  const product = await getProduct(params.handle);
+export default async function ProductPage({ params, searchParams }: { params: { handle: string }, searchParams: { currency?: string } }) {
+  const currency = searchParams.currency || 'USD';
+  const product = await getProduct({
+    handle: params.handle,
+    currency: searchParams.currency || 'USD'
+  });
 
   if (!product) return notFound();
 
