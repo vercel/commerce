@@ -12,11 +12,9 @@ import {
 } from './mutations/cart';
 import { getCartQuery } from './queries/cart';
 import {
-  getCollectionProductsQuery,
   getCollectionQuery,
   getCollectionsQuery
 } from './queries/collection';
-import { getMenuQuery } from './queries/menu';
 import { getPageQuery, getPagesQuery } from './queries/page';
 import {
   getProductQuery,
@@ -28,7 +26,6 @@ import {
   Collection,
   Connection,
   Image,
-  Menu,
   Page,
   Product,
   ShopifyAddToCartOperation,
@@ -36,10 +33,8 @@ import {
   ShopifyCartOperation,
   ShopifyCollection,
   ShopifyCollectionOperation,
-  ShopifyCollectionProductsOperation,
   ShopifyCollectionsOperation,
   ShopifyCreateCartOperation,
-  ShopifyMenuOperation,
   ShopifyPageOperation,
   ShopifyPagesOperation,
   ShopifyProduct,
@@ -285,33 +280,6 @@ export async function getCollection(handle: string): Promise<Collection | undefi
   return reshapeCollection(res.body.data.collection);
 }
 
-export async function getCollectionProducts({
-  collection,
-  reverse,
-  sortKey
-}: {
-  collection: string;
-  reverse?: boolean;
-  sortKey?: string;
-}): Promise<Product[]> {
-  const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
-    query: getCollectionProductsQuery,
-    tags: [TAGS.collections, TAGS.products],
-    variables: {
-      handle: collection,
-      reverse,
-      sortKey: sortKey === 'CREATED_AT' ? 'CREATED' : sortKey
-    }
-  });
-
-  if (!res.body.data.collection) {
-    console.log(`No collection found for \`${collection}\``);
-    return [];
-  }
-
-  return reshapeProducts(removeEdgesAndNodes(res.body.data.collection.products));
-}
-
 export async function getCollections(): Promise<Collection[]> {
   const res = await shopifyFetch<ShopifyCollectionsOperation>({
     query: getCollectionsQuery,
@@ -338,23 +306,6 @@ export async function getCollections(): Promise<Collection[]> {
   ];
 
   return collections;
-}
-
-export async function getMenu(handle: string): Promise<Menu[]> {
-  const res = await shopifyFetch<ShopifyMenuOperation>({
-    query: getMenuQuery,
-    tags: [TAGS.collections],
-    variables: {
-      handle
-    }
-  });
-
-  return (
-    res.body?.data?.menu?.items.map((item: { title: string; url: string }) => ({
-      title: item.title,
-      path: item.url.replace(domain, '').replace('/collections', '/search').replace('/pages', '')
-    })) || []
-  );
 }
 
 export async function getPage(handle: string): Promise<Page> {
