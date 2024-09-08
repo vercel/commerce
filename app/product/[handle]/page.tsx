@@ -7,7 +7,7 @@ import { Gallery } from 'components/product/gallery';
 import { ProductProvider } from 'components/product/product-context';
 import { ProductDescription } from 'components/product/product-description';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
-import { getProduct, getProductRecommendations } from 'lib/shopify';
+import { getProduct, getProductRecommendations } from 'lib/fourthwall';
 import { Image } from 'lib/shopify/types';
 import Link from 'next/link';
 import { Suspense } from 'react';

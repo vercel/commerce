@@ -1,6 +1,6 @@
 import { Cart, Menu, Product } from "lib/shopify/types";
-import { reshapeCart, reshapeProducts } from "./reshape";
-import { FourthwallCart } from "./types";
+import { reshapeCart, reshapeProduct, reshapeProducts } from "./reshape";
+import { FourthwallCart, FourthwallProduct } from "./types";
 
 /**
  * Helpers
@@ -72,7 +72,7 @@ export async function getCollectionProducts({
   reverse?: boolean;
   sortKey?: string;
 }): Promise<Product[]> {
-  const res = await fourthwallGet<{results: any[]}>(`${process.env.FW_URL}/api/public/v1.0/collections/${collection}/products?secret=${process.env.FW_SECRET}`, {
+  const res = await fourthwallGet<{results: FourthwallProduct[]}>(`${process.env.FW_URL}/api/public/v1.0/collections/${collection}/products?secret=${process.env.FW_SECRET}`, {
     headers: {
       'X-ShopId': process.env.FW_SHOPID || ''
     }
@@ -85,6 +85,27 @@ export async function getCollectionProducts({
 
 
   return reshapeProducts(res.body.results);
+}
+
+/**
+ * Product operations
+ */
+export async function getProduct(handle: string): Promise<Product | undefined> {
+  // TODO: replace with real URL
+  const res = await fourthwallGet<{results: FourthwallProduct[]}>(`${process.env.FW_URL}/api/public/v1.0/collections/${process.env.FW_COLLECTION}/products?secret=${process.env.FW_SECRET}`, {
+    headers: {
+      'X-ShopId': process.env.FW_SHOPID || ''
+    }
+  });
+
+  return res.body.results.filter((product) => {
+    return product.slug === handle
+  }).map((p: any) => reshapeProduct(p))[0];
+}
+
+export async function getProductRecommendations(productId: string): Promise<Product[]> {
+  // TODO: replace with real URL
+  return [];
 }
 
 /**

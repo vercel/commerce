@@ -38,7 +38,7 @@ export const reshapeProducts = (products: FourthwallProduct[]) => {
   return reshapedProducts;
 };
 
-const reshapeProduct = (product: FourthwallProduct): Product | undefined => {
+export const reshapeProduct = (product: FourthwallProduct): Product | undefined => {
   if (!product) {
     return undefined;
   }
@@ -117,7 +117,8 @@ const reshapeCartItem = (item: FourthwallCartItem): CartItem => {
       // TODO: Stubbed out
       selectedOptions: [],
       product: {
-        id: 'TT',
+        // TODO: need this product info in model
+        id: 'TT', 
         handle: 'TT',
         title: 'TT',
         featuredImage: {

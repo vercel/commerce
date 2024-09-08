@@ -10,8 +10,6 @@ import {
 } from './queries/collection';
 import { getPageQuery, getPagesQuery } from './queries/page';
 import {
-  getProductQuery,
-  getProductRecommendationsQuery,
   getProductsQuery
 } from './queries/product';
 import {
@@ -28,8 +26,6 @@ import {
   ShopifyPageOperation,
   ShopifyPagesOperation,
   ShopifyProduct,
-  ShopifyProductOperation,
-  ShopifyProductRecommendationsOperation,
   ShopifyProductsOperation
 } from './types';
 
@@ -241,30 +237,6 @@ export async function getPages(): Promise<Page[]> {
   });
 
   return removeEdgesAndNodes(res.body.data.pages);
-}
-
-export async function getProduct(handle: string): Promise<Product | undefined> {
-  const res = await shopifyFetch<ShopifyProductOperation>({
-    query: getProductQuery,
-    tags: [TAGS.products],
-    variables: {
-      handle
-    }
-  });
-
-  return reshapeProduct(res.body.data.product, false);
-}
-
-export async function getProductRecommendations(productId: string): Promise<Product[]> {
-  const res = await shopifyFetch<ShopifyProductRecommendationsOperation>({
-    query: getProductRecommendationsQuery,
-    tags: [TAGS.products],
-    variables: {
-      productId
-    }
-  });
-
-  return reshapeProducts(res.body.data.productRecommendations);
 }
 
 export async function getProducts({
