@@ -102,6 +102,78 @@ export async function getCart(cartId: string | undefined): Promise<Cart | undefi
   return reshapeCart(res.body);
 }
 
+export async function createCart(): Promise<Cart> {
+  const res = await fourthwallPost<FourthwallCart>(`https://api.staging.fourthwall.com/api/public/v1.0/carts?secret=${process.env.FW_SECRET}`, {
+    items: []
+  }, {
+    headers: {
+      'X-ShopId': process.env.FW_SHOPID || ''
+    }
+  });
+
+  return reshapeCart(res.body);
+}
+
+export async function addToCart(
+  cartId: string,
+  lines: { merchandiseId: string; quantity: number }[]
+): Promise<Cart> {
+
+  const items = lines.map((line) => ({
+    variantId: line.merchandiseId,
+    quantity: line.quantity
+  }));
+
+  const res = await fourthwallPost<FourthwallCart>(`${process.env.FW_URL}/api/public/v1.0/carts/${cartId}/add?secret=${process.env.FW_SECRET}`, {
+    items,
+  }, {
+    headers: {
+      'X-ShopId': process.env.FW_SHOPID || ''
+    },
+    cache: 'no-store'    
+  });
+
+  return reshapeCart(res.body);
+}
+
+export async function removeFromCart(cartId: string, lineIds: string[]): Promise<Cart> {
+  const items = lineIds.map((id) => ({
+    variantId: id
+  }));
+
+  const res = await fourthwallPost<FourthwallCart>(`${process.env.FW_URL}/api/public/v1.0/carts/${cartId}/remove?secret=${process.env.FW_SECRET}`, {
+    items,
+  }, {
+    headers: {
+      'X-ShopId': process.env.FW_SHOPID || ''
+    },
+    cache: 'no-store'
+  });
+
+  return reshapeCart(res.body);
+}
+
+export async function updateCart(
+  cartId: string,
+  lines: { id: string; merchandiseId: string; quantity: number }[]
+): Promise<Cart> {
+  const items = lines.map((line) => ({
+    variantId: line.merchandiseId,
+    quantity: line.quantity
+  }));
+
+  const res = await fourthwallPost<FourthwallCart>(`${process.env.FW_URL}/api/public/v1.0/carts/${cartId}/change?secret=${process.env.FW_SECRET}`, {
+    items,
+  }, {
+    headers: {
+      'X-ShopId': process.env.FW_SHOPID || ''
+    },
+    cache: 'no-store'
+  });
+
+  return reshapeCart(res.body);
+}
+
 
 /**
  * TODO: Stubbed out
