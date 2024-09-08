@@ -192,7 +192,7 @@ export default function CartModal() {
                       />
                     </div>
                   </div>
-                  <form action={redirectToCheckout}>
+                  <form action={() => redirectToCheckout(cart.currency)}>
                     <CheckoutButton />
                   </form>
                 </div>

@@ -167,6 +167,7 @@ export const reshapeCart = (cart: FourthwallCart): Cart => {
       },
     },
     lines: cart.items.map(reshapeCartItem),
+    currency: currencyCode,
     // TODO: Stubbed out
     checkoutUrl: 'TT', 
     totalQuantity: cart.items.map((item) => item.quantity).reduce((a, b) => a + b, 0)

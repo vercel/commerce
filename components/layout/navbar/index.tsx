@@ -1,17 +1,17 @@
 import CartModal from 'components/cart/modal';
 import LogoSquare from 'components/logo-square';
-import { getMenu } from 'lib/fourthwall';
 import { Menu } from 'lib/shopify/types';
 import Link from 'next/link';
 import { Suspense } from 'react';
+import { CurrencySelector } from './currency';
 import MobileMenu from './mobile-menu';
 import Search, { SearchSkeleton } from './search';
 
 const { SITE_NAME } = process.env;
 
-export async function Navbar() {
-  const menu = await getMenu('next-js-frontend-header-menu');
-
+export function Navbar({currency}: {currency: string}) {
+  const menu: any[] = [];
+  
   return (
     <nav className="relative flex items-center justify-between p-4 lg:px-6">
       <div className="block flex-none md:hidden">
@@ -53,9 +53,7 @@ export async function Navbar() {
           </Suspense>
         </div>
         <div className="flex justify-end md:w-1/3">
-          <div className="relative flex h-11 w-11 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors dark:border-neutral-700 dark:text-white">
-            USD
-          </div>
+          <CurrencySelector currency={currency} />
           <CartModal />
         </div>
       </div>

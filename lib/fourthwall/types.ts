@@ -51,3 +51,7 @@ export type FourthwallCartItem = {
   variant: FourthwallProductVariant;
   quantity: number;
 };
+
+export type FourthwallCheckout = {
+  id: string
+};

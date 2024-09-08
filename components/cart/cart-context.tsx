@@ -145,7 +145,7 @@ function cartReducer(state: Cart | undefined, action: CartAction): Cart {
 
 export function CartProvider({
   children,
-  cartPromise
+  cartPromise,
 }: {
   children: React.ReactNode;
   cartPromise: Promise<Cart | undefined>;
