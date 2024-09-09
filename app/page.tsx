@@ -2,7 +2,7 @@ import Error from 'app/error';
 import Footer from 'components/layout/footer';
 import { Navbar } from 'components/layout/navbar';
 import Search from 'components/layout/navbar/search';
-import PriceBoxes from 'components/price-boxes';
+import { PriceBox } from 'components/price-box';
 import { getCollectionProducts } from 'lib/shopify';
 import Image from 'next/image';
 
@@ -24,28 +24,25 @@ export default async function HomePage() {
     <>
       <section className="relative">
         <Navbar />
-        <div className="relative w-screen">
+        <div className={'relative h-screen w-screen'}>
           <Image
             src={
               products[0].featuredImage.url || '' //Todo: default image
             }
             alt={products[0].featuredImage.altText || 'Main product'}
-            width={products[0].featuredImage.width}
-            height={products[0].featuredImage.height}
+            fill
+            objectFit="cover"
             quality={100}
             priority
           />
         </div>
-        <div className="absolute bottom-0 flex w-full flex-col items-center text-lightText">
+        <div className="absolute bottom-20 flex w-full flex-col items-center text-lightText">
           <h1 className="text-xl">{products[0].title}</h1>
           <span className="mb-6 mt-1 text-sm text-lightText/80">Read more</span>
-          <PriceBoxes
-            products={[
-              { title: 'Box of 20', price: '£2,460' },
-              { title: 'Single Cigar', price: '£120' }
-            ]}
-            totalWidth={384}
-          />
+          <div className={`text-mainBG flex w-[384px] justify-center gap-[10px]`}>
+            <PriceBox title="Box of 20" price={2460} />
+            <PriceBox title="Single Cigar" price={120} />
+          </div>
         </div>
       </section>
       <section className="flex">
