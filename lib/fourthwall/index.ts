@@ -97,15 +97,13 @@ export async function getCollectionProducts({
  */
 export async function getProduct({ handle, currency } : { handle: string, currency: string }): Promise<Product | undefined> {
   // TODO: replace with real URL
-  const res = await fourthwallGet<{results: FourthwallProduct[]}>(`${API_URL}/api/public/v1.0/collections/${process.env.FW_COLLECTION}/products?secret=${API_SECRET}&currency=${currency}`, {
+  const res = await fourthwallGet<FourthwallProduct>(`${API_URL}/api/public/v1.0/products/${handle}?secret=${API_SECRET}&currency=${currency}`, {
     headers: {
       'X-ShopId': process.env.FW_SHOPID || ''
     }
   });
 
-  return res.body.results.filter((product) => {
-    return product.slug === handle
-  }).map((p: any) => reshapeProduct(p))[0];
+  return reshapeProduct(res.body);
 }
 
 export async function getProductRecommendations(productId: string): Promise<Product[]> {
