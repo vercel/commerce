@@ -10,7 +10,8 @@ module.exports = {
       },
       colors: {
         lightText: '#FFF2DB',
-        mainBG: '#F8E8D1'
+        mainBG: '#F8E8D1',
+        menuHover: '#C6BAA7'
       },
       keyframes: {
         fadeIn: {

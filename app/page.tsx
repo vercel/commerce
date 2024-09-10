@@ -24,7 +24,7 @@ export default async function HomePage() {
     <>
       <section className="relative">
         <Navbar />
-        <div className={'relative h-screen w-screen'}>
+        <div className="relative h-screen w-screen">
           <Image
             src={
               products[0].featuredImage.url || '' //Todo: default image
@@ -39,7 +39,7 @@ export default async function HomePage() {
         <div className="absolute bottom-20 flex w-full flex-col items-center text-lightText">
           <h1 className="text-xl">{products[0].title}</h1>
           <span className="mb-6 mt-1 text-sm text-lightText/80">Read more</span>
-          <div className={`text-mainBG flex w-[384px] justify-center gap-[10px]`}>
+          <div className="flex w-[384px] justify-center gap-[10px] text-mainBG">
             <PriceBox title="Box of 20" price={2460} />
             <PriceBox title="Single Cigar" price={120} />
           </div>

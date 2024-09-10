@@ -5,9 +5,8 @@ import { useRouter } from 'next/navigation';
 export default function Error({ resetAction }: { resetAction?: () => void }) {
   const router = useRouter();
 
-  // '/'로 이동하는 defaultReset 함수
   const defaultReset = () => {
-    router.push('/'); // 메인 페이지로 이동
+    router.push('/');
   };
 
   return (
