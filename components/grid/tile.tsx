@@ -1,49 +1,19 @@
-import clsx from 'clsx';
 import Image from 'next/image';
-import Label from '../label';
 
 export function GridTileImage({
-  isInteractive = true,
-  active,
-  label,
+  title,
   ...props
 }: {
-  isInteractive?: boolean;
-  active?: boolean;
-  label?: {
-    title: string;
-    amount: string;
-    currencyCode: string;
-    position?: 'bottom' | 'center';
-  };
+  title?: string;
 } & React.ComponentProps<typeof Image>) {
   return (
-    <div
-      className={clsx(
-        'group flex h-full w-full items-center justify-center overflow-hidden rounded-lg border bg-white hover:border-blue-600 dark:bg-black',
-        {
-          relative: label,
-          'border-2 border-blue-600': active,
-          'border-neutral-200 dark:border-neutral-800': !active
-        }
-      )}
-    >
-      {props.src ? (
-        <Image
-          className={clsx('relative h-full w-full object-contain', {
-            'transition duration-300 ease-in-out group-hover:scale-105': isInteractive
-          })}
-          {...props}
-        />
+    <>
+      {props.src ? <Image fill className="h-full w-full object-cover" {...props} /> : null}
+      {title ? (
+        <h3 className="absolute bottom-0 w-full p-10 text-center text-[15px] text-lightText">
+          {title}
+        </h3>
       ) : null}
-      {label ? (
-        <Label
-          title={label.title}
-          amount={label.amount}
-          currencyCode={label.currencyCode}
-          position={label.position}
-        />
-      ) : null}
-    </div>
+    </>
   );
 }

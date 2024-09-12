@@ -1,6 +1,6 @@
 import Footer from 'components/layout/footer';
-import Collections from 'components/layout/search/collections';
-import FilterList from 'components/layout/search/filter';
+import Collections from 'components/layout/search/*not-in-use/collections';
+import FilterList from 'components/layout/search/*not-in-use/filter';
 import { sorting } from 'lib/constants';
 import ChildrenWrapper from './children-wrapper';
 
