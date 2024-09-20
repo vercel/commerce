@@ -1,4 +1,4 @@
-import { Cart, CartItem, Image, Money, Product, ProductVariant } from "lib/shopify/types";
+import { Cart, CartItem, Image, Money, Product, ProductVariant } from "lib/types";
 import { FourthwallCart, FourthwallCartItem, FourthwallMoney, FourthwallProduct, FourthwallProductImage, FourthwallProductVariant } from "./types";
 
 /**

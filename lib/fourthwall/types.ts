@@ -41,7 +41,6 @@ export type FourthwallProductVariant = {
   }
 };
 
-
 export type FourthwallCart = {
   id: string | undefined;
   items: FourthwallCartItem[];
