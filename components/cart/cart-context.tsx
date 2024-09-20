@@ -1,6 +1,6 @@
 'use client';
 
-import type { Cart, CartItem, Product, ProductVariant } from 'lib/shopify/types';
+import type { Cart, CartItem, Product, ProductVariant } from 'lib/types';
 import React, { createContext, use, useContext, useMemo, useOptimistic } from 'react';
 
 type UpdateType = 'plus' | 'minus' | 'delete';
@@ -94,6 +94,7 @@ function createEmptyCart(): Cart {
     checkoutUrl: '',
     totalQuantity: 0,
     lines: [],
+    currency: 'USD',
     cost: {
       subtotalAmount: { amount: '0', currencyCode: 'USD' },
       totalAmount: { amount: '0', currencyCode: 'USD' },

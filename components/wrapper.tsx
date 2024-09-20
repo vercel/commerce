@@ -1,4 +1,4 @@
-import { Cart } from "lib/shopify/types";
+import { Cart } from "lib/types";
 import { ReactNode } from "react";
 import { Toaster } from "sonner";
 import { CartProvider } from "./cart/cart-context";

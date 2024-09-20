@@ -1,4 +1,4 @@
-import { Cart, Menu, Product } from "lib/shopify/types";
+import { Cart, Menu, Product } from "lib/types";
 import { reshapeCart, reshapeProduct, reshapeProducts } from "./reshape";
 import { FourthwallCart, FourthwallCheckout, FourthwallProduct } from "./types";
 
