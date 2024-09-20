@@ -45,7 +45,7 @@ function ThreeItemGridItem({
 
 export async function ThreeItemGrid({currency}: { currency: string}) {
   const homepageItems = await getCollectionProducts({
-    collection: process.env.FW_COLLECTION || '',
+    collection: process.env.NEXT_PUBLIC_FW_COLLECTION || '',
     currency,
   });
 

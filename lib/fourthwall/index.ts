@@ -2,8 +2,8 @@ import { Cart, Menu, Product } from "lib/shopify/types";
 import { reshapeCart, reshapeProduct, reshapeProducts } from "./reshape";
 import { FourthwallCart, FourthwallCheckout, FourthwallProduct } from "./types";
 
-const API_URL = process.env.FW_API_URL
-const API_SECRET = process.env.FW_SECRET
+const API_URL = process.env.NEXT_PUBLIC_FW_API_URL;
+const FW_PUBLIC_TOKEN = process.env.NEXT_PUBLIC_FW_PUBLIC_TOKEN;
 
 /**
  * Helpers
@@ -17,6 +17,7 @@ async function fourthwallGet<T>(url: string, options: RequestInit = {}): Promise
         ...options,
         headers: {
           'Content-Type': 'application/json',
+          'X-FW-Public-Token': FW_PUBLIC_TOKEN || '',
           ...options.headers
         }
       }
@@ -43,6 +44,7 @@ async function fourthwallPost<T>(url: string, data: any, options: RequestInit = 
       ...options,
       headers: {
         'Content-Type': 'application/json',
+        'X-FW-Public-Token': FW_PUBLIC_TOKEN || '',
         ...options.headers
       },
       body: JSON.stringify(data)
@@ -77,7 +79,7 @@ export async function getCollectionProducts({
   reverse?: boolean;
   sortKey?: string;
 }): Promise<Product[]> {
-  const res = await fourthwallGet<{results: FourthwallProduct[]}>(`${API_URL}/api/public/v1.0/collections/${collection}/products?secret=${API_SECRET}&currency=${currency}`, {
+  const res = await fourthwallGet<{results: FourthwallProduct[]}>(`${API_URL}/api/public/v1.0/collections/${collection}/products?&currency=${currency}`, {
     headers: {
       'X-ShopId': process.env.FW_SHOPID || ''
     }
@@ -97,11 +99,7 @@ export async function getCollectionProducts({
  */
 export async function getProduct({ handle, currency } : { handle: string, currency: string }): Promise<Product | undefined> {
   // TODO: replace with real URL
-  const res = await fourthwallGet<FourthwallProduct>(`${API_URL}/api/public/v1.0/products/${handle}?secret=${API_SECRET}&currency=${currency}`, {
-    headers: {
-      'X-ShopId': process.env.FW_SHOPID || ''
-    }
-  });
+  const res = await fourthwallGet<FourthwallProduct>(`${API_URL}/api/public/v1.0/products/${handle}?&currency=${currency}`);
 
   return reshapeProduct(res.body);
 }
@@ -119,7 +117,7 @@ export async function getCart(cartId: string | undefined, currency: string): Pro
     return undefined;
   }
 
-  const res = await fourthwallGet<FourthwallCart>(`${API_URL}/api/public/v1.0/carts/${cartId}?secret=${API_SECRET}&currency=${currency}`, {
+  const res = await fourthwallGet<FourthwallCart>(`${API_URL}/api/public/v1.0/carts/${cartId}?currency=${currency}`, {
     cache: 'no-store'
   });
 
@@ -127,12 +125,8 @@ export async function getCart(cartId: string | undefined, currency: string): Pro
 }
 
 export async function createCart(): Promise<Cart> {
-  const res = await fourthwallPost<FourthwallCart>(`https://api.staging.fourthwall.com/api/public/v1.0/carts?secret=${API_SECRET}`, {
+  const res = await fourthwallPost<FourthwallCart>(`https://api.staging.fourthwall.com/api/public/v1.0/carts`, {
     items: []
-  }, {
-    headers: {
-      'X-ShopId': process.env.FW_SHOPID || ''
-    }
   });
 
   return reshapeCart(res.body);
@@ -148,12 +142,9 @@ export async function addToCart(
     quantity: line.quantity
   }));
 
-  const res = await fourthwallPost<FourthwallCart>(`${API_URL}/api/public/v1.0/carts/${cartId}/add?secret=${API_SECRET}`, {
+  const res = await fourthwallPost<FourthwallCart>(`${API_URL}/api/public/v1.0/carts/${cartId}/add`, {
     items,
   }, {
-    headers: {
-      'X-ShopId': process.env.FW_SHOPID || ''
-    },
     cache: 'no-store'    
   });
 
@@ -165,12 +156,9 @@ export async function removeFromCart(cartId: string, lineIds: string[]): Promise
     variantId: id
   }));
 
-  const res = await fourthwallPost<FourthwallCart>(`${API_URL}/api/public/v1.0/carts/${cartId}/remove?secret=${API_SECRET}`, {
+  const res = await fourthwallPost<FourthwallCart>(`${API_URL}/api/public/v1.0/carts/${cartId}/remove`, {
     items,
   }, {
-    headers: {
-      'X-ShopId': process.env.FW_SHOPID || ''
-    },
     cache: 'no-store'
   });
 
@@ -186,12 +174,9 @@ export async function updateCart(
     quantity: line.quantity
   }));
 
-  const res = await fourthwallPost<FourthwallCart>(`${API_URL}/api/public/v1.0/carts/${cartId}/change?secret=${API_SECRET}`, {
+  const res = await fourthwallPost<FourthwallCart>(`${API_URL}/api/public/v1.0/carts/${cartId}/change`, {
     items,
   }, {
-    headers: {
-      'X-ShopId': process.env.FW_SHOPID || ''
-    },
     cache: 'no-store'
   });
 
@@ -202,13 +187,9 @@ export async function createCheckout(
   cartId: string,
   cartCurrency: string
 ): Promise<FourthwallCheckout> {
-  const res = await fourthwallPost<{ id: string }>(`${API_URL}/api/public/v1.0/checkouts?secret=${API_SECRET}`, {
+  const res = await fourthwallPost<{ id: string }>(`${API_URL}/api/public/v1.0/checkouts`, {
     cartId,
     cartCurrency
-  }, {
-    headers: {
-      'X-ShopId': process.env.FW_SHOPID || ''
-    }
   });
 
   return res.body;
