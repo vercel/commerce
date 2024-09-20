@@ -3,12 +3,19 @@
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { GridTileImage } from 'components/grid/tile';
 import { useProduct, useUpdateURL } from 'components/product/product-context';
+import { Product } from 'lib/types';
 import Image from 'next/image';
 
-export function Gallery({ images }: { images: { src: string; altText: string }[] }) {
+export function Gallery({ product }: { product: Product }) {
   const { state, updateImage } = useProduct();
   const updateURL = useUpdateURL();
   const imageIndex = state.image ? parseInt(state.image) : 0;
+
+  const selectedVariant = product.variants.find((variant) => {
+    return variant.selectedOptions.find((option) => option.name === 'Color' && option.value === state['color']);
+  });
+
+  const images = selectedVariant?.images || product.images.slice(0, 5);
 
   const nextImageIndex = imageIndex + 1 < images.length ? imageIndex + 1 : 0;
   const previousImageIndex = imageIndex === 0 ? images.length - 1 : imageIndex - 1;
@@ -25,7 +32,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
             fill
             sizes="(min-width: 1024px) 66vw, 100vw"
             alt={images[imageIndex]?.altText as string}
-            src={images[imageIndex]?.src as string}
+            src={images[imageIndex]?.url as string}
             priority={true}
           />
         )}
@@ -65,7 +72,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
             const isActive = index === imageIndex;
 
             return (
-              <li key={image.src} className="h-20 w-20">
+              <li key={image.url} className="h-20 w-20">
                 <button
                   formAction={() => {
                     const newState = updateImage(index.toString());
@@ -76,7 +83,7 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
                 >
                   <GridTileImage
                     alt={image.altText}
-                    src={image.src}
+                    src={image.url}
                     width={80}
                     height={80}
                     active={isActive}

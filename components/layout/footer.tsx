@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import FooterMenu from 'components/layout/footer-menu';
 import LogoSquare from 'components/logo-square';
-import { getMenu } from 'lib/shopify';
+import { getMenu } from 'lib/fourthwall';
 import { Suspense } from 'react';
 
 const { COMPANY_NAME, SITE_NAME } = process.env;

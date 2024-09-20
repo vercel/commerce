@@ -1,6 +1,6 @@
 'use client';
 
-import type { Cart, CartItem, Product, ProductVariant } from 'lib/shopify/types';
+import type { Cart, CartItem, Product, ProductVariant } from 'lib/types';
 import React, { createContext, use, useContext, useMemo, useOptimistic } from 'react';
 
 type UpdateType = 'plus' | 'minus' | 'delete';
@@ -84,7 +84,6 @@ function updateCartTotals(lines: CartItem[]): Pick<Cart, 'totalQuantity' | 'cost
     cost: {
       subtotalAmount: { amount: totalAmount.toString(), currencyCode },
       totalAmount: { amount: totalAmount.toString(), currencyCode },
-      totalTaxAmount: { amount: '0', currencyCode }
     }
   };
 }
@@ -95,10 +94,10 @@ function createEmptyCart(): Cart {
     checkoutUrl: '',
     totalQuantity: 0,
     lines: [],
+    currency: 'USD',
     cost: {
       subtotalAmount: { amount: '0', currencyCode: 'USD' },
       totalAmount: { amount: '0', currencyCode: 'USD' },
-      totalTaxAmount: { amount: '0', currencyCode: 'USD' }
     }
   };
 }
@@ -147,7 +146,7 @@ function cartReducer(state: Cart | undefined, action: CartAction): Cart {
 
 export function CartProvider({
   children,
-  cartPromise
+  cartPromise,
 }: {
   children: React.ReactNode;
   cartPromise: Promise<Cart | undefined>;

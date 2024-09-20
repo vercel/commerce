@@ -1,7 +1,7 @@
 'use server';
 
 import { TAGS } from 'lib/constants';
-import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/shopify';
+import { addToCart, createCart, createCheckout, getCart, removeFromCart, updateCart } from 'lib/fourthwall';
 import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
@@ -29,7 +29,7 @@ export async function removeItem(prevState: any, merchandiseId: string) {
   }
 
   try {
-    const cart = await getCart(cartId);
+    const cart = await getCart(cartId, 'USD');
 
     if (!cart) {
       return 'Error fetching cart';
@@ -64,7 +64,7 @@ export async function updateItemQuantity(
   const { merchandiseId, quantity } = payload;
 
   try {
-    const cart = await getCart(cartId);
+    const cart = await getCart(cartId, 'USD');
 
     if (!cart) {
       return 'Error fetching cart';
@@ -96,20 +96,22 @@ export async function updateItemQuantity(
   }
 }
 
-export async function redirectToCheckout() {
+export async function redirectToCheckout(currency: string) {
   let cartId = cookies().get('cartId')?.value;
 
   if (!cartId) {
     return 'Missing cart ID';
   }
 
-  let cart = await getCart(cartId);
+  let cart = await getCart(cartId, 'USD');
 
   if (!cart) {
     return 'Error fetching cart';
   }
 
-  redirect(cart.checkoutUrl);
+  const { id } = await createCheckout(cartId, currency);
+
+  redirect(`${process.env.FW_CHECKOUT}/checkout/${id}`);
 }
 
 export async function createCartAndSetCookie() {

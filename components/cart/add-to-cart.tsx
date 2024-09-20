@@ -4,7 +4,7 @@ import { PlusIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { addItem } from 'components/cart/actions';
 import { useProduct } from 'components/product/product-context';
-import { Product, ProductVariant } from 'lib/shopify/types';
+import { Product, ProductVariant } from 'lib/types';
 import { useFormState } from 'react-dom';
 import { useCart } from './cart-context';
 
@@ -27,7 +27,6 @@ function SubmitButton({
     );
   }
 
-  console.log(selectedVariantId);
   if (!selectedVariantId) {
     return (
       <button
