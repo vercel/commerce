@@ -53,6 +53,8 @@ export const reshapeProduct = (product: FourthwallProduct): Product | undefined 
   const sizes = new Set(variants.map((v) => v.attributes.size.name));
   const colors = new Set(variants.map((v) => v.attributes.color.name));
 
+  const reshapedVariants = reshapeVariants(variants);
+
   return {
     ...rest,
     handle: product.slug,
@@ -60,7 +62,7 @@ export const reshapeProduct = (product: FourthwallProduct): Product | undefined 
     descriptionHtml: product.description,
     description: product.description,
     images: reshapeImages(images, product.name),
-    variants: reshapeVariants(variants),
+    variants: reshapedVariants,
     priceRange: {
       minVariantPrice: {
         amount: minPrice.toString(),
@@ -81,12 +83,7 @@ export const reshapeProduct = (product: FourthwallProduct): Product | undefined 
       name: 'Size',
       values: [...sizes]
     }],    
-    // TODO: stubbed out
-    availableForSale: true,
-    seo: {
-      title: product.name,
-      description: product.description,
-    },
+    availableForSale: reshapedVariants.some((v) => v.availableForSale),
     tags: [],
     updatedAt: new Date().toISOString(),
   };
@@ -106,7 +103,7 @@ const reshapeVariants = (variants: FourthwallProductVariant[]): ProductVariant[]
   return variants.map((v) => ({
     id: v.id,
     title: v.name,
-    availableForSale: true,
+    availableForSale: v.stock.type === 'UNLIMITED' || (v.stock.inStock || 0) > 0,
     images: reshapeImages(v.images, v.name),
     selectedOptions: [{
       name: 'Size',

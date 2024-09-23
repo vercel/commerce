@@ -3,6 +3,14 @@ export type FourthwallMoney = {
   currency: string;
 }
 
+export type FourthwallCollection = {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  updatedAt: string;
+};
+
 export type FourthwallProduct = {
   id: string;
   name: string;
@@ -11,6 +19,8 @@ export type FourthwallProduct = {
 
   images: FourthwallProductImage[];
   variants: FourthwallProductVariant[];
+
+  updatedAt: string;
 };
 
 export type FourthwallProductImage = {
@@ -27,6 +37,11 @@ export type FourthwallProductVariant = {
   unitPrice: FourthwallMoney;
 
   images: FourthwallProductImage[];
+
+  stock: {
+    type: 'UNLIMITED' | 'LIMITED';
+    inStock?: number;
+  }
 
   // other attr
   attributes: {

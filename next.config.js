@@ -5,11 +5,6 @@ module.exports = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'cdn.shopify.com',
-        pathname: '/s/files/**'
-      },
-      {
-        protocol: 'https',
         hostname: 'storage.googleapis.com',
         pathname: '/cdn.staging.fourthwall.com/**'
       }      

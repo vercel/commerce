@@ -6,7 +6,7 @@ import { getCart } from 'lib/fourthwall';
 import { cookies } from 'next/headers';
 
 export const metadata = {
-  description: 'High-performance ecommerce store built with Next.js, Vercel, and Shopify.',
+  description: 'High-performance ecommerce store built with Next.js, Vercel, and Fourthwall.',
   openGraph: {
     type: 'website'
   }

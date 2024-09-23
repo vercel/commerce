@@ -1,6 +1,6 @@
-import { Cart, Menu, Product } from "lib/types";
+import { Cart, Collection, Product } from "lib/types";
 import { reshapeCart, reshapeProduct, reshapeProducts } from "./reshape";
-import { FourthwallCart, FourthwallCheckout, FourthwallProduct } from "./types";
+import { FourthwallCart, FourthwallCheckout, FourthwallCollection, FourthwallProduct } from "./types";
 
 const API_URL = process.env.NEXT_PUBLIC_FW_API_URL;
 const FW_PUBLIC_TOKEN = process.env.NEXT_PUBLIC_FW_PUBLIC_TOKEN;
@@ -68,16 +68,26 @@ async function fourthwallPost<T>(url: string, data: any, options: RequestInit = 
 /**
  * Collection operations
  */
+export async function getCollections(): Promise<Collection[]> {
+  const res = await fourthwallGet<{ results: FourthwallCollection[] }>(`${API_URL}/api/public/v1.0/collections`, {
+    headers: {
+      'X-ShopId': process.env.FW_SHOPID || ''
+    }
+  });
+
+  return res.body.results.map((collection) => ({
+    handle: collection.slug,
+    title: collection.name,
+    description: collection.description,
+  }));
+}
+
 export async function getCollectionProducts({
   collection,
   currency,
-  reverse,
-  sortKey
 }: {
   collection: string;
   currency: string;
-  reverse?: boolean;
-  sortKey?: string;
 }): Promise<Product[]> {
   const res = await fourthwallGet<{results: FourthwallProduct[]}>(`${API_URL}/api/public/v1.0/collections/${collection}/products?&currency=${currency}`, {
     headers: {
@@ -98,15 +108,9 @@ export async function getCollectionProducts({
  * Product operations
  */
 export async function getProduct({ handle, currency } : { handle: string, currency: string }): Promise<Product | undefined> {
-  // TODO: replace with real URL
   const res = await fourthwallGet<FourthwallProduct>(`${API_URL}/api/public/v1.0/products/${handle}?&currency=${currency}`);
 
   return reshapeProduct(res.body);
-}
-
-export async function getProductRecommendations(productId: string): Promise<Product[]> {
-  // TODO: replace with real URL
-  return [];
 }
 
 /**
@@ -125,7 +129,7 @@ export async function getCart(cartId: string | undefined, currency: string): Pro
 }
 
 export async function createCart(): Promise<Cart> {
-  const res = await fourthwallPost<FourthwallCart>(`https://api.staging.fourthwall.com/api/public/v1.0/carts`, {
+  const res = await fourthwallPost<FourthwallCart>(`${API_URL}/api/public/v1.0/carts`, {
     items: []
   });
 
@@ -193,11 +197,4 @@ export async function createCheckout(
   });
 
   return res.body;
-}
-
-/**
- * TODO: Stubbed out
- */
-export async function getMenu(handle: string): Promise<Menu[]> {
-  return [];
 }

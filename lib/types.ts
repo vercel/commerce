@@ -1,13 +1,3 @@
-export type Maybe<T> = T | null;
-
-export type Connection<T> = {
-  edges: Array<Edge<T>>;
-};
-
-export type Edge<T> = {
-  node: T;
-};
-
 export type Cart = {
   id: string | undefined;
   checkoutUrl: string;
@@ -48,9 +38,6 @@ export type Collection = {
   handle: string;
   title: string;
   description: string;
-  seo: SEO;
-  updatedAt: string;  
-  path: string;
 };
 
 export type Image = {
@@ -60,25 +47,9 @@ export type Image = {
   height: number;
 };
 
-export type Menu = {
-  title: string;
-  path: string;
-};
-
 export type Money = {
   amount: string;
   currencyCode: string;
-};
-
-export type Page = {
-  id: string;
-  title: string;
-  handle: string;
-  body: string;
-  bodySummary: string;
-  seo?: SEO;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export type Product = {
@@ -94,9 +65,8 @@ export type Product = {
     minVariantPrice: Money;
   };
   featuredImage: Image;
-  seo: SEO;
   tags: string[];
-  updatedAt: string;  
+  updatedAt: string;
   variants: ProductVariant[];
   images: Image[];
 };
@@ -117,9 +87,4 @@ export type ProductVariant = {
   }[];
   price: Money;
   images: Image[];
-};
-
-export type SEO = {
-  title: string;
-  description: string;
 };
