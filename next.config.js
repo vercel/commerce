@@ -5,8 +5,8 @@ module.exports = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'storage.googleapis.com',
-        pathname: '/cdn.staging.fourthwall.com/**'
+        hostname: '**',
+        pathname: '**'
       }      
     ]
   }

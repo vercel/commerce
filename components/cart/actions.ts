@@ -6,8 +6,18 @@ import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
+export async function getCartId(): Promise<string | undefined> {
+  const tokenHash = process.env.NEXT_PUBLIC_FW_STOREFRONT_TOKEN;
+  return cookies().get(`${tokenHash}/cartId`)?.value;
+}
+
+function setCartId(cartId: string) {
+  const tokenHash = process.env.NEXT_PUBLIC_FW_STOREFRONT_TOKEN;
+  cookies().set(`${tokenHash}/cartId`, cartId);
+}
+
 export async function addItem(prevState: any, selectedVariantId: string | undefined) {
-  let cartId = cookies().get('cartId')?.value;
+  let cartId = await getCartId();
 
   if (!cartId || !selectedVariantId) {
     return 'Error adding item to cart';
@@ -22,7 +32,7 @@ export async function addItem(prevState: any, selectedVariantId: string | undefi
 }
 
 export async function removeItem(prevState: any, merchandiseId: string) {
-  let cartId = cookies().get('cartId')?.value;
+  let cartId = await getCartId();
 
   if (!cartId) {
     return 'Missing cart ID';
@@ -98,7 +108,7 @@ export async function updateItemQuantity(
 
 export async function redirectToCheckout(currency: string) {
   const CHECKOUT_URL = process.env.NEXT_PUBLIC_FW_CHECKOUT;
-  let cartId = cookies().get('cartId')?.value;
+  let cartId = await getCartId();
 
   if (!cartId) {
     return 'Missing cart ID';
@@ -115,5 +125,5 @@ export async function redirectToCheckout(currency: string) {
 
 export async function createCartAndSetCookie() {
   let cart = await createCart();
-  cookies().set('cartId', cart.id!);
+  setCartId(cart.id!!);
 }
