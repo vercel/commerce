@@ -1,7 +1,7 @@
 'use server';
 
 import { TAGS } from 'lib/constants';
-import { addToCart, createCart, createCheckout, getCart, removeFromCart, updateCart } from 'lib/fourthwall';
+import { addToCart, createCart, getCart, removeFromCart, updateCart } from 'lib/fourthwall';
 import { revalidateTag } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
@@ -97,6 +97,7 @@ export async function updateItemQuantity(
 }
 
 export async function redirectToCheckout(currency: string) {
+  const CHECKOUT_URL = process.env.NEXT_PUBLIC_FW_CHECKOUT;
   let cartId = cookies().get('cartId')?.value;
 
   if (!cartId) {
@@ -109,9 +110,7 @@ export async function redirectToCheckout(currency: string) {
     return 'Error fetching cart';
   }
 
-  const { id } = await createCheckout(cartId, currency);
-
-  redirect(`${process.env.FW_CHECKOUT}/checkout/${id}`);
+  redirect(`${CHECKOUT_URL}/checkout/?cartId=${cartId}&cartCurrency=USD`);
 }
 
 export async function createCartAndSetCookie() {

@@ -11,7 +11,7 @@ export const ensureStartsWith = (stringToCheck: string, startsWith: string) =>
   stringToCheck.startsWith(startsWith) ? stringToCheck : `${startsWith}${stringToCheck}`;
 
 export const validateEnvironmentVariables = () => {
-  const requiredEnvironmentVariables = ['NEXT_PUBLIC_FW_API_URL', 'NEXT_PUBLIC_FW_PUBLIC_TOKEN', 'NEXT_PUBLIC_FW_COLLECTION', 'NEXT_PUBLIC_FW_CHECKOUT'];
+  const requiredEnvironmentVariables = ['NEXT_PUBLIC_FW_API_URL', 'NEXT_PUBLIC_FW_STOREFRONT_TOKEN', 'NEXT_PUBLIC_FW_COLLECTION', 'NEXT_PUBLIC_FW_CHECKOUT', 'NEXT_PUBLIC_VERCEL_URL'];
   const missingEnvironmentVariables = [] as string[];
 
   requiredEnvironmentVariables.forEach((envVar) => {

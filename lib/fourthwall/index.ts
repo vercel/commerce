@@ -3,7 +3,7 @@ import { reshapeCart, reshapeProduct, reshapeProducts } from "./reshape";
 import { FourthwallCart, FourthwallCheckout, FourthwallCollection, FourthwallProduct } from "./types";
 
 const API_URL = process.env.NEXT_PUBLIC_FW_API_URL;
-const FW_PUBLIC_TOKEN = process.env.NEXT_PUBLIC_FW_PUBLIC_TOKEN;
+const STOREFRONT_TOKEN = process.env.NEXT_PUBLIC_FW_STOREFRONT_TOKEN;
 
 /**
  * Helpers
@@ -17,7 +17,7 @@ async function fourthwallGet<T>(url: string, options: RequestInit = {}): Promise
         ...options,
         headers: {
           'Content-Type': 'application/json',
-          'X-FW-Public-Token': FW_PUBLIC_TOKEN || '',
+          'X-FW-Public-Token': STOREFRONT_TOKEN || '',
           ...options.headers
         }
       }
@@ -44,7 +44,7 @@ async function fourthwallPost<T>(url: string, data: any, options: RequestInit = 
       ...options,
       headers: {
         'Content-Type': 'application/json',
-        'X-FW-Public-Token': FW_PUBLIC_TOKEN || '',
+        'X-FW-Public-Token': STOREFRONT_TOKEN || '',
         ...options.headers
       },
       body: JSON.stringify(data)
