@@ -8,15 +8,20 @@ import { redirect } from 'next/navigation';
 
 export async function addItem(prevState: any, selectedVariantId: string | undefined) {
   let cartId = cookies().get('cartId')?.value;
+  console.log('Cart ID before adding item:', cartId);
 
   if (!cartId || !selectedVariantId) {
+    console.error('Cart ID or selected variant ID is missing');
     return 'Error adding item to cart';
   }
 
   try {
+    console.log('Attempting to add item to Shopify cart');
     await addToCart(cartId, [{ merchandiseId: selectedVariantId, quantity: 1 }]);
+    console.log('Item added to Shopify cart successfully');
     revalidateTag(TAGS.cart);
   } catch (e) {
+    console.error('Error adding item to cart:', e);
     return 'Error adding item to cart';
   }
 }

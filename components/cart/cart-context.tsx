@@ -1,7 +1,14 @@
 'use client';
 
 import type { Cart, CartItem, Product, ProductVariant } from 'lib/shopify/types';
-import React, { createContext, use, useContext, useMemo, useOptimistic } from 'react';
+import React, {
+  createContext,
+  startTransition,
+  use,
+  useContext,
+  useMemo,
+  useOptimistic
+} from 'react';
 
 type UpdateType = 'plus' | 'minus' | 'delete';
 
@@ -50,9 +57,10 @@ function createOrUpdateCartItem(
 ): CartItem {
   const quantity = existingItem ? existingItem.quantity + 1 : 1;
   const totalAmount = calculateItemCost(quantity, variant.price.amount);
+  const itemId = variant.id ?? existingItem?.id;
 
   return {
-    id: existingItem?.id,
+    id: itemId,
     quantity,
     cost: {
       totalAmount: {
@@ -131,6 +139,10 @@ function cartReducer(state: Cart | undefined, action: CartAction): Cart {
     }
     case 'ADD_ITEM': {
       const { variant, product } = action.payload;
+      if (!variant.id) {
+        return currentCart; // Ne pas ajouter l'article si l'ID est manquant
+      }
+
       const existingItem = currentCart.lines.find((item) => item.merchandise.id === variant.id);
       const updatedItem = createOrUpdateCartItem(existingItem, variant, product);
 
@@ -156,11 +168,15 @@ export function CartProvider({
   const [optimisticCart, updateOptimisticCart] = useOptimistic(initialCart, cartReducer);
 
   const updateCartItem = (merchandiseId: string, updateType: UpdateType) => {
-    updateOptimisticCart({ type: 'UPDATE_ITEM', payload: { merchandiseId, updateType } });
+    startTransition(() => {
+      updateOptimisticCart({ type: 'UPDATE_ITEM', payload: { merchandiseId, updateType } });
+    });
   };
 
   const addCartItem = (variant: ProductVariant, product: Product) => {
-    updateOptimisticCart({ type: 'ADD_ITEM', payload: { variant, product } });
+    startTransition(() => {
+      updateOptimisticCart({ type: 'ADD_ITEM', payload: { variant, product } });
+    });
   };
 
   const value = useMemo(

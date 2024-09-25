@@ -81,6 +81,7 @@ export function VariantSelector({
                       !isAvailableForSale
                   }
                 )}
+                data-test={`${option.name}-${value}`}
               >
                 {value}
               </button>

@@ -1,0 +1,6 @@
+{
+  "query": "query getProduct($productName: String!) { products(first: 1, query: $productName) { edges { node { title totalInventory variants(first: 10) { edges { node { title price { amount currencyCode } } } } } } } }",
+  "variables": {
+    "productName": ""
+  }
+}

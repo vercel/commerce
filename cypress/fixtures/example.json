@@ -1,5 +1,61 @@
 {
-  "name": "Using fixtures to represent data",
-  "email": "hello@cypress.io",
-  "body": "Fixtures are a great way to mock data for responses to routes"
+  "collections": [
+    "Automated Collection",
+    "hidden-homepage-carousel",
+    "hidden-homepage-featured-items",
+    "Home page",
+    "Hydrogen"
+  ],
+  "products": [
+    {
+      "published": true,
+      "name": "Selling Plans Ski Wax",
+      "grams": 56.69904625,
+      "price": 24.95,
+      "gift_card": false,
+      "image_src": "https://cdn.shopify.com/s/files/1/0841/2905/5048/files/snowboard_wax.png?v=1724052616",
+      "variant_weight_unit": "oz",
+      "status": "active"
+    },
+    {
+      "published": null,
+      "name": "Special Selling Plans Ski Wax",
+      "grams": 70.8738078125,
+      "price": 49.95,
+      "gift_card": null,
+      "image_src": "https://cdn.shopify.com/s/files/1/0841/2905/5048/files/wax-special.png?v=1724052616",
+      "variant_weight_unit": "oz",
+      "status": null
+    },
+    {
+      "published": null,
+      "name": "Sample Selling Plans Ski Wax",
+      "grams": 14.1747615625,
+      "price": 9.95,
+      "gift_card": null,
+      "image_src": "https://cdn.shopify.com/s/files/1/0841/2905/5048/files/sample-normal-wax.png?v=1724052616",
+      "variant_weight_unit": "oz",
+      "status": null
+    },
+    {
+      "published": true,
+      "name": "Default Title",
+      "grams": 0.0,
+      "price": 749.95,
+      "gift_card": false,
+      "image_src": "https://cdn.shopify.com/s/files/1/0841/2905/5048/files/Main_b13ad453-477c-4ed1-9b43-81f3345adfd6.jpg?v=1724052614",
+      "variant_weight_unit": "kg",
+      "status": "active"
+    },
+    {
+      "published": true,
+      "name": "Default Title",
+      "grams": 0.0,
+      "price": 1025.0,
+      "gift_card": false,
+      "image_src": "https://cdn.shopify.com/s/files/1/0841/2905/5048/files/Main_d624f226-0a89-4fe1-b333-0d1548b43c06.jpg?v=1724052611",
+      "variant_weight_unit": "kg",
+      "status": "active"
+    }
+  ]
 }

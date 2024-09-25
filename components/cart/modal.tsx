@@ -49,7 +49,7 @@ export default function CartModal() {
 
   return (
     <>
-      <button aria-label="Open cart" onClick={openCart}>
+      <button aria-label="Open cart" onClick={openCart} data-test="cart-open-button">
         <OpenCart quantity={cart?.totalQuantity} />
       </button>
       <Transition show={isOpen}>
@@ -63,7 +63,11 @@ export default function CartModal() {
             leaveFrom="opacity-100 backdrop-blur-[.5px]"
             leaveTo="opacity-0 backdrop-blur-none"
           >
-            <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+            <div
+              className="fixed inset-0 bg-black/30"
+              aria-hidden="true"
+              data-test="cart-modal-container"
+            />
           </Transition.Child>
           <Transition.Child
             as={Fragment}
@@ -74,10 +78,15 @@ export default function CartModal() {
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <Dialog.Panel className="fixed bottom-0 right-0 top-0 flex h-full w-full flex-col border-l border-neutral-200 bg-white/80 p-6 text-black backdrop-blur-xl md:w-[390px] dark:border-neutral-700 dark:bg-black/80 dark:text-white">
+            <Dialog.Panel
+              className="fixed bottom-0 right-0 top-0 flex h-full w-full flex-col border-l border-neutral-200 bg-white/80 p-6 text-black backdrop-blur-xl md:w-[390px] dark:border-neutral-700 dark:bg-black/80 dark:text-white"
+              data-test="cart-side-container"
+            >
               <div className="flex items-center justify-between">
-                <p className="text-lg font-semibold">My Cart</p>
-                <button aria-label="Close cart" onClick={closeCart}>
+                <p className="text-lg font-semibold" data-test="cart-title">
+                  My Cart
+                </p>
+                <button aria-label="Close cart" onClick={closeCart} data-test="cart-close-button">
                   <CloseCart />
                 </button>
               </div>
@@ -85,7 +94,9 @@ export default function CartModal() {
               {!cart || cart.lines.length === 0 ? (
                 <div className="mt-20 flex w-full flex-col items-center justify-center overflow-hidden">
                   <ShoppingCartIcon className="h-16" />
-                  <p className="mt-6 text-center text-2xl font-bold">Your cart is empty.</p>
+                  <p className="mt-6 text-center text-2xl font-bold" data-test="cart-empty">
+                    Your cart is empty.
+                  </p>
                 </div>
               ) : (
                 <div className="flex h-full flex-col justify-between overflow-hidden p-1">
@@ -112,12 +123,13 @@ export default function CartModal() {
                           <li
                             key={i}
                             className="flex w-full flex-col border-b border-neutral-300 dark:border-neutral-700"
+                            data-test="cart-item"
                           >
                             <div className="relative flex w-full flex-row justify-between px-1 py-4">
                               <div className="absolute z-40 -ml-1 -mt-2">
                                 <DeleteItemButton item={item} optimisticUpdate={updateCartItem} />
                               </div>
-                              <div className="flex flex-row">
+                              <div className="flex flex-row" data-test="cart-product-container">
                                 <div className="relative h-16 w-16 overflow-hidden rounded-md border border-neutral-300 bg-neutral-300 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:bg-neutral-800">
                                   <Image
                                     className="h-full w-full object-cover"
@@ -128,6 +140,7 @@ export default function CartModal() {
                                       item.merchandise.product.title
                                     }
                                     src={item.merchandise.product.featuredImage.url}
+                                    data-test="cart-product-image"
                                   />
                                 </div>
                                 <Link
@@ -160,7 +173,12 @@ export default function CartModal() {
                                     optimisticUpdate={updateCartItem}
                                   />
                                   <p className="w-6 text-center">
-                                    <span className="w-full text-sm">{item.quantity}</span>
+                                    <span
+                                      className="w-full text-sm"
+                                      data-test="cart-product-quantity"
+                                    >
+                                      {item.quantity}
+                                    </span>
                                   </p>
                                   <EditItemQuantityButton
                                     item={item}
@@ -174,7 +192,10 @@ export default function CartModal() {
                         );
                       })}
                   </ul>
-                  <div className="py-4 text-sm text-neutral-500 dark:text-neutral-400">
+                  <div
+                    className="py-4 text-sm text-neutral-500 dark:text-neutral-400"
+                    data-test="payment-information"
+                  >
                     <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 dark:border-neutral-700">
                       <p>Taxes</p>
                       <Price
@@ -217,6 +238,7 @@ function CheckoutButton() {
       className="block w-full rounded-full bg-blue-600 p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100"
       type="submit"
       disabled={pending}
+      data-test="checkout-button"
     >
       {pending ? <LoadingDots className="bg-white" /> : 'Proceed to Checkout'}
     </button>

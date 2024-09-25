@@ -6,20 +6,24 @@ import Link from 'next/link';
 function ThreeItemGridItem({
   item,
   size,
-  priority
+  priority,
+  index
 }: {
   item: Product;
   size: 'full' | 'half';
   priority?: boolean;
+  index: number;
 }) {
   return (
     <div
       className={size === 'full' ? 'md:col-span-4 md:row-span-2' : 'md:col-span-2 md:row-span-1'}
+      data-test={index !== undefined ? `grid-item-${size}-${index}` : `grid-item-${size}`}
     >
       <Link
         className="relative block aspect-square h-full w-full"
         href={`/product/${item.handle}`}
         prefetch={true}
+        data-test="product-link"
       >
         <GridTileImage
           src={item.featuredImage.url}
@@ -52,10 +56,13 @@ export async function ThreeItemGrid() {
   const [firstProduct, secondProduct, thirdProduct] = homepageItems;
 
   return (
-    <section className="mx-auto grid max-w-screen-2xl gap-4 px-4 pb-4 md:grid-cols-6 md:grid-rows-2 lg:max-h-[calc(100vh-200px)]">
-      <ThreeItemGridItem size="full" item={firstProduct} priority={true} />
-      <ThreeItemGridItem size="half" item={secondProduct} priority={true} />
-      <ThreeItemGridItem size="half" item={thirdProduct} />
+    <section
+      className="mx-auto grid max-w-screen-2xl gap-4 px-4 pb-4 md:grid-cols-6 md:grid-rows-2 lg:max-h-[calc(100vh-200px)]"
+      data-test="three-item-grid"
+    >
+      <ThreeItemGridItem size="full" item={firstProduct} index={0} priority={true} />
+      <ThreeItemGridItem size="half" item={secondProduct} index={1} priority={true} />
+      <ThreeItemGridItem size="half" item={thirdProduct} index={2} />
     </section>
   );
 }

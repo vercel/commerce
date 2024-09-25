@@ -1,37 +1,62 @@
-/// <reference types="cypress" />
-// ***********************************************
-// This example commands.ts shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+import { destructPrice, omitSubstrings as getFloat } from '../utils/price';
+
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      //   login(email: string, password: string): Chainable<void>
+      //   drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
+      //   dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
+      //   visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
+      getBySel(
+        selector: string,
+        ...args: Partial<
+          Cypress.Loggable & Cypress.Timeoutable & Cypress.Withinable & Cypress.Shadow
+        >[]
+      ): Chainable<JQuery<HTMLElement>>;
+
+      verifyProductPrice(
+        selector: string,
+        expectedCurrencySymbol: string,
+        expectedPrice: string,
+        expectedCurrencyCode: string
+      ): Chainable<void>;
+
+      getAmount(selector: string, priceExpected: string, ...substrings: string[]): Chainable<void>;
+    }
+  }
+}
+
+Cypress.Commands.add('getBySel', (selector, ...args) => {
+  return cy.get(`[data-test="${selector}"]`, ...args);
+});
+
+Cypress.Commands.add(
+  'verifyProductPrice',
+  (
+    selector: string,
+    expectedCurrencySymbol: string,
+    expectedPrice: string,
+    expectedCurrencyCode: string
+  ) => {
+    cy.get(selector)
+      .should('be.visible')
+      .invoke('text')
+      .then((amount) => {
+        const { currencySymbol, price, currencyCode } = destructPrice(amount);
+        expect(currencySymbol).to.equal(expectedCurrencySymbol);
+        expect(price).to.equal(expectedPrice.toString());
+        expect(currencyCode).to.equal(expectedCurrencyCode);
+      });
+  }
+);
+
+Cypress.Commands.add('getAmount', (selector: string, amountExpected: string) => {
+  cy.get(selector)
+    .should('exist')
+    .and('be.visible')
+    .invoke('text')
+    .then((text) => {
+      const amount = text.replace(/[^\d,\.]/g, '');
+      expect(amount).to.be.equal(amountExpected);
+    });
+});

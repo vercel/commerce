@@ -4,7 +4,7 @@ import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { updateItemQuantity } from 'components/cart/actions';
 import type { CartItem } from 'lib/shopify/types';
-import { useFormState } from 'react-dom';
+import { useActionState } from 'react';
 
 function SubmitButton({ type }: { type: 'plus' | 'minus' }) {
   return (
@@ -17,6 +17,7 @@ function SubmitButton({ type }: { type: 'plus' | 'minus' }) {
           'ml-auto': type === 'minus'
         }
       )}
+      data-test={`cart-quantity-${type}-button`}
     >
       {type === 'plus' ? (
         <PlusIcon className="h-4 w-4 dark:text-neutral-500" />
@@ -36,7 +37,7 @@ export function EditItemQuantityButton({
   type: 'plus' | 'minus';
   optimisticUpdate: any;
 }) {
-  const [message, formAction] = useFormState(updateItemQuantity, null);
+  const [message, formAction] = useActionState(updateItemQuantity, null);
   const payload = {
     merchandiseId: item.merchandise.id,
     quantity: type === 'plus' ? item.quantity + 1 : item.quantity - 1

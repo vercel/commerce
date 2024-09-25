@@ -214,15 +214,22 @@ export async function addToCart(
   cartId: string,
   lines: { merchandiseId: string; quantity: number }[]
 ): Promise<Cart> {
-  const res = await shopifyFetch<ShopifyAddToCartOperation>({
-    query: addToCartMutation,
-    variables: {
-      cartId,
-      lines
-    },
-    cache: 'no-store'
-  });
-  return reshapeCart(res.body.data.cartLinesAdd.cart);
+  try {
+    const res = await shopifyFetch<ShopifyAddToCartOperation>({
+      query: addToCartMutation,
+      variables: {
+        cartId,
+        lines
+      },
+      cache: 'no-store'
+    });
+
+    console.log('Response from Shopify:', res.status); // Log après réception de la réponse
+    return reshapeCart(res.body.data.cartLinesAdd.cart);
+  } catch (error) {
+    console.error('Error during add to cart:', error); // Log en cas d'erreur
+    throw new Error('Failed to add item to cart');
+  }
 }
 
 export async function removeFromCart(cartId: string, lineIds: string[]): Promise<Cart> {

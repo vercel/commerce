@@ -27,6 +27,7 @@ export function GridTileImage({
           'border-neutral-200 dark:border-neutral-800': !active
         }
       )}
+      data-test="tile-container"
     >
       {props.src ? (
         <Image
@@ -34,6 +35,7 @@ export function GridTileImage({
             'transition duration-300 ease-in-out group-hover:scale-105': isInteractive
           })}
           {...props}
+          data-test="tile-image"
         />
       ) : null}
       {label ? (

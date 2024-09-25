@@ -2,11 +2,10 @@
 
 import { PlusIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
-import { addItem } from 'components/cart/actions';
 import { useProduct } from 'components/product/product-context';
 import { Product, ProductVariant } from 'lib/shopify/types';
-import { useFormState } from 'react-dom';
 import { useCart } from './cart-context';
+import { addItem } from './actions';
 
 function SubmitButton({
   availableForSale,
@@ -21,19 +20,20 @@ function SubmitButton({
 
   if (!availableForSale) {
     return (
-      <button disabled className={clsx(buttonClasses, disabledClasses)}>
+      <button disabled className={clsx(buttonClasses, disabledClasses)} data-test="add-to-cart">
         Out Of Stock
       </button>
     );
   }
 
-  console.log(selectedVariantId);
+  // console.log(selectedVariantId);
   if (!selectedVariantId) {
     return (
       <button
         aria-label="Please select an option"
         disabled
         className={clsx(buttonClasses, disabledClasses)}
+        data-test="add-to-cart"
       >
         <div className="absolute left-0 ml-4">
           <PlusIcon className="h-5" />
@@ -49,6 +49,7 @@ function SubmitButton({
       className={clsx(buttonClasses, {
         'hover:opacity-90': true
       })}
+      data-test="add-to-cart"
     >
       <div className="absolute left-0 ml-4">
         <PlusIcon className="h-5" />
@@ -62,27 +63,37 @@ export function AddToCart({ product }: { product: Product }) {
   const { variants, availableForSale } = product;
   const { addCartItem } = useCart();
   const { state } = useProduct();
-  const [message, formAction] = useFormState(addItem, null);
 
+  // Trouver le variant correspondant à l'état actuel du produit
   const variant = variants.find((variant: ProductVariant) =>
     variant.selectedOptions.every((option) => option.value === state[option.name.toLowerCase()])
   );
-  const defaultVariantId = variants.length === 1 ? variants[0]?.id : undefined;
-  const selectedVariantId = variant?.id || defaultVariantId;
-  const actionWithVariant = formAction.bind(null, selectedVariantId);
-  const finalVariant = variants.find((variant) => variant.id === selectedVariantId)!;
+  const defaultVariant = variants.length === 1 ? variants[0] : undefined;
+  const selectedVariant = variant || defaultVariant;
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    event.stopPropagation(); // Assure-toi d'arrêter la propagation des événements
+
+    if (selectedVariant) {
+      addCartItem(selectedVariant, product); // Appel avec l'objet ProductVariant
+
+      // Appel côté serveur pour ajouter au panier via Shopify
+      try {
+        await addItem(null, selectedVariant.id); // Appel côté serveur
+      } catch (error) {
+        console.error('Error adding item to server cart:', error);
+      }
+    } else {
+      console.error('No variant selected');
+    }
+  };
 
   return (
-    <form
-      action={async () => {
-        addCartItem(finalVariant, product);
-        await actionWithVariant();
-      }}
-    >
-      <SubmitButton availableForSale={availableForSale} selectedVariantId={selectedVariantId} />
-      <p aria-live="polite" className="sr-only" role="status">
-        {message}
-      </p>
+    <form onSubmit={handleSubmit}>
+      <SubmitButton
+        availableForSale={availableForSale}
+        selectedVariantId={selectedVariant?.id} // Utilisation de l'ID du variant dans le bouton
+      />
     </form>
   );
 }

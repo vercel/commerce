@@ -26,6 +26,7 @@ function PathFilterItem({ item }: { item: PathFilterItem }) {
             'underline underline-offset-4': active
           }
         )}
+        data-test="search-filter-item"
       >
         {item.title}
       </DynamicTag>
