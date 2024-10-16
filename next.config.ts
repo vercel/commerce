@@ -1,5 +1,4 @@
-/** @type {import('next').NextConfig} */
-module.exports = {
+export default {
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
