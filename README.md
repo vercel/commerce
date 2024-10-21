@@ -4,7 +4,7 @@
 
 A high-performance, server-rendered Next.js App Router ecommerce application.
 
-This template uses React Server Components, Server Actions, `Suspense`, `useOptimistic`, and more.
+This template uses React Server Components, Server Actions, `Suspense`, `useOptimistic`, and more. Testing
 
 <h3 id="v1-note"></h3>
 
