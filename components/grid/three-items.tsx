@@ -56,7 +56,7 @@ export async function ThreeItemGrid() {
       <ThreeItemGridItem size="full" item={firstProduct} priority={true} />
       <ThreeItemGridItem size="half" item={secondProduct} priority={true} />
       <ThreeItemGridItem size="half" item={thirdProduct} />
-      <h1>Hello</h1>
+      <h1>Helloo</h1>
     </section>
   );
 }
