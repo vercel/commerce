@@ -1,4 +1,8 @@
 export default {
+  experimental: {
+    ppr: true,
+    inlineCss: true
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [

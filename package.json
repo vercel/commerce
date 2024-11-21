@@ -13,27 +13,27 @@
     "test": "pnpm prettier:check"
   },
   "dependencies": {
-    "@headlessui/react": "^2.1.2",
-    "@heroicons/react": "^2.1.5",
+    "@headlessui/react": "^2.2.0",
+    "@heroicons/react": "^2.2.0",
     "clsx": "^2.1.1",
     "geist": "^1.3.1",
-    "next": "15.0.0-rc.1",
+    "next": "15.0.4-canary.22",
     "react": "19.0.0-rc-cd22717c-20241013",
     "react-dom": "19.0.0-rc-cd22717c-20241013",
-    "sonner": "^1.5.0"
+    "sonner": "^1.7.0"
   },
   "devDependencies": {
     "@tailwindcss/container-queries": "^0.1.1",
-    "@tailwindcss/typography": "^0.5.13",
-    "@types/node": "20.14.12",
+    "@tailwindcss/typography": "^0.5.15",
+    "@types/node": "22.9.1",
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
-    "autoprefixer": "^10.4.19",
-    "postcss": "^8.4.39",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
     "prettier": "3.3.3",
-    "prettier-plugin-tailwindcss": "^0.6.5",
-    "tailwindcss": "^3.4.6",
-    "typescript": "5.5.4"
+    "prettier-plugin-tailwindcss": "^0.6.9",
+    "tailwindcss": "^3.4.15",
+    "typescript": "5.6.3"
   },
   "pnpm": {
     "overrides": {
