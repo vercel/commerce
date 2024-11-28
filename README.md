@@ -1,72 +1,75 @@
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fgeins-io%2Fvercel-nextjs-commerce&env=GEINS_API_KEY,GEINS_ACCOUNT_NAME,GEINS_CHANNEL,GEINS_TLD,GEINS_LOCALE,GEINS_MARKET,GEINS_IMAGE_URL,GEINS_CURRENCY_CODE,GEINS_CHECKOUT_ID&envDescription=Read%20more%20about%20environment%20varibles%20in%20the%20example%20file&envLink=https%3A%2F%2Fgithub.com%2Fgeins-io%2Fvercel-nextjs-commerce%2Fblob%2Fmain%2F.env.example&project-name=geins-nextjs-commerce-starter&repository-name=geins-nextjs-commerce-starter&demo-title=Geins%20Next.js%20Commerce%20Starter&demo-description=Commerce%20website%20created%20with%20Next.js&demo-url=http%3A%2F%2Fgeins.io&demo-image=avatars.githubusercontent.com%2Fu%2F123540473)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fcommerce&project-name=commerce&repo-name=commerce&demo-title=Next.js%20Commerce&demo-url=https%3A%2F%2Fdemo.vercel.store&demo-image=https%3A%2F%2Fbigcommerce-demo-asset-ksvtgfvnd.vercel.app%2Fbigcommerce.png&env=COMPANY_NAME,SHOPIFY_REVALIDATION_SECRET,SHOPIFY_STORE_DOMAIN,SHOPIFY_STOREFRONT_ACCESS_TOKEN,SITE_NAME,TWITTER_CREATOR,TWITTER_SITE)
 
-# Next.js Commerce x Geins
+# Next.js Commerce
 
-A high-performance, server-rendered Next.js (15 RC) App Router ecommerce application.
+A high-performance, server-rendered Next.js App Router ecommerce application.
 
-This template showcases the integration of [Geins Commerce API](https://docs.geins.io) with [Next.js Commerce](https://github.com/vercel/commerce), leveraging the open-source [Geins SDK](https://github.com/geins-io/geins).
+This template uses React Server Components, Server Actions, `Suspense`, `useOptimistic`, and more.
 
-## Features
+<h3 id="v1-note"></h3>
 
-- **React Server Components**: Build fast and scalable UIs with Next.js's server-first approach.
-- **Server Actions**: Simplify backend logic and data fetching.
-- **Modern React APIs**: Including `Suspense` and `useOptimistic`.
-- **Integration with Geins**: Harness the power of Geins for exceptional ecommerce capabilities.
+> Note: Looking for Next.js Commerce v1? View the [code](https://github.com/vercel/commerce/tree/v1), [demo](https://commerce-v1.vercel.store), and [release notes](https://github.com/vercel/commerce/releases/tag/v1).
 
-## What is Geins?
+## Providers
 
-[Geins](https://geins.io/) is the ultimate toolkit for modern commerce. With Geins, developers and agencies can craft unique, tailored shopping experiences using:
+Vercel will only be actively maintaining a Shopify version [as outlined in our vision and strategy for Next.js Commerce](https://github.com/vercel/commerce/pull/966).
 
-- A hybrid model combining the reliability of a managed platform with open-source flexibility.
-- A robust API-first approach enabling precise customization.
-- Features for managing channels, content, CRM, events, and more.
+Vercel is happy to partner and work with any commerce provider to help them get a similar template up and running and listed below. Alternative providers should be able to fork this repository and swap out the `lib/shopify` file with their own implementation while leaving the rest of the template mostly unchanged.
 
-Explore the [Geins Commerce API documentation](https://docs.geins.io) for detailed usage instructions and capabilities.
+- Shopify (this repository)
+- [BigCommerce](https://github.com/bigcommerce/nextjs-commerce) ([Demo](https://next-commerce-v2.vercel.app/))
+- [Ecwid by Lightspeed](https://github.com/Ecwid/ecwid-nextjs-commerce/) ([Demo](https://ecwid-nextjs-commerce.vercel.app/))
+- [Geins](https://github.com/geins-io/vercel-nextjs-commerce) ([Demo](https://geins-nextjs-commerce-starter.vercel.app/))
 
-## Getting Started
+- [Medusa](https://github.com/medusajs/vercel-commerce) ([Demo](https://medusa-nextjs-commerce.vercel.app/))
+- [Saleor](https://github.com/saleor/nextjs-commerce) ([Demo](https://saleor-commerce.vercel.app/))
+- [Shopware](https://github.com/shopwareLabs/vercel-commerce) ([Demo](https://shopware-vercel-commerce-react.vercel.app/))
+- [Swell](https://github.com/swellstores/verswell-commerce) ([Demo](https://verswell-commerce.vercel.app/))
+- [Umbraco](https://github.com/umbraco/Umbraco.VercelCommerce.Demo) ([Demo](https://vercel-commerce-demo.umbraco.com/))
+- [Wix](https://github.com/wix/nextjs-commerce) ([Demo](https://wix-nextjs-commerce.vercel.app/))
+- [Fourthwall](https://github.com/FourthwallHQ/vercel-commerce) ([Demo](https://vercel-storefront.fourthwall.app/))
 
-To run this application locally, follow these steps:
+> Note: Providers, if you are looking to use similar products for your demo, you can [download these assets](https://drive.google.com/file/d/1q_bKerjrwZgHwCw0ovfUMW6He9VtepO_/view?usp=sharing).
 
-### Prerequisites
+## Integrations
 
-Ensure you have the following installed:
+Integrations enable upgraded or additional functionality for Next.js Commerce
 
-- [Node.js](https://nodejs.org/) (v20 or later)
-- [Geins API-Key](https://geins.io/)
+- [Orama](https://github.com/oramasearch/nextjs-commerce) ([Demo](https://vercel-commerce.oramasearch.com/))
 
-### Environment Variables
+  - Upgrades search to include typeahead with dynamic re-rendering, vector-based similarity search, and JS-based configuration.
+  - Search runs entirely in the browser for smaller catalogs or on a CDN for larger.
 
-Set up your environment variables as defined in `.env.example`. It's recommended to use [Vercel's Environment Variables](https://vercel.com/docs/concepts/projects/environment-variables) for secure storage.
+- [React Bricks](https://github.com/ReactBricks/nextjs-commerce-rb) ([Demo](https://nextjs-commerce.reactbricks.com/))
+  - Edit pages, product details, and footer content visually using [React Bricks](https://www.reactbricks.com) visual headless CMS.
 
-> ⚠️ **Important**: Never commit your `.env` file to version control.
+## Running locally
 
-### Steps to Run Locally
+You will need to use the environment variables [defined in `.env.example`](.env.example) to run Next.js Commerce. It's recommended you use [Vercel Environment Variables](https://vercel.com/docs/concepts/projects/environment-variables) for this, but a `.env` file is all that is necessary.
 
-1. Clone this repository:
+> Note: You should not commit your `.env` file or it will expose secrets that will allow others to control your Shopify store.
 
-   ```bash
-   git clone https://github.com/geins-io/vercel-nextjs-commerce.git
-   cd <your-repo>
-   ```
+1. Install Vercel CLI: `npm i -g vercel`
+2. Link local instance with Vercel and GitHub accounts (creates `.vercel` directory): `vercel link`
+3. Download your environment variables: `vercel env pull`
 
-2. Install dependencies:
+```bash
+pnpm install
+pnpm dev
+```
 
-   ```bash
-   pnpm install
-   ```
+Your app should now be running on [localhost:3000](http://localhost:3000/).
 
-3. Link your local instance with Vercel and pull environment variables:
+<details>
+  <summary>Expand if you work at Vercel and want to run locally and / or contribute</summary>
 
-   ```bash
-   npm i -g vercel
-   vercel link
-   vercel env pull
-   ```
+1. Run `vc link`.
+1. Select the `Vercel Solutions` scope.
+1. Connect to the existing `commerce-shopify` project.
+1. Run `vc env pull` to get environment variables.
+1. Run `pnpm dev` to ensure everything is working correctly.
+</details>
 
-4. Start the development server:
+## Vercel, Next.js Commerce, and Shopify Integration Guide
 
-   ```bash
-   pnpm dev
-   ```
-
-5. Access the app on [http://localhost:3000](http://localhost:3000).
+You can use this comprehensive [integration guide](https://vercel.com/docs/integrations/ecommerce/shopify) with step-by-step instructions on how to configure Shopify as a headless CMS using Next.js Commerce as your headless Shopify storefront on Vercel.
