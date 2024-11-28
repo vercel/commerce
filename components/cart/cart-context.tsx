@@ -1,18 +1,18 @@
 'use client';
 
-import type { Cart, CartItem, Product, ProductVariant } from 'lib/shopify/types';
+import type { CartItemType, CartType, ProductType, ProductVariantType } from 'lib/geins/types';
 import React, { createContext, use, useContext, useMemo, useOptimistic } from 'react';
 
 type UpdateType = 'plus' | 'minus' | 'delete';
 
 type CartAction =
   | { type: 'UPDATE_ITEM'; payload: { merchandiseId: string; updateType: UpdateType } }
-  | { type: 'ADD_ITEM'; payload: { variant: ProductVariant; product: Product } };
+  | { type: 'ADD_ITEM'; payload: { variant: ProductVariantType; product: ProductType } };
 
 type CartContextType = {
-  cart: Cart | undefined;
+  cart: CartType | undefined;
   updateCartItem: (merchandiseId: string, updateType: UpdateType) => void;
-  addCartItem: (variant: ProductVariant, product: Product) => void;
+  addCartItem: (variant: ProductVariantType, product: ProductType) => void;
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -21,7 +21,7 @@ function calculateItemCost(quantity: number, price: string): string {
   return (Number(price) * quantity).toString();
 }
 
-function updateCartItem(item: CartItem, updateType: UpdateType): CartItem | null {
+function updateCartItem(item: CartItemType, updateType: UpdateType): CartItemType | null {
   if (updateType === 'delete') return null;
 
   const newQuantity = updateType === 'plus' ? item.quantity + 1 : item.quantity - 1;
@@ -44,10 +44,10 @@ function updateCartItem(item: CartItem, updateType: UpdateType): CartItem | null
 }
 
 function createOrUpdateCartItem(
-  existingItem: CartItem | undefined,
-  variant: ProductVariant,
-  product: Product
-): CartItem {
+  existingItem: CartItemType | undefined,
+  variant: ProductVariantType,
+  product: ProductType
+): CartItemType {
   const quantity = existingItem ? existingItem.quantity + 1 : 1;
   const totalAmount = calculateItemCost(quantity, variant.price.amount);
 
@@ -74,7 +74,7 @@ function createOrUpdateCartItem(
   };
 }
 
-function updateCartTotals(lines: CartItem[]): Pick<Cart, 'totalQuantity' | 'cost'> {
+function updateCartTotals(lines: CartItemType[]): Pick<CartType, 'totalQuantity' | 'cost'> {
   const totalQuantity = lines.reduce((sum, item) => sum + item.quantity, 0);
   const totalAmount = lines.reduce((sum, item) => sum + Number(item.cost.totalAmount.amount), 0);
   const currencyCode = lines[0]?.cost.totalAmount.currencyCode ?? 'USD';
@@ -89,7 +89,7 @@ function updateCartTotals(lines: CartItem[]): Pick<Cart, 'totalQuantity' | 'cost
   };
 }
 
-function createEmptyCart(): Cart {
+function createEmptyCart(): CartType {
   return {
     id: undefined,
     checkoutUrl: '',
@@ -103,7 +103,7 @@ function createEmptyCart(): Cart {
   };
 }
 
-function cartReducer(state: Cart | undefined, action: CartAction): Cart {
+function cartReducer(state: CartType | undefined, action: CartAction): CartType {
   const currentCart = state || createEmptyCart();
 
   switch (action.type) {
@@ -113,7 +113,7 @@ function cartReducer(state: Cart | undefined, action: CartAction): Cart {
         .map((item) =>
           item.merchandise.id === merchandiseId ? updateCartItem(item, updateType) : item
         )
-        .filter(Boolean) as CartItem[];
+        .filter(Boolean) as CartItemType[];
 
       if (updatedLines.length === 0) {
         return {
@@ -150,7 +150,7 @@ export function CartProvider({
   cartPromise
 }: {
   children: React.ReactNode;
-  cartPromise: Promise<Cart | undefined>;
+  cartPromise: Promise<CartType | undefined>;
 }) {
   const initialCart = use(cartPromise);
   const [optimisticCart, updateOptimisticCart] = useOptimistic(initialCart, cartReducer);
@@ -159,7 +159,7 @@ export function CartProvider({
     updateOptimisticCart({ type: 'UPDATE_ITEM', payload: { merchandiseId, updateType } });
   };
 
-  const addCartItem = (variant: ProductVariant, product: Product) => {
+  const addCartItem = (variant: ProductVariantType, product: ProductType) => {
     updateOptimisticCart({ type: 'ADD_ITEM', payload: { variant, product } });
   };
 
@@ -180,5 +180,6 @@ export function useCart() {
   if (context === undefined) {
     throw new Error('useCart must be used within a CartProvider');
   }
+
   return context;
 }

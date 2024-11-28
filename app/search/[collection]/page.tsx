@@ -1,4 +1,4 @@
-import { getCollection, getCollectionProducts } from 'lib/shopify';
+import { getCollection, getCollectionProducts } from 'lib/geins';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
@@ -11,7 +11,6 @@ export async function generateMetadata(props: {
 }): Promise<Metadata> {
   const params = await props.params;
   const collection = await getCollection(params.collection);
-
   if (!collection) return notFound();
 
   return {
@@ -29,6 +28,7 @@ export default async function CategoryPage(props: {
   const params = await props.params;
   const { sort } = searchParams as { [key: string]: string };
   const { sortKey, reverse } = sorting.find((item) => item.slug === sort) || defaultSort;
+
   const products = await getCollectionProducts({ collection: params.collection, sortKey, reverse });
 
   return (

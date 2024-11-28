@@ -13,19 +13,23 @@
     "test": "pnpm prettier:check"
   },
   "dependencies": {
+    "@geins/cms": "^0.3.6",
+    "@geins/core": "^0.3.6",
     "@headlessui/react": "^2.1.2",
     "@heroicons/react": "^2.1.5",
     "clsx": "^2.1.1",
     "geist": "^1.3.1",
-    "next": "15.0.0-rc.1",
+    "graphql-tag": "^2.12.6",
+    "next": "15.0.3",
     "react": "19.0.0-rc-cd22717c-20241013",
     "react-dom": "19.0.0-rc-cd22717c-20241013",
     "sonner": "^1.5.0"
   },
   "devDependencies": {
+    "@geins/types": "^0.3.6",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/typography": "^0.5.13",
-    "@types/node": "20.14.12",
+    "@types/node": "22.9.0",
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
     "autoprefixer": "^10.4.19",

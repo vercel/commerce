@@ -1,0 +1,164 @@
+Help me finnish this reshaping of a product for a product card.
+
+Here is the Types:
+
+export type ProductType = {
+  id: string;
+  seo: {
+    title?: string;
+    description?: string;
+  };
+  currency: string;
+  slug: string;
+  handle: string;
+  stockTracking: boolean;
+  stockPurchasable: boolean;
+  stockLevel: number;
+  title: string;
+  name: string;
+  description: string;
+  price: string;
+  priceRange: {
+    maxVariantPrice: MoneyType;
+    minVariantPrice: MoneyType;
+  };
+  metaTitle: string;
+  metaDescription: string;
+  tags: string[];
+  options: ProductOptionType[];
+  variants: ProductVariantType[];
+  featuredImage: ProductImageType;
+  images: ProductImageType[];
+  updatedAt?: string;
+  availableForSale: boolean;
+  descriptionHtml?: string;
+  relations?: ProductRelationType[];
+};
+
+
+export type ProductOptionType = {
+  id: string;
+  name: string;
+  values: string[];
+};
+
+export type ProductOptionValueType = {
+  id: string;
+  name: string;
+  price: number;
+};
+
+
+export type ProductVariantType = {
+  id: string;
+  title: string;
+  availableForSale: boolean;
+  selectedOptions: {
+    name: string;
+    value: string;
+  }[];
+  price: MoneyType;
+};
+
+Here is what i got so far:
+const reshapeProduct = (geinsProductData: any): ProductType => {   
+  const rawProduct = geinsProductData;  
+  
+
+  const tags: string[] = [];
+  const relations: ProductRelationType[] = [];   
+  if (rawProduct.primaryCategory) {
+    tags.push(rawProduct.primaryCategory.name);      
+    relations.push({
+      type: ProductRelationTypeEnum.CATEGORY,
+      name: rawProduct.primaryCategory.name,
+      alias: rawProduct.primaryCategory.alias,
+    });
+  }
+
+  if (rawProduct.brand) {
+    tags.push(rawProduct.brand.name);
+    relations.push({
+      type: ProductRelationTypeEnum.BRAND,
+      name: rawProduct.brand.name,
+      alias: rawProduct.brand.alias,
+    });
+  }
+  if(rawProduct.categories) {
+    rawProduct.categories.forEach((category: any) => {        
+      tags.push(category.name);
+      
+    });
+  }
+  // remove duplicates
+  const uniqueTags = [...new Set(tags)];
+  tags.push(...uniqueTags);
+  
+
+  // add descriptions from environment variables
+  const shortDescription = rawProduct.texts?.[SHORT_DESCRIPTION] || '';
+  const longDescription = rawProduct.texts?.[LONG_DESCRIPTION] || '';
+
+  // add images
+  const images = rawProduct.productImages?.map((image: any): ProductImageType => ({
+    caption: rawProduct.name,
+    altText: rawProduct.name,
+    src: `${IMAGE_URL}/product/1200f1500/${image.fileName}`,
+    url: `${IMAGE_URL}/product/1200f1500/${image.fileName}`,        
+    height: 1600,     
+    width: 2000,
+  }));
+
+  // add variations and options
+  const variations: ProductVariantType[] = reshapeProductVariations(rawProduct);   
+  const options: ProductOptionType[] = reshapeProductOptions(rawProduct);
+  
+
+  return {
+    id: rawProduct.productId,
+    seo: {
+      title: rawProduct.meta?.title,
+      description: rawProduct.meta?.description,
+    },
+    metaTitle: rawProduct.meta?.title || rawProduct.name,
+    metaDescription: rawProduct.meta?.description || shortDescription,
+    name: rawProduct.name,
+    title: rawProduct.name,
+    slug: rawProduct.alias,
+    handle: rawProduct.alias,
+    description: shortDescription,
+    descriptionHtml: rawProduct.texts?.text1 || '',
+    priceRange: {
+      minVariantPrice: {
+        amount: rawProduct.unitPrice?.sellingPriceIncVat,
+        currencyCode: CURRENCY_CODE,
+      },
+      maxVariantPrice: {
+        amount: rawProduct.unitPrice?.sellingPriceIncVat,
+        currencyCode: CURRENCY_CODE,
+      },
+    },
+    price: rawProduct.unitPrice.sellingPriceIncVat,
+    currency: CURRENCY_CODE,    
+    stockTracking: !!rawProduct.totalStock,
+    stockPurchasable: rawProduct.totalStock?.inStock || false,
+    stockLevel: rawProduct.totalStock?.totalStock || 0,
+    availableForSale: true,
+    tags: tags || [],
+    options: [...options]|| [],
+    variants: variations || [],
+    featuredImage: images[0],
+    images: images,
+    relations: relations,
+  };    
+};
+
+const reshapeProductVariations = (geinsProductData: any): ProductVariantType[] => {
+  return [];
+};
+
+const reshapeProductOptions = (geinsProductData: any): ProductOptionType[] => {
+  return [];
+};
+
+And here is the query to API in graphql

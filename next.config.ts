@@ -4,8 +4,13 @@ export default {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'cdn.shopify.com',
-        pathname: '/s/files/**'
+        hostname: 'labs.commerce.services',
+        pathname: '/product/**'
+      },
+      {
+        protocol: 'https',
+        hostname: 'labs.commerce.services',
+        pathname: '/pagewidget/**'
       }
     ]
   }

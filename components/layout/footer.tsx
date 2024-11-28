@@ -1,8 +1,9 @@
 import Link from 'next/link';
 
+import GeinsIcon from 'components/icons/geins';
 import FooterMenu from 'components/layout/footer-menu';
 import LogoSquare from 'components/logo-square';
-import { getMenu } from 'lib/shopify';
+import { getMenu } from 'lib/geins';
 import { Suspense } from 'react';
 
 const { COMPANY_NAME, SITE_NAME } = process.env;
@@ -41,7 +42,7 @@ export default async function Footer() {
           <a
             className="flex h-8 w-max flex-none items-center justify-center rounded-md border border-neutral-200 bg-white text-xs text-black dark:border-neutral-700 dark:bg-black dark:text-white"
             aria-label="Deploy on Vercel"
-            href="https://vercel.com/templates/next.js/nextjs-commerce"
+            href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fgeins-io%2Fvercel-nextjs-commerce&env=GEINS_API_KEY,GEINS_ACCOUNT_NAME,GEINS_CHANNEL,GEINS_TLD,GEINS_LOCALE,GEINS_MARKET,GEINS_IMAGE_URL,GEINS_CURRENCY_CODE,GEINS_CHECKOUT_ID&envDescription=Read%20more%20about%20environment%20varibles%20in%20the%20example%20file&envLink=https%3A%2F%2Fgithub.com%2Fgeins-io%2Fvercel-nextjs-commerce%2Fblob%2Fmain%2F.env.example&project-name=geins-nextjs-commerce-starter&repository-name=geins-nextjs-commerce-starter&demo-title=Geins%20Next.js%20Commerce%20Starter&demo-description=Commerce%20website%20created%20with%20Next.js&demo-url=http%3A%2F%2Fgeins.io&demo-image=avatars.githubusercontent.com%2Fu%2F123540473"
           >
             <span className="px-3">▲</span>
             <hr className="h-full border-r border-neutral-200 dark:border-neutral-700" />
@@ -57,11 +58,11 @@ export default async function Footer() {
           </p>
           <hr className="mx-4 hidden h-4 w-[1px] border-l border-neutral-400 md:inline-block" />
           <p>
-            <a href="https://github.com/vercel/commerce">View the source</a>
+            <a href="https://github.com/geins-io/vercel-nextjs-commerce">View the source</a>
           </p>
           <p className="md:ml-auto">
-            <a href="https://vercel.com" className="text-black dark:text-white">
-              Created by ▲ Vercel
+            <a href="https://geins.io" className="flex items-center text-black dark:text-white">
+              Powered by <GeinsIcon className="ml-1 h-5 fill-current align-middle" />
             </a>
           </p>
         </div>

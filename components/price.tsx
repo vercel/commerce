@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-
+const locale = process.env.GEINS_LOCALE || 'en-US';
 const Price = ({
   amount,
   className,
@@ -12,7 +12,7 @@ const Price = ({
   currencyCodeClassName?: string;
 } & React.ComponentProps<'p'>) => (
   <p suppressHydrationWarning={true} className={className}>
-    {`${new Intl.NumberFormat(undefined, {
+    {`${new Intl.NumberFormat(locale, {
       style: 'currency',
       currency: currencyCode,
       currencyDisplay: 'narrowSymbol'

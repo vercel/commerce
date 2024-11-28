@@ -7,8 +7,8 @@ import { Gallery } from 'components/product/gallery';
 import { ProductProvider } from 'components/product/product-context';
 import { ProductDescription } from 'components/product/product-description';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
-import { getProduct, getProductRecommendations } from 'lib/shopify';
-import { Image } from 'lib/shopify/types';
+import { getProduct, getProductRecommendations } from 'lib/geins';
+import { ProductImageType, ProductType } from 'lib/geins/types';
 import Link from 'next/link';
 import { Suspense } from 'react';
 
@@ -89,7 +89,7 @@ export default async function ProductPage(props: { params: Promise<{ handle: str
               }
             >
               <Gallery
-                images={product.images.slice(0, 5).map((image: Image) => ({
+                images={product.images.slice(0, 5).map((image: ProductImageType) => ({
                   src: image.url,
                   altText: image.altText
                 }))}
@@ -103,15 +103,15 @@ export default async function ProductPage(props: { params: Promise<{ handle: str
             </Suspense>
           </div>
         </div>
-        <RelatedProducts id={product.id} />
+        <RelatedProducts product={product} />
       </div>
       <Footer />
     </ProductProvider>
   );
 }
 
-async function RelatedProducts({ id }: { id: string }) {
-  const relatedProducts = await getProductRecommendations(id);
+async function RelatedProducts({ product }: { product: ProductType }) {
+  const relatedProducts = await getProductRecommendations(product);
 
   if (!relatedProducts.length) return null;
 

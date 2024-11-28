@@ -1,5 +1,4 @@
-import { getCollections, getPages, getProducts } from 'lib/shopify';
-import { validateEnvironmentVariables } from 'lib/utils';
+import { getCollections, getPages, getProducts } from 'lib/geins';
 import { MetadataRoute } from 'next';
 
 type Route = {
@@ -14,7 +13,7 @@ const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
 export const dynamic = 'force-dynamic';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  validateEnvironmentVariables();
+  // validateEnvironmentVariables();
 
   const routesMap = [''].map((route) => ({
     url: `${baseUrl}${route}`,
@@ -24,21 +23,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const collectionsPromise = getCollections().then((collections) =>
     collections.map((collection) => ({
       url: `${baseUrl}${collection.path}`,
-      lastModified: collection.updatedAt
+      lastModified: collection.updatedAt ?? new Date().toISOString()
     }))
   );
 
   const productsPromise = getProducts({}).then((products) =>
     products.map((product) => ({
       url: `${baseUrl}/product/${product.handle}`,
-      lastModified: product.updatedAt
+      lastModified: product.updatedAt ?? new Date().toISOString()
     }))
   );
 
   const pagesPromise = getPages().then((pages) =>
     pages.map((page) => ({
       url: `${baseUrl}/${page.handle}`,
-      lastModified: page.updatedAt
+      lastModified: page.updatedAt ?? new Date().toISOString()
     }))
   );
 
