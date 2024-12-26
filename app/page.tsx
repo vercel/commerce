@@ -9,10 +9,10 @@ export const metadata = {
   }
 };
 
-export default function HomePage() {
+export default async function HomePage() {  
   return (
     <>
-      <ThreeItemGrid />
+      <ThreeItemGrid/>
       <Carousel />
       <Footer />
     </>

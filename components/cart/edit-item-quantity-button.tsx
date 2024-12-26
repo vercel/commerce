@@ -2,9 +2,8 @@
 
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
-import { updateItemQuantity } from 'components/cart/actions';
-import type { CartItem } from 'lib/shopify/types';
-import { useActionState } from 'react';
+import { CartItem } from 'lib/woocomerce/models/cart';
+import { useCart } from './cart-context';
 
 function SubmitButton({ type }: { type: 'plus' | 'minus' }) {
   return (
@@ -30,30 +29,29 @@ function SubmitButton({ type }: { type: 'plus' | 'minus' }) {
 export function EditItemQuantityButton({
   item,
   type,
-  optimisticUpdate
 }: {
   item: CartItem;
   type: 'plus' | 'minus';
-  optimisticUpdate: any;
 }) {
-  const [message, formAction] = useActionState(updateItemQuantity, null);
+  const {setNewCart} = useCart();
   const payload = {
-    merchandiseId: item.merchandise.id,
-    quantity: type === 'plus' ? item.quantity + 1 : item.quantity - 1
+    key: item.key,
+    quantity: type === 'plus' ? item.quantity + 1 : item.quantity - 1,
   };
-  const actionWithVariant = formAction.bind(null, payload);
 
   return (
     <form
       action={async () => {
-        optimisticUpdate(payload.merchandiseId, type);
-        await actionWithVariant();
+        try {
+          const cart = await (await fetch('/api/cart', {method: 'PUT', body: JSON.stringify(payload)})).json();
+          setNewCart(cart);
+        } catch (error) {
+          console.error(error);
+        }
+  
       }}
     >
       <SubmitButton type={type} />
-      <p aria-live="polite" className="sr-only" role="status">
-        {message}
-      </p>
     </form>
   );
 }
