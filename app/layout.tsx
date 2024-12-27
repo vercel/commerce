@@ -1,4 +1,3 @@
-
 import { CartProvider } from 'components/cart/cart-context';
 import { Navbar } from 'components/layout/navbar';
 import { NextAuthProvider } from 'components/next-session-provider';
@@ -39,20 +38,20 @@ export const metadata = {
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const cart = await storeApi.getCart();
-  
+
   return (
     <html lang="en" className={GeistSans.variable}>
       <body className="bg-neutral-50 text-black selection:bg-teal-300 dark:bg-neutral-900 dark:text-white dark:selection:bg-pink-500 dark:selection:text-white">
         <NextAuthProvider>
-        <CartProvider value={cart}>
-        <Navbar />
+          <CartProvider value={cart}>
+            <Navbar />
             <main>
               {children}
               <Toaster closeButton />
               <WelcomeToast />
             </main>
           </CartProvider>
-          </NextAuthProvider>
+        </NextAuthProvider>
       </body>
     </html>
   );

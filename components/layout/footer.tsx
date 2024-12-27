@@ -1,7 +1,6 @@
-import Link from 'next/link';
-
 import FooterMenu from 'components/layout/footer-menu';
 import LogoSquare from 'components/logo-square';
+import Link from 'next/link';
 import { Suspense } from 'react';
 
 const { COMPANY_NAME, SITE_NAME } = process.env;
@@ -20,7 +19,7 @@ export default async function Footer() {
     {
       title: 'Shop',
       path: '/shop'
-    },
+    }
   ] as Menu[];
   const currentYear = new Date().getFullYear();
   const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '');

@@ -15,8 +15,10 @@ export async function generateMetadata(props: {
   params: Promise<{ name: string }>;
 }): Promise<Metadata> {
   const params = await props.params;
-  const product: Product | undefined = (await (woocommerce.get('products', { slug: params.name })))?.[0];
-  
+  const product: Product | undefined = (
+    await woocommerce.get('products', { slug: params.name })
+  )?.[0];
+
   if (!product) return notFound();
 
   const indexable = !product.tags.find((tag) => tag.name?.includes(HIDDEN_PRODUCT_TAG));
@@ -31,13 +33,15 @@ export async function generateMetadata(props: {
         index: indexable,
         follow: indexable
       }
-    },
+    }
   };
 }
 
 export default async function ProductPage(props: { params: Promise<{ name: string }> }) {
   const params = await props.params;
-  const product: Product | undefined = (await (woocommerce.get('products', { slug: params.name })))?.[0];
+  const product: Product | undefined = (
+    await woocommerce.get('products', { slug: params.name })
+  )?.[0];
 
   if (!product) return notFound();
 
@@ -49,9 +53,8 @@ export default async function ProductPage(props: { params: Promise<{ name: strin
     image: product.images?.[0]?.src,
     offers: {
       '@type': 'AggregateOffer',
-      availability: product.stock_quantity > 0
-        ? 'https://schema.org/InStock'
-        : 'https://schema.org/OutOfStock',
+      availability:
+        product.stock_quantity > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
       priceCurrency: product.price,
       highPrice: product.max_price,
       lowPrice: product.min_price

@@ -4,18 +4,16 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { CartItem } from 'lib/woocomerce/models/cart';
 import { useCart } from './cart-context';
 
-export function DeleteItemButton({
-  item,
-}: {
-  item: CartItem;
-}) {
-  const {setNewCart} = useCart();
+export function DeleteItemButton({ item }: { item: CartItem }) {
+  const { setNewCart } = useCart();
 
   return (
     <form
       action={async () => {
         try {
-          const cart = await (await fetch('/api/cart', {method: 'DELETE', body: JSON.stringify({ key: item.key })})).json();
+          const cart = await (
+            await fetch('/api/cart', { method: 'DELETE', body: JSON.stringify({ key: item.key }) })
+          ).json();
           setNewCart(cart);
         } catch (error) {
           console.error(error);

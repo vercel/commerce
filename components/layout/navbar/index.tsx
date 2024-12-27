@@ -1,6 +1,5 @@
-
 import CartModal from 'components/cart/modal';
-import LoginModal from 'components/login/modal';
+import UserIcon from 'components/icons/UserIcon';
 import LogoSquare from 'components/logo-square';
 import { Category } from 'lib/woocomerce/models/base';
 import { woocommerce } from 'lib/woocomerce/woocommerce';
@@ -18,7 +17,7 @@ type Menu = {
 };
 
 export async function Navbar() {
-  const categories: Category[] = (await (woocommerce.get('products/categories')));
+  const categories: Category[] = await woocommerce.get('products/categories');
   const menu = [
     {
       title: 'Home',
@@ -71,8 +70,8 @@ export async function Navbar() {
           </Suspense>
         </div>
         <div className="flex justify-end md:w-1/3">
-          <LoginModal />
           <CartModal />
+          <UserIcon />
         </div>
       </div>
     </nav>

@@ -7,7 +7,6 @@ export async function generateMetadata(props: {
 }): Promise<Metadata> {
   const params = await props.params;
 
-
   return {
     title: '',
     description: '',
@@ -21,7 +20,7 @@ export async function generateMetadata(props: {
 
 export default async function Page(props: { params: Promise<{ page: string }> }) {
   const params = await props.params;
-  
+
   return (
     <>
       <h1 className="mb-8 text-5xl font-bold">{''}</h1>

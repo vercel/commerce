@@ -43,8 +43,7 @@ export function ThreeItemGridItem({
 
 export async function ThreeItemGrid() {
   // Collections that start with `hidden-*` are hidden from the search page.
-  const products: Product[] = (await woocommerce.get('products'));
-
+  const products: Product[] = await woocommerce.get('products');
 
   const [firstProduct, secondProduct, thirdProduct] = products;
 

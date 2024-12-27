@@ -3,8 +3,8 @@ export default {
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
-        protocol: "http",
-        hostname: "**",
+        protocol: 'http',
+        hostname: '**'
       }
     ]
   }

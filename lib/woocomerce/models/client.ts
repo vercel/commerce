@@ -3,8 +3,8 @@ import crypto from 'node:crypto';
 import OAuth from 'oauth-1.0a';
 import Url from 'url-parse';
 import { DELETE, IWooRestApiOptions, WooRestApiEndpoint, WooRestApiMethod } from './clientOptions';
-import { CouponsParams } from './coupon';
-import { CustomersParams } from './customer';
+import { Coupon, CouponsParams } from './coupon';
+import { Customer, CustomersParams } from './customer';
 import { Order, OrdersMainParams } from './orders';
 import { Product, ProductMainParams } from './product';
 
@@ -27,10 +27,28 @@ export type WooRestApiParams = CouponsParams &
 /**
  * Define the response types for each endpoint.
  */
-type WooCommerceResponse<T extends WooRestApiEndpoint> = 
-  T extends 'products' ? Product[] :
-  T extends 'orders' ? Order[] :
-  any;
+type WooCommerceResponse<
+  T extends WooRestApiEndpoint,
+  P extends Partial<WooRestApiParams> = {}
+> = P['id'] extends number | string // Verifica se `id` è definito e di tipo string
+  ? T extends 'products'
+    ? Product
+    : T extends 'customers'
+      ? Customer
+      : T extends 'orders'
+        ? Order
+        : T extends 'coupons'
+          ? Coupon
+          : any
+  : T extends 'products'
+    ? Product[]
+    : T extends 'customers'
+      ? Customer[]
+      : T extends 'orders'
+        ? Order[]
+        : T extends 'coupons'
+          ? Coupon[]
+          : any;
 
 /**
  * WooCommerce REST API wrapper
@@ -100,7 +118,7 @@ export default class WooCommerceRestApi<T extends WooRestApiOptions> {
   login(username: string, password: string): Promise<any> {
     return this._request('POST', 'token', { username, password }, {}, 'jwt-auth/v1');
   }
-  
+
   /**
    * Parse params to object.
    *
@@ -265,13 +283,13 @@ export default class WooCommerceRestApi<T extends WooRestApiOptions> {
    *
    * @return {Object}
    */
-  _request<T extends WooRestApiEndpoint>(
+  _request<T extends WooRestApiEndpoint, P extends Partial<WooRestApiParams>>(
     method: WooRestApiMethod,
     endpoint: T,
     data?: Record<string, unknown>,
-    params: Record<string, unknown> = {},
-    version?: string,
-  ): Promise<WooCommerceResponse<T>> {
+    params: P = {} as P,
+    version?: string
+  ): Promise<WooCommerceResponse<T, P>> {
     const url = this._getUrl(endpoint, params, version);
     const header: RawAxiosRequestHeaders = {
       Accept: 'application/json'
@@ -330,7 +348,7 @@ export default class WooCommerceRestApi<T extends WooRestApiOptions> {
     // Allow set and override Axios options.
     options = { ...options, ...this._opt.axiosConfig };
 
-    return axios(options).then((response) => response.data as WooCommerceResponse<T>);
+    return axios(options).then((response) => response.data as WooCommerceResponse<T, P>);
   }
 
   /**
@@ -341,8 +359,11 @@ export default class WooCommerceRestApi<T extends WooRestApiOptions> {
    *
    * @return {Object}
    */
-  get<T extends WooRestApiEndpoint>(endpoint: T, params?: Partial<WooRestApiParams>): Promise<WooCommerceResponse<T>> {
-    return this._request('GET', endpoint, undefined, params);
+  get<T extends WooRestApiEndpoint, P extends Partial<WooRestApiParams>>(
+    endpoint: T,
+    params?: P
+  ): Promise<WooCommerceResponse<T, P>> {
+    return this._request('GET', endpoint, undefined, params || ({} as P));
   }
 
   /**
@@ -392,7 +413,7 @@ export default class WooCommerceRestApi<T extends WooRestApiOptions> {
     endpoint: T,
     data: Pick<WooRestApiParams, 'force'>,
     params: Pick<WooRestApiParams, 'id'>
-  ): Promise<WooCommerceResponse<T>> {
+  ): Promise<WooCommerceResponse<T, Pick<WooRestApiParams, 'id'>>> {
     return this._request('DELETE', endpoint, data, params);
   }
 

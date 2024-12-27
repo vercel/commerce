@@ -26,29 +26,24 @@ function SubmitButton({ type }: { type: 'plus' | 'minus' }) {
   );
 }
 
-export function EditItemQuantityButton({
-  item,
-  type,
-}: {
-  item: CartItem;
-  type: 'plus' | 'minus';
-}) {
-  const {setNewCart} = useCart();
+export function EditItemQuantityButton({ item, type }: { item: CartItem; type: 'plus' | 'minus' }) {
+  const { setNewCart } = useCart();
   const payload = {
     key: item.key,
-    quantity: type === 'plus' ? item.quantity + 1 : item.quantity - 1,
+    quantity: type === 'plus' ? item.quantity + 1 : item.quantity - 1
   };
 
   return (
     <form
       action={async () => {
         try {
-          const cart = await (await fetch('/api/cart', {method: 'PUT', body: JSON.stringify(payload)})).json();
+          const cart = await (
+            await fetch('/api/cart', { method: 'PUT', body: JSON.stringify(payload) })
+          ).json();
           setNewCart(cart);
         } catch (error) {
           console.error(error);
         }
-  
       }}
     >
       <SubmitButton type={type} />

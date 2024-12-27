@@ -1,35 +1,30 @@
-export declare type WooRestApiVersion = "wc/v3";
+export declare type WooRestApiVersion = 'wc/v3';
 // | "wc/v2"
 // | "wc/v1"
 // | "wc-api/v3"
 // | "wc-api/v2"
 // | "wc-api/v1";
-export declare type WooRestApiEncoding = "utf-8" | "ascii";
-export declare type WooRestApiMethod =
-  | "GET"
-  | "POST"
-  | "PUT"
-  | "DELETE"
-  | "OPTIONS";
+export declare type WooRestApiEncoding = 'utf-8' | 'ascii';
+export declare type WooRestApiMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'OPTIONS';
 
 export declare type WooRestApiEndpoint =
-  | "coupons"
-  | "customers"
-  | "orders"
-  | "products"
-  | "products/attributes"
-  | "products/categories"
-  | "products/shipping_classes"
-  | "products/tags"
-  | "products/reviews"
-  | "system_status"
-  | "reports" // TODO: add support for reports
-  | "settings" // TODO: add support for settings
-  | "webhooks" // TODO: add support for webhooks
-  | "shipping" // TODO: add support for shipping
-  | "shipping_methods" // TODO: add support for shipping_methods
-  | "taxes" // TODO: add support for taxes
-  | "payment_gateways" // TODO: add support for payment_gateways
+  | 'coupons'
+  | 'customers'
+  | 'orders'
+  | 'products'
+  | 'products/attributes'
+  | 'products/categories'
+  | 'products/shipping_classes'
+  | 'products/tags'
+  | 'products/reviews'
+  | 'system_status'
+  | 'reports' // TODO: add support for reports
+  | 'settings' // TODO: add support for settings
+  | 'webhooks' // TODO: add support for webhooks
+  | 'shipping' // TODO: add support for shipping
+  | 'shipping_methods' // TODO: add support for shipping_methods
+  | 'taxes' // TODO: add support for taxes
+  | 'payment_gateways' // TODO: add support for payment_gateways
   | string; // I need to have next endpoint: "orders/<id>/notes"
 
 export declare type IWooRestApiQuery = Record<string, unknown>;
@@ -79,7 +74,6 @@ export interface IWooRestApiOptions<T> extends IWooCredentials {
   /* Https or Http */
   isHttps?: boolean;
 }
-
 
 export interface DELETE {
   id: number | string;

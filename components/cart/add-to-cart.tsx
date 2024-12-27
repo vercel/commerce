@@ -5,17 +5,12 @@ import clsx from 'clsx';
 import { Product } from 'lib/woocomerce/models/product';
 import { useCart } from './cart-context';
 
-function SubmitButton({
-}: {
-}) {
+function SubmitButton({}: {}) {
   const buttonClasses =
     'relative flex w-full items-center justify-center rounded-full bg-blue-600 p-4 tracking-wide text-white';
 
   return (
-    <button
-      aria-label="Please select an option"
-      className={clsx(buttonClasses)}
-    >
+    <button aria-label="Please select an option" className={clsx(buttonClasses)}>
       <div className="absolute left-0 ml-4">
         <PlusIcon className="h-5" />
       </div>
@@ -31,7 +26,12 @@ export function AddToCart({ product }: { product: Product }) {
     <form
       action={async () => {
         try {
-          const cart = await (await fetch('/api/cart', {method: 'POST', body: JSON.stringify({ id: product.id, quantity: 1, variation: [] })},)).json();
+          const cart = await (
+            await fetch('/api/cart', {
+              method: 'POST',
+              body: JSON.stringify({ id: product.id, quantity: 1, variation: [] })
+            })
+          ).json();
           setNewCart(cart);
         } catch (error) {
           console.error(error);

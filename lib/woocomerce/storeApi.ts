@@ -11,18 +11,18 @@ class WooCommerceStoreApiClient {
   constructor(baseURL: string) {
     const headers: RawAxiosRequestHeaders = {
       'Content-Type': 'application/json',
-      'Accept': '*/*',
+      Accept: '*/*'
     };
 
     this.client = axios.create({
       baseURL,
-      headers,
+      headers
     });
 
     this.client.interceptors.response.use((response) => {
       console.log('cart-token', response.headers['cart-token']);
       this.client.defaults.headers['cart-token'] = response.headers['cart-token'];
-      
+
       return response;
     });
   }
@@ -37,16 +37,22 @@ class WooCommerceStoreApiClient {
     return this.client.get<Cart>('/cart', { params }).then((response) => response.data);
   }
 
-  async addToCart(payload: { id: string | number; quantity: number; variation: { attribute: string; value: string }[] }): Promise<Cart> {
+  async addToCart(payload: {
+    id: string | number;
+    quantity: number;
+    variation: { attribute: string; value: string }[];
+  }): Promise<Cart> {
     return this.client.post<Cart>('/cart/add-item', payload).then((response) => response.data);
   }
 
-  async updateItem(payload: { key: string | number; quantity: number; }): Promise<Cart> {
+  async updateItem(payload: { key: string | number; quantity: number }): Promise<Cart> {
     return this.client.post<Cart>('/cart/update-item', payload).then((response) => response.data);
   }
 
   async removeFromCart(payload: { key: string | number }): Promise<Cart> {
-    return this.client.post<Cart>(`/cart/remove-item?key=${payload.key}`).then((response) => response.data);
+    return this.client
+      .post<Cart>(`/cart/remove-item?key=${payload.key}`)
+      .then((response) => response.data);
   }
 }
 

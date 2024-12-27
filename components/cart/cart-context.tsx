@@ -5,8 +5,12 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 
 type UpdateType = 'plus' | 'minus' | 'delete';
 
-type UpdatePayload = { key: string | number; quantity: number;};
-type AddPayload = { id: string | number; quantity: number; variation: { attribute: string; value: string }[] };
+type UpdatePayload = { key: string | number; quantity: number };
+type AddPayload = {
+  id: string | number;
+  quantity: number;
+  variation: { attribute: string; value: string }[];
+};
 type RemovePayload = { key: string | number };
 
 type CartContextType = {
@@ -16,17 +20,11 @@ type CartContextType = {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export function CartProvider({
-  value,
-  children,
-}: {
-  value: Cart;
-  children: React.ReactNode;
-}) {
+export function CartProvider({ value, children }: { value: Cart; children: React.ReactNode }) {
   const [cart, setCart] = useState<Cart | undefined>(value);
   const setNewCart = (cart: Cart) => {
     setCart(cart);
-  }
+  };
 
   useEffect(() => {
     setCart(value);
@@ -36,7 +34,7 @@ export function CartProvider({
     <CartContext.Provider
       value={{
         cart,
-        setNewCart,
+        setNewCart
       }}
     >
       {children}

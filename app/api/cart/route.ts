@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
     if (session?.user?.token) {
       storeApi._setAuthorizationToken(session.user.token);
     } else {
-        storeApi._setAuthorizationToken('');
+      storeApi._setAuthorizationToken('');
     }
     const cart = await storeApi.getCart();
     return NextResponse.json(cart, { status: 200 });
@@ -32,11 +32,11 @@ export async function PUT(req: NextRequest) {
   try {
     const { key, quantity } = await req.json();
     if (quantity > 0) {
-        const cart = await storeApi.updateItem({ key, quantity });
-        return NextResponse.json(cart, { status: 200 });
+      const cart = await storeApi.updateItem({ key, quantity });
+      return NextResponse.json(cart, { status: 200 });
     } else {
-        const cart = await storeApi.removeFromCart({ key });
-        return NextResponse.json(cart, { status: 200 });
+      const cart = await storeApi.removeFromCart({ key });
+      return NextResponse.json(cart, { status: 200 });
     }
   } catch (error) {
     return NextResponse.json({ error: 'Failed to update cart item' }, { status: 500 });

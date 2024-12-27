@@ -1,12 +1,4 @@
-import {
-  Attribute,
-  Category,
-  Default_Attribute,
-  Dimension,
-  Image,
-  Meta_Data,
-  Tag
-} from './base';
+import { Attribute, Category, Default_Attribute, Dimension, Image, Meta_Data, Tag } from './base';
 
 export interface Product {
   id: number;
@@ -210,7 +202,6 @@ type ProductCategoriesParams = Partial<ProductCategories>;
 type ProductShippingClassesParams = Partial<ProductShippingClass>;
 type ProductTagsParams = Partial<ProductTags>;
 type ProductReviewsParams = Partial<ProductReviews>;
-
 
 export type ProductMainParams =
   | (ProductParams & ProductVariationsParams & ProductAttributesParams)
