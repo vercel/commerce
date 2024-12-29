@@ -7,12 +7,15 @@ type ProductState = {
   [key: string]: string;
 } & {
   image?: string;
-};
+} & {
+  variation?: string;
+}
 
 type ProductContextType = {
   state: ProductState;
   updateOption: (name: string, value: string) => ProductState;
   updateImage: (index: string) => ProductState;
+  updateVariation: (variation: string) => ProductState;
 };
 
 const ProductContext = createContext<ProductContextType | undefined>(undefined);
@@ -48,11 +51,18 @@ export function ProductProvider({ children }: { children: React.ReactNode }) {
     return { ...state, ...newState };
   };
 
+  const updateVariation = (variation: string) => {
+    const newState = { variation };
+    setOptimisticState(newState);
+    return { ...state, ...newState };
+  }
+
   const value = useMemo(
     () => ({
       state,
       updateOption,
       updateImage,
+      updateVariation
     }),
     [state]
   );

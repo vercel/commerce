@@ -35,12 +35,19 @@ export function VariantSelector({
             const optionNameLowerCase = option?.name?.toLowerCase();
             // The option is active if it's in the selected options.
             const isActive = optionNameLowerCase ? state[optionNameLowerCase] === value : false;
-            if (!optionNameLowerCase) return null;
 
             return (
               <button
                 formAction={() => {
-                  const newState = updateOption(optionNameLowerCase, value);
+                  if (!optionNameLowerCase) return;
+                  let newState = updateOption(optionNameLowerCase, value);
+                  const keys = Object.keys(newState).filter((key) => key !== 'id' && key !== 'image' && key !== 'variation');
+                  const variant = variations.find((variation) => {
+                    return variation?.attributes?.every((attr) => attr.name && keys.includes(attr.name) && newState[attr.name] === attr.option);
+                  })?.id?.toString();
+                  if (variant) {
+                    newState = {...newState, variation: variant};
+                  }
                   updateURL(newState);
                 }}
                 key={value}

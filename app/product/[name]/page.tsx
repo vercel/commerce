@@ -100,7 +100,7 @@ export default async function ProductPage(props: { params: Promise<{ name: strin
               </Suspense>
             )}
             <Suspense fallback={null}>
-              <ProductDescription product={product} />
+              <ProductDescription product={product} variations={variations} />
             </Suspense>
             <AddToCart product={product} variations={variations}/>
           </div>

@@ -4,7 +4,6 @@ import { PlusIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { useProduct } from 'components/product/product-context';
 import { Product, ProductVariations } from 'lib/woocomerce/models/product';
-import { useMemo } from 'react';
 import { useCart } from './cart-context';
 
 function SubmitButton({disabled = false}: {disabled: boolean}) {
@@ -23,22 +22,10 @@ function SubmitButton({disabled = false}: {disabled: boolean}) {
 
 export function AddToCart({ product, variations }: { product: Product, variations?: ProductVariations[] }) {
   const { setNewCart } = useCart();
-  const {state} = useProduct();
+  const { state } = useProduct();
+  const productVariant = variations?.find((variation) => variation.id.toString() === state.variation);
+  const variation = productVariant?.attributes.map((attr) => ({ attribute: attr.name, value: attr.option })) || [];
   
-
-  const productVariant = useMemo(() => {
-    const keys = Object.keys(state).filter((key) => key !== 'id' && key !== 'image').map((key) => ({
-      attribute: key.toLowerCase(),
-      value: state[key]
-    }));
-    const productExist = variations?.find((variation) => {
-      const attributes = variation.attributes.map((attr) => ({name: attr.name, option: attr.option})) || [];
-      return attributes.every((attribute) => attribute.option === keys.find((key) => key.attribute === attribute.name)?.value);
-    });
-
-    return productExist ? keys : [];
-  }, [state, variations]);
-
   return (
     <form
       action={async () => {
@@ -46,7 +33,7 @@ export function AddToCart({ product, variations }: { product: Product, variation
           const cart = await (
             await fetch('/api/cart', {
               method: 'POST',
-              body: JSON.stringify({ id: product.id, quantity: 1, variation: productVariant })
+              body: JSON.stringify({ id: product.id, quantity: 1, variation })
             })
           ).json();
           setNewCart(cart);
@@ -55,7 +42,7 @@ export function AddToCart({ product, variations }: { product: Product, variation
         }
       }}
     >
-      <SubmitButton disabled={variations?.length && !productVariant.length ? true : false}/>
+      <SubmitButton disabled={variations?.length && !product ? true : false}/>
     </form>
   );
 }
