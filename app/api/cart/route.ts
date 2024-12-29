@@ -6,11 +6,7 @@ import { authOptions } from '../auth/[...nextauth]/route';
 export async function GET(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
-    if (session?.user?.token) {
-      storeApi._setAuthorizationToken(session.user.token);
-    } else {
-      storeApi._setAuthorizationToken('');
-    }
+    storeApi._setAuthorizationToken(session?.user?.token ?? '');
     const cart = await storeApi.getCart();
     return NextResponse.json(cart, { status: 200 });
   } catch (error) {
@@ -24,7 +20,7 @@ export async function POST(req: NextRequest) {
     const cart = await storeApi.addToCart({ id, quantity, variation });
     return NextResponse.json(cart, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to add item to cart' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to add item to cart', message: JSON.stringify(error) }, { status: 500 });
   }
 }
 
@@ -39,7 +35,7 @@ export async function PUT(req: NextRequest) {
       return NextResponse.json(cart, { status: 200 });
     }
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to update cart item' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to update cart item', message: JSON.stringify(error) }, { status: 500 });
   }
 }
 
@@ -49,6 +45,6 @@ export async function DELETE(req: NextRequest) {
     const cart = await storeApi.removeFromCart({ key });
     return NextResponse.json(cart, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to remove item from cart' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to remove item from cart', message: JSON.stringify(error) }, { status: 500 });
   }
 }

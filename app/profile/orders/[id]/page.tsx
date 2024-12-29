@@ -9,7 +9,6 @@ export default async function OrderPage(props: { params: Promise<{ id: number }>
   const data = await getServerSession(authOptions);
   try {
     const order = await woocommerce.get('orders', { id: params.id });
-    console.log(order);
   } catch (error) {
     console.error(error);
   }

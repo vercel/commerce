@@ -45,5 +45,6 @@ export type Attribute = {
 export type Default_Attribute = {
   id: number;
   name: string;
+  slug: string;
   option: string;
 };

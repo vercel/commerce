@@ -1,4 +1,3 @@
-import { AddToCart } from 'components/cart/add-to-cart';
 import Price from 'components/price';
 import Prose from 'components/prose';
 import { Product } from 'lib/woocomerce/models/product';
@@ -18,7 +17,6 @@ export function ProductDescription({ product }: { product: Product }) {
           html={product.description}
         />
       ) : null}
-      <AddToCart product={product} />
     </>
   );
 }

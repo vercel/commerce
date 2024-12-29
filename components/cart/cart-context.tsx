@@ -3,16 +3,6 @@
 import { Cart } from 'lib/woocomerce/models/cart';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-type UpdateType = 'plus' | 'minus' | 'delete';
-
-type UpdatePayload = { key: string | number; quantity: number };
-type AddPayload = {
-  id: string | number;
-  quantity: number;
-  variation: { attribute: string; value: string }[];
-};
-type RemovePayload = { key: string | number };
-
 type CartContextType = {
   cart: Cart | undefined;
   setNewCart: (cart: Cart) => void;
@@ -20,15 +10,24 @@ type CartContextType = {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export function CartProvider({ value, children }: { value: Cart; children: React.ReactNode }) {
-  const [cart, setCart] = useState<Cart | undefined>(value);
+export function CartProvider({ children }: { children: React.ReactNode }) {
+  const [cart, setCart] = useState<Cart | undefined>(undefined);
   const setNewCart = (cart: Cart) => {
     setCart(cart);
   };
 
+  const fetchCart = async () => {
+    try {
+      const cart = await (await fetch('/api/cart')).json();
+      setNewCart(cart);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   useEffect(() => {
-    setCart(value);
-  }, [value]);
+    fetchCart();
+  }, []);
 
   return (
     <CartContext.Provider

@@ -1,13 +1,15 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import { AddToCart } from 'components/cart/add-to-cart';
 import Footer from 'components/layout/footer';
 import { Gallery } from 'components/product/gallery';
 import { ProductProvider } from 'components/product/product-context';
 import { ProductDescription } from 'components/product/product-description';
+import { VariantSelector } from 'components/product/variant-selector';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { Image } from 'lib/woocomerce/models/base';
-import { Product } from 'lib/woocomerce/models/product';
+import { Product, ProductVariations } from 'lib/woocomerce/models/product';
 import { woocommerce } from 'lib/woocomerce/woocommerce';
 import { Suspense } from 'react';
 
@@ -42,6 +44,10 @@ export default async function ProductPage(props: { params: Promise<{ name: strin
   const product: Product | undefined = (
     await woocommerce.get('products', { slug: params.name })
   )?.[0];
+  let variations: ProductVariations[] = [];
+  if (product?.variations?.length) {
+    variations = await woocommerce.get(`products/${product?.id}/variations`);
+  }
 
   if (!product) return notFound();
 
@@ -88,9 +94,15 @@ export default async function ProductPage(props: { params: Promise<{ name: strin
           </div>
 
           <div className="basis-full lg:basis-2/6">
+            {variations && (
+              <Suspense fallback={null}>
+                <VariantSelector options={product.attributes} variations={variations} />
+              </Suspense>
+            )}
             <Suspense fallback={null}>
               <ProductDescription product={product} />
             </Suspense>
+            <AddToCart product={product} variations={variations}/>
           </div>
         </div>
       </div>

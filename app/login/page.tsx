@@ -7,22 +7,24 @@ import { useState } from 'react';
 export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { replace } = useRouter();
+  const [error, setError] = useState('');
+  const router = useRouter();
 
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
-    try {
-      await signIn('credentials', { username, password, redirect: false });
-      replace('/');
-    } catch (error) {
-      console.error(error);
+    const res = await signIn('credentials', { username, password, redirect: false, });
+    if (res?.ok) {
+      router.replace('/');
+    } else {
+      setError('Invalid username or password');
     }
   };
 
   return (
     <section className="mx-auto mt-4 grid max-w-screen-2xl justify-center gap-4 px-4 pb-4">
       <h1 className="text-2xl font-bold">Login</h1>
-      <div className="flex h-screen justify-center">
+      <div className="flex flex-col h-screen w-full max-w-md">
+        {error && <p className="text-red-500">{error}</p>}
         <form onSubmit={handleLogin}>
           <div className="mt-4">
             <label
@@ -64,6 +66,13 @@ export default function LoginPage() {
               Login
             </button>
           </div>
+
+          <span className="block mt-6 text-center text-sm text-gray-600 dark:text-gray-300">
+            Don't have an account?{' '}
+            <a href="/signup" className="text-indigo-600 hover:underline">
+              Sign up
+            </a>
+          </span>
         </form>
       </div>
     </section>

@@ -1,3 +1,4 @@
+import { storeApi } from 'lib/woocomerce/storeApi';
 import { woocommerce } from 'lib/woocomerce/woocommerce';
 import { NextAuthOptions, Session, User } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
@@ -42,6 +43,15 @@ export const authOptions = {
       console.debug('Set session token', token.user);
       session.user = token.user;
       return session;
+    },
+  },
+  events: {
+    async signIn() {
+      storeApi._seCartToken('');
+    },
+    async signOut() {
+      storeApi._seCartToken('');
+      storeApi._setAuthorizationToken('');
     }
   }
 } satisfies NextAuthOptions;

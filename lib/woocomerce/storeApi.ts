@@ -6,7 +6,7 @@ import { Cart } from './models/cart';
  * To use this in the client-side, you need to create a new route of api endpoint in your Next.js app.
  */
 class WooCommerceStoreApiClient {
-  public client: AxiosInstance;
+  private client: AxiosInstance;
 
   constructor(baseURL: string) {
     const headers: RawAxiosRequestHeaders = {
@@ -18,23 +18,31 @@ class WooCommerceStoreApiClient {
       baseURL,
       headers
     });
-
-    this.client.interceptors.response.use((response) => {
-      console.log('cart-token', response.headers['cart-token']);
-      this.client.defaults.headers['cart-token'] = response.headers['cart-token'];
-
-      return response;
-    });
   }
 
   _setAuthorizationToken(token: string) {
     if (token) {
       this.client.defaults.headers['Authorization'] = `Bearer ${token}`;
+    } else {
+      this._deleteAuthorizationToken();
     }
   }
 
+  _deleteAuthorizationToken() {
+    this.client.defaults.headers['Authorization'] = '';
+  }
+
+  _seCartToken(cartToken: string) {
+    this.client.defaults.headers['cart-token'] = cartToken;
+  }
+
+
   async getCart(params?: Record<string, string | number>): Promise<Cart> {
-    return this.client.get<Cart>('/cart', { params }).then((response) => response.data);
+    return this.client.get<Cart>('/cart', { params }).then(async (response) => {
+      this._seCartToken(response.headers['cart-token']);
+
+      return response.data;
+    });
   }
 
   async addToCart(payload: {
@@ -57,6 +65,6 @@ class WooCommerceStoreApiClient {
 }
 
 // Example usage.
-const baseURL = 'http://wordpress.localhost/wp-json/wc/store/v1'; // Replace with your WooCommerce API URL.
+const baseURL = 'http://wordpress.localhost/wp-json/wc/store/v1';
 
 export const storeApi = new WooCommerceStoreApiClient(baseURL);

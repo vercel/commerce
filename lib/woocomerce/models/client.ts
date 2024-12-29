@@ -158,7 +158,6 @@ export default class WooCommerceRestApi<T extends WooRestApiOptions> {
     }
     const query = new Url(url, true).query; // Parse the query string returned by the url
 
-    // console.log("params:", params);
     const values = [];
 
     let queryString = '';
@@ -225,11 +224,13 @@ export default class WooCommerceRestApi<T extends WooRestApiOptions> {
       delete params.id;
     }
 
-    // Add query params to url
-    if (Object.keys(params).length !== 0) {
-      for (const key in params) {
-        url = url + '?' + key + '=' + params[key];
-      }
+    const queryParams: string[] = [];
+    for (const key in params) {
+      queryParams.push(`${encodeURIComponent(key)}=${encodeURIComponent(params[key] as string | number | boolean)}`);
+    }
+
+    if (queryParams.length > 0) {
+      url += '?' + queryParams.join('&');
     }
 
     /**
@@ -247,6 +248,7 @@ export default class WooCommerceRestApi<T extends WooRestApiOptions> {
     //     url = this._normalizeQueryString(url, params);
     //     return url;
     // }
+
     return url;
   }
 

@@ -48,7 +48,7 @@ export async function ThreeItemGrid() {
   const [firstProduct, secondProduct, thirdProduct] = products;
 
   return (
-    <section className="mx-auto grid max-w-screen-2xl gap-4 px-4 pb-4 md:grid-cols-6 md:grid-rows-2 lg:max-h-[calc(100vh-200px)]">
+    <section className="mx-auto grid max-w-screen-2xl gap-4 px-4 pb-4 md:grid-cols-6 md:grid-rows-2">
       {products.map((product, index) => (
         <ThreeItemGridItem key={product.id} size={index === 0 ? 'full' : 'half'} item={product} />
       ))}

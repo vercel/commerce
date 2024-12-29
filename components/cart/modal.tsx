@@ -113,6 +113,11 @@ export default function CartModal() {
                                   >
                                     <div className="flex flex-1 flex-col text-base">
                                       <span className="leading-tight">{item.name}</span>
+                                      {item.variation.map((variation, i) => (
+                                        <span key={i} className="text-sm text-neutral-500 dark:text-neutral-400">
+                                          {variation.attribute}: {variation.value}
+                                        </span>
+                                      ))}
                                     </div>
                                   </Link>
                                 </div>

@@ -131,7 +131,7 @@ export interface ProductVariations {
   shipping_class: string;
   shipping_class_id: number;
   image: Partial<Image>;
-  attributes: Partial<Attribute>[];
+  attributes: Partial<Default_Attribute>[];
   menu_order: number;
   meta_data: Partial<Meta_Data>[];
 }
@@ -143,6 +143,7 @@ export interface ProductAttributes {
   type: string;
   order_by: string;
   has_archives: boolean;
+  options: string[];
 }
 
 export interface ProductAttributesTerms {
