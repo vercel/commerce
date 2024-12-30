@@ -94,13 +94,14 @@ export default async function ProductPage(props: { params: Promise<{ name: strin
           </div>
 
           <div className="basis-full lg:basis-2/6">
+            <h1 className="mb-2 text-5xl font-medium">{product.name}</h1>
             {variations && (
               <Suspense fallback={null}>
                 <VariantSelector options={product.attributes} variations={variations} />
               </Suspense>
             )}
             <Suspense fallback={null}>
-              <ProductDescription product={product} variations={variations} />
+              <ProductDescription product={product} variations={variations}/>
             </Suspense>
             <AddToCart product={product} variations={variations}/>
           </div>

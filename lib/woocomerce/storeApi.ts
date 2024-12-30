@@ -1,10 +1,27 @@
 import axios, { AxiosInstance, RawAxiosRequestHeaders } from 'axios';
+import { Billing } from './models/billing';
 import { Cart } from './models/cart';
+import { Order } from './models/orders';
+import { Shipping } from './models/shipping';
 
 /**
  * WooCommerce Store API Client for server-side requests.
  * To use this in the client-side, you need to create a new route of api endpoint in your Next.js app.
  */
+
+export type OrderPayload = {
+  billing_address: Billing;
+  shipping_address: Shipping;
+  payment_method: string;
+  payment_data?: PaymentMethodData[];
+  customer_note?: string;
+}
+
+export type PaymentMethodData = {
+  key: string;
+  value: string;
+}
+
 class WooCommerceStoreApiClient {
   private client: AxiosInstance;
 
@@ -61,6 +78,18 @@ class WooCommerceStoreApiClient {
     return this.client
       .post<Cart>(`/cart/remove-item?key=${payload.key}`)
       .then((response) => response.data);
+  }
+
+  async createOrder(order: OrderPayload): Promise<Order> {
+    return this.client.post('/checkout', order).then((response) => response.data);
+  }
+
+  async getOrders(params?: Record<string, string | number>): Promise<Order[]> {
+    return this.client.get<Order[]>('/checkout', { params }).then((response) => response.data);
+  }
+
+  async getOrder(id: string | number): Promise<Order> {
+    return this.client.get<Order>(`/checkout/${id}`).then((response) => response.data);
   }
 }
 
