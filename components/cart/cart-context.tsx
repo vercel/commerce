@@ -23,7 +23,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     } catch (err) {
       console.error(err);
     }
-  }
+  };
 
   useEffect(() => {
     fetchCart();

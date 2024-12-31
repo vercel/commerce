@@ -24,10 +24,10 @@ export default async function Footer() {
       title: 'Shop',
       path: '/shop'
     },
-     ...categories.map((category) => ({
-          title: category.name,
-          path: path.join('/collection', category.id.toString())
-        }))
+    ...categories.map((category) => ({
+      title: category.name,
+      path: path.join('/collection', category.id.toString())
+    }))
   ] as Menu[];
   const currentYear = new Date().getFullYear();
   const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '');

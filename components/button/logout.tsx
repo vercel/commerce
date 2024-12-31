@@ -10,7 +10,7 @@ export default function LogoutButton() {
       className="w-full rounded-md bg-indigo-500 p-3 text-white"
       onClick={() => {
         signOut({ redirect: false });
-        router.replace('/')
+        router.replace('/');
       }}
     >
       Logout

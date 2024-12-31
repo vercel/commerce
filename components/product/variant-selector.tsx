@@ -5,7 +5,6 @@ import { useProduct, useUpdateURL } from 'components/product/product-context';
 import { Attribute } from 'lib/woocomerce/models/base';
 import { ProductVariations } from 'lib/woocomerce/models/product';
 
-
 type FilterVariation = {
   name: string | undefined;
   values: string[] | undefined;
@@ -13,7 +12,7 @@ type FilterVariation = {
 
 export function VariantSelector({
   options,
-  variations,
+  variations
 }: {
   options: Partial<Attribute>[];
   variations: ProductVariations[];
@@ -21,9 +20,9 @@ export function VariantSelector({
   const { state, updateOption } = useProduct();
   const updateURL = useUpdateURL();
 
-  const combinations: FilterVariation[] = options?.map(attribute => ({
+  const combinations: FilterVariation[] = options?.map((attribute) => ({
     name: attribute.name,
-    values: attribute?.options?.map(option => option),
+    values: attribute?.options?.map((option) => option)
   }));
 
   return combinations.map((option) => (
@@ -41,12 +40,21 @@ export function VariantSelector({
                 formAction={() => {
                   if (!optionNameLowerCase) return;
                   let newState = updateOption(optionNameLowerCase, value);
-                  const keys = Object.keys(newState).filter((key) => key !== 'id' && key !== 'image' && key !== 'variation');
-                  const variant = variations.find((variation) => {
-                    return variation?.attributes?.every((attr) => attr.name && keys.includes(attr.name) && newState[attr.name] === attr.option);
-                  })?.id?.toString();
+                  const keys = Object.keys(newState).filter(
+                    (key) => key !== 'id' && key !== 'image' && key !== 'variation'
+                  );
+                  const variant = variations
+                    .find((variation) => {
+                      return variation?.attributes?.every(
+                        (attr) =>
+                          attr.name &&
+                          keys.includes(attr.name) &&
+                          newState[attr.name] === attr.option
+                      );
+                    })
+                    ?.id?.toString();
                   if (variant) {
-                    newState = {...newState, variation: variant};
+                    newState = { ...newState, variation: variant };
                   }
                   updateURL(newState);
                 }}
@@ -59,7 +67,7 @@ export function VariantSelector({
                     'ring-1 ring-transparent transition duration-300 ease-in-out hover:ring-blue-600':
                       !isActive,
                     'relative z-10 cursor-not-allowed overflow-hidden bg-neutral-100 text-neutral-500 ring-1 ring-neutral-300 before:absolute before:inset-x-0 before:-z-10 before:h-px before:-rotate-45 before:bg-neutral-300 before:transition-transform dark:bg-neutral-900 dark:text-neutral-400 dark:ring-neutral-700 before:dark:bg-neutral-700':
-                     ''
+                      ''
                   }
                 )}
               >

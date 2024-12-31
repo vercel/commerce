@@ -226,7 +226,9 @@ export default class WooCommerceRestApi<T extends WooRestApiOptions> {
 
     const queryParams: string[] = [];
     for (const key in params) {
-      queryParams.push(`${encodeURIComponent(key)}=${encodeURIComponent(params[key] as string | number | boolean)}`);
+      queryParams.push(
+        `${encodeURIComponent(key)}=${encodeURIComponent(params[key] as string | number | boolean)}`
+      );
     }
 
     if (queryParams.length > 0) {

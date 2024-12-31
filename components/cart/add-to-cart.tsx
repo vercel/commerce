@@ -6,12 +6,16 @@ import { useProduct } from 'components/product/product-context';
 import { Product, ProductVariations } from 'lib/woocomerce/models/product';
 import { useCart } from './cart-context';
 
-function SubmitButton({disabled = false}: {disabled: boolean}) {
+function SubmitButton({ disabled = false }: { disabled: boolean }) {
   const buttonClasses =
     'relative flex w-full items-center justify-center rounded-full bg-blue-600 p-4 tracking-wide text-white';
 
   return (
-    <button aria-label="Please select an option" disabled={disabled} className={clsx(buttonClasses, disabled ? 'opacity-50 cursor-not-allowed' : '')}>
+    <button
+      aria-label="Please select an option"
+      disabled={disabled}
+      className={clsx(buttonClasses, disabled ? 'cursor-not-allowed opacity-50' : '')}
+    >
       <div className="absolute left-0 ml-4">
         <PlusIcon className="h-5" />
       </div>
@@ -20,12 +24,21 @@ function SubmitButton({disabled = false}: {disabled: boolean}) {
   );
 }
 
-export function AddToCart({ product, variations }: { product: Product, variations?: ProductVariations[] }) {
+export function AddToCart({
+  product,
+  variations
+}: {
+  product: Product;
+  variations?: ProductVariations[];
+}) {
   const { setNewCart } = useCart();
   const { state } = useProduct();
-  const productVariant = variations?.find((variation) => variation.id.toString() === state.variation);
-  const variation = productVariant?.attributes.map((attr) => ({ attribute: attr.name, value: attr.option })) || [];
-  
+  const productVariant = variations?.find(
+    (variation) => variation.id.toString() === state.variation
+  );
+  const variation =
+    productVariant?.attributes.map((attr) => ({ attribute: attr.name, value: attr.option })) || [];
+
   return (
     <form
       action={async () => {
@@ -42,7 +55,7 @@ export function AddToCart({ product, variations }: { product: Product, variation
         }
       }}
     >
-      <SubmitButton disabled={variations?.length && !state.variation ? true : false}/>
+      <SubmitButton disabled={variations?.length && !state.variation ? true : false} />
     </form>
   );
 }

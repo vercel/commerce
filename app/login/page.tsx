@@ -12,7 +12,7 @@ export default function LoginPage() {
 
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
-    const res = await signIn('credentials', { username, password, redirect: false, });
+    const res = await signIn('credentials', { username, password, redirect: false });
     if (res?.ok) {
       router.replace('/');
     } else {
@@ -23,7 +23,7 @@ export default function LoginPage() {
   return (
     <section className="mx-auto mt-4 grid max-w-screen-2xl justify-center gap-4 px-4 pb-4">
       <h1 className="text-2xl font-bold">Login</h1>
-      <div className="flex flex-col h-screen w-full max-w-md">
+      <div className="flex h-screen w-full max-w-md flex-col">
         {error && <p className="text-red-500">{error}</p>}
         <form onSubmit={handleLogin}>
           <div className="mt-4">
@@ -67,7 +67,7 @@ export default function LoginPage() {
             </button>
           </div>
 
-          <span className="block mt-6 text-center text-sm text-gray-600 dark:text-gray-300">
+          <span className="mt-6 block text-center text-sm text-gray-600 dark:text-gray-300">
             Don't have an account?{' '}
             <a href="/signup" className="text-indigo-600 hover:underline">
               Sign up

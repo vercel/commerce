@@ -15,12 +15,12 @@ export type OrderPayload = {
   payment_method: string;
   payment_data?: PaymentMethodData[];
   customer_note?: string;
-}
+};
 
 export type PaymentMethodData = {
   key: string;
   value: string;
-}
+};
 
 class WooCommerceStoreApiClient {
   private client: AxiosInstance;
@@ -52,7 +52,6 @@ class WooCommerceStoreApiClient {
   _seCartToken(cartToken: string) {
     this.client.defaults.headers['cart-token'] = cartToken;
   }
-
 
   async getCart(params?: Record<string, string | number>): Promise<Cart> {
     return this.client.get<Cart>('/cart', { params }).then(async (response) => {
@@ -94,6 +93,7 @@ class WooCommerceStoreApiClient {
 }
 
 // Example usage.
-const baseURL = process.env.WOOCOMMERCE_STORE_API_URL ?? 'http://wordpress.localhost/wp-json/wc/store/v1';
+const baseURL =
+  process.env.WOOCOMMERCE_STORE_API_URL ?? 'http://wordpress.localhost/wp-json/wc/store/v1';
 
 export const storeApi = new WooCommerceStoreApiClient(baseURL);

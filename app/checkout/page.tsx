@@ -74,7 +74,7 @@ export default function CheckoutPage() {
           </ul>
 
           <h2 className="mt-2 text-2xl font-bold">Shipping info</h2>
-          <form className="md:grid-cols-6 md:grid-rows-2 gap-4">
+          <form className="gap-4 md:grid-cols-6 md:grid-rows-2">
             <div className="mt-4">
               <label
                 htmlFor="address_1"

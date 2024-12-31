@@ -15,7 +15,11 @@ export default async function SearchPage(props: {
   const { sort, q: searchValue } = searchParams as { [key: string]: string };
   const { sortKey, order } = sorting.find((item) => item.slug === sort) || defaultSort;
 
-  const products = await woocommerce.get('products', { search: searchValue, orderby: sortKey, order });
+  const products = await woocommerce.get('products', {
+    search: searchValue,
+    orderby: sortKey,
+    order
+  });
   const resultsText = products.length > 1 ? 'results' : 'result';
 
   return (

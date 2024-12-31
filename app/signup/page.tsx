@@ -4,21 +4,23 @@ import { useState } from 'react';
 import { z } from 'zod';
 
 type FormData = {
-    username: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-}
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
 
-const customerSchema = z.object({
+const customerSchema = z
+  .object({
     username: z.string().min(3),
-    email: z.string().email({ message: "Invalid email" }),
+    email: z.string().email({ message: 'Invalid email' }),
     password: z.string(),
-    confirmPassword: z.string(),
-}).refine((data) => data.password === data.confirmPassword, {
+    confirmPassword: z.string()
+  })
+  .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
-    path: ["confirmPassword"],
-});;
+    path: ['confirmPassword']
+  });
 
 export default function SignUpPage() {
   const initialState = { username: '', email: '', password: '', confirmPassword: '' };
@@ -27,7 +29,7 @@ export default function SignUpPage() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  }
+  };
 
   const handleSignup = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -37,22 +39,22 @@ export default function SignUpPage() {
       await fetch('/api/customer', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            username: formData.username,
-            first_name: '',
-            last_name: '',
-            email: formData.email,
-            password: formData.password
-        }),
+          username: formData.username,
+          first_name: '',
+          last_name: '',
+          email: formData.email,
+          password: formData.password
+        })
       });
     } catch (error) {
       if (error instanceof z.ZodError) {
         const errorObj: FormData = initialState;
         error.errors.forEach((err) => {
-            const key = err.path[0] as keyof FormData;
-            errorObj[key] = err.message as string;
+          const key = err.path[0] as keyof FormData;
+          errorObj[key] = err.message as string;
         });
         console.log(errorObj);
         setError(errorObj);

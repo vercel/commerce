@@ -42,7 +42,7 @@ export const authOptions = {
       console.debug('Set session token', token.user);
       session.user = token.user;
       return session;
-    },
+    }
   },
   events: {
     async signIn() {

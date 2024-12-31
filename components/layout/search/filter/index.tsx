@@ -14,15 +14,15 @@ function FilterItemList({ list }: { list: ListItem[] }) {
       {list.map((item: ListItem, i) => (
         <FilterItem key={i} item={item} />
       ))}
-          <Slider
-          className="max-w-md"
-          defaultValue={[100, 500]}
-          formatOptions={{style: "currency", currency: "USD"}}
-          label="Price Range"
-          maxValue={1000}
-          minValue={0}
-          step={50}
-        />
+      <Slider
+        className="max-w-md"
+        defaultValue={[100, 500]}
+        formatOptions={{ style: 'currency', currency: 'USD' }}
+        label="Price Range"
+        maxValue={1000}
+        minValue={0}
+        step={50}
+      />
     </>
   );
 }

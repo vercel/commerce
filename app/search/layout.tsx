@@ -16,8 +16,7 @@ export default function SearchLayout({ children }: { children: React.ReactNode }
             <ChildrenWrapper>{children}</ChildrenWrapper>
           </Suspense>
         </div>
-        <div className="order-none flex-none md:order-last md:w-[100px]">      
-        </div>
+        <div className="order-none flex-none md:order-last md:w-[100px]"></div>
       </div>
       <Footer />
     </>

@@ -1,5 +1,5 @@
-import { woocommerce } from "lib/woocomerce/woocommerce";
-import { NextRequest, NextResponse } from "next/server";
+import { woocommerce } from 'lib/woocomerce/woocommerce';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
   try {

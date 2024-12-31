@@ -10,7 +10,6 @@ type Menu = {
   path: string;
 };
 
-
 export function FooterMenuItem({ item }: { item: Menu }) {
   const pathname = usePathname();
   const [active, setActive] = useState(pathname === item.path);

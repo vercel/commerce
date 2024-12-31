@@ -9,7 +9,7 @@ type ProductState = {
   image?: string;
 } & {
   variation?: string;
-}
+};
 
 type ProductContextType = {
   state: ProductState;
@@ -55,7 +55,7 @@ export function ProductProvider({ children }: { children: React.ReactNode }) {
     const newState = { variation };
     setOptimisticState(newState);
     return { ...state, ...newState };
-  }
+  };
 
   const value = useMemo(
     () => ({
