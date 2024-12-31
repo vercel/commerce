@@ -94,6 +94,6 @@ class WooCommerceStoreApiClient {
 }
 
 // Example usage.
-const baseURL = 'http://wordpress.localhost/wp-json/wc/store/v1';
+const baseURL = process.env.WOOCOMMERCE_STORE_API_URL ?? 'http://wordpress.localhost/wp-json/wc/store/v1';
 
 export const storeApi = new WooCommerceStoreApiClient(baseURL);

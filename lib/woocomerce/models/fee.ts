@@ -1,5 +1,5 @@
 import { Meta_Data } from './base';
-import { Taxes } from './taxes';
+import { Tax } from './taxes';
 
 export type Fee_Lines = {
   id: number;
@@ -8,6 +8,6 @@ export type Fee_Lines = {
   tax_status: string;
   total: string;
   total_tax: string;
-  taxes: Partial<Taxes>[];
+  taxes: Partial<Tax>[];
   meta_data: Partial<Meta_Data>;
 };

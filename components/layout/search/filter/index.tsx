@@ -1,3 +1,5 @@
+'use client';
+import { Slider } from '@nextui-org/react';
 import { SortFilterItem } from 'lib/constants';
 import { Suspense } from 'react';
 import FilterItemDropdown from './dropdown';
@@ -12,6 +14,15 @@ function FilterItemList({ list }: { list: ListItem[] }) {
       {list.map((item: ListItem, i) => (
         <FilterItem key={i} item={item} />
       ))}
+          <Slider
+          className="max-w-md"
+          defaultValue={[100, 500]}
+          formatOptions={{style: "currency", currency: "USD"}}
+          label="Price Range"
+          maxValue={1000}
+          minValue={0}
+          step={50}
+        />
     </>
   );
 }

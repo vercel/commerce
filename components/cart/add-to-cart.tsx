@@ -11,7 +11,7 @@ function SubmitButton({disabled = false}: {disabled: boolean}) {
     'relative flex w-full items-center justify-center rounded-full bg-blue-600 p-4 tracking-wide text-white';
 
   return (
-    <button aria-label="Please select an option" disabled={disabled} className={clsx(buttonClasses)}>
+    <button aria-label="Please select an option" disabled={disabled} className={clsx(buttonClasses, disabled ? 'opacity-50 cursor-not-allowed' : '')}>
       <div className="absolute left-0 ml-4">
         <PlusIcon className="h-5" />
       </div>
@@ -42,7 +42,7 @@ export function AddToCart({ product, variations }: { product: Product, variation
         }
       }}
     >
-      <SubmitButton disabled={variations?.length && !product ? true : false}/>
+      <SubmitButton disabled={variations?.length && !state.variation ? true : false}/>
     </form>
   );
 }

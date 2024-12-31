@@ -1,6 +1,9 @@
 import FooterMenu from 'components/layout/footer-menu';
 import LogoSquare from 'components/logo-square';
+import { Category } from 'lib/woocomerce/models/base';
+import { woocommerce } from 'lib/woocomerce/woocommerce';
 import Link from 'next/link';
+import path from 'path';
 import { Suspense } from 'react';
 
 const { COMPANY_NAME, SITE_NAME } = process.env;
@@ -11,6 +14,7 @@ type Menu = {
 };
 
 export default async function Footer() {
+  const categories: Category[] = await woocommerce.get('products/categories');
   const menu = [
     {
       title: 'Home',
@@ -19,7 +23,11 @@ export default async function Footer() {
     {
       title: 'Shop',
       path: '/shop'
-    }
+    },
+     ...categories.map((category) => ({
+          title: category.name,
+          path: path.join('/collection', category.id.toString())
+        }))
   ] as Menu[];
   const currentYear = new Date().getFullYear();
   const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '');

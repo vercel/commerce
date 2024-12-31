@@ -1,5 +1,5 @@
-import { authOptions } from 'app/api/auth/[...nextauth]/route';
 import LogoutButton from 'components/button/logout';
+import { authOptions } from 'lib/auth/config';
 import { woocommerce } from 'lib/woocomerce/woocommerce';
 import { getServerSession } from 'next-auth';
 import Link from 'next/link';

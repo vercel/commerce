@@ -1,5 +1,5 @@
-import { authOptions } from 'app/api/auth/[...nextauth]/route';
 import Price from 'components/price';
+import { authOptions } from 'lib/auth/config';
 import { woocommerce } from 'lib/woocomerce/woocommerce';
 import { getServerSession } from 'next-auth';
 import Image from 'next/image';

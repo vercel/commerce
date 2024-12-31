@@ -1,8 +1,13 @@
+import { nextui } from '@nextui-org/react';
 import type { Config } from 'tailwindcss';
 import plugin from 'tailwindcss/plugin';
 
 const config: Config = {
-  content: ['./app/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  content: [
+    './app/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
+    './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}'
+  ],
   theme: {
     extend: {
       fontFamily: {
@@ -49,7 +54,8 @@ const config: Config = {
           values: theme('transitionDelay')
         }
       );
-    })
+    }),
+    nextui()
   ]
 };
 
