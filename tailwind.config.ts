@@ -38,6 +38,7 @@ const config: Config = {
   future: {
     hoverOnlyWhenSupported: true
   },
+  darkMode: 'class',
   plugins: [
     require('@tailwindcss/container-queries'),
     require('@tailwindcss/typography'),

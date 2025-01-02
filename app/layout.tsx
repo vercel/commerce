@@ -1,4 +1,5 @@
 import { CartProvider } from 'components/cart/cart-context';
+import Footer from 'components/layout/footer';
 import { Navbar } from 'components/layout/navbar';
 import { NextAuthProvider } from 'components/next-session-provider';
 import { WelcomeToast } from 'components/welcome-toast';
@@ -48,6 +49,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
               <WelcomeToast />
             </main>
           </CartProvider>
+          <Footer />
         </NextAuthProvider>
       </body>
     </html>

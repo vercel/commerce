@@ -32,7 +32,7 @@ export default function FilterList({ list, title }: { list: ListItem[]; title?: 
     <>
       <nav>
         {title ? (
-          <h3 className="hidden text-xs text-neutral-500 md:block dark:text-neutral-400">
+          <h3 className="hidden text-xs text-neutral-500 dark:text-neutral-400 md:block">
             {title}
           </h3>
         ) : null}

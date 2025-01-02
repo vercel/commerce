@@ -1,12 +1,19 @@
 'use client';
+import { Avatar, Select, SelectItem } from '@nextui-org/react';
+import clsx from 'clsx';
 import { Shipping } from 'lib/woocomerce/models/shipping';
 import { useState } from 'react';
+import countriesJson from '../../types/countries.json';
+
+export const countries = countriesJson as { country: string; flag_base64: string }[];
 
 export default function ShippingForm({
+  className,
   title,
   handleChangeAction
 }: {
-  title: string;
+  className?: string;
+  title?: string;
   handleChangeAction?: (data: Shipping) => void;
 }) {
   const initialState: Shipping = {
@@ -31,85 +38,102 @@ export default function ShippingForm({
   };
 
   return (
-    <div className="flex flex-col justify-between overflow-hidden p-1">
-      <form className="flex flex-col gap-4">
-        <h2 className="mt-2 text-2xl font-bold">{title}</h2>
-        <div className="mt-4">
-          <label
-            htmlFor="address_1"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-          >
-            Address
-          </label>
-          <input
-            type="text"
-            name="address_1"
-            value={formData.address_1}
-            onChange={onChange}
-            className="mt-1 block w-full rounded-md border-gray-300 p-3 text-black shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-lg"
-          />
-        </div>
-        <div className="mt-4">
-          <label
-            htmlFor="city"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-          >
-            City
-          </label>
-          <input
-            type="text"
-            name="city"
-            value={formData.city}
-            onChange={onChange}
-            className="mt-1 block w-full rounded-md border-gray-300 p-3 text-black shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-lg"
-          />
-        </div>
-        <div className="mt-4">
-          <label
-            htmlFor="state"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-          >
-            State
-          </label>
-          <input
-            type="text"
-            name="state"
-            value={formData.state}
-            onChange={onChange}
-            className="mt-1 block w-full rounded-md border-gray-300 p-3 text-black shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-lg"
-          />
-        </div>
-        <div className="mt-4">
-          <label
-            htmlFor="postcode"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-          >
-            Postcode
-          </label>
-          <input
-            type="text"
-            name="postcode"
-            value={formData.postcode}
-            onChange={onChange}
-            className="mt-1 block w-full rounded-md border-gray-300 p-3 text-black shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-lg"
-          />
-        </div>
-        <div className="mt-4">
-          <label
-            htmlFor="country"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-          >
-            Country
-          </label>
-          <input
-            type="text"
+    <div className={clsx('flex flex-col gap-4', className)}>
+      {title && <h2 className="mt-2 text-2xl font-bold">{title}</h2>}
+      <div className="mt-4">
+        <label
+          htmlFor="address_1"
+          className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+        >
+          Address <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          name="address_1"
+          value={formData.address_1}
+          onChange={onChange}
+          className="mt-1 block w-full rounded-md border-gray-300 p-3 text-black shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-lg"
+          required
+        />
+      </div>
+      <div className="mt-4">
+        <label
+          htmlFor="city"
+          className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+        >
+          City <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          name="city"
+          value={formData.city}
+          onChange={onChange}
+          className="mt-1 block w-full rounded-md border-gray-300 p-3 text-black shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-lg"
+          required
+        />
+      </div>
+      <div className="mt-4">
+        <label
+          htmlFor="state"
+          className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+        >
+          State <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          name="state"
+          value={formData.state}
+          onChange={onChange}
+          className="mt-1 block w-full rounded-md border-gray-300 p-3 text-black shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-lg"
+          required
+        />
+      </div>
+      <div className="mt-4">
+        <label
+          htmlFor="postcode"
+          className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+        >
+          Postcode <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          name="postcode"
+          value={formData.postcode}
+          onChange={onChange}
+          className="mt-1 block w-full rounded-md border-gray-300 p-3 text-black shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-lg"
+          required
+        />
+      </div>
+      <div className="mt-4">
+        <label
+          htmlFor="country"
+          className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+        >
+          Country <span className="text-red-500">*</span>
+        </label>
+        <div>
+          <Select
+            className="max-w-xs"
+            isRequired
             name="country"
             value={formData.country}
-            onChange={onChange}
-            className="mt-1 block w-full rounded-md border-gray-300 p-3 text-black shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-lg"
-          />
+            onChange={(event) =>
+              onChange({ target: { name: 'country', value: event.target.value } })
+            }
+          >
+            {countries.map((item) => (
+              <SelectItem
+                key={item.country}
+                startContent={
+                  <Avatar alt={item.country + '-img'} className="h-6 w-6" src={item.flag_base64} />
+                }
+              >
+                {item.country}
+              </SelectItem>
+            ))}
+          </Select>
         </div>
-      </form>
+      </div>
     </div>
   );
 }
