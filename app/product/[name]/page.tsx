@@ -7,6 +7,7 @@ import { Gallery } from 'components/product/gallery';
 import { ProductProvider } from 'components/product/product-context';
 import { ProductDescription } from 'components/product/product-description';
 import { VariantSelector } from 'components/product/variant-selector';
+import Prose from 'components/prose';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { Image } from 'lib/woocomerce/models/base';
 import { Product, ProductVariations } from 'lib/woocomerce/models/product';
@@ -91,6 +92,14 @@ export default async function ProductPage(props: { params: Promise<{ name: strin
                 }))}
               />
             </Suspense>
+            <div className="mt-4 text-center text-sm">
+              {product.description ? (
+                <Prose
+                  className="mb-6 text-sm leading-tight dark:text-white/[60%]"
+                  html={product.description}
+                />
+              ) : null}
+            </div>
           </div>
 
           <div className="basis-full lg:basis-2/6">

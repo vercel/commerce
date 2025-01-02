@@ -101,7 +101,7 @@ export default function CartModal() {
                         className="text-right text-base text-black dark:text-white"
                         amount={cart.totals?.total_price}
                         needSplit
-                        currencyCode={'EUR'}
+                        currencyCode={cart.totals.currency_code}
                       />
                     </div>
                     <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
@@ -114,7 +114,7 @@ export default function CartModal() {
                         className="text-right text-base text-black dark:text-white"
                         amount={cart.totals?.total_price}
                         needSplit
-                        currencyCode={'EUR'}
+                        currencyCode={cart.totals.currency_code}
                       />
                     </div>
                   </div>

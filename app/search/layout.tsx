@@ -11,7 +11,7 @@ export default function SearchLayout({ children }: { children: React.ReactNode }
         <div className="order-first w-full flex-none md:max-w-[150px]">
           <FilterList list={sorting} title="Sort by" />
         </div>
-        <div className="order-last min-h-screen w-full md:order-none">
+        <div className="order-last w-full md:order-none">
           <Suspense>
             <ChildrenWrapper>{children}</ChildrenWrapper>
           </Suspense>

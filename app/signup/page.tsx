@@ -65,7 +65,7 @@ export default function SignUpPage() {
   return (
     <section className="mx-auto mt-4 grid max-w-screen-2xl justify-center gap-4 px-4 pb-4">
       <h1 className="text-2xl font-bold">Sign up</h1>
-      <div className="flex h-screen justify-center">
+      <div className="flex justify-center">
         <form onSubmit={handleSignup}>
           <div className="mt-4">
             <label

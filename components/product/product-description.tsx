@@ -26,10 +26,10 @@ export function ProductDescription({
           />
         </div>
       </div>
-      {product.description ? (
+      {product.short_description ? (
         <Prose
           className="mb-6 text-sm leading-tight dark:text-white/[60%]"
-          html={product.description}
+          html={product.short_description}
         />
       ) : null}
     </>

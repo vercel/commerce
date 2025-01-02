@@ -9,8 +9,7 @@ export default function LogoutButton() {
       type="button"
       className="w-full rounded-md bg-indigo-500 p-3 text-white"
       onClick={() => {
-        signOut({ redirect: false });
-        router.replace('/');
+        signOut({ callbackUrl: '/' });
       }}
     >
       Logout

@@ -23,7 +23,7 @@ export default function LoginPage() {
   return (
     <section className="mx-auto mt-4 grid max-w-screen-2xl justify-center gap-4 px-4 pb-4">
       <h1 className="text-2xl font-bold">Login</h1>
-      <div className="flex h-screen w-full max-w-md flex-col">
+      <div className="flex w-full max-w-md flex-col">
         {error && <p className="text-red-500">{error}</p>}
         <form onSubmit={handleLogin}>
           <div className="mt-4">
