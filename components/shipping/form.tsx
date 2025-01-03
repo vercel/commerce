@@ -1,11 +1,9 @@
 'use client';
 import { Avatar, Select, SelectItem } from '@nextui-org/react';
 import clsx from 'clsx';
+import { getCountries } from 'lib/utils';
 import { Shipping } from 'lib/woocomerce/models/shipping';
 import { useState } from 'react';
-import countriesJson from '../../types/countries.json';
-
-export const countries = countriesJson as { country: string; flag_base64: string }[];
 
 export default function ShippingForm({
   className,
@@ -16,6 +14,7 @@ export default function ShippingForm({
   title?: string;
   handleChangeAction?: (data: Shipping) => void;
 }) {
+  const countries = getCountries();
   const initialState: Shipping = {
     first_name: '',
     last_name: '',
@@ -38,7 +37,7 @@ export default function ShippingForm({
   };
 
   return (
-    <div className={clsx('flex flex-col gap-4', className)}>
+    <div className={clsx('flex flex-col', className)}>
       {title && <h2 className="mt-2 text-2xl font-bold">{title}</h2>}
       <div className="mt-4">
         <label
@@ -123,12 +122,12 @@ export default function ShippingForm({
           >
             {countries.map((item) => (
               <SelectItem
-                key={item.country}
+                key={item.name}
                 startContent={
-                  <Avatar alt={item.country + '-img'} className="h-6 w-6" src={item.flag_base64} />
+                  <Avatar alt={item.name + '-img'} className="h-6 w-6" src={item.icon} />
                 }
               >
-                {item.country}
+                {item.name}
               </SelectItem>
             ))}
           </Select>

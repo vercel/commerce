@@ -17,6 +17,9 @@
     "incremental": true,
     "baseUrl": ".",
     "noUncheckedIndexedAccess": true,
+    "paths": {
+      "@": ["/"] // enables us to use @components/MyComponent
+    },
     "plugins": [
       {
         "name": "next"

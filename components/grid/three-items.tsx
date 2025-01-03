@@ -1,6 +1,5 @@
 import { GridTileImage } from 'components/grid/tile';
 import { Product } from 'lib/woocomerce/models/product';
-import { woocommerce } from 'lib/woocomerce/woocommerce';
 import Link from 'next/link';
 
 export function ThreeItemGridItem({
@@ -41,12 +40,7 @@ export function ThreeItemGridItem({
   );
 }
 
-export async function ThreeItemGrid() {
-  // Collections that start with `hidden-*` are hidden from the search page.
-  const products: Product[] = await woocommerce.get('products');
-
-  const [firstProduct, secondProduct, thirdProduct] = products;
-
+export async function ThreeItemGrid({ products }: { products: Product[] }) {
   return (
     <section className="mx-auto grid max-w-screen-2xl gap-4 px-4 pb-4 md:grid-cols-6 md:grid-rows-2">
       {products.map((product, index) => (

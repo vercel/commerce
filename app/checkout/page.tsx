@@ -80,13 +80,13 @@ export default function CheckoutPage() {
         <div className="flew-row col-span-4 row-span-2 flex">
           <Accordion defaultExpandedKeys={['1']} className="text-white md:w-2/3">
             <AccordionItem key="1" title="Shipping Info" className="text-white">
-              <ShippingForm className="p-4" handleChangeAction={handleChangeShipping} />
+              <ShippingForm handleChangeAction={handleChangeShipping} />
               <Checkbox onValueChange={(v) => setSameBilling(v)} className="mt-2">
                 Use same address for billing?
               </Checkbox>
             </AccordionItem>
             <AccordionItem key="2" title="Billing Info" className="text-white">
-              <ShippingForm className="p-4" handleChangeAction={handleChangeBilling} />
+              <ShippingForm handleChangeAction={handleChangeBilling} />
             </AccordionItem>
             <AccordionItem key="3" title="Payment" className="text-white">
               <div className="flex flex-col justify-between overflow-hidden p-1">

@@ -10,7 +10,7 @@ export default async function OrdersPage() {
   const orders = await woocommerce.get('orders');
 
   return (
-    <section className="mx-auto mt-4 grid max-w-screen-2xl justify-center gap-4 px-4 pb-4">
+    <section className="mt-4 grid max-w-screen-2xl gap-4 px-4 pb-4">
       <h1 className="text-2xl font-bold">Orders</h1>
       {orders.map((order) => (
         <Link href={`/profile/orders/${order.id}`} key={order.id} className="flex flex-col">
