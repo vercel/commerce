@@ -89,7 +89,12 @@ export default function CartModal() {
                               key={i}
                               className="flex w-full flex-col border-b border-neutral-300 dark:border-neutral-700"
                             >
-                              <CartItemView item={item} editable={true} closeCart={closeCart} />
+                              <CartItemView
+                                item={item}
+                                editable={true}
+                                deletable={true}
+                                closeCart={closeCart}
+                              />
                             </li>
                           );
                         })}

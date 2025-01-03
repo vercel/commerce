@@ -11,6 +11,7 @@ import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { Image } from 'lib/woocomerce/models/base';
 import { Product, ProductVariations } from 'lib/woocomerce/models/product';
 import { woocommerce } from 'lib/woocomerce/woocommerce';
+import Link from 'next/link';
 import { Suspense } from 'react';
 
 export async function generateMetadata(props: {
@@ -50,6 +51,10 @@ export default async function ProductPage(props: { params: Promise<{ name: strin
   }
 
   if (!product) return notFound();
+
+  const relatedProducts = await Promise.all(
+    product.related_ids?.map(async (id) => woocommerce.get(`products/${id}`)) || []
+  );
 
   const productJsonLd = {
     '@context': 'https://schema.org',
@@ -112,6 +117,31 @@ export default async function ProductPage(props: { params: Promise<{ name: strin
               <ProductDescription product={product} variations={variations} />
             </Suspense>
             <AddToCart product={product} variations={variations} />
+          </div>
+        </div>
+        <div className="mt-8 py-4">
+          <h3 className="text-2xl font-bold">Related Products</h3>
+          <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {relatedProducts.map((relatedProduct) => {
+              return (
+                <div
+                  key={relatedProduct.id}
+                  className="rounded-lg border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-black"
+                >
+                  <img
+                    src={relatedProduct.images?.[0].src}
+                    alt={relatedProduct.name}
+                    className="h-48 w-full object-cover"
+                  />
+                  <div className="p-4">
+                    <Link href={`/product/${relatedProduct.slug}`}>
+                      <h2 className="text-xl font-bold">{relatedProduct.name}</h2>
+                    </Link>
+                    <div dangerouslySetInnerHTML={{ __html: relatedProduct.short_description }} />
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

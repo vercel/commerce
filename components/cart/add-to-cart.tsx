@@ -4,6 +4,7 @@ import { PlusIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { useProduct } from 'components/product/product-context';
 import { Product, ProductVariations } from 'lib/woocomerce/models/product';
+import { toast } from 'sonner';
 import { useCart } from './cart-context';
 
 function SubmitButton({ disabled = false }: { disabled: boolean }) {
@@ -50,6 +51,7 @@ export function AddToCart({
             })
           ).json();
           setNewCart(cart);
+          toast('Item added to cart');
         } catch (error) {
           console.error(error);
         }

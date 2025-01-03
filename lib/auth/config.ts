@@ -1,5 +1,5 @@
 import { storeApi } from 'lib/woocomerce/storeApi';
-import { woocommerce } from 'lib/woocomerce/woocommerce';
+import { wordpress } from 'lib/wordpress/wordpress';
 import { NextAuthOptions, Session, User } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
@@ -20,11 +20,13 @@ export const authOptions = {
         if (!credentials?.username || !credentials?.password) {
           return null;
         }
-        const user = await woocommerce.login(credentials.username, credentials.password);
+        const user = await wordpress.login(credentials.username, credentials.password);
         // If no error and we have user data, return it
         if (user) {
           return user;
         }
+        storeApi._seCartToken('');
+        storeApi._setAuthorizationToken('');
         // Return null if user data could not be retrieved
         return null;
       }

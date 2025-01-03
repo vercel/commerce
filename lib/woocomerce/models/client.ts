@@ -30,7 +30,7 @@ export type WooRestApiParams = CouponsParams &
 type WooCommerceResponse<
   T extends WooRestApiEndpoint,
   P extends Partial<WooRestApiParams> = {}
-> = P['id'] extends number | string // Verifica se `id` è definito e di tipo string
+> = P['id'] extends number | string
   ? T extends 'products'
     ? Product
     : T extends 'customers'
@@ -113,10 +113,6 @@ export default class WooCommerceRestApi<T extends WooRestApiOptions> {
     this._opt.encoding = opt.encoding || 'utf-8';
     this._opt.queryStringAuth = opt.queryStringAuth || false;
     this._opt.classVersion = '0.0.2';
-  }
-
-  login(username: string, password: string): Promise<any> {
-    return this._request('POST', 'token', { username, password }, {}, 'jwt-auth/v1');
   }
 
   /**
