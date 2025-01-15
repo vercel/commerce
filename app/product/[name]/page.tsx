@@ -8,6 +8,7 @@ import { ProductDescription } from 'components/product/product-description';
 import { VariantSelector } from 'components/product/variant-selector';
 import Prose from 'components/prose';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
+import { isStrinInteger } from 'lib/utils';
 import { Image } from 'lib/woocomerce/models/base';
 import { Product, ProductVariations } from 'lib/woocomerce/models/product';
 import { woocommerce } from 'lib/woocomerce/woocommerce';
@@ -18,9 +19,12 @@ export async function generateMetadata(props: {
   params: Promise<{ name: string }>;
 }): Promise<Metadata> {
   const params = await props.params;
-  const product: Product | undefined = (
-    await woocommerce.get('products', { slug: params.name })
-  )?.[0];
+  let product: Product | undefined = undefined;
+  if (isStrinInteger(params.name)) {
+    product = await woocommerce.get(`products/${params.name}`);
+  } else {
+    product = (await woocommerce.get('products', { slug: params.name }))?.[0];
+  }
 
   if (!product) return notFound();
 
@@ -79,19 +83,18 @@ async function RelatedProducts({ product }: { product: Product }) {
 
 export default async function ProductPage(props: { params: Promise<{ name: string }> }) {
   const params = await props.params;
-  const product: Product | undefined = (
-    await woocommerce.get('products', { slug: params.name })
-  )?.[0];
+  let product: Product | undefined = undefined;
+  if (isStrinInteger(params.name)) {
+    product = await woocommerce.get(`products/${params.name}`);
+  } else {
+    product = (await woocommerce.get('products', { slug: params.name }))?.[0];
+  }
   let variations: ProductVariations[] = [];
   if (product?.variations?.length) {
     variations = await woocommerce.get(`products/${product?.id}/variations`);
   }
 
   if (!product) return notFound();
-
-  const relatedProducts = await Promise.all(
-    product.related_ids?.map(async (id) => woocommerce.get(`products/${id}`)) || []
-  );
 
   const productJsonLd = {
     '@context': 'https://schema.org',

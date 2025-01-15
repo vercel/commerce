@@ -32,9 +32,6 @@ async function ProductsByCategory() {
           <div className="mb-2 mt-6 flex items-center justify-between px-4">
             <span className="text-2xl font-bold">{category.name}</span>
           </div>
-          <div className="mb-6 px-4">
-            <span>{category.description}</span>
-          </div>
           <Suspense
             fallback={
               <div className="mx-auto grid max-w-screen-2xl gap-4 px-4 pb-4 md:grid-cols-6 md:grid-rows-2">

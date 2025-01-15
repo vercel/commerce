@@ -25,7 +25,7 @@ export async function Navbar() {
     },
     ...categories.map((category) => ({
       title: category.name,
-      path: path.join('/collection', category.id.toString())
+      path: path.join('/collection', category.slug)
     }))
   ] as Menu[];
 

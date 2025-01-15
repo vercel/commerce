@@ -16,3 +16,9 @@ export const getCountries = (): { name: string; icon: string }[] =>
     name: country,
     icon: flag_base64
   }));
+
+export const isStrinInteger = (value: string) => {
+  const parsed = parseInt(value, 10);
+  
+  return !isNaN(parsed) && parsed.toString() === value.trim();
+}

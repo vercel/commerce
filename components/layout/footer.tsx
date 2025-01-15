@@ -26,7 +26,7 @@ export default async function Footer() {
     },
     ...categories.map((category) => ({
       title: category.name,
-      path: path.join('/collection', category.id.toString())
+      path: path.join('/collection', category.slug.toString())
     }))
   ] as Menu[];
   const currentYear = new Date().getFullYear();
