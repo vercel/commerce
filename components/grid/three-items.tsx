@@ -1,4 +1,5 @@
 import { GridTileImage } from 'components/grid/tile';
+import { ProductCard } from 'components/product/product-card';
 import { Product } from 'lib/woocomerce/models/product';
 import Link from 'next/link';
 
@@ -42,9 +43,9 @@ export function ThreeItemGridItem({
 
 export async function ThreeItemGrid({ products }: { products: Product[] }) {
   return (
-    <section className="mx-auto grid max-w-screen-2xl gap-4 px-4 pb-4 md:grid-cols-6 md:grid-rows-2">
+    <section className="mx-auto grid gap-4 px-4 pb-4 md:grid-cols-8">
       {products.map((product, index) => (
-        <ThreeItemGridItem key={product.id} size={index === 0 ? 'full' : 'half'} item={product} />
+        <ProductCard key={product.id} product={product} />
       ))}
     </section>
   );

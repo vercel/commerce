@@ -1,5 +1,6 @@
 'use client';
 
+import { Button, Input } from '@nextui-org/react';
 import { useState } from 'react';
 import { z } from 'zod';
 
@@ -66,78 +67,71 @@ export default function SignUpPage() {
     <section className="mx-auto mt-4 grid max-w-screen-2xl justify-center gap-4 px-4 pb-4">
       <h1 className="text-2xl font-bold">Sign up</h1>
       <div className="flex justify-center">
-        <form onSubmit={handleSignup}>
+        <form onSubmit={handleSignup} className="flex w-full max-w-md flex-col">
           <div className="mt-4">
-            <label
-              htmlFor="username"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-            >
-              Username
-            </label>
-            <input
+            <Input
               type="text"
               name="username"
+              label="Username"
+              labelPlacement="outside"
+              placeholder="Insert username"
+              size="lg"
               value={formData.username}
               onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 p-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-lg"
+              isInvalid={!!error['username']}
+              errorMessage={error['username']}
             />
-            {error['username'] && <p className="text-red-500">{error['username']}</p>}
-          </div>
-          <div className="mt-4">
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-            >
-              Email
-            </label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 p-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-lg"
-            />
-            {error['email'] && <p className="text-red-500">{error['email']}</p>}
-          </div>
-          <div className="mt-4">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-            >
-              Password
-            </label>
-            <input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 p-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-lg"
-            />
-            {error['password'] && <p className="text-red-500">{error['password']}</p>}
-          </div>
-          <div className="mt-4">
-            <label
-              htmlFor="confirmPassword"
-              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-            >
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 p-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-lg"
-            />
-            {error['confirmPassword'] && <p className="text-red-500">{error['confirmPassword']}</p>}
           </div>
           <div className="mt-6">
-            <button
+            <Input
+              type="email"
+              name="email"
+              label="Email"
+              labelPlacement="outside"
+              placeholder="Insert email"
+              size="lg"
+              value={formData.email}
+              onChange={handleChange}
+              isInvalid={!!error['email']}
+              errorMessage={error['email']}
+              className="mt-1 block w-full"
+            />
+          </div>
+          <div className="mt-6">
+            <Input
+              type="password"
+              name="password"
+              label="Password"
+              labelPlacement="outside"
+              placeholder="Insert password"
+              size="lg"
+              value={formData.password}
+              onChange={handleChange}
+              className="mt-1 block w-full"
+            />
+          </div>
+          <div className="mt-6">
+            <Input
+              type="password"
+              name="confirmPassword"
+              label="Confirm password"
+              labelPlacement="outside"
+              placeholder="Insert confirm password"
+              size="lg"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              isInvalid={!!error['confirmPassword']}
+              errorMessage={error['confirmPassword']}
+              className="mt-1 block w-full"
+            />
+          </div>
+          <div className="mt-6">
+            <Button
               type="submit"
               className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-lg font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
               Sign up
-            </button>
+            </Button>
           </div>
         </form>
       </div>

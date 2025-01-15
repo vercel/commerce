@@ -40,6 +40,43 @@ export async function generateMetadata(props: {
   };
 }
 
+async function RelatedProducts({ product }: { product: Product }) {
+  const relatedProducts = await Promise.all(
+    product.related_ids?.map(async (id) => woocommerce.get(`products/${id}`)) || []
+  );
+
+  return (
+    <>
+      {relatedProducts.length > 0 && (
+        <div className="mt-8 py-4">
+          <h3 className="text-2xl font-bold">Related Products</h3>
+          <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {relatedProducts.map((relatedProduct) => {
+              return (
+                <Link
+                  key={relatedProduct.id}
+                  className="rounded-lg border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-black"
+                  href={`/product/${relatedProduct.slug}`}
+                >
+                  <img
+                    src={relatedProduct.images?.[0].src}
+                    alt={relatedProduct.name}
+                    className="h-48 w-full object-cover"
+                  />
+                  <div className="p-4">
+                    <h2 className="text-xl font-bold">{relatedProduct.name}</h2>
+                    <div dangerouslySetInnerHTML={{ __html: relatedProduct.short_description }} />
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
 export default async function ProductPage(props: { params: Promise<{ name: string }> }) {
   const params = await props.params;
   const product: Product | undefined = (
@@ -119,31 +156,9 @@ export default async function ProductPage(props: { params: Promise<{ name: strin
             <AddToCart product={product} variations={variations} />
           </div>
         </div>
-        <div className="mt-8 py-4">
-          <h3 className="text-2xl font-bold">Related Products</h3>
-          <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {relatedProducts.map((relatedProduct) => {
-              return (
-                <div
-                  key={relatedProduct.id}
-                  className="rounded-lg border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-black"
-                >
-                  <img
-                    src={relatedProduct.images?.[0].src}
-                    alt={relatedProduct.name}
-                    className="h-48 w-full object-cover"
-                  />
-                  <div className="p-4">
-                    <Link href={`/product/${relatedProduct.slug}`}>
-                      <h2 className="text-xl font-bold">{relatedProduct.name}</h2>
-                    </Link>
-                    <div dangerouslySetInnerHTML={{ __html: relatedProduct.short_description }} />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
+        <Suspense fallback={null}>
+          <RelatedProducts product={product} />
+        </Suspense>
       </div>
     </ProductProvider>
   );

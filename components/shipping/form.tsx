@@ -1,9 +1,11 @@
 'use client';
-import { Avatar, Select, SelectItem } from '@nextui-org/react';
+import { Avatar, Input, Select, SelectItem } from '@nextui-org/react';
 import clsx from 'clsx';
 import { getCountries } from 'lib/utils';
-import { Shipping } from 'lib/woocomerce/models/shipping';
+import { Billing } from 'lib/woocomerce/models/billing';
 import { useState } from 'react';
+
+const optionalFields = ['company'];
 
 export default function ShippingForm({
   className,
@@ -12,10 +14,10 @@ export default function ShippingForm({
 }: {
   className?: string;
   title?: string;
-  handleChangeAction?: (data: Shipping) => void;
+  handleChangeAction?: (data: Billing) => void;
 }) {
   const countries = getCountries();
-  const initialState: Shipping = {
+  const initialState: Billing = {
     first_name: '',
     last_name: '',
     address_1: '',
@@ -24,7 +26,9 @@ export default function ShippingForm({
     state: '',
     postcode: '',
     country: '',
-    company: ''
+    company: '',
+    phone: '',
+    email: ''
   };
 
   const [formData, setFormData] = useState(initialState);
@@ -36,73 +40,27 @@ export default function ShippingForm({
     }
   };
 
+  const getLabel = (key: string) => key.charAt(0).toUpperCase() + key.slice(1).replace('_', ' ');
+
   return (
     <div className={clsx('flex flex-col', className)}>
       {title && <h2 className="mt-2 text-2xl font-bold">{title}</h2>}
-      <div className="mt-4">
-        <label
-          htmlFor="address_1"
-          className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-        >
-          Address <span className="text-red-500">*</span>
-        </label>
-        <input
-          type="text"
-          name="address_1"
-          value={formData.address_1}
-          onChange={onChange}
-          className="mt-1 block w-full rounded-md border-gray-300 p-3 text-black shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-lg"
-          required
-        />
-      </div>
-      <div className="mt-4">
-        <label
-          htmlFor="city"
-          className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-        >
-          City <span className="text-red-500">*</span>
-        </label>
-        <input
-          type="text"
-          name="city"
-          value={formData.city}
-          onChange={onChange}
-          className="mt-1 block w-full rounded-md border-gray-300 p-3 text-black shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-lg"
-          required
-        />
-      </div>
-      <div className="mt-4">
-        <label
-          htmlFor="state"
-          className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-        >
-          State <span className="text-red-500">*</span>
-        </label>
-        <input
-          type="text"
-          name="state"
-          value={formData.state}
-          onChange={onChange}
-          className="mt-1 block w-full rounded-md border-gray-300 p-3 text-black shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-lg"
-          required
-        />
-      </div>
-      <div className="mt-4">
-        <label
-          htmlFor="postcode"
-          className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-        >
-          Postcode <span className="text-red-500">*</span>
-        </label>
-        <input
-          type="text"
-          name="postcode"
-          value={formData.postcode}
-          onChange={onChange}
-          className="mt-1 block w-full rounded-md border-gray-300 p-3 text-black shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-lg"
-          required
-        />
-      </div>
+      {Object.entries(formData)
+        .filter(([key]) => key !== 'country')
+        .map(([key, value], index) => (
+          <div className={index !== 0 ? 'mt-4' : ''} key={key}>
+            <Input
+              type="text"
+              name={key}
+              value={value}
+              placeholder={`Insert ${getLabel(key)}`}
+              isRequired={!optionalFields.includes(key)}
+              size="md"
+              onChange={onChange}
+              label={getLabel(key)}
+            />
+          </div>
+        ))}
       <div className="mt-4">
         <label
           htmlFor="country"
@@ -115,9 +73,15 @@ export default function ShippingForm({
             className="max-w-xs"
             isRequired
             name="country"
+            aria-label="Select a country"
             value={formData.country}
             onChange={(event) =>
-              onChange({ target: { name: 'country', value: event.target.value } })
+              onChange({
+                target: {
+                  name: 'country',
+                  value: event.target.value,
+                } as unknown as EventTarget & HTMLInputElement,
+              } as React.ChangeEvent<HTMLInputElement>)
             }
           >
             {countries.map((item) => (

@@ -8,7 +8,7 @@ export default function LogoutButton() {
   return (
     <button
       type="button"
-      className="flex flex-row items-center rounded-md py-3 hover:text-indigo-500"
+      className="flex flex-row items-center rounded-md py-1 hover:text-indigo-500"
       onClick={() => {
         signOut({ callbackUrl: '/' });
       }}

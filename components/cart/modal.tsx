@@ -15,7 +15,6 @@ import OpenCart from './open-cart';
 export default function CartModal() {
   const { cart, setNewCart } = useCart();
   const [isOpen, setIsOpen] = useState(false);
-  const [userIsLoggedIn, setUserIsLoggedIn] = useState(false);
   const openCart = () => setIsOpen(true);
   const closeCart = () => setIsOpen(false);
   const { data } = useSession();
@@ -100,15 +99,6 @@ export default function CartModal() {
                         })}
                   </ul>
                   <div className="py-4 text-sm text-neutral-500 dark:text-neutral-400">
-                    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 dark:border-neutral-700">
-                      <p>Taxes</p>
-                      <Price
-                        className="text-right text-base text-black dark:text-white"
-                        amount={cart.totals?.total_price}
-                        needSplit
-                        currencyCode={cart.totals.currency_code}
-                      />
-                    </div>
                     <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
                       <p>Shipping</p>
                       <p className="text-right">Calculated at checkout</p>
@@ -119,7 +109,7 @@ export default function CartModal() {
                         className="text-right text-base text-black dark:text-white"
                         amount={cart.totals?.total_price}
                         needSplit
-                        currencyCode={cart.totals.currency_code}
+                        currencyCode={cart.totals?.currency_code}
                       />
                     </div>
                   </div>
