@@ -1,6 +1,6 @@
 'use client';
 
-import { CubeIcon, UserCircleIcon } from '@heroicons/react/24/outline';
+import { Cog8ToothIcon, CubeIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import { Avatar } from '@nextui-org/react';
 import LogoutButton from 'components/button/logout';
 import { Customer } from 'lib/woocomerce/models/customer';
@@ -51,6 +51,14 @@ export default function ProfileLayout({ user }: { user: React.ReactNode }) {
                 <button type="button" className="flex flex-row items-center rounded-md py-1">
                   <CubeIcon className="me-2 h-4" />
                   Orders
+                </button>
+              </Link>
+            </div>
+            <div className="flex-start mt-2 flex">
+              <Link href={`/profile/preferences`} className="hover:text-indigo-500">
+                <button type="button" className="flex flex-row items-center rounded-md py-1">
+                  <Cog8ToothIcon className="me-2 h-4" />
+                  Preferences
                 </button>
               </Link>
             </div>

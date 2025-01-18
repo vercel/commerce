@@ -7,11 +7,13 @@ import { EditItemQuantityButton } from './edit-item-quantity-button';
 
 export default function CartItemView({
   item,
+  quantity = 1,
   deletable = false,
   editable = false,
   closeCart = () => {}
 }: {
   item: CartItem;
+  quantity?: number;
   deletable?: boolean;
   editable?: boolean;
   closeCart?: () => void;
@@ -45,6 +47,11 @@ export default function CartItemView({
         </Link>
       </div>
       <div className="flex h-16 flex-col justify-between">
+        {item.quantity > 1 && (
+          <span className="w-full text-sm">
+            <span className="w-full text-sm">x{item.quantity}</span>
+          </span>
+        )}
         <Price
           className="flex justify-end space-y-2 text-right text-sm"
           amount={item.prices?.price}

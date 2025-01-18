@@ -27,6 +27,7 @@ export interface Order {
   total: string;
   total_tax: string;
   prices_include_tax: boolean;
+  customer: number;
   customer_id: number;
   customer_ip_address: string;
   customer_user_agent: string;

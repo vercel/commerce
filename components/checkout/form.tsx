@@ -3,41 +3,27 @@ import { Avatar, Input, Select, SelectItem } from '@nextui-org/react';
 import clsx from 'clsx';
 import { getCountries } from 'lib/utils';
 import { Billing } from 'lib/woocomerce/models/billing';
-import { useState } from 'react';
+import { Shipping } from 'lib/woocomerce/models/shipping';
+import { useCheckout } from './checkout-provider';
 
-const optionalFields = ['company'];
+const optionalFields = ['company', 'address_2'];
 
 export default function ShippingForm({
   className,
   title,
-  handleChangeAction
+  onChangeInput,
+  error
 }: {
   className?: string;
   title?: string;
-  handleChangeAction?: (data: Billing) => void;
+  onChangeInput?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: Shipping | Billing | undefined;
 }) {
   const countries = getCountries();
-  const initialState: Billing = {
-    first_name: '',
-    last_name: '',
-    address_1: '',
-    address_2: '',
-    city: '',
-    state: '',
-    postcode: '',
-    country: '',
-    company: '',
-    phone: '',
-    email: ''
-  };
 
-  const [formData, setFormData] = useState(initialState);
+  const { checkout } = useCheckout();
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newData = { ...formData, [e.target.name]: e.target.value };
-    setFormData(newData);
-    if (handleChangeAction) {
-      handleChangeAction(newData);
-    }
+    onChangeInput?.(e);
   };
 
   const getLabel = (key: string) => key.charAt(0).toUpperCase() + key.slice(1).replace('_', ' ');
@@ -45,7 +31,7 @@ export default function ShippingForm({
   return (
     <div className={clsx('flex flex-col', className)}>
       {title && <h2 className="mt-2 text-2xl font-bold">{title}</h2>}
-      {Object.entries(formData)
+      {Object.entries(checkout?.shipping || {})
         .filter(([key]) => key !== 'country')
         .map(([key, value], index) => (
           <div className={index !== 0 ? 'mt-4' : ''} key={key}>
@@ -58,6 +44,8 @@ export default function ShippingForm({
               size="md"
               onChange={onChange}
               label={getLabel(key)}
+              isInvalid={error && !!(error as any)[key]}
+              errorMessage={error && (error as any)[key]}
             />
           </div>
         ))}
@@ -74,13 +62,13 @@ export default function ShippingForm({
             isRequired
             name="country"
             aria-label="Select a country"
-            value={formData.country}
+            value={checkout?.shipping.country}
             onChange={(event) =>
               onChange({
                 target: {
                   name: 'country',
-                  value: event.target.value,
-                } as unknown as EventTarget & HTMLInputElement,
+                  value: event.target.value
+                } as unknown as EventTarget & HTMLInputElement
               } as React.ChangeEvent<HTMLInputElement>)
             }
           >

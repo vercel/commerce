@@ -1,37 +1,18 @@
 import Price from 'components/price';
-import { authOptions } from 'lib/auth/config';
 import { woocommerce } from 'lib/woocomerce/woocommerce';
-import { getServerSession } from 'next-auth';
 import Image from 'next/image';
 
 export default async function OrderPage(props: { params: Promise<{ id: number }> }) {
   const params = await props.params;
-  const data = await getServerSession(authOptions);
-  try {
-    const order = await woocommerce.get('orders', { id: params.id });
-  } catch (error) {
-    console.error(error);
-  }
+
   const order = await woocommerce.get('orders', { id: params.id });
 
   return (
-    <section className="mt-4 grid max-w-screen-2xl gap-4 px-4 pb-4">
+    <section className="mt-4 grid w-full gap-4 px-4 pb-4">
       <h1 className="text-2xl font-bold">Order</h1>
       <div className="flex flex-col">
         <div className="mt-4">
-          <label
-            htmlFor="name"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-          >
-            Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            value={order.order_key}
-            className="mt-1 block w-full rounded-md border-gray-300 p-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-lg"
-            disabled
-          />
+          <span className="text-lg font-bold">Ordine #{order.number}</span>
         </div>
         {order.line_items.map((item, i) => (
           <li
@@ -49,7 +30,7 @@ export default async function OrderPage(props: { params: Promise<{ id: number }>
                     src={item.image?.src || ''}
                   />
                 </div>
-                <div className="flex flex-1 flex-col text-base">
+                <div className="ms-4 flex flex-1 flex-col text-base">
                   <span className="leading-tight">{item.name}</span>
                 </div>
               </div>
@@ -63,21 +44,22 @@ export default async function OrderPage(props: { params: Promise<{ id: number }>
             </div>
           </li>
         ))}
-        <div className="mt-4">
-          <label
-            htmlFor="total"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-          >
-            Total
-          </label>
-          <input
-            type="text"
-            id="total"
-            value={order.total}
-            className="mt-1 block w-full rounded-md border-gray-300 p-3 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-lg"
-            disabled
-          />
-        </div>
+
+        <span className="mt-4 text-lg font-bold">Dettagli</span>
+        <span>
+          Totale {order.total} {order.currency}
+        </span>
+        <span>Metodo di pagamento: {order.payment_method}</span>
+
+        <span className="mt-4 text-lg font-bold">Indirizzo di spedizione</span>
+        <span>
+          {order.shipping.first_name} {order.shipping.last_name}
+        </span>
+        <span>{order.shipping.address_1}</span>
+        <span>
+          {order.shipping.city} {order.shipping.state} {order.shipping.postcode}
+        </span>
+        <span>{order.shipping.country}</span>
       </div>
     </section>
   );

@@ -3,10 +3,12 @@
 import { Accordion, AccordionItem, Checkbox, Radio, RadioGroup } from '@nextui-org/react';
 import { useCart } from 'components/cart/cart-context';
 import CartItemView from 'components/cart/cart-item';
+import { useCheckout } from 'components/checkout/checkout-provider';
+import ShippingForm from 'components/checkout/form';
 import Price from 'components/price';
-import ShippingForm from 'components/shipping/form';
+import { Billing } from 'lib/woocomerce/models/billing';
 import { PaymentGateways } from 'lib/woocomerce/models/payment';
-import { OrderPayload } from 'lib/woocomerce/storeApi';
+import { Shipping } from 'lib/woocomerce/models/shipping';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
@@ -17,7 +19,7 @@ const shippingSchema = z.object({
   address_1: z.string().min(3),
   address_2: z.string().optional(),
   city: z.string().min(3),
-  state: z.string().min(3),
+  state: z.string().max(2).min(2),
   postcode: z.string().min(3),
   country: z.string().min(3),
   company: z.string().optional()
@@ -26,36 +28,8 @@ const shippingSchema = z.object({
 export default function CheckoutPage() {
   const { cart } = useCart();
   const router = useRouter();
-
-  const initialState: OrderPayload = {
-    shipping_address: {
-      first_name: '',
-      last_name: '',
-      company: '',
-      address_1: '',
-      address_2: '',
-      city: '',
-      state: '',
-      postcode: '',
-      country: ''
-    },
-    billing_address: {
-      first_name: '',
-      last_name: '',
-      company: '',
-      email: '',
-      phone: '',
-      address_1: '',
-      address_2: '',
-      city: '',
-      state: '',
-      postcode: '',
-      country: ''
-    },
-    payment_method: '',
-    payment_data: []
-  };
-  const [formData, setFormData] = useState(initialState);
+  const { checkout, setShipping, setBilling, setPayment } = useCheckout();
+  const [error, setError] = useState<Shipping | Billing | undefined>(undefined);
   const [sameBilling, setSameBilling] = useState(true);
   const [paymentGateways, setPaymentGateways] = useState<PaymentGateways[]>([]);
 
@@ -67,38 +41,38 @@ export default function CheckoutPage() {
     fetchPaymentGateways();
   }, []);
 
-  const handleChangeShipping = (e: any) => {
-    setFormData({ ...formData, shipping_address: e });
-    if (sameBilling) {
-      setFormData({
-        ...formData,
-        billing_address: { ...formData.billing_address, ...e }
-      });
-    }
-  };
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    console.log('submit');
+    e.preventDefault();
+    try {
+      if (sameBilling) {
+        setBilling({ ...checkout?.billing, ...checkout?.shipping } as Billing);
+      }
+      if (!checkout) {
+        return;
+      }
 
-  const handleChangeBilling = (e: any) => {
-    setFormData({ ...formData, billing_address: e });
+      shippingSchema.parse(checkout.shipping);
+      router.push('/checkout/review');
+    } catch (error) {
+      console.log(error);
+      if (error instanceof z.ZodError) {
+        const errorObj: Record<string, string> = {};
+        error.errors.forEach((err) => {
+          const key = err.path[0] as string;
+          errorObj[key] = err.message;
+        });
+        console.log(errorObj);
+        setError(errorObj as Shipping);
+      }
+    }
   };
 
   return (
     <section className="mx-auto grid h-full gap-4 px-4 pb-4">
       <p>Checkout</p>
       <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          try {
-            if (sameBilling) {
-              setFormData({
-                ...formData,
-                billing_address: { ...formData.billing_address, ...formData.shipping_address }
-              });
-            }
-            shippingSchema.parse(formData.shipping_address);
-          } catch (error) {
-            console.log(error);
-          }
-        }}
+        onSubmit={onSubmit}
         className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-black"
       >
         <div className="flex flex-col gap-4 md:flex-row">
@@ -140,13 +114,32 @@ export default function CheckoutPage() {
               className="text-white sm:w-full md:w-2/3"
             >
               <AccordionItem key="1" title="Shipping Info" className="text-white">
-                <ShippingForm handleChangeAction={handleChangeShipping} />
+                <ShippingForm
+                  onChangeInput={(e) => {
+                    const updatedShipping = {
+                      ...checkout?.shipping,
+                      [e.target.name]: e.target.value
+                    } as Shipping;
+                    setShipping(updatedShipping as Shipping);
+                    setError(undefined);
+                  }}
+                  error={error}
+                />
                 <Checkbox defaultSelected onValueChange={(v) => setSameBilling(v)} className="mt-2">
-                  Use same address for billing?
+                  Hai bisogno di fatturazione?
                 </Checkbox>
               </AccordionItem>
               <AccordionItem key="2" title="Billing Info" className="text-white">
-                <ShippingForm handleChangeAction={handleChangeBilling} />
+                <ShippingForm
+                  onChangeInput={(e) => {
+                    const updatedBilling = {
+                      ...checkout?.shipping,
+                      [e.target.name]: e.target.value
+                    } as Billing;
+                    setBilling(updatedBilling);
+                    setError(undefined);
+                  }}
+                />
               </AccordionItem>
               <AccordionItem key="3" title="Payment" className="text-white">
                 <div className="flex flex-col justify-between overflow-hidden">
@@ -160,11 +153,7 @@ export default function CheckoutPage() {
                           key={gateway.id}
                           value={gateway.id}
                           onChange={(e) => {
-                            setFormData((prev) => ({
-                              ...prev,
-                              payment_method: e.target.value,
-                              payment_title: gateway.title
-                            }));
+                            setPayment(e.target.value, gateway.title);
                           }}
                         >
                           {gateway.title}

@@ -19,6 +19,6 @@ export const getCountries = (): { name: string; icon: string }[] =>
 
 export const isStrinInteger = (value: string) => {
   const parsed = parseInt(value, 10);
-  
+
   return !isNaN(parsed) && parsed.toString() === value.trim();
-}
+};

@@ -1,4 +1,5 @@
 import { CartProvider } from 'components/cart/cart-context';
+import { CheckoutProvider } from 'components/checkout/checkout-provider';
 import Footer from 'components/layout/footer';
 import { Navbar } from 'components/layout/navbar';
 import { NextAuthProvider } from 'components/next-session-provider';
@@ -42,12 +43,14 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
       <body className="bg-neutral-50 text-black selection:bg-teal-300 dark:bg-neutral-900 dark:text-white dark:selection:bg-pink-500 dark:selection:text-white">
         <NextAuthProvider>
           <CartProvider>
-            <Navbar />
-            <main>
-              {children}
-              <Toaster closeButton />
-              <WelcomeToast />
-            </main>
+            <CheckoutProvider>
+              <Navbar />
+              <main>
+                {children}
+                <Toaster closeButton />
+                <WelcomeToast />
+              </main>
+            </CheckoutProvider>
           </CartProvider>
           <Footer />
         </NextAuthProvider>
