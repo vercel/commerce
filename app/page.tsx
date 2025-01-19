@@ -15,8 +15,8 @@ import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from 'react';
-import Flowers from '../assets/images/fiori.png';
-import ManWild from '../assets/images/man-wild.png';
+import Bg1 from '../assets/images/slide-bg-01.webp';
+import Bg2 from '../assets/images/slide-bg-02.webp';
 
 async function Products({ category }: { category: Category }) {
   const products: Product[] = await woocommerce.get('products', {
@@ -32,23 +32,27 @@ async function ProductsByCategory() {
 
   return (
     <>
-      <div>
-        <Image alt="" src={Flowers} className="mb-4 h-[440px] w-full object-cover" />
+      <div className="relative">
+        <Image alt="" src={Bg1} className="mb-4 h-[640px] w-full object-cover" />
+        <div className="absolute bottom-0 left-0 h-1/3 w-full bg-gradient-to-t from-black/60 to-transparent" />
         <Link
           href={''}
-          className="absolute right-20 top-80 text-2xl font-bold text-white underline"
+          className="absolute bottom-[10vh] right-20 text-2xl font-bold text-white underline"
         >
           {t('helpIA')}
         </Link>
       </div>
       {categories.map((category, index) => (
-        <div key={category.id}>
-          <div className="mb-2 mt-6 flex items-center justify-between px-4">
+        <div key={category.id} className="my-8 p-4">
+          <div className="mb-2 flex items-center justify-between">
             <span className="text-2xl font-bold">{category.name}</span>
+            <Link href={`/collection/${category.slug}`} className="pe-2 hover:text-indigo-500">
+              {t('viewAll')}
+            </Link>
           </div>
           <Suspense
             fallback={
-              <div className="mx-auto grid max-w-screen-2xl gap-4 px-4 pb-4 md:grid-cols-6 md:grid-rows-2">
+              <div className="mx-auto grid max-w-screen-2xl gap-6 px-4 pb-4 md:grid-cols-6 md:grid-rows-2">
                 {[...Array(3)].map((_, i) => (
                   <ProductSuspense key={i} />
                 ))}
@@ -58,13 +62,15 @@ async function ProductsByCategory() {
             <Products category={category} />
           </Suspense>
           {index === 1 && (
-            <div className="my-6 flex flex-col px-4">
+            <>
               <div className="-mx-4">
-                <Image alt="" src={ManWild} className="my-4 h-[440px] w-full object-cover" />
+                <Image alt="" src={Bg2} className="my-4 h-[540px] w-full object-cover" />
               </div>
-              <span className="mb-2 text-2xl font-bold">{t('topProducts')}</span>
-              <Carousel />
-            </div>
+              <div className="my-6 flex flex-col px-4">
+                <span className="mb-2 text-2xl font-bold">{t('topProducts')}</span>
+                <Carousel />
+              </div>
+            </>
           )}
         </div>
       ))}
@@ -79,7 +85,7 @@ async function LatestPosts() {
   return (
     <div className="my-6 flex flex-col px-4">
       <span className="mb-2 text-2xl font-bold">{t('latestPosts')}</span>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {posts.map((post: any) => (
           <div
             key={post.id + '-post'}
@@ -106,7 +112,7 @@ export default async function HomePage() {
     <section>
       <Suspense
         fallback={
-          <div className="mx-auto grid max-w-screen-2xl gap-4 px-4 pb-4 md:grid-cols-6 md:grid-rows-2">
+          <div className="mx-auto grid max-w-screen-2xl gap-6 px-4 pb-4 md:grid-cols-6 md:grid-rows-2">
             {[...Array(3)].map((_, i) => (
               <ProductSuspense key={i} />
             ))}
@@ -117,7 +123,7 @@ export default async function HomePage() {
       </Suspense>
       <Suspense
         fallback={
-          <div className="mx-auto grid max-w-screen-2xl gap-4 px-4 pb-4 md:grid-cols-6 md:grid-rows-2">
+          <div className="mx-auto grid max-w-screen-2xl gap-6 px-4 pb-4 md:grid-cols-6 md:grid-rows-2">
             {[...Array(3)].map((_, i) => (
               <ProductSuspense key={i} />
             ))}

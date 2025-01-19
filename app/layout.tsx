@@ -2,6 +2,7 @@ import { CartProvider } from 'components/cart/cart-context';
 import { CheckoutProvider } from 'components/checkout/checkout-provider';
 import Footer from 'components/layout/footer';
 import { Navbar } from 'components/layout/navbar';
+import Subscriptions from 'components/layout/subscriptions';
 import { NextAuthProvider } from 'components/next-session-provider';
 import { WelcomeToast } from 'components/welcome-toast';
 import { GeistSans } from 'geist/font/sans';
@@ -55,6 +56,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                   {children}
                   <Toaster closeButton />
                   <WelcomeToast />
+                  <Subscriptions />
                 </main>
               </CheckoutProvider>
             </CartProvider>

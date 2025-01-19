@@ -2,7 +2,8 @@
   "HomePage": {
     "helpIA": "Buy with IA help",
     "topProducts": "Top products",
-    "latestPosts": "Latest posts"
+    "latestPosts": "Latest posts",
+    "viewAll": "View all"
   },
   "ProductPage": {
     "buy": "Buy",

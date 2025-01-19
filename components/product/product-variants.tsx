@@ -1,10 +1,9 @@
 'use client';
 import Price from 'components/price';
-import Prose from 'components/prose';
 import { Product, ProductVariations } from 'lib/woocomerce/models/product';
 import { useProduct } from './product-context';
 
-export function ProductDescription({
+export function ProductVariants({
   product,
   variations
 }: {
@@ -18,7 +17,7 @@ export function ProductDescription({
 
   return (
     <>
-      <div className="mb-6 flex flex-col border-b pb-6 dark:border-neutral-700">
+      <div className="mb-6 flex flex-col pb-6">
         <div className="mr-auto w-auto rounded-full bg-blue-600 p-2 text-sm text-white">
           <Price
             amount={productVariant ? productVariant.price : product.price}
@@ -26,12 +25,6 @@ export function ProductDescription({
           />
         </div>
       </div>
-      {product.short_description ? (
-        <Prose
-          className="mb-6 text-sm leading-tight dark:text-white/[60%]"
-          html={product.short_description}
-        />
-      ) : null}
     </>
   );
 }

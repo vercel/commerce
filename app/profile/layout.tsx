@@ -37,7 +37,7 @@ export default function ProfileLayout({ user }: { user: React.ReactNode }) {
           <div>
             <Avatar src={customer.avatar_url} alt="avatar" className="h-24 w-24" />
             <div className="mt-2">
-              <span> </span>
+              <span>{t('user.hi')} </span>
               <span className="text-lg font-bold">{customer.first_name}</span>
             </div>
             <div className="flex-start mt-2 flex">

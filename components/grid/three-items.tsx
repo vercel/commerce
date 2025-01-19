@@ -43,7 +43,7 @@ export function ThreeItemGridItem({
 
 export async function ThreeItemGrid({ products }: { products: Product[] }) {
   return (
-    <section className="mx-auto grid gap-4 px-4 pb-4 md:grid-cols-8">
+    <section className="mx-auto grid gap-6 pb-4 md:grid-cols-8">
       {products.map((product, index) => (
         <ProductCard key={product.id} product={product} />
       ))}

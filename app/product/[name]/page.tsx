@@ -3,8 +3,10 @@ import { notFound } from 'next/navigation';
 
 import { AddToCart } from 'components/cart/add-to-cart';
 import { Gallery } from 'components/product/gallery';
+import { ProductCard } from 'components/product/product-card';
 import { ProductProvider } from 'components/product/product-context';
-import { ProductDescription } from 'components/product/product-description';
+import ProductSpecifications from 'components/product/product-specifications';
+import { ProductVariants } from 'components/product/product-variants';
 import { VariantSelector } from 'components/product/variant-selector';
 import Prose from 'components/prose';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
@@ -12,7 +14,6 @@ import { Image } from 'lib/woocomerce/models/base';
 import { Product, ProductVariations } from 'lib/woocomerce/models/product';
 import { woocommerce } from 'lib/woocomerce/woocommerce';
 import { getTranslations } from 'next-intl/server';
-import Link from 'next/link';
 import { Suspense } from 'react';
 
 export async function generateMetadata(props: {
@@ -52,25 +53,9 @@ async function RelatedProducts({ product }: { product: Product }) {
       {relatedProducts.length > 0 && (
         <div className="mt-8 py-4">
           <h3 className="text-2xl font-bold">{t('relatedProducts')}</h3>
-          <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="mx-auto mt-4 grid max-w-screen-2xl flex-col gap-6 pb-4 md:grid-cols-8">
             {relatedProducts.map((relatedProduct) => {
-              return (
-                <Link
-                  key={relatedProduct.id}
-                  className="rounded-lg border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-black"
-                  href={`/product/${relatedProduct.slug}`}
-                >
-                  <img
-                    src={relatedProduct.images?.[0].src}
-                    alt={relatedProduct.name}
-                    className="h-48 w-full object-cover"
-                  />
-                  <div className="p-4">
-                    <h2 className="text-xl font-bold">{relatedProduct.name}</h2>
-                    <div dangerouslySetInnerHTML={{ __html: relatedProduct.short_description }} />
-                  </div>
-                </Link>
-              );
+              return <ProductCard key={relatedProduct.id} product={relatedProduct} />;
             })}
           </div>
         </div>
@@ -116,8 +101,9 @@ export default async function ProductPage(props: { params: Promise<{ name: strin
         }}
       />
       <div className="mx-auto max-w-screen-2xl px-4">
-        <div className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 dark:border-neutral-800 dark:bg-black md:p-12 lg:flex-row lg:gap-8">
-          <div className="h-full w-full basis-full lg:basis-4/6">
+        <div className="grid items-start gap-8 rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-black md:flex-col-reverse lg:grid-cols-2 lg:flex-row lg:flex-col">
+          <h1 className="mb-2 text-5xl font-medium md:hidden lg:hidden">{product.name}</h1>
+          <div className="sticky top-4 w-full self-start">
             <Suspense
               fallback={
                 <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden" />
@@ -131,27 +117,30 @@ export default async function ProductPage(props: { params: Promise<{ name: strin
                 }))}
               />
             </Suspense>
-            <div className="mt-4 text-center text-sm">
-              {product.description ? (
-                <Prose
-                  className="mb-6 text-sm leading-tight dark:text-white/[60%]"
-                  html={product.description}
-                />
-              ) : null}
-            </div>
           </div>
 
-          <div className="basis-full lg:basis-2/6">
-            <h1 className="mb-2 text-5xl font-medium">{product.name}</h1>
+          <div className="">
+            <h1 className="mb-2 hidden text-5xl font-medium md:block lg:block">{product.name}</h1>
             {variations && (
               <Suspense fallback={null}>
                 <VariantSelector options={product.attributes} variations={variations} />
               </Suspense>
             )}
-            <Suspense fallback={null}>
-              <ProductDescription product={product} variations={variations} />
-            </Suspense>
-            <AddToCart product={product} variations={variations} />
+            <div>
+              <Suspense fallback={null}>
+                <ProductVariants product={product} variations={variations} />
+              </Suspense>
+              <AddToCart product={product} variations={variations} />
+              <div className="mt-4 text-center text-sm">
+                {product.short_description ? (
+                  <Prose
+                    className="mb-6 text-sm leading-tight dark:text-white/[60%]"
+                    html={product.short_description}
+                  />
+                ) : null}
+              </div>
+              <ProductSpecifications product={product} />
+            </div>
           </div>
         </div>
         <Suspense fallback={null}>

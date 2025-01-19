@@ -2,7 +2,8 @@
   "HomePage": {
     "helpIA": "Guida all'acquisto con IA",
     "topProducts": "Prodotti più venduti",
-    "latestPosts": "Ultimi articoli"
+    "latestPosts": "Ultimi articoli",
+    "viewAll": "Vedi tutti"
   },
   "ProductPage": {
     "buy": "Acquista",
