@@ -1,0 +1,42 @@
+{
+  "HomePage": {
+    "helpIA": "Buy with IA help",
+    "topProducts": "Top products",
+    "latestPosts": "Latest posts"
+  },
+  "ProductPage": {
+    "buy": "Buy",
+    "addToCart": "Add to cart",
+    "description": "Description",
+    "specifications": "Specifications",
+    "reviews": "Reviews",
+    "variants": {
+      "color": "Color",
+      "size": "Size"
+    }
+  },
+  "ProfilePage": {
+    "area": "Personal Area",
+    "orders": "Orders",
+    "preferences": "Preferences",
+    "user": {
+      "hi": "Hi"
+    }
+  },
+  "Cart": {
+    "title": "Cart",
+    "empty": "Cart is empty",
+    "total": "Total",
+    "shipping": "Shipping",
+    "checkout": "Checkout"
+  },
+  "Checkout": {
+    "title": "Checkout",
+    "shipping": "Shipping",
+    "billing": "Billing",
+    "billingCheckbox": "Do you need an invoice?",
+    "payment": "Payment",
+    "confirm": "Confirm order",
+    "total": "Total"
+  }
+}

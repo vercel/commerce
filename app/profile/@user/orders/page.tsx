@@ -2,16 +2,18 @@ import Price from 'components/price';
 import { authOptions } from 'lib/auth/config';
 import { woocommerce } from 'lib/woocomerce/woocommerce';
 import { getServerSession } from 'next-auth';
+import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default async function OrdersPage() {
+  const t = await getTranslations('ProfilePage');
   const data = await getServerSession(authOptions);
   const orders = await woocommerce.get('orders', { customer: data?.user?.store_id });
 
   return (
     <section className="mt-4 grid w-full gap-4 px-4 pb-4">
-      <h1 className="text-2xl font-bold">Orders</h1>
+      <h1 className="text-2xl font-bold">{t('orders')}</h1>
       {orders.map((order) => (
         <div
           key={order.id}

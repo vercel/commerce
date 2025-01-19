@@ -3,9 +3,11 @@
 import { authOptions } from 'lib/auth/config';
 import { woocommerce } from 'lib/woocomerce/woocommerce';
 import { getServerSession } from 'next-auth';
+import { getTranslations } from 'next-intl/server';
 
 export default async function PersonalArea() {
   const session = await getServerSession(authOptions);
+  const t = await getTranslations('ProfilePage');
   if (!session?.user?.store_id) {
     return { status: 401, body: { error: 'User not logged' } };
   }
@@ -14,7 +16,7 @@ export default async function PersonalArea() {
 
   return (
     <section className="mt-4 grid max-w-screen-2xl gap-4 px-4 pb-4">
-      <h1 className="text-2xl font-bold">Personal Area</h1>
+      <h1 className="text-2xl font-bold">{t('area')}</h1>
       <div className="flex flex-col">
         <label
           htmlFor="name"

@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { useProduct, useUpdateURL } from 'components/product/product-context';
 import { Attribute } from 'lib/woocomerce/models/base';
 import { ProductVariations } from 'lib/woocomerce/models/product';
+import { useTranslations } from 'next-intl';
 
 type FilterVariation = {
   name: string | undefined;
@@ -17,6 +18,7 @@ export function VariantSelector({
   options: Partial<Attribute>[];
   variations: ProductVariations[];
 }) {
+  const t = useTranslations('ProductPage.variants');
   const { state, updateOption } = useProduct();
   const updateURL = useUpdateURL();
 
@@ -28,7 +30,7 @@ export function VariantSelector({
   return combinations.map((option) => (
     <form key={option.name}>
       <dl className="mb-8">
-        <dt className="mb-4 text-sm uppercase tracking-wide">{option.name}</dt>
+        <dt className="mb-4 text-sm uppercase tracking-wide">{t(option.name as any)}</dt>
         <dd className="flex flex-wrap gap-3">
           {option?.values?.map((value) => {
             const optionNameLowerCase = option?.name?.toLowerCase();

@@ -11,8 +11,12 @@ import { Category } from 'lib/woocomerce/models/base';
 import { Product } from 'lib/woocomerce/models/product';
 import { woocommerce } from 'lib/woocomerce/woocommerce';
 import { wordpress } from 'lib/wordpress/wordpress';
+import { getTranslations } from 'next-intl/server';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from 'react';
+import Flowers from '../assets/images/fiori.png';
+import ManWild from '../assets/images/man-wild.png';
 
 async function Products({ category }: { category: Category }) {
   const products: Product[] = await woocommerce.get('products', {
@@ -24,9 +28,19 @@ async function Products({ category }: { category: Category }) {
 
 async function ProductsByCategory() {
   const categories: Category[] = await woocommerce.get('products/categories');
+  const t = await getTranslations('HomePage');
 
   return (
     <>
+      <div>
+        <Image alt="" src={Flowers} className="mb-4 h-[440px] w-full object-cover" />
+        <Link
+          href={''}
+          className="absolute right-20 top-80 text-2xl font-bold text-white underline"
+        >
+          {t('helpIA')}
+        </Link>
+      </div>
       {categories.map((category, index) => (
         <div key={category.id}>
           <div className="mb-2 mt-6 flex items-center justify-between px-4">
@@ -45,7 +59,10 @@ async function ProductsByCategory() {
           </Suspense>
           {index === 1 && (
             <div className="my-6 flex flex-col px-4">
-              <span className="mb-2 text-2xl font-bold">Top products</span>
+              <div className="-mx-4">
+                <Image alt="" src={ManWild} className="my-4 h-[440px] w-full object-cover" />
+              </div>
+              <span className="mb-2 text-2xl font-bold">{t('topProducts')}</span>
               <Carousel />
             </div>
           )}
@@ -57,10 +74,11 @@ async function ProductsByCategory() {
 
 async function LatestPosts() {
   const posts = await wordpress.get('posts?_embed');
+  const t = await getTranslations('HomePage');
 
   return (
     <div className="my-6 flex flex-col px-4">
-      <span className="mb-2 text-2xl font-bold">Latest posts</span>
+      <span className="mb-2 text-2xl font-bold">{t('latestPosts')}</span>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {posts.map((post: any) => (
           <div

@@ -9,6 +9,7 @@ import Price from 'components/price';
 import { Billing } from 'lib/woocomerce/models/billing';
 import { PaymentGateways } from 'lib/woocomerce/models/payment';
 import { Shipping } from 'lib/woocomerce/models/shipping';
+import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
@@ -26,6 +27,7 @@ const shippingSchema = z.object({
 });
 
 export default function CheckoutPage() {
+  const t = useTranslations('Checkout');
   const { cart } = useCart();
   const router = useRouter();
   const { checkout, setShipping, setBilling, setPayment } = useCheckout();
@@ -70,7 +72,7 @@ export default function CheckoutPage() {
 
   return (
     <section className="mx-auto grid h-full gap-4 px-4 pb-4">
-      <p>Checkout</p>
+      <p>{t('title')}</p>
       <form
         onSubmit={onSubmit}
         className="rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-black"
@@ -95,7 +97,7 @@ export default function CheckoutPage() {
                       })}
                 </ul>
                 <div className="mb-3 flex items-center justify-between pb-4 pt-4 dark:border-neutral-700">
-                  <p>Total</p>
+                  <p>{t('total')}</p>
                   <Price
                     className="text-right text-base text-black dark:text-white"
                     amount={cart?.totals?.total_price}
@@ -113,7 +115,7 @@ export default function CheckoutPage() {
               selectionMode="multiple"
               className="text-white sm:w-full md:w-2/3"
             >
-              <AccordionItem key="1" title="Shipping Info" className="text-white">
+              <AccordionItem key="1" title={t('shipping')} className="text-white">
                 <ShippingForm
                   onChangeInput={(e) => {
                     const updatedShipping = {
@@ -126,10 +128,10 @@ export default function CheckoutPage() {
                   error={error}
                 />
                 <Checkbox defaultSelected onValueChange={(v) => setSameBilling(v)} className="mt-2">
-                  Hai bisogno di fatturazione?
+                  {t('billingCheckbox')}
                 </Checkbox>
               </AccordionItem>
-              <AccordionItem key="2" title="Billing Info" className="text-white">
+              <AccordionItem key="2" title={t('billing')} className="text-white">
                 <ShippingForm
                   onChangeInput={(e) => {
                     const updatedBilling = {
@@ -141,7 +143,7 @@ export default function CheckoutPage() {
                   }}
                 />
               </AccordionItem>
-              <AccordionItem key="3" title="Payment" className="text-white">
+              <AccordionItem key="3" title={t('payment')} className="text-white">
                 <div className="flex flex-col justify-between overflow-hidden">
                   <div className="flex flex-col gap-4">
                     <RadioGroup

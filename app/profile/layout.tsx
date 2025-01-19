@@ -5,10 +5,12 @@ import { Avatar } from '@nextui-org/react';
 import LogoutButton from 'components/button/logout';
 import { Customer } from 'lib/woocomerce/models/customer';
 import { Shipping } from 'lib/woocomerce/models/shipping';
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 export default function ProfileLayout({ user }: { user: React.ReactNode }) {
+  const t = useTranslations('ProfilePage');
   const [customer, setCustomer] = useState<Customer | undefined>(undefined);
   const [shippingAddress, setShippingAddress] = useState<Shipping | undefined>(undefined);
 
@@ -35,14 +37,14 @@ export default function ProfileLayout({ user }: { user: React.ReactNode }) {
           <div>
             <Avatar src={customer.avatar_url} alt="avatar" className="h-24 w-24" />
             <div className="mt-2">
-              <span>Ciao </span>
+              <span> </span>
               <span className="text-lg font-bold">{customer.first_name}</span>
             </div>
             <div className="flex-start mt-2 flex">
               <Link href={`/profile`} className="hover:text-indigo-500">
                 <button type="button" className="flex flex-row items-center rounded-md py-1">
                   <UserCircleIcon className="me-2 h-4" />
-                  Personal area
+                  {t('area')}
                 </button>
               </Link>
             </div>
@@ -50,7 +52,7 @@ export default function ProfileLayout({ user }: { user: React.ReactNode }) {
               <Link href={`/profile/orders`} className="hover:text-indigo-500">
                 <button type="button" className="flex flex-row items-center rounded-md py-1">
                   <CubeIcon className="me-2 h-4" />
-                  Orders
+                  {t('orders')}
                 </button>
               </Link>
             </div>
@@ -58,7 +60,7 @@ export default function ProfileLayout({ user }: { user: React.ReactNode }) {
               <Link href={`/profile/preferences`} className="hover:text-indigo-500">
                 <button type="button" className="flex flex-row items-center rounded-md py-1">
                   <Cog8ToothIcon className="me-2 h-4" />
-                  Preferences
+                  {t('preferences')}
                 </button>
               </Link>
             </div>

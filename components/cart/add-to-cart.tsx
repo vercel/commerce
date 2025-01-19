@@ -4,10 +4,12 @@ import { PlusIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { useProduct } from 'components/product/product-context';
 import { Product, ProductVariations } from 'lib/woocomerce/models/product';
+import { useTranslations } from 'next-intl';
 import { toast } from 'sonner';
 import { useCart } from './cart-context';
 
 function SubmitButton({ disabled = false }: { disabled: boolean }) {
+  const t = useTranslations('ProductPage');
   const buttonClasses =
     'relative flex w-full items-center justify-center rounded-full bg-blue-600 p-4 tracking-wide text-white';
 
@@ -20,7 +22,7 @@ function SubmitButton({ disabled = false }: { disabled: boolean }) {
       <div className="absolute left-0 ml-4">
         <PlusIcon className="h-5" />
       </div>
-      Add To Cart
+      {t('addToCart')}
     </button>
   );
 }

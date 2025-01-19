@@ -5,6 +5,7 @@ import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import LoadingDots from 'components/loading-dots';
 import Price from 'components/price';
 import { useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 import { Fragment, useEffect, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 import { useCart } from './cart-context';
@@ -13,6 +14,7 @@ import CloseCart from './close-cart';
 import OpenCart from './open-cart';
 
 export default function CartModal() {
+  const t = useTranslations('Cart');
   const { cart, setNewCart } = useCart();
   const [isOpen, setIsOpen] = useState(false);
   const openCart = () => setIsOpen(true);
@@ -65,7 +67,7 @@ export default function CartModal() {
           >
             <Dialog.Panel className="fixed bottom-0 right-0 top-0 flex h-full w-full flex-col border-l border-neutral-200 bg-white/80 p-6 text-black backdrop-blur-xl dark:border-neutral-700 dark:bg-black/80 dark:text-white md:w-[390px]">
               <div className="flex items-center justify-between">
-                <p className="text-lg font-semibold">My Cart</p>
+                <p className="text-lg font-semibold">{t('title')}</p>
                 <button aria-label="Close cart" onClick={closeCart}>
                   <CloseCart />
                 </button>
@@ -100,11 +102,11 @@ export default function CartModal() {
                   </ul>
                   <div className="py-4 text-sm text-neutral-500 dark:text-neutral-400">
                     <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
-                      <p>Shipping</p>
+                      <p>{t('shipping')}</p>
                       <p className="text-right">Calculated at checkout</p>
                     </div>
                     <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
-                      <p>Total</p>
+                      <p>{t('total')}</p>
                       <Price
                         className="text-right text-base text-black dark:text-white"
                         amount={cart.totals?.total_price}
@@ -127,6 +129,7 @@ export default function CartModal() {
 }
 
 function CheckoutButton() {
+  const t = useTranslations('Cart');
   const { pending } = useFormStatus();
 
   return (
@@ -135,7 +138,7 @@ function CheckoutButton() {
       type="submit"
       disabled={pending}
     >
-      {pending ? <LoadingDots className="bg-white" /> : 'Proceed to Checkout'}
+      {pending ? <LoadingDots className="bg-white" /> : t('checkout')}
     </button>
   );
 }

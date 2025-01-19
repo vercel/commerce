@@ -11,6 +11,7 @@ import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { Image } from 'lib/woocomerce/models/base';
 import { Product, ProductVariations } from 'lib/woocomerce/models/product';
 import { woocommerce } from 'lib/woocomerce/woocommerce';
+import { getTranslations } from 'next-intl/server';
 import Link from 'next/link';
 import { Suspense } from 'react';
 
@@ -41,6 +42,7 @@ export async function generateMetadata(props: {
 }
 
 async function RelatedProducts({ product }: { product: Product }) {
+  const t = await getTranslations('ProductPage');
   const relatedProducts = await Promise.all(
     product.related_ids?.map(async (id) => woocommerce.get(`products/${id}`)) || []
   );
@@ -49,7 +51,7 @@ async function RelatedProducts({ product }: { product: Product }) {
     <>
       {relatedProducts.length > 0 && (
         <div className="mt-8 py-4">
-          <h3 className="text-2xl font-bold">Related Products</h3>
+          <h3 className="text-2xl font-bold">{t('relatedProducts')}</h3>
           <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {relatedProducts.map((relatedProduct) => {
               return (
@@ -88,10 +90,6 @@ export default async function ProductPage(props: { params: Promise<{ name: strin
   }
 
   if (!product) return notFound();
-
-  const relatedProducts = await Promise.all(
-    product.related_ids?.map(async (id) => woocommerce.get(`products/${id}`)) || []
-  );
 
   const productJsonLd = {
     '@context': 'https://schema.org',

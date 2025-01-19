@@ -1,0 +1,43 @@
+{
+  "HomePage": {
+    "helpIA": "Guida all'acquisto con IA",
+    "topProducts": "Prodotti più venduti",
+    "latestPosts": "Ultimi articoli"
+  },
+  "ProductPage": {
+    "buy": "Acquista",
+    "addToCart": "Aggiungi al carrello",
+    "description": "Descrizione",
+    "specifications": "Specifiche",
+    "reviews": "Recensioni",
+    "relatedProducts": "Prodotti correlati",
+    "variants": {
+      "color": "Colore",
+      "size": "Dimensione"
+    }
+  },
+  "ProfilePage": {
+    "area": "Area personale",
+    "orders": "Ordini",
+    "preferences": "Preferenze",
+    "user": {
+      "hi": "Ciao"
+    }
+  },
+  "Cart": {
+    "title": "Carrello",
+    "empty": "Il carrello è vuoto",
+    "total": "Totale",
+    "shipping": "Spedizione",
+    "checkout": "Procedi all'acquisto"
+  },
+  "Checkout": {
+    "title": "Checkout",
+    "shipping": "Spedizione",
+    "billing": "Fatturazione",
+    "billingCheckbox": "Hai bisogno di una fattura?",
+    "payment": "Pagamento",
+    "confirm": "Conferma ordine",
+    "total": "Totale"
+  }
+}
