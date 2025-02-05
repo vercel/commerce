@@ -17,7 +17,7 @@ export default async function ProductPage(props: { params: Promise<{ slug: strin
       <div className="mb-6 px-4">
         <span>{category.description}</span>
       </div>
-      <section className="mx-auto grid max-w-screen-2xl flex-col gap-6 px-4 pb-4 md:grid-cols-8 md:grid-rows-2">
+      <section className="mx-auto grid max-w-screen-2xl flex-col gap-6 px-4 pb-4 md:grid-cols-8">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
