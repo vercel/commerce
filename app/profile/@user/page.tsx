@@ -8,11 +8,11 @@ import { getTranslations } from 'next-intl/server';
 export default async function PersonalArea() {
   const session = await getServerSession(authOptions);
   const t = await getTranslations('ProfilePage');
-  if (!session?.user?.store_id) {
+  if (!session?.user?.customer_id) {
     return { status: 401, body: { error: 'User not logged' } };
   }
 
-  const customer = await woocommerce.get('customers', { id: session?.user.store_id });
+  const customer = await woocommerce.get('customers', { id: session?.user.customer_id });
 
   return (
     <section className="mt-4 grid max-w-screen-2xl gap-4 px-4 pb-4">

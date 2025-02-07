@@ -9,7 +9,7 @@ import Link from 'next/link';
 export default async function OrdersPage() {
   const t = await getTranslations('ProfilePage');
   const data = await getServerSession(authOptions);
-  const orders = await woocommerce.get('orders', { customer: data?.user?.store_id });
+  const orders = await woocommerce.get('orders', { customer: data?.user?.customer_id });
 
   return (
     <section className="mt-4 grid w-full gap-4 px-4 pb-4">

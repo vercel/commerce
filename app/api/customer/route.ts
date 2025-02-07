@@ -6,10 +6,10 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session?.user?.store_id) {
+    if (!session?.user?.customer_id) {
       return NextResponse.json({ error: 'User not logged' }, { status: 401 });
     }
-    const customer = await woocommerce.get('customers', { id: session?.user.store_id });
+    const customer = await woocommerce.get('customers', { id: session?.user.customer_id });
     return NextResponse.json(customer, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error: JSON.stringify(error) }, { status: 500 });
