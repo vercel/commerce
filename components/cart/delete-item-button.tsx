@@ -14,13 +14,13 @@ export function DeleteItemButton({
 }) {
   const [message, formAction] = useActionState(removeItem, null);
   const merchandiseId = item.merchandise.id;
-  const actionWithVariant = formAction.bind(null, merchandiseId);
+  const removeItemAction = formAction.bind(null, merchandiseId);
 
   return (
     <form
       action={async () => {
         optimisticUpdate(merchandiseId, 'delete');
-        await actionWithVariant();
+        removeItemAction();
       }}
     >
       <button
