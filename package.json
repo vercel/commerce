@@ -6,7 +6,9 @@
     "start": "next start",
     "prettier": "prettier --write --ignore-unknown .",
     "prettier:check": "prettier --check --ignore-unknown .",
-    "test": "pnpm prettier:check"
+    "test": "pnpm prettier:check",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",
@@ -25,6 +27,7 @@
     "@types/node": "22.13.1",
     "@types/react": "19.0.8",
     "@types/react-dom": "19.0.3",
+    "cypress": "^14.0.2",
     "postcss": "^8.5.1",
     "prettier": "3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.11",

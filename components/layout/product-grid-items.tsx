@@ -12,6 +12,7 @@ export default function ProductGridItems({ products }: { products: Product[] }) 
             className="relative inline-block h-full w-full"
             href={`/product/${product.handle}`}
             prefetch={true}
+            data-testid="product-link"
           >
             <GridTileImage
               alt={product.title}
