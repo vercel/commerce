@@ -7,7 +7,7 @@ import { Suspense } from 'react';
 import MobileMenu from './mobile-menu';
 import Search, { SearchSkeleton } from './search';
 
-const { SITE_NAME } = process.env;
+const SITE_NAME = "JUST BUY";
 
 export async function Navbar() {
   const menu = await getMenu('next-js-frontend-header-menu');

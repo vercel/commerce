@@ -72,4 +72,23 @@ Your app should now be running on [localhost:3000](http://localhost:3000/).
 
 ## Vercel, Next.js Commerce, and Shopify Integration Guide
 
-You can use this comprehensive [integration guide](https://vercel.com/docs/integrations/ecommerce/shopify) with step-by-step instructions on how to configure Shopify as a headless CMS using Next.js Commerce as your headless Shopify storefront on Vercel.
+You can use this comprehensive [integration guide](://vercel.com/docs/integrations/ecommerce/shopify) with step-by-step instructions on how to configure Shopify as a headless CMS using Next.js Commerce as your headless Shopify storefront on Vercel.
+
+## Environment Variables
+
+The following environment variables are required to run the project:
+
+- `COMPANY_NAME`: The name of your company.
+- `SITE_NAME`: The name of your site.
+- `SHOPIFY_REVALIDATION_SECRET`: Your Shopify revalidation secret.
+- `SHOPIFY_STOREFRONT_ACCESS_TOKEN`: Your Shopify storefront access token.
+- `SHOPIFY_STORE_DOMAIN`: Your Shopify store domain.
+
+## Deploying to Vercel
+
+To deploy the project to Vercel, follow these steps:
+
+1. Install Vercel CLI: `npm i -g vercel`
+2. Link local instance with Vercel and GitHub accounts (creates `.vercel` directory): `vercel link`
+3. Download your environment variables: `vercel env pull`
+4. Deploy the project: `vercel --prod`
