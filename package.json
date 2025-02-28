@@ -1,11 +1,18 @@
 {
-  "private": true,
+  "name": "commerce",
+  "version": "1.0.0",
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "analyze": "BUNDLE_ANALYZE=both next build",
+    "lint": "next lint",
     "prettier": "prettier --write --ignore-unknown .",
     "prettier:check": "prettier --check --ignore-unknown .",
+    "prettier-fix": "prettier --write .",
+    "find:unused": "npx next-unused",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
     "test": "pnpm prettier:check"
   },
   "dependencies": {
