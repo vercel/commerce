@@ -111,6 +111,7 @@ export type CartProduct = {
   id: string;
   handle: string;
   title: string;
+  description?: string;
   featuredImage: Image;
 };
 
