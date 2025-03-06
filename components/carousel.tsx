@@ -1,4 +1,4 @@
-import { getCollectionProducts } from 'lib/shopify';
+import { getCollectionProducts } from 'lib/sfcc';
 import Link from 'next/link';
 import { GridTileImage } from './grid/tile';
 
