@@ -1,15 +1,14 @@
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 
-import Prose from 'components/prose';
-import { getPage } from 'lib/sfcc/content';
-import { notFound } from 'next/navigation';
+import Prose from "components/prose";
+import { getPage } from "lib/sfcc/content";
+import { notFound } from "next/navigation";
 
-export async function generateMetadata({
-  params
-}: {
-  params: { page: string };
+export async function generateMetadata(props: {
+  params: Promise<{ page: string }>;
 }): Promise<Metadata> {
-  const page = getPage(params.page);
+  const params = await props.params;
+  const page = await getPage(params.page);
 
   if (!page) return notFound();
 
@@ -19,26 +18,32 @@ export async function generateMetadata({
     openGraph: {
       publishedTime: page.createdAt,
       modifiedTime: page.updatedAt,
-      type: 'article'
-    }
+      type: "article",
+    },
   };
 }
 
-export default function Page({ params }: { params: { page: string } }) {
-  const page = getPage(params.page);
+export default async function Page(props: {
+  params: Promise<{ page: string }>;
+}) {
+  const params = await props.params;
+  const page = await getPage(params.page);
 
   if (!page) return notFound();
 
   return (
     <>
       <h1 className="mb-8 text-5xl font-bold">{page.title}</h1>
-      <Prose className="mb-8" html={page.body as string} />
+      <Prose className="mb-8" html={page.body} />
       <p className="text-sm italic">
-        {`This document was last updated on ${new Intl.DateTimeFormat(undefined, {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        }).format(new Date(page.updatedAt))}.`}
+        {`This document was last updated on ${new Intl.DateTimeFormat(
+          undefined,
+          {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          }
+        ).format(new Date(page.updatedAt))}.`}
       </p>
     </>
   );

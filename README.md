@@ -1,4 +1,4 @@
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fcommerce&project-name=commerce&repo-name=commerce&demo-title=Next.js%20Commerce&demo-url=https%3A%2F%2Fdemo.vercel.store&demo-image=https%3A%2F%2Fbigcommerce-demo-asset-ksvtgfvnd.vercel.app%2Fbigcommerce.png&env=COMPANY_NAME,SHOPIFY_REVALIDATION_SECRET,SHOPIFY_STORE_DOMAIN,SHOPIFY_STOREFRONT_ACCESS_TOKEN,SITE_NAME,TWITTER_CREATOR,TWITTER_SITE)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fcommerce-sfcc&env=NEXT_PUBLIC_VERCEL_URL,SFCC_CLIENT_ID,SFCC_ORGANIZATIONID,SFCC_SECRET,SFCC_SHORTCODE,SFCC_SITEID,SITE_NAME,SFCC_SANDBOX_DOMAIN,SFCC_OPENCOMMERCE_SHOP_API_ENDPOINT,SFCC_REVALIDATION_SECRET&project-name=nextjs-commerce-sfcc&repository-name=nextjs-commerce-sfcc&demo-title=ACME%20Store&demo-description=A%20high-performance%20ecommerce%20store%20built%20with%20Next.js%2C%20Vercel%2C%20and%20Salesforce%20Commerce%20Cloud&demo-url=https%3A%2F%2Fnextjs-salesforce-commerce-cloud.vercel.app%2F)
 
 # Next.js Commerce
 
@@ -12,11 +12,10 @@ This template uses React Server Components, Server Actions, `Suspense`, `useOpti
 
 ## Providers
 
-Vercel will only be actively maintaining a Shopify version [as outlined in our vision and strategy for Next.js Commerce](https://github.com/vercel/commerce/pull/966).
+Vercel is happy to partner and work with any commerce provider to help them get a similar template up and running and listed below. Alternative providers should be able to fork this repository and swap out the `lib/sfcc` file with their own implementation while leaving the rest of the template mostly unchanged.
 
-Vercel is happy to partner and work with any commerce provider to help them get a similar template up and running and listed below. Alternative providers should be able to fork this repository and swap out the `lib/shopify` file with their own implementation while leaving the rest of the template mostly unchanged.
-
-- Shopify (this repository)
+- Salesforce Commerce Cloud (this repository)
+- [Shopify](https://github.com/vercel/commerce) ([Demo](https://demo.vercel.store/))
 - [BigCommerce](https://github.com/bigcommerce/nextjs-commerce) ([Demo](https://next-commerce-v2.vercel.app/))
 - [Ecwid by Lightspeed](https://github.com/Ecwid/ecwid-nextjs-commerce/) ([Demo](https://ecwid-nextjs-commerce.vercel.app/))
 - [Medusa](https://github.com/medusajs/vercel-commerce) ([Demo](https://medusa-nextjs-commerce.vercel.app/))
@@ -28,22 +27,11 @@ Vercel is happy to partner and work with any commerce provider to help them get 
 
 > Note: Providers, if you are looking to use similar products for your demo, you can [download these assets](https://drive.google.com/file/d/1q_bKerjrwZgHwCw0ovfUMW6He9VtepO_/view?usp=sharing).
 
-## Integrations
-
-Integrations enable upgraded or additional functionality for Next.js Commerce
-
-- [Orama](https://github.com/oramasearch/nextjs-commerce) ([Demo](https://vercel-commerce.oramasearch.com/))
-  - Upgrades search to include typeahead with dynamic re-rendering, vector-based similarity search, and JS-based configuration.
-  - Search runs entirely in the browser for smaller catalogs or on a CDN for larger.
-
-- [React Bricks](https://github.com/ReactBricks/nextjs-commerce-rb) ([Demo](https://nextjs-commerce.reactbricks.com/))
-  - Edit pages, product details, and footer content visually using [React Bricks](https://www.reactbricks.com) visual headless CMS.
-
 ## Running locally
 
 You will need to use the environment variables [defined in `.env.example`](.env.example) to run Next.js Commerce. It's recommended you use [Vercel Environment Variables](https://vercel.com/docs/concepts/projects/environment-variables) for this, but a `.env` file is all that is necessary.
 
-> Note: You should not commit your `.env` file or it will expose secrets that will allow others to control your Shopify store.
+> Note: You should not commit your `.env` file or it will expose secrets that will allow others to control your Salesforce Commerce Cloud store.
 
 1. Install Vercel CLI: `npm i -g vercel`
 2. Link local instance with Vercel and GitHub accounts (creates `.vercel` directory): `vercel link`
@@ -61,11 +49,7 @@ Your app should now be running on [localhost:3000](http://localhost:3000/).
 
 1. Run `vc link`.
 1. Select the `Vercel Solutions` scope.
-1. Connect to the existing `commerce-shopify` project.
+1. Connect to the existing `commerce-sfcc` project.
 1. Run `vc env pull` to get environment variables.
 1. Run `pnpm dev` to ensure everything is working correctly.
 </details>
-
-## Vercel, Next.js Commerce, and Shopify Integration Guide
-
-You can use this comprehensive [integration guide](https://vercel.com/docs/integrations/ecommerce/shopify) with step-by-step instructions on how to configure Shopify as a headless CMS using Next.js Commerce as your headless Shopify storefront on Vercel.

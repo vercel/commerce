@@ -1,44 +1,38 @@
-import { getCollections, getProducts } from 'lib/sfcc';
-import { getPages } from 'lib/sfcc/content';
-import { validateEnvironmentVariables } from 'lib/sfcc/utils';
-import { MetadataRoute } from 'next';
+import { getCollections, getProducts } from "lib/sfcc";
+import { getPages } from "lib/sfcc/content";
+import { baseUrl } from "lib/utils";
+import { MetadataRoute } from "next";
 
 type Route = {
   url: string;
   lastModified: string;
 };
 
-const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-  ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-  : 'http://localhost:3000';
-
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  validateEnvironmentVariables();
-
-  const routesMap = [''].map((route) => ({
+  const routesMap = [""].map((route) => ({
     url: `${baseUrl}${route}`,
-    lastModified: new Date().toISOString()
+    lastModified: new Date().toISOString(),
   }));
 
   const collectionsPromise = getCollections().then((collections) =>
     collections.map((collection) => ({
       url: `${baseUrl}${collection.path}`,
-      lastModified: collection.updatedAt
+      lastModified: collection.updatedAt,
     }))
   );
 
   const productsPromise = getProducts({}).then((products) =>
     products.map((product) => ({
       url: `${baseUrl}/product/${product.handle}`,
-      lastModified: product.updatedAt
+      lastModified: product.updatedAt,
     }))
   );
 
   const pages = getPages().map((page) => ({
     url: `${baseUrl}/${page.handle}`,
-    lastModified: page.updatedAt
+    lastModified: page.updatedAt,
   }));
 
   let fetchedRoutes: Route[] = [];
@@ -46,7 +40,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     fetchedRoutes = [
       ...(await Promise.all([collectionsPromise, productsPromise])).flat(),
-      ...pages
+      ...pages,
     ];
   } catch (error) {
     throw JSON.stringify(error, null, 2);

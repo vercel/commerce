@@ -1,26 +1,26 @@
-'use client';
+"use client";
 
-import { XMarkIcon } from '@heroicons/react/24/outline';
-import { removeItem } from 'components/cart/actions';
-import { CartItem } from 'lib/sfcc/types';
-import { useFormState } from 'react-dom';
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import { removeItem } from "components/cart/actions";
+import { CartItem } from "lib/sfcc/types";
+import { useActionState } from "react";
 
 export function DeleteItemButton({
   item,
-  optimisticUpdate
+  optimisticUpdate,
 }: {
   item: CartItem;
   optimisticUpdate: any;
 }) {
-  const [message, formAction] = useFormState(removeItem, null);
+  const [message, formAction] = useActionState(removeItem, null);
   const merchandiseId = item.merchandise.id;
-  const actionWithVariant = formAction.bind(null, merchandiseId);
+  const removeItemAction = formAction.bind(null, merchandiseId);
 
   return (
     <form
       action={async () => {
-        optimisticUpdate(merchandiseId, 'delete');
-        await actionWithVariant();
+        optimisticUpdate(merchandiseId, "delete");
+        removeItemAction();
       }}
     >
       <button

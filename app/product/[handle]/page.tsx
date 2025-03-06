@@ -12,11 +12,10 @@ import { Image } from 'lib/sfcc/types';
 import Link from 'next/link';
 import { Suspense } from 'react';
 
-export async function generateMetadata({
-  params
-}: {
-  params: { handle: string };
+export async function generateMetadata(props: {
+  params: Promise<{ handle: string }>;
 }): Promise<Metadata> {
+  const params = await props.params;
   const product = await getProduct(params.handle);
 
   if (!product) return notFound();
@@ -50,7 +49,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProductPage({ params }: { params: { handle: string } }) {
+export default async function ProductPage(props: { params: Promise<{ handle: string }> }) {
+  const params = await props.params;
   const product = await getProduct(params.handle);
 
   if (!product) return notFound();
@@ -80,7 +80,7 @@ export default async function ProductPage({ params }: { params: { handle: string
           __html: JSON.stringify(productJsonLd)
         }}
       />
-      <div className="mx-auto max-w-screen-2xl px-4">
+      <div className="mx-auto max-w-(--breakpoint-2xl) px-4">
         <div className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 md:p-12 lg:flex-row lg:gap-8 dark:border-neutral-800 dark:bg-black">
           <div className="h-full w-full basis-full lg:basis-4/6">
             <Suspense
