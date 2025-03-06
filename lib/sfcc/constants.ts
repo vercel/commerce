@@ -1,7 +1,3 @@
-export const storeCatalog = {
-  ids: 'mens,womens,newarrivals,top-seller'
-};
-
 export type SortFilterItem = {
   title: string;
   slug: string | null;
@@ -12,6 +8,10 @@ export type SortFilterItem = {
     | 'product-name-ascending'
     | 'product-name-descending';
   reverse: boolean;
+};
+
+export const storeCatalog = {
+  ids: 'mens,womens,newarrivals,top-seller'
 };
 
 export const defaultSort: SortFilterItem = {
@@ -48,12 +48,3 @@ export const sorting: SortFilterItem[] = [
     reverse: false
   }
 ];
-
-export const TAGS = {
-  collections: 'collections',
-  products: 'products',
-  cart: 'cart'
-};
-
-export const HIDDEN_PRODUCT_TAG = 'nextjs-frontend-hidden';
-export const DEFAULT_OPTION = 'Default Title';

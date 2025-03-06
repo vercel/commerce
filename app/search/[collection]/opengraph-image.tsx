@@ -1,5 +1,5 @@
 import OpengraphImage from 'components/opengraph-image';
-import { getCollection } from 'lib/shopify';
+import { fetchCollection as getCollection } from 'lib/sfcc/scapi';
 
 export default async function Image({
   params
