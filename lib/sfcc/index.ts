@@ -594,8 +594,7 @@ function reshapeImages(
   return images.map((image) => {
     return {
       altText: image.alt!,
-      url: image.link,
-      // TODO: add field for size
+      url: image.disBaseLink || image.link,
       width: image.width || 800,
       height: image.height || 800,
     };

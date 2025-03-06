@@ -30,3 +30,9 @@ input,
 button {
   @apply focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 dark:focus-visible:ring-neutral-600 dark:focus-visible:ring-offset-neutral-900;
 }
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+}
