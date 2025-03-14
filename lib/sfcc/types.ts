@@ -35,7 +35,7 @@ export type SalesforceProduct = {
   updatedAt: string;
 };
 
-export type Product = Omit<SalesforceProduct, 'variants' | 'images'> & {
+export type Product = Omit<SalesforceProduct, "variants" | "images"> & {
   variants: ProductVariant[];
   images: Image[];
 };
@@ -86,7 +86,7 @@ export type SalesforceCart = {
   totalQuantity: number;
 };
 
-export type Cart = Omit<SalesforceCart, 'lines'> & {
+export type Cart = Omit<SalesforceCart, "lines"> & {
   lines: CartItem[];
 };
 
@@ -144,4 +144,8 @@ export type Page = {
   seo?: SEO;
   createdAt: string;
   updatedAt: string;
+};
+
+export type SdkError = {
+  response?: Response;
 };
