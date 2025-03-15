@@ -73,23 +73,17 @@ export function AddToCart({ product }: { product: Product }) {
   );
   const defaultVariantId = variants.length === 1 ? variants[0]?.id : undefined;
   const selectedVariantId = variant?.id || defaultVariantId;
-  const addItemAction = formAction.bind(null, selectedVariantId);
   const finalVariant = variants.find(
     (variant) => variant.id === selectedVariantId
   )!;
 
-  console.log({
-    variant,
-    defaultVariantId,
-    selectedVariantId,
-    product,
-  });
-
   return (
     <form
       action={async () => {
-        addCartItem(finalVariant, product);
-        addItemAction();
+        if (selectedVariantId) {
+          await addItem(selectedVariantId);
+          addCartItem(finalVariant, product);
+        }
       }}
     >
       <SubmitButton

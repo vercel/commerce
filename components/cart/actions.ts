@@ -1,46 +1,58 @@
 "use server";
 
+import { createCheckout } from "@/lib/rapyd/checkout";
+import { getProductById } from "@/lib/store/products";
 import { TAGS } from "lib/constants";
 import { revalidateTag } from "next/cache";
-import { RequestCookies } from "next/dist/server/web/spec-extension/cookies";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+
+interface Cart {
+  id: string;
+}
 
 export interface CartItem {
   id: string;
   quantity: number;
+  amount: number;
 }
 
 const CART_COOKIE = "cart";
 
-const getCartFromCookie = (): CartItem[] => {
-  const cookieStore = cookies() as unknown as RequestCookies;
+const getCartFromCookie = async (): Promise<CartItem[]> => {
+  const cookieStore = await cookies();
   const cartCookie = cookieStore.get(CART_COOKIE)?.value;
   return cartCookie ? JSON.parse(cartCookie) : [];
 };
 
-const setCartCookie = (cart: CartItem[]) => {
-  const cookieStore = cookies() as unknown as RequestCookies;
+const setCartCookie = async (cart: CartItem[]) => {
+  const cookieStore = await cookies();
   cookieStore.set(CART_COOKIE, JSON.stringify(cart));
 };
 
 export const addToCart = async (productId: string) => {
-  const cart = getCartFromCookie();
+  const cart = await getCartFromCookie();
+  const product = await getProductById({ id: productId });
 
   const existingItem = cart.find((item) => item.id === productId);
   if (existingItem) {
     existingItem.quantity += 1;
   } else {
-    cart.push({ id: productId, quantity: 1 });
+    cart.push({
+      id: productId,
+      quantity: 1,
+      amount: parseFloat(product?.variants[0]?.price.amount ?? "0"),
+    });
   }
 
-  setCartCookie(cart);
+  await setCartCookie(cart);
   return cart;
 };
 
 export const removeFromCart = async (productId: string) => {
-  const cart = getCartFromCookie();
+  const cart = await getCartFromCookie();
   const updatedCart = cart.filter((item) => item.id !== productId);
-  setCartCookie(updatedCart);
+  await setCartCookie(updatedCart);
   return updatedCart;
 };
 
@@ -48,7 +60,7 @@ export const updateCartItemQuantity = async (
   productId: string,
   quantity: number
 ) => {
-  const cart = getCartFromCookie();
+  const cart = await getCartFromCookie();
 
   const item = cart.find((item) => item.id === productId);
   if (item) {
@@ -56,7 +68,7 @@ export const updateCartItemQuantity = async (
   }
 
   const updatedCart = cart.filter((item) => item.quantity > 0);
-  setCartCookie(updatedCart);
+  await setCartCookie(updatedCart);
   return updatedCart;
 };
 
@@ -125,4 +137,35 @@ export async function updateItemQuantity(
   } catch (e) {
     return "Error updating item quantity";
   }
+}
+
+export async function createCart() {
+  const cart = {
+    id: crypto.randomUUID(),
+  };
+
+  return cart;
+}
+
+export async function createCartAndSetCookie() {
+  let cart = await createCart();
+  (await cookies()).set("cartId", cart.id!);
+}
+
+export async function redirectToCheckout() {
+  let cart = await getCart();
+  const totalAmount = cart.reduce(
+    (acc, item) => acc + item.quantity * item.amount,
+    0
+  );
+
+  const checkout = await createCheckout({
+    amount: totalAmount,
+    description: "Cart",
+    merchantReferenceId: crypto.randomUUID(),
+    completeCheckoutUrl: process.env.NEXT_PUBLIC_APP_URL + "/order-successful",
+    cancelCheckoutUrl: process.env.NEXT_PUBLIC_APP_URL + "/order-error",
+  });
+
+  redirect(checkout.redirect_url);
 }

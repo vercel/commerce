@@ -90,6 +90,14 @@ export const getProduct = ({
   return Promise.resolve(products.find((p) => p.handle === handle));
 };
 
+export const getProductById = ({
+  id,
+}: {
+  id: string;
+}): Promise<Product | undefined> => {
+  return Promise.resolve(products.find((p) => p.id === id));
+};
+
 export const getProducts = ({
   query,
   reverse,

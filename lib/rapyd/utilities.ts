@@ -133,6 +133,7 @@ const makeRequest = async ({
     requestConfig.body = stringifiedBody;
   }
 
+  console.log("requestConfig", requestConfig);
   const response = await fetch(url, requestConfig);
 
   if (!response.ok) {

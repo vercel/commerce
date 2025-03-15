@@ -1,4 +1,4 @@
-import { makeRequest } from "@/lib/rapyd/utilities";
+import { makeRequest } from "@/lib/rapyd/make-rapyd-request";
 import { cache } from "react";
 import "server-only";
 
@@ -58,11 +58,13 @@ export const createCheckout = cache(
 
     const response = await makeRequest({
       method: "post",
-      path: "/v1/checkout",
+      urlPath: "/v1/checkout",
       body: checkoutBody,
     });
 
-    return response as CheckoutResponse;
+    console.log(response.body.data);
+
+    return response.body.data as unknown as CheckoutResponse;
   }
 );
 

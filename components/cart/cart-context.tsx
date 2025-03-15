@@ -1,7 +1,8 @@
 "use client";
 
+import { calculateCartTotals } from "@/app/actions/cart";
 import { Product, ProductVariant } from "lib/store/types";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 type CartItem = {
   merchandise: ProductVariant & {
@@ -10,7 +11,7 @@ type CartItem = {
   quantity: number;
 };
 
-type CartState = {
+export type CartState = {
   lines: CartItem[];
   totalQuantity: number;
   cost: {
@@ -38,180 +39,113 @@ type CartContextType = {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [cart, setCart] = useState<CartState>({
-    lines: [],
-    totalQuantity: 0,
-    cost: {
-      subtotalAmount: {
-        amount: "0",
-        currencyCode: "USD",
-      },
-      totalAmount: {
-        amount: "0",
-        currencyCode: "USD",
-      },
-      totalTaxAmount: {
-        amount: "0",
-        currencyCode: "USD",
-      },
+const CART_STORAGE_KEY = "cartItems";
+
+// Only store minimal cart data in sessionStorage
+type StorageCartItem = {
+  variantId: string;
+  productId: string;
+  quantity: number;
+};
+
+const defaultCartState: CartState = {
+  lines: [],
+  totalQuantity: 0,
+  cost: {
+    subtotalAmount: {
+      amount: "0",
+      currencyCode: "ISK",
     },
-  });
+    totalAmount: {
+      amount: "0",
+      currencyCode: "ISK",
+    },
+    totalTaxAmount: {
+      amount: "0",
+      currencyCode: "ISK",
+    },
+  },
+};
 
-  const addCartItem = (variant: ProductVariant, product: Product) => {
-    setCart((prevCart) => {
-      const existingItem = prevCart.lines.find(
-        (item) => item.merchandise.id === variant.id
-      );
+export function CartProvider({ children }: { children: React.ReactNode }) {
+  const [cart, setCart] = useState<CartState>(defaultCartState);
 
-      let newLines;
-      if (existingItem) {
-        newLines = prevCart.lines.map((item) =>
-          item.merchandise.id === variant.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      } else {
-        newLines = [
-          ...prevCart.lines,
-          {
-            merchandise: {
-              ...variant,
-              product,
-            },
-            quantity: 1,
-          },
-        ];
+  // Load cart from sessionStorage and calculate totals
+  useEffect(() => {
+    const loadCart = async () => {
+      const savedCart = sessionStorage.getItem(CART_STORAGE_KEY);
+      if (savedCart) {
+        const storageItems: StorageCartItem[] = JSON.parse(savedCart);
+        const calculatedCart = await calculateCartTotals(storageItems);
+        setCart(calculatedCart);
       }
+    };
 
-      const totalQuantity = newLines.reduce(
-        (sum, item) => sum + item.quantity,
-        0
+    loadCart();
+  }, []);
+
+  const addCartItem = async (variant: ProductVariant, product: Product) => {
+    const savedCart = sessionStorage.getItem(CART_STORAGE_KEY);
+    const storageItems: StorageCartItem[] = savedCart
+      ? JSON.parse(savedCart)
+      : [];
+
+    const existingItem = storageItems.find(
+      (item) => item.variantId === variant.id
+    );
+
+    let newStorageItems: StorageCartItem[];
+    if (existingItem) {
+      newStorageItems = storageItems.map((item) =>
+        item.variantId === variant.id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
       );
-
-      const subtotalAmount = newLines
-        .reduce(
-          (sum, item) =>
-            sum + parseFloat(item.merchandise.price.amount) * item.quantity,
-          0
-        )
-        .toFixed(2);
-
-      // For this example, we'll assume tax rate is 10%
-      const taxAmount = (parseFloat(subtotalAmount) * 0.1).toFixed(2);
-      const totalAmount = (
-        parseFloat(subtotalAmount) + parseFloat(taxAmount)
-      ).toFixed(2);
-
-      return {
-        lines: newLines,
-        totalQuantity,
-        cost: {
-          subtotalAmount: {
-            amount: subtotalAmount,
-            currencyCode: "USD",
-          },
-          totalAmount: {
-            amount: totalAmount,
-            currencyCode: "USD",
-          },
-          totalTaxAmount: {
-            amount: taxAmount,
-            currencyCode: "USD",
-          },
+    } else {
+      newStorageItems = [
+        ...storageItems,
+        {
+          variantId: variant.id,
+          productId: product.id,
+          quantity: 1,
         },
-      };
-    });
+      ];
+    }
+
+    sessionStorage.setItem(CART_STORAGE_KEY, JSON.stringify(newStorageItems));
+    const calculatedCart = await calculateCartTotals(newStorageItems);
+    setCart(calculatedCart);
   };
 
-  const removeCartItem = (variantId: string) => {
-    setCart((prevCart) => {
-      const newLines = prevCart.lines.filter(
-        (item) => item.merchandise.id !== variantId
-      );
+  const removeCartItem = async (variantId: string) => {
+    const savedCart = sessionStorage.getItem(CART_STORAGE_KEY);
+    if (!savedCart) return;
 
-      const totalQuantity = newLines.reduce(
-        (sum, item) => sum + item.quantity,
-        0
-      );
+    const storageItems: StorageCartItem[] = JSON.parse(savedCart);
+    const newStorageItems = storageItems.filter(
+      (item) => item.variantId !== variantId
+    );
 
-      const subtotalAmount = newLines
-        .reduce(
-          (sum, item) =>
-            sum + parseFloat(item.merchandise.price.amount) * item.quantity,
-          0
-        )
-        .toFixed(2);
-
-      const taxAmount = (parseFloat(subtotalAmount) * 0.1).toFixed(2);
-      const totalAmount = (
-        parseFloat(subtotalAmount) + parseFloat(taxAmount)
-      ).toFixed(2);
-
-      return {
-        lines: newLines,
-        totalQuantity,
-        cost: {
-          subtotalAmount: {
-            amount: subtotalAmount,
-            currencyCode: "USD",
-          },
-          totalAmount: {
-            amount: totalAmount,
-            currencyCode: "USD",
-          },
-          totalTaxAmount: {
-            amount: taxAmount,
-            currencyCode: "USD",
-          },
-        },
-      };
-    });
+    sessionStorage.setItem(CART_STORAGE_KEY, JSON.stringify(newStorageItems));
+    const calculatedCart = await calculateCartTotals(newStorageItems);
+    setCart(calculatedCart);
   };
 
-  const updateCartItem = (variantId: string, quantity: number) => {
-    setCart((prevCart) => {
-      const newLines = prevCart.lines.map((item) =>
-        item.merchandise.id === variantId ? { ...item, quantity } : item
-      );
+  const updateCartItem = async (variantId: string, quantity: number) => {
+    const savedCart = sessionStorage.getItem(CART_STORAGE_KEY);
+    if (!savedCart) return;
 
-      const totalQuantity = newLines.reduce(
-        (sum, item) => sum + item.quantity,
-        0
-      );
+    const storageItems: StorageCartItem[] = JSON.parse(savedCart);
+    const newStorageItems =
+      quantity > 0
+        ? storageItems.map((item) =>
+            item.variantId === variantId ? { ...item, quantity } : item
+          )
+        : storageItems.filter((item) => item.variantId !== variantId);
 
-      const subtotalAmount = newLines
-        .reduce(
-          (sum, item) =>
-            sum + parseFloat(item.merchandise.price.amount) * item.quantity,
-          0
-        )
-        .toFixed(2);
-
-      const taxAmount = (parseFloat(subtotalAmount) * 0.1).toFixed(2);
-      const totalAmount = (
-        parseFloat(subtotalAmount) + parseFloat(taxAmount)
-      ).toFixed(2);
-
-      return {
-        lines: newLines,
-        totalQuantity,
-        cost: {
-          subtotalAmount: {
-            amount: subtotalAmount,
-            currencyCode: "USD",
-          },
-          totalAmount: {
-            amount: totalAmount,
-            currencyCode: "USD",
-          },
-          totalTaxAmount: {
-            amount: taxAmount,
-            currencyCode: "USD",
-          },
-        },
-      };
-    });
+    sessionStorage.setItem(CART_STORAGE_KEY, JSON.stringify(newStorageItems));
+    const calculatedCart = await calculateCartTotals(newStorageItems);
+    setCart(calculatedCart);
   };
 
   return (
