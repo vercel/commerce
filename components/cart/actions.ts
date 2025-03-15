@@ -1,106 +1,128 @@
-'use server';
+"use server";
 
-import { TAGS } from 'lib/constants';
-import {
-  addToCart,
-  createCart,
-  getCart,
-  removeFromCart,
-  updateCart
-} from 'lib/shopify';
-import { revalidateTag } from 'next/cache';
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
+import { TAGS } from "lib/constants";
+import { revalidateTag } from "next/cache";
+import { RequestCookies } from "next/dist/server/web/spec-extension/cookies";
+import { cookies } from "next/headers";
 
-export async function addItem(
-  prevState: any,
-  selectedVariantId: string | undefined
-) {
+export interface CartItem {
+  id: string;
+  quantity: number;
+}
+
+const CART_COOKIE = "cart";
+
+const getCartFromCookie = (): CartItem[] => {
+  const cookieStore = cookies() as unknown as RequestCookies;
+  const cartCookie = cookieStore.get(CART_COOKIE)?.value;
+  return cartCookie ? JSON.parse(cartCookie) : [];
+};
+
+const setCartCookie = (cart: CartItem[]) => {
+  const cookieStore = cookies() as unknown as RequestCookies;
+  cookieStore.set(CART_COOKIE, JSON.stringify(cart));
+};
+
+export const addToCart = async (productId: string) => {
+  const cart = getCartFromCookie();
+
+  const existingItem = cart.find((item) => item.id === productId);
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({ id: productId, quantity: 1 });
+  }
+
+  setCartCookie(cart);
+  return cart;
+};
+
+export const removeFromCart = async (productId: string) => {
+  const cart = getCartFromCookie();
+  const updatedCart = cart.filter((item) => item.id !== productId);
+  setCartCookie(updatedCart);
+  return updatedCart;
+};
+
+export const updateCartItemQuantity = async (
+  productId: string,
+  quantity: number
+) => {
+  const cart = getCartFromCookie();
+
+  const item = cart.find((item) => item.id === productId);
+  if (item) {
+    item.quantity = quantity;
+  }
+
+  const updatedCart = cart.filter((item) => item.quantity > 0);
+  setCartCookie(updatedCart);
+  return updatedCart;
+};
+
+export const getCart = async (): Promise<CartItem[]> => {
+  return getCartFromCookie();
+};
+
+export async function addItem(selectedVariantId: string | undefined) {
   if (!selectedVariantId) {
-    return 'Error adding item to cart';
+    return "Missing product variant ID";
   }
 
   try {
-    await addToCart([{ merchandiseId: selectedVariantId, quantity: 1 }]);
+    await addToCart(selectedVariantId);
     revalidateTag(TAGS.cart);
   } catch (e) {
-    return 'Error adding item to cart';
+    return "Error adding item to cart";
   }
 }
 
-export async function removeItem(prevState: any, merchandiseId: string) {
+export async function removeItem(merchandiseId: string | undefined) {
+  if (!merchandiseId) {
+    return "Missing product ID";
+  }
+
   try {
     const cart = await getCart();
 
-    if (!cart) {
-      return 'Error fetching cart';
-    }
+    const lineItem = cart.find((line) => line.id === merchandiseId);
 
-    const lineItem = cart.lines.find(
-      (line) => line.merchandise.id === merchandiseId
-    );
-
-    if (lineItem && lineItem.id) {
-      await removeFromCart([lineItem.id]);
+    if (lineItem) {
+      await removeFromCart(merchandiseId);
       revalidateTag(TAGS.cart);
     } else {
-      return 'Item not found in cart';
+      return "Item not found in cart";
     }
   } catch (e) {
-    return 'Error removing item from cart';
+    return "Error removing item from cart";
   }
 }
 
 export async function updateItemQuantity(
-  prevState: any,
-  payload: {
-    merchandiseId: string;
-    quantity: number;
-  }
+  merchandiseId: string | undefined,
+  quantity: number
 ) {
-  const { merchandiseId, quantity } = payload;
+  if (!merchandiseId) {
+    return "Missing product ID";
+  }
 
   try {
     const cart = await getCart();
 
-    if (!cart) {
-      return 'Error fetching cart';
-    }
+    const lineItem = cart.find((line) => line.id === merchandiseId);
 
-    const lineItem = cart.lines.find(
-      (line) => line.merchandise.id === merchandiseId
-    );
-
-    if (lineItem && lineItem.id) {
+    if (lineItem) {
       if (quantity === 0) {
-        await removeFromCart([lineItem.id]);
+        await removeFromCart(merchandiseId);
       } else {
-        await updateCart([
-          {
-            id: lineItem.id,
-            merchandiseId,
-            quantity
-          }
-        ]);
+        await updateCartItemQuantity(merchandiseId, quantity);
       }
     } else if (quantity > 0) {
-      // If the item doesn't exist in the cart and quantity > 0, add it
-      await addToCart([{ merchandiseId, quantity }]);
+      await addToCart(merchandiseId);
     }
 
     revalidateTag(TAGS.cart);
   } catch (e) {
-    console.error(e);
-    return 'Error updating item quantity';
+    return "Error updating item quantity";
   }
-}
-
-export async function redirectToCheckout() {
-  let cart = await getCart();
-  redirect(cart!.checkoutUrl);
-}
-
-export async function createCartAndSetCookie() {
-  let cart = await createCart();
-  (await cookies()).set('cartId', cart.id!);
 }

@@ -30,7 +30,7 @@ export const CheckoutButton = ({
         description,
       });
 
-      if (!result.success) {
+      if (!result.success || !result.data?.redirect_url) {
         toast.error("Failed to create checkout session");
         return;
       }

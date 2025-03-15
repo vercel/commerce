@@ -1,13 +1,49 @@
-import OpengraphImage from 'components/opengraph-image';
-import { getCollection } from 'lib/shopify';
+import { getCollections } from "lib/store/products";
+import { ImageResponse } from "next/og";
+
+export const runtime = "edge";
+export const contentType = "image/png";
+export const size = {
+  width: 1200,
+  height: 630,
+};
 
 export default async function Image({
-  params
+  params,
 }: {
   params: { collection: string };
 }) {
-  const collection = await getCollection(params.collection);
-  const title = collection?.seo?.title || collection?.title;
+  const collections = await getCollections();
+  const collection = collections.find((c) => c.handle === params.collection);
+  const title = collection?.title || "Collection Not Found";
 
-  return await OpengraphImage({ title });
+  return new ImageResponse(
+    (
+      <div
+        style={{
+          background: "white",
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: 48,
+        }}
+      >
+        <div
+          style={{
+            fontSize: 48,
+            fontWeight: 600,
+            textAlign: "center",
+            color: "black",
+          }}
+        >
+          {title}
+        </div>
+      </div>
+    ),
+    {
+      ...size,
+    }
+  );
 }

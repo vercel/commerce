@@ -4,7 +4,7 @@ import type { Product } from "lib/store/types";
 import { getImageUrl } from "lib/utils/image";
 import Link from "next/link";
 
-function ThreeItemGridItem({
+function MainProductCardItem({
   item,
   size,
   priority,
@@ -48,21 +48,19 @@ function ThreeItemGridItem({
   );
 }
 
-export async function ThreeItemGrid() {
+export async function MainProductCard() {
   // Collections that start with `hidden-*` are hidden from the search page.
   const homepageItems = await getCollectionProducts({
     collection: "hidden-homepage-featured-items",
   });
 
-  if (!homepageItems[0] || !homepageItems[1] || !homepageItems[2]) return null;
+  if (!homepageItems[0]) return null;
 
-  const [firstProduct, secondProduct, thirdProduct] = homepageItems;
+  const [firstProduct] = homepageItems;
 
   return (
     <section className="mx-auto grid max-w-(--breakpoint-2xl) gap-4 px-4 pb-4 md:grid-cols-6 md:grid-rows-2 lg:max-h-[calc(100vh-200px)]">
-      <ThreeItemGridItem size="full" item={firstProduct} priority={true} />
-      <ThreeItemGridItem size="half" item={secondProduct} priority={true} />
-      <ThreeItemGridItem size="half" item={thirdProduct} />
+      <MainProductCardItem size="full" item={firstProduct} priority={true} />
     </section>
   );
 }
