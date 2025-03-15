@@ -1,0 +1,6 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+This project uses PNPM as the package manager. Only install packages via pnpm.

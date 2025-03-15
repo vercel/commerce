@@ -1,0 +1,104 @@
+---
+description: Next.js and React rules, Typescript
+globs: *.tsx, *.ts
+alwaysApply: false
+---
+
+  You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, Radix UI and Tailwind.
+  You are also very smart about maximizing code reusability where that makes sense.
+  
+  Code Style and Structure
+  - Write concise, technical TypeScript code with accurate examples.
+  - Use functional and declarative programming patterns; avoid classes.
+  - Prefer iteration and modularization over code duplication.
+  - Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+  - Structure files: exported component, subcomponents, helpers, static content, types.
+  - Always use Typescript import alias (@/), do not ever import with "../"
+  - Do not use Next.js's src folder, routes should live directly under the app folder.
+  - Prioritize using Shadcn components when doing UI work. They are located under apps/web/components/ui.
+
+  Naming Conventions
+  - Use kebab casing with dashes for directories and files (e.g., components/auth-wizard).
+  - Favor named exports for components.
+  
+  TypeScript Usage
+  - Use TypeScript for all code; prefer interfaces over types.
+  - Avoid enums; use maps instead.
+  - Use functional components with TypeScript interfaces.
+  - Utilize ReturnType and Parameters where relevant. 
+  
+  Syntax and Formatting
+  - Use the "function" keyword for pure functions.
+  - Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
+  - Use declarative JSX.
+  
+  UI and Styling
+  - Use Shadcn UI components as primary building blocks. Located here: apps/web/components/ui.
+  - Use Radix UI primitives for custom components.
+  - Follow mobile-first responsive design.
+  - Use theme colors from globals.css
+  - Use the cn() utility function from @/lib/utils. It should only be used for conditional or combined class names, not for classNames with only a single string. 
+  - Implement proper loading states
+  - Use toast notifications for user feedback
+  
+  Performance Optimization
+  - Avoid useEffect and useLayoutEffect whenever possible:
+    - Use useMemo for derived state instead of useEffect with state updates
+    - Use ref callback pattern for DOM manipulations instead of useEffect with refs
+    - Use event handlers for side effects triggered by user actions
+  - Minimize 'use client', 'useEffect', and 'setState'; favor React Server Components (RSC).
+  - Wrap client components in Suspense with fallback.
+  - Use dynamic loading for non-critical components.
+  - Optimize images: use WebP format, include size data, implement lazy loading.
+  - Use proper code splitting and dynamic imports
+  - Use server components as long as possible in the rendering tree.
+  
+  Key Conventions
+  - Use 'nuqs' for URL search parameter state management.
+  - Optimize Web Vitals (LCP, CLS, FID).
+  - Limit 'use client':
+    - Favor server components and Next.js SSR.
+    - Use only for Web API access in small components.
+    - Avoid for data fetching or state management.
+  - Remember that pages' params return a Promise in Next.js App Router.
+
+  API interaction
+  - Fetch data from the Golang API (apps/go). It is a REST API which uses OpenAPI for specification.
+  - Use the Typescript client to fetch data, defined in packages/api-client-ts. It exports wrappers around fetch(). Never use fetch() directly when communicating with the API. 
+  - Only fetch data via this client in React Server Components (on the server side), never on the client side.
+  - Always make multiple independent async requests in parallel, using Promise.all. The only exception is when a request depends on another request, like a field from params.
+  - Data mutations should be done via <form> submissions and use React Server Actions. 
+  - Data mutations should always trigger optimistic updates. 
+
+  Use React cache and server-only with the Preload Pattern
+  Create and use DAL wrappers defined in apps/web/lib/dal/myResource.ts. Here's an example: 
+
+  ```ts
+  // apps/web/lib/dal/attention-item.ts
+  import { cache } from 'react'
+  import 'server-only'
+  import { getAttentionItem as fetchItem } from 'api-client-ts'
+  
+  export const preloadAttentionItem = (id: string) => {
+    void getAttentionItem(id)
+  }
+  
+  export const getAttentionItem = cache(async (id: string) => {
+    // ...
+    const response = await fetchItem(id);
+    return response;
+  })
+  ```
+
+  Internationalization and Translations
+  - Use next-intl for all text content that needs to be translated.
+  - Import useTranslations from next-intl in client components.
+  - Create namespace-specific translation hooks: const t = useTranslations("common"), const tAuth = useTranslations("auth").
+  - Store translations in JSON files under apps/web/messages/{locale}.json with nested namespaces.
+  - Use translation keys instead of hardcoded strings: t("back"), tAuth("onboarding.errors.companyName").
+  - For error messages in validation functions, return the translation key string instead of the error message.
+  - When displaying translated error messages, use the t function with the error key: t(errorMessageKey as Parameters<typeof t>[0]).
+  - For toast notifications with translated content, use: toast.error(t("error.key")).
+  - Remember that translation keys are type-checked when using next-intl.
+  
+  
