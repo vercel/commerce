@@ -13,10 +13,11 @@
     "@heroicons/react": "^2.2.0",
     "clsx": "^2.1.1",
     "geist": "^1.3.1",
-    "next": "15.2.0-canary.67",
+    "next": "15.3.0-canary.9",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "sonner": "^2.0.1"
+    "sonner": "^2.0.1",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@tailwindcss/container-queries": "^0.1.1",
@@ -30,5 +31,11 @@
     "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^4.0.8",
     "typescript": "5.7.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "19.0.10",
+      "@types/react-dom": "19.0.4"
+    }
   }
 }
