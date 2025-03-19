@@ -13,22 +13,22 @@
     "@heroicons/react": "^2.2.0",
     "clsx": "^2.1.1",
     "geist": "^1.3.1",
-    "next": "15.2.0-canary.67",
+    "next": "15.3.0-canary.13",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "sonner": "^2.0.1"
   },
   "devDependencies": {
     "@tailwindcss/container-queries": "^0.1.1",
-    "@tailwindcss/postcss": "^4.0.8",
+    "@tailwindcss/postcss": "^4.0.14",
     "@tailwindcss/typography": "^0.5.16",
-    "@types/node": "22.13.4",
-    "@types/react": "19.0.10",
+    "@types/node": "22.13.10",
+    "@types/react": "19.0.12",
     "@types/react-dom": "19.0.4",
     "postcss": "^8.5.3",
-    "prettier": "3.5.1",
+    "prettier": "3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
-    "tailwindcss": "^4.0.8",
-    "typescript": "5.7.3"
+    "tailwindcss": "^4.0.14",
+    "typescript": "5.8.2"
   }
 }
