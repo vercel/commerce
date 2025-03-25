@@ -8,7 +8,6 @@ export async function Carousel() {
 
   if (!products?.length) return null;
 
-  // test
   // Purposefully duplicating products to make the carousel loop and not run out of products on wide screens.
   const carouselProducts = [...products, ...products, ...products];
 
