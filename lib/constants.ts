@@ -48,4 +48,11 @@ export const TAGS = {
 
 export const HIDDEN_PRODUCT_TAG = 'nextjs-frontend-hidden'
 export const DEFAULT_OPTION = 'Default Title'
-export const SHOPIFY_GRAPHQL_API_ENDPOINT = `https://${process.env.SHOPIFY_STORE_DOMAIN}/api/2023-01/graphql.json`
+
+export function getShopifyGraphqlEndpoint() {
+  const storeDomain = process.env.SHOPIFY_STORE_DOMAIN
+  if (!storeDomain) {
+    throw new Error('SHOPIFY_STORE_DOMAIN environment variable is not set')
+  }
+  return `https://${storeDomain}/api/2023-01/graphql.json`
+}
