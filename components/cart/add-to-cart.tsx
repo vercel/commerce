@@ -10,7 +10,7 @@ import { useCart } from './cart-context';
 
 function SubmitButton({
   availableForSale,
-  selectedVariantId
+  selectedVariantId,
 }: {
   availableForSale: boolean;
   selectedVariantId: string | undefined;
@@ -30,12 +30,12 @@ function SubmitButton({
   if (!selectedVariantId) {
     return (
       <button
-        aria-label="Please select an option"
+        aria-label='Please select an option'
         disabled
         className={clsx(buttonClasses, disabledClasses)}
       >
-        <div className="absolute left-0 ml-4">
-          <PlusIcon className="h-5" />
+        <div className='absolute left-0 ml-4'>
+          <PlusIcon className='h-5' />
         </div>
         Add To Cart
       </button>
@@ -44,13 +44,13 @@ function SubmitButton({
 
   return (
     <button
-      aria-label="Add to cart"
+      aria-label='Add to cart'
       className={clsx(buttonClasses, {
-        'hover:opacity-90': true
+        'hover:opacity-90': true,
       })}
     >
-      <div className="absolute left-0 ml-4">
-        <PlusIcon className="h-5" />
+      <div className='absolute left-0 ml-4'>
+        <PlusIcon className='h-5' />
       </div>
       Add To Cart
     </button>
@@ -86,7 +86,7 @@ export function AddToCart({ product }: { product: Product }) {
         availableForSale={availableForSale}
         selectedVariantId={selectedVariantId}
       />
-      <p aria-live="polite" className="sr-only" role="status">
+      <p aria-live='polite' className='sr-only' role='status'>
         {message}
       </p>
     </form>

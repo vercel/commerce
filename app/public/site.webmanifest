@@ -1,0 +1,17 @@
+{
+  "name": "Linconson",
+  "short_name": "Linconson",
+  "description": "Making The Accessories You Deserve!",
+  "display": "standalone",
+  "start_url": "/",
+  "theme_color": "#fff",
+  "background_color": "#000000",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    }
+  ]
+}

@@ -2,8 +2,8 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit",
-    "source.organizeImports": "explicit",
-    "source.sortMembers": "explicit"
+    // "source.fixAll": "explicit",
+    // "source.organizeImports": "explicit",
+    // "source.sortMembers": "explicit"
   }
 }

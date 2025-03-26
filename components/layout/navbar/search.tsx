@@ -1,14 +1,17 @@
-'use client';
+'use client'
 
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import Form from 'next/form';
-import { useSearchParams } from 'next/navigation';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+import Form from 'next/form'
+import { useSearchParams } from 'next/navigation'
 
 export default function Search() {
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams()
 
   return (
-    <Form action="/search" className="w-max-[550px] relative w-full lg:w-80 xl:w-full">
+    <Form
+      action="/search"
+      className="w-max-[550px] relative w-full lg:w-80 xl:w-full"
+    >
       <input
         key={searchParams?.get('q')}
         type="text"
@@ -22,7 +25,7 @@ export default function Search() {
         <MagnifyingGlassIcon className="h-4" />
       </div>
     </Form>
-  );
+  )
 }
 
 export function SearchSkeleton() {
@@ -36,5 +39,13 @@ export function SearchSkeleton() {
         <MagnifyingGlassIcon className="h-4" />
       </div>
     </form>
-  );
+  )
+}
+
+export function SearchButton() {
+  return (
+    <div>
+      <h1>Search</h1>
+    </div>
+  )
 }
