@@ -199,8 +199,26 @@ export async function updateItemQuantity(
 }
 
 export async function redirectToCheckout() {
-  let cart = await getCart()
-  redirect(cart!.checkoutUrl)
+  const cart = await validateAndGetCart()
+
+  if (!cart.checkoutUrl) {
+    throw new Error('Missing checkout URL')
+  }
+
+  let url = cart.checkoutUrl
+
+  // 開發環境下的 URL 修正
+  if (
+    process.env.NODE_ENV === 'development' &&
+    url?.startsWith('http://linconson.com')
+  ) {
+    url = url.replace(
+      'http://linconson.com',
+      'https://sp-commerce.myshopify.com',
+    )
+  }
+
+  redirect(url)
 }
 
 export async function createCartAndSetCookie() {
