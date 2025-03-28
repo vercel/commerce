@@ -1,0 +1,14 @@
+.pageHeroGrid__wrapper {
+    @media screen and (max-width: 1023px) {
+      display: table;
+      margin: auto;
+    }
+  
+    .pageHeroGrid__images {
+      @media screen and (max-width: 1023px) {
+        margin-top: 6rem;
+        margin-left: 2.5%;
+      }
+    }
+  }
+  

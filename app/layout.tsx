@@ -9,7 +9,7 @@ import { Toaster } from 'sonner'
 import './globals.css'
 import '@/assets/main.css'
 import '../components/layout/navbar/Navbar.css'
-
+import '../components/pages/PageHeroGrid.scss'
 import { baseUrl } from 'lib/utils'
 
 const { SITE_NAME } = process.env
