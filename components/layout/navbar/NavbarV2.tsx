@@ -2,7 +2,6 @@
 
 import { FC, useEffect, useMemo, useRef } from 'react'
 import Link from 'next/link'
-import UserNav from '../UserNav'
 import { useRouter, usePathname } from 'next/navigation'
 import Image from 'next/image'
 
