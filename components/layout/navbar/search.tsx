@@ -2,6 +2,7 @@
 
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import Form from 'next/form'
+import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 
 export default function Search() {
@@ -44,8 +45,14 @@ export function SearchSkeleton() {
 
 export function SearchButton() {
   return (
-    <div>
-      <h1>Search</h1>
+    <div className="flex flex-1 items-center justify-end">
+      <Link
+        href="/search"
+        className="hidden text-sm font-medium text-white lg:flex items-center"
+      >
+        Search
+        <MagnifyingGlassIcon className="h-4 w-4 ml-2" aria-hidden="true" />
+      </Link>
     </div>
   )
 }

@@ -1,0 +1,113 @@
+header.main {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+header.main.is-hidden {
+  transform: translateY(-120px);
+  opacity: 0;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+header.main nav > div:first-child {
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(5px);
+}
+
+header.main nav > div:nth-child(2) {
+  background-color: rgba(0, 0, 0, 0.75);
+  border-left: none !important;
+  border-right: none !important;
+}
+
+.sub-nav a.sub-nav__link img {
+  transition: transform 0.1s ease-out;
+}
+
+.sub-nav a.sub-nav__link:hover img {
+  transform: scale(1.1);
+  transition: transform 0.1s ease-out;
+}
+
+.sub-nav a.sub-nav__link:hover h3 {
+  color: #075985;
+}
+
+.sub-nav {
+  pointer-events: none;
+}
+
+.sub-nav a.sub-nav__link {
+  pointer-events: all;
+}
+
+/* .sub-nav a.sub-nav__link.is-active {
+    pointer-events: none;
+  } */
+
+/* img */
+.sub-nav:hover a.sub-nav__link img {
+  filter: blur(3px);
+  transition: all 0.1s ease-out;
+}
+
+/* h3 */
+.sub-nav:hover a.sub-nav__link h3 {
+  filter: blur(3px);
+  transition: all 0.1s ease-out;
+}
+
+.sub-nav.has-active a.sub-nav__link h3 {
+  opacity: 0.5;
+  transition: all 0.1s ease-out;
+}
+
+.sub-nav.has-active a.sub-nav__link:hover h3 {
+  opacity: 1;
+  transition: all 0.1s ease-out;
+}
+
+.sub-nav.has-active a.sub-nav__link.is-active h3 {
+  opacity: 1;
+  transition: all 0.1s ease-out;
+}
+
+.sub-nav:hover a.sub-nav__link:hover {
+  opacity: 1;
+  transition: all 0.1s ease-out;
+}
+
+/* img */
+.sub-nav:hover a.sub-nav__link:hover img {
+  filter: blur(0px);
+  transition: all 0.1s ease-out;
+}
+
+.sub-nav.has-active a.sub-nav__link img {
+  opacity: 0.5;
+  transition: all 0.1s ease-out;
+}
+
+.sub-nav.has-active a.sub-nav__link:hover img {
+  opacity: 1;
+  transition: all 0.1s ease-out;
+}
+
+.sub-nav.has-active a.sub-nav__link.is-active img {
+  opacity: 1;
+  transition: all 0.1s ease-out;
+}
+
+/* h3 */
+.sub-nav:hover a.sub-nav__link:hover h3 {
+  filter: blur(0px);
+  transition: all 0.1s ease-out;
+}
