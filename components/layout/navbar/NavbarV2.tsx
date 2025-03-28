@@ -2,7 +2,7 @@
 
 import { FC, useEffect, useMemo, useRef } from 'react'
 import Link from 'next/link'
-// import { UserNav } from '@components/common'
+import UserNav from '../UserNav'
 import { useRouter, usePathname } from 'next/navigation'
 import Image from 'next/image'
 
@@ -18,6 +18,7 @@ import {
 // Product data
 import { GLOVES_DATA } from '@/data/Gloves'
 import { INDUSTRIAL_DATA } from '@/data/Industrial'
+import CartModal from '@/components/cart/modal'
 
 let _scrollTopValue: number | null = null
 
@@ -573,6 +574,7 @@ const Navbar: FC<NavbarProps> = ({ links }) => {
                       {/* Cart */}
                       <div className="ml-4 flow-root lg:ml-8">
                         {/* <UserNav /> */}
+                        <CartModal />
                       </div>
                     </div>
                   </div>
@@ -582,46 +584,6 @@ const Navbar: FC<NavbarProps> = ({ links }) => {
           </div>
         </nav>
       </header>
-
-      {/* <NavbarRoot>
-        <Container clean className="mx-auto max-w-8xl px-6">
-          <div className={s.nav}>
-            <div className="flex items-center flex-1">
-              <Link href="/" className={s.logo} aria-label="Logo">
-                <Logo />
-              </Link>
-
-              <nav className={s.navMenu}>
-                {NAVIGATION.map((menuContent) => (
-                  <Link
-                    key={menuContent.category}
-                    href={menuContent.link}
-                    className={s.link}
-                  >
-                    {menuContent.category}
-                  </Link>
-                ))}
-              </nav>
-            </div> */}
-
-      {/* {process.env.COMMERCE_SEARCH_ENABLED && (
-            <div className="justify-center flex-1 hidden lg:flex">
-              <Searchbar />
-            </div>
-          )} */}
-
-      {/* <div className="flex items-center justify-end flex-1 space-x-8">
-              <UserNav />
-            </div>
-          </div>
-
-          {process.env.COMMERCE_SEARCH_ENABLED && (
-            <div className="flex pb-4 lg:px-6 lg:hidden">
-              <Searchbar id="mobile-search" />
-            </div>
-          )}
-        </Container>
-      </NavbarRoot> */}
 
       <div
         style={{

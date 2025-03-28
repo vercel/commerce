@@ -17,50 +17,50 @@
 
 // const countItem = (count: number, item: LineItem) => count + item.quantity
 
-// const UserNav: React.FC<{
-//   className?: string
-// }> = ({ className }) => {
-//   const { data } = useCart()
-//   const { data: isCustomerLoggedIn } = useCustomer()
-//   const {
-//     toggleSidebar,
-//     closeSidebarIfPresent,
-//     openModal,
-//     setSidebarView,
-//     openSidebar,
-//     displaySidebar,
-//   } = useUI()
+const UserNav: React.FC<{
+  className?: string
+}> = ({ className }) => {
+  //   const { data } = useCart()
+  //   const { data: isCustomerLoggedIn } = useCustomer()
+  //   const {
+  //     toggleSidebar,
+  //     closeSidebarIfPresent,
+  //     openModal,
+  //     setSidebarView,
+  //     openSidebar,
+  //     displaySidebar,
+  //   } = useUI()
 
-//   const itemsCount = data?.lineItems?.reduce(countItem, 0) ?? 0
-//   const DropdownTrigger = isCustomerLoggedIn
-//     ? DropdownTriggerInst
-//     : React.Fragment
+  //   const itemsCount = data?.lineItems?.reduce(countItem, 0) ?? 0
+  //   const DropdownTrigger = isCustomerLoggedIn
+  //     ? DropdownTriggerInst
+  //     : React.Fragment
 
-//   return (
-//     <nav className={cn(s.root, className)}>
-//       <ul className={s.list}>
-//         {process.env.COMMERCE_CART_ENABLED && (
-//           <li className={s.item}>
-//             <Button
-//               className={s.item}
-//               variant="naked"
-//               onClick={() => {
-//                 setSidebarView('CART_VIEW')
-//                 openSidebar()
-//               }}
-//               aria-label={`Cart items: ${itemsCount}`}
-//             >
-//               <Bag className={displaySidebar ? undefined : 'text-white'} />
+  return (
+    <nav>Button</nav>
+    // <nav className={cn(s.root, className)}>
+    //   <ul className={s.list}>
+    //     {process.env.COMMERCE_CART_ENABLED && (
+    //       <li className={s.item}>
+    //           className={s.item}
+    //           variant="naked"
+    //           onClick={() => {
+    //             setSidebarView('CART_VIEW')
+    //             openSidebar()
+    //           }}
+    //           aria-label={`Cart items: ${itemsCount}`}
+    //         >
+    //           <Bag className={displaySidebar ? undefined : 'text-white'} />
 
-//               {itemsCount > 0 && (
-//                 <span className={s.bagCount}>{itemsCount}</span>
-//               )}
-//             </Button>
-//           </li>
-//         )}
-//       </ul>
-//     </nav>
-//   )
-// }
+    //           {itemsCount > 0 && (
+    //             <span className={s.bagCount}>{itemsCount}</span>
+    //           )}
+    //         </Button> */}
+    //       </li>
+    //     )}
+    //   </ul>
+    // </nav>
+  )
+}
 
-// export default UserNav
+export default UserNav
