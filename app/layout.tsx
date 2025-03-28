@@ -1,6 +1,7 @@
 import { CartProvider } from 'components/cart/cart-context'
 import { Navbar } from 'components/layout/navbar'
 import NavbarV2 from 'components/layout/navbar/NavbarV2'
+import Footer from '@/components/layout/footer'
 import { WelcomeToast } from 'components/welcome-toast'
 import { GeistSans } from 'geist/font/sans'
 import { getCart } from 'lib/shopify'
@@ -45,6 +46,7 @@ export default async function RootLayout({
             <Toaster closeButton />
             <WelcomeToast />
           </main>
+          <Footer />
         </CartProvider>
       </body>
     </html>
