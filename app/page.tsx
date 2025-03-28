@@ -15,7 +15,7 @@ export default function HomePage() {
     <>
       <ThreeItemGrid />
       <Carousel />
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }

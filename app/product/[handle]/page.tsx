@@ -107,7 +107,7 @@ export default async function ProductPage(props: {
         </div>
         <RelatedProducts id={product.id} />
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </ProductProvider>
   )
 }
