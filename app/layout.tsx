@@ -7,7 +7,7 @@ import { getCart } from 'lib/shopify'
 import { ReactNode } from 'react'
 import { Toaster } from 'sonner'
 import './globals.css'
-import './assets/main.css'
+import '@/assets/main.css'
 import '../components/layout/navbar/Navbar.css'
 
 import { baseUrl } from 'lib/utils'

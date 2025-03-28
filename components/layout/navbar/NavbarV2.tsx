@@ -16,8 +16,8 @@ import {
 } from '@heroicons/react/24/outline'
 
 // Product data
-import { GLOVES_DATA } from 'data/Gloves'
-import { INDUSTRIAL_DATA } from 'data/Industrial'
+import { GLOVES_DATA } from '@/data/Gloves'
+import { INDUSTRIAL_DATA } from '@/data/Industrial'
 
 let _scrollTopValue: number | null = null
 

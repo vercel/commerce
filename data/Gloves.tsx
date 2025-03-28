@@ -22,8 +22,6 @@ import COTTON_LATEX_CONTENT_IMAGE from '../images/gloves/content/cotton_latex.jp
 import WINTER_CONTENT_IMAGE from '../images/gloves/content/winter.jpeg'
 import LEATHER_CONTENT_IMAGE from '../images/gloves/content/leather.jpeg'
 
-// app/images/gloves/content/cotton_latex.jpeg
-
 export const GLOVES_DATA = {
   LATEX_FOAM: {
     navbarImage: LATEX_FOAM,
