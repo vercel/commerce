@@ -1,4 +1,5 @@
 import Layout from '@/app/layout'
+import { notFound } from 'next/navigation'
 import PageHeroGrid from '@/components/pages/PageHeroGrid'
 
 // Assets

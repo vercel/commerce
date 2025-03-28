@@ -29,6 +29,7 @@ export default async function Page(props: {
   const params = await props.params
   const page = await getPage(params.page)
 
+  console.log('pagepagepagepage', page)
   if (!page) return notFound()
 
   return (
