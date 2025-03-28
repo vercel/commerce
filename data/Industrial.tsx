@@ -1,8 +1,8 @@
-import PALLET_TRUCKS from '../app/images/industrial/top_navbar/pallet_trucks.jpg'
-import WAREHOUSE_RACKS from '../app/images/industrial/top_navbar/warehouse_racks.png'
-import WAREHOUSE_ACCESSORIES from '../app/images/industrial/top_navbar/warehouse_acc.png'
-import FORKLIFTS from '../app/images/industrial/top_navbar/forklifts.png'
-import FENCES from '../app/images/industrial/top_navbar/fences.png'
+import PALLET_TRUCKS from 'images/industrial/top_navbar/pallet_trucks.jpg'
+import WAREHOUSE_RACKS from 'images/industrial/top_navbar/warehouse_racks.png'
+import WAREHOUSE_ACCESSORIES from 'images/industrial/top_navbar/warehouse_acc.png'
+import FORKLIFTS from 'images/industrial/top_navbar/forklifts.png'
+import FENCES from 'images/industrial/top_navbar/fences.png'
 
 //data/Industrial.tsx
 
