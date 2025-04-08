@@ -4,8 +4,7 @@ import Link from 'next/link';
 import { GridTileImage } from './grid/tile';
 
 export async function Carousel() {
-  // Collections that start with `hidden-*` are hidden from the search page.
-  const products: Product[] = await woocommerce.get('products');
+  const products: Product[] = await woocommerce.get('products', { author: 1 });
 
   if (!products?.length) return null;
 

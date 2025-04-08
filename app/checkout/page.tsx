@@ -20,9 +20,8 @@ const shippingSchema = z.object({
   address_1: z.string().min(3),
   address_2: z.string().optional(),
   city: z.string().min(3),
-  state: z.string().max(2).min(2),
   postcode: z.string().min(3),
-  country: z.string().min(3),
+  country: z.string().min(2).max(2),
   company: z.string().optional()
 });
 

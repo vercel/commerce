@@ -6,7 +6,8 @@ export default async function ProductPage(props: { params: Promise<{ slug: strin
   const slug = (await props.params).slug;
   const category = (await woocommerce.get('products/categories', { slug }))?.[0];
   const products: Product[] = await woocommerce.get('products', {
-    category: category.id.toString()
+    category: category.id.toString(),
+    author: 1
   });
 
   return (

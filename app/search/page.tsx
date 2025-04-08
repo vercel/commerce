@@ -20,7 +20,8 @@ export default async function SearchPage(props: {
     orderby: sortKey,
     order,
     min_price: minPrice ?? '0',
-    max_price: maxPrice ?? '1000'
+    max_price: maxPrice ?? '1000',
+    author: 1
   });
   const resultsText = products.length > 1 ? 'results' : 'result';
 

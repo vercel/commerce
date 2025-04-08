@@ -1,13 +1,11 @@
-import axios, { AxiosInstance, RawAxiosRequestHeaders } from 'axios';
+import axios, { RawAxiosRequestHeaders } from 'axios';
+import { getToken } from 'next-auth/jwt';
+import { cookies } from 'next/headers';
+import { NextRequest } from 'next/server';
 import { Billing } from './models/billing';
 import { Cart } from './models/cart';
 import { Order } from './models/orders';
 import { Shipping } from './models/shipping';
-
-/**
- * WooCommerce Store API Client for server-side requests.
- * To use this in the client-side, you need to create a new route of api endpoint in your Next.js app.
- */
 
 export type OrderPayload = {
   billing_address: Billing;
@@ -22,78 +20,98 @@ export type PaymentMethodData = {
   value: string;
 };
 
-class WooCommerceStoreApiClient {
-  private client: AxiosInstance;
+function createStoreApiClient({
+  baseURL = process.env.WOOCOMMERCE_STORE_API_URL ?? 'http://localhost/wp-json/wc/store/v1',
+  authToken,
+  cartToken
+}: {
+  baseURL?: string;
+  authToken?: string;
+  cartToken?: string;
+}) {
+  const headers: RawAxiosRequestHeaders = {
+    'Content-Type': 'application/json',
+    Accept: '*/*',
+    ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
+    ...(cartToken ? { 'cart-token': cartToken } : {})
+  };
 
-  constructor(baseURL: string) {
-    const headers: RawAxiosRequestHeaders = {
-      'Content-Type': 'application/json',
-      Accept: '*/*'
-    };
+  const client = axios.create({ baseURL, headers });
 
-    this.client = axios.create({
-      baseURL,
-      headers
-    });
-  }
-
-  _setAuthorizationToken(token: string) {
-    if (token) {
-      this.client.defaults.headers['Authorization'] = `Bearer ${token}`;
-    } else {
-      this._deleteAuthorizationToken();
+  async function _request(method: 'get' | 'post' | 'put' | 'delete', url: string, data?: any) {
+    try {
+      console.debug('Request', method, url, data, headers);
+      const response = await axios({
+        method,
+        url: baseURL + url,
+        data,
+        headers
+      });
+      return response;
+    } catch (error: any) {
+      if (error.response) {
+        console.error('Error response:', error.response.data);
+        if (error.response.data.code === 'jwt_auth_invalid_token') {
+          console.debug('Token expired, regenerating...');
+          const newAuthToken = await regenerateAuthToken();
+          headers.Authorization = `Bearer ${newAuthToken}`;
+          return _request(method, url, data);
+        }
+        throw new Error(
+          `Request failed with status ${error.response.status}: ${error.response.data.message}`
+        );
+      }
+      throw error;
     }
   }
 
-  _deleteAuthorizationToken() {
-    this.client.defaults.headers['Authorization'] = '';
+  async function regenerateAuthToken(): Promise<string> {
+    console.debug('Regenerating auth token...');
+    const res = await axios.post(`${baseURL}/auth/refresh`, {}, { headers });
+    return res.data.token;
   }
 
-  _seCartToken(cartToken: string) {
-    this.client.defaults.headers['cart-token'] = cartToken;
-  }
+  return {
+    async getCart(
+      params?: Record<string, string | number>
+    ): Promise<{ cart: Cart; cartToken?: string }> {
+      const res = await _request('get', '/cart', { params });
+      return { cart: res.data, cartToken: res.headers['cart-token'] };
+    },
 
-  async getCart(params?: Record<string, string | number>): Promise<Cart> {
-    return this.client.get<Cart>('/cart', { params }).then(async (response) => {
-      this._seCartToken(response.headers['cart-token']);
-
-      return response.data;
-    });
-  }
-
-  async addToCart(payload: {
-    id: string | number;
-    quantity: number;
-    variation: { attribute: string; value: string }[];
-  }): Promise<Cart> {
-    return this.client.post<Cart>('/cart/add-item', payload).then((response) => response.data);
-  }
-
-  async updateItem(payload: { key: string | number; quantity: number }): Promise<Cart> {
-    return this.client.post<Cart>('/cart/update-item', payload).then((response) => response.data);
-  }
-
-  async removeFromCart(payload: { key: string | number }): Promise<Cart> {
-    return this.client
-      .post<Cart>(`/cart/remove-item?key=${payload.key}`)
-      .then((response) => response.data);
-  }
-
-  async createOrder(order: OrderPayload): Promise<Order> {
-    return this.client.post('/checkout', order).then((response) => response.data);
-  }
-
-  async getOrders(params?: Record<string, string | number>): Promise<Order[]> {
-    return this.client.get<Order[]>('/checkout', { params }).then((response) => response.data);
-  }
-
-  async getOrder(id: string | number): Promise<Order> {
-    return this.client.get<Order>(`/checkout/${id}`).then((response) => response.data);
-  }
+    async addToCart(payload: {
+      id: string | number;
+      quantity: number;
+      variation: { attribute: string; value: string }[];
+    }): Promise<Cart> {
+      const res = await _request('post', '/cart/add-item', payload);
+      return res.data;
+    },
+    async updateItem(payload: { key: string | number; quantity: number }): Promise<Cart> {
+      const res = await _request('post', '/cart/update-item', payload);
+      return res.data;
+    },
+    async removeFromCart(payload: { key: string | number }): Promise<Cart> {
+      const res = await _request('post', `/cart/remove-item?key=${payload.key}`);
+      return res.data;
+    },
+    createOrder(order: OrderPayload): Promise<Order> {
+      return _request('post', '/checkout', order).then((res) => res.data);
+    },
+    async getOrders(): Promise<Order[]> {
+      const res = await _request('get', '/checkout');
+      return res.data;
+    },
+    async getOrder(id: string | number): Promise<Order> {
+      const res = await _request('get', `/checkout/${id}`);
+      return res.data;
+    }
+  };
 }
 
-// Example usage.
-const baseURL =
-  process.env.WOOCOMMERCE_STORE_API_URL ?? 'http://wordpress.localhost/wp-json/wc/store/v1';
+export async function getStoreApiFromRequest(req?: NextRequest) {
+  const cartToken = (await cookies()).get('cart-token')?.value;
+  const authToken = req ? (await getToken({ req }))?.user?.token : undefined;
 
-export const storeApi = new WooCommerceStoreApiClient(baseURL);
+  return createStoreApiClient({ cartToken, authToken });
+}

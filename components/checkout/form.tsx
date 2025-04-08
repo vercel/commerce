@@ -32,7 +32,7 @@ export default function ShippingForm({
     <div className={clsx('flex flex-col', className)}>
       {title && <h2 className="mt-2 text-2xl font-bold">{title}</h2>}
       {Object.entries(checkout?.shipping || {})
-        .filter(([key]) => key !== 'country')
+        .filter(([key]) => key !== 'country' && key !== 'state')
         .map(([key, value], index) => (
           <div className={index !== 0 ? 'mt-4' : ''} key={key}>
             <Input
@@ -74,7 +74,7 @@ export default function ShippingForm({
           >
             {countries.map((item) => (
               <SelectItem
-                key={item.name}
+                key={item.code}
                 startContent={
                   <Avatar alt={item.name + '-img'} className="h-6 w-6" src={item.icon} />
                 }

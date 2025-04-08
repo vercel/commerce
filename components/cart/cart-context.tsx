@@ -5,24 +5,22 @@ import { Cart } from 'lib/woocomerce/models/cart';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 type CartContextType = {
-  cart: Cart | undefined;
+  cart?: Cart;
   setNewCart: (cart: Cart) => void;
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [cart, setCart] = useState<Cart | undefined>(undefined);
-  const setNewCart = (cart: Cart) => {
-    setCart(cart);
-  };
+  const [cart, setCart] = useState<Cart>();
 
   const fetchCart = async () => {
     try {
-      const cart = await (await fetch('/api/cart')).json();
-      setNewCart(cart);
+      const res = await fetch('/api/cart');
+      const cart = await res.json();
+      setCart(cart);
     } catch (err) {
-      console.error(err);
+      console.error('Error fetching cart', err);
     }
   };
 
@@ -32,21 +30,14 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <NextUIProvider>
-      <CartContext.Provider
-        value={{
-          cart,
-          setNewCart
-        }}
-      >
-        {children}
-      </CartContext.Provider>
+      <CartContext.Provider value={{ cart, setNewCart: setCart }}>{children}</CartContext.Provider>
     </NextUIProvider>
   );
 }
 
 export function useCart() {
   const context = useContext(CartContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useCart must be used within a CartProvider');
   }
   return context;

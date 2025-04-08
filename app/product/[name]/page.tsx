@@ -103,7 +103,7 @@ export default async function ProductPage(props: { params: Promise<{ name: strin
       <div className="mx-auto max-w-screen-2xl px-4">
         <div className="grid items-start gap-8 rounded-lg border border-neutral-200 bg-white p-4 dark:border-neutral-800 dark:bg-black md:flex-col-reverse lg:grid-cols-2 lg:flex-row lg:flex-col">
           <h1 className="mb-2 text-5xl font-medium md:hidden lg:hidden">{product.name}</h1>
-          <div className="lg:sticky top-4 w-full self-start">
+          <div className="top-4 w-full self-start lg:sticky">
             <Suspense
               fallback={
                 <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden" />

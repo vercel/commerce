@@ -72,7 +72,7 @@ export type OrderItem = {
 
 export interface OrderNotes {
   id: number;
-  author: string;
+  author: string | number;
   date_created: Date;
   date_created_gmt: Date;
   note: string;

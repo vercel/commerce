@@ -11,10 +11,11 @@ export const createUrl = (pathname: string, params: URLSearchParams | ReadonlyUR
 export const ensureStartsWith = (stringToCheck: string, startsWith: string) =>
   stringToCheck.startsWith(startsWith) ? stringToCheck : `${startsWith}${stringToCheck}`;
 
-export const getCountries = (): { name: string; icon: string }[] =>
-  (countries as { country: string; flag_base64: string }[]).map(({ country, flag_base64 }) => ({
-    name: country,
-    icon: flag_base64
+export const getCountries = (): { name: string; icon: string; code: string }[] =>
+  (countries as { name: string; emoji: string; code: string }[]).map(({ name, emoji, code }) => ({
+    name,
+    icon: emoji,
+    code
   }));
 
 export const isStrinInteger = (value: string) => {

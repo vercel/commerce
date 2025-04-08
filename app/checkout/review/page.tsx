@@ -9,6 +9,18 @@ export default function CheckoutReview() {
   const { cart } = useCart();
   const { checkout } = useCheckout();
 
+  const handleCreateOrder = async () => {
+    const order = await fetch('/api/customer/order', {
+      method: 'POST',
+      body: JSON.stringify({
+        billing_address: checkout?.billing,
+        shipping_address: checkout?.shipping,
+        payment_method: checkout?.payment_method
+      })
+    }).catch((err) => {
+      console.error('Error creating order', err);
+    });
+  };
   return (
     <section className="mt-4 grid w-full gap-4 px-4 pb-4">
       <h1 className="text-2xl font-bold">Riassunto</h1>
@@ -41,8 +53,13 @@ export default function CheckoutReview() {
       <span className="mt-4 text-lg font-bold">Metodo di pagamento</span>
       <span>{checkout?.payment_method}</span>
 
-      <Button title="Vai al pagamento" color="primary" className="text-white">
-        Vai al pagamento
+      <Button
+        title="Vai al pagamento"
+        color="primary"
+        className="text-white"
+        onPress={handleCreateOrder}
+      >
+        Crea ordine
       </Button>
     </section>
   );
