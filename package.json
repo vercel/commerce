@@ -9,26 +9,26 @@
     "test": "pnpm prettier:check"
   },
   "dependencies": {
-    "@headlessui/react": "^2.2.0",
+    "@headlessui/react": "^2.2.3",
     "@heroicons/react": "^2.2.0",
     "clsx": "^2.1.1",
-    "geist": "^1.3.1",
-    "next": "15.3.0-canary.13",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
-    "sonner": "^2.0.1"
+    "geist": "^1.4.2",
+    "next": "15.4.0-canary.31",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "sonner": "^2.0.3"
   },
   "devDependencies": {
     "@tailwindcss/container-queries": "^0.1.1",
-    "@tailwindcss/postcss": "^4.0.14",
+    "@tailwindcss/postcss": "^4.1.6",
     "@tailwindcss/typography": "^0.5.16",
-    "@types/node": "22.13.10",
-    "@types/react": "19.0.12",
-    "@types/react-dom": "19.0.4",
+    "@types/node": "22.15.17",
+    "@types/react": "19.1.4",
+    "@types/react-dom": "19.1.4",
     "postcss": "^8.5.3",
     "prettier": "3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11",
-    "tailwindcss": "^4.0.14",
-    "typescript": "5.8.2"
+    "tailwindcss": "^4.1.6",
+    "typescript": "5.8.3"
   }
 }

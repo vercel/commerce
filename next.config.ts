@@ -1,6 +1,7 @@
 export default {
   experimental: {
     ppr: true,
+    dynamicIO: true,
     inlineCss: true,
     useCache: true
   },

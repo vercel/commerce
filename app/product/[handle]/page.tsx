@@ -49,7 +49,11 @@ export async function generateMetadata(props: {
   };
 }
 
-export default async function ProductPage(props: { params: Promise<{ handle: string }> }) {
+export default async function ProductPage(props: {
+  params: Promise<{ handle: string }>;
+}) {
+  'use cache';
+
   const params = await props.params;
   const product = await getProduct(params.handle);
 
@@ -103,7 +107,9 @@ export default async function ProductPage(props: { params: Promise<{ handle: str
             </Suspense>
           </div>
         </div>
-        <RelatedProducts id={product.id} />
+        <Suspense fallback={null}>
+          <RelatedProducts id={product.id} />
+        </Suspense>
       </div>
       <Footer />
     </ProductProvider>
