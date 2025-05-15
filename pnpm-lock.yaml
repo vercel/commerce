@@ -19,10 +19,10 @@ importers:
         version: 2.1.1
       geist:
         specifier: ^1.4.2
-        version: 1.4.2(next@15.4.0-canary.31(react-dom@19.1.0(react@19.1.0))(react@19.1.0))
+        version: 1.4.2(next@https://vercel-packages.vercel.app/next/commits/3de4e9a1bd5755f8b69035716a69d444672306e8/next(react-dom@19.1.0(react@19.1.0))(react@19.1.0))
       next:
-        specifier: 15.4.0-canary.31
-        version: 15.4.0-canary.31(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: https://vercel-packages.vercel.app/next/commits/3de4e9a1bd5755f8b69035716a69d444672306e8/next
+        version: https://vercel-packages.vercel.app/next/commits/3de4e9a1bd5755f8b69035716a69d444672306e8/next(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       react:
         specifier: 19.1.0
         version: 19.1.0
@@ -245,56 +245,15 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
-  '@next/env@15.4.0-canary.31':
-    resolution: {integrity: sha512-v9qjCjWhJOcBKVLzsx00JlraSFJPd4XwY5qaIaIfslpWS7qtWrwU01IOSLGBkM+JwAa/VWoVeT5p/dqqbuJgKw==}
+  '@next/env@https://vercel-packages.vercel.app/next/prs/78882/@next/env':
+    resolution: {tarball: https://vercel-packages.vercel.app/next/prs/78882/@next/env}
+    version: 15.4.0-preview-736271a9-20250512
 
-  '@next/swc-darwin-arm64@15.4.0-canary.31':
-    resolution: {integrity: sha512-zBo+HeZm3IVlwHGPQpTBfdlYQrcQ4PHkuhL4/s/drVaYrFccL5bf5px2xNL3s6gje+RQm7AnJeJdWK7dXcF1LQ==}
+  '@next/swc-linux-x64-gnu@https://vercel-packages.vercel.app/next/prs/78882/@next/swc-linux-x64-gnu':
+    resolution: {tarball: https://vercel-packages.vercel.app/next/prs/78882/@next/swc-linux-x64-gnu}
+    version: 15.4.0-preview-736271a9-20250512
     engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [darwin]
-
-  '@next/swc-darwin-x64@15.4.0-canary.31':
-    resolution: {integrity: sha512-GxZK9xddHRJB4oXmxd0gY+EKpmeW2ioA8b0fmsVrFgaLD+BlKol4z+6UgjtlaVkxXGX8gqd4kvoZ6jNKkGKfNw==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
-    os: [darwin]
-
-  '@next/swc-linux-arm64-gnu@15.4.0-canary.31':
-    resolution: {integrity: sha512-8ZJUYhpc3uOXCm8c38qRCW5OdRgLczMxhyMITUpbQrYZ+csncvaTkeAjUEZ0OyZqrq+5LqSs3qbaZZrd8wQMYw==}
-    engines: {node: '>= 10'}
-    cpu: [arm64]
     os: [linux]
-
-  '@next/swc-linux-arm64-musl@15.4.0-canary.31':
-    resolution: {integrity: sha512-vylmxjjBjA+uwH4ZO1Mkv7OKH3cXAWgZp1sBRMTClBbKyMcU/WgV3DPhjP3t+gsYYqaFpTJg87JVPbha0uzlqQ==}
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [linux]
-
-  '@next/swc-linux-x64-gnu@15.4.0-canary.31':
-    resolution: {integrity: sha512-Yakxjs+uzfwTy5HbSa8NPKNbw8pad+p7T86p52/+7eFZab0QoPAI1v1dkscvz2D5+luQLHRZPS9Dgxljv/cgvA==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
-    os: [linux]
-
-  '@next/swc-linux-x64-musl@15.4.0-canary.31':
-    resolution: {integrity: sha512-spC49gdMMtMeAb9dd8sec14cqckiOWFgyi5uv5UvyvK8EQhTX0oDpPBmzODlesasIbx0rQRYYMs8KP9msFmTPA==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
-    os: [linux]
-
-  '@next/swc-win32-arm64-msvc@15.4.0-canary.31':
-    resolution: {integrity: sha512-Np5g/RJDHHxn15mg7mkAqhwaPG/H3uYbaO6RGxLjoKy2NJzivZ+a53r6BhhgvYywTgU18syUqgmLxxmz+hjysw==}
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [win32]
-
-  '@next/swc-win32-x64-msvc@15.4.0-canary.31':
-    resolution: {integrity: sha512-0/4BgXFG9N/YT+pHN1XvPB5JJTyJKrTUNvZPdCN7knnonXwuhoOwqmK/xI3rGLbHHTe0UFGcsXzh1NeRjRyjUw==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
-    os: [win32]
 
   '@react-aria/focus@3.20.2':
     resolution: {integrity: sha512-Q3rouk/rzoF/3TuH6FzoAIKrl+kzZi9LHmr8S5EqLAOyP9TXIKG34x2j42dZsAhrw7TbF9gA8tBKwnCNH4ZV+Q==}
@@ -503,6 +462,7 @@ packages:
 
   geist@1.4.2:
     resolution: {integrity: sha512-OQUga/KUc8ueijck6EbtT07L4tZ5+TZgjw8PyWfxo16sL5FWk7gNViPNU8hgCFjy6bJi9yuTP+CRpywzaGN8zw==}
+    version: 1.4.2
     peerDependencies:
       next: '>=13.2.0'
 
@@ -610,8 +570,9 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
-  next@15.4.0-canary.31:
-    resolution: {integrity: sha512-w3PUyFAfICyamYgvS2ZZqK8rSSyI97FFoVH5S9E/QABs4LLF50JyhsJwVZD7cADpMsBqBKaVes6OYltBxP8eIw==}
+  next@https://vercel-packages.vercel.app/next/commits/3de4e9a1bd5755f8b69035716a69d444672306e8/next:
+    resolution: {tarball: https://vercel-packages.vercel.app/next/commits/3de4e9a1bd5755f8b69035716a69d444672306e8/next}
+    version: 15.4.0-preview-736271a9-20250512
     engines: {node: ^18.18.0 || ^19.8.0 || >= 20.0.0}
     hasBin: true
     peerDependencies:
@@ -942,30 +903,9 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@next/env@15.4.0-canary.31': {}
+  '@next/env@https://vercel-packages.vercel.app/next/prs/78882/@next/env': {}
 
-  '@next/swc-darwin-arm64@15.4.0-canary.31':
-    optional: true
-
-  '@next/swc-darwin-x64@15.4.0-canary.31':
-    optional: true
-
-  '@next/swc-linux-arm64-gnu@15.4.0-canary.31':
-    optional: true
-
-  '@next/swc-linux-arm64-musl@15.4.0-canary.31':
-    optional: true
-
-  '@next/swc-linux-x64-gnu@15.4.0-canary.31':
-    optional: true
-
-  '@next/swc-linux-x64-musl@15.4.0-canary.31':
-    optional: true
-
-  '@next/swc-win32-arm64-msvc@15.4.0-canary.31':
-    optional: true
-
-  '@next/swc-win32-x64-msvc@15.4.0-canary.31':
+  '@next/swc-linux-x64-gnu@https://vercel-packages.vercel.app/next/prs/78882/@next/swc-linux-x64-gnu':
     optional: true
 
   '@react-aria/focus@3.20.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)':
@@ -1168,9 +1108,9 @@ snapshots:
       graceful-fs: 4.2.11
       tapable: 2.2.1
 
-  geist@1.4.2(next@15.4.0-canary.31(react-dom@19.1.0(react@19.1.0))(react@19.1.0)):
+  geist@1.4.2(next@https://vercel-packages.vercel.app/next/commits/3de4e9a1bd5755f8b69035716a69d444672306e8/next(react-dom@19.1.0(react@19.1.0))(react@19.1.0)):
     dependencies:
-      next: 15.4.0-canary.31(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      next: https://vercel-packages.vercel.app/next/commits/3de4e9a1bd5755f8b69035716a69d444672306e8/next(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
 
   graceful-fs@4.2.11: {}
 
@@ -1244,9 +1184,9 @@ snapshots:
 
   nanoid@3.3.11: {}
 
-  next@15.4.0-canary.31(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  next@https://vercel-packages.vercel.app/next/commits/3de4e9a1bd5755f8b69035716a69d444672306e8/next(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
-      '@next/env': 15.4.0-canary.31
+      '@next/env': https://vercel-packages.vercel.app/next/prs/78882/@next/env
       '@swc/helpers': 0.5.15
       caniuse-lite: 1.0.30001717
       postcss: 8.4.31
@@ -1254,14 +1194,7 @@ snapshots:
       react-dom: 19.1.0(react@19.1.0)
       styled-jsx: 5.1.6(react@19.1.0)
     optionalDependencies:
-      '@next/swc-darwin-arm64': 15.4.0-canary.31
-      '@next/swc-darwin-x64': 15.4.0-canary.31
-      '@next/swc-linux-arm64-gnu': 15.4.0-canary.31
-      '@next/swc-linux-arm64-musl': 15.4.0-canary.31
-      '@next/swc-linux-x64-gnu': 15.4.0-canary.31
-      '@next/swc-linux-x64-musl': 15.4.0-canary.31
-      '@next/swc-win32-arm64-msvc': 15.4.0-canary.31
-      '@next/swc-win32-x64-msvc': 15.4.0-canary.31
+      '@next/swc-linux-x64-gnu': https://vercel-packages.vercel.app/next/prs/78882/@next/swc-linux-x64-gnu
       sharp: 0.34.1
     transitivePeerDependencies:
       - '@babel/core'

@@ -13,7 +13,7 @@
     "@heroicons/react": "^2.2.0",
     "clsx": "^2.1.1",
     "geist": "^1.4.2",
-    "next": "15.4.0-canary.31",
+    "next": "https://vercel-packages.vercel.app/next/commits/3de4e9a1bd5755f8b69035716a69d444672306e8/next",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "sonner": "^2.0.3"
@@ -30,5 +30,6 @@
     "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^4.1.6",
     "typescript": "5.8.3"
-  }
+  },
+  "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0"
 }
