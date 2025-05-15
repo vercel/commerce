@@ -3,7 +3,7 @@
 import { PlusIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { addItem } from 'components/cart/actions';
-import { useProduct } from 'components/product/product-context';
+import { useProduct } from 'components/product/use-product';
 import { Product, ProductVariant } from 'lib/shopify/types';
 import { useActionState } from 'react';
 import { useCart } from './cart-context';
@@ -54,6 +54,15 @@ function SubmitButton({
       </div>
       Add To Cart
     </button>
+  );
+}
+
+export function AddToCartSkeleton({ product }: { product: Product }) {
+  return (
+    <SubmitButton
+      availableForSale={product.availableForSale}
+      selectedVariantId={undefined}
+    />
   );
 }
 

@@ -1,8 +1,10 @@
-import { AddToCart } from 'components/cart/add-to-cart';
+import { AddToCart, AddToCartSkeleton } from 'components/cart/add-to-cart';
 import Price from 'components/price';
 import Prose from 'components/prose';
 import { Product } from 'lib/shopify/types';
+import { Suspense } from 'react';
 import { VariantSelector } from './variant-selector';
+import { VariantSelectorSkeleton } from './variant-selector-skeleton';
 
 export function ProductDescription({ product }: { product: Product }) {
   return (
@@ -16,14 +18,23 @@ export function ProductDescription({ product }: { product: Product }) {
           />
         </div>
       </div>
-      <VariantSelector options={product.options} variants={product.variants} />
+      <Suspense
+        fallback={<VariantSelectorSkeleton options={product.options} />}
+      >
+        <VariantSelector
+          options={product.options}
+          variants={product.variants}
+        />
+      </Suspense>
       {product.descriptionHtml ? (
         <Prose
           className="mb-6 text-sm leading-tight dark:text-white/[60%]"
           html={product.descriptionHtml}
         />
       ) : null}
-      <AddToCart product={product} />
+      <Suspense fallback={<AddToCartSkeleton product={product} />}>
+        <AddToCart product={product} />
+      </Suspense>
     </>
   );
 }
