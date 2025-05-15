@@ -1,9 +1,12 @@
-export default {
+import { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
   experimental: {
     ppr: true,
     dynamicIO: true,
     inlineCss: true,
-    useCache: true
+    useCache: true,
+    prerenderEarlyExit: false
   },
   images: {
     formats: ['image/avif', 'image/webp'],
@@ -16,3 +19,5 @@ export default {
     ]
   }
 };
+
+export default nextConfig;
