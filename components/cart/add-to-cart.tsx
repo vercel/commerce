@@ -5,7 +5,6 @@ import clsx from 'clsx';
 import { useProduct } from 'components/product/product-context';
 import { Product, ProductVariations } from 'lib/woocomerce/models/product';
 import { useTranslations } from 'next-intl';
-import { toast } from 'sonner';
 import { useCart } from './cart-context';
 
 function SubmitButton({ disabled = false }: { disabled: boolean }) {
@@ -45,18 +44,18 @@ export function AddToCart({
   return (
     <form
       action={async () => {
-        try {
-          const cart = await (
-            await fetch('/api/cart', {
-              method: 'POST',
-              body: JSON.stringify({ id: product.id, quantity: 1, variation })
-            })
-          ).json();
-          setNewCart(cart);
-          toast('Item added to cart');
-        } catch (error) {
-          console.error(error);
+        const response = await fetch('/api/cart', {
+          method: 'POST',
+          body: JSON.stringify({ id: product.id, quantity: 1, variation })
+        });
+
+        if (!response.ok) {
+          console.error('Error adding to cart');
+          return;
         }
+
+        const cart = await response.json();
+        setNewCart(cart);
       }}
     >
       <SubmitButton disabled={variations?.length && !state.variation ? true : false} />

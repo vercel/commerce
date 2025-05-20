@@ -10,16 +10,23 @@ export default function CheckoutReview() {
   const { checkout } = useCheckout();
 
   const handleCreateOrder = async () => {
-    const order = await fetch('/api/customer/order', {
-      method: 'POST',
-      body: JSON.stringify({
-        billing_address: checkout?.billing,
-        shipping_address: checkout?.shipping,
-        payment_method: checkout?.payment_method
-      })
-    }).catch((err) => {
-      console.error('Error creating order', err);
-    });
+    try {
+      const order = await fetch('/api/customer/order', {
+        method: 'POST',
+        body: JSON.stringify({
+          billing_address: checkout?.billing,
+          shipping_address: checkout?.shipping,
+          payment_method: checkout?.payment_method
+        })
+      });
+      if (!order.ok) {
+        const errorData = await order.json();
+        console.error('Error creating order:', errorData);
+        throw new Error(errorData.error || 'Failed to create order');
+      }
+    } catch (error) {
+      console.error('Error creating order', error);
+    }
   };
   return (
     <section className="mt-4 grid w-full gap-4 px-4 pb-4">

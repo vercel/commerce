@@ -45,8 +45,9 @@ function createStoreApiClient({
         method,
         url: baseURL + url,
         data,
-        headers
+        headers,
       });
+
       return response;
     } catch (error: any) {
       if (error.response) {
@@ -55,8 +56,9 @@ function createStoreApiClient({
           console.debug('Token expired, regenerating...');
           const newAuthToken = await regenerateAuthToken();
           headers.Authorization = `Bearer ${newAuthToken}`;
-          return _request(method, url, data);
+          return _request(method, url, data); // Retry the request with the new token
         }
+
         throw new Error(
           `Request failed with status ${error.response.status}: ${error.response.data.message}`
         );
@@ -76,6 +78,7 @@ function createStoreApiClient({
       params?: Record<string, string | number>
     ): Promise<{ cart: Cart; cartToken?: string }> {
       const res = await _request('get', '/cart', { params });
+
       return { cart: res.data, cartToken: res.headers['cart-token'] };
     },
 

@@ -38,7 +38,10 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(cart, { status: 200 });
   } catch (error) {
     return NextResponse.json(
-      { error: 'Failed to add item to cart', message: JSON.stringify(error) },
+      {
+        error: 'Failed to add item to cart',
+        message: JSON.stringify(error)
+      },
       { status: 500 }
     );
   }

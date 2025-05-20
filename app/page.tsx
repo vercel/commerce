@@ -20,7 +20,8 @@ import Bg2 from '../assets/images/slide-bg-02.webp';
 
 async function Products({ category }: { category: Category }) {
   const products: Product[] = await woocommerce.get('products', {
-    category: category.id.toString()
+    category: category.id.toString(),
+    author: 1, // Use admin user to get all products
   });
 
   return <ThreeItemGrid products={products} />;
