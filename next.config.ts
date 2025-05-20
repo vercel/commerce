@@ -1,8 +1,4 @@
-process.env.COMMERCE_PROVIDER ??= 'local';
-// 🔧 fallback so the build never crashes if COMMERCE_PROVIDER is missing
-if (!process.env.COMMERCE_PROVIDER) {
-  process.env.COMMERCE_PROVIDER = 'local';
-}
+process.env.COMMERCE_PROVIDER = process.env.COMMERCE_PROVIDER || 'local';
 export default {
   experimental: {
     ppr: true,
