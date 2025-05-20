@@ -1,0 +1,6 @@
+{
+  "items": [
+    { "title": "Home", "url": "/" },
+    { "title": "Products", "url": "/search" }
+  ]
+}
