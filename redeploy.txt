@@ -1,0 +1,2 @@
+git commit --allow-empty -m "trigger deploy"
+git push
