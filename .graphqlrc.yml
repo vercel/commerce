@@ -1,0 +1,8 @@
+schema:
+  - https://api.crystallize.com/bykirken/graphql
+extensions:
+  endpoints:
+    default:
+      url: https://api.crystallize.com/bykirken/graphql
+      headers:
+        Authorization: Basic c3ab0fef20aadcbeb9919e6701f015cfb4ddf1ff
