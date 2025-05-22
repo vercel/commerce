@@ -22,12 +22,21 @@ async function getProductsByCollection(collectionName: string) {
     ]
     // Add more dummy collections and products as needed
   };
-  return allProducts[collectionName.toLowerCase()] || [];
+  // Ensure collectionName is string and lowercase for object key access
+  return allProducts[String(collectionName).toLowerCase()] || [];
 }
 
-export default async function CollectionPage({ params }: { params: { collection: string } }) {
-  const products = await getProductsByCollection(params.collection);
-  const collectionName = params.collection.charAt(0).toUpperCase() + params.collection.slice(1);
+interface CollectionPageProps {
+  params: Promise<{ collection: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+
+export default async function CollectionPage({ params, searchParams }: CollectionPageProps) {
+  const resolvedParams = await params;
+  // const resolvedSearchParams = await searchParams; // Await if needed for filtering, etc.
+
+  const products = await getProductsByCollection(resolvedParams.collection);
+  const collectionName = resolvedParams.collection.charAt(0).toUpperCase() + resolvedParams.collection.slice(1);
 
   return (
     <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
