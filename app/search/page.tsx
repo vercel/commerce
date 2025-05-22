@@ -5,10 +5,12 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation'; // To get query from URL
 
 // Simulate fetching search results
-async function getSearchResults(query: string | null) {
+async function getSearchResults(query: string | null): Promise<any[]> { // Explicit Promise<any[]>
   // Simulate network delay
   await new Promise(resolve => setTimeout(resolve, 50));
-  if (!query) return [];
+  if (!query || !query.trim()) { // Also handle empty/whitespace query after trimming
+    return []; // Return empty array for null, empty, or whitespace-only query
+  }
 
   const mockResults: { [key: string]: any[] } = {
     'shirt': [
@@ -18,12 +20,16 @@ async function getSearchResults(query: string | null) {
     'accessory': [
       { id: 'sa1', name: 'Search Result Accessory', price: { amount: '12.00', currencyCode: 'USD' }, image: { src: '/placeholder-accessory.jpg', alt: 'Accessory' } },
     ],
-    'generic': [ // Added a generic list for queries that don't match specific terms
+    'generic': [ 
       { id: 'g1', name: 'Generic Product A', price: { amount: '10.00', currencyCode: 'USD' }, image: { src: '/placeholder-generic1.jpg', alt: 'Generic A' } },
       { id: 'g2', name: 'Generic Product B', price: { amount: '15.00', currencyCode: 'USD' }, image: { src: '/placeholder-generic2.jpg', alt: 'Generic B' } },
     ]
   };
-  return mockResults[query.toLowerCase()] || mockResults['generic']; // Fallback to generic results
+
+  const results = mockResults[query.toLowerCase()];
+  // If specific results are found, return them. Otherwise, return generic results.
+  // If generic results are also somehow undefined (they are not, in this mock), fallback to an empty array.
+  return results !== undefined ? results : (mockResults['generic'] || []); 
 }
 
 export default function SearchPage() {
