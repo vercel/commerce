@@ -27,26 +27,24 @@ async function getContent(slug: string) {
       ]
     }
   };
-  // Ensure slug is a string before using it as an index
-  return allContent[String(slug)] || null;
+  return allContent[slug] || null;
 }
 
-// Define an interface for the page's props, with params and searchParams as Promises
+// Define an interface for the page's props, including searchParams
 interface ContentPageProps {
-  params: Promise<{ slug: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  params: {
+    slug: string;
+  };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 export default async function ContentPage({ params, searchParams }: ContentPageProps) {
-  // Await the params promise to get its value
-  const resolvedParams = await params;
-  // Await searchParams if you need to use them, e.g.:
-  // const resolvedSearchParams = await searchParams;
-
-  const content = await getContent(resolvedParams.slug);
+  // searchParams is now destructured but not necessarily used if the page doesn't need it.
+  // This is to satisfy the PageProps constraint.
+  const content = await getContent(params.slug);
 
   if (!content) {
-    return <div>Content not found for {resolvedParams.slug}</div>;
+    return <div>Content not found for {params.slug}</div>;
   }
 
   return (
@@ -59,7 +57,7 @@ export default async function ContentPage({ params, searchParams }: ContentPageP
   );
 }
 
-// Optional: Generate static params still works the same way
+// Optional: Generate static paths if you have a known set of content pages
 // export async function generateStaticParams() {
 //   return [{ slug: 'about-us' }, { slug: 'contact-us' }, { slug: 'privacy-policy' }];
 // }
