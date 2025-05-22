@@ -1,16 +1,16 @@
 import {
   HIDDEN_PRODUCT_TAG,
   SHOPIFY_GRAPHQL_API_ENDPOINT,
-  TAGS
+  TAGS // Keep TAGS if used by other functions like getCollection, getProduct etc.
 } from 'lib/constants';
 import { isShopifyError } from 'lib/type-guards';
 import { ensureStartsWith } from 'lib/utils';
 import {
   revalidateTag,
-  unstable_cacheTag as cacheTag,
-  unstable_cacheLife as cacheLife
+  unstable_cacheTag as cacheTag, // Keep if used by other functions
+  unstable_cacheLife as cacheLife  // Keep if used by other functions
 } from 'next/cache';
-import { cookies, headers } from 'next/headers';
+import { cookies, headers } from 'next/headers'; // Keep 'cookies' if other cart mutations use it
 import { NextRequest, NextResponse } from 'next/server';
 import {
   addToCartMutation,
@@ -18,13 +18,14 @@ import {
   editCartItemsMutation,
   removeFromCartMutation
 } from './mutations/cart';
-import { getCartQuery } from './queries/cart';
+// import { getCartQuery } from './queries/cart'; // No longer needed for dummy getCart
 import {
   getCollectionProductsQuery,
   getCollectionQuery,
   getCollectionsQuery
 } from './queries/collection';
-import { getMenuQuery } from './queries/menu';
+// getMenuQuery is removed as getMenu is now returning dummy data
+// import { getMenuQuery } from './queries/menu'; 
 import { getPageQuery, getPagesQuery } from './queries/page';
 import {
   getProductQuery,
@@ -32,22 +33,23 @@ import {
   getProductsQuery
 } from './queries/product';
 import {
-  Cart,
+  Cart, // Ensure Cart type is imported
   Collection,
   Connection,
   Image,
-  Menu,
+  Menu, // Menu type is essential
   Page,
   Product,
   ShopifyAddToCartOperation,
-  ShopifyCart,
-  ShopifyCartOperation,
+  ShopifyCart, // Still needed for other cart mutations if they use reshapeCart
+  // ShopifyCartOperation, // No longer needed for dummy getCart
   ShopifyCollection,
   ShopifyCollectionOperation,
   ShopifyCollectionProductsOperation,
   ShopifyCollectionsOperation,
   ShopifyCreateCartOperation,
-  ShopifyMenuOperation,
+  // ShopifyMenuOperation is removed as getMenu is now returning dummy data
+  // ShopifyMenuOperation, 
   ShopifyPageOperation,
   ShopifyPagesOperation,
   ShopifyProduct,
@@ -77,6 +79,18 @@ export async function shopifyFetch<T>({
   query: string;
   variables?: ExtractVariables<T>;
 }): Promise<{ status: number; body: T } | never> {
+  console.warn(`shopifyFetch called with query: ${query.substring(0, 100)}... This call is currently disabled for standalone dummy data mode.`);
+
+  // Option 1: Throw an error to make it clear this path shouldn't be taken.
+  throw new Error(`Shopify API calls are disabled in standalone dummy data mode. Query: ${query.substring(0,100)}...`);
+
+  // Option 2: Return a mock error structure similar to what Shopify might send,
+  // which some calling functions might expect or handle.
+  // This is more complex as the exact 'T' for body is generic.
+  // For now, throwing an error is simpler and makes unintended calls obvious.
+
+  /*
+  // Original fetch call - to be commented out or removed:
   try {
     const result = await fetch(endpoint, {
       method: 'POST',
@@ -116,12 +130,14 @@ export async function shopifyFetch<T>({
       query
     };
   }
+  */
 }
 
 const removeEdgesAndNodes = <T>(array: Connection<T>): T[] => {
   return array.edges.map((edge) => edge?.node);
 };
 
+// reshapeCart is kept as it's used by other cart mutation functions (createCart, addToCart, etc.)
 const reshapeCart = (cart: ShopifyCart): Cart => {
   if (!cart.cost?.totalTaxAmount) {
     cart.cost.totalTaxAmount = {
@@ -264,24 +280,94 @@ export async function updateCart(
 }
 
 export async function getCart(): Promise<Cart | undefined> {
-  const cartId = (await cookies()).get('cartId')?.value;
+  console.log('getCart called - returning dummy cart data / undefined.'); // For observability
 
-  if (!cartId) {
-    return undefined;
-  }
+  // Using Option 2 from the example: Return a basic dummy cart structure
+  const dummyCart: Cart = {
+    id: 'dummy-cart-id-123',
+    checkoutUrl: '/cart-checkout', // Or some placeholder
+    cost: {
+      subtotalAmount: { amount: '100.00', currencyCode: 'USD' },
+      totalAmount: { amount: '105.00', currencyCode: 'USD' }, // Including some dummy tax/shipping
+      totalTaxAmount: { amount: '5.00', currencyCode: 'USD' }
+    },
+    lines: [
+      {
+        id: 'dummy-line-item-1',
+        quantity: 2,
+        cost: {
+          totalAmount: { amount: '50.00', currencyCode: 'USD' }
+        },
+        merchandise: {
+          id: 'dummy-merch-id-1',
+          title: 'Dummy Product A',
+          selectedOptions: [{ name: 'Color', value: 'Red' }],
+          product: { // Ensure this matches the Product type expected by CartLine.merchandise.product
+            id: 'dummy-prod-id-A',
+            handle: 'dummy-product-a',
+            title: 'Dummy Product A',
+            // featuredImage, priceRange, etc., might be needed if CartLine.merchandise.product expects a full Product
+            // For this dummy data, keeping it minimal as per example.
+            // Add other Product fields if Cart type expects them from merchandise.product
+            // Based on current 'Product' type, these are the minimum required:
+            availableForSale: true,
+            description: 'A dummy product',
+            descriptionHtml: '<p>A dummy product</p>',
+            images: [], // Assuming empty array is acceptable or provide dummy images
+            options: [],
+            priceRange: {
+              maxVariantPrice: { amount: '25.00', currencyCode: 'USD' },
+              minVariantPrice: { amount: '25.00', currencyCode: 'USD' }
+            },
+            seo: { title: 'Dummy Product A', description: 'Dummy A' },
+            tags: [],
+            updatedAt: new Date().toISOString(),
+            variants: [], // Assuming empty array is acceptable or provide dummy variants
+          }
+        }
+      },
+      {
+        id: 'dummy-line-item-2',
+        quantity: 1,
+        cost: {
+          totalAmount: { amount: '50.00', currencyCode: 'USD' }
+        },
+        merchandise: {
+          id: 'dummy-merch-id-2',
+          title: 'Dummy Product B',
+          selectedOptions: [{ name: 'Size', value: 'M' }],
+          product: { // Ensure this matches the Product type expected by CartLine.merchandise.product
+            id: 'dummy-prod-id-B',
+            handle: 'dummy-product-b',
+            title: 'Dummy Product B',
+            availableForSale: true,
+            description: 'Another dummy product',
+            descriptionHtml: '<p>Another dummy product</p>',
+            images: [],
+            options: [],
+            priceRange: {
+              maxVariantPrice: { amount: '50.00', currencyCode: 'USD' },
+              minVariantPrice: { amount: '50.00', currencyCode: 'USD' }
+            },
+            seo: { title: 'Dummy Product B', description: 'Dummy B' },
+            tags: [],
+            updatedAt: new Date().toISOString(),
+            variants: [],
+          }
+        }
+      }
+    ],
+    totalQuantity: 3
+  };
 
-  const res = await shopifyFetch<ShopifyCartOperation>({
-    query: getCartQuery,
-    variables: { cartId }
-  });
-
-  // Old carts becomes `null` when you checkout.
-  if (!res.body.data.cart) {
-    return undefined;
-  }
-
-  return reshapeCart(res.body.data.cart);
+  await new Promise(resolve => setTimeout(resolve, 50)); // Simulate delay
+  
+  // To test the "empty cart" scenario, you can conditionally return undefined or dummyCart here.
+  // For now, let's return the dummyCart.
+  return dummyCart; 
+  // return undefined; // Use this to test how Navbar/CartProvider handles no cart
 }
+
 
 export async function getCollection(
   handle: string
@@ -364,36 +450,24 @@ export async function getCollections(): Promise<Collection[]> {
 }
 
 export async function getMenu(handle: string): Promise<Menu[]> {
-  'use cache'; // Next.js specific caching directive
-  cacheTag(TAGS.collections); // Next.js specific cache tagging
-  cacheLife('days'); // Next.js specific cache lifetime
+  console.log(`getMenu called with handle: ${handle} - returning dummy menu data.`); // For observability
 
-  try {
-    const res = await shopifyFetch<ShopifyMenuOperation>({
-      query: getMenuQuery, // getMenuQuery is imported from ./queries/menu
-      variables: {
-        handle
-      }
-    });
+  // Dummy menu structure. Modify as needed to match typical menu items.
+  const dummyMenu: Menu[] = [
+    { title: 'Home', path: '/' },
+    { title: 'All Products', path: '/search' }, // Example link to a general product listing
+    { title: 'T-Shirts', path: '/search/t-shirts' }, // Example link to a specific collection
+    { title: 'About Us', path: '/content/about-us' },
+    { title: 'Contact Us', path: '/content/contact-us' },
+    { title: 'Login', path: '/login' },
+    // { title: 'My Page', path: '/my-page' }, // Potentially conditional
+    // { title: 'Cart', path: '/cart-checkout' } // Link to the dedicated cart page
+  ];
 
-    // If res.body.data.menu is null or undefined (e.g., menu not found but no explicit API error),
-    // optional chaining will result in undefined, and the `|| []` will correctly return an empty array.
-    return (
-      res.body?.data?.menu?.items.map((item: { title: string; url: string }) => ({
-        title: item.title,
-        path: item.url
-          .replace(domain, '') // domain is defined at the top of lib/shopify/index.ts
-          .replace('/collections', '/search')
-          .replace('/pages', '')
-      })) || []
-    );
-  } catch (error: any) {
-    // Log the error for server-side observability.
-    // During a build process (like for _not-found), this helps identify issues without failing the build.
-    console.error(`Error fetching menu with handle '${handle}':`, error.message || error);
-    // Return an empty array to allow the page to render without menu data.
-    return [];
-  }
+  // Simulate a slight delay if desired, like other dummy data functions
+  await new Promise(resolve => setTimeout(resolve, 50));
+
+  return dummyMenu;
 }
 
 export async function getPage(handle: string): Promise<Page> {
