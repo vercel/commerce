@@ -364,26 +364,36 @@ export async function getCollections(): Promise<Collection[]> {
 }
 
 export async function getMenu(handle: string): Promise<Menu[]> {
-  'use cache';
-  cacheTag(TAGS.collections);
-  cacheLife('days');
+  'use cache'; // Next.js specific caching directive
+  cacheTag(TAGS.collections); // Next.js specific cache tagging
+  cacheLife('days'); // Next.js specific cache lifetime
 
-  const res = await shopifyFetch<ShopifyMenuOperation>({
-    query: getMenuQuery,
-    variables: {
-      handle
-    }
-  });
+  try {
+    const res = await shopifyFetch<ShopifyMenuOperation>({
+      query: getMenuQuery, // getMenuQuery is imported from ./queries/menu
+      variables: {
+        handle
+      }
+    });
 
-  return (
-    res.body?.data?.menu?.items.map((item: { title: string; url: string }) => ({
-      title: item.title,
-      path: item.url
-        .replace(domain, '')
-        .replace('/collections', '/search')
-        .replace('/pages', '')
-    })) || []
-  );
+    // If res.body.data.menu is null or undefined (e.g., menu not found but no explicit API error),
+    // optional chaining will result in undefined, and the `|| []` will correctly return an empty array.
+    return (
+      res.body?.data?.menu?.items.map((item: { title: string; url: string }) => ({
+        title: item.title,
+        path: item.url
+          .replace(domain, '') // domain is defined at the top of lib/shopify/index.ts
+          .replace('/collections', '/search')
+          .replace('/pages', '')
+      })) || []
+    );
+  } catch (error: any) {
+    // Log the error for server-side observability.
+    // During a build process (like for _not-found), this helps identify issues without failing the build.
+    console.error(`Error fetching menu with handle '${handle}':`, error.message || error);
+    // Return an empty array to allow the page to render without menu data.
+    return [];
+  }
 }
 
 export async function getPage(handle: string): Promise<Page> {
