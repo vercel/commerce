@@ -30,11 +30,18 @@ async function getContent(slug: string) {
   return allContent[slug] || null;
 }
 
-export default async function ContentPage({ params }: { params: { slug: string } }) {
+// Define an interface for the page's props
+interface ContentPageProps {
+  params: {
+    slug: string;
+  };
+  // searchParams?: { [key: string]: string | string[] | undefined }; // Optional, if needed
+}
+
+export default async function ContentPage({ params }: ContentPageProps) {
   const content = await getContent(params.slug);
 
   if (!content) {
-    // Handle case where content is not found, e.g., by returning a 404 or a specific message
     return <div>Content not found for {params.slug}</div>;
   }
 
