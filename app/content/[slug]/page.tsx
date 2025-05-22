@@ -30,15 +30,17 @@ async function getContent(slug: string) {
   return allContent[slug] || null;
 }
 
-// Define an interface for the page's props
+// Define an interface for the page's props, including searchParams
 interface ContentPageProps {
   params: {
     slug: string;
   };
-  // searchParams?: { [key: string]: string | string[] | undefined }; // Optional, if needed
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
-export default async function ContentPage({ params }: ContentPageProps) {
+export default async function ContentPage({ params, searchParams }: ContentPageProps) {
+  // searchParams is now destructured but not necessarily used if the page doesn't need it.
+  // This is to satisfy the PageProps constraint.
   const content = await getContent(params.slug);
 
   if (!content) {
