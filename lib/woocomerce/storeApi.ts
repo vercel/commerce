@@ -45,7 +45,7 @@ function createStoreApiClient({
         method,
         url: baseURL + url,
         data,
-        headers,
+        headers
       });
 
       return response;
