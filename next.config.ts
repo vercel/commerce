@@ -1,3 +1,4 @@
+process.env.COMMERCE_PROVIDER = process.env.COMMERCE_PROVIDER || 'local';
 export default {
   experimental: {
     ppr: true,
