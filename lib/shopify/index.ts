@@ -36,7 +36,7 @@ import {
   Cart, // Ensure Cart type is imported
   Collection,
   Connection,
-  Image,
+  Image, // Image type is needed for featuredImage
   Menu, // Menu type is essential
   Page,
   Product,
@@ -282,13 +282,12 @@ export async function updateCart(
 export async function getCart(): Promise<Cart | undefined> {
   console.log('getCart called - returning dummy cart data / undefined.'); // For observability
 
-  // Using Option 2 from the example: Return a basic dummy cart structure
   const dummyCart: Cart = {
     id: 'dummy-cart-id-123',
-    checkoutUrl: '/cart-checkout', // Or some placeholder
+    checkoutUrl: '/cart-checkout', 
     cost: {
       subtotalAmount: { amount: '100.00', currencyCode: 'USD' },
-      totalAmount: { amount: '105.00', currencyCode: 'USD' }, // Including some dummy tax/shipping
+      totalAmount: { amount: '105.00', currencyCode: 'USD' }, 
       totalTaxAmount: { amount: '5.00', currencyCode: 'USD' }
     },
     lines: [
@@ -300,29 +299,19 @@ export async function getCart(): Promise<Cart | undefined> {
         },
         merchandise: {
           id: 'dummy-merch-id-1',
-          title: 'Dummy Product A',
+          title: 'Dummy Product A', // This is merchandise.title (variant title)
           selectedOptions: [{ name: 'Color', value: 'Red' }],
-          product: { // Ensure this matches the Product type expected by CartLine.merchandise.product
+          product: { // This is the CartProduct
             id: 'dummy-prod-id-A',
             handle: 'dummy-product-a',
-            title: 'Dummy Product A',
-            // featuredImage, priceRange, etc., might be needed if CartLine.merchandise.product expects a full Product
-            // For this dummy data, keeping it minimal as per example.
-            // Add other Product fields if Cart type expects them from merchandise.product
-            // Based on current 'Product' type, these are the minimum required:
-            availableForSale: true,
-            description: 'A dummy product',
-            descriptionHtml: '<p>A dummy product</p>',
-            images: [], // Assuming empty array is acceptable or provide dummy images
-            options: [],
-            priceRange: {
-              maxVariantPrice: { amount: '25.00', currencyCode: 'USD' },
-              minVariantPrice: { amount: '25.00', currencyCode: 'USD' }
-            },
-            seo: { title: 'Dummy Product A', description: 'Dummy A' },
-            tags: [],
-            updatedAt: new Date().toISOString(),
-            variants: [], // Assuming empty array is acceptable or provide dummy variants
+            title: 'Dummy Product A', // This is product.title
+            featuredImage: { 
+              url: '/placeholder-product-a.jpg', 
+              altText: 'Dummy Product A Image',
+              width: 100, 
+              height: 100  
+            }
+            // Removed: availableForSale, description, descriptionHtml, images (array), options, priceRange, seo, tags, updatedAt, variants
           }
         }
       },
@@ -334,25 +323,19 @@ export async function getCart(): Promise<Cart | undefined> {
         },
         merchandise: {
           id: 'dummy-merch-id-2',
-          title: 'Dummy Product B',
+          title: 'Dummy Product B', // Merchandise.title
           selectedOptions: [{ name: 'Size', value: 'M' }],
-          product: { // Ensure this matches the Product type expected by CartLine.merchandise.product
+          product: { // This is the CartProduct
             id: 'dummy-prod-id-B',
             handle: 'dummy-product-b',
-            title: 'Dummy Product B',
-            availableForSale: true,
-            description: 'Another dummy product',
-            descriptionHtml: '<p>Another dummy product</p>',
-            images: [],
-            options: [],
-            priceRange: {
-              maxVariantPrice: { amount: '50.00', currencyCode: 'USD' },
-              minVariantPrice: { amount: '50.00', currencyCode: 'USD' }
-            },
-            seo: { title: 'Dummy Product B', description: 'Dummy B' },
-            tags: [],
-            updatedAt: new Date().toISOString(),
-            variants: [],
+            title: 'Dummy Product B', // Product.title
+            featuredImage: { 
+              url: '/placeholder-product-b.jpg', 
+              altText: 'Dummy Product B Image',
+              width: 100,
+              height: 100
+            }
+            // Removed: availableForSale, description, descriptionHtml, images (array), options, priceRange, seo, tags, updatedAt, variants
           }
         }
       }
@@ -360,12 +343,9 @@ export async function getCart(): Promise<Cart | undefined> {
     totalQuantity: 3
   };
 
-  await new Promise(resolve => setTimeout(resolve, 50)); // Simulate delay
+  await new Promise(resolve => setTimeout(resolve, 50)); 
   
-  // To test the "empty cart" scenario, you can conditionally return undefined or dummyCart here.
-  // For now, let's return the dummyCart.
   return dummyCart; 
-  // return undefined; // Use this to test how Navbar/CartProvider handles no cart
 }
 
 
