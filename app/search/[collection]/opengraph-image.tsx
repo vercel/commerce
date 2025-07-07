@@ -1,8 +1,8 @@
-import OpengraphImage from 'components/opengraph-image';
-import { getCollection } from 'lib/shopify';
+import OpengraphImage from "components/opengraph-image";
+import { getCollection } from "lib/shopify";
 
 export default async function Image({
-  params
+  params,
 }: {
   params: { collection: string };
 }) {
