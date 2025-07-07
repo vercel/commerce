@@ -61,22 +61,25 @@ import {
 const domain = process.env.SHOPIFY_STORE_DOMAIN
   ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, 'https://')
   : '';
-const endpoint = `${domain}${SHOPIFY_GRAPHQL_API_ENDPOINT}`;
-const key = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
+
+export const endpoint = `${domain}${SHOPIFY_GRAPHQL_API_ENDPOINT}`;
+
+// Your Shopify Storefront access token
+export const key = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
 
 type ExtractVariables<T> = T extends { variables: object }
   ? T['variables']
   : never;
 
 export async function shopifyFetch<T>({
-  headers,
+    headers,
   query,
   variables
 }: {
   headers?: HeadersInit;
   query: string;
   variables?: ExtractVariables<T>;
-}): Promise<{ status: number; body: T } | never> {
+}): Promise<{ status: number; body: T }> {
   try {
     const result = await fetch(endpoint, {
       method: 'POST',
@@ -93,28 +96,35 @@ export async function shopifyFetch<T>({
 
     const body = await result.json();
 
+    // Handle API-level errors
     if (body.errors) {
-      throw body.errors[0];
+      console.error('[shopifyFetch] Shopify API error:', {
+        query,
+        status: result.status,
+        error: body.errors[0]
+      });
+
+      // Throw a standard Error object (not a plain object)
+      throw new Error(
+        `Shopify API Error (${result.status}): ${body.errors[0].message}`
+      );
     }
 
     return {
       status: result.status,
       body
     };
-  } catch (e) {
-    if (isShopifyError(e)) {
-      throw {
-        cause: e.cause?.toString() || 'unknown',
-        status: e.status || 500,
-        message: e.message,
-        query
-      };
-    }
+  } catch (err: any) {
+    // Log full context for unknown or fetch-level errors
+    console.error('[shopifyFetch] Unexpected fetch error:', {
+      query,
+      error: err
+    });
 
-    throw {
-      error: e,
-      query
-    };
+    // Re-throw a standard Error to be caught elsewhere
+    throw new Error(
+      `Unexpected error in shopifyFetch: ${err?.message ?? err}`
+    );
   }
 }
 
@@ -264,23 +274,29 @@ export async function updateCart(
 }
 
 export async function getCart(): Promise<Cart | undefined> {
-  const cartId = (await cookies()).get('cartId')?.value;
+  try {
+    const cartId = (await cookies()).get('cartId')?.value;
 
-  if (!cartId) {
+    if (!cartId) {
+      console.warn('[getCart] No cartId in cookies');
+      return undefined;
+    }
+
+    const res = await shopifyFetch<ShopifyCartOperation>({
+      query: getCartQuery,
+      variables: { cartId }
+    });
+
+    if (!res.body?.data?.cart) {
+      console.warn('[getCart] Cart is null for cartId:', cartId);
+      return undefined;
+    }
+
+    return reshapeCart(res.body.data.cart);
+  } catch (err) {
+    console.error('[getCart] Failed:', err);
     return undefined;
   }
-
-  const res = await shopifyFetch<ShopifyCartOperation>({
-    query: getCartQuery,
-    variables: { cartId }
-  });
-
-  // Old carts becomes `null` when you checkout.
-  if (!res.body.data.cart) {
-    return undefined;
-  }
-
-  return reshapeCart(res.body.data.cart);
 }
 
 export async function getCollection(
