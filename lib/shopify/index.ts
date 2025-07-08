@@ -72,7 +72,7 @@ type ExtractVariables<T> = T extends { variables: object }
   : never;
 
 export async function shopifyFetch<T>({
-    headers,
+  headers,
   query,
   variables
 }: {
