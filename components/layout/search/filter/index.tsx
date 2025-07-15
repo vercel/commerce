@@ -1,7 +1,7 @@
-import { SortFilterItem } from 'lib/constants';
-import { Suspense } from 'react';
-import FilterItemDropdown from './dropdown';
-import { FilterItem } from './item';
+import { SortFilterItem } from "lib/constants";
+import { Suspense } from "react";
+import FilterItemDropdown from "./dropdown";
+import { FilterItem } from "./item";
 
 export type ListItem = SortFilterItem | PathFilterItem;
 export type PathFilterItem = { title: string; path: string };
@@ -16,7 +16,13 @@ function FilterItemList({ list }: { list: ListItem[] }) {
   );
 }
 
-export default function FilterList({ list, title }: { list: ListItem[]; title?: string }) {
+export default function FilterList({
+  list,
+  title,
+}: {
+  list: ListItem[];
+  title?: string;
+}) {
   return (
     <>
       <nav>
