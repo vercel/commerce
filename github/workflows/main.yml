@@ -12,7 +12,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v3
         with:
-          project: ./site
+          project: ./commerce
           browser: chrome
           build: yarn build
           start: yarn start
