@@ -25,8 +25,11 @@ export async function Navbar() {
             href="/"
             prefetch={true}
             className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6"
+            data-test="nav-link-home-page"
           >
-            <LogoSquare />
+            <span data-test="logo">
+              <LogoSquare />
+            </span>
             <div className="ml-2 flex-none text-sm font-medium uppercase md:hidden lg:block">
               {SITE_NAME}
             </div>

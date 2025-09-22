@@ -4,14 +4,15 @@ const Price = ({
   amount,
   className,
   currencyCode = 'USD',
-  currencyCodeClassName
+  currencyCodeClassName,
+  ...props
 }: {
   amount: string;
   className?: string;
   currencyCode: string;
   currencyCodeClassName?: string;
 } & React.ComponentProps<'p'>) => (
-  <p suppressHydrationWarning={true} className={className}>
+  <p suppressHydrationWarning={true} className={className} {...props}>
     {`${new Intl.NumberFormat(undefined, {
       style: 'currency',
       currency: currencyCode,
