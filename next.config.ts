@@ -1,8 +1,7 @@
 export default {
   experimental: {
-    ppr: true,
-    inlineCss: true,
-    useCache: true
+    cacheComponents: true,
+    inlineCss: true
   },
   images: {
     formats: ['image/avif', 'image/webp'],
