@@ -490,11 +490,11 @@ export async function revalidate(req: NextRequest): Promise<NextResponse> {
   }
 
   if (isCollectionUpdate) {
-    revalidateTag(TAGS.collections);
+    revalidateTag(TAGS.collections, 'max');
   }
 
   if (isProductUpdate) {
-    revalidateTag(TAGS.products);
+    revalidateTag(TAGS.products, 'max');
   }
 
   return NextResponse.json({ status: 200, revalidated: true, now: Date.now() });
