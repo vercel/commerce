@@ -31,11 +31,12 @@ export function FooterMenuItem({ item }: { item: Menu }) {
   );
 }
 
-export default function FooterMenu({ menu }: { menu: Menu[] }) {
+export default function FooterMenu({ menu, title }: { menu: Menu[]; title: string }) {
   if (!menu.length) return null;
 
   return (
     <nav>
+      <span className="pl-2 text-lg uppercase text-secondary-500 font-bold">{title}</span>
       <ul>
         {menu.map((item: Menu) => {
           return <FooterMenuItem key={item.title} item={item} />;

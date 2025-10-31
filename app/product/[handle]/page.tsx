@@ -6,10 +6,11 @@ import Footer from 'components/layout/footer';
 import { Gallery } from 'components/product/gallery';
 import { ProductProvider } from 'components/product/product-context';
 import { ProductDescription } from 'components/product/product-description';
+import { ViewTransitionLink } from 'components/view-transition-link';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { getProduct, getProductRecommendations } from 'lib/shopify';
 import { Image } from 'lib/shopify/types';
-import Link from 'next/link';
+import { escapeCSSIdentifier } from 'lib/utils';
 import { Suspense } from 'react';
 
 export async function generateMetadata(props: {
@@ -20,7 +21,6 @@ export async function generateMetadata(props: {
 
   if (!product) return notFound();
 
-  const { url, width, height, altText: alt } = product.featuredImage || {};
   const indexable = !product.tags.includes(HIDDEN_PRODUCT_TAG);
 
   return {
@@ -34,18 +34,11 @@ export async function generateMetadata(props: {
         follow: indexable
       }
     },
-    openGraph: url
-      ? {
-          images: [
-            {
-              url,
-              width,
-              height,
-              alt
-            }
-          ]
-        }
-      : null
+    openGraph: {
+      title: product.seo.title || product.title,
+      description: product.seo.description || product.description,
+      // opengraph-image.tsx will be automatically used by Next.js
+    }
   };
 }
 
@@ -93,6 +86,7 @@ export default async function ProductPage(props: { params: Promise<{ handle: str
                   src: image.url,
                   altText: image.altText
                 }))}
+                productHandle={escapeCSSIdentifier(product.handle)}
               />
             </Suspense>
           </div>
@@ -124,7 +118,7 @@ async function RelatedProducts({ id }: { id: string }) {
             key={product.handle}
             className="aspect-square w-full flex-none min-[475px]:w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5"
           >
-            <Link
+            <ViewTransitionLink
               className="relative h-full w-full"
               href={`/product/${product.handle}`}
               prefetch={true}
@@ -139,8 +133,9 @@ async function RelatedProducts({ id }: { id: string }) {
                 src={product.featuredImage?.url}
                 fill
                 sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, (min-width: 640px) 33vw, (min-width: 475px) 50vw, 100vw"
+                viewTransitionName={`product-image-${escapeCSSIdentifier(product.handle)}`}
               />
-            </Link>
+            </ViewTransitionLink>
           </li>
         ))}
       </ul>

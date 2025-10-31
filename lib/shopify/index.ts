@@ -6,9 +6,9 @@ import {
 import { isShopifyError } from 'lib/type-guards';
 import { ensureStartsWith } from 'lib/utils';
 import {
-  revalidateTag,
-  unstable_cacheTag as cacheTag,
-  unstable_cacheLife as cacheLife
+  cacheLife,
+  cacheTag,
+  revalidateTag
 } from 'next/cache';
 import { cookies, headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
@@ -145,7 +145,7 @@ const reshapeCollection = (
 
   return {
     ...collection,
-    path: `/search/${collection.handle}`
+    path: `/collections/${collection.handle}`
   };
 };
 
@@ -350,7 +350,7 @@ export async function getCollections(): Promise<Collection[]> {
         title: 'All',
         description: 'All products'
       },
-      path: '/search',
+      path: '/collections',
       updatedAt: new Date().toISOString()
     },
     // Filter out the `hidden` collections.
@@ -380,7 +380,6 @@ export async function getMenu(handle: string): Promise<Menu[]> {
       title: item.title,
       path: item.url
         .replace(domain, '')
-        .replace('/collections', '/search')
         .replace('/pages', '')
     })) || []
   );

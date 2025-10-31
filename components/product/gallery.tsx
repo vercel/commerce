@@ -5,7 +5,13 @@ import { GridTileImage } from 'components/grid/tile';
 import { useProduct, useUpdateURL } from 'components/product/product-context';
 import Image from 'next/image';
 
-export function Gallery({ images }: { images: { src: string; altText: string }[] }) {
+export function Gallery({
+  images,
+  productHandle
+}: {
+  images: { src: string; altText: string }[];
+  productHandle: string;
+}) {
   const { state, updateImage } = useProduct();
   const updateURL = useUpdateURL();
   const imageIndex = state.image ? parseInt(state.image) : 0;
@@ -31,8 +37,8 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
         )}
 
         {images.length > 1 ? (
-          <div className="absolute bottom-[15%] flex w-full justify-center">
-            <div className="mx-auto flex h-11 items-center rounded-full border border-white bg-neutral-50/80 text-neutral-500 backdrop-blur-sm dark:border-black dark:bg-neutral-900/80">
+          <div className="absolute bottom-[5%] flex w-full justify-center">
+            <div className="mx-auto flex h-11 items-center rounded-full border border-white bg-neutral-50/60 text-neutral-500 backdrop-blur-sm dark:border-black dark:bg-neutral-900/80">
               <button
                 formAction={() => {
                   const newState = updateImage(previousImageIndex.toString());

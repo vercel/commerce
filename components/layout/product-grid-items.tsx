@@ -1,17 +1,19 @@
 import Grid from 'components/grid';
 import { GridTileImage } from 'components/grid/tile';
+import { ViewTransitionLink } from 'components/view-transition-link';
 import { Product } from 'lib/shopify/types';
-import Link from 'next/link';
+import { escapeCSSIdentifier } from 'lib/utils';
 
 export default function ProductGridItems({ products }: { products: Product[] }) {
   return (
     <>
       {products.map((product) => (
         <Grid.Item key={product.handle} className="animate-fadeIn">
-          <Link
+          <ViewTransitionLink
             className="relative inline-block h-full w-full"
             href={`/product/${product.handle}`}
             prefetch={true}
+            viewTransitionType="navigation-forward"
           >
             <GridTileImage
               alt={product.title}
@@ -23,8 +25,9 @@ export default function ProductGridItems({ products }: { products: Product[] }) 
               src={product.featuredImage?.url}
               fill
               sizes="(min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
+              viewTransitionName={`product-image-${escapeCSSIdentifier(product.handle)}`}
             />
-          </Link>
+          </ViewTransitionLink>
         </Grid.Item>
       ))}
     </>

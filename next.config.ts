@@ -1,7 +1,8 @@
 export default {
+  cacheComponents: true,
   experimental: {
-    cacheComponents: true,
-    inlineCss: true
+    inlineCss: true,
+    viewTransition: true
   },
   images: {
     formats: ['image/avif', 'image/webp'],
@@ -10,6 +11,14 @@ export default {
         protocol: 'https',
         hostname: 'cdn.shopify.com',
         pathname: '/s/files/**'
+      },
+      {
+        protocol: 'https',
+        hostname: 'hopsstock.blob.core.windows.net'
+      },
+      {
+        protocol: 'https',
+        hostname: 'hodgesbadge.azureedge.net'
       }
     ]
   }

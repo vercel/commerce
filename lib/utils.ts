@@ -49,3 +49,13 @@ export const validateEnvironmentVariables = () => {
     );
   }
 };
+
+// Escape a string to be used as a CSS identifier for view transitions
+export const escapeCSSIdentifier = (str: string): string => {
+  // Use CSS.escape if available (browser environment)
+  if (typeof CSS !== 'undefined' && CSS.escape) {
+    return CSS.escape(str);
+  }
+  // Fallback for server-side: simple replacement of common special characters
+  return str.replace(/[^a-zA-Z0-9_-]/g, (char) => `\\${char.charCodeAt(0).toString(16)} `);
+};
