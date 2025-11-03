@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #0E1B1B;
+}
+
+html, body, #__next {
+  height: 100%;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+.gradient-hero {
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(26,179,179,0.15), transparent),
+              radial-gradient(1000px 500px at 90% 30%, rgba(197,165,114,0.12), transparent);
+}
+
+

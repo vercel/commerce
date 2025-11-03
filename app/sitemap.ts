@@ -1,3 +1,15 @@
+import type { MetadataRoute } from 'next'
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const base = process.env.NEXTAUTH_URL || 'https://example.com'
+  return [
+    { url: `${base}/`, lastModified: new Date() },
+    { url: `${base}/shop`, lastModified: new Date() },
+    { url: `${base}/about`, lastModified: new Date() },
+    { url: `${base}/contact`, lastModified: new Date() }
+  ]
+}
+
 import { getCollections, getPages, getProducts } from 'lib/shopify';
 import { baseUrl, validateEnvironmentVariables } from 'lib/utils';
 import { MetadataRoute } from 'next';

@@ -1,3 +1,27 @@
+# Afghan Art Market
+
+Modern eCommerce built with Next.js 15, TypeScript, Tailwind, Shadcn UI, and Framer Motion. MongoDB via Prisma, NextAuth (credentials + wallet), Coinbase Commerce for crypto payments, and Cloudinary for images.
+
+## Getting Started
+
+```bash
+pnpm install # or npm/yarn
+pnpm dev
+```
+
+Set environment variables in `.env` (see `.env.example`).
+
+## Tech
+- Next.js 15 (App Router, Server Actions, PPR)
+- Tailwind CSS, Shadcn UI (utility patterns), Framer Motion
+- Prisma + MongoDB
+- NextAuth (Credentials + SIWE)
+- Coinbase Commerce (hosted checkout + webhooks)
+- Cloudinary
+
+## Structure
+See `af.plan.md` for structure and backlog.
+
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fcommerce&project-name=commerce&repo-name=commerce&demo-title=Next.js%20Commerce&demo-url=https%3A%2F%2Fdemo.vercel.store&demo-image=https%3A%2F%2Fbigcommerce-demo-asset-ksvtgfvnd.vercel.app%2Fbigcommerce.png&env=COMPANY_NAME,SHOPIFY_REVALIDATION_SECRET,SHOPIFY_STORE_DOMAIN,SHOPIFY_STOREFRONT_ACCESS_TOKEN,SITE_NAME)
 
 # Next.js Commerce

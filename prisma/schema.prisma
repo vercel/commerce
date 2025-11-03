@@ -1,0 +1,108 @@
+// Datasource and generator
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// Enums
+enum UserRole {
+  admin
+  seller
+  buyer
+}
+
+enum OrderStatus {
+  pending
+  verified
+  shipped
+  completed
+}
+
+enum PaymentMethod {
+  coinbase
+}
+
+enum PaymentStatus {
+  pending
+  paid
+  failed
+  refunded
+}
+
+// Models
+model User {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  email         String    @unique
+  passwordHash  String
+  role          UserRole
+  walletAddress String?   @unique
+  bio           String?
+  phone         String?
+  location      String?
+  createdAt     DateTime  @default(now())
+
+  products      Product[] @relation("UserProducts")
+  ordersAsBuyer Order[]   @relation("BuyerOrders")
+  ordersAsSeller Order[]  @relation("SellerOrders")
+  transactionsAsBuyer Transaction[] @relation("TransactionBuyer")
+  transactionsAsSeller Transaction[] @relation("TransactionSeller")
+}
+
+model Product {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  sellerId     String    @db.ObjectId
+  seller       User      @relation("UserProducts", fields:[sellerId], references: [id])
+  title        String
+  description  String
+  priceCentsUSD Int
+  category     String
+  images       String[]
+  isApproved   Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+
+  orders       Order[]
+  transactions  Transaction[]
+}
+
+model Order {
+  id            String       @id @default(auto()) @map("_id") @db.ObjectId
+  buyerId       String       @db.ObjectId
+  buyer         User         @relation("BuyerOrders", fields: [buyerId], references: [id])
+  sellerId      String       @db.ObjectId
+  seller        User         @relation("SellerOrders", fields: [sellerId], references: [id])
+  productId     String       @db.ObjectId
+  product       Product      @relation(fields: [productId], references: [id])
+  status        OrderStatus  @default(pending)
+  totalAmountCents Int
+  paymentMethod PaymentMethod
+  createdAt     DateTime     @default(now())
+
+  transaction   Transaction?
+}
+
+model Transaction {
+  id                 String        @id @default(auto()) @map("_id") @db.ObjectId
+  transactionId      String        @unique
+  orderId            String        @unique @db.ObjectId
+  order              Order         @relation(fields: [orderId], references: [id])
+  productId          String        @db.ObjectId
+  product            Product       @relation(fields: [productId], references: [id])
+  buyerId            String        @db.ObjectId
+  buyer              User          @relation("TransactionBuyer", fields: [buyerId], references: [id])
+  sellerId           String        @db.ObjectId
+  seller             User          @relation("TransactionSeller", fields: [sellerId], references: [id])
+  amountCents        Int
+  commissionCents    Int
+  adminShareCents    Int
+  sellerShareCents   Int
+  paymentStatus      PaymentStatus @default(pending)
+  createdAt          DateTime      @default(now())
+}
+
+
+

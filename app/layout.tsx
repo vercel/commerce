@@ -1,47 +1,26 @@
-import { CartProvider } from 'components/cart/cart-context';
-import { Navbar } from 'components/layout/navbar';
-import { WelcomeToast } from 'components/welcome-toast';
-import { GeistSans } from 'geist/font/sans';
-import { getCart } from 'lib/shopify';
-import { ReactNode } from 'react';
-import { Toaster } from 'sonner';
-import './globals.css';
-import { baseUrl } from 'lib/utils';
+import { CartProvider } from '@/components/cart/CartContext'
+import type { Metadata } from 'next'
+import './globals.css'
 
-const { SITE_NAME } = process.env;
-
-export const metadata = {
-  metadataBase: new URL(baseUrl),
-  title: {
-    default: SITE_NAME!,
-    template: `%s | ${SITE_NAME}`
-  },
-  robots: {
-    follow: true,
-    index: true
+export const metadata: Metadata = {
+  title: 'Afghan Art Market',
+  description: 'A global marketplace for Afghan female artisans.',
+  icons: { icon: '/favicon.ico' },
+  openGraph: {
+    title: 'Afghan Art Market',
+    description: 'Support Afghan female artisans with crypto-enabled commerce.',
+    type: 'website'
   }
-};
+}
 
-export default async function RootLayout({
-  children
-}: {
-  children: ReactNode;
-}) {
-  // Don't await the fetch, pass the Promise to the context provider
-  const cart = getCart();
-
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={GeistSans.variable}>
-      <body className="bg-neutral-50 text-black selection:bg-teal-300 dark:bg-neutral-900 dark:text-white dark:selection:bg-pink-500 dark:selection:text-white">
-        <CartProvider cartPromise={cart}>
-          <Navbar />
-          <main>
-            {children}
-            <Toaster closeButton />
-            <WelcomeToast />
-          </main>
+    <html lang="en" suppressHydrationWarning>
+      <body className="min-h-screen bg-brand-sand antialiased">
+        <CartProvider>
+          {children}
         </CartProvider>
       </body>
     </html>
-  );
+  )
 }
