@@ -1,0 +1,26 @@
+diff --git a/dist/esm/server/config.js b/dist/esm/server/config.js
+index b761a689b3282e8fea9f34019933e999c46a7112..60477261cc416ac0f2af0029fa30f29c0fb29938 100644
+--- a/dist/esm/server/config.js
++++ b/dist/esm/server/config.js
+@@ -228,7 +228,7 @@ function assignDefaults(dir, userConfig, silent) {
+             configurable: true
+         });
+     }
+-    if (isStableBuild()) {
++    if (false && isStableBuild()) {
+         var _result_experimental6, _result_experimental7, _result_experimental8;
+         // Prevents usage of certain experimental features outside of canary
+         if ((_result_experimental6 = result.experimental) == null ? void 0 : _result_experimental6.ppr) {
+diff --git a/dist/server/config.js b/dist/server/config.js
+index 75c1402ab56714ac75957732ffe990312b8e1a52..1d68067c0185b6d910707501dbab5036267a9fcb 100644
+--- a/dist/server/config.js
++++ b/dist/server/config.js
+@@ -302,7 +302,7 @@ function assignDefaults(dir, userConfig, silent) {
+             configurable: true
+         });
+     }
+-    if ((0, _canaryonly.isStableBuild)()) {
++    if (false && (0, _canaryonly.isStableBuild)()) {
+         var _result_experimental6, _result_experimental7, _result_experimental8;
+         // Prevents usage of certain experimental features outside of canary
+         if ((_result_experimental6 = result.experimental) == null ? void 0 : _result_experimental6.ppr) {
