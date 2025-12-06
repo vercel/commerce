@@ -61,7 +61,7 @@ import {
 const domain = process.env.SHOPIFY_STORE_DOMAIN
   ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, 'https://')
   : '';
-const endpoint = `${domain}${SHOPIFY_GRAPHQL_API_ENDPOINT}`;
+const endpoint = domain ? `${domain}${SHOPIFY_GRAPHQL_API_ENDPOINT}` : '';
 const key = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
 
 type ExtractVariables<T> = T extends { variables: object }
@@ -78,6 +78,10 @@ export async function shopifyFetch<T>({
   variables?: ExtractVariables<T>;
 }): Promise<{ status: number; body: T } | never> {
   try {
+    if (!endpoint) {
+      throw new Error('SHOPIFY_STORE_DOMAIN environment variable is not set');
+    }
+
     const result = await fetch(endpoint, {
       method: 'POST',
       headers: {
@@ -313,6 +317,11 @@ export async function getCollectionProducts({
   cacheTag(TAGS.collections, TAGS.products);
   cacheLife('days');
 
+  if (!endpoint) {
+    console.log(`Skipping getCollectionProducts for '${collection}' - Shopify not configured`);
+    return [];
+  }
+
   const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
     query: getCollectionProductsQuery,
     variables: {
@@ -336,6 +345,23 @@ export async function getCollections(): Promise<Collection[]> {
   'use cache';
   cacheTag(TAGS.collections);
   cacheLife('days');
+
+  if (!endpoint) {
+    console.log('Skipping getCollections - Shopify not configured');
+    return [
+      {
+        handle: '',
+        title: 'All',
+        description: 'All products',
+        seo: {
+          title: 'All',
+          description: 'All products'
+        },
+        path: '/search',
+        updatedAt: new Date().toISOString()
+      }
+    ];
+  }
 
   const res = await shopifyFetch<ShopifyCollectionsOperation>({
     query: getCollectionsQuery
@@ -367,6 +393,11 @@ export async function getMenu(handle: string): Promise<Menu[]> {
   'use cache';
   cacheTag(TAGS.collections);
   cacheLife('days');
+
+  if (!endpoint) {
+    console.log(`Skipping getMenu for '${handle}' - Shopify not configured`);
+    return [];
+  }
 
   const res = await shopifyFetch<ShopifyMenuOperation>({
     query: getMenuQuery,
@@ -407,6 +438,11 @@ export async function getProduct(handle: string): Promise<Product | undefined> {
   'use cache';
   cacheTag(TAGS.products);
   cacheLife('days');
+
+  if (!endpoint) {
+    console.log(`Skipping getProduct for '${handle}' - Shopify not configured`);
+    return undefined;
+  }
 
   const res = await shopifyFetch<ShopifyProductOperation>({
     query: getProductQuery,
@@ -490,11 +526,11 @@ export async function revalidate(req: NextRequest): Promise<NextResponse> {
   }
 
   if (isCollectionUpdate) {
-    revalidateTag(TAGS.collections);
+    revalidateTag(TAGS.collections, 'seconds');
   }
 
   if (isProductUpdate) {
-    revalidateTag(TAGS.products);
+    revalidateTag(TAGS.products, 'seconds');
   }
 
   return NextResponse.json({ status: 200, revalidated: true, now: Date.now() });
