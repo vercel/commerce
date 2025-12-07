@@ -3,6 +3,8 @@ import { getCollectionProducts } from 'lib/shopify';
 import type { Product } from 'lib/shopify/types';
 import Link from 'next/link';
 
+const MINIMUM_PRODUCTS_QUANTITY = 3;
+
 function ThreeItemGridItem({
   item,
   size,
@@ -47,7 +49,7 @@ export async function ThreeItemGrid() {
     collection: 'hidden-homepage-featured-items'
   });
 
-  if (!homepageItems[0] || !homepageItems[1] || !homepageItems[2]) return null;
+  if (homepageItems.length < MINIMUM_PRODUCTS_QUANTITY) return null;
 
   const [firstProduct, secondProduct, thirdProduct] = homepageItems;
 
