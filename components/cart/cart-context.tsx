@@ -28,6 +28,8 @@ type CartAction =
 
 type CartContextType = {
   cartPromise: Promise<Cart | undefined>;
+  optimisticCart: Cart | undefined;
+  updateOptimisticCart: (action: CartAction) => void;
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -197,8 +199,14 @@ export function CartProvider({
   children: React.ReactNode;
   cartPromise: Promise<Cart | undefined>;
 }) {
+  const initialCart = use(cartPromise);
+  const [optimisticCart, updateOptimisticCart] = useOptimistic(
+    initialCart,
+    cartReducer
+  );
+
   return (
-    <CartContext.Provider value={{ cartPromise }}>
+    <CartContext.Provider value={{ cartPromise, optimisticCart, updateOptimisticCart }}>
       {children}
     </CartContext.Provider>
   );
@@ -210,29 +218,23 @@ export function useCart() {
     throw new Error('useCart must be used within a CartProvider');
   }
 
-  const initialCart = use(context.cartPromise);
-  const [optimisticCart, updateOptimisticCart] = useOptimistic(
-    initialCart,
-    cartReducer
-  );
-
   const updateCartItem = (merchandiseId: string, updateType: UpdateType) => {
-    updateOptimisticCart({
+    context.updateOptimisticCart({
       type: 'UPDATE_ITEM',
       payload: { merchandiseId, updateType }
     });
   };
 
   const addCartItem = (variant: ProductVariant, product: Product) => {
-    updateOptimisticCart({ type: 'ADD_ITEM', payload: { variant, product } });
+    context.updateOptimisticCart({ type: 'ADD_ITEM', payload: { variant, product } });
   };
 
   return useMemo(
     () => ({
-      cart: optimisticCart,
+      cart: context.optimisticCart,
       updateCartItem,
       addCartItem
     }),
-    [optimisticCart]
+    [context.optimisticCart, context.updateOptimisticCart]
   );
 }
