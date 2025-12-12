@@ -29,7 +29,7 @@ export async function Carousel() {
                 }}
                 src={product.featuredImage?.url}
                 fill
-                sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+                sizes="(min-width: 1023px) 25vw, (min-width: 768px) 33vw, 50vw"
               />
             </Link>
           </li>
