@@ -19,10 +19,10 @@ importers:
         version: 2.1.1
       geist:
         specifier: ^1.3.1
-        version: 1.3.1(next@15.6.0-canary.59(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
+        version: 1.3.1(next@15.6.0-canary.60(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
       next:
-        specifier: 15.6.0-canary.59
-        version: 15.6.0-canary.59(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 15.6.0-canary.60
+        version: 15.6.0-canary.60(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react:
         specifier: 19.0.0
         version: 19.0.0
@@ -246,8 +246,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@next/env@15.6.0-canary.59':
-    resolution: {integrity: sha512-D5msVvBiiJrqAW3MPXP4rR7teMeCcMLCK3yTSCGM4XuuzAcO8Eb4RZtbSPS0zgvFKu9r5hv5eaTXlNmgNmZ5TQ==}
+  '@next/env@15.6.0-canary.60':
+    resolution: {integrity: sha512-VVoy8NpkI2ngEr3RsD8jzum8SbXisObkvcCMBJeiWRSMOtACIm6kbnTYjgLWeGEwHHKsVBdeJpnf558rF6ktbw==}
 
   '@next/swc-darwin-arm64@15.6.0-canary.58':
     resolution: {integrity: sha512-jGawwiKITJHOH8dSbTqfjVvCf+DesljZhtvh9LKCrO+1octLlGyDAbEQw5WEzrXCch5LWrdSqPyKft0/9LeniA==}
@@ -563,8 +563,8 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
-  next@15.6.0-canary.59:
-    resolution: {integrity: sha512-FOKHnHEVqtbMj2eQfgRgEkzEds/hqjz5JRBjLhT7UgPtvs36Vzc7RU9mh8lOZt/TONS7jVs+5ilv194QA/wdnQ==}
+  next@15.6.0-canary.60:
+    resolution: {integrity: sha512-E5gKHda+vdACO+/Bv53V3qcMrhmhH8UuctFSbNeCvnIfPoWPEUMHCB+hok7qxRlKwclXoQ5SUgUdgi6Ayzu5uA==}
     engines: {node: '>=20.9.0'}
     hasBin: true
     peerDependencies:
@@ -871,7 +871,7 @@ snapshots:
   '@img/sharp-win32-x64@0.34.5':
     optional: true
 
-  '@next/env@15.6.0-canary.59': {}
+  '@next/env@15.6.0-canary.60': {}
 
   '@next/swc-darwin-arm64@15.6.0-canary.58':
     optional: true
@@ -1064,9 +1064,9 @@ snapshots:
       graceful-fs: 4.2.11
       tapable: 2.2.1
 
-  geist@1.3.1(next@15.6.0-canary.59(react-dom@19.0.0(react@19.0.0))(react@19.0.0)):
+  geist@1.3.1(next@15.6.0-canary.60(react-dom@19.0.0(react@19.0.0))(react@19.0.0)):
     dependencies:
-      next: 15.6.0-canary.59(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      next: 15.6.0-canary.60(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
 
   graceful-fs@4.2.11: {}
 
@@ -1125,9 +1125,9 @@ snapshots:
 
   nanoid@3.3.11: {}
 
-  next@15.6.0-canary.59(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  next@15.6.0-canary.60(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
-      '@next/env': 15.6.0-canary.59
+      '@next/env': 15.6.0-canary.60
       '@swc/helpers': 0.5.15
       caniuse-lite: 1.0.30001706
       postcss: 8.4.31
