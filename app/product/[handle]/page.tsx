@@ -77,7 +77,9 @@ export default async function ProductPage(props: {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(productJsonLd),
+          __html: JSON.stringify(productJsonLd)
+            .replace(/</g, "\\u003c")
+            .replace(/>/g, "\\u003e"),
         }}
       />
       <div className="mx-auto max-w-(--breakpoint-2xl) px-4">
