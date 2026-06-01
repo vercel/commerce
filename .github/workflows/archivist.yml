@@ -1,0 +1,29 @@
+name: Archivist Architecture Review
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+permissions:
+  contents: read           # Required to read the repository code
+  pull-requests: write     # Required to read PR diffs and post comments
+  statuses: write          # Required to set the Green ✅ / Red ❌ commit status
+
+jobs:
+  archivist-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: Run Archivist AI
+        uses: Nithin0306/Archivist-action@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+          
+          # Optional: Add external knowledge base tokens here!
+          # notion_token: ${{ secrets.NOTION_TOKEN }}
+          # notion_database_id: ${{ secrets.NOTION_DATABASE_ID }}
+          # gdocs_adr_folder_id: ${{ secrets.GDOCS_FOLDER_ID }}
+          # google_credentials_json: ${{ secrets.GOOGLE_CREDENTIALS_JSON }}
