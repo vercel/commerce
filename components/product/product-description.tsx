@@ -16,7 +16,6 @@ export function ProductDescription({ product }: { product: Product }) {
           />
         </div>
       </div>
-      <VariantSelector options={product.options} variants={product.variants} />
       {product.descriptionHtml ? (
         <Prose
           className="mb-6 text-sm leading-tight dark:text-white/[60%]"
@@ -24,6 +23,25 @@ export function ProductDescription({ product }: { product: Product }) {
         />
       ) : null}
       <AddToCart product={product} />
+              {/* Buy Now Button */}
+      <div className="mt-6">
+        <button
+          onClick={() => {
+            // ফর্ম সাবমিট করে চেকআউট পেজে নিয়ে যাবে
+            const form = document.querySelector('form');
+            if (form) {
+              form.requestSubmit();
+              setTimeout(() => {
+                window.location.href = '/checkout';
+              }, 500);
+            }
+          }}
+          className="w-full !bg-blue-600 !text-white p-4 rounded-full font-semibold hover:!bg-blue-700 transition shadow-lg"
+        >
+          Buy Now
+        </button>
+      </div>
+
     </>
   );
 }
