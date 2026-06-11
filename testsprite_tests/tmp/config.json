@@ -1,0 +1,18 @@
+{
+  "status": "commited",
+  "type": "frontend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:3000",
+  "executionArgs": {
+    "projectName": "commerce",
+    "projectPath": "C:\\Users\\Acer\\Documents\\commerce",
+    "testIds": [],
+    "additionalInstruction": "",
+    "serverMode": "development",
+    "envs": {
+      "API_KEY": "sk-user-uw-jDfaesdPwiAoyGpCAIit-4tk3wxt-5vmfF_XkgnZJ8nq_8-aYlxkXZYlhul2dMxlkO7jFiPrEQKeBClg98lBm1Y2oqcP_3uMSHg6utxoaBI1Wn7Nd94wlRVIjkye6TiU"
+    }
+  },
+  "serverPort": 60113,
+  "proxy": "http://a314897e-8fab-4ef4-99c4-44cbd575abf7:ucM4n1wKgGZn8jVTzzhUsT1hxyAhLBbu@tun.testsprite.com:8080"
+}

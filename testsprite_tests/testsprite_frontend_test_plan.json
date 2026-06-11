@@ -1,0 +1,1549 @@
+[
+  {
+    "id": "TC001",
+    "title": "Homepage renders featured products grid and carousel content",
+    "description": "Verifies the home page loads and shows the featured products grid and product carousel content to a guest visitor.",
+    "category": "Browse Featured Products on Home",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Featured products\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Featured products grid\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Product carousel\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Product tile\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC002",
+    "title": "Scroll through featured products grid without losing content",
+    "description": "Verifies a visitor can scroll through the featured products grid area and still see product tiles rendered.",
+    "category": "Browse Featured Products on Home",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Featured products grid\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Scroll to \"Featured products grid\""
+      },
+      {
+        "type": "action",
+        "description": "Scroll to \"Footer\""
+      },
+      {
+        "type": "action",
+        "description": "Scroll to \"Featured products grid\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Product tile\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC003",
+    "title": "Scroll the product carousel to reveal additional items",
+    "description": "Verifies the product carousel can be advanced and still shows product items after scrolling.",
+    "category": "Browse Featured Products on Home",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Product carousel\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Carousel item\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Next\" on the product carousel"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Carousel item\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Next\" on the product carousel"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Carousel item\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC004",
+    "title": "Open a product detail page from a featured grid tile",
+    "description": "Verifies clicking a featured product tile navigates to a product detail page that shows title and price.",
+    "category": "Browse Featured Products on Home",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Featured products grid\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click a \"Product tile\" in the featured products grid"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/product/\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Product title\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Product price\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC005",
+    "title": "Homepage shows loading placeholders before featured content appears",
+    "description": "Verifies the home page initially shows loading placeholders for featured products and then shows product tiles.",
+    "category": "Browse Featured Products on Home",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Featured products loading placeholders\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Wait for element \"Product tile\" to appear"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Product tile\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Product carousel\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC006",
+    "title": "Navigate to Search from header navigation on the homepage",
+    "description": "Verifies a visitor can use the header navigation to reach the search page from the home page.",
+    "category": "Browse Featured Products on Home",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Header navigation\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Search\" in the header navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/search\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify page title contains \"Search\""
+      }
+    ]
+  },
+  {
+    "id": "TC007",
+    "title": "Empty featured section shows an empty or generic error message and user can still go to Search",
+    "description": "Verifies that if featured products fail to render, an empty state or generic error is shown and navigation to Search still works.",
+    "category": "Browse Featured Products on Home",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Wait for element \"Featured products section\" to appear"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Featured products empty state\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Header navigation\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Search\" in the header navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/search\""
+      }
+    ]
+  },
+  {
+    "id": "TC008",
+    "title": "Open a product detail page from Home and verify key PDP content renders",
+    "description": "Verifies a shopper can navigate from the home page to a product detail page and see the main image, title, and price.",
+    "category": "View Product Details and Gallery",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Featured products\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on the first product tile in the featured products section"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/product/\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Main product image\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Product title\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Product price\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC009",
+    "title": "Change gallery thumbnail and verify main product image updates",
+    "description": "Verifies clicking a gallery thumbnail updates the main product image on the PDP.",
+    "category": "View Product Details and Gallery",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click on the first product tile in the featured products section"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/product/\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Main product image\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on the second gallery thumbnail"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Selected thumbnail\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Main product image\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC010",
+    "title": "Read HTML-rendered product description on PDP",
+    "description": "Verifies the product description section renders visible content (HTML-rendered) on the PDP.",
+    "category": "View Product Details and Gallery",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click on the first product tile in the featured products section"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/product/\""
+      },
+      {
+        "type": "action",
+        "description": "Scroll to the product description section"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Product description\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Product title\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC011",
+    "title": "Verify related products section is visible and opens another PDP",
+    "description": "Verifies related products render on the PDP and a related item navigates to a different product page.",
+    "category": "View Product Details and Gallery",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click on the first product tile in the featured products section"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/product/\""
+      },
+      {
+        "type": "action",
+        "description": "Scroll down to the related products section"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Related products\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on the first product tile in the related products section"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/product/\""
+      }
+    ]
+  },
+  {
+    "id": "TC012",
+    "title": "PDP initial loading placeholders appear before product content",
+    "description": "Verifies the product page shows loading placeholders/skeletons before full product content is displayed.",
+    "category": "View Product Details and Gallery",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click on the first product tile in the featured products section"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/product/\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Product loading placeholders\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Wait for element \"Product title\" to appear"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Main product image\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Product price\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC013",
+    "title": "Recover from empty/error PDP state by returning to Home via navbar logo",
+    "description": "Verifies that if the PDP shows a generic empty/error state, the shopper can navigate back to the home page using the navbar logo.",
+    "category": "View Product Details and Gallery",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click on the first product tile in the featured products section"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/product/\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Generic error or empty product state\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on the site logo in the navbar"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Featured products\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC014",
+    "title": "Search returns results and opens a product detail page",
+    "description": "Verifies a shopper can search from /search, see results count and query text, and open a product from the results grid.",
+    "category": "Search Products",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /search"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Search\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click the search input in the navbar"
+      },
+      {
+        "type": "action",
+        "description": "Type \"shirt\" into the search input"
+      },
+      {
+        "type": "action",
+        "description": "Press Enter"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"shirt\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Scroll to the results grid"
+      },
+      {
+        "type": "action",
+        "description": "Click on the first product in the results grid"
+      }
+    ]
+  },
+  {
+    "id": "TC015",
+    "title": "Search shows total results count for a common query",
+    "description": "Verifies that after submitting a search, the UI displays a visible total results count along with the query text.",
+    "category": "Search Products",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /search"
+      },
+      {
+        "type": "action",
+        "description": "Click the search input in the navbar"
+      },
+      {
+        "type": "action",
+        "description": "Type \"hat\" into the search input"
+      },
+      {
+        "type": "action",
+        "description": "Press Enter"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"hat\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"results\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"results grid\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC016",
+    "title": "Zero-results search shows empty state and allows continue shopping",
+    "description": "Verifies a search with no matches shows a no-results empty state and the Continue Shopping action is available.",
+    "category": "Search Products",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /search"
+      },
+      {
+        "type": "action",
+        "description": "Click the search input in the navbar"
+      },
+      {
+        "type": "action",
+        "description": "Type \"zzzz-nonexistent-product-123\" into the search input"
+      },
+      {
+        "type": "action",
+        "description": "Press Enter"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"no results\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"refine\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Continue Shopping\""
+      }
+    ]
+  },
+  {
+    "id": "TC017",
+    "title": "Zero-results search can be recovered by modifying the query to get results",
+    "description": "Verifies that a shopper can change a no-results query to a common query and see the results grid appear.",
+    "category": "Search Products",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /search"
+      },
+      {
+        "type": "action",
+        "description": "Click the search input in the navbar"
+      },
+      {
+        "type": "action",
+        "description": "Type \"zzzz-nonexistent-product-123\" into the search input"
+      },
+      {
+        "type": "action",
+        "description": "Press Enter"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"no results\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click the search input in the navbar"
+      },
+      {
+        "type": "action",
+        "description": "Type \"shoe\" into the search input"
+      },
+      {
+        "type": "action",
+        "description": "Press Enter"
+      }
+    ]
+  },
+  {
+    "id": "TC018",
+    "title": "Search handles whitespace-only input without crashing",
+    "description": "Verifies submitting a whitespace-only query does not break the page and shows a stable visible state (results or empty state).",
+    "category": "Search Products",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /search"
+      },
+      {
+        "type": "action",
+        "description": "Click the search input in the navbar"
+      },
+      {
+        "type": "action",
+        "description": "Type \"     \" into the search input"
+      },
+      {
+        "type": "action",
+        "description": "Press Enter"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"search input\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"search results section\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC019",
+    "title": "Search supports special characters in query and remains functional",
+    "description": "Verifies that a query containing special characters is accepted and the page remains usable with a visible result or empty state.",
+    "category": "Search Products",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /search"
+      },
+      {
+        "type": "action",
+        "description": "Click the search input in the navbar"
+      },
+      {
+        "type": "action",
+        "description": "Type \"men's\" into the search input"
+      },
+      {
+        "type": "action",
+        "description": "Press Enter"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"search results section\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"search input\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC020",
+    "title": "Search results grid is scrollable and remains populated while browsing",
+    "description": "Verifies the shopper can scroll through results and the grid stays visible without losing the query context.",
+    "category": "Search Products",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /search"
+      },
+      {
+        "type": "action",
+        "description": "Click the search input in the navbar"
+      },
+      {
+        "type": "action",
+        "description": "Type \"t\" into the search input"
+      },
+      {
+        "type": "action",
+        "description": "Press Enter"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"results grid\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Scroll to the bottom of the results grid"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"results grid\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"t\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC021",
+    "title": "Switch collections from left sidebar updates the collection results grid",
+    "description": "Verifies that selecting a different collection from the left sidebar updates the visible product grid accordingly.",
+    "category": "Filter and Sort Products by Collection",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /search."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Collections\" is visible."
+      },
+      {
+        "type": "action",
+        "description": "Click on the first visible collection link in the left sidebar."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Product results grid\" is visible."
+      },
+      {
+        "type": "action",
+        "description": "Click on a different visible collection link in the left sidebar."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Product results grid\" is visible."
+      }
+    ]
+  },
+  {
+    "id": "TC022",
+    "title": "Change sort order updates the product grid for the current collection",
+    "description": "Verifies that changing the sort option in the right sidebar causes the product grid to refresh for the same collection.",
+    "category": "Filter and Sort Products by Collection",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /search."
+      },
+      {
+        "type": "action",
+        "description": "Click on any visible collection link in the left sidebar."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Product results grid\" is visible."
+      },
+      {
+        "type": "action",
+        "description": "Click on the sort dropdown in the right sidebar."
+      },
+      {
+        "type": "action",
+        "description": "Select \"Price: Low to High\" from the sort dropdown."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Product results grid\" is visible."
+      },
+      {
+        "type": "action",
+        "description": "Click on the sort dropdown in the right sidebar."
+      },
+      {
+        "type": "action",
+        "description": "Select \"Price: High to Low\" from the sort dropdown."
+      }
+    ]
+  },
+  {
+    "id": "TC023",
+    "title": "Sort selection persists while switching between collections during the session",
+    "description": "Verifies that a chosen sort option remains selected when the user switches collections using the left sidebar.",
+    "category": "Filter and Sort Products by Collection",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /search."
+      },
+      {
+        "type": "action",
+        "description": "Click on any visible collection link in the left sidebar."
+      },
+      {
+        "type": "action",
+        "description": "Click on the sort dropdown in the right sidebar."
+      },
+      {
+        "type": "action",
+        "description": "Select \"Price: Low to High\" from the sort dropdown."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Price: Low to High\" is visible."
+      },
+      {
+        "type": "action",
+        "description": "Click on a different visible collection link in the left sidebar."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Price: Low to High\" is visible."
+      }
+    ]
+  },
+  {
+    "id": "TC024",
+    "title": "Open a product from a collection results grid to reach the product detail page",
+    "description": "Verifies that clicking a product card from a collection results grid navigates to a product detail page.",
+    "category": "Filter and Sort Products by Collection",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /search."
+      },
+      {
+        "type": "action",
+        "description": "Click on any visible collection link in the left sidebar."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Product results grid\" is visible."
+      },
+      {
+        "type": "action",
+        "description": "Click on the first visible product card in the product results grid."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/product/\"."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Add to cart\" is visible."
+      }
+    ]
+  },
+  {
+    "id": "TC025",
+    "title": "Loading placeholders appear before collection products render",
+    "description": "Verifies that loading placeholders are shown while collection results are being fetched and then the grid appears.",
+    "category": "Filter and Sort Products by Collection",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /search."
+      },
+      {
+        "type": "action",
+        "description": "Click on any visible collection link in the left sidebar."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Loading\" is visible."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Product results grid\" is visible."
+      }
+    ]
+  },
+  {
+    "id": "TC026",
+    "title": "Empty collection state is shown when a collection has no products",
+    "description": "Verifies that the UI shows an empty-state message when the selected collection returns no products.",
+    "category": "Filter and Sort Products by Collection",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /search."
+      },
+      {
+        "type": "action",
+        "description": "Click on any visible collection link in the left sidebar."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Product results grid\" is visible."
+      },
+      {
+        "type": "action",
+        "description": "Click on a collection link that appears to be empty or returns no results (if present) in the left sidebar."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"No products\" is visible."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Product results grid\" is not visible."
+      }
+    ]
+  },
+  {
+    "id": "TC027",
+    "title": "Recover from an empty or error state by switching to another collection",
+    "description": "Verifies that after seeing an empty/error state for one collection, selecting another collection updates the view to show products or a new empty state.",
+    "category": "Filter and Sort Products by Collection",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /search."
+      },
+      {
+        "type": "action",
+        "description": "Click on a collection link that appears to be empty or returns no results (if present) in the left sidebar."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"No products\" is visible."
+      },
+      {
+        "type": "action",
+        "description": "Click on a different visible collection link in the left sidebar."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Product results grid\" is visible."
+      }
+    ]
+  },
+  {
+    "id": "TC028",
+    "title": "Sorting controls remain available even when no products are shown",
+    "description": "Verifies the sort dropdown is still present and operable when the selected collection has no results.",
+    "category": "Filter and Sort Products by Collection",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /search."
+      },
+      {
+        "type": "action",
+        "description": "Click on a collection link that appears to be empty or returns no results (if present) in the left sidebar."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"No products\" is visible."
+      },
+      {
+        "type": "action",
+        "description": "Click on the sort dropdown in the right sidebar."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Sort options list\" is visible."
+      },
+      {
+        "type": "action",
+        "description": "Select \"Relevance\" from the sort dropdown."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"No products\" is visible."
+      }
+    ]
+  },
+  {
+    "id": "TC029",
+    "title": "Add item to cart from PDP, update quantity, and proceed to Shopify Checkout",
+    "description": "Verifies a shopper can add a product to the cart, increase quantity in the cart drawer, see subtotal update, and proceed to Shopify Checkout.",
+    "category": "Shopping Cart and Add to Cart",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click on a featured product in the product grid to open its product detail page."
+      },
+      {
+        "type": "action",
+        "description": "Select an available product variant option if variant selection is presented."
+      },
+      {
+        "type": "action",
+        "description": "Click the Add to Cart button."
+      },
+      {
+        "type": "action",
+        "description": "Click the cart icon/button in the site header to open the cart drawer."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the added product line item is visible in the cart drawer with a quantity displayed."
+      },
+      {
+        "type": "action",
+        "description": "Click the Plus (increase quantity) control for the line item."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the subtotal amount shown in the cart drawer is visible and reflects the updated quantity."
+      }
+    ]
+  },
+  {
+    "id": "TC030",
+    "title": "Proceed to Checkout redirects to Shopify checkout domain",
+    "description": "Verifies that clicking Proceed to Checkout from the cart drawer redirects the shopper to the Shopify checkout page.",
+    "category": "Shopping Cart and Add to Cart",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click on a featured product in the product grid to open its product detail page."
+      },
+      {
+        "type": "action",
+        "description": "Select an available product variant option if variant selection is presented."
+      },
+      {
+        "type": "action",
+        "description": "Click the Add to Cart button."
+      },
+      {
+        "type": "action",
+        "description": "Click the cart icon/button in the site header to open the cart drawer."
+      },
+      {
+        "type": "action",
+        "description": "Click the Proceed to Checkout button."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"checkout\"."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"shopify\"."
+      }
+    ]
+  },
+  {
+    "id": "TC031",
+    "title": "Variant required: Add to Cart is prevented when variant is not selected",
+    "description": "Verifies that when a product requires a variant selection, Add to Cart is disabled or prevented until the shopper selects a variant.",
+    "category": "Shopping Cart and Add to Cart",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click on a featured product in the product grid to open its product detail page."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an option to select a variant (such as size or color) is visible on the page."
+      },
+      {
+        "type": "action",
+        "description": "Click the Add to Cart button without selecting any variant option."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text indicating a selection is required (or an equivalent validation message) is visible, or the Add to Cart control appears disabled."
+      },
+      {
+        "type": "action",
+        "description": "Click the cart icon/button in the site header to open the cart drawer."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the cart drawer shows an empty state message or no line items are visible."
+      }
+    ]
+  },
+  {
+    "id": "TC032",
+    "title": "Cart drawer shows correct item details after adding (thumbnail and quantity)",
+    "description": "Verifies the cart drawer presents the added product with a thumbnail/image and quantity information.",
+    "category": "Shopping Cart and Add to Cart",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click on a featured product in the product grid to open its product detail page."
+      },
+      {
+        "type": "action",
+        "description": "Select an available product variant option if variant selection is presented."
+      },
+      {
+        "type": "action",
+        "description": "Click the Add to Cart button."
+      },
+      {
+        "type": "action",
+        "description": "Click the cart icon/button in the site header to open the cart drawer."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a product thumbnail/image is visible for the cart line item."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the cart line item quantity indicator is visible."
+      }
+    ]
+  },
+  {
+    "id": "TC033",
+    "title": "Decrease quantity in cart drawer and verify quantity updates",
+    "description": "Verifies a shopper can decrease an item quantity using the cart drawer controls and the displayed quantity updates accordingly.",
+    "category": "Shopping Cart and Add to Cart",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click on a featured product in the product grid to open its product detail page."
+      },
+      {
+        "type": "action",
+        "description": "Select an available product variant option if variant selection is presented."
+      },
+      {
+        "type": "action",
+        "description": "Click the Add to Cart button."
+      },
+      {
+        "type": "action",
+        "description": "Click the cart icon/button in the site header to open the cart drawer."
+      },
+      {
+        "type": "action",
+        "description": "Click the Plus (increase quantity) control for the line item."
+      },
+      {
+        "type": "action",
+        "description": "Click the Minus (decrease quantity) control for the line item."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the line item quantity displayed is visible and reflects the decreased amount."
+      }
+    ]
+  },
+  {
+    "id": "TC034",
+    "title": "Remove item from cart drawer results in empty cart state",
+    "description": "Verifies a shopper can remove an item from the cart and the cart drawer updates to show an empty state.",
+    "category": "Shopping Cart and Add to Cart",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /"
+      },
+      {
+        "type": "action",
+        "description": "Click on a featured product in the product grid to open its product detail page."
+      },
+      {
+        "type": "action",
+        "description": "Select an available product variant option if variant selection is presented."
+      },
+      {
+        "type": "action",
+        "description": "Click the Add to Cart button."
+      },
+      {
+        "type": "action",
+        "description": "Click the cart icon/button in the site header to open the cart drawer."
+      },
+      {
+        "type": "action",
+        "description": "Click the Remove (delete) control for the line item."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the cart drawer shows an empty state message or no line items are visible."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the subtotal amount is not shown or is shown as zero."
+      }
+    ]
+  },
+  {
+    "id": "TC035",
+    "title": "Home page shows consistent global layout (navbar + footer)",
+    "description": "Verifies the home page renders the global navbar elements and footer as part of the consistent layout.",
+    "category": "Global Navigation and Layout",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to \"/\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"site navbar\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"navbar logo\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"navbar search input\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"navbar cart icon\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"navbar cart item counter\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"site footer\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC036",
+    "title": "Navigate from Home to Search using navbar and keep header/footer consistent",
+    "description": "Verifies navbar navigation to the Search page works and the global layout remains consistent after navigation.",
+    "category": "Global Navigation and Layout",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to \"/\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Search\" in the navbar"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/search\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"site navbar\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"navbar search input\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"navbar cart icon\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"site footer\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC037",
+    "title": "Search via navbar input routes to search results page",
+    "description": "Verifies typing a query into the navbar search input and submitting takes the user to the Search page with results context.",
+    "category": "Global Navigation and Layout",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to \"/\""
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"navbar search input\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"shirt\" into the \"navbar search input\""
+      },
+      {
+        "type": "action",
+        "description": "Press \"Enter\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/search\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"shirt\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"site footer\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC038",
+    "title": "Add to cart shows toast confirmation",
+    "description": "Verifies that adding an item to the cart triggers a visible toast confirmation message.",
+    "category": "Global Navigation and Layout",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to \"/\""
+      },
+      {
+        "type": "action",
+        "description": "Click on a \"featured product\" from the home page"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Add to cart\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Add to cart\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"toast notification\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Added\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"navbar cart item counter\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC039",
+    "title": "Cart persists across navigation from product page to search page",
+    "description": "Verifies cart state (cart counter) persists after adding an item and navigating to another page.",
+    "category": "Global Navigation and Layout",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to \"/\""
+      },
+      {
+        "type": "action",
+        "description": "Click on a \"featured product\" from the home page"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Add to cart\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"toast notification\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"navbar cart item counter\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Search\" in the navbar"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/search\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"navbar cart item counter\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC040",
+    "title": "Cart contents visible via cart icon after adding item",
+    "description": "Verifies the cart slide-out (or cart panel) can be opened from the navbar and shows the added item.",
+    "category": "Global Navigation and Layout",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to \"/\""
+      },
+      {
+        "type": "action",
+        "description": "Click on a \"featured product\" from the home page"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Add to cart\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"toast notification\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"navbar cart icon\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"cart panel\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"cart line item\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC041",
+    "title": "Navbar still usable when navigation menu links are missing/reduced",
+    "description": "Verifies that even if the navbar shows reduced/placeholder navigation links, search and cart actions remain usable.",
+    "category": "Global Navigation and Layout",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to \"/\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"site navbar\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"navbar search input\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"navbar search input\""
+      },
+      {
+        "type": "action",
+        "description": "Type \"hat\" into the \"navbar search input\""
+      },
+      {
+        "type": "action",
+        "description": "Press \"Enter\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/search\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"navbar cart icon\" is visible"
+      }
+    ]
+  },
+  {
+   "id": "TC042",
+   "title": "Footer remains present after multiple navigations",
+   "description": "Verifies the footer continues to render after navigating between pages, indicating consistent global layout.",
+   "category": "Global Navigation and Layout",
+   "priority": "Low",
+   "steps": [
+    {
+     "type": "action",
+     "description": "Navigate to \"/\""
+    },
+    {
+     "type": "assertion",
+     "description": "Verify element \"site footer\" is visible"
+    },
+    {
+     "type": "action",
+     "description": "Click on \"Search\" in the navbar"
+    },
+    {
+     "type": "assertion",
+     "description": "Verify element \"site footer\" is visible"
+    },
+    {
+     "type": "action",
+     "description": "Click on the \"navbar logo\""
+    },
+    {
+     "type": "assertion",
+     "description": "Verify URL contains \"/\""
+    },
+    {
+     "type": "assertion",
+     "description": "Verify element \"site footer\" is visible"
+    }
+   ]
+  },
+  {
+   "id": "TC043",
+   "title": "Empty search input submission keeps page stable",
+   "description": "Verifies submitting an empty search query in the navbar does not show an error and the page remains usable.",
+   "category": "Search Products",
+   "priority": "Medium",
+   "steps": [
+    {
+     "type": "action",
+     "description": "Navigate to /search"
+    },
+    {
+     "type": "action",
+     "description": "Click the search input in the navbar"
+    },
+    {
+     "type": "action",
+     "description": "Ensure the search input is empty"
+    },
+    {
+     "type": "action",
+     "description": "Press Enter"
+    },
+    {
+     "type": "assertion",
+     "description": "Verify the search input is still visible"
+    },
+    {
+     "type": "assertion",
+     "description": "Verify the page URL contains \"/search\""
+    }
+   ]
+  }
+]
