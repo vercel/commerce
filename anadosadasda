@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>أحمد - مصمم فوتوشوب</title>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #f8f8f8;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      direction: rtl;
+    }
+    header {
+      background-color: #222;
+      color: white;
+      padding: 30px 0;
+    }
+    section {
+      padding: 30px;
+    }
+    .portfolio img {
+      width: 300px;
+      margin: 10px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    footer {
+      background-color: #222;
+      color: white;
+      padding: 20px 0;
+    }
+    a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>أهلاً بيك 👋</h1>
+    <p>أنا أحمد، مصمم فوتوشوب محترف</p>
+  </header>
+
+  <section>
+    <h2>نبذة عني</h2>
+    <p>أقدم خدمات تصميم احترافية باستخدام الفوتوشوب، مثل تعديل الصور، تصميم بوسترات، لوجوهات، وسوشيال ميديا.</p>
+  </section>
+
+  <section class="portfolio">
+    <h2>بعض أعمالي</h2>
+    <img src="file:///D:/%D8%AE%D8%A7%D8%B5%20%D8%A8%D8%A7%D8%B9%D9%85%D8%A7%D9%84%20%D8%A7%D8%AD%D9%85%D8%AF/photoshop/Photoshop%20Cs6/%D8%B5%D9%88%D8%B1%20%D8%A7%D9%84%D9%81%D9%88%D8%AA%D9%88%D8%B4%D9%88%D8%A8/%D8%A7%D9%84%D8%B5%D9%88%D8%B1%20%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9/%D8%B1%D9%85%D8%B6%D8%A7%D9%86%20%D8%A7%D8%AD%D9%84%D9%8A%20%D9%85%D8%B9%20%D8%B2%D9%8A%D8%AA%20%D8%B9%D8%A8%D8%A7%D8%AF.png" alt="تصميم 1" />
+    <img src="file:///D:/%D8%AE%D8%A7%D8%B5%20%D8%A8%D8%A7%D8%B9%D9%85%D8%A7%D9%84%20%D8%A7%D8%AD%D9%85%D8%AF/photoshop/Photoshop%20Cs6/%D8%B5%D9%88%D8%B1%20%D8%A7%D9%84%D9%81%D9%88%D8%AA%D9%88%D8%B4%D9%88%D8%A8/%D8%A7%D9%84%D8%B5%D9%88%D8%B1%20%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9/%D9%85%D8%B9%D8%A7%D9%83%20%D9%83%D9%84%20%D9%88%D9%82%D8%AA.png" alt="تصميم 2" />
+    <img src="file:///D:/%D8%AE%D8%A7%D8%B5%20%D8%A8%D8%A7%D8%B9%D9%85%D8%A7%D9%84%20%D8%A7%D8%AD%D9%85%D8%AF/photoshop/Photoshop%20Cs6/%D8%B5%D9%88%D8%B1%20%D8%A7%D9%84%D9%81%D9%88%D8%AA%D9%88%D8%B4%D9%88%D8%A8/%D8%A7%D9%84%D8%B5%D9%88%D8%B1%20%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9/%D9%85%D9%83%D8%B1%D9%88%D9%86%D8%A9%20%D8%A7%D9%84%D9%85%D9%84%D9%83%D8%A9.png" alt="تصميم 3" />
+
+  </section>
+
+  <section>
+    <h2>تواصل معي</h2>
+    <p>واتساب: <a href="https://wa.me/201234567890">اضغط هنا للتواصل</a></p>
+    <p>موقعي الرسمي: <a href="https://ahmed-photoshop.vercel.app" target="_blank">ahmed-photoshop.vercel.app</a></p>
+  </section>
+
+  <footer>
+    <p>© 2025 - جميع الحقوق محفوظة لـ أحمد</p>
+  </footer>
+
+</body>
+</html>
