@@ -31,6 +31,28 @@ Vercel is happy to partner and work with any commerce provider to help them get 
 
 > Note: Providers, if you are looking to use similar products for your demo, you can [download these assets](https://drive.google.com/file/d/1q_bKerjrwZgHwCw0ovfUMW6He9VtepO_/view?usp=sharing).
 
+## Shopify homepage collections
+
+The default homepage expects two Shopify collections to exist. Shopify sample data may create products, but it does not always create the exact collections and handles used by this template.
+
+- `hidden-homepage-featured-items`
+- `hidden-homepage-carousel`
+
+If these collections do not exist or are not published to your storefront sales channel, the homepage grid and carousel will render empty.
+
+To create them in Shopify Admin:
+
+1. Go to `Products` -> `Collections`.
+2. Create a collection for the featured homepage grid.
+3. Set its handle to `hidden-homepage-featured-items`.
+4. Add at least 3 products to that collection.
+5. Create another collection for the homepage carousel.
+6. Set its handle to `hidden-homepage-carousel`.
+7. Add products to that collection.
+8. Make sure both collections are available to the sales channel used by your Storefront API token.
+
+Collections whose handles start with `hidden-` are intentionally excluded from the `/search` collection listing, but they are still used by the homepage.
+
 ## Integrations
 
 Integrations enable upgraded or additional functionality for Next.js Commerce
