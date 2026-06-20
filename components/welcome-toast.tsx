@@ -5,10 +5,11 @@ import { toast } from "sonner";
 
 export function WelcomeToast() {
   useEffect(() => {
-    // ignore if screen height is too small
+    // Ignore if screen height is too small.
     if (window.innerHeight < 650) return;
+
     if (!document.cookie.includes("welcome-toast=2")) {
-      toast("🛍️ Welcome to Next.js Commerce!", {
+      toast("\u{1F6CD}\uFE0F Welcome to Next.js Commerce!", {
         id: "welcome-toast",
         duration: Infinity,
         onDismiss: () => {
@@ -22,6 +23,7 @@ export function WelcomeToast() {
               href="https://vercel.com/templates/next.js/nextjs-commerce"
               className="text-blue-600 hover:underline"
               target="_blank"
+              rel="noreferrer"
             >
               Deploy your own
             </a>

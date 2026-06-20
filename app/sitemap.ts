@@ -1,5 +1,5 @@
 import { getCollections, getPages, getProducts } from "lib/shopify";
-import { baseUrl, validateEnvironmentVariables } from "lib/utils";
+import { baseUrl } from "lib/utils";
 import { MetadataRoute } from "next";
 
 type Route = {
@@ -10,8 +10,6 @@ type Route = {
 export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  validateEnvironmentVariables();
-
   const routesMap = [""].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString(),
@@ -38,15 +36,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   );
 
-  let fetchedRoutes: Route[] = [];
-
-  try {
-    fetchedRoutes = (
-      await Promise.all([collectionsPromise, productsPromise, pagesPromise])
-    ).flat();
-  } catch (error) {
-    throw JSON.stringify(error, null, 2);
-  }
+  const fetchedRoutes: Route[] = (
+    await Promise.all([collectionsPromise, productsPromise, pagesPromise])
+  ).flat();
 
   return [...routesMap, ...fetchedRoutes];
 }
