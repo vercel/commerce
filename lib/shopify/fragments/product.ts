@@ -14,6 +14,16 @@ const productFragment = /* GraphQL */ `
       name
       values
     }
+    compareAtPriceRange {
+      maxVariantPrice {
+        amount
+        currencyCode
+      }
+      minVariantPrice {
+        amount
+        currencyCode
+      }
+    }
     priceRange {
       maxVariantPrice {
         amount
