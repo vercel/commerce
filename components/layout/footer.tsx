@@ -1,76 +1,90 @@
 import Link from "next/link";
 
 import FooterMenu from "components/layout/footer-menu";
-import LogoSquare from "components/logo-square";
+import LogoIcon from "components/icons/logo";
 import { getMenu } from "lib/shopify";
 import { Suspense } from "react";
 
-const { COMPANY_NAME, SITE_NAME } = process.env;
+const COMPANY_NAME = process.env.COMPANY_NAME || "Lone Elk Coffee Company";
+const SITE_NAME = process.env.SITE_NAME || "Lone Elk Coffee Company";
 
 export default async function Footer() {
   const currentYear = new Date().getFullYear();
-  const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : "");
-  const skeleton =
-    "w-full h-6 animate-pulse rounded-sm bg-neutral-200 dark:bg-neutral-700";
+  const copyrightDate = 2026 + (currentYear > 2026 ? `-${currentYear}` : "");
+  const skeleton = "w-full h-6 animate-pulse bg-coal";
   const menu = await getMenu("next-js-frontend-footer-menu");
   const copyrightName = COMPANY_NAME || SITE_NAME || "";
 
   return (
-    <footer className="text-sm text-neutral-500 dark:text-neutral-400">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 border-t border-neutral-200 px-6 py-12 text-sm md:flex-row md:gap-12 md:px-4 min-[1320px]:px-0 dark:border-neutral-700">
-        <div>
-          <Link
-            className="flex items-center gap-2 text-black md:pt-1 dark:text-white"
-            href="/"
-          >
-            <LogoSquare size="sm" />
-            <span className="uppercase">{SITE_NAME}</span>
+    <footer className="border-t border-seam bg-night text-sm text-bone/50">
+      <div className="mx-auto flex w-full max-w-(--breakpoint-2xl) flex-col gap-10 px-6 py-16 md:flex-row md:justify-between md:gap-12">
+        <div className="max-w-sm">
+          <Link className="flex items-center gap-3 text-bone" href="/">
+            <LogoIcon className="h-9 w-9 text-field" />
+            <span className="leading-none">
+              <span className="font-display block text-2xl font-bold tracking-[0.22em] uppercase">
+                Lone Elk
+              </span>
+              <span className="mt-1 block font-mono text-[10px] tracking-[0.38em] text-bone/50 uppercase">
+                Coffee Company
+              </span>
+            </span>
           </Link>
+          <p className="mt-6 leading-relaxed text-bone/50">
+            Premium small-batch coffee, fresh-roasted on demand for the people
+            who put in the miles under load.
+          </p>
+          <p className="mt-6 font-mono text-[10px] tracking-[0.3em] text-bone/35 uppercase">
+            38.53° N / 90.54° W — Lone Elk, MO
+          </p>
         </div>
-        <Suspense
-          fallback={
-            <div className="flex h-[188px] w-[200px] flex-col gap-2">
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-            </div>
-          }
-        >
-          <FooterMenu menu={menu} />
-        </Suspense>
-        <div className="md:ml-auto">
-          <a
-            className="flex h-8 w-max flex-none items-center justify-center rounded-md border border-neutral-200 bg-white text-xs text-black dark:border-neutral-700 dark:bg-black dark:text-white"
-            aria-label="Deploy on Vercel"
-            href="https://vercel.com/templates/next.js/nextjs-commerce"
-          >
-            <span className="px-3">▲</span>
-            <hr className="h-full border-r border-neutral-200 dark:border-neutral-700" />
-            <span className="px-3">Deploy</span>
-          </a>
+        <div className="flex flex-col gap-10 md:flex-row md:gap-16">
+          <nav aria-label="Shop">
+            <h3 className="font-display mb-4 text-xs font-semibold tracking-[0.3em] text-bone uppercase">
+              Shop
+            </h3>
+            <ul>
+              <li>
+                <Link
+                  href="/search"
+                  className="block py-2 font-mono text-sm tracking-[0.14em] text-bone/50 uppercase transition-colors hover:text-bone md:text-xs"
+                >
+                  All Roasts
+                </Link>
+              </li>
+            </ul>
+            <Suspense
+              fallback={
+                <div className="flex h-[120px] w-[160px] flex-col gap-2">
+                  <div className={skeleton} />
+                  <div className={skeleton} />
+                  <div className={skeleton} />
+                </div>
+              }
+            >
+              <FooterMenu menu={menu} />
+            </Suspense>
+          </nav>
+          <div>
+            <h3 className="font-display mb-4 text-xs font-semibold tracking-[0.3em] text-bone uppercase">
+              The Standard
+            </h3>
+            <ul className="space-y-2 font-mono text-xs tracking-[0.14em] uppercase">
+              <li>Roasted to order</li>
+              <li>Shipped within 48 hrs</li>
+              <li>Small batch, always</li>
+            </ul>
+          </div>
         </div>
       </div>
-      <div className="border-t border-neutral-200 py-6 text-sm dark:border-neutral-700">
-        <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-1 px-4 md:flex-row md:gap-0 md:px-4 min-[1320px]:px-0">
+      <div className="border-t border-seam py-6">
+        <div className="mx-auto flex w-full max-w-(--breakpoint-2xl) flex-col items-center gap-2 px-6 font-mono text-[11px] tracking-[0.14em] uppercase md:flex-row md:gap-0">
           <p>
-            &copy; {copyrightDate} {copyrightName}
-            {copyrightName.length && !copyrightName.endsWith(".")
-              ? "."
-              : ""}{" "}
+            © {copyrightDate} {copyrightName}
+            {copyrightName.length && !copyrightName.endsWith(".") ? "." : ""}{" "}
             All rights reserved.
           </p>
-          <hr className="mx-4 hidden h-4 w-[1px] border-l border-neutral-400 md:inline-block" />
-          <p>
-            <a href="https://github.com/vercel/commerce">View the source</a>
-          </p>
-          <p className="md:ml-auto">
-            <a href="https://vercel.com" className="text-black dark:text-white">
-              Created by ▲ Vercel
-            </a>
-          </p>
+          <p className="md:ml-auto">Carry the weight. Earn the cup.</p>
         </div>
       </div>
     </footer>

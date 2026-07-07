@@ -12,7 +12,7 @@ export default async function OpengraphImage(
 ): Promise<ImageResponse> {
   const { title } = {
     ...{
-      title: process.env.SITE_NAME,
+      title: process.env.SITE_NAME || "Lone Elk Coffee Company",
     },
     ...props,
   };
@@ -22,11 +22,36 @@ export default async function OpengraphImage(
 
   return new ImageResponse(
     (
-      <div tw="flex h-full w-full flex-col items-center justify-center bg-black">
-        <div tw="flex flex-none items-center justify-center border border-neutral-700 h-[160px] w-[160px] rounded-3xl">
-          <LogoIcon width="64" height="58" fill="white" />
+      <div
+        tw="flex h-full w-full flex-col items-center justify-center"
+        style={{ backgroundColor: "#0c0c0a" }}
+      >
+        <div
+          tw="flex flex-none items-center justify-center h-[160px] w-[160px]"
+          style={{
+            border: "1px solid #2b2b22",
+            backgroundColor: "#191913",
+            color: "#8b9a5b",
+          }}
+        >
+          <LogoIcon width="88" height="88" />
         </div>
-        <p tw="mt-12 text-6xl font-bold text-white">{title}</p>
+        <p
+          tw="mt-12 text-6xl font-bold"
+          style={{
+            color: "#e9e4d7",
+            textTransform: "uppercase",
+            letterSpacing: "0.1em",
+          }}
+        >
+          {title}
+        </p>
+        <p
+          tw="mt-6 text-2xl"
+          style={{ color: "#8b9a5b", letterSpacing: "0.35em" }}
+        >
+          FRESH-ROASTED ON DEMAND
+        </p>
       </div>
     ),
     {

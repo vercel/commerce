@@ -1,15 +1,12 @@
 "use client";
 
-import clsx from "clsx";
-import { Dialog, Transition } from "@headlessui/react";
 import { ShoppingCartIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import LoadingDots from "components/loading-dots";
 import Price from "components/price";
 import { DEFAULT_OPTION } from "lib/constants";
 import { createUrl } from "lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createCartAndSetCookie } from "./actions";
 import { useCart } from "./cart-context";
 import { CheckoutButton } from "./checkout-button";
@@ -21,10 +18,16 @@ type MerchandiseSearchParams = {
   [key: string]: string;
 };
 
+/**
+ * Sidebar drawer cart built on native primitives: fixed-position panel with
+ * CSS transforms, `inert` while closed, Escape-to-close, backdrop click,
+ * and body scroll locking. Opens automatically when an item is added.
+ */
 export default function CartModal() {
   const { cart, updateCartItem } = useCart();
   const [isOpen, setIsOpen] = useState(false);
   const quantityRef = useRef(cart?.totalQuantity);
+  const panelRef = useRef<HTMLDivElement>(null);
   const openCart = () => setIsOpen(true);
   const closeCart = () => setIsOpen(false);
 
@@ -47,195 +50,215 @@ export default function CartModal() {
     }
   }, [isOpen, cart?.totalQuantity, quantityRef]);
 
+  useEffect(() => {
+    if (!isOpen) return;
+
+    document.body.style.overflow = "hidden";
+    panelRef.current?.focus();
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen]);
+
   return (
     <>
-      <button aria-label="Open cart" onClick={openCart}>
+      <button aria-label="Open cart" aria-expanded={isOpen} onClick={openCart}>
         <OpenCart quantity={cart?.totalQuantity} />
       </button>
-      <Transition show={isOpen}>
-        <Dialog onClose={closeCart} className="relative z-50">
-          <Transition.Child
-            as={Fragment}
-            enter="transition-all ease-in-out duration-300"
-            enterFrom="opacity-0 backdrop-blur-none"
-            enterTo="opacity-100 backdrop-blur-[.5px]"
-            leave="transition-all ease-in-out duration-200"
-            leaveFrom="opacity-100 backdrop-blur-[.5px]"
-            leaveTo="opacity-0 backdrop-blur-none"
-          >
-            <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
-          </Transition.Child>
-          <Transition.Child
-            as={Fragment}
-            enter="transition-all ease-in-out duration-300"
-            enterFrom="translate-x-full"
-            enterTo="translate-x-0"
-            leave="transition-all ease-in-out duration-200"
-            leaveFrom="translate-x-0"
-            leaveTo="translate-x-full"
-          >
-            <Dialog.Panel className="fixed bottom-0 right-0 top-0 flex h-full w-full flex-col border-l border-neutral-200 bg-white/80 p-6 text-black backdrop-blur-xl md:w-[390px] dark:border-neutral-700 dark:bg-black/80 dark:text-white">
-              <div className="flex items-center justify-between">
-                <p className="text-lg font-semibold">My Cart</p>
-                <button aria-label="Close cart" onClick={closeCart}>
-                  <CloseCart />
-                </button>
-              </div>
+      <div
+        aria-hidden="true"
+        onClick={closeCart}
+        className={`fixed inset-0 z-40 bg-night/70 backdrop-blur-[2px] transition-opacity duration-300 ${
+          isOpen ? "opacity-100" : "pointer-events-none opacity-0"
+        }`}
+      />
+      <div
+        ref={panelRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Shopping cart"
+        tabIndex={-1}
+        inert={!isOpen}
+        className={`fixed top-0 right-0 bottom-0 z-50 flex h-full w-full flex-col border-l border-seam bg-night p-6 transition-transform duration-300 ease-in-out md:w-[420px] ${
+          isOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="flex items-center justify-between border-b border-seam pb-4">
+          <div>
+            <p className="font-display text-lg font-bold tracking-[0.2em] uppercase">
+              Your Pack
+            </p>
+            <p className="mt-1 font-mono text-[10px] tracking-[0.3em] text-bone/40 uppercase">
+              {cart?.totalQuantity || 0}{" "}
+              {cart?.totalQuantity === 1 ? "item" : "items"} loaded
+            </p>
+          </div>
+          <button aria-label="Close cart" onClick={closeCart}>
+            <CloseCart />
+          </button>
+        </div>
 
-              {!cart || cart.lines.length === 0 ? (
-                <div className="mt-20 flex w-full flex-col items-center justify-center overflow-hidden">
-                  <ShoppingCartIcon className="h-16" />
-                  <p className="mt-6 text-center text-2xl font-bold">
-                    Your cart is empty.
-                  </p>
-                </div>
-              ) : (
-                <div className="flex h-full flex-col justify-between overflow-hidden p-1">
-                  <ul className="grow overflow-auto py-4">
-                    {cart.lines
-                      .sort((a, b) =>
-                        a.merchandise.product.title.localeCompare(
-                          b.merchandise.product.title,
-                        ),
-                      )
-                      .map((item, i) => {
-                        const merchandiseSearchParams =
-                          {} as MerchandiseSearchParams;
+        {!cart || cart.lines.length === 0 ? (
+          <div className="mt-20 flex w-full flex-col items-center justify-center overflow-hidden">
+            <span className="flex h-16 w-16 items-center justify-center border border-seam bg-coal">
+              <ShoppingCartIcon className="h-7 text-bone/60" />
+            </span>
+            <p className="font-display mt-6 text-center text-2xl font-bold tracking-[0.14em] uppercase">
+              Pack is empty
+            </p>
+            <Link
+              href="/search"
+              onClick={closeCart}
+              className="mt-4 font-mono text-xs tracking-[0.25em] text-field uppercase hover:text-bone"
+            >
+              Load up →
+            </Link>
+          </div>
+        ) : (
+          <div className="flex h-full flex-col justify-between overflow-hidden">
+            <ul className="grow overflow-auto py-4">
+              {cart.lines
+                .sort((a, b) =>
+                  a.merchandise.product.title.localeCompare(
+                    b.merchandise.product.title,
+                  ),
+                )
+                .map((item, i) => {
+                  const merchandiseSearchParams =
+                    {} as MerchandiseSearchParams;
 
-                        item.merchandise.selectedOptions.forEach(
-                          ({ name, value }) => {
-                            if (value !== DEFAULT_OPTION) {
-                              merchandiseSearchParams[name.toLowerCase()] =
-                                value;
-                            }
-                          },
-                        );
+                  item.merchandise.selectedOptions.forEach(
+                    ({ name, value }) => {
+                      if (value !== DEFAULT_OPTION) {
+                        merchandiseSearchParams[name.toLowerCase()] = value;
+                      }
+                    },
+                  );
 
-                        const merchandiseUrl = createUrl(
-                          `/product/${item.merchandise.product.handle}`,
-                          new URLSearchParams(merchandiseSearchParams),
-                        );
+                  const merchandiseUrl = createUrl(
+                    `/product/${item.merchandise.product.handle}`,
+                    new URLSearchParams(merchandiseSearchParams),
+                  );
 
-                        return (
-                          <li
-                            key={i}
-                            className="flex w-full flex-col border-b border-neutral-300 dark:border-neutral-700"
+                  return (
+                    <li key={i} className="flex w-full flex-col border-b border-seam">
+                      <div className="relative flex w-full flex-row justify-between px-1 py-4">
+                        <div className="absolute z-40 -mt-2 -ml-1">
+                          <DeleteItemButton
+                            item={item}
+                            optimisticUpdate={updateCartItem}
+                          />
+                        </div>
+                        <div className="flex flex-row">
+                          <div className="relative h-16 w-16 overflow-hidden border border-seam bg-coal">
+                            <Image
+                              className="h-full w-full object-cover"
+                              width={64}
+                              height={64}
+                              alt={
+                                item.merchandise.product.featuredImage
+                                  ?.altText || item.merchandise.product.title
+                              }
+                              src={item.merchandise.product.featuredImage?.url}
+                            />
+                          </div>
+                          <Link
+                            href={merchandiseUrl}
+                            onClick={closeCart}
+                            className="z-30 ml-3 flex flex-row space-x-4"
                           >
-                            <div className="relative flex w-full flex-row justify-between px-1 py-4">
-                              <div className="absolute z-40 -ml-1 -mt-2">
-                                <DeleteItemButton
-                                  item={item}
-                                  optimisticUpdate={updateCartItem}
-                                />
-                              </div>
-                              <div className="flex flex-row">
-                                <div className="relative h-16 w-16 overflow-hidden rounded-md border border-neutral-300 bg-neutral-300 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:bg-neutral-800">
-                                  <Image
-                                    className="h-full w-full object-cover"
-                                    width={64}
-                                    height={64}
-                                    alt={
-                                      item.merchandise.product.featuredImage
-                                        .altText ||
-                                      item.merchandise.product.title
-                                    }
-                                    src={
-                                      item.merchandise.product.featuredImage.url
-                                    }
-                                  />
-                                </div>
-                                <Link
-                                  href={merchandiseUrl}
-                                  onClick={closeCart}
-                                  className="z-30 ml-2 flex flex-row space-x-4"
-                                >
-                                  <div className="flex flex-1 flex-col text-base">
-                                    <span className="leading-tight">
-                                      {item.merchandise.product.title}
-                                    </span>
-                                    {item.merchandise.title !==
-                                    DEFAULT_OPTION ? (
-                                      <p className="text-sm text-neutral-500 dark:text-neutral-400">
-                                        {item.merchandise.title}
-                                      </p>
-                                    ) : null}
-                                  </div>
-                                </Link>
-                              </div>
-                              <div className="flex h-16 flex-col justify-between">
-                                <Price
-                                  className="flex justify-end space-y-2 text-right text-sm"
-                                  amount={item.cost.totalAmount.amount}
-                                  currencyCode={
-                                    item.cost.totalAmount.currencyCode
-                                  }
-                                />
-                                <div className="ml-auto flex h-9 flex-row items-center rounded-full border border-neutral-200 dark:border-neutral-700">
-                                  <EditItemQuantityButton
-                                    item={item}
-                                    type="minus"
-                                    optimisticUpdate={updateCartItem}
-                                  />
-                                  <p className="w-6 text-center">
-                                    <span className="w-full text-sm">
-                                      {item.quantity}
-                                    </span>
-                                  </p>
-                                  <EditItemQuantityButton
-                                    item={item}
-                                    type="plus"
-                                    optimisticUpdate={updateCartItem}
-                                  />
-                                </div>
-                              </div>
+                            <div className="flex flex-1 flex-col">
+                              <span className="font-display text-sm font-semibold tracking-[0.12em] uppercase">
+                                {item.merchandise.product.title}
+                              </span>
+                              {item.merchandise.title !== DEFAULT_OPTION ? (
+                                <p className="mt-1 font-mono text-[10px] tracking-[0.2em] text-field uppercase">
+                                  {item.merchandise.title}
+                                </p>
+                              ) : null}
+                              {item.merchandise.sku ? (
+                                <p className="mt-1 font-mono text-[10px] tracking-[0.2em] text-bone/35 uppercase">
+                                  SKU {item.merchandise.sku}
+                                </p>
+                              ) : null}
                             </div>
-                          </li>
-                        );
-                      })}
-                  </ul>
-                  <div className="py-4 text-sm text-neutral-500 dark:text-neutral-400">
-                    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 dark:border-neutral-700">
-                      <p>Taxes</p>
-                      <Price
-                        className="text-right text-base text-black dark:text-white"
-                        amount={cart.cost.totalTaxAmount.amount}
-                        currencyCode={cart.cost.totalTaxAmount.currencyCode}
-                      />
-                    </div>
-                    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
-                      <p>Shipping</p>
-                      <p className="text-right">Calculated at checkout</p>
-                    </div>
-                    <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1 pt-1 dark:border-neutral-700">
-                      <p>Total</p>
-                      <Price
-                        className="text-right text-base text-black dark:text-white"
-                        amount={cart.cost.totalAmount.amount}
-                        currencyCode={cart.cost.totalAmount.currencyCode}
-                      />
-                    </div>
-                  </div>
-                  <CheckoutButton />
-                </div>
-              )}
-            </Dialog.Panel>
-          </Transition.Child>
-        </Dialog>
-      </Transition>
+                          </Link>
+                        </div>
+                        <div className="flex h-16 flex-col justify-between">
+                          <Price
+                            className="flex justify-end space-y-2 text-right font-mono text-sm"
+                            amount={item.cost.totalAmount.amount}
+                            currencyCode={item.cost.totalAmount.currencyCode}
+                          />
+                          <div className="ml-auto flex h-9 flex-row items-center border border-seam">
+                            <EditItemQuantityButton
+                              item={item}
+                              type="minus"
+                              optimisticUpdate={updateCartItem}
+                            />
+                            <p className="w-6 text-center">
+                              <span className="w-full font-mono text-sm">
+                                {item.quantity}
+                              </span>
+                            </p>
+                            <EditItemQuantityButton
+                              item={item}
+                              type="plus"
+                              optimisticUpdate={updateCartItem}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  );
+                })}
+            </ul>
+            <div className="py-4 font-mono text-xs tracking-[0.12em] text-bone/50 uppercase">
+              <div className="mb-3 flex items-center justify-between border-b border-seam pb-2">
+                <p>Taxes</p>
+                <Price
+                  className="text-right text-sm text-bone"
+                  amount={cart.cost.totalTaxAmount.amount}
+                  currencyCode={cart.cost.totalTaxAmount.currencyCode}
+                />
+              </div>
+              <div className="mb-3 flex items-center justify-between border-b border-seam pt-1 pb-2">
+                <p>Shipping</p>
+                <p className="text-right">At checkout</p>
+              </div>
+              <div className="mb-3 flex items-center justify-between border-b border-seam pt-1 pb-2">
+                <p className="text-bone">Total</p>
+                <Price
+                  className="text-right text-base font-semibold text-bone"
+                  amount={cart.cost.totalAmount.amount}
+                  currencyCode={cart.cost.totalAmount.currencyCode}
+                />
+              </div>
+            </div>
+            <CheckoutButton />
+            <p className="mt-3 text-center font-mono text-[10px] tracking-[0.25em] text-bone/35 uppercase">
+              Secure checkout — powered by Shopify
+            </p>
+          </div>
+        )}
+      </div>
     </>
   );
 }
 
 function CloseCart({ className }: { className?: string }) {
   return (
-    <div className="relative flex h-11 w-11 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors dark:border-neutral-700 dark:text-white">
+    <div className="relative flex h-11 w-11 items-center justify-center border border-seam text-bone transition-colors">
       <XMarkIcon
-        className={clsx(
-          "h-6 transition-all ease-in-out hover:scale-110",
-          className,
-        )}
+        className={`h-6 transition-all ease-in-out hover:scale-110 ${className || ""}`}
       />
     </div>
   );
 }
-

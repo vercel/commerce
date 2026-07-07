@@ -7,53 +7,62 @@ import { Suspense } from "react";
 import MobileMenu from "./mobile-menu";
 import Search, { SearchSkeleton } from "./search";
 
-const { SITE_NAME } = process.env;
+const SITE_NAME = process.env.SITE_NAME || "Lone Elk Coffee Company";
+
+// Shown when no Shopify navigation menu is configured (fresh store, demo mode).
+const FALLBACK_MENU: Menu[] = [{ title: "Shop", path: "/search" }];
 
 export async function Navbar() {
-  const menu = await getMenu("next-js-frontend-header-menu");
+  const shopifyMenu = await getMenu("next-js-frontend-header-menu");
+  const menu = shopifyMenu.length ? shopifyMenu : FALLBACK_MENU;
 
   return (
-    <nav className="relative flex items-center justify-between p-4 lg:px-6">
-      <div className="block flex-none md:hidden">
-        <Suspense fallback={null}>
-          <MobileMenu menu={menu} />
-        </Suspense>
-      </div>
-      <div className="flex w-full items-center">
-        <div className="flex w-full md:w-1/3">
-          <Link
-            href="/"
-            prefetch={true}
-            className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6"
-          >
-            <LogoSquare />
-            <div className="ml-2 flex-none text-sm font-medium uppercase md:hidden lg:block">
-              {SITE_NAME}
-            </div>
-          </Link>
-          {menu.length ? (
-            <ul className="hidden gap-6 text-sm md:flex md:items-center">
+    <nav className="sticky top-0 z-40 border-b border-seam bg-night/90 backdrop-blur-md">
+      <div className="relative flex items-center justify-between p-4 lg:px-6">
+        <div className="block flex-none md:hidden">
+          <Suspense fallback={null}>
+            <MobileMenu menu={menu} />
+          </Suspense>
+        </div>
+        <div className="flex w-full items-center">
+          <div className="flex w-full md:w-1/3">
+            <Link
+              href="/"
+              prefetch={true}
+              className="mr-2 flex w-full items-center justify-center gap-3 md:w-auto lg:mr-8"
+            >
+              <LogoSquare />
+              <div className="flex-none leading-none md:hidden lg:block">
+                <span className="font-display block text-base font-bold tracking-[0.22em] uppercase">
+                  Lone Elk
+                </span>
+                <span className="mt-1 block font-mono text-[10px] tracking-[0.34em] text-bone/50 uppercase">
+                  Coffee Co.
+                </span>
+              </div>
+            </Link>
+            <ul className="hidden gap-7 md:flex md:items-center">
               {menu.map((item: Menu) => (
                 <li key={item.title}>
                   <Link
                     href={item.path}
                     prefetch={true}
-                    className="text-neutral-500 underline-offset-4 hover:text-black hover:underline dark:text-neutral-400 dark:hover:text-neutral-300"
+                    className="font-display text-sm font-medium tracking-[0.22em] text-bone/60 uppercase transition-colors hover:text-bone"
                   >
                     {item.title}
                   </Link>
                 </li>
               ))}
             </ul>
-          ) : null}
-        </div>
-        <div className="hidden justify-center md:flex md:w-1/3">
-          <Suspense fallback={<SearchSkeleton />}>
-            <Search />
-          </Suspense>
-        </div>
-        <div className="flex justify-end md:w-1/3">
-          <CartModal />
+          </div>
+          <div className="hidden justify-center md:flex md:w-1/3">
+            <Suspense fallback={<SearchSkeleton />}>
+              <Search />
+            </Suspense>
+          </div>
+          <div className="flex justify-end md:w-1/3">
+            <CartModal />
+          </div>
         </div>
       </div>
     </nav>
