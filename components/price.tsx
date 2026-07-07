@@ -5,13 +5,16 @@ const Price = ({
   className,
   currencyCode = "USD",
   currencyCodeClassName,
+  prefix,
 }: {
   amount: string;
   className?: string;
   currencyCode: string;
   currencyCodeClassName?: string;
+  prefix?: string;
 } & React.ComponentProps<"p">) => (
   <p suppressHydrationWarning={true} className={className}>
+    {prefix}
     {`${new Intl.NumberFormat(undefined, {
       style: "currency",
       currency: currencyCode,

@@ -1,10 +1,13 @@
-import { Carousel } from "components/carousel";
-import { ThreeItemGrid } from "components/grid/three-items";
+import { FeaturedRoster } from "components/home/featured";
+import { Hero } from "components/home/hero";
+import { Marquee } from "components/home/marquee";
+import { Metrics } from "components/home/metrics";
+import { Story } from "components/home/story";
 import Footer from "components/layout/footer";
 
 export const metadata = {
   description:
-    "High-performance ecommerce store built with Next.js, Vercel, and Shopify.",
+    "Lone Elk Coffee Company — premium small-batch coffee, fresh-roasted on demand for outdoor athletes and rucking crews.",
   openGraph: {
     type: "website",
   },
@@ -13,8 +16,11 @@ export const metadata = {
 export default function HomePage() {
   return (
     <>
-      <ThreeItemGrid />
-      <Carousel />
+      <Hero />
+      <Marquee />
+      <Metrics />
+      <FeaturedRoster />
+      <Story />
       <Footer />
     </>
   );
