@@ -1,12 +1,11 @@
-import { GridTileImage } from "components/grid/tile";
 import Footer from "components/layout/footer";
 import { Gallery } from "components/product/gallery";
+import { ProductCard } from "components/product/product-card";
 import { ProductDescription } from "components/product/product-description";
 import { HIDDEN_PRODUCT_TAG } from "lib/constants";
 import { getProduct, getProductRecommendations } from "lib/shopify";
 import type { Image } from "lib/shopify/types";
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
@@ -60,7 +59,7 @@ export default async function ProductPage(props: {
     "@type": "Product",
     name: product.title,
     description: product.description,
-    image: product.featuredImage.url,
+    image: product.featuredImage?.url,
     offers: {
       "@type": "AggregateOffer",
       availability: product.availableForSale
@@ -80,8 +79,8 @@ export default async function ProductPage(props: {
           __html: JSON.stringify(productJsonLd),
         }}
       />
-      <div className="mx-auto max-w-(--breakpoint-2xl) px-4">
-        <div className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 md:p-12 lg:flex-row lg:gap-8 dark:border-neutral-800 dark:bg-black">
+      <div className="mx-auto max-w-(--breakpoint-2xl) px-4 pt-8">
+        <div className="flex flex-col border border-seam bg-coal p-6 md:p-10 lg:flex-row lg:gap-10">
           <div className="h-full w-full basis-full lg:basis-4/6">
             <Suspense
               fallback={
@@ -116,31 +115,22 @@ async function RelatedProducts({ id }: { id: string }) {
   if (!relatedProducts.length) return null;
 
   return (
-    <div className="py-8">
-      <h2 className="mb-4 text-2xl font-bold">Related Products</h2>
-      <ul className="flex w-full gap-4 overflow-x-auto pt-1">
+    <div className="py-10">
+      <div className="mb-6 flex items-baseline gap-4">
+        <span className="font-mono text-[11px] tracking-[0.35em] text-field uppercase">
+          More
+        </span>
+        <h2 className="font-display text-2xl font-bold tracking-[0.14em] uppercase">
+          From the Roster
+        </h2>
+      </div>
+      <ul className="flex w-full gap-4 overflow-x-auto pt-1 pb-2">
         {relatedProducts.map((product) => (
           <li
             key={product.handle}
-            className="aspect-square w-full flex-none min-[475px]:w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5"
+            className="w-4/5 flex-none min-[475px]:w-1/2 sm:w-1/3 lg:w-1/4"
           >
-            <Link
-              className="relative h-full w-full"
-              href={`/product/${product.handle}`}
-              prefetch={true}
-            >
-              <GridTileImage
-                alt={product.title}
-                label={{
-                  title: product.title,
-                  amount: product.priceRange.maxVariantPrice.amount,
-                  currencyCode: product.priceRange.maxVariantPrice.currencyCode,
-                }}
-                src={product.featuredImage?.url}
-                fill
-                sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, (min-width: 640px) 33vw, (min-width: 475px) 50vw, 100vw"
-              />
-            </Link>
+            <ProductCard product={product} />
           </li>
         ))}
       </ul>

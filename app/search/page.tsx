@@ -4,8 +4,9 @@ import { defaultSort, sorting } from "lib/constants";
 import { getProducts } from "lib/shopify";
 
 export const metadata = {
-  title: "Search",
-  description: "Search for products in the store.",
+  title: "Shop All Roasts",
+  description:
+    "The full Lone Elk roster — small-batch coffee, fresh-roasted on demand.",
 };
 
 export default async function SearchPage(props: {
@@ -22,17 +23,21 @@ export default async function SearchPage(props: {
   return (
     <>
       {searchValue ? (
-        <p className="mb-4">
+        <p className="mb-6 font-mono text-xs tracking-[0.14em] text-bone/60 uppercase">
           {products.length === 0
-            ? "There are no products that match "
-            : `Showing ${products.length} ${resultsText} for `}
-          <span className="font-bold">&quot;{searchValue}&quot;</span>
+            ? "No roasts match "
+            : `${products.length} ${resultsText} for `}
+          <span className="text-bone">&quot;{searchValue}&quot;</span>
         </p>
       ) : null}
       {products.length > 0 ? (
         <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           <ProductGridItems products={products} />
         </Grid>
+      ) : !searchValue ? (
+        <p className="py-3 font-mono text-xs tracking-[0.14em] text-bone/60 uppercase">
+          The roster is being restocked — check back shortly.
+        </p>
       ) : null}
     </>
   );

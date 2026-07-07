@@ -65,6 +65,27 @@ export function getQuickAddOption(product: Product):
   };
 }
 
+/**
+ * Resolves the variant selected via URL search params (the variant selector
+ * writes `?grind=Whole+Bean`-style params). Falls back to the only variant
+ * for single-variant products.
+ */
+export function getSelectedVariant(
+  product: Product,
+  searchParams: URLSearchParams | ReadonlyURLSearchParams,
+): ProductVariant | undefined {
+  const variant = product.variants.find((variant) =>
+    variant.selectedOptions.every(
+      (option) => option.value === searchParams.get(option.name.toLowerCase()),
+    ),
+  );
+
+  return (
+    variant ||
+    (product.variants.length === 1 ? product.variants[0] : undefined)
+  );
+}
+
 export const ensureStartsWith = (stringToCheck: string, startsWith: string) =>
   stringToCheck.startsWith(startsWith)
     ? stringToCheck

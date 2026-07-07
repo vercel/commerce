@@ -42,7 +42,7 @@ export default function FilterItemDropdown({ list }: { list: ListItem[] }) {
         onClick={() => {
           setOpenSelect(!openSelect);
         }}
-        className="flex w-full items-center justify-between rounded-sm border border-black/30 px-4 py-2 text-sm dark:border-white/30"
+        className="font-display flex w-full items-center justify-between border border-seam bg-coal px-4 py-2 text-sm tracking-[0.14em] uppercase"
       >
         <div>{active}</div>
         <ChevronDownIcon className="h-4" />
@@ -52,7 +52,7 @@ export default function FilterItemDropdown({ list }: { list: ListItem[] }) {
           onClick={() => {
             setOpenSelect(false);
           }}
-          className="absolute z-40 w-full rounded-b-md bg-white p-4 shadow-md dark:bg-black"
+          className="absolute z-40 w-full border border-t-0 border-seam bg-coal p-4"
         >
           {list.map((item: ListItem, i) => (
             <FilterItem key={i} item={item} />

@@ -27,7 +27,7 @@ export function Gallery({
     imageIndex === 0 ? images.length - 1 : imageIndex - 1;
 
   const buttonClassName =
-    "h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-black dark:hover:text-white flex items-center justify-center";
+    "h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-bone flex items-center justify-center";
 
   return (
     <form>
@@ -45,7 +45,7 @@ export function Gallery({
 
         {images.length > 1 ? (
           <div className="absolute bottom-[15%] flex w-full justify-center">
-            <div className="mx-auto flex h-11 items-center rounded-full border border-white bg-neutral-50/80 text-neutral-500 backdrop-blur-sm dark:border-black dark:bg-neutral-900/80">
+            <div className="mx-auto flex h-11 items-center border border-seam bg-night/80 text-bone/60 backdrop-blur-sm">
               <button
                 formAction={() => updateImage(previousImageIndex.toString())}
                 aria-label="Previous product image"
@@ -53,7 +53,7 @@ export function Gallery({
               >
                 <ArrowLeftIcon className="h-5" />
               </button>
-              <div className="mx-1 h-6 w-px bg-neutral-500"></div>
+              <div className="mx-1 h-6 w-px bg-seam"></div>
               <button
                 formAction={() => updateImage(nextImageIndex.toString())}
                 aria-label="Next product image"
