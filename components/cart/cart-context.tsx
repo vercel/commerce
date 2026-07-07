@@ -85,6 +85,7 @@ function createOrUpdateCartItem(
     merchandise: {
       id: variant.id,
       title: variant.title,
+      sku: variant.sku,
       selectedOptions: variant.selectedOptions,
       product: {
         id: product.id,

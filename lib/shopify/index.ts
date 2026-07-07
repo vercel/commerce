@@ -61,13 +61,27 @@ import {
 const domain = process.env.SHOPIFY_STORE_DOMAIN
   ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, "https://")
   : "";
-const endpoint = domain ? `${domain}${SHOPIFY_GRAPHQL_API_ENDPOINT}` : "";
+// Demo mode: `SHOPIFY_STORE_DOMAIN=mock.shop` targets Shopify's official mock
+// Storefront API (unversioned endpoint, no access token) so the UI can be
+// developed without a real store.
+const endpoint = !domain
+  ? ""
+  : domain === "https://mock.shop"
+    ? "https://mock.shop/api"
+    : `${domain}${SHOPIFY_GRAPHQL_API_ENDPOINT}`;
 const key = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
 
 type ExtractVariables<T> = T extends { variables: object }
   ? T["variables"]
   : never;
 
+/**
+ * Single transport for every Storefront API call (API version pinned in
+ * `lib/constants.ts`). HTTP-level caching is intentionally not configured
+ * here: callers wrap reads in `'use cache'` scopes with tag-based
+ * revalidation, which is what keeps grid/product fetches static-fast while
+ * staying correct after admin edits (see `revalidate()` below).
+ */
 export async function shopifyFetch<T>({
   headers,
   query,
@@ -423,7 +437,12 @@ export async function getMenu(handle: string): Promise<Menu[]> {
   );
 }
 
-export async function getPage(handle: string): Promise<Page> {
+export async function getPage(handle: string): Promise<Page | undefined> {
+  if (!endpoint) {
+    console.log(`Skipping getPage for '${handle}' - Shopify not configured`);
+    return undefined;
+  }
+
   const res = await shopifyFetch<ShopifyPageOperation>({
     query: getPageQuery,
     variables: { handle },
@@ -433,6 +452,11 @@ export async function getPage(handle: string): Promise<Page> {
 }
 
 export async function getPages(): Promise<Page[]> {
+  if (!endpoint) {
+    console.log("Skipping getPages - Shopify not configured");
+    return [];
+  }
+
   const res = await shopifyFetch<ShopifyPagesOperation>({
     query: getPagesQuery,
   });
@@ -467,6 +491,11 @@ export async function getProductRecommendations(
   cacheTag(TAGS.products);
   cacheLife("days");
 
+  if (!endpoint) {
+    console.log("Skipping getProductRecommendations - Shopify not configured");
+    return [];
+  }
+
   const res = await shopifyFetch<ShopifyProductRecommendationsOperation>({
     query: getProductRecommendationsQuery,
     variables: {
@@ -477,6 +506,11 @@ export async function getProductRecommendations(
   return reshapeProducts(res.body.data.productRecommendations);
 }
 
+/**
+ * Full-catalog read behind the search/collection grids. Served from the
+ * `'use cache'` store (days lifetime) and invalidated by `products/*`
+ * webhooks, so grid renders never block on Shopify at request time.
+ */
 export async function getProducts({
   query,
   reverse,
@@ -489,6 +523,11 @@ export async function getProducts({
   "use cache";
   cacheTag(TAGS.products);
   cacheLife("days");
+
+  if (!endpoint) {
+    console.log("Skipping getProducts - Shopify not configured");
+    return [];
+  }
 
   const res = await shopifyFetch<ShopifyProductsOperation>({
     query: getProductsQuery,

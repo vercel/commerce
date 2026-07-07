@@ -29,12 +29,18 @@ const productFragment = /* GraphQL */ `
         node {
           id
           title
+          sku
           availableForSale
+          quantityAvailable
           selectedOptions {
             name
             value
           }
           price {
+            amount
+            currencyCode
+          }
+          compareAtPrice {
             amount
             currencyCode
           }

@@ -26,8 +26,10 @@ export type CartItem = {
     totalAmount: Money;
   };
   merchandise: {
+    /** Shopify variant GID — maps to the fulfillment partner's backend SKU. */
     id: string;
     title: string;
+    sku: string | null;
     selectedOptions: {
       name: string;
       value: string;
@@ -80,14 +82,27 @@ export type ProductOption = {
 };
 
 export type ProductVariant = {
+  /**
+   * Shopify variant GID (e.g. `gid://shopify/ProductVariant/123`). This is the
+   * `merchandiseId` sent to the Cart API and the id the fulfillment partner's
+   * backend keys on.
+   */
   id: string;
   title: string;
+  /** Merchant-defined SKU; mirrors the fulfillment partner's backend SKU. */
+  sku: string | null;
   availableForSale: boolean;
+  /**
+   * Units available. `null` when the Storefront token lacks the
+   * `unauthenticated_read_product_inventory` scope.
+   */
+  quantityAvailable: number | null;
   selectedOptions: {
     name: string;
     value: string;
   }[];
   price: Money;
+  compareAtPrice: Money | null;
 };
 
 export type SEO = {
