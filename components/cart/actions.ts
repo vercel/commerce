@@ -10,7 +10,6 @@ import {
 } from "lib/shopify";
 import { updateTag } from "next/cache";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 export async function addItem(
   prevState: any,
@@ -95,12 +94,53 @@ export async function updateItemQuantity(
   }
 }
 
-export async function redirectToCheckout() {
-  let cart = await getCart();
-  redirect(cart!.checkoutUrl);
+/**
+ * Checkout handoff, step 1 of 2. Re-reads the cart from Shopify — server
+ * actions from one client run serialized, so any in-flight line mutations
+ * have already landed — and returns the secure, single-use `checkoutUrl`
+ * minted by the Cart API. The client component then executes the redirect
+ * (`window.location.href`) to hand the customer to Shopify's payment vault.
+ *
+ * Post-payment return to our `/success` page is configured on the Shopify
+ * side (Headless channel storefront URL / checkout customization), not per
+ * request — the Cart API has no redirect-URL input.
+ */
+export async function getCheckoutUrl(): Promise<string | undefined> {
+  const cart = await getCart();
+
+  if (!cart || cart.lines.length === 0) {
+    return undefined;
+  }
+
+  return cart.checkoutUrl;
 }
 
 export async function createCartAndSetCookie() {
-  let cart = await createCart();
-  (await cookies()).set("cartId", cart.id!);
+  try {
+    const cart = await createCart();
+
+    if (!cart.id) {
+      return;
+    }
+
+    (await cookies()).set("cartId", cart.id, {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+    });
+  } catch (e) {
+    // Shopify unreachable or not configured; the shopper just browses
+    // without a cart until it becomes available.
+    console.error("Unable to create cart", e);
+  }
+}
+
+/**
+ * Called from `/success`: Shopify nulls a cart once its checkout completes,
+ * so drop the stale cookie and invalidate the cached cart. The next
+ * add-to-cart mints a fresh cart.
+ */
+export async function clearCartCookie() {
+  (await cookies()).delete("cartId");
+  updateTag(TAGS.cart);
 }

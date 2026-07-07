@@ -10,9 +10,9 @@ import { createUrl } from "lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 import { Fragment, useEffect, useRef, useState } from "react";
-import { useFormStatus } from "react-dom";
-import { createCartAndSetCookie, redirectToCheckout } from "./actions";
+import { createCartAndSetCookie } from "./actions";
 import { useCart } from "./cart-context";
+import { CheckoutButton } from "./checkout-button";
 import { DeleteItemButton } from "./delete-item-button";
 import { EditItemQuantityButton } from "./edit-item-quantity-button";
 import OpenCart from "./open-cart";
@@ -215,9 +215,7 @@ export default function CartModal() {
                       />
                     </div>
                   </div>
-                  <form action={redirectToCheckout}>
-                    <CheckoutButton />
-                  </form>
+                  <CheckoutButton />
                 </div>
               )}
             </Dialog.Panel>
@@ -241,16 +239,3 @@ function CloseCart({ className }: { className?: string }) {
   );
 }
 
-function CheckoutButton() {
-  const { pending } = useFormStatus();
-
-  return (
-    <button
-      className="block w-full rounded-full bg-blue-600 p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100"
-      type="submit"
-      disabled={pending}
-    >
-      {pending ? <LoadingDots className="bg-white" /> : "Proceed to Checkout"}
-    </button>
-  );
-}
