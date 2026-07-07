@@ -41,8 +41,8 @@ export default function SuccessPage() {
         </h1>
         <p className="mt-6 max-w-xl text-base leading-relaxed text-bone/70">
           Your beans hit the roaster next. Every order is fresh-roasted on
-          demand, packed, and moving within 48 hours — a confirmation email
-          with tracking is on its way.
+          demand, packed, and moving within 48 hours — a confirmation email with
+          tracking is on its way.
         </p>
         <div className="mt-10 flex flex-col gap-3 sm:flex-row">
           <Link

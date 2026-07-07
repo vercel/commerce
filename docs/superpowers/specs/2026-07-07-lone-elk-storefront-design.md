@@ -30,7 +30,7 @@ Key point on the automation workflow: **the frontend never touches order
 webhooks.** Once checkout completes on Shopify's domain, the order exists in
 Shopify's order pipeline and the fulfillment app picks it up through its own
 app-level subscriptions. The only webhook this codebase owns is
-`/api/revalidate`, which invalidates the *content cache* (products/collections)
+`/api/revalidate`, which invalidates the _content cache_ (products/collections)
 when catalog data changes in Shopify admin.
 
 ## 3. Decisions

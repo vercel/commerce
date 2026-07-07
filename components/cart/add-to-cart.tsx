@@ -45,7 +45,10 @@ function SubmitButton({
   }
 
   return (
-    <button aria-label="Add to cart" className={clsx(buttonClasses, "hover:bg-bone")}>
+    <button
+      aria-label="Add to cart"
+      className={clsx(buttonClasses, "hover:bg-bone")}
+    >
       <div className="absolute left-0 ml-4">
         <PlusIcon className="h-5" />
       </div>

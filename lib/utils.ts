@@ -81,8 +81,7 @@ export function getSelectedVariant(
   );
 
   return (
-    variant ||
-    (product.variants.length === 1 ? product.variants[0] : undefined)
+    variant || (product.variants.length === 1 ? product.variants[0] : undefined)
   );
 }
 

@@ -1,75 +1,100 @@
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fcommerce&project-name=commerce&repo-name=commerce&demo-title=Next.js%20Commerce&demo-url=https%3A%2F%2Fdemo.vercel.store&demo-image=https%3A%2F%2Fbigcommerce-demo-asset-ksvtgfvnd.vercel.app%2Fbigcommerce.png&products=%255B%257B%2522type%2522%253A%2522integration%2522%252C%2522protocol%2522%253A%2522other%2522%252C%2522productSlug%2522%253A%2522shopify%2522%252C%2522integrationSlug%2522%253A%2522shopify%2522%257D%255D&env=COMPANY_NAME,SITE_NAME)
+# Lone Elk Coffee Company — Storefront
 
-# Next.js Commerce
+Headless storefront for **Lone Elk Coffee Company**: premium, small-batch
+coffee, fresh-roasted on demand for outdoor athletes and rucking crews.
 
-A high-performance, server-rendered Next.js App Router ecommerce application.
+Built on the vercel/commerce template: Next.js App Router (React Server
+Components, Server Actions, `useOptimistic`, PPR + `'use cache'`),
+Tailwind CSS v4, and the Shopify Storefront API (GraphQL, version
+**2026-07**), deployed on Vercel.
 
-This template uses React Server Components, Server Actions, `Suspense`, `useOptimistic`, and more.
+## How an order flows
 
-<h3 id="v1-note"></h3>
+```
+Browser ── Next.js on Vercel ── Shopify Storefront API (catalog + cart)
+   │
+   │  "Proceed to Checkout" → server action returns cart.checkoutUrl
+   └───► window.location.href → Shopify secure checkout (payment vault)
+                 │
+        Order created in Shopify
+                 │
+   Fulfillment app installed on the store (Tamacula Coffee Roasters)
+   picks the order up automatically — no webhooks in this codebase
+```
 
-> Note: Looking for Next.js Commerce v1? View the [code](https://github.com/vercel/commerce/tree/v1), [demo](https://commerce-v1.vercel.store), and [release notes](https://github.com/vercel/commerce/releases/tag/v1).
+The storefront never handles payment or order data. Once Shopify checkout
+completes, the order lands in the store's order pipeline where the
+fulfillment partner's app subscribes to it directly. The only webhook this
+repo exposes is `/api/revalidate`, which invalidates cached catalog data
+when products/collections change in the admin.
 
-## Providers
-
-Vercel will only be actively maintaining a Shopify version [as outlined in our vision and strategy for Next.js Commerce](https://github.com/vercel/commerce/pull/966).
-
-Vercel is happy to partner and work with any commerce provider to help them get a similar template up and running and listed below. Alternative providers should be able to fork this repository and swap out the `lib/shopify` file with their own implementation while leaving the rest of the template mostly unchanged.
-
-- Shopify (this repository)
-- [BigCommerce](https://github.com/bigcommerce/nextjs-commerce) ([Demo](https://next-commerce-v2.vercel.app/))
-- [Ecwid by Lightspeed](https://github.com/Ecwid/ecwid-nextjs-commerce/) ([Demo](https://ecwid-nextjs-commerce.vercel.app/))
-- [Geins](https://github.com/geins-io/vercel-nextjs-commerce) ([Demo](https://geins-nextjs-commerce-starter.vercel.app/))
-- [Medusa](https://github.com/medusajs/vercel-commerce) ([Demo](https://medusa-nextjs-commerce.vercel.app/))
-- [Prodigy Commerce](https://github.com/prodigycommerce/nextjs-commerce) ([Demo](https://prodigy-nextjs-commerce.vercel.app/))
-- [Saleor](https://github.com/saleor/nextjs-commerce) ([Demo](https://saleor-commerce.vercel.app/))
-- [Shopware](https://github.com/shopwareLabs/vercel-commerce) ([Demo](https://shopware-vercel-commerce-react.vercel.app/))
-- [Swell](https://github.com/swellstores/verswell-commerce) ([Demo](https://verswell-commerce.vercel.app/))
-- [Umbraco](https://github.com/umbraco/Umbraco.VercelCommerce.Demo) ([Demo](https://vercel-commerce-demo.umbraco.com/))
-- [Wix](https://github.com/wix/headless-templates/tree/main/nextjs/commerce) ([Demo](https://wix-nextjs-commerce.vercel.app/))
-- [Fourthwall](https://github.com/FourthwallHQ/vercel-commerce) ([Demo](https://vercel-storefront.fourthwall.app/))
-
-> Note: Providers, if you are looking to use similar products for your demo, you can [download these assets](https://drive.google.com/file/d/1q_bKerjrwZgHwCw0ovfUMW6He9VtepO_/view?usp=sharing).
-
-## Integrations
-
-Integrations enable upgraded or additional functionality for Next.js Commerce
-
-- [Orama](https://github.com/oramasearch/nextjs-commerce) ([Demo](https://vercel-commerce.oramasearch.com/))
-
-  - Upgrades search to include typeahead with dynamic re-rendering, vector-based similarity search, and JS-based configuration.
-  - Search runs entirely in the browser for smaller catalogs or on a CDN for larger.
-
-- [React Bricks](https://github.com/ReactBricks/nextjs-commerce-rb) ([Demo](https://nextjs-commerce.reactbricks.com/))
-  - Edit pages, product details, and footer content visually using [React Bricks](https://www.reactbricks.com) visual headless CMS.
-
-## Running locally
-
-You will need to use the environment variables [defined in `.env.example`](.env.example) to run Next.js Commerce. It's recommended you use [Vercel Environment Variables](https://vercel.com/docs/concepts/projects/environment-variables) for this, but a `.env` file is all that is necessary.
-
-> Note: You should not commit your `.env` file or it will expose secrets that will allow others to control your Shopify store.
-
-1. Install Vercel CLI: `npm i -g vercel`
-2. Link local instance with Vercel and GitHub accounts (creates `.vercel` directory): `vercel link`
-3. Download your environment variables: `vercel env pull`
+## Getting started
 
 ```bash
+cp .env.example .env.local   # fill in your values
 pnpm install
 pnpm dev
 ```
 
-Your app should now be running on [localhost:3000](http://localhost:3000/).
+Required environment variables (`.env.local` — never commit tokens):
 
-<details>
-  <summary>Expand if you work at Vercel and want to run locally and / or contribute</summary>
+| Variable                          | Purpose                                 |
+| --------------------------------- | --------------------------------------- |
+| `SHOPIFY_STORE_DOMAIN`            | `your-store.myshopify.com`              |
+| `SHOPIFY_STOREFRONT_ACCESS_TOKEN` | Storefront API access token             |
+| `SHOPIFY_REVALIDATION_SECRET`     | Shared secret for `/api/revalidate`     |
+| `COMPANY_NAME` / `SITE_NAME`      | Brand strings (fallbacks are hardcoded) |
 
-1. Run `vc link`.
-1. Select the `Vercel Solutions` scope.
-1. Connect to the existing `commerce-shopify` project.
-1. Run `vc env pull` to get environment variables.
-1. Run `pnpm dev` to ensure everything is working correctly.
-</details>
+**No store yet?** Set `SHOPIFY_STORE_DOMAIN="mock.shop"` to run the UI
+against Shopify's official mock Storefront API (catalog and cart work;
+checkout handoff needs a real store).
 
-## Vercel, Next.js Commerce, and Shopify Integration Guide
+## Shopify configuration checklist
 
-You can use this comprehensive [integration guide](https://vercel.com/docs/integrations/ecommerce/shopify) with step-by-step instructions on how to configure Shopify as a headless CMS using Next.js Commerce as your headless Shopify storefront on Vercel.
+1. **Headless / Hydrogen sales channel** — create a Storefront API token.
+   Grant `unauthenticated_read_product_listings`, `..._read_product_inventory`
+   (enables live stock badges), `..._read_product_tags`, `..._write_checkouts`
+   and `..._write_customers` (cart).
+2. **Grind profiles** — give each coffee a product option named **Grind**
+   with values like `Whole Bean`, `Standard Drip`, `Coarse / Cold Brew`.
+   The grid's quick-add chips key off that option; each chip adds the exact
+   variant ID (which is what the fulfillment partner's backend maps to its
+   SKU). Products with a second multi-value option fall back to a
+   "Select Options" link.
+3. **Variant SKUs** — keep them in sync with the fulfillment partner
+   (Tamacula) catalog; they're displayed on the PDP and in the cart.
+4. **Featured roster** — optional collection `hidden-homepage-featured-items`
+   curates the homepage grid (falls back to best sellers). Collections
+   prefixed `hidden-` never appear on the search page.
+5. **Navigation** — menus `next-js-frontend-header-menu` and
+   `next-js-frontend-footer-menu` drive the navbar/footer (sensible
+   fallbacks render if they don't exist).
+6. **Content revalidation webhooks** — point `products/*` and
+   `collections/*` webhooks at
+   `https://your-domain.com/api/revalidate?secret=<SHOPIFY_REVALIDATION_SECRET>`.
+7. **Post-checkout return** — the Cart API has no per-request redirect
+   parameter. Set the Headless channel's storefront URL (and on Plus, the
+   checkout "order status" customization) to your production domain so
+   post-purchase links return customers to `/success`, which also clears
+   the spent cart cookie.
+
+## Architecture map
+
+| Path                  | What lives there                                                                                                                  |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `lib/shopify/`        | Storefront API client: typed queries/mutations/fragments, `'use cache'` + tag-based revalidation (the ISR layer), cart operations |
+| `lib/constants.ts`    | API version (`/api/2026-07/graphql.json`), cache tags, sort keys                                                                  |
+| `components/cart/`    | Optimistic cart context, server actions, native drawer, checkout handoff (`getCheckoutUrl` → `window.location.href`)              |
+| `components/product/` | `ProductCard` (grind quick-add), variant selector, spec sheet, gallery                                                            |
+| `components/home/`    | Landing sections: hero, marquee, metrics, featured roster, story                                                                  |
+| `app/success/`        | Post-checkout landing; clears the stale cart cookie                                                                               |
+| `app/api/revalidate/` | Shopify → cache invalidation webhook                                                                                              |
+
+## Design system
+
+Dark-only "field manual" theme defined in `app/globals.css` via Tailwind v4
+`@theme` tokens: `night` (page), `coal` (panels), `seam` (hairlines),
+`bone` (type), `field` (tactical green accent), `clay` (warnings/low
+stock). Display type is Oswald (all-caps, tracked); spec labels use Geist
+Mono; zero border radius throughout. No UI component libraries — native
+primitives and Tailwind only.

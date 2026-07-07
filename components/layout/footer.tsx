@@ -81,7 +81,9 @@ export default async function Footer() {
         <div className="mx-auto flex w-full max-w-(--breakpoint-2xl) flex-col items-center gap-2 px-6 font-mono text-[11px] tracking-[0.14em] uppercase md:flex-row md:gap-0">
           <p>
             © {copyrightDate} {copyrightName}
-            {copyrightName.length && !copyrightName.endsWith(".") ? "." : ""}{" "}
+            {copyrightName.length && !copyrightName.endsWith(".")
+              ? "."
+              : ""}{" "}
             All rights reserved.
           </p>
           <p className="md:ml-auto">Carry the weight. Earn the cup.</p>

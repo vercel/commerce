@@ -89,8 +89,7 @@ export function VariantSelector({
                 className={clsx(
                   "flex min-w-[48px] items-center justify-center border px-3 py-2 font-mono text-xs tracking-[0.12em] uppercase transition-colors duration-200",
                   {
-                    "cursor-default border-field bg-field text-night":
-                      isActive,
+                    "cursor-default border-field bg-field text-night": isActive,
                     "border-seam bg-coal text-bone/70 hover:border-field hover:text-bone":
                       !isActive && isAvailableForSale,
                     "cursor-not-allowed border-seam bg-night text-bone/25 line-through":

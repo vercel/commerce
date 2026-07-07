@@ -33,9 +33,11 @@ export default async function Page(props: {
 
   return (
     <>
-      <h1 className="mb-8 text-5xl font-bold">{page.title}</h1>
+      <h1 className="font-display mb-8 text-5xl font-bold tracking-[0.08em] uppercase">
+        {page.title}
+      </h1>
       <Prose className="mb-8" html={page.body} />
-      <p className="text-sm italic">
+      <p className="font-mono text-xs tracking-[0.14em] text-bone/50 uppercase">
         {`This document was last updated on ${new Intl.DateTimeFormat(
           undefined,
           {

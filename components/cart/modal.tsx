@@ -131,8 +131,7 @@ export default function CartModal() {
                   ),
                 )
                 .map((item, i) => {
-                  const merchandiseSearchParams =
-                    {} as MerchandiseSearchParams;
+                  const merchandiseSearchParams = {} as MerchandiseSearchParams;
 
                   item.merchandise.selectedOptions.forEach(
                     ({ name, value }) => {
@@ -148,7 +147,10 @@ export default function CartModal() {
                   );
 
                   return (
-                    <li key={i} className="flex w-full flex-col border-b border-seam">
+                    <li
+                      key={i}
+                      className="flex w-full flex-col border-b border-seam"
+                    >
                       <div className="relative flex w-full flex-row justify-between px-1 py-4">
                         <div className="absolute z-40 -mt-2 -ml-1">
                           <DeleteItemButton

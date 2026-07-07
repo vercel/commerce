@@ -19,8 +19,12 @@ function TopoLines() {
         <path d="M-60 320C80 260 260 120 470 120s210 90 380 90 300-180 470-180 240 110 240 110" />
       </g>
       <g fill="#2b2b22" fontSize="9" fontFamily="monospace" letterSpacing="3">
-        <text x="180" y="452">1500M</text>
-        <text x="980" y="248">1800M</text>
+        <text x="180" y="452">
+          1500M
+        </text>
+        <text x="980" y="248">
+          1800M
+        </text>
       </g>
     </svg>
   );

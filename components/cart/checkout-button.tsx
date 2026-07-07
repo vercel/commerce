@@ -35,11 +35,7 @@ export function CheckoutButton({ disabled }: { disabled?: boolean }) {
         disabled={disabled || pending}
         className="font-display block w-full bg-field p-4 text-center text-sm font-semibold tracking-[0.2em] text-night uppercase transition-colors hover:bg-bone disabled:cursor-not-allowed disabled:opacity-50"
       >
-        {pending ? (
-          <LoadingDots className="bg-night" />
-        ) : (
-          "Proceed to Checkout"
-        )}
+        {pending ? <LoadingDots className="bg-night" /> : "Proceed to Checkout"}
       </button>
       <p aria-live="polite" className="sr-only" role="status">
         {pending ? "Preparing secure checkout" : ""}

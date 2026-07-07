@@ -23,16 +23,16 @@ export function Story() {
           <div className="space-y-5 leading-relaxed text-bone/60">
             <p>
               Lone Elk exists for the mornings that start under load — ruck
-              plates, trail miles, cold starts before first light. Coffee
-              peaks in the days after roast, so nothing here is roasted until
-              you order it. Your batch is fired, rested, packed, and moving
-              within 48 hours.
+              plates, trail miles, cold starts before first light. Coffee peaks
+              in the days after roast, so nothing here is roasted until you
+              order it. Your batch is fired, rested, packed, and moving within
+              48 hours.
             </p>
             <p>
               Every roast is a high-altitude single origin or a purpose-built
               blend, cupped against one question: does it hold up black, at
-              zero-dark-thirty, out of a dented mug? If not, it doesn't make
-              the roster.
+              zero-dark-thirty, out of a dented mug? If not, it doesn't make the
+              roster.
             </p>
           </div>
           <div className="flex items-center justify-between border-t border-seam pt-6">
