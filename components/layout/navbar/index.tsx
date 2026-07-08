@@ -1,5 +1,5 @@
 import CartModal from "components/cart/modal";
-import LogoSquare from "components/logo-square";
+import LogoBadge from "components/logo";
 import { getMenu } from "lib/shopify";
 import { Menu } from "lib/shopify/types";
 import Link from "next/link";
@@ -32,7 +32,7 @@ export async function Navbar() {
               prefetch={true}
               className="mr-2 flex w-full items-center justify-center gap-3 md:w-auto lg:mr-8"
             >
-              <LogoSquare />
+              <LogoBadge size={40} priority={true} />
               <div className="flex-none leading-none md:hidden lg:block">
                 <span className="font-display block text-base font-bold tracking-[0.22em] uppercase">
                   Lone Elk

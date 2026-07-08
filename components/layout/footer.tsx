@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import FooterMenu from "components/layout/footer-menu";
-import LogoIcon from "components/icons/logo";
+import LogoBadge from "components/logo";
 import { getMenu } from "lib/shopify";
 import { Suspense } from "react";
 
@@ -20,7 +20,7 @@ export default async function Footer() {
       <div className="mx-auto flex w-full max-w-(--breakpoint-2xl) flex-col gap-10 px-6 py-16 md:flex-row md:justify-between md:gap-12">
         <div className="max-w-sm">
           <Link className="flex items-center gap-3 text-bone" href="/">
-            <LogoIcon className="h-9 w-9 text-field" />
+            <LogoBadge size={44} />
             <span className="leading-none">
               <span className="font-display block text-2xl font-bold tracking-[0.22em] uppercase">
                 Lone Elk

@@ -1,4 +1,4 @@
-import LogoIcon from "components/icons/logo";
+import LogoBadge from "components/logo";
 import Link from "next/link";
 
 export function Story() {
@@ -43,7 +43,7 @@ export function Story() {
             >
               Load Your Pack
             </Link>
-            <LogoIcon className="h-12 w-12 text-seam" />
+            <LogoBadge size={64} />
           </div>
         </div>
       </div>

@@ -1,5 +1,4 @@
 import { ImageResponse } from "next/og";
-import LogoIcon from "./icons/logo";
 import { join } from "path";
 import { readFile } from "fs/promises";
 
@@ -17,8 +16,12 @@ export default async function OpengraphImage(
     ...props,
   };
 
-  const file = await readFile(join(process.cwd(), "./fonts/Inter-Bold.ttf"));
-  const font = Uint8Array.from(file).buffer;
+  const [fontFile, badgeFile] = await Promise.all([
+    readFile(join(process.cwd(), "./fonts/Inter-Bold.ttf")),
+    readFile(join(process.cwd(), "./public/logo-512.png")),
+  ]);
+  const font = Uint8Array.from(fontFile).buffer;
+  const badge = `data:image/png;base64,${badgeFile.toString("base64")}`;
 
   return new ImageResponse(
     (
@@ -26,18 +29,10 @@ export default async function OpengraphImage(
         tw="flex h-full w-full flex-col items-center justify-center"
         style={{ backgroundColor: "#0c0c0a" }}
       >
-        <div
-          tw="flex flex-none items-center justify-center h-[160px] w-[160px]"
-          style={{
-            border: "1px solid #2b2b22",
-            backgroundColor: "#191913",
-            color: "#8b9a5b",
-          }}
-        >
-          <LogoIcon width="88" height="88" />
-        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element -- Satori requires plain img */}
+        <img src={badge} width={220} height={222} alt="" />
         <p
-          tw="mt-12 text-6xl font-bold"
+          tw="mt-10 text-6xl font-bold"
           style={{
             color: "#e9e4d7",
             textTransform: "uppercase",
