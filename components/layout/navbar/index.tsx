@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import MobileMenu from "./mobile-menu";
 import Search, { SearchSkeleton } from "./search";
+import ThemeToggle from "./theme-toggle";
 
 const SITE_NAME = process.env.SITE_NAME || "Lone Elk Coffee Company";
 
@@ -60,7 +61,8 @@ export async function Navbar() {
               <Search />
             </Suspense>
           </div>
-          <div className="flex justify-end md:w-1/3">
+          <div className="flex justify-end gap-2 md:w-1/3">
+            <ThemeToggle />
             <CartModal />
           </div>
         </div>

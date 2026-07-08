@@ -5,9 +5,13 @@
 
 /*
  * Lone Elk Coffee Company — field-manual design system.
- * Dark-only: deep matte blacks, warm charcoal panels, tactical olive
- * accents, bone off-white type. Zero border radius throughout; edges are
- * machined, not rounded.
+ *
+ * The seven tokens below are semantic despite their color-flavored names:
+ * night = page surface, coal = raised panel, seam = hairline, bone = ink,
+ * field = tactical accent, olive = secondary accent, clay = warning/low
+ * stock. `@theme` holds the dark values (brand default); the light theme
+ * remaps the same variables further down. Zero border radius throughout;
+ * edges are machined, not rounded.
  */
 @theme {
   --color-night: #0c0c0a;
@@ -68,6 +72,7 @@
     border-color: var(--color-seam, currentColor);
   }
 
+  /* Dark is the brand default; light overrides live below @layer base. */
   html {
     color-scheme: dark;
   }
@@ -81,6 +86,38 @@
   ::selection {
     background-color: var(--color-field);
     color: var(--color-night);
+  }
+}
+
+/*
+ * Light theme — warm field-notebook paper with deep-olive accents.
+ * Applied two ways (keep the two variable blocks identical):
+ *   1. `data-theme="light"` — explicit user choice from the nav toggle.
+ *   2. `prefers-color-scheme: light` with no explicit choice — system default.
+ * The accent darkens (#8b9a5b → #55613c) so `text-night` composed on
+ * `bg-field` (CTAs, chips) keeps ≥ 5.9:1 contrast in both themes.
+ */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --color-night: #f3f0e7;
+  --color-coal: #e9e5d7;
+  --color-seam: #d5d0bf;
+  --color-bone: #1d1c16;
+  --color-field: #55613c;
+  --color-olive: #77855a;
+  --color-clay: #a64e28;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+    --color-night: #f3f0e7;
+    --color-coal: #e9e5d7;
+    --color-seam: #d5d0bf;
+    --color-bone: #1d1c16;
+    --color-field: #55613c;
+    --color-olive: #77855a;
+    --color-clay: #a64e28;
   }
 }
 

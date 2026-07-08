@@ -10,7 +10,7 @@ function TopoLines() {
       preserveAspectRatio="xMidYMid slice"
       fill="none"
     >
-      <g stroke="#2b2b22" strokeWidth="1">
+      <g className="stroke-seam" strokeWidth="1">
         <path d="M-60 620C180 560 260 470 420 470s260 90 430 90 300-130 470-130 240 60 240 60" />
         <path d="M-60 560C160 500 260 400 430 400s250 90 420 90 300-140 470-140 240 70 240 70" />
         <path d="M-60 500C140 440 260 330 440 330s240 90 410 90 300-150 470-150 240 80 240 80" />
@@ -18,7 +18,12 @@ function TopoLines() {
         <path d="M-60 380C100 320 260 190 460 190s220 90 390 90 300-170 470-170 240 100 240 100" />
         <path d="M-60 320C80 260 260 120 470 120s210 90 380 90 300-180 470-180 240 110 240 110" />
       </g>
-      <g fill="#2b2b22" fontSize="9" fontFamily="monospace" letterSpacing="3">
+      <g
+        className="fill-seam"
+        fontSize="9"
+        fontFamily="monospace"
+        letterSpacing="3"
+      >
         <text x="180" y="452">
           1500M
         </text>

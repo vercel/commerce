@@ -92,9 +92,19 @@ checkout handoff needs a real store).
 
 ## Design system
 
-Dark-only "field manual" theme defined in `app/globals.css` via Tailwind v4
-`@theme` tokens: `night` (page), `coal` (panels), `seam` (hairlines),
-`bone` (type), `field` (tactical green accent), `clay` (warnings/low
-stock). Display type is Oswald (all-caps, tracked); spec labels use Geist
-Mono; zero border radius throughout. No UI component libraries — native
+"Field manual" theme defined in `app/globals.css` via Tailwind v4 `@theme`
+tokens — semantic despite the color-flavored names: `night` (page surface),
+`coal` (panels), `seam` (hairlines), `bone` (ink), `field` (tactical
+accent), `clay` (warnings/low stock).
+
+**Light & dark modes:** dark (matte black, sage accent) is the brand
+default; light remaps the same variables to warm paper, ink, and deep
+olive. With no user choice the site follows `prefers-color-scheme`; the
+tri-state nav toggle (system → light → dark) persists an explicit choice
+in `localStorage`, re-applied before first paint by an inline script in
+the root layout. New UI must use the tokens — never raw hex values — so
+both themes keep working.
+
+Display type is Oswald (all-caps, tracked); spec labels use Geist Mono;
+zero border radius throughout. No UI component libraries — native
 primitives and Tailwind only.

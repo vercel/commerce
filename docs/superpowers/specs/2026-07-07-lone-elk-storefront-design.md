@@ -113,6 +113,18 @@ when catalog data changes in Shopify admin.
   this pass (metrics strip is static brand copy).
 - No changes to Shopify-side configuration beyond documentation.
 
+## 3.5 Addendum (2026-07-08): light mode
+
+Supersedes the "dark-only" decision in §3.3 at the user's request. The
+seven tokens are treated as semantic slots and remapped for light mode
+(warm paper `#f3f0e7`, ink `#1d1c16`, deep-olive accent `#55613c` — the
+accent darkens so `text-night`-on-`bg-field` CTAs keep ≥ 5.8:1 contrast in
+both themes). Resolution order: explicit `data-theme` attribute (set from
+the tri-state nav toggle, persisted in `localStorage`, re-applied by a
+pre-paint inline script) beats `prefers-color-scheme`, which is the
+default when the user hasn't chosen. No component markup changed except
+replacing hardcoded hero SVG hexes with token classes.
+
 ## 4. Environment
 
 ```
