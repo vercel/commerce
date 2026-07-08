@@ -1,0 +1,41 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - link "Lone Elk Coffee Company badge Lone Elk Coffee Co." [ref=e6] [cursor=pointer]:
+          - /url: /
+          - img "Lone Elk Coffee Company badge" [ref=e7]
+          - generic [ref=e8]:
+            - generic [ref=e9]: Lone Elk
+            - generic [ref=e10]: Coffee Co.
+        - list [ref=e11]:
+          - listitem [ref=e12]:
+            - link "Shop" [ref=e13] [cursor=pointer]:
+              - /url: /search
+      - generic [ref=e15]:
+        - textbox "SEARCH ROASTS" [ref=e16]
+        - img [ref=e18]
+      - generic [ref=e20]:
+        - button "System theme active. Switch to light theme." [ref=e21]:
+          - img [ref=e22]
+        - button "Open cart" [ref=e24]:
+          - img [ref=e26]
+  - main [ref=e28]:
+    - generic [ref=e30]:
+      - heading "404" [level=1] [ref=e31]
+      - heading "This page could not be found." [level=2] [ref=e33]
+  - button "Open Next.js Dev Tools" [ref=e39] [cursor=pointer]:
+    - img [ref=e40]
+  - alert [ref=e43]
+  - dialog "Shopping cart" [ref=e44]:
+    - generic [ref=e45]:
+      - generic [ref=e46]:
+        - paragraph [ref=e47]: Your Pack
+        - paragraph [ref=e48]: 0 items loaded
+      - button "Close cart" [ref=e49]:
+        - img [ref=e51]
+    - generic [ref=e53]:
+      - img [ref=e55]
+      - paragraph [ref=e57]: Pack is empty
+      - link "Load up →" [ref=e58] [cursor=pointer]:
+        - /url: /search

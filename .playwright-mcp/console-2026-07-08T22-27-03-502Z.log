@@ -1,0 +1,8 @@
+[     424ms] [WARNING] <link rel=preload> must have a valid `as` value @ http://localhost:3000/:0
+[     464ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/72740_next_dist_d2355892._.js:2242
+[     470ms] [LOG] %c%s%c No collection found for `hidden-homepage-featured-items` background: #e6e6e6;background: light-dark(rgba(0,0,0,0.1), rgba(255,255,255,0.25));color: #000000;color: light-dark(#000000, #ffffff);border-radius: 2px  Cache   @ http://localhost:3000/_next/static/chunks/72740_next_dist_d2355892._.js:2242
+[     483ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/72740_next_dist_d2355892._.js:2242
+[   31603ms] [WARNING] <link rel=preload> must have a valid `as` value @ http://localhost:3000/:0
+[   31645ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3000/_next/static/chunks/72740_next_dist_d2355892._.js:2242
+[   31650ms] [LOG] %c%s%c No collection found for `hidden-homepage-featured-items` background: #e6e6e6;background: light-dark(rgba(0,0,0,0.1), rgba(255,255,255,0.25));color: #000000;color: light-dark(#000000, #ffffff);border-radius: 2px  Cache   @ http://localhost:3000/_next/static/chunks/72740_next_dist_d2355892._.js:2242
+[   31659ms] [LOG] [HMR] connected @ http://localhost:3000/_next/static/chunks/72740_next_dist_d2355892._.js:2242

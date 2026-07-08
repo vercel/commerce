@@ -1,3 +1,4 @@
+import LogoBadge from "components/logo";
 import Link from "next/link";
 
 /** Faint topographic contour lines — pure decoration behind the hero. */
@@ -63,14 +64,21 @@ export function Hero() {
         >
           Small-Batch Specialty Coffee — Lone Elk, MO
         </p>
-        <h1
-          className="font-display animate-fade-rise mt-6 max-w-5xl text-6xl leading-[0.95] font-bold tracking-[0.02em] text-bone uppercase md:text-8xl lg:text-9xl"
+        <div
+          className="animate-fade-rise mt-6 flex flex-col items-start gap-6 md:flex-row md:items-center md:gap-10"
           style={{ animationDelay: "120ms" }}
         >
-          Fresh-Roasted
-          <br />
-          <span className="text-field">on Demand</span>
-        </h1>
+          <LogoBadge
+            size={224}
+            priority={true}
+            className="h-28 w-auto md:h-44 lg:h-56"
+          />
+          <h1 className="font-display max-w-5xl text-6xl leading-[0.95] font-bold tracking-[0.02em] text-bone uppercase md:text-8xl lg:text-9xl">
+            Fresh-Roasted
+            <br />
+            <span className="text-field">on Demand</span>
+          </h1>
+        </div>
         <p
           className="animate-fade-rise mt-8 max-w-xl text-base leading-relaxed text-bone/70 md:text-lg"
           style={{ animationDelay: "240ms" }}
