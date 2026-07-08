@@ -18,7 +18,7 @@ Browser ── Next.js on Vercel ── Shopify Storefront API (catalog + cart)
                  │
         Order created in Shopify
                  │
-   Fulfillment app installed on the store (Tamacula Coffee Roasters)
+   Fulfillment app installed on the store (Temecula Coffee Roasters)
    picks the order up automatically — no webhooks in this codebase
 ```
 
@@ -62,7 +62,7 @@ checkout handoff needs a real store).
    SKU). Products with a second multi-value option fall back to a
    "Select Options" link.
 3. **Variant SKUs** — keep them in sync with the fulfillment partner
-   (Tamacula) catalog; they're displayed on the PDP and in the cart.
+   (Temecula) catalog; they're displayed on the PDP and in the cart.
 4. **Featured roster** — optional collection `hidden-homepage-featured-items`
    curates the homepage grid (falls back to best sellers). Collections
    prefixed `hidden-` never appear on the search page.

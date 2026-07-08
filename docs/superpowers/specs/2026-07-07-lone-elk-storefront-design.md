@@ -10,7 +10,7 @@ Rebrand and harden the vercel/commerce template into a production storefront for
 Lone Elk Coffee Company — a premium, rugged specialty coffee brand for outdoor
 athletes and rucking enthusiasts. Headless Shopify backend, secure Shopify
 checkout handoff, order fulfillment synced automatically to the roaster's order
-management app (Tamacula Coffee Roasters) installed on the Shopify store.
+management app (Temecula Coffee Roasters) installed on the Shopify store.
 
 ## 2. Architecture
 
@@ -22,7 +22,7 @@ Browser ── Next.js (Vercel) ── Shopify Storefront API (GraphQL, 2026-07)
                               │
                      Shopify Order created
                               │
-              Tamacula app (installed on store) receives order
+              Temecula app (installed on store) receives order
               via its own app subscriptions — no frontend code
 ```
 
