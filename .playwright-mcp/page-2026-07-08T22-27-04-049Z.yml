@@ -1,290 +1,290 @@
 - generic [active] [ref=f1e1]:
-  - navigation [ref=f1e2]:
-    - generic [ref=f1e4]:
-      - generic [ref=f1e5]:
-        - link "Lone Elk Coffee Company badge Lone Elk Coffee Co." [ref=f1e6] [cursor=pointer]:
-          - /url: /
-          - img "Lone Elk Coffee Company badge" [ref=f1e7]
-          - generic [ref=f1e8]:
-            - generic [ref=f1e9]: Lone Elk
-            - generic [ref=f1e10]: Coffee Co.
-        - list [ref=f1e11]:
-          - listitem [ref=f1e12]:
-            - link "Shop" [ref=f1e13] [cursor=pointer]:
-              - /url: /search
-      - generic [ref=f1e15]:
-        - textbox "SEARCH ROASTS" [ref=f1e16]
-        - img [ref=f1e18]
-      - generic [ref=f1e20]:
-        - button "System theme active. Switch to light theme." [ref=f1e21]:
-          - img [ref=f1e22]
-        - button "Open cart" [ref=f1e24]:
-          - img [ref=f1e26]
-  - main [ref=f1e28]:
-    - generic [ref=f1e29]:
-      - img [ref=f1e30]:
-        - generic [ref=f1e38]:
-          - generic [ref=f1e39]: 1500M
-          - generic [ref=f1e40]: 1800M
-      - generic: +
-      - generic: +
-      - generic: +
-      - generic: +
-      - generic [ref=f1e41]:
-        - paragraph [ref=f1e42]: Small-Batch Specialty Coffee — Lone Elk, MO
-        - generic [ref=f1e43]:
-          - img "Lone Elk Coffee Company badge" [ref=f1e44]
-          - heading "Fresh-Roasted on Demand" [level=1] [ref=f1e45]:
-            - text: Fresh-Roasted
-            - text: on Demand
-        - paragraph [ref=f1e46]: Zero shelf time. Your order hits the roaster after you place it — built for ruckers, trail crews, and anyone who treats coffee as mission-critical fuel.
-        - generic [ref=f1e47]:
-          - link "Shop the Roster" [ref=f1e48] [cursor=pointer]:
-            - /url: /search
-          - link "The Standard" [ref=f1e49] [cursor=pointer]:
-            - /url: "#standard"
-        - generic [ref=f1e50]:
-          - generic [ref=f1e51]:
-            - term [ref=f1e52]: Roast window
-            - definition [ref=f1e53]: 48 hrs
-          - generic [ref=f1e54]:
-            - term [ref=f1e55]: Batch size
-            - definition [ref=f1e56]: Small
-          - generic [ref=f1e57]:
-            - term [ref=f1e58]: Origin alt.
-            - definition [ref=f1e59]: 1500m+
-    - generic [ref=f1e61]:
-      - list [ref=f1e62]:
-        - listitem [ref=f1e63]:
-          - text: Fresh-Roasted on Demand
-          - generic [ref=f1e64]: ▲
-        - listitem [ref=f1e65]:
-          - text: Zero Shelf Time
-          - generic [ref=f1e66]: ▲
-        - listitem [ref=f1e67]:
-          - text: Shipped Within 48 Hours
-          - generic [ref=f1e68]: ▲
-        - listitem [ref=f1e69]:
-          - text: Carry the Weight
-          - generic [ref=f1e70]: ▲
-        - listitem [ref=f1e71]:
-          - text: Earn the Cup
-          - generic [ref=f1e72]: ▲
-      - list [ref=f1e73]:
-        - listitem [ref=f1e74]:
-          - text: Fresh-Roasted on Demand
-          - generic [ref=f1e75]: ▲
-        - listitem [ref=f1e76]:
-          - text: Zero Shelf Time
-          - generic [ref=f1e77]: ▲
-        - listitem [ref=f1e78]:
-          - text: Shipped Within 48 Hours
-          - generic [ref=f1e79]: ▲
-        - listitem [ref=f1e80]:
-          - text: Carry the Weight
-          - generic [ref=f1e81]: ▲
-        - listitem [ref=f1e82]:
-          - text: Earn the Cup
-          - generic [ref=f1e83]: ▲
-    - generic [ref=f1e85]:
-      - generic [ref=f1e86]:
-        - generic [ref=f1e87]: "01"
-        - heading "The Standard" [level=2] [ref=f1e88]
-      - generic [ref=f1e89]:
-        - generic [ref=f1e90]:
-          - paragraph [ref=f1e91]: "01"
-          - paragraph [ref=f1e92]: 48H
-          - paragraph [ref=f1e93]: Roast-to-ship window
-          - paragraph [ref=f1e94]: Ordered today, roasted and moving inside two days.
-        - generic [ref=f1e95]:
-          - paragraph [ref=f1e96]: "02"
-          - paragraph [ref=f1e97]: 100%
-          - paragraph [ref=f1e98]: Roasted to order
-          - paragraph [ref=f1e99]: No warehouse pallets. No stale inventory. Ever.
-        - generic [ref=f1e100]:
-          - paragraph [ref=f1e101]: "03"
-          - paragraph [ref=f1e102]: 1.5K+
-          - paragraph [ref=f1e103]: Meters of altitude
-          - paragraph [ref=f1e104]: High-grown single origins picked for slow, dense development.
-        - generic [ref=f1e105]:
-          - paragraph [ref=f1e106]: "04"
-          - paragraph [ref=f1e107]: "0"
-          - paragraph [ref=f1e108]: Shortcuts taken
-          - paragraph [ref=f1e109]: No oils, no flavorings, no blends built to hide defects.
-    - generic [ref=f1e111]:
-      - generic [ref=f1e112]:
-        - generic [ref=f1e113]:
-          - generic [ref=f1e114]: "02"
-          - heading "The Roster" [level=2] [ref=f1e115]
-        - link "View all roasts →" [ref=f1e116] [cursor=pointer]:
-          - /url: /search
-      - list [ref=f1e117]:
-        - listitem [ref=f1e118]:
-          - generic [ref=f1e119]:
-            - link "Hoodie ● In Stock" [ref=f1e120] [cursor=pointer]:
-              - /url: /product/hoodie-old
-              - img "Hoodie" [ref=f1e121]
-              - generic [ref=f1e122]: ● In Stock
-            - generic [ref=f1e123]:
-              - generic [ref=f1e124]:
-                - link "Hoodie" [ref=f1e125] [cursor=pointer]:
-                  - /url: /product/hoodie-old
-                  - heading "Hoodie" [level=3] [ref=f1e126]
-                - paragraph [ref=f1e127]: $90.00CAD
-              - link "Select Options →" [ref=f1e129] [cursor=pointer]:
-                - /url: /product/hoodie-old
-        - listitem [ref=f1e130]:
-          - generic [ref=f1e131]:
-            - link "Men's T-shirt ● In Stock" [ref=f1e132] [cursor=pointer]:
-              - /url: /product/men-t-shirt
-              - img "Men's T-shirt" [ref=f1e133]
-              - generic [ref=f1e134]: ● In Stock
-            - generic [ref=f1e135]:
-              - generic [ref=f1e136]:
-                - link "Men's T-shirt" [ref=f1e137] [cursor=pointer]:
-                  - /url: /product/men-t-shirt
-                  - heading "Men's T-shirt" [level=3] [ref=f1e138]
-                - paragraph [ref=f1e139]: $40.00CAD
-              - link "Select Options →" [ref=f1e141] [cursor=pointer]:
-                - /url: /product/men-t-shirt
-        - listitem [ref=f1e142]:
-          - generic [ref=f1e143]:
-            - link "Women's T-shirt ● In Stock" [ref=f1e144] [cursor=pointer]:
-              - /url: /product/women-t-shirt
-              - img "Women's T-shirt" [ref=f1e145]
-              - generic [ref=f1e146]: ● In Stock
-            - generic [ref=f1e147]:
-              - generic [ref=f1e148]:
-                - link "Women's T-shirt" [ref=f1e149] [cursor=pointer]:
-                  - /url: /product/women-t-shirt
-                  - heading "Women's T-shirt" [level=3] [ref=f1e150]
-                - paragraph [ref=f1e151]: $40.00CAD
-              - link "Select Options →" [ref=f1e153] [cursor=pointer]:
-                - /url: /product/women-t-shirt
-        - listitem [ref=f1e154]:
-          - generic [ref=f1e155]:
-            - link "High Top Sneakers ● In Stock" [ref=f1e156] [cursor=pointer]:
-              - /url: /product/high-top-sneakers
-              - img "High Top Sneakers" [ref=f1e157]
-              - generic [ref=f1e158]: ● In Stock
-            - generic [ref=f1e159]:
-              - generic [ref=f1e160]:
-                - link "High Top Sneakers" [ref=f1e161] [cursor=pointer]:
-                  - /url: /product/high-top-sneakers
-                  - heading "High Top Sneakers" [level=3] [ref=f1e162]
-                - paragraph [ref=f1e163]: $180.00CAD
-              - generic [ref=f1e165]:
-                - paragraph [ref=f1e166]: Quick add — Size
-                - generic [ref=f1e167]:
-                  - button "Add High Top Sneakers — 6 to cart" [ref=f1e168]:
-                    - img [ref=f1e169]
-                    - text: "6"
-                  - button "Add High Top Sneakers — 7 to cart" [ref=f1e171]:
-                    - img [ref=f1e172]
-                    - text: "7"
-                  - button "Add High Top Sneakers — 8 to cart" [ref=f1e174]:
-                    - img [ref=f1e175]
-                    - text: "8"
-                  - button "Add High Top Sneakers — 9 to cart" [disabled] [ref=f1e177]:
-                    - img [ref=f1e178]
-                    - text: "9"
-                  - button "Add High Top Sneakers — 10 to cart" [disabled] [ref=f1e180]:
-                    - img [ref=f1e181]
-                    - text: "10"
-        - listitem [ref=f1e183]:
-          - generic [ref=f1e184]:
-            - link "Men's Crewneck ● In Stock" [ref=f1e185] [cursor=pointer]:
-              - /url: /product/men-crewneck
-              - img "Men's Crewneck" [ref=f1e186]
-              - generic [ref=f1e187]: ● In Stock
-            - generic [ref=f1e188]:
-              - generic [ref=f1e189]:
-                - link "Men's Crewneck" [ref=f1e190] [cursor=pointer]:
-                  - /url: /product/men-crewneck
-                  - heading "Men's Crewneck" [level=3] [ref=f1e191]
-                - paragraph [ref=f1e192]: $120.00CAD
-              - link "Select Options →" [ref=f1e194] [cursor=pointer]:
-                - /url: /product/men-crewneck
-        - listitem [ref=f1e195]:
-          - generic [ref=f1e196]:
-            - link "Women's Crewneck ● In Stock" [ref=f1e197] [cursor=pointer]:
-              - /url: /product/women-crewneck
-              - img "Women's Crewneck" [ref=f1e198]
-              - generic [ref=f1e199]: ● In Stock
-            - generic [ref=f1e200]:
-              - generic [ref=f1e201]:
-                - link "Women's Crewneck" [ref=f1e202] [cursor=pointer]:
-                  - /url: /product/women-crewneck
-                  - heading "Women's Crewneck" [level=3] [ref=f1e203]
-                - paragraph [ref=f1e204]: $120.00CAD
-              - link "Select Options →" [ref=f1e206] [cursor=pointer]:
-                - /url: /product/women-crewneck
-    - generic [ref=f1e208]:
-      - generic [ref=f1e209]:
-        - generic [ref=f1e210]:
-          - generic [ref=f1e211]: "03"
-          - heading "Built for the Carry" [level=2] [ref=f1e212]
-        - paragraph [ref=f1e213]: “Stale coffee is dead weight. We don't ship dead weight.”
-      - generic [ref=f1e214]:
-        - generic [ref=f1e215]:
-          - paragraph [ref=f1e216]: Lone Elk exists for the mornings that start under load — ruck plates, trail miles, cold starts before first light. Coffee peaks in the days after roast, so nothing here is roasted until you order it. Your batch is fired, rested, packed, and moving within 48 hours.
-          - paragraph [ref=f1e217]: "Every roast is a high-altitude single origin or a purpose-built blend, cupped against one question: does it hold up black, at zero-dark-thirty, out of a dented mug? If not, it doesn't make the roster."
-        - generic [ref=f1e218]:
-          - link "Load Your Pack" [ref=f1e219] [cursor=pointer]:
-            - /url: /search
-          - img "Lone Elk Coffee Company badge" [ref=f1e220]
-    - generic [ref=f1e221]:
-      - generic [ref=f1e222]:
-        - generic [ref=f1e223]:
-          - link "Lone Elk Coffee Company badge Lone Elk Coffee Company" [ref=f1e224] [cursor=pointer]:
-            - /url: /
-            - img "Lone Elk Coffee Company badge" [ref=f1e225]
-            - generic [ref=f1e226]:
-              - generic [ref=f1e227]: Lone Elk
-              - generic [ref=f1e228]: Coffee Company
-          - paragraph [ref=f1e229]: Premium small-batch coffee, fresh-roasted on demand for the people who put in the miles under load.
-          - paragraph [ref=f1e230]: 38.53° N / 90.54° W — Lone Elk, MO
-        - generic [ref=f1e231]:
-          - navigation "Shop" [ref=f1e232]:
-            - heading "Shop" [level=3] [ref=f1e233]
-            - list [ref=f1e234]:
-              - listitem [ref=f1e235]:
-                - link "All Roasts" [ref=f1e236] [cursor=pointer]:
-                  - /url: /search
-          - generic [ref=f1e237]:
-            - heading "The Standard" [level=3] [ref=f1e238]
-            - list [ref=f1e239]:
-              - listitem [ref=f1e240]: Roasted to order
-              - listitem [ref=f1e241]: Shipped within 48 hrs
-              - listitem [ref=f1e242]: Small batch, always
-      - generic [ref=f1e244]:
-        - paragraph [ref=f1e245]: © 2026 Lone Elk Coffee Company. All rights reserved.
-        - paragraph [ref=f1e246]: Carry the weight. Earn the cup.
-  - button "Open Next.js Dev Tools" [ref=f1e252] [cursor=pointer]:
-    - img [ref=f1e253]
-  - alert [ref=f1e256]
-  - dialog "Shopping cart" [ref=f1e257]:
-    - generic [ref=f1e258]:
-      - generic [ref=f1e259]:
-        - paragraph [ref=f1e260]: Your Pack
-        - paragraph [ref=f1e261]: 0 items loaded
-      - button "Close cart" [ref=f1e262]:
-        - img [ref=f1e264]
-    - generic [ref=f1e266]:
-      - img [ref=f1e268]
-      - paragraph [ref=f1e270]: Pack is empty
-      - link "Load up →" [ref=f1e271] [cursor=pointer]:
-        - /url: /search
-  - dialog "Mobile menu" [ref=f1e272]:
-    - generic [ref=f1e273]:
-      - button "Close mobile menu" [ref=f1e274]:
-        - img [ref=f1e275]
-      - generic [ref=f1e278]:
-        - textbox "SEARCH ROASTS" [ref=f1e279]
-        - img [ref=f1e281]
-      - list [ref=f1e283]:
-        - listitem [ref=f1e284]:
-          - link "01 Shop" [ref=f1e285] [cursor=pointer]:
-            - /url: /search
-            - generic [ref=f1e286]: "01"
-            - text: Shop
+    - navigation [ref=f1e2]:
+        - generic [ref=f1e4]:
+            - generic [ref=f1e5]:
+                - link "Lone Elk Coffee Company badge Lone Elk Coffee Co." [ref=f1e6] [cursor=pointer]:
+                    - /url: /
+                    - img "Lone Elk Coffee Company badge" [ref=f1e7]
+                    - generic [ref=f1e8]:
+                        - generic [ref=f1e9]: Lone Elk
+                        - generic [ref=f1e10]: Coffee Co.
+                - list [ref=f1e11]:
+                    - listitem [ref=f1e12]:
+                        - link "Shop" [ref=f1e13] [cursor=pointer]:
+                            - /url: /search
+            - generic [ref=f1e15]:
+                - textbox "SEARCH ROASTS" [ref=f1e16]
+                - img [ref=f1e18]
+            - generic [ref=f1e20]:
+                - button "System theme active. Switch to light theme." [ref=f1e21]:
+                    - img [ref=f1e22]
+                - button "Open cart" [ref=f1e24]:
+                    - img [ref=f1e26]
+    - main [ref=f1e28]:
+        - generic [ref=f1e29]:
+            - img [ref=f1e30]:
+                - generic [ref=f1e38]:
+                    - generic [ref=f1e39]: 1500M
+                    - generic [ref=f1e40]: 1800M
+            - generic: +
+            - generic: +
+            - generic: +
+            - generic: +
+            - generic [ref=f1e41]:
+                - paragraph [ref=f1e42]: Small-Batch Specialty Coffee — Lone Elk, MO
+                - generic [ref=f1e43]:
+                    - img "Lone Elk Coffee Company badge" [ref=f1e44]
+                    - heading "Fresh-Roasted on Demand" [level=1] [ref=f1e45]:
+                        - text: Fresh-Roasted
+                        - text: on Demand
+                - paragraph [ref=f1e46]: Zero shelf time. Your order hits the roaster after you place it — built for ruckers, trail crews, and anyone who treats coffee as mission-critical fuel.
+                - generic [ref=f1e47]:
+                    - link "Shop the Roster" [ref=f1e48] [cursor=pointer]:
+                        - /url: /search
+                    - link "The Standard" [ref=f1e49] [cursor=pointer]:
+                        - /url: "#standard"
+                - generic [ref=f1e50]:
+                    - generic [ref=f1e51]:
+                        - term [ref=f1e52]: Roast window
+                        - definition [ref=f1e53]: 48 hrs
+                    - generic [ref=f1e54]:
+                        - term [ref=f1e55]: Batch size
+                        - definition [ref=f1e56]: Small
+                    - generic [ref=f1e57]:
+                        - term [ref=f1e58]: Origin alt.
+                        - definition [ref=f1e59]: 1500m+
+        - generic [ref=f1e61]:
+            - list [ref=f1e62]:
+                - listitem [ref=f1e63]:
+                    - text: Fresh-Roasted on Demand
+                    - generic [ref=f1e64]: ▲
+                - listitem [ref=f1e65]:
+                    - text: Zero Shelf Time
+                    - generic [ref=f1e66]: ▲
+                - listitem [ref=f1e67]:
+                    - text: Shipped Within 48 Hours
+                    - generic [ref=f1e68]: ▲
+                - listitem [ref=f1e69]:
+                    - text: Carry the Weight
+                    - generic [ref=f1e70]: ▲
+                - listitem [ref=f1e71]:
+                    - text: Earn the Cup
+                    - generic [ref=f1e72]: ▲
+            - list [ref=f1e73]:
+                - listitem [ref=f1e74]:
+                    - text: Fresh-Roasted on Demand
+                    - generic [ref=f1e75]: ▲
+                - listitem [ref=f1e76]:
+                    - text: Zero Shelf Time
+                    - generic [ref=f1e77]: ▲
+                - listitem [ref=f1e78]:
+                    - text: Shipped Within 48 Hours
+                    - generic [ref=f1e79]: ▲
+                - listitem [ref=f1e80]:
+                    - text: Carry the Weight
+                    - generic [ref=f1e81]: ▲
+                - listitem [ref=f1e82]:
+                    - text: Earn the Cup
+                    - generic [ref=f1e83]: ▲
+        - generic [ref=f1e85]:
+            - generic [ref=f1e86]:
+                - generic [ref=f1e87]: "01"
+                - heading "The Standard" [level=2] [ref=f1e88]
+            - generic [ref=f1e89]:
+                - generic [ref=f1e90]:
+                    - paragraph [ref=f1e91]: "01"
+                    - paragraph [ref=f1e92]: 48H
+                    - paragraph [ref=f1e93]: Roast-to-ship window
+                    - paragraph [ref=f1e94]: Ordered today, roasted and moving inside two days.
+                - generic [ref=f1e95]:
+                    - paragraph [ref=f1e96]: "02"
+                    - paragraph [ref=f1e97]: 100%
+                    - paragraph [ref=f1e98]: Roasted to order
+                    - paragraph [ref=f1e99]: No warehouse pallets. No stale inventory. Ever.
+                - generic [ref=f1e100]:
+                    - paragraph [ref=f1e101]: "03"
+                    - paragraph [ref=f1e102]: 1.5K+
+                    - paragraph [ref=f1e103]: Meters of altitude
+                    - paragraph [ref=f1e104]: High-grown single origins picked for slow, dense development.
+                - generic [ref=f1e105]:
+                    - paragraph [ref=f1e106]: "04"
+                    - paragraph [ref=f1e107]: "0"
+                    - paragraph [ref=f1e108]: Shortcuts taken
+                    - paragraph [ref=f1e109]: No oils, no flavorings, no blends built to hide defects.
+        - generic [ref=f1e111]:
+            - generic [ref=f1e112]:
+                - generic [ref=f1e113]:
+                    - generic [ref=f1e114]: "02"
+                    - heading "The Roster" [level=2] [ref=f1e115]
+                - link "View all roasts →" [ref=f1e116] [cursor=pointer]:
+                    - /url: /search
+            - list [ref=f1e117]:
+                - listitem [ref=f1e118]:
+                    - generic [ref=f1e119]:
+                        - link "Hoodie ● In Stock" [ref=f1e120] [cursor=pointer]:
+                            - /url: /product/hoodie-old
+                            - img "Hoodie" [ref=f1e121]
+                            - generic [ref=f1e122]: ● In Stock
+                        - generic [ref=f1e123]:
+                            - generic [ref=f1e124]:
+                                - link "Hoodie" [ref=f1e125] [cursor=pointer]:
+                                    - /url: /product/hoodie-old
+                                    - heading "Hoodie" [level=3] [ref=f1e126]
+                                - paragraph [ref=f1e127]: $90.00CAD
+                            - link "Select Options →" [ref=f1e129] [cursor=pointer]:
+                                - /url: /product/hoodie-old
+                - listitem [ref=f1e130]:
+                    - generic [ref=f1e131]:
+                        - link "Men's T-shirt ● In Stock" [ref=f1e132] [cursor=pointer]:
+                            - /url: /product/men-t-shirt
+                            - img "Men's T-shirt" [ref=f1e133]
+                            - generic [ref=f1e134]: ● In Stock
+                        - generic [ref=f1e135]:
+                            - generic [ref=f1e136]:
+                                - link "Men's T-shirt" [ref=f1e137] [cursor=pointer]:
+                                    - /url: /product/men-t-shirt
+                                    - heading "Men's T-shirt" [level=3] [ref=f1e138]
+                                - paragraph [ref=f1e139]: $40.00CAD
+                            - link "Select Options →" [ref=f1e141] [cursor=pointer]:
+                                - /url: /product/men-t-shirt
+                - listitem [ref=f1e142]:
+                    - generic [ref=f1e143]:
+                        - link "Women's T-shirt ● In Stock" [ref=f1e144] [cursor=pointer]:
+                            - /url: /product/women-t-shirt
+                            - img "Women's T-shirt" [ref=f1e145]
+                            - generic [ref=f1e146]: ● In Stock
+                        - generic [ref=f1e147]:
+                            - generic [ref=f1e148]:
+                                - link "Women's T-shirt" [ref=f1e149] [cursor=pointer]:
+                                    - /url: /product/women-t-shirt
+                                    - heading "Women's T-shirt" [level=3] [ref=f1e150]
+                                - paragraph [ref=f1e151]: $40.00CAD
+                            - link "Select Options →" [ref=f1e153] [cursor=pointer]:
+                                - /url: /product/women-t-shirt
+                - listitem [ref=f1e154]:
+                    - generic [ref=f1e155]:
+                        - link "High Top Sneakers ● In Stock" [ref=f1e156] [cursor=pointer]:
+                            - /url: /product/high-top-sneakers
+                            - img "High Top Sneakers" [ref=f1e157]
+                            - generic [ref=f1e158]: ● In Stock
+                        - generic [ref=f1e159]:
+                            - generic [ref=f1e160]:
+                                - link "High Top Sneakers" [ref=f1e161] [cursor=pointer]:
+                                    - /url: /product/high-top-sneakers
+                                    - heading "High Top Sneakers" [level=3] [ref=f1e162]
+                                - paragraph [ref=f1e163]: $180.00CAD
+                            - generic [ref=f1e165]:
+                                - paragraph [ref=f1e166]: Quick add — Size
+                                - generic [ref=f1e167]:
+                                    - button "Add High Top Sneakers — 6 to cart" [ref=f1e168]:
+                                        - img [ref=f1e169]
+                                        - text: "6"
+                                    - button "Add High Top Sneakers — 7 to cart" [ref=f1e171]:
+                                        - img [ref=f1e172]
+                                        - text: "7"
+                                    - button "Add High Top Sneakers — 8 to cart" [ref=f1e174]:
+                                        - img [ref=f1e175]
+                                        - text: "8"
+                                    - button "Add High Top Sneakers — 9 to cart" [disabled] [ref=f1e177]:
+                                        - img [ref=f1e178]
+                                        - text: "9"
+                                    - button "Add High Top Sneakers — 10 to cart" [disabled] [ref=f1e180]:
+                                        - img [ref=f1e181]
+                                        - text: "10"
+                - listitem [ref=f1e183]:
+                    - generic [ref=f1e184]:
+                        - link "Men's Crewneck ● In Stock" [ref=f1e185] [cursor=pointer]:
+                            - /url: /product/men-crewneck
+                            - img "Men's Crewneck" [ref=f1e186]
+                            - generic [ref=f1e187]: ● In Stock
+                        - generic [ref=f1e188]:
+                            - generic [ref=f1e189]:
+                                - link "Men's Crewneck" [ref=f1e190] [cursor=pointer]:
+                                    - /url: /product/men-crewneck
+                                    - heading "Men's Crewneck" [level=3] [ref=f1e191]
+                                - paragraph [ref=f1e192]: $120.00CAD
+                            - link "Select Options →" [ref=f1e194] [cursor=pointer]:
+                                - /url: /product/men-crewneck
+                - listitem [ref=f1e195]:
+                    - generic [ref=f1e196]:
+                        - link "Women's Crewneck ● In Stock" [ref=f1e197] [cursor=pointer]:
+                            - /url: /product/women-crewneck
+                            - img "Women's Crewneck" [ref=f1e198]
+                            - generic [ref=f1e199]: ● In Stock
+                        - generic [ref=f1e200]:
+                            - generic [ref=f1e201]:
+                                - link "Women's Crewneck" [ref=f1e202] [cursor=pointer]:
+                                    - /url: /product/women-crewneck
+                                    - heading "Women's Crewneck" [level=3] [ref=f1e203]
+                                - paragraph [ref=f1e204]: $120.00CAD
+                            - link "Select Options →" [ref=f1e206] [cursor=pointer]:
+                                - /url: /product/women-crewneck
+        - generic [ref=f1e208]:
+            - generic [ref=f1e209]:
+                - generic [ref=f1e210]:
+                    - generic [ref=f1e211]: "03"
+                    - heading "Built for the Carry" [level=2] [ref=f1e212]
+                - paragraph [ref=f1e213]: “Stale coffee is dead weight. We don't ship dead weight.”
+            - generic [ref=f1e214]:
+                - generic [ref=f1e215]:
+                    - paragraph [ref=f1e216]: Lone Elk exists for the mornings that start under load — ruck plates, trail miles, cold starts before first light. Coffee peaks in the days after roast, so nothing here is roasted until you order it. Your batch is fired, rested, packed, and moving within 48 hours.
+                    - paragraph [ref=f1e217]: "Every roast is a high-altitude single origin or a purpose-built blend, cupped against one question: does it hold up black, at zero-dark-thirty, out of a dented mug? If not, it doesn't make the roster."
+                - generic [ref=f1e218]:
+                    - link "Load Your Pack" [ref=f1e219] [cursor=pointer]:
+                        - /url: /search
+                    - img "Lone Elk Coffee Company badge" [ref=f1e220]
+        - generic [ref=f1e221]:
+            - generic [ref=f1e222]:
+                - generic [ref=f1e223]:
+                    - link "Lone Elk Coffee Company badge Lone Elk Coffee Company" [ref=f1e224] [cursor=pointer]:
+                        - /url: /
+                        - img "Lone Elk Coffee Company badge" [ref=f1e225]
+                        - generic [ref=f1e226]:
+                            - generic [ref=f1e227]: Lone Elk
+                            - generic [ref=f1e228]: Coffee Company
+                    - paragraph [ref=f1e229]: Premium small-batch coffee, fresh-roasted on demand for the people who put in the miles under load.
+                    - paragraph [ref=f1e230]: 38.53° N / 90.54° W — Lone Elk, MO
+                - generic [ref=f1e231]:
+                    - navigation "Shop" [ref=f1e232]:
+                        - heading "Shop" [level=3] [ref=f1e233]
+                        - list [ref=f1e234]:
+                            - listitem [ref=f1e235]:
+                                - link "All Roasts" [ref=f1e236] [cursor=pointer]:
+                                    - /url: /search
+                    - generic [ref=f1e237]:
+                        - heading "The Standard" [level=3] [ref=f1e238]
+                        - list [ref=f1e239]:
+                            - listitem [ref=f1e240]: Roasted to order
+                            - listitem [ref=f1e241]: Shipped within 48 hrs
+                            - listitem [ref=f1e242]: Small batch, always
+            - generic [ref=f1e244]:
+                - paragraph [ref=f1e245]: © 2026 Lone Elk Coffee Company. All rights reserved.
+                - paragraph [ref=f1e246]: Carry the weight. Earn the cup.
+    - button "Open Next.js Dev Tools" [ref=f1e252] [cursor=pointer]:
+        - img [ref=f1e253]
+    - alert [ref=f1e256]
+    - dialog "Shopping cart" [ref=f1e257]:
+        - generic [ref=f1e258]:
+            - generic [ref=f1e259]:
+                - paragraph [ref=f1e260]: Your Pack
+                - paragraph [ref=f1e261]: 0 items loaded
+            - button "Close cart" [ref=f1e262]:
+                - img [ref=f1e264]
+        - generic [ref=f1e266]:
+            - img [ref=f1e268]
+            - paragraph [ref=f1e270]: Pack is empty
+            - link "Load up →" [ref=f1e271] [cursor=pointer]:
+                - /url: /search
+    - dialog "Mobile menu" [ref=f1e272]:
+        - generic [ref=f1e273]:
+            - button "Close mobile menu" [ref=f1e274]:
+                - img [ref=f1e275]
+            - generic [ref=f1e278]:
+                - textbox "SEARCH ROASTS" [ref=f1e279]
+                - img [ref=f1e281]
+            - list [ref=f1e283]:
+                - listitem [ref=f1e284]:
+                    - link "01 Shop" [ref=f1e285] [cursor=pointer]:
+                        - /url: /search
+                        - generic [ref=f1e286]: "01"
+                        - text: Shop

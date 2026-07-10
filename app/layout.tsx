@@ -1,11 +1,13 @@
 import { CartProvider } from "components/cart/cart-context";
 import { Navbar } from "components/layout/navbar";
+import { ShopifyProviderWrapper } from "components/shopify-provider";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import { getCart } from "lib/shopify";
 import { baseUrl } from "lib/utils";
 import { Oswald } from "next/font/google";
 import { ReactNode } from "react";
+import { OpenPanelComponent } from "@openpanel/nextjs";
 import "./globals.css";
 
 const oswald = Oswald({
@@ -42,6 +44,9 @@ export default async function RootLayout({
 }) {
   // Don't await the fetch, pass the Promise to the context provider
   const cart = getCart();
+  
+  const storeDomain = process.env.SHOPIFY_STORE_DOMAIN || "mock.shop";
+  const storefrontToken = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN || "mock-token";
 
   return (
     <html
@@ -50,12 +55,29 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <body className="bg-night text-bone">
+        <OpenPanelComponent
+          clientId={
+            process.env.NEXT_PUBLIC_OPENPANEL_CLIENT_ID ||
+            "bf0a3fd5-43a3-478c-aaa7-ac8079d828e2"
+          }
+          apiUrl="/api/op"
+          scriptUrl="/api/op/op1.js"
+          trackScreenViews={true}
+          trackOutgoingLinks={true}
+          trackAttributes={true}
+        />
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
-        <CartProvider cartPromise={cart}>
-          <Navbar />
-          <main>{children}</main>
-        </CartProvider>
+        <ShopifyProviderWrapper
+          storeDomain={storeDomain}
+          storefrontToken={storefrontToken}
+        >
+          <CartProvider cartPromise={cart}>
+            <Navbar />
+            <main>{children}</main>
+          </CartProvider>
+        </ShopifyProviderWrapper>
       </body>
     </html>
   );
 }
+

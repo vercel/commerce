@@ -1,0 +1,342 @@
+[debug] [2026-07-10T15:41:47.765Z] Checked if tokens are valid: false, expires at: 1782228181036
+[debug] [2026-07-10T15:41:47.766Z] Checked if tokens are valid: false, expires at: 1782228181036
+[debug] [2026-07-10T15:41:47.766Z] > refreshing access token with scopes: []
+[debug] [2026-07-10T15:41:47.767Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-07-10T15:41:47.767Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T15:41:47.777Z] Checked if tokens are valid: false, expires at: 1782228181036
+[debug] [2026-07-10T15:41:47.777Z] Checked if tokens are valid: false, expires at: 1782228181036
+[debug] [2026-07-10T15:41:47.777Z] > refreshing access token with scopes: []
+[debug] [2026-07-10T15:41:47.778Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-07-10T15:41:47.778Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T15:41:47.778Z] Checked if tokens are valid: false, expires at: 1782228181036
+[debug] [2026-07-10T15:41:47.778Z] Checked if tokens are valid: false, expires at: 1782228181036
+[debug] [2026-07-10T15:41:47.778Z] > refreshing access token with scopes: []
+[debug] [2026-07-10T15:41:47.778Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-07-10T15:41:47.778Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T15:41:47.779Z] Checked if tokens are valid: false, expires at: 1782228181036
+[debug] [2026-07-10T15:41:47.779Z] Checked if tokens are valid: false, expires at: 1782228181036
+[debug] [2026-07-10T15:41:47.779Z] > refreshing access token with scopes: []
+[debug] [2026-07-10T15:41:47.779Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-07-10T15:41:47.779Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T15:41:47.779Z] Checked if tokens are valid: false, expires at: 1782228181036
+[debug] [2026-07-10T15:41:47.779Z] Checked if tokens are valid: false, expires at: 1782228181036
+[debug] [2026-07-10T15:41:47.779Z] > refreshing access token with scopes: []
+[debug] [2026-07-10T15:41:47.779Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-07-10T15:41:47.779Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T15:41:47.780Z] Checked if tokens are valid: false, expires at: 1782228181036
+[debug] [2026-07-10T15:41:47.780Z] Checked if tokens are valid: false, expires at: 1782228181036
+[debug] [2026-07-10T15:41:47.780Z] > refreshing access token with scopes: []
+[debug] [2026-07-10T15:41:47.780Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-07-10T15:41:47.780Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T15:41:47.795Z] Checked if tokens are valid: false, expires at: 1782228181036
+[debug] [2026-07-10T15:41:47.795Z] Checked if tokens are valid: false, expires at: 1782228181036
+[debug] [2026-07-10T15:41:47.795Z] > refreshing access token with scopes: []
+[debug] [2026-07-10T15:41:47.795Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-07-10T15:41:47.795Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T15:41:47.796Z] Checked if tokens are valid: false, expires at: 1782228181036
+[debug] [2026-07-10T15:41:47.796Z] Checked if tokens are valid: false, expires at: 1782228181036
+[debug] [2026-07-10T15:41:47.796Z] > refreshing access token with scopes: []
+[debug] [2026-07-10T15:41:47.796Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-07-10T15:41:47.796Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T15:41:47.796Z] Checked if tokens are valid: false, expires at: 1782228181036
+[debug] [2026-07-10T15:41:47.796Z] Checked if tokens are valid: false, expires at: 1782228181036
+[debug] [2026-07-10T15:41:47.796Z] > refreshing access token with scopes: []
+[debug] [2026-07-10T15:41:47.796Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-07-10T15:41:47.796Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T15:41:47.797Z] Checked if tokens are valid: false, expires at: 1782228181036
+[debug] [2026-07-10T15:41:47.797Z] Checked if tokens are valid: false, expires at: 1782228181036
+[debug] [2026-07-10T15:41:47.797Z] > refreshing access token with scopes: []
+[debug] [2026-07-10T15:41:47.797Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-07-10T15:41:47.797Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T15:41:47.797Z] Checked if tokens are valid: false, expires at: 1782228181036
+[debug] [2026-07-10T15:41:47.797Z] Checked if tokens are valid: false, expires at: 1782228181036
+[debug] [2026-07-10T15:41:47.797Z] > refreshing access token with scopes: []
+[debug] [2026-07-10T15:41:47.797Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-07-10T15:41:47.797Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T15:41:47.797Z] Checked if tokens are valid: false, expires at: 1782228181036
+[debug] [2026-07-10T15:41:47.797Z] Checked if tokens are valid: false, expires at: 1782228181036
+[debug] [2026-07-10T15:41:47.797Z] > refreshing access token with scopes: []
+[debug] [2026-07-10T15:41:47.797Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-07-10T15:41:47.797Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T15:41:47.891Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-07-10T15:41:47.891Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T15:41:47.907Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/ [none]
+[debug] [2026-07-10T15:41:47.907Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/ x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T15:41:47.909Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-07-10T15:41:47.909Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T15:41:47.919Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasedataconnect.googleapis.com [none]
+[debug] [2026-07-10T15:41:47.919Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T15:41:47.920Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-07-10T15:41:47.920Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T15:41:47.929Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firestore.googleapis.com [none]
+[debug] [2026-07-10T15:41:47.929Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firestore.googleapis.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T15:41:47.931Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-07-10T15:41:47.931Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T15:41:47.942Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firestore.googleapis.com [none]
+[debug] [2026-07-10T15:41:47.942Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firestore.googleapis.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T15:41:47.942Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-07-10T15:41:47.942Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T15:41:47.953Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/ [none]
+[debug] [2026-07-10T15:41:47.953Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/ x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T15:41:47.953Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-07-10T15:41:47.953Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T15:41:47.963Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseio.com [none]
+[debug] [2026-07-10T15:41:47.964Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseio.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T15:41:47.964Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-07-10T15:41:47.964Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T15:41:47.973Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasedataconnect.googleapis.com [none]
+[debug] [2026-07-10T15:41:47.973Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T15:41:47.978Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-07-10T15:41:47.978Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T15:41:47.987Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseapphosting.googleapis.com [none]
+[debug] [2026-07-10T15:41:47.987Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T15:41:47.988Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-07-10T15:41:47.988Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T15:41:47.998Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseio.com [none]
+[debug] [2026-07-10T15:41:47.998Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseio.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T15:41:48.002Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-07-10T15:41:48.002Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T15:41:48.011Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseapphosting.googleapis.com [none]
+[debug] [2026-07-10T15:41:48.011Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T15:41:48.012Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-07-10T15:41:48.012Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T15:41:48.020Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasecrashlytics.googleapis.com [none]
+[debug] [2026-07-10T15:41:48.020Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasecrashlytics.googleapis.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T15:41:48.023Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-07-10T15:41:48.023Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T15:41:48.032Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasecrashlytics.googleapis.com [none]
+[debug] [2026-07-10T15:41:48.032Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasecrashlytics.googleapis.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T15:41:48.192Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseio.com 403
+[debug] [2026-07-10T15:41:48.192Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseio.com [omitted]
+[debug] [2026-07-10T15:41:48.218Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseio.com 403
+[debug] [2026-07-10T15:41:48.218Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseio.com [omitted]
+[debug] [2026-07-10T15:41:48.227Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasedataconnect.googleapis.com 200
+[debug] [2026-07-10T15:41:48.227Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2026-07-10T15:41:48.227Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasedataconnect.googleapis.com 200
+[debug] [2026-07-10T15:41:48.227Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2026-07-10T15:41:48.228Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseapphosting.googleapis.com 200
+[debug] [2026-07-10T15:41:48.228Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2026-07-10T15:41:48.252Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firestore.googleapis.com 200
+[debug] [2026-07-10T15:41:48.252Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firestore.googleapis.com [omitted]
+[debug] [2026-07-10T15:41:48.271Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasecrashlytics.googleapis.com 200
+[debug] [2026-07-10T15:41:48.271Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasecrashlytics.googleapis.com [omitted]
+[debug] [2026-07-10T15:41:48.364Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseapphosting.googleapis.com 200
+[debug] [2026-07-10T15:41:48.364Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2026-07-10T15:41:48.428Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasecrashlytics.googleapis.com 200
+[debug] [2026-07-10T15:41:48.428Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasecrashlytics.googleapis.com [omitted]
+[debug] [2026-07-10T15:41:48.435Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firestore.googleapis.com 200
+[debug] [2026-07-10T15:41:48.436Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firestore.googleapis.com [omitted]
+[debug] [2026-07-10T15:41:48.629Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/ 200
+[debug] [2026-07-10T15:41:48.630Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/ [omitted]
+[debug] [2026-07-10T15:41:48.678Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-07-10T15:41:48.679Z] > authorizing via signed-in user (daniel.shelby@gmail.com)
+[debug] [2026-07-10T15:41:49.164Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/ 200
+[debug] [2026-07-10T15:41:49.164Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/ [omitted]
+[debug] [2026-07-10T15:52:18.655Z] Checked if tokens are valid: true, expires at: 1783701707023
+[debug] [2026-07-10T15:52:18.656Z] Checked if tokens are valid: true, expires at: 1783701707023
+[debug] [2026-07-10T15:52:18.656Z] Checked if tokens are valid: true, expires at: 1783701707023
+[debug] [2026-07-10T15:52:18.656Z] Checked if tokens are valid: true, expires at: 1783701707023
+[debug] [2026-07-10T15:52:18.656Z] Checked if tokens are valid: true, expires at: 1783701707023
+[debug] [2026-07-10T15:52:18.656Z] Checked if tokens are valid: true, expires at: 1783701707023
+[debug] [2026-07-10T15:52:18.656Z] Checked if tokens are valid: true, expires at: 1783701707023
+[debug] [2026-07-10T15:52:18.656Z] Checked if tokens are valid: true, expires at: 1783701707023
+[debug] [2026-07-10T15:52:18.656Z] Checked if tokens are valid: true, expires at: 1783701707023
+[debug] [2026-07-10T15:52:18.657Z] Checked if tokens are valid: true, expires at: 1783701707023
+[debug] [2026-07-10T15:52:18.657Z] Checked if tokens are valid: true, expires at: 1783701707023
+[debug] [2026-07-10T15:52:18.657Z] Checked if tokens are valid: true, expires at: 1783701707023
+[debug] [2026-07-10T15:52:18.657Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/ [none]
+[debug] [2026-07-10T15:52:18.657Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/ x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T15:52:18.667Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firestore.googleapis.com [none]
+[debug] [2026-07-10T15:52:18.667Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firestore.googleapis.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T15:52:18.668Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasedataconnect.googleapis.com [none]
+[debug] [2026-07-10T15:52:18.668Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T15:52:18.668Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasecrashlytics.googleapis.com [none]
+[debug] [2026-07-10T15:52:18.668Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasecrashlytics.googleapis.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T15:52:18.669Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseapphosting.googleapis.com [none]
+[debug] [2026-07-10T15:52:18.669Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T15:52:18.669Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseio.com [none]
+[debug] [2026-07-10T15:52:18.669Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseio.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T15:52:18.678Z] Checked if tokens are valid: true, expires at: 1783701707023
+[debug] [2026-07-10T15:52:18.678Z] Checked if tokens are valid: true, expires at: 1783701707023
+[debug] [2026-07-10T15:52:18.678Z] Checked if tokens are valid: true, expires at: 1783701707023
+[debug] [2026-07-10T15:52:18.678Z] Checked if tokens are valid: true, expires at: 1783701707023
+[debug] [2026-07-10T15:52:18.678Z] Checked if tokens are valid: true, expires at: 1783701707023
+[debug] [2026-07-10T15:52:18.678Z] Checked if tokens are valid: true, expires at: 1783701707023
+[debug] [2026-07-10T15:52:18.679Z] Checked if tokens are valid: true, expires at: 1783701707023
+[debug] [2026-07-10T15:52:18.679Z] Checked if tokens are valid: true, expires at: 1783701707023
+[debug] [2026-07-10T15:52:18.679Z] Checked if tokens are valid: true, expires at: 1783701707023
+[debug] [2026-07-10T15:52:18.679Z] Checked if tokens are valid: true, expires at: 1783701707023
+[debug] [2026-07-10T15:52:18.679Z] Checked if tokens are valid: true, expires at: 1783701707023
+[debug] [2026-07-10T15:52:18.679Z] Checked if tokens are valid: true, expires at: 1783701707023
+[debug] [2026-07-10T15:52:18.679Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/ [none]
+[debug] [2026-07-10T15:52:18.679Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/ x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T15:52:18.679Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firestore.googleapis.com [none]
+[debug] [2026-07-10T15:52:18.679Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firestore.googleapis.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T15:52:18.679Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasedataconnect.googleapis.com [none]
+[debug] [2026-07-10T15:52:18.679Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T15:52:18.680Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasecrashlytics.googleapis.com [none]
+[debug] [2026-07-10T15:52:18.680Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasecrashlytics.googleapis.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T15:52:18.680Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseapphosting.googleapis.com [none]
+[debug] [2026-07-10T15:52:18.680Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T15:52:18.680Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseio.com [none]
+[debug] [2026-07-10T15:52:18.680Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseio.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T15:52:18.911Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseio.com 403
+[debug] [2026-07-10T15:52:18.911Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseio.com [omitted]
+[debug] [2026-07-10T15:52:18.922Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseio.com 403
+[debug] [2026-07-10T15:52:18.922Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseio.com [omitted]
+[debug] [2026-07-10T15:52:18.943Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasecrashlytics.googleapis.com 200
+[debug] [2026-07-10T15:52:18.943Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasecrashlytics.googleapis.com [omitted]
+[debug] [2026-07-10T15:52:18.944Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasedataconnect.googleapis.com 200
+[debug] [2026-07-10T15:52:18.944Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2026-07-10T15:52:18.945Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseapphosting.googleapis.com 200
+[debug] [2026-07-10T15:52:18.945Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2026-07-10T15:52:18.953Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firestore.googleapis.com 200
+[debug] [2026-07-10T15:52:18.953Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firestore.googleapis.com [omitted]
+[debug] [2026-07-10T15:52:18.957Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasedataconnect.googleapis.com 200
+[debug] [2026-07-10T15:52:18.957Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2026-07-10T15:52:18.957Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firestore.googleapis.com 200
+[debug] [2026-07-10T15:52:18.957Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firestore.googleapis.com [omitted]
+[debug] [2026-07-10T15:52:19.110Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseapphosting.googleapis.com 200
+[debug] [2026-07-10T15:52:19.110Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2026-07-10T15:52:19.134Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasecrashlytics.googleapis.com 200
+[debug] [2026-07-10T15:52:19.134Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasecrashlytics.googleapis.com [omitted]
+[debug] [2026-07-10T15:52:19.299Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/ 200
+[debug] [2026-07-10T15:52:19.299Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/ [omitted]
+[debug] [2026-07-10T15:52:19.323Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/ 200
+[debug] [2026-07-10T15:52:19.323Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/ [omitted]
+[debug] [2026-07-10T15:52:19.378Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-07-10T15:52:19.379Z] > authorizing via signed-in user (daniel.shelby@gmail.com)
+[debug] [2026-07-10T16:50:15.913Z] Checked if tokens are valid: false, expires at: 1783701707023
+[debug] [2026-07-10T16:50:15.914Z] Checked if tokens are valid: false, expires at: 1783701707023
+[debug] [2026-07-10T16:50:15.914Z] > refreshing access token with scopes: []
+[debug] [2026-07-10T16:50:15.915Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-07-10T16:50:15.915Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T16:50:15.926Z] Checked if tokens are valid: false, expires at: 1783701707023
+[debug] [2026-07-10T16:50:15.926Z] Checked if tokens are valid: false, expires at: 1783701707023
+[debug] [2026-07-10T16:50:15.926Z] > refreshing access token with scopes: []
+[debug] [2026-07-10T16:50:15.926Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-07-10T16:50:15.926Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T16:50:15.926Z] Checked if tokens are valid: false, expires at: 1783701707023
+[debug] [2026-07-10T16:50:15.926Z] Checked if tokens are valid: false, expires at: 1783701707023
+[debug] [2026-07-10T16:50:15.926Z] > refreshing access token with scopes: []
+[debug] [2026-07-10T16:50:15.926Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-07-10T16:50:15.927Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T16:50:15.927Z] Checked if tokens are valid: false, expires at: 1783701707023
+[debug] [2026-07-10T16:50:15.927Z] Checked if tokens are valid: false, expires at: 1783701707023
+[debug] [2026-07-10T16:50:15.927Z] > refreshing access token with scopes: []
+[debug] [2026-07-10T16:50:15.927Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-07-10T16:50:15.927Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T16:50:15.927Z] Checked if tokens are valid: false, expires at: 1783701707023
+[debug] [2026-07-10T16:50:15.927Z] Checked if tokens are valid: false, expires at: 1783701707023
+[debug] [2026-07-10T16:50:15.927Z] > refreshing access token with scopes: []
+[debug] [2026-07-10T16:50:15.927Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-07-10T16:50:15.927Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T16:50:15.928Z] Checked if tokens are valid: false, expires at: 1783701707023
+[debug] [2026-07-10T16:50:15.928Z] Checked if tokens are valid: false, expires at: 1783701707023
+[debug] [2026-07-10T16:50:15.928Z] > refreshing access token with scopes: []
+[debug] [2026-07-10T16:50:15.928Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-07-10T16:50:15.928Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T16:50:15.935Z] Checked if tokens are valid: false, expires at: 1783701707023
+[debug] [2026-07-10T16:50:15.935Z] Checked if tokens are valid: false, expires at: 1783701707023
+[debug] [2026-07-10T16:50:15.935Z] > refreshing access token with scopes: []
+[debug] [2026-07-10T16:50:15.935Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-07-10T16:50:15.935Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T16:50:15.935Z] Checked if tokens are valid: false, expires at: 1783701707023
+[debug] [2026-07-10T16:50:15.935Z] Checked if tokens are valid: false, expires at: 1783701707023
+[debug] [2026-07-10T16:50:15.935Z] > refreshing access token with scopes: []
+[debug] [2026-07-10T16:50:15.935Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-07-10T16:50:15.935Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T16:50:15.936Z] Checked if tokens are valid: false, expires at: 1783701707023
+[debug] [2026-07-10T16:50:15.936Z] Checked if tokens are valid: false, expires at: 1783701707023
+[debug] [2026-07-10T16:50:15.936Z] > refreshing access token with scopes: []
+[debug] [2026-07-10T16:50:15.936Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-07-10T16:50:15.936Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T16:50:15.936Z] Checked if tokens are valid: false, expires at: 1783701707023
+[debug] [2026-07-10T16:50:15.936Z] Checked if tokens are valid: false, expires at: 1783701707023
+[debug] [2026-07-10T16:50:15.936Z] > refreshing access token with scopes: []
+[debug] [2026-07-10T16:50:15.936Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-07-10T16:50:15.936Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T16:50:15.937Z] Checked if tokens are valid: false, expires at: 1783701707023
+[debug] [2026-07-10T16:50:15.937Z] Checked if tokens are valid: false, expires at: 1783701707023
+[debug] [2026-07-10T16:50:15.937Z] > refreshing access token with scopes: []
+[debug] [2026-07-10T16:50:15.937Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-07-10T16:50:15.937Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T16:50:15.937Z] Checked if tokens are valid: false, expires at: 1783701707023
+[debug] [2026-07-10T16:50:15.937Z] Checked if tokens are valid: false, expires at: 1783701707023
+[debug] [2026-07-10T16:50:15.937Z] > refreshing access token with scopes: []
+[debug] [2026-07-10T16:50:15.937Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-07-10T16:50:15.937Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T16:50:16.032Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-07-10T16:50:16.032Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T16:50:16.044Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firestore.googleapis.com [none]
+[debug] [2026-07-10T16:50:16.044Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firestore.googleapis.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T16:50:16.045Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-07-10T16:50:16.045Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T16:50:16.055Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasedataconnect.googleapis.com [none]
+[debug] [2026-07-10T16:50:16.055Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T16:50:16.058Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-07-10T16:50:16.058Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T16:50:16.068Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firestore.googleapis.com [none]
+[debug] [2026-07-10T16:50:16.068Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firestore.googleapis.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T16:50:16.069Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-07-10T16:50:16.069Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T16:50:16.079Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasecrashlytics.googleapis.com [none]
+[debug] [2026-07-10T16:50:16.079Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasecrashlytics.googleapis.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T16:50:16.079Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-07-10T16:50:16.080Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T16:50:16.089Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseapphosting.googleapis.com [none]
+[debug] [2026-07-10T16:50:16.089Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T16:50:16.089Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-07-10T16:50:16.090Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T16:50:16.098Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasedataconnect.googleapis.com [none]
+[debug] [2026-07-10T16:50:16.098Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasedataconnect.googleapis.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T16:50:16.099Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-07-10T16:50:16.099Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T16:50:16.108Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasecrashlytics.googleapis.com [none]
+[debug] [2026-07-10T16:50:16.108Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasecrashlytics.googleapis.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T16:50:16.108Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-07-10T16:50:16.108Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T16:50:16.117Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseio.com [none]
+[debug] [2026-07-10T16:50:16.117Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseio.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T16:50:16.117Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-07-10T16:50:16.117Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T16:50:16.126Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseio.com [none]
+[debug] [2026-07-10T16:50:16.126Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseio.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T16:50:16.127Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-07-10T16:50:16.127Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T16:50:16.136Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/ [none]
+[debug] [2026-07-10T16:50:16.136Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/ x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T16:50:16.136Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-07-10T16:50:16.136Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T16:50:16.146Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseapphosting.googleapis.com [none]
+[debug] [2026-07-10T16:50:16.146Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseapphosting.googleapis.com x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T16:50:16.147Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-07-10T16:50:16.147Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-07-10T16:50:16.155Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/ [none]
+[debug] [2026-07-10T16:50:16.155Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/ x-goog-quota-user=projects/hunter-fitness-marketing-web
+[debug] [2026-07-10T16:50:16.310Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseio.com 403
+[debug] [2026-07-10T16:50:16.310Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseio.com [omitted]
+[debug] [2026-07-10T16:50:16.329Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseapphosting.googleapis.com 200
+[debug] [2026-07-10T16:50:16.329Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2026-07-10T16:50:16.336Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasecrashlytics.googleapis.com 200
+[debug] [2026-07-10T16:50:16.336Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasecrashlytics.googleapis.com [omitted]
+[debug] [2026-07-10T16:50:16.337Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasedataconnect.googleapis.com 200
+[debug] [2026-07-10T16:50:16.337Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2026-07-10T16:50:16.340Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasedataconnect.googleapis.com 200
+[debug] [2026-07-10T16:50:16.340Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasedataconnect.googleapis.com [omitted]
+[debug] [2026-07-10T16:50:16.344Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseio.com 403
+[debug] [2026-07-10T16:50:16.344Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseio.com [omitted]
+[debug] [2026-07-10T16:50:16.347Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasecrashlytics.googleapis.com 200
+[debug] [2026-07-10T16:50:16.347Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebasecrashlytics.googleapis.com [omitted]
+[debug] [2026-07-10T16:50:16.367Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firestore.googleapis.com 200
+[debug] [2026-07-10T16:50:16.367Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firestore.googleapis.com [omitted]
+[debug] [2026-07-10T16:50:16.373Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseapphosting.googleapis.com 200
+[debug] [2026-07-10T16:50:16.373Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firebaseapphosting.googleapis.com [omitted]
+[debug] [2026-07-10T16:50:16.386Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firestore.googleapis.com 200
+[debug] [2026-07-10T16:50:16.386Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/firestore.googleapis.com [omitted]
+[debug] [2026-07-10T16:50:16.727Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/ 200
+[debug] [2026-07-10T16:50:16.727Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/ [omitted]
+[debug] [2026-07-10T16:50:16.778Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-07-10T16:50:16.778Z] > authorizing via signed-in user (daniel.shelby@gmail.com)
+[debug] [2026-07-10T16:50:16.959Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/ 200
+[debug] [2026-07-10T16:50:16.960Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/hunter-fitness-marketing-web/services/ [omitted]
