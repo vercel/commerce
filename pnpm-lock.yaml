@@ -31,6 +31,9 @@ importers:
       sonner:
         specifier: ^2.0.1
         version: 2.0.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      use-webmcp-tool:
+        specifier: ^0.2.0
+        version: 0.2.0(react@19.0.0)
     devDependencies:
       "@tailwindcss/container-queries":
         specifier: ^0.1.1
@@ -1079,6 +1082,14 @@ packages:
         integrity: sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg==,
       }
 
+  use-webmcp-tool@0.2.0:
+    resolution:
+      {
+        integrity: sha512-kYUpV1xFmX3Wnq68KOM1MbedpRc6mbgWEcVFtWpFPBTGEcuc7Sva4bHjRxM3k8mkGshkwxnLKn9/I4/NP2bTBw==,
+      }
+    peerDependencies:
+      react: ">=18"
+
   util-deprecate@1.0.2:
     resolution:
       {
@@ -1597,5 +1608,9 @@ snapshots:
   typescript@5.8.2: {}
 
   undici-types@6.20.0: {}
+
+  use-webmcp-tool@0.2.0(react@19.0.0):
+    dependencies:
+      react: 19.0.0
 
   util-deprecate@1.0.2: {}

@@ -16,7 +16,8 @@
     "next": "15.6.0-canary.60",
     "react": "19.0.0",
     "react-dom": "19.0.0",
-    "sonner": "^2.0.1"
+    "sonner": "^2.0.1",
+    "use-webmcp-tool": "^0.2.0"
   },
   "devDependencies": {
     "@tailwindcss/container-queries": "^0.1.1",
