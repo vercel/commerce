@@ -70,6 +70,60 @@ Your app should now be running on [localhost:3000](http://localhost:3000/).
 1. Run `pnpm dev` to ensure everything is working correctly.
 </details>
 
+## WebMCP tools for AI agents
+
+[WebMCP](https://github.com/webmachinelearning/webmcp) is a proposed browser API that lets a page hand AI agents a set of typed tools, so an agent can call `shop.search_products` instead of guessing at the DOM. This storefront registers four:
+
+| Tool                       | What it does                             |
+| -------------------------- | ---------------------------------------- |
+| `shop.search_products`     | Search the catalog                       |
+| `shop.get_product_options` | List a product's option names and values |
+| `shop.get_cart`            | Read what is in the cart                 |
+| `shop.add_to_cart`         | Add one variant to the cart              |
+
+Two files: `components/webmcp-tools.tsx` registers the tools with [`use-webmcp-tool`](https://github.com/GoogleChromeLabs/use-webmcp-tool), Chrome's React hook for `document.modelContext`, and `lib/webmcp/actions.ts` implements them as server actions on top of the existing `lib/shopify` functions. Browsers without WebMCP are unaffected — the hook feature-detects and does nothing.
+
+### Try it locally
+
+1. Open `chrome://flags/#enable-webmcp-testing`, enable **WebMCP for testing**, and relaunch Chrome.
+2. Install the [Model Context Tool Inspector](https://github.com/beaufortfrancois/model-context-tool-inspector) extension.
+3. Run `pnpm dev`, open the storefront, and use the inspector's side panel to list the tools and call them by hand.
+
+The inspector is a development tool, not a security boundary. Only use it on pages you trust.
+
+### Add your own tool
+
+Write a server action that returns a plain object, then register it. That is the whole pattern:
+
+```tsx
+// lib/webmcp/actions.ts
+export async function getShippingPolicy() {
+  return { policy: "Free shipping over $50, delivered in 3-5 business days." };
+}
+
+// components/webmcp-tools.tsx
+useWebMCP({
+  name: "shop.get_shipping_policy",
+  description: "Explain this store's shipping cost and delivery time.",
+  annotations: { readOnlyHint: true, untrustedContentHint: true },
+  execute: getShippingPolicy,
+  formatOutput: reportErrors,
+});
+```
+
+Two habits worth copying. Validate arguments inside the action — the `inputSchema` tells the agent what to send, but it cannot stop a confused or hostile one sending something else, which is why `shop.add_to_cart` re-derives the variant from the product instead of accepting a variant id. And return failures as `{ error: "..." }` so `reportErrors` can mark them as real MCP errors; otherwise the agent reads a failure as success.
+
+### Enabling it on a deployment
+
+The flag above only affects your own browser. For real visitors, WebMCP runs as a Chrome origin trial **through Chrome 156**, and the deployed origin needs its own token:
+
+1. Register the exact origin at [developer.chrome.com/origintrials](https://developer.chrome.com/origintrials).
+2. Set the token as `WEBMCP_ORIGIN_TRIAL_TOKEN`.
+
+`app/layout.tsx` emits `<meta http-equiv="origin-trial">` only when that variable is set, so leaving it unset is a clean no-op. Tokens are origin-bound and expire, so a token for one deployment does nothing on preview URLs or forks.
+
+> **Not yet enrolled.** No origin-trial token is registered for `demo.vercel.store`, so these tools currently register only in a browser with the testing flag on.
+
 ## Vercel, Next.js Commerce, and Shopify Integration Guide
 
 You can use this comprehensive [integration guide](https://vercel.com/docs/integrations/ecommerce/shopify) with step-by-step instructions on how to configure Shopify as a headless CMS using Next.js Commerce as your headless Shopify storefront on Vercel.
