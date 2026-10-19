@@ -1,4 +1,5 @@
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fcommerce&project-name=commerce&repo-name=commerce&demo-title=Next.js%20Commerce&demo-url=https%3A%2F%2Fdemo.vercel.store&demo-image=https%3A%2F%2Fbigcommerce-demo-asset-ksvtgfvnd.vercel.app%2Fbigcommerce.png&products=%255B%257B%2522type%2522%253A%2522integration%2522%252C%2522protocol%2522%253A%2522other%2522%252C%2522productSlug%2522%253A%2522shopify%2522%252C%2522integrationSlug%2522%253A%2522shopify%2522%257D%255D&env=COMPANY_NAME,SITE_NAME)
+> [!WARNING]
+> This repository is archived and the template is deprecated. Development has moved to [vercel/shop](https://github.com/vercel/shop), Vercel's Shopify storefront built with Next.js.
 
 # Next.js Commerce
 
@@ -6,13 +7,10 @@ A high-performance, server-rendered Next.js App Router ecommerce application.
 
 This template uses React Server Components, Server Actions, `Suspense`, `useOptimistic`, and more.
 
-<h3 id="v1-note"></h3>
-
-> Note: Looking for Next.js Commerce v1? View the [code](https://github.com/vercel/commerce/tree/v1), [demo](https://commerce-v1.vercel.store), and [release notes](https://github.com/vercel/commerce/releases/tag/v1).
+> [!NOTE]
+> Looking for Next.js Commerce v1? View the [code](https://github.com/vercel/commerce/tree/v1) and [release notes](https://github.com/vercel/commerce/releases/tag/v1).
 
 ## Providers
-
-Vercel will only be actively maintaining a Shopify version [as outlined in our vision and strategy for Next.js Commerce](https://github.com/vercel/commerce/pull/966).
 
 Vercel is happy to partner and work with any commerce provider to help them get a similar template up and running and listed below. Alternative providers should be able to fork this repository and swap out the `lib/shopify` file with their own implementation while leaving the rest of the template mostly unchanged.
 
